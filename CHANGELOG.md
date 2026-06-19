@@ -1,5 +1,15 @@
 # Cafe24 Agent Kit — Changelog
 
+## v2.2.3 (2026-06-20)
+
+### Fix
+- `kit-update --from-github` — temp dir leak: extract under zip parent, single cleanup in `finally`
+- `kit-update` — empty `CAFE24_KIT_UPDATE_SOURCE` no longer resolves to home dir
+- `scaffold_client` — single `your_mall_id` replace (REDIRECT_URI derived from template)
+- `kit_update` — reject source == workspace root (self-update guard)
+
+---
+
 ## v2.2.2 (2026-06-20)
 
 ### Fix

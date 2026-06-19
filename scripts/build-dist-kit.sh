@@ -115,7 +115,7 @@ fi
 # Root pointers
 cp "$ROOT/AGENTS.md" "$BUILD_ROOT/"
 [[ -f "$ROOT/CHANGELOG.md" ]] && cp "$ROOT/CHANGELOG.md" "$BUILD_ROOT/"
-DIST_VERSION="v2.2.2"
+DIST_VERSION="v2.2.3"
 DIST_DATE="$(date -u +%Y-%m-%d)"
 cat > "$BUILD_ROOT/VERSION" <<EOF
 $DIST_VERSION
@@ -231,8 +231,8 @@ if [[ -d "$OUT/agent-kit/clients/nookitokki002" ]]; then
   echo "FAIL: agent-kit/clients/nookitokki002 must not be in dist" >&2
   exit 1
 fi
-if [[ "$(head -1 "$OUT/VERSION")" != "v2.2.2" ]]; then
-  echo "FAIL: VERSION must be v2.2.2" >&2
+if [[ "$(head -1 "$OUT/VERSION")" != "v2.2.3" ]]; then
+  echo "FAIL: VERSION must be v2.2.3" >&2
   exit 1
 fi
 

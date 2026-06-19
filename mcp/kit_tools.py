@@ -190,7 +190,8 @@ def fetch_github_release(
 
 def _extract_kit_zip(zip_path: Path) -> Path:
     """Extract release zip; return kit root (cafe24-agent-kit/)."""
-    extract_dir = Path(tempfile.mkdtemp(prefix="cafe24-kit-update-"))
+    extract_dir = zip_path.parent / "extracted"
+    extract_dir.mkdir(parents=True, exist_ok=True)
     with zipfile.ZipFile(zip_path, "r") as zf:
         zf.extractall(extract_dir)
 
@@ -307,11 +308,6 @@ def scaffold_client(mall_id: str, *, overwrite: bool = False) -> dict[str, Any]:
     if config_example.is_file() and not config_dest.exists():
         cfg = config_example.read_text(encoding="utf-8")
         cfg = cfg.replace("your_mall_id", mid)
-        cfg = cfg.replace("your_mall_id", mid)
-        cfg = cfg.replace(
-            "https://your_mall_id.cafe24.com/oauth-callback",
-            f"https://{mid}.cafe24.com/oauth-callback",
-        )
         config_dest.write_text(cfg, encoding="utf-8")
         config_created = True
 
@@ -444,12 +440,15 @@ UPDATE_PATHS = [
 
 def kit_update(source: Path | None = None, dry_run: bool = False) -> dict[str, Any]:
     """Copy kit code from source tree; preserve mcp/config and clients/."""
-    src_root = source or Path(
-        os.environ.get("CAFE24_KIT_UPDATE_SOURCE", "")
-    ).expanduser()
+    src_env = os.environ.get("CAFE24_KIT_UPDATE_SOURCE", "").strip()
+    src_root = source or (Path(src_env).expanduser() if src_env else None)
     if not src_root or not src_root.is_dir():
         raise FileNotFoundError(
             "Set CAFE24_KIT_UPDATE_SOURCE to a newer kit root (or pass source=)"
+        )
+    if src_root.resolve() == WORKSPACE_ROOT.resolve():
+        raise ValueError(
+            "kit_update source cannot be the workspace root (self-update)"
         )
 
     updated: list[str] = []
