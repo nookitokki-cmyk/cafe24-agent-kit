@@ -3,10 +3,12 @@
 # v3: 작성자 PC 경로 하드코딩 제거(키트 자체 mcp 기본) + 깨진 "5/5 통과" grep 대신
 #     smoke_test.py 의 종료코드로 판정(자기증명 문자열 의존 제거).
 set -euo pipefail
+PY="$(command -v python || command -v python3 || true)"
+[[ -n "$PY" ]] || { echo "SKIP: python 미설치 — 설치 후 재시도"; exit 0; }
 MCP_DIR="${MCP_DIR:-$(cd "$(dirname "$0")/../../mcp" && pwd)}"
 echo "=== verify-live: $MCP_DIR ==="
 cd "$MCP_DIR"
-if python smoke_test.py; then
+if "$PY" smoke_test.py; then
   echo "PASS: smoke (exit 0 — OK/partial 정상)"
   exit 0
 fi
