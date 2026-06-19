@@ -360,7 +360,7 @@
 
 ## Phase G. 라이브 검증 (2026-06-19, demo000)
 
-근거: [`docs/VERIFICATION-EVIDENCE.md`](VERIFICATION-EVIDENCE.md)
+근거: 내부 실측(2026-06-19)
 
 ### G-1. smoke_test
 

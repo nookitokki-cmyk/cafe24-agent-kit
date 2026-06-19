@@ -105,7 +105,7 @@ bash scripts/build-dist-kit.sh
 
 
 
-**상세 OAuth/SFTP:** `agent-kit/docs/MCP-OAUTH-GUIDE.md` 또는 `/접속세팅` — OAuth 앱·`cafe24_config_{mall}.py`·토큰 발급. SFTP: `sftp_{mall}.json` 작성 (일반몰 vs 파트너 `/sde_design/` 경로 — [`PARANSKY97-EZ-INVESTIGATION.md`](PARANSKY97-EZ-INVESTIGATION.md) §FTP).
+**상세 OAuth/SFTP:** `agent-kit/docs/MCP-OAUTH-GUIDE.md` 또는 `/접속세팅` — OAuth 앱·`cafe24_config_{mall}.py`·토큰 발급. SFTP: `sftp_{mall}.json` 작성 (일반몰 vs 파트너 `/sde_design/` 경로 — `MCP-OAUTH-GUIDE.md` 참조).
 
 
 
@@ -171,9 +171,9 @@ bash scripts/build-dist-kit.sh
 
 - [`LEGACY-HUNTER.md`](LEGACY-HUNTER.md) — strip 전후 스킨 감사
 
-- [`TEMPLATE-PILOT-ACCEPTANCE.md`](TEMPLATE-PILOT-ACCEPTANCE.md) — 파일럿 합격 기준
+- `TEMPLATE-PILOT-ACCEPTANCE.md` — 파일럿 합격 기준
 
-- [`REMAINING-WORK-CHECKLIST.md`](REMAINING-WORK-CHECKLIST.md) — 열린 MVP 항목
+- `REMAINING-WORK-CHECKLIST.md` — 열린 MVP 항목
 
 ---
 

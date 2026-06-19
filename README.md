@@ -27,8 +27,6 @@ bash agent-kit/scripts/verify-kit.sh    # 구조·문서 29항목
 bash agent-kit/scripts/verify-live.sh   # 운영 MCP smoke 5/5 (토큰 필요)
 ```
 
-실측 기록: [`agent-kit/docs/VERIFICATION-EVIDENCE.md`](agent-kit/docs/VERIFICATION-EVIDENCE.md)
-
 ## 문서
 
 - 공식 대조: `agent-kit/docs/OFFICIAL-AUDIT.md`

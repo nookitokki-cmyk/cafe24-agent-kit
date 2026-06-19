@@ -4,7 +4,7 @@ description: Phase C EZ strip — strip_ez.py·사용자 승인 게이트
 
 사용자가 `/EZ제거` 를 요청했습니다. **한 번에 질문 하나.**
 
-전략: [`docs/EZ-STRATEGY.md`](../docs/EZ-STRATEGY.md) — 기본 **strip** (demo000). ecudemo400786 Phase C 스킵은 **예외**.
+전략: [`docs/EZ-STRATEGY.md`](../../docs/EZ-STRATEGY.md) — 기본 **strip** (demo000). ecudemo400786 Phase C 스킵은 **예외**.
 
 ## Q1. Phase B 완료
 
@@ -16,7 +16,7 @@ description: Phase C EZ strip — strip_ez.py·사용자 승인 게이트
 
 「**전량 strip** (layout·index·product) 인가요, **선별** 인가요?」
 
-- 레퍼런스: `clients/demo000/.workflow.md` · `docs/PARANSKY97-EZ-INVESTIGATION.md`
+- 레퍼런스: `clients/demo000/.workflow.md`
 
 ## Q3. 백업
 

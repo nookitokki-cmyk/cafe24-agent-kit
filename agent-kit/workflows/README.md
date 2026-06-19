@@ -48,9 +48,9 @@ clients/{본인}/.workflow.md
 
 ## 관련 문서
 
-- 잔여 작업 체크리스트: [`docs/REMAINING-WORK-CHECKLIST.md`](../docs/REMAINING-WORK-CHECKLIST.md)
-- 파일럿 수용 기준: [`docs/TEMPLATE-PILOT-ACCEPTANCE.md`](../docs/TEMPLATE-PILOT-ACCEPTANCE.md)
+- 잔여 작업 체크리스트: `docs/REMAINING-WORK-CHECKLIST.md`
+- 파일럿 수용 기준: `docs/TEMPLATE-PILOT-ACCEPTANCE.md`
 - 두뇌 문서: [`docs/CAFE24-SMARTDESIGN-AGENT.md`](../docs/CAFE24-SMARTDESIGN-AGENT.md)
-- 하이브리드 MCP 설계(초안): [`docs/HYBRID-ARCHITECTURE-DRAFT.md`](../docs/HYBRID-ARCHITECTURE-DRAFT.md)
+- 하이브리드 MCP 설계(초안): `docs/HYBRID-ARCHITECTURE-DRAFT.md`
 - 함정 회피: [`getting-started/04-자주-막히는-5가지.md`](../getting-started/04-자주-막히는-5가지.md) (배포판 기준)
 - 에이전트 헌법: 루트 [`CLAUDE.md`](../CLAUDE.md)

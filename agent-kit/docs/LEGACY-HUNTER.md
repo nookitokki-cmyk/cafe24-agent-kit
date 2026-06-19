@@ -40,7 +40,7 @@
 |------|-----|
 | **mall_id** | `[예: demo000 / ecudemo400786]` |
 | **skin_code** | `[예: skin14 / base]` |
-| **로컬 루트** | `[예: work/deploy-paransky/skin14/ 또는 SFTP 미러 경로]` |
+| **로컬 루트** | `[예: work/deploy-{몰ID}/skin14/ 또는 SFTP 미러 경로]` |
 | **EZ 전략** | `strip` \| `skip` |
 | **레퍼런스 URL** | strip → https://demo000.cafe24.com/ · skip → https://ecudemo393674.cafe24.com/ |
 | **MOBILE_WEB** | `[알면: true / false / 미확인]` — `true`이면 MO 검증 중단 ([F34](F-상황-인덱스.md)) |

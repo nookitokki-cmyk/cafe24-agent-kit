@@ -14,7 +14,7 @@
 | 포트 예 | **21**(FTP), 3822(SFTP) 등 **발급·화면 값** | ⚠️ ❌ 22 고정 아님 |
 | 프로토콜 | **FTP** 또는 SFTP — 발급 화면 기준 | ⚠️ 실측 2026-06-19: `ecudemo400786` = **FTP 21** |
 | 로그인 | 몰 ID + 임시/파트너 비밀번호 | ⚠️ |
-| **편집 경로** | **`/sde_design/base/`**, **`/sde_design/mobile/`** | ⚠️ [2차 실측](../docs/VERIFICATION-EVIDENCE.md) |
+| **편집 경로** | **`/sde_design/base/`**, **`/sde_design/mobile/`** | ⚠️ 2차 실측 |
 | 루트에 없음 | `/{skin_code}` (`/skin1`, `/skin14` 등) | ⚠️ 일반 몰과 **다름** |
 | 웹FTP 용어 | Admin API 상품 이미지 옵션 「C : 웹FTP 등록」 | ✅ |
 
@@ -40,7 +40,7 @@
 2. **`cafe24_list_themes`** 로 `skin_code` 확인 ✅ API  
 3. SFTP 경로 = **`/{skin_code}`** ⚠️ 실측 ([AUDIT §E-2a](../docs/OFFICIAL-AUDIT.md))  
 4. **`skin_no`와 폴더 숫자가 같다고 가정하지 말 것** ⚠️  
-5. **`editor_type` E( Easy )라도 SFTP `/{skin_code}` 접근 가능할 수 있음** ⚠️ [실측 2026-06-19](../docs/VERIFICATION-EVIDENCE.md)
+5. **`editor_type` E( Easy )라도 SFTP `/{skin_code}` 접근 가능할 수 있음** ⚠️ 실측 2026-06-19
 
 ---
 

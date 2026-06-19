@@ -71,7 +71,7 @@ SMOKE_PREFLIGHT_ALL=1 python smoke_test.py   # check=all 9/9 (~15분)
 
 ### 핵심 발견
 
-1. **API `skin_code` → SFTP `/{skin_code}`** ⚠️ 실측 (공식 문장 없음). [`agent-kit/docs/VERIFICATION-EVIDENCE.md`](../agent-kit/docs/VERIFICATION-EVIDENCE.md)
+1. **API `skin_code` → SFTP `/{skin_code}`** ⚠️ 실측 (공식 문장 없음).
 
    **2026-06-19 demo000 라이브 (6/6 SFTP_OK):**
 

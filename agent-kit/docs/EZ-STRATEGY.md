@@ -31,7 +31,7 @@
 |------|----------------------|----------|
 | **F27** `#contents` 92% | MO 히어로 좌우 흰 gap — `_ref` CSS만으로 반복 수정 | EZ 레이아웃 옵션·`.myshopArea` calc 잔재와 충돌 감소 |
 | **detail.css late-load** | PDP·서브에서 EZ 테마 CSS가 늦게 로드되어 override 전쟁 | HTML-clean + `#nk-skinN` 스코프로 예측 가능 |
-| **data-ez-module 노이즈** | grep·diff·에이전트 컨텍스트 오염, 「어느 속성이 라이브인지」 혼란 | `data-ez` 0건 목표 — [`VERIFICATION-EVIDENCE.md`](VERIFICATION-EVIDENCE.md) skin14 실측 |
+| **data-ez-module 노이즈** | grep·diff·에이전트 컨텍스트 오염, 「어느 속성이 라이브인지」 혼란 | `data-ez` 0건 목표 — `VERIFICATION-EVIDENCE.md` skin14 실측 |
 
 ### 1.3 IDIO / skin2 수준 유지보수
 
@@ -87,7 +87,7 @@ Phase C  ★ 기본: strip (§15 + strip_ez.py) · EZST 4종 제거 검토
 
 **왜 스킵했나 (당시):** Phase A/B 완료 후 레퍼런스 갭을 CSS로 빠르게 메우는 파일럿 — strip 없이도 9/9 score 100 달성. **이 경로를 키트 기본으로 삼지 않는다.**
 
-- 상세: [`clients/ecudemo400786/.workflow.md`](../clients/ecudemo400786/.workflow.md) · [`getting-started/예시-데모몰.md`](../getting-started/예시-데모몰.md)
+- 상세: `clients/ecudemo400786/.workflow.md` · [`getting-started/예시-데모몰.md`](../getting-started/예시-데모몰.md)
 - ecudemo 폴더·이력은 **삭제·재작성하지 않음** — 「빠른 파일럿 예외」로만 참조.
 
 ---
@@ -98,7 +98,7 @@ Phase C  ★ 기본: strip (§15 + strip_ez.py) · EZST 4종 제거 검토
 |------|-----|
 | URL | [https://demo000.cafe24.com/](https://demo000.cafe24.com/) |
 | 작업 skin | skin14 (아키테이블 EZ 출신 → strip 완료 방향) |
-| SFTP | `/{skin_code}` (예: `/skin14`) — [`VERIFICATION-EVIDENCE.md`](VERIFICATION-EVIDENCE.md) |
+| SFTP | `/{skin_code}` (예: `/skin14`) — `VERIFICATION-EVIDENCE.md` |
 | data-ez (layout) | skin14 **False** · base **True** (2026-06-19 실측) |
 | 이전 주 레퍼런스 | ecudemo393674 — **1:1 갱신 파일럿용**. 신규 템플릿 기본 레퍼런스는 demo000 |
 
@@ -112,4 +112,4 @@ Phase C  ★ 기본: strip (§15 + strip_ez.py) · EZST 4종 제거 검토
 | [`08-ez-three-step-pingpong.md`](../workflows/08-ez-three-step-pingpong.md) | Phase A/B/C 실행·핑퐁 |
 | [`07-ez-on-legacy-setup.md`](../workflows/07-ez-on-legacy-setup.md) | Phase 0-D F35 · 전체 배경 |
 | [`common-pitfalls.md` §F35·F36](common-pitfalls.md) | Easy 타입 충돌 · strip 함정 |
-| [`REMAINING-WORK-CHECKLIST.md`](REMAINING-WORK-CHECKLIST.md) §C | demo000 end-to-end 파일럿 |
+| `REMAINING-WORK-CHECKLIST.md` §C | demo000 end-to-end 파일럿 |
