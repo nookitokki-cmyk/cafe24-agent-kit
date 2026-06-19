@@ -105,8 +105,10 @@ if [[ -f "$ROOT/mcp/work/scripts/strip_ez.py" ]]; then
   cp "$ROOT/mcp/work/scripts/strip_ez.py" "$BUILD_ROOT/mcp/work/scripts/"
 fi
 
-# Score scripts (ecudemo pilot reference)
-copy_tree "$ROOT/work/scripts" "$BUILD_ROOT/work/scripts"
+# Score scripts (ecudemo pilot reference) — optional: dev work/ is excluded from the clean kit
+if [[ -d "$ROOT/work/scripts" ]]; then
+  copy_tree "$ROOT/work/scripts" "$BUILD_ROOT/work/scripts"
+fi
 
 # Cursor MCP registration template (user copies → .cursor/mcp.json)
 mkdir -p "$BUILD_ROOT/.cursor"
@@ -117,7 +119,7 @@ fi
 # Root pointers
 cp "$ROOT/AGENTS.md" "$BUILD_ROOT/"
 [[ -f "$ROOT/CHANGELOG.md" ]] && cp "$ROOT/CHANGELOG.md" "$BUILD_ROOT/"
-DIST_VERSION="v2.2.3"
+DIST_VERSION="$(head -1 "$ROOT/VERSION" 2>/dev/null || echo v2.3.0)"
 DIST_DATE="$(date -u +%Y-%m-%d)"
 cat > "$BUILD_ROOT/VERSION" <<EOF
 $DIST_VERSION
@@ -201,7 +203,6 @@ REQUIRED=(
   "$OUT/mcp/config/__init__.py"
   "$OUT/mcp/config/cafe24_config.example.py"
   "$OUT/mcp/work/scripts/strip_ez.py"
-  "$OUT/work/scripts/score_mall.py"
   "$OUT/.cursor/mcp.json.example"
   "$OUT/CHANGELOG.md"
 )
@@ -237,8 +238,8 @@ if [[ -d "$OUT/agent-kit/clients/paransky97" ]]; then
   echo "FAIL: agent-kit/clients/paransky97 must not be in dist (real client data)" >&2
   exit 1
 fi
-if [[ "$(head -1 "$OUT/VERSION")" != "v2.2.3" ]]; then
-  echo "FAIL: VERSION must be v2.2.3" >&2
+if [[ "$(head -1 "$OUT/VERSION")" != "$DIST_VERSION" ]]; then
+  echo "FAIL: dist VERSION ($(head -1 "$OUT/VERSION")) != root VERSION ($DIST_VERSION)" >&2
   exit 1
 fi
 

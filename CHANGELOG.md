@@ -1,5 +1,21 @@
 # Cafe24 Agent Kit — Changelog
 
+## v2.3.0 (2026-06-20)
+
+### Changed — 구조 재편 (Step 4b)
+- **사람용/기계용 폴더 재편**: `getting-started`→`00_시작하기`, `examples`·`workflows`→`01_작업하기`, `traps/INDEX`·`common-pitfalls`·`F-상황-인덱스`→`02_막혔을때`, `rules`·지식 `docs`·`_evidence`→`brain`, 접속 `docs`·`scripts`→`connect` (git rename 이력 보존)
+- 내부 마크다운 링크·MCP 코드(`server.py`·`kit_tools.py`)·셸 스크립트(`verify-kit.sh`·`build-dist-kit.sh`) 전부 새 구조로 갱신
+- 중복 진입점 6→1 통합 (단일 진입점 = `agent-kit/README.md`)
+
+### Added — 입문자료 (Step 4c)
+- `00_시작하기/`: `0-이-키트가-뭔가요` · `용어집` · `첫수정-1건-성공` · `실패복구-가이드`
+
+### Fixed — 익명화·범위 보강
+- 배포 문서 잔존 실 클라이언트 식별자 제거(`SLOWAGINGS`·`paransky97`) + 깨진 링크 19곳 수리
+- 문서 범위 정정: 강의/수강생 맥락 단어 제거 → 독자 = "이 키트를 쓰는 비개발자 누구나"
+
+---
+
 ## v2.2.3 (2026-06-20)
 
 ### Fix
