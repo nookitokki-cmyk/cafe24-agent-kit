@@ -26,12 +26,12 @@ class Cafe24API:
     """몰 하나에 대한 Admin API 읽기 클라이언트.
 
     사용법:
-        api = Cafe24API("paransky97")
+        api = Cafe24API("demo000")
         themes = api.list_themes()
         page = api.read_page(4, "/layout/basic/layout.html")
     """
 
-    def __init__(self, mall_id: str = "paransky97"):
+    def __init__(self, mall_id: str = "demo000"):
         self.tm = TokenManager(mall_id)
         self.cfg = self.tm.cfg
 

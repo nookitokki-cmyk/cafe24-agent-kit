@@ -27,7 +27,7 @@
   python cli.py backup <원격경로>              백업본 만들기
   python cli.py put <로컬경로> <원격경로>       ★업로드 (사용자 컨펌 후에만)
 
-  공통 옵션: --mall <mall_id>   (기본값 paransky97)
+  공통 옵션: --mall <mall_id>   (기본값 demo000)
 """
 import json
 import sys
@@ -58,7 +58,7 @@ def _pop_mall(args: list[str]) -> str:
         mall = args[i + 1]
         del args[i : i + 2]
         return mall
-    return "paransky97"
+    return "demo000"
 
 
 def _pop_flag(args: list[str], name: str) -> bool:

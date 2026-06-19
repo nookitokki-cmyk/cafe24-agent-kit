@@ -481,7 +481,7 @@ def kit_update(source: Path | None = None, dry_run: bool = False) -> dict[str, A
     # agent-kit/clients: only refresh _template + reference workflows
     for rel in (
         "agent-kit/clients/_template",
-        "agent-kit/clients/paransky97/.workflow.md",
+        "agent-kit/clients/demo000/.workflow.md",
         "agent-kit/clients/ecudemo400786/.workflow.md",
     ):
         s = src_root / rel

@@ -12,7 +12,7 @@ import os
 HERE = os.path.dirname(os.path.abspath(__file__))
 # mcp/ 폴더의 부모 = web/cafe24/
 CAFE24_ROOT = os.path.dirname(os.path.dirname(HERE))
-# 기존 PoC 설정 파일 위치 (paransky97 용)
+# 기존 PoC 설정 파일 위치 (demo000 용)
 POC_CONFIG = os.path.join(CAFE24_ROOT, "api-poc", "cafe24_config.py")
 # 모노레po(cafe24-agent-workspace)만 clone 한 경우 OneDrive 개발 트리 fallback
 ONEDRIVE_POC_CONFIG = os.path.join(
@@ -29,7 +29,7 @@ def _load_py(path: str):
     return mod
 
 
-def load_mall_config(mall_id: str = "paransky97"):
+def load_mall_config(mall_id: str = "demo000"):
     """몰 아이디를 받아 해당 몰의 설정 모듈을 돌려준다.
 
     찾는 순서:
@@ -68,17 +68,17 @@ def token_file_path(mall_id: str) -> str:
 
 import json  # noqa: E402
 
-# paransky97 SFTP 접속정보가 이미 들어있는 기존 파일 (VS Code SFTP 확장용)
+# demo000 SFTP 접속정보가 이미 들어있는 기존 파일 (VS Code SFTP 확장용)
 _KNOWN_SFTP_SOURCES = {
-    "paransky97": os.path.join(
+    "demo000": os.path.join(
         CAFE24_ROOT, "clients", "template-02", ".vscode", "sftp.json"
     ),
 }
 
-# paransky97 쓰기 허용 슬롯 (2026-06-10 재개설 후 대표님 확정)
+# demo000 쓰기 허용 슬롯 (2026-06-10 재개설 후 대표님 확정)
 # /skin14=_nk 신규 템플릿, /mobile=모바일 스킨. /skin2(IDIO원본)·/skin15(베이직)·/base 보호
 _DEFAULT_WRITE_ALLOWED = {
-    "paransky97": ["/skin14", "/mobile"],
+    "demo000": ["/skin14", "/mobile"],
 }
 
 
@@ -87,7 +87,7 @@ def sftp_config_path(mall_id: str) -> str:
     return os.path.join(HERE, f"sftp_{mall_id}.json")
 
 
-def load_sftp_config(mall_id: str = "paransky97") -> dict:
+def load_sftp_config(mall_id: str = "demo000") -> dict:
     """몰의 SFTP 접속정보를 돌려준다.
 
     형식: {host, port, username, password, write_allowed: [...]}

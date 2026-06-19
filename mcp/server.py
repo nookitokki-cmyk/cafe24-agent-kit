@@ -41,8 +41,8 @@ from kit_tools import (
 
 mcp = FastMCP("cafe24_mcp")
 
-# 자주 쓰는 파라미터 타입 (몰 아이디 — 기본 paransky97)
-MallId = Annotated[str, Field(description="카페24 몰 아이디 (기본: paransky97)")]
+# 자주 쓰는 파라미터 타입 (몰 아이디 — 기본 demo000)
+MallId = Annotated[str, Field(description="카페24 몰 아이디 (기본: demo000)")]
 
 
 def _err(e: Exception) -> str:
@@ -607,7 +607,7 @@ def run_preflight(
         "openWorldHint": True,
     },
 )
-def cafe24_list_themes(mall_id: MallId = "paransky97") -> str:
+def cafe24_list_themes(mall_id: MallId = "demo000") -> str:
     """카페24 몰의 디자인(스킨) 목록과 메타데이터를 조회한다.
 
     반환 필드:
@@ -636,7 +636,7 @@ def cafe24_list_themes(mall_id: MallId = "paransky97") -> str:
 def cafe24_read_page(
     skin_no: Annotated[int, Field(description="cafe24_list_themes 가 알려주는 스킨 번호", ge=1)],
     path: Annotated[str, Field(description="스킨 루트 기준 경로 (예: /layout/basic/layout.html)")],
-    mall_id: MallId = "paransky97",
+    mall_id: MallId = "demo000",
 ) -> str:
     """스킨의 HTML 페이지 1건을 카페24 보관 정본으로 읽는다 (Admin API).
 
@@ -662,7 +662,7 @@ def cafe24_read_page(
         "openWorldHint": False,
     },
 )
-def cafe24_auth_status(mall_id: MallId = "paransky97") -> str:
+def cafe24_auth_status(mall_id: MallId = "demo000") -> str:
     """OAuth 토큰의 유효시간·scope 를 진단한다 (비밀값 미포함).
 
     access_token(2시간)은 만료 시 자동 갱신되므로 보통 신경 쓸 필요 없다.
@@ -691,7 +691,7 @@ def cafe24_auth_status(mall_id: MallId = "paransky97") -> str:
 def cafe24_sftp_list(
     remote_path: Annotated[str, Field(description="원격 경로 (예: /skin14, /skin14/_nk/css)")] = "/",
     depth: Annotated[int, Field(description="탐색 깊이 (1=바로 아래만)", ge=1, le=5)] = 1,
-    mall_id: MallId = "paransky97",
+    mall_id: MallId = "demo000",
 ) -> str:
     """SFTP 로 원격 폴더의 파일트리를 조회한다 (API 엔 없는 기능).
 
@@ -716,7 +716,7 @@ def cafe24_sftp_list(
 )
 def cafe24_sftp_read(
     remote_path: Annotated[str, Field(description="원격 파일 경로 (예: /skin14/_nk/css/tokens.css)")],
-    mall_id: MallId = "paransky97",
+    mall_id: MallId = "demo000",
 ) -> str:
     """SFTP 로 원격 텍스트 파일 1건의 내용을 읽는다.
 
@@ -742,7 +742,7 @@ def cafe24_sftp_read(
 def cafe24_sftp_download(
     remote_path: Annotated[str, Field(description="원격 파일/폴더 경로 (폴더면 재귀 미러)")],
     local_path: Annotated[str, Field(description="저장할 로컬 경로 (절대 경로 권장)")],
-    mall_id: MallId = "paransky97",
+    mall_id: MallId = "demo000",
 ) -> str:
     """원격 파일/폴더를 로컬로 내려받는다 (폴더는 하위까지 재귀).
 
@@ -767,7 +767,7 @@ def cafe24_sftp_download(
 )
 def cafe24_sftp_backup(
     remote_path: Annotated[str, Field(description="백업할 원격 파일/폴더 경로")],
-    mall_id: MallId = "paransky97",
+    mall_id: MallId = "demo000",
 ) -> str:
     """원격 파일/폴더를 로컬 mcp/backups/{몰}/{시각}/ 아래로 백업한다.
 
@@ -798,7 +798,7 @@ def cafe24_sftp_upload(
     local_path: Annotated[Optional[str], Field(description="올릴 로컬 파일/폴더 경로 (content 와 둘 중 하나)")] = None,
     content: Annotated[Optional[str], Field(description="파일 내용 문자열을 바로 업로드 (local_path 와 둘 중 하나)")] = None,
     auto_backup: Annotated[bool, Field(description="덮어쓰기 전 원본 자동 백업 (기본 켜짐, 끄지 말 것)")] = True,
-    mall_id: MallId = "paransky97",
+    mall_id: MallId = "demo000",
 ) -> str:
     """★운영 서버 반영 — 로컬 파일/폴더 또는 문자열을 원격에 업로드한다.
 
@@ -806,7 +806,7 @@ def cafe24_sftp_upload(
       1) 이 도구를 호출하기 전에 사용자에게 "업로드해도 될까요?" 확인을 받을 것
          (누끼토끼 절대룰 — 운영 반영 전 컨펌).
       2) write_allowed 화이트리스트(config/sftp_{mall}.json) 밖 경로는
-         코드가 무조건 거부한다 (paransky97: /skin14, /mobile 만 허용).
+         코드가 무조건 거부한다 (demo000: /skin14, /mobile 만 허용).
       3) auto_backup 은 끄지 말 것 — 사고 시 mcp/backups/ 의 백업본으로 복구.
 
     업로드 후에는 라이브 화면(?v=타임스탬프 캐시 우회)을 PC+모바일로 검증할 것.

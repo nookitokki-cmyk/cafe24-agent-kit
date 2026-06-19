@@ -92,7 +92,7 @@ async def main() -> int:
         async with ClientSession(read, write) as session:
             await session.initialize()
 
-            mall_id = PILOT_MALL if pilot_token_exists() else "paransky97"
+            mall_id = PILOT_MALL if pilot_token_exists() else "demo000"
             if pilot_token_exists():
                 print(f"[pilot] {PILOT_MALL} token — preflight·API 호출에 사용")
             else:

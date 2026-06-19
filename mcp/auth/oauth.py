@@ -24,7 +24,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from config import load_mall_config, token_file_path, CAFE24_ROOT  # noqa: E402
 
-# PoC 시절 토큰 파일 위치 (paransky97 마이그레이션용)
+# PoC 시절 토큰 파일 위치 (demo000 마이그레이션용)
 POC_TOKEN = os.path.join(CAFE24_ROOT, "api-poc", "cafe24.token.json")
 
 # 만료 직전 호출이 실패하지 않도록 두는 여유 시간(초)
@@ -39,11 +39,11 @@ class TokenManager:
     """몰 하나의 토큰을 책임지는 관리자.
 
     사용법:
-        tm = TokenManager("paransky97")
+        tm = TokenManager("demo000")
         token = tm.get_access_token()   # 만료됐으면 알아서 갱신
     """
 
-    def __init__(self, mall_id: str = "paransky97"):
+    def __init__(self, mall_id: str = "demo000"):
         self.mall_id = mall_id
         self.cfg = load_mall_config(mall_id)
         self.token_file = token_file_path(mall_id)

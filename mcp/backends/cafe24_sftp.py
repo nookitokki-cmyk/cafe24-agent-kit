@@ -10,11 +10,11 @@
 
 안전장치:
   - write_allowed 화이트리스트에 없는 경로로의 업로드는 무조건 거부
-    (paransky97: /skin3~/skin9 만 허용, skin1/skin2/base 보호)
+    (demo000: /skin3~/skin9 만 허용, skin1/skin2/base 보호)
   - upload 는 기본적으로 backup 을 먼저 자동 실행 (auto_backup=True)
 
 기존 검증된 패턴 출처:
-  - banner_timeout 명시: paramiko 4+ 기본 무한대기 hang 방지 (slowagings)
+  - banner_timeout 명시: paramiko 4+ 기본 무한대기 hang 방지 (reference-case)
   - 다운로드 실패 시 빈 파일 정리: 빈 껍데기로 덮어쓰는 사고 방지 (template-02)
   - 슬롯 화이트리스트: sftp_push.py ALLOWED_TARGETS (template-02)
 """
@@ -43,12 +43,12 @@ class Cafe24SFTP:
     """몰 하나의 SFTP 클라이언트. 연결은 필요할 때 한 번만 열고 재사용.
 
     사용법:
-        with Cafe24SFTP("paransky97") as sftp:
+        with Cafe24SFTP("demo000") as sftp:
             tree = sftp.list("/skin4", depth=2)
             text = sftp.read("/skin4/index.html")
     """
 
-    def __init__(self, mall_id: str = "paransky97"):
+    def __init__(self, mall_id: str = "demo000"):
         self.mall_id = mall_id
         self.cfg = load_sftp_config(mall_id)
         self._transport = None
