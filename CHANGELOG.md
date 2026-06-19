@@ -1,5 +1,13 @@
 # Cafe24 Agent Kit — Changelog
 
+## v2.2.1 (2026-06-20)
+
+### Fix
+- `kit-update --from-github` — private repo Release zip via GitHub API asset URL (`application/octet-stream`)
+- Auto `gh auth token` when `GITHUB_TOKEN` unset
+
+---
+
 ## v2.2.0 (2026-06-19)
 
 ### Commands (onboarding + robustness)
