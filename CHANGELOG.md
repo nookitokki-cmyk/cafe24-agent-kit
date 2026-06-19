@@ -1,5 +1,13 @@
 # Cafe24 Agent Kit — Changelog
 
+## v2.2.2 (2026-06-20)
+
+### Fix
+- `kit-update --from-github` — private Release zip via API asset URL + `gh auth token` fallback
+- `kit-update` no longer wipes entire `mcp/work/` (only `strip_ez.py`)
+
+---
+
 ## v2.2.1 (2026-06-20)
 
 ### Fix

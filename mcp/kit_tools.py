@@ -110,6 +110,21 @@ def _github_headers() -> dict[str, str]:
         "X-GitHub-Api-Version": "2022-11-28",
     }
     token = os.environ.get("GITHUB_TOKEN", "").strip()
+    if not token:
+        try:
+            import subprocess
+
+            r = subprocess.run(
+                ["gh", "auth", "token"],
+                capture_output=True,
+                text=True,
+                timeout=10,
+                check=False,
+            )
+            if r.returncode == 0:
+                token = r.stdout.strip()
+        except (OSError, subprocess.SubprocessError):
+            pass
     if token:
         headers["Authorization"] = f"Bearer {token}"
     return headers
@@ -125,9 +140,12 @@ def _github_json(url: str) -> dict[str, Any]:
         raise ValueError(f"GitHub API {e.code}: {body}") from e
 
 
-def _github_download(url: str, dest: Path) -> None:
-    req = Request(url, headers=_github_headers())
-    with urlopen(req, timeout=120) as resp, open(dest, "wb") as out:
+def _github_download_asset(asset_api_url: str, dest: Path) -> None:
+    """Download release asset (private repos need API URL + octet-stream)."""
+    headers = _github_headers()
+    headers["Accept"] = "application/octet-stream"
+    req = Request(asset_api_url, headers=headers)
+    with urlopen(req, timeout=180) as resp, open(dest, "wb") as out:
         shutil.copyfileobj(resp, out)
 
 
@@ -165,6 +183,7 @@ def fetch_github_release(
         "html_url": data.get("html_url"),
         "zip_name": zip_asset.get("name"),
         "zip_url": zip_asset.get("browser_download_url"),
+        "zip_api_url": zip_asset.get("url"),
         "zip_size": zip_asset.get("size"),
     }
 
@@ -207,7 +226,8 @@ def kit_update_from_github(
 
     tmp_zip = Path(tempfile.mkdtemp()) / rel["zip_name"]
     try:
-        _github_download(rel["zip_url"], tmp_zip)
+        api_url = rel.get("zip_api_url") or rel.get("zip_url")
+        _github_download_asset(api_url, tmp_zip)
         kit_root = _extract_kit_zip(tmp_zip)
         result = kit_update(source=kit_root, dry_run=False)
         result["release"] = {
@@ -407,7 +427,7 @@ UPDATE_PATHS = [
     "agent-kit/README.md",
     "mcp/auth",
     "mcp/backends",
-    "mcp/work",
+    "mcp/work/scripts/strip_ez.py",
     "mcp/server.py",
     "mcp/cli.py",
     "mcp/smoke_test.py",

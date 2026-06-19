@@ -195,7 +195,7 @@ bash scripts/build-dist-kit.sh
 |------|--------|------|
 | `CAFE24_KIT_GITHUB_REPO` | `nookitokki-cmyk/cafe24-agent-kit` | Releases API |
 | `CAFE24_KIT_RELEASE_URL` | (없음) | raw `VERSION` URL — 설정 시 API 대신 사용 |
-| `GITHUB_TOKEN` | (없음) | private repo·rate limit |
+| `GITHUB_TOKEN` | (없음) | private repo — `gh auth login` 또는 PAT (`repo` scope) |
 
 **보존:** `mcp/config/*`, `agent-kit/clients/{본인몰}/` — update 후에도 덮어쓰지 않음.
 
