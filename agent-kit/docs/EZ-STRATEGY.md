@@ -1,8 +1,8 @@
-# EZ 전략 — 기본은 strip (paransky97 / skin14 패턴)
+# EZ 전략 — 기본은 strip (demo000 / skin14 패턴)
 
 > **갱신:** 2026-06-19  
 > **목적:** 워크플로우 08 Phase C에서 A/B/C 분기로 혼란이 생기지 않도록, **키트 기본 전략**과 그 **이유**를 한곳에 정리한다.  
-> **레퍼런스 몰:** [https://paransky97.cafe24.com/](https://paransky97.cafe24.com/)  
+> **레퍼런스 몰:** [https://demo000.cafe24.com/](https://demo000.cafe24.com/)  
 > **실행 절차:** [`WORK-GUIDE.md` §15](WORK-GUIDE.md) · [`08-ez-three-step-pingpong.md`](../workflows/08-ez-three-step-pingpong.md) Phase C
 
 ---
@@ -11,7 +11,7 @@
 
 | 항목 | 내용 |
 |------|------|
-| **기본 전략** | Phase B(EZ FTP overlay) 직후 **Phase C strip** — `data-ez-*`·`<ez-prop>` 제거, HTML-clean DOM으로 전환 (paransky97 / skin14) |
+| **기본 전략** | Phase B(EZ FTP overlay) 직후 **Phase C strip** — `data-ez-*`·`<ez-prop>` 제거, HTML-clean DOM으로 전환 (demo000 / skin14) |
 | **템플릿 방향** | IDIO(skin2)와 동일 — EZ 출신 아키테이블을 **걷어낸 뒤** `_nk/`·에이전트/FTP로 자유 편집 |
 | **예외 (파일럿)** | ecudemo400786 — Phase C **스킵**, `data-ez-*` 유지 + `_ref393674/` CSS override만. **템플릿 기본이 아님** |
 
@@ -36,7 +36,7 @@
 ### 1.3 IDIO / skin2 수준 유지보수
 
 - IDIO는 아키테이블 EZ를 베이스로 가져온 뒤 **EZ 기능을 전부 걷어냈다** ([`WORK-GUIDE.md` §0 결론 2](WORK-GUIDE.md)).
-- paransky97 skin14: `layout.html` **data-ez False** (base는 True) — overlay·strip이 끝난 **목표 상태**의 실측 증거.
+- demo000 skin14: `layout.html` **data-ez False** (base는 True) — overlay·strip이 끝난 **목표 상태**의 실측 증거.
 - 장기적으로 재판매 템플릿·클라이언트 커스텀은 이 수준의 **독립 레이어**(`_nk/`, `_ref*/`)가 표준이다.
 
 ### 1.4 F35 — Easy admin 타입은 등록하지 않는다
@@ -78,7 +78,7 @@ Phase C  ★ 기본: strip (§15 + strip_ez.py) · EZST 4종 제거 검토
 
 ## 4. ecudemo400786 — 파일럿 예외 (스킵)
 
-| 항목 | ecudemo400786 | paransky97 (템플릿) |
+| 항목 | ecudemo400786 | demo000 (템플릿) |
 |------|---------------|---------------------|
 | Phase C | **스킵** — `data-ez-*` 유지 | **strip** — data-ez False 목표 |
 | 목적 | 레퍼런스(ecudemo393674) **1:1 속도** 파일럿 | 신규 템플릿·운영 몰 **표준 방향** |
@@ -92,15 +92,15 @@ Phase C  ★ 기본: strip (§15 + strip_ez.py) · EZST 4종 제거 검토
 
 ---
 
-## 5. 레퍼런스 몰 — paransky97
+## 5. 레퍼런스 몰 — demo000
 
 | 항목 | 값 |
 |------|-----|
-| URL | [https://paransky97.cafe24.com/](https://paransky97.cafe24.com/) |
+| URL | [https://demo000.cafe24.com/](https://demo000.cafe24.com/) |
 | 작업 skin | skin14 (아키테이블 EZ 출신 → strip 완료 방향) |
 | SFTP | `/{skin_code}` (예: `/skin14`) — [`VERIFICATION-EVIDENCE.md`](VERIFICATION-EVIDENCE.md) |
 | data-ez (layout) | skin14 **False** · base **True** (2026-06-19 실측) |
-| 이전 주 레퍼런스 | ecudemo393674 — **1:1 갱신 파일럿용**. 신규 템플릿 기본 레퍼런스는 paransky97 |
+| 이전 주 레퍼런스 | ecudemo393674 — **1:1 갱신 파일럿용**. 신규 템플릿 기본 레퍼런스는 demo000 |
 
 ---
 
@@ -112,4 +112,4 @@ Phase C  ★ 기본: strip (§15 + strip_ez.py) · EZST 4종 제거 검토
 | [`08-ez-three-step-pingpong.md`](../workflows/08-ez-three-step-pingpong.md) | Phase A/B/C 실행·핑퐁 |
 | [`07-ez-on-legacy-setup.md`](../workflows/07-ez-on-legacy-setup.md) | Phase 0-D F35 · 전체 배경 |
 | [`common-pitfalls.md` §F35·F36](common-pitfalls.md) | Easy 타입 충돌 · strip 함정 |
-| [`REMAINING-WORK-CHECKLIST.md`](REMAINING-WORK-CHECKLIST.md) §C | paransky97 end-to-end 파일럿 |
+| [`REMAINING-WORK-CHECKLIST.md`](REMAINING-WORK-CHECKLIST.md) §C | demo000 end-to-end 파일럿 |

@@ -50,7 +50,7 @@ URL: https://developers.cafe24.com/docs/api/admin/ (Shops property)
 skin_no | PC 쇼핑몰 대표 디자인 번호 — 현재 쇼핑몰에서 사용 중인 디자인 번호
 mobile_skin_no | 모바일 쇼핑몰 대표 디자인 번호
 
-## 출처 E: MCP 라이브 검증 (2026-06-10, paransky97) — 실무 ⚠️
+## 출처 E: MCP 라이브 검증 (2026-06-10, demo000) — 실무 ⚠️
 파일: cafe24-agent-workspace/mcp/README.md §「핵심 발견」
 
 | SFTP 폴더 | skin_no | skin_name(요약) |

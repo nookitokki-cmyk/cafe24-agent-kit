@@ -22,7 +22,7 @@
 
 | 전략 | 대상 | 레퍼런스 URL | Legacy Hunter 시 주의 |
 |------|------|--------------|----------------------|
-| **strip** (기본) | paransky97 / skin14 등 템플릿 | [https://paransky97.cafe24.com/](https://paransky97.cafe24.com/) | `data-ez-*`·골드·body max-width = **부채 후보**. strip 완료 후 0건 목표 |
+| **strip** (기본) | demo000 / skin14 등 템플릿 | [https://demo000.cafe24.com/](https://demo000.cafe24.com/) | `data-ez-*`·골드·body max-width = **부채 후보**. strip 완료 후 0건 목표 |
 | **skip** (파일럿 예외) | ecudemo400786 | [https://ecudemo393674.cafe24.com/](https://ecudemo393674.cafe24.com/) | `data-ez-*`·`#d0ac88` **의도적 잔존** 가능. `_ref393674/` override만 감사 |
 
 > ecudemo 스킵은 **템플릿 기본이 아님**. strip 몰에 EZ skip 판정을 적용하지 말 것.
@@ -38,11 +38,11 @@
 
 | 항목 | 값 |
 |------|-----|
-| **mall_id** | `[예: paransky97 / ecudemo400786]` |
+| **mall_id** | `[예: demo000 / ecudemo400786]` |
 | **skin_code** | `[예: skin14 / base]` |
 | **로컬 루트** | `[예: work/deploy-paransky/skin14/ 또는 SFTP 미러 경로]` |
 | **EZ 전략** | `strip` \| `skip` |
-| **레퍼런스 URL** | strip → https://paransky97.cafe24.com/ · skip → https://ecudemo393674.cafe24.com/ |
+| **레퍼런스 URL** | strip → https://demo000.cafe24.com/ · skip → https://ecudemo393674.cafe24.com/ |
 | **MOBILE_WEB** | `[알면: true / false / 미확인]` — `true`이면 MO 검증 중단 ([F34](F-상황-인덱스.md)) |
 | **스캔 범위** | `[전체 / layout만 / CSS만 / 특정 페이지]` |
 | **백업 여부** | `[ ] cafe24_sftp_backup 완료 · [ ] 로컬 deploy-* 스냅샷 존재` |
@@ -276,7 +276,7 @@ agent-kit/docs/LEGACY-HUNTER.md 절차를 따를 것:
 5) §6 한국어 표로 출력 (심각도·페이지 타입·판단=검증 필요 기본)
 6) 수정 제안 시 verify-loop + cafe24_sftp_backup 게이트만 명시 — 실행하지 마
 
-참고: EZ-STRATEGY (strip=paransky97, skip=ecudemo 예외) · F-상황-인덱스 · common-pitfalls · 06-verify-loop
+참고: EZ-STRATEGY (strip=demo000, skip=ecudemo 예외) · F-상황-인덱스 · common-pitfalls · 06-verify-loop
 ```
 
 ---

@@ -12,11 +12,12 @@
 - [x] Step 1-5 시크릿 0개 (verify-kit.sh 비번 스크럽 완료)
 - [x] Step 1-7 사본 정리: 안전한 4곳 보관소 이동 완료 (agent-kit · agent-kit-cafe24-agent-final · 키트-배포판 · 키트-백업) / cafe24-agent-workspace 1곳은 실행중 앱이 사용중이라 **보류** / OneDrive 라이브 3곳(mcp·api-poc·web-cafe24/agent-kit)은 Step 2에서 연결 정리
 - [x] Step 2  보안 정리 + 기술수정: ①build-dist 클라제외+demo000 ②SFTP 호스트키검증 (①②는 v2.2.3에 이미 반영 확인) / ③verify-kit·verify-live 실측·이식형 재작성 → code-reviewer 검토 → 보완 → 실행 ALL PASS / git 초기화·2커밋(로컬, push 안 함)
-- [ ] Step 3  익명화 흡수
-- [ ] Step 4~6 (계획 파일 참조)
+- [~] Step 3  익명화: clients 1GB 백업✅ + 비번누출 0 확인✅ + 코드 기본값 demo000→demo000·reference-case→reference-case 전치환(import OK)✅ / 문서(.md 23+4곳) 익명화·reference-case 흡수는 **Step 4와 합쳐 처리**(대표님 결정)
+- [ ] Step 4  초보자 친화 재편 (+ 문서 익명화 합침)
+- [ ] Step 5~6 (계획 파일 참조)
 
 ## 다음 할 일
-Step 3: 익명화 흡수 — PARANSKY97-EZ-INVESTIGATION 등 → reference-case (실명·도메인 제거) + slowagings/template 학습 흡수.
+Step 4: 초보자 친화 재편(사람용 00_시작하기/01_작업하기/02_막혔을때 ↔ 기계용 brain/·connect/ 분리, 용어집·첫수정·실패복구 신규) + (합침) 문서 익명화 23+4곳 demo000→demo000 등 + 내부문서 _archive 이동 + reference-case 흡수.
 (보류: ① cafe24-agent-workspace는 앱 종료 후 _archive로 이동 ② OneDrive 라이브 mcp는 현재 환경 유지 — 새 키트로의 MCP 연결 전환은 별도 결정 ③ git push는 Step 6에서 승인 후)
 
 ## 핵심 자산 위치

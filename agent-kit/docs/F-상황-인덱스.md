@@ -70,7 +70,7 @@
 
 | 문서 | 용도 |
 |------|------|
-| [EZ-STRATEGY.md](EZ-STRATEGY.md) | **기본 EZ 전략** — strip (paransky97) · ecudemo 스킵은 파일럿 예외 |
+| [EZ-STRATEGY.md](EZ-STRATEGY.md) | **기본 EZ 전략** — strip (demo000) · ecudemo 스킵은 파일럿 예외 |
 | [LEGACY-HUNTER.md](LEGACY-HUNTER.md) | **레거시 감사** — layout 고아·CSS 부채 grep (삭제 후보만, verify-loop 선행) |
 | [키트-시작-가이드.md](../getting-started/키트-시작-가이드.md) | 배포본 첫 열기 · 워크플로·F27~34·명령 콤보 |
 | [QnA-쉬운말로.md](../getting-started/QnA-쉬운말로.md) | 증상별 **[F?]** 태그 Q&A 18개 (쉬운 말) |

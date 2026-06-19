@@ -28,10 +28,10 @@
 | A-2b | 파트너 웹 FTP 호스트: `{몰ID}.ftp.cafe24.com` | 배포판 `getting-started` ✅ | **공식 문서 HTML에서 호스트 패턴 미확인.** 실측: `ecudemo400786.ftp.cafe24.com` (2026-06-19 FTP OK). 구 `ecudemo394381` (3822) — **2026-06-19 비활성** | ⚠️ 실측+내부 가이드 일치, **공식 호스트 문서 인용 0건** |
 | A-2c | 파트너 웹 FTP 로그인 = 파트너센터 계정과 동일 | 배포판 `getting-started` | 공식 미확인 | ⚠️ |
 | A-2d | **일반 운영 몰** → 관리자 **디자인 FTP 권한 신청** 후 SFTP 정보 발급 | `CLAUDE.md` 게이트 #2 ✅ (디자인 FTP만) | **관리자 메뉴 경로「디자인 → 디자인 FTP → 권한 신청」공식 HTML 미확인** (ecsupport/help 미수집) | ⚠️ 내부 가이드·실무, 공식 매뉴얼 링크 필요 |
-| A-2e | 일반 몰 SFTP 호스트도 `{몰ID}.ftp.cafe24.com` | 키트는 호스트 형식 **명시 안 함** (MCP config에만 존재) | 실측 **반례:** 운영 몰 `paransky97` → `ecimg-ftp-c01.cafe24img.com:8008` (`clients/template-02/.vscode/sftp.json`) | ❌ **「항상 몰ID.ftp」는 틀릴 수 있음.** 호스트는 **발급된 SFTP 정보를 그대로** 써야 함 |
+| A-2e | 일반 몰 SFTP 호스트도 `{몰ID}.ftp.cafe24.com` | 키트는 호스트 형식 **명시 안 함** (MCP config에만 존재) | 실측 **반례:** 운영 몰 `demo000` → `ecimg-ftp-cNN.cafe24img.com:8008` (`clients/template-02/.vscode/sftp.json`) | ❌ **「항상 몰ID.ftp」는 틀릴 수 있음.** 호스트는 **발급된 SFTP 정보를 그대로** 써야 함 |
 | A-2f | 포트는 22(SFTP 표준) | MCP 기본 `port` 22 (`config` 로더) | 파트너 실측 **21(FTP)**, 과거 **3822(SFTP)**, 운영 몰 **8008** | ❌ 키트/MCP 기본값만 믿으면 접속 실패. **발급 port·프로토콜 필수** |
 | A-2g | 프로토콜: SFTP(SSH) | SKILL·MCP: paramiko SFTP ✅ | 파트너 `ecudemo400786` **FTP 21** (2026-06-19). 구 template-01 SFTP 3822 | ⚠️ **몰·시기별 FTP/SFTP 혼재** |
-| A-2h | 파트너 편집 경로 `/sde_design/base` | getting-started §03 (2026-06-19 반영) | API·공식 문장 없음. 2몰 교차: paransky97 루트 `/skin14` vs partner `/sde_design/base` | ⚠️ **계정 유형별 경로 분기 필수** |
+| A-2h | 파트너 편집 경로 `/sde_design/base` | getting-started §03 (2026-06-19 반영) | API·공식 문장 없음. 2몰 교차: demo000 루트 `/skin14` vs partner `/sde_design/base` | ⚠️ **계정 유형별 경로 분기 필수** |
 
 ### A-3. API 메타와 SFTP 폴더 연결 (작업 시작 시)
 
@@ -198,7 +198,7 @@
 |----|----------------------------|------------------------|------|
 | D-3a | HTML: `/skin1/`, `/mobile/` … | API: `skin_code`=디자인 코드, pages `path`=파일 경로. **`/skinN` 패턴 문장 없음** | ⚠️ 실무·MCP (`skin_code`→`/skin14`) — Phase 1-E |
 | D-3b | Easy: `/sde_design/base/`, `mobile/` | developers·Admin API **본문 0건** | ⚠️ SKILL·프로젝트 실측만 — **공식 인용 없음** |
-| D-3c | Easy: **SFTP 불가**, 관리자 에디터만 | 공식 **0건**. **2026-06-19 paransky97: E 스킨도 /{skin_code} SFTP OK** | ⚠️ 「불가」폐기 → 「API editor_type와 SFTP 접근 별개·실측 접근 가능」 |
+| D-3c | Easy: **SFTP 불가**, 관리자 에디터만 | 공식 **0건**. **2026-06-19 demo000: E 스킨도 /{skin_code} SFTP OK** | ⚠️ 「불가」폐기 → 「API editor_type와 SFTP 접근 별개·실측 접근 가능」 |
 | D-3d | HTML: SFTP 가능 | 공식 **0건** (디자인 SFTP와 `editor_type` 연결 문장 없음) | ⚠️ Phase 1-A 실측+내부 가이드와 합쳐서만 성립 |
 | D-3e | `data-ez-*`, `ez-prop`, `ez-var` — Easy 전용 | sdsupport basic·editor·소개 페이지 **0건** | ⚠️ SKILL·AGENT 실무 |
 | D-3f | HTML ↔ Easy **상호 편집 불가** | 공식 **0건** | ⚠️ |
@@ -254,13 +254,13 @@
 
 | ID | 규칙 | 근거 | 판정 |
 |----|------|------|------|
-| E-2a | **`skin_code` → SFTP 루트 `/{skin_code}`** (예: `skin14` → `/skin14`) | 2026-06-10 paransky97 라이브: `list_themes` + `sftp ls` 교차 (`mcp/README.md`) | ⚠️ **실측 확정, 공식 문장 0건** |
+| E-2a | **`skin_code` → SFTP 루트 `/{skin_code}`** (예: `skin14` → `/skin14`) | 2026-06-10 demo000 라이브: `list_themes` + `sftp ls` 교차 (`mcp/README.md`) | ⚠️ **실측 확정, 공식 문장 0건** |
 | E-2b | **`skin_no` ≠ 폴더 이름의 숫자** (예: skin_no **16**, skin_code **skin14**, SFTP **/skin14**) | 동일 실측 표 | ⚠️ 함정 — 초보자가 「14번 스킨」이라고 skin_no=14로 착각하기 쉬움 |
 | E-2c | API `read_page(skin_no, path)` 의 `path`는 **스킨 루트 기준** (예: `/layout/basic/layout.html`) | Themes pages: path=파일 경로; MCP `read_page` 구현 | ✅ API path 정의 / ⚠️ `skin_code`를 path에 넣지 않음 |
 | E-2d | CSS·이미지 등 **에셋**은 API pages가 **422** → SFTP `read` 필요 | MCP README §핵심 발견 #2 (2026-06-10) | ⚠️ 실측 — 공식 「422」문장은 본 Phase 미인용 |
 | E-2e | PC 목록 vs 모바일 목록 | `GET /themes?type=pc` / `type=mobile` | ✅ — 모바일 SFTP `/mobile` 과 **이름만으로 1:1 연결은 공식 없음** |
 
-### E-3. 실측 SFTP 루트 구조 (HTML 몰, paransky97)
+### E-3. 실측 SFTP 루트 구조 (HTML 몰, demo000)
 
 | SFTP 경로 | 대응 API (실측) | 키트 역할 주장 | 판정 |
 |-----------|-----------------|----------------|------|
@@ -358,7 +358,7 @@
 
 ---
 
-## Phase G. 라이브 검증 (2026-06-19, paransky97)
+## Phase G. 라이브 검증 (2026-06-19, demo000)
 
 근거: [`docs/VERIFICATION-EVIDENCE.md`](VERIFICATION-EVIDENCE.md)
 
@@ -387,7 +387,7 @@ Scope: `mall.read_design` ✅
 | ID | 이전 | 라이브 후 |
 |----|------|-----------|
 | G-3a | Easy SFTP 불가 | ⚠️ **E 스킨도 SFTP list/read 가능** (정책상 비권장일 수 있으나 기술적 차단 아님) |
-| G-3b | `/sde_design` | paransky97 SFTP **루트에 없음** |
+| G-3b | `/sde_design` | demo000 SFTP **루트에 없음** |
 | G-3c | skin14=HTML 작업본 | **editor_type=E** (2026-06-19) — 매 작업 `list_themes` 필수 |
 
 ---

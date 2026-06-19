@@ -42,3 +42,6 @@ venv/
 Thumbs.db
 *.swp
 .cursor/mcp.json
+
+# 키트 내부 보관 (배포·git 추적 제외)
+_archive/

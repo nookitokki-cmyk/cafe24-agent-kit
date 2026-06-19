@@ -42,7 +42,7 @@ bash scripts/build-dist-kit.sh
 
 |------|------|
 
-| `agent-kit/` | docs, workflows, rules, skills, clients 템플릿·레퍼런스 (`paransky97`, `ecudemo400786`, `_template` 등) |
+| `agent-kit/` | docs, workflows, rules, skills, clients 템플릿·레퍼런스 (`demo000`, `ecudemo400786`, `_template` 등) |
 
 | `mcp/` | MCP 런타임: `server.py`, `cli.py`, `smoke_test.py`, `requirements.txt`, **`auth/`**, **`backends/`**, `config/__init__.py` + `cafe24_config.example.py` |
 | `.cursor/mcp.json.example` | Cursor MCP 등록 템플릿 (수신자가 `.cursor/mcp.json`으로 복사) |
@@ -137,7 +137,7 @@ bash scripts/build-dist-kit.sh
 
 
 
-**v2.1+ (미완):** `run_preflight(mall_id=paransky97)` 실채점·paransky97 workflow 08 end-to-end (다른 몰 baseline·셀렉터 검증).
+**v2.1+ (미완):** `run_preflight(mall_id=demo000)` 실채점·demo000 workflow 08 end-to-end (다른 몰 baseline·셀렉터 검증).
 
 
 

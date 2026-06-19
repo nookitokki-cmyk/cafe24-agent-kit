@@ -73,7 +73,7 @@ SMOKE_PREFLIGHT_ALL=1 python smoke_test.py   # check=all 9/9 (~15분)
 
 1. **API `skin_code` → SFTP `/{skin_code}`** ⚠️ 실측 (공식 문장 없음). [`agent-kit/docs/VERIFICATION-EVIDENCE.md`](../agent-kit/docs/VERIFICATION-EVIDENCE.md)
 
-   **2026-06-19 paransky97 라이브 (6/6 SFTP_OK):**
+   **2026-06-19 demo000 라이브 (6/6 SFTP_OK):**
 
    | skin_code | skin_no | editor_type | skin_name |
    |-----------|---------|-------------|-----------|
@@ -88,7 +88,7 @@ SMOKE_PREFLIGHT_ALL=1 python smoke_test.py   # check=all 9/9 (~15분)
 
 2. **API `pages` 는 HTML만.** CSS 등 → `cafe24_sftp_read`.
 3. **smoke_test 5/5** — 2026-06-19 OneDrive·workspace 재검증. SFTP 연속 호출 시 30s+ 쿨다운.
-4. 쓰기 허용 (paransky97): `/skin14`, `/skin16`, `/mobile` (sftp json 기준).
+4. 쓰기 허용 (demo000): `/skin14`, `/skin16`, `/mobile` (sftp json 기준).
 
 ## 폴더 구조
 
@@ -103,8 +103,8 @@ mcp/
 ├── backups/                ← upload 전 자동 백업본 (git 제외)
 └── config/                 ← 몰별 설정·토큰 (git 제외)
     ├── __init__.py         ← load_mall_config() / load_sftp_config()
-    ├── paransky97.token.json   (자동 생성, git 제외)
-    └── sftp_paransky97.json    (자동 이전, git 제외 — write_allowed 포함)
+    ├── demo000.token.json   (자동 생성, git 제외)
+    └── sftp_demo000.json    (자동 이전, git 제외 — write_allowed 포함)
 ```
 
 ## 사용법 (이 폴더에서 실행)
@@ -126,7 +126,7 @@ python cli.py put ./로컬파일 /skin4/경로        # ★업로드 (사용자 
 ### upload 안전장치 (운영 반영)
 
 - `write_allowed` 화이트리스트(`config/sftp_{mall}.json`) 밖 경로는 **무조건 거부**
-  — paransky97: `/skin14`·`/mobile`만 허용, `/skin2`(IDIO원본)·`/skin15`·`/base` 보호 ✅ 검증 통과
+  — demo000: `/skin14`·`/mobile`만 허용, `/skin2`(IDIO원본)·`/skin15`·`/base` 보호 ✅ 검증 통과
 - 업로드 전 원본을 `backups/{mall}/{시각}/`에 **자동 백업** (기본 ON)
 - 에이전트는 upload 호출 전 반드시 사용자 확인 (누끼토끼 절대룰)
 
@@ -143,12 +143,12 @@ python cli.py code "<이동된 URL>"  # 토큰 재발급
 ```python
 from backends.cafe24_api import Cafe24API
 
-api = Cafe24API("paransky97")   # 몰 아이디
+api = Cafe24API("demo000")   # 몰 아이디
 themes = api.list_themes()      # [{skin_no, skin_name, editor_type, ...}]
 page = api.read_page(4, "/layout/basic/layout.html")  # {"path", "source", ...}
 ```
 
-## 몰 추가 방법 (slowagings 등)
+## 몰 추가 방법 (reference-case 등)
 
 1. `config/cafe24_config_{mall_id}.py` 생성 (서식: `config/cafe24_config.example.py`)
 2. `python cli.py auth-url --mall {mall_id}` → 브라우저 허용 → `code` 교환

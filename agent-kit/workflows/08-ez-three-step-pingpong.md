@@ -3,7 +3,7 @@
 > **대상:** 레거시·신규 몰에서 **에이전트↔사용자 핑퐁**으로 EZ base를 빠르게 깔고, 필요 시만 EZ 잔재를 걷는 **압축 진입 경로**.  
 > **상세 배경·Phase 0~4 전체:** [`07-ez-on-legacy-setup.md`](07-ez-on-legacy-setup.md) — 본 문서는 07의 **실행용 3단계 요약**이다.  
 > **FTP·에이전트 canonical:** [`07` Phase 0-D](07-ez-on-legacy-setup.md#0-d-easy-타입-vs-html-타입--ftp-작업자-선택-f35) — HTML 복사 + EZ FTP overlay. **0-C(Easy 타입 추가)는 GUI 운영자 전용.**  
-> **기본 전략:** Phase C **strip** (paransky97 / skin14) — [`EZ-STRATEGY.md`](../docs/EZ-STRATEGY.md)  
+> **기본 전략:** Phase C **strip** (demo000 / skin14) — [`EZ-STRATEGY.md`](../docs/EZ-STRATEGY.md)  
 > **파일럿 예외:** ecudemo400786 — Phase C **스킵** (레퍼런스 1:1 속도 파일럿, 템플릿 기본 아님)
 
 ---
@@ -58,7 +58,7 @@
 
 ## 3단계 ↔ 07 매핑
 
-| 본 문서 | 사용자 말하기 | 07 대응 | 기본 (paransky97) | ecudemo400786 (예외) |
+| 본 문서 | 사용자 말하기 | 07 대응 | 기본 (demo000) | ecudemo400786 (예외) |
 |---------|--------------|---------|-------------------|----------------------|
 | **Phase A** | HTML 추가 (관리자 복사) | Phase 0-C/D, Phase 1 | HTML 타입 작업 skin | HTML 타입 작업 skin |
 | **Phase B** | EZ 덮기 (FTP overlay) | Phase 1-B + Phase 2 | EZ base + `_ref*/` | skin16 → `/sde_design/base/` + `_ref393674/` |
@@ -182,7 +182,7 @@ Pre-flight PASS (최소 C1 PASS + MOBILE_WEB false). FAIL 시 `_ref*/base.css`·
 
 ## Phase C — EZ strip (HTML-clean) — **기본 경로**
 
-**목표:** Phase B overlay 직후 `data-ez-*`·`<ez-prop>` 제거 → **HTML-clean DOM** (paransky97 / skin14 패턴).  
+**목표:** Phase B overlay 직후 `data-ez-*`·`<ez-prop>` 제거 → **HTML-clean DOM** (demo000 / skin14 패턴).  
 **전략 상세·이유:** [`EZ-STRATEGY.md`](../docs/EZ-STRATEGY.md)
 
 ### 권장 절차 (단일 경로)
@@ -214,7 +214,7 @@ python3 strip_ez.py src/skinNN/product/list.html --write
 
 ```
 [Phase C — EZ strip (기본)]
-Pre-flight PASS했습니다. paransky97/skin14 패턴으로 EZ 속성을 제거합니다.
+Pre-flight PASS했습니다. demo000/skin14 패턴으로 EZ 속성을 제거합니다.
 1. 백업(_ez-backup/) 확인 후 strip_ez 미리보기 diff를 보내드립니다.
 2. 「업로드 예」 주시면 FTP 반영 → data-ez 0건·module= 생존 검증합니다.
 3. 메인 슬라이더·장바구니·결제 1회 수동 확인 부탁드립니다.
@@ -306,5 +306,5 @@ ecudemo400786: Phase C 스킵은 파일럿 예외 — 신규 몰 기본은 strip
 
 ```
 레거시 몰 EZ 3단계 핑퐁 — HTML skin 복사 → EZ FTP overlay → strip (기본).
-08 문서 Phase A부터. 레퍼런스: https://paransky97.cafe24.com/
+08 문서 Phase A부터. 레퍼런스: https://demo000.cafe24.com/
 ```
