@@ -1,0 +1,71 @@
+# Phase 1-E — skin_no · skin_code · SFTP 폴더 매핑 (2026-06-19)
+# 원본: p1d_admin_api.html (curl), mcp/README.md (2026-06-10 라이브 검증 표)
+
+## 출처 A: Admin API — Themes property list
+URL: https://developers.cafe24.com/docs/api/admin/#themes-property-list
+
+skin_no | 디자인 번호 (최소값 1)
+skin_code | 디자인 코드
+skin_name | 디자인명
+usage_type | S:PC기본 C:PC복사 I:PC상속 M:모바일기본/상속 N:모바일복사
+editor_type | H:스마트디자인(HTML) D:에디봇 W:심플 E:스마트디자인Easy C:콘텐츠스튜디오
+parent_skin_no | 부모 디자인 번호
+published_in | 대표디자인 설정 멀티쇼핑몰 번호
+skin_lock | T:잠금 F:해제
+
+※ Themes property list에 **design_type 필드 없음** (MCP cafe24_api.py 가 반환하는 design_type 은 공식 표 미등재)
+
+## 출처 B: Admin API — GET /api/v2/admin/themes
+URL: https://developers.cafe24.com/docs/api/admin/#retrieve-a-list-of-themes
+
+「PC 쇼핑몰 혹은 모바일 쇼핑몰의 전체 디자인들의 정보를 목록으로 조회」
+「디자인코드, 디자인명, 언어코드 등을 조회」
+
+Parameter type:
+  pc : PC
+  mobile : 모바일
+  DEFAULT pc
+
+SCOPE: mall.read_design
+호출건수 제한: 40
+
+## 출처 C: Admin API — Themes pages
+URL: https://developers.cafe24.com/docs/api/admin/#themes-pages-property-list
+
+GET /api/v2/admin/themes/{skin_no}/pages
+  skin_no (Required) 디자인 번호
+  path (Required) 파일 경로
+
+pages 속성:
+  path : 파일 경로
+  source : 소스 코드
+  skin_code : 디자인 코드
+  display_location : 화면 분류
+
+※ path 예시는 API 본문에 `/skin14/layout/...` 형태 **없음** — 스킨 루트 기준 상대경로로 해석 (MCP: `/layout/basic/layout.html`)
+
+## 출처 D: Admin API — Shops (현재 대표 디자인 번호)
+URL: https://developers.cafe24.com/docs/api/admin/ (Shops property)
+
+skin_no | PC 쇼핑몰 대표 디자인 번호 — 현재 쇼핑몰에서 사용 중인 디자인 번호
+mobile_skin_no | 모바일 쇼핑몰 대표 디자인 번호
+
+## 출처 E: MCP 라이브 검증 (2026-06-10, paransky97) — 실무 ⚠️
+파일: cafe24-agent-workspace/mcp/README.md §「핵심 발견」
+
+| SFTP 폴더 | skin_no | skin_name(요약) |
+|-----------|---------|-----------------|
+| /skin14   | 16      | 아키테이블 (작업본) |
+| /skin15   | 17      | 베이직 |
+| /skin2    | 4       | 에스테 반응형 |
+| /base     | 1       | 쇼핑몰 기본디자인 |
+| /mobile   | —       | 모바일 (목록 별도) |
+
+규칙(실측): skin_code='skin14' → SFTP 경로 `/skin14`
+반례 증명: skin_no=16 이지만 폴더는 `/skin14` (번호와 폴더 숫자 **불일치**)
+
+## 공식 문서에서 미확인 (Phase 1-E grep 0건 또는 무관)
+- skin_code = SFTP 루트 폴더명 (동일 문장)
+- SFTP 루트의 `base/`, `mobile/`, `web/` 폴더 역할
+- editor_type 별 SFTP 접근 가능 여부
+- Easy 스킨의 SFTP 경로 (`sde_design` 등)

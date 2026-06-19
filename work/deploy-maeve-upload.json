@@ -1,0 +1,35 @@
+{
+  "time": "2026-06-19 06:45:13",
+  "results": [
+    {
+      "file": "index.html",
+      "uploaded": 1,
+      "failed": 0,
+      "backup": null
+    },
+    {
+      "file": "layout/basic/layout.html",
+      "uploaded": 1,
+      "failed": 0,
+      "backup": "C:\\Users\\gdgdg.\ud55c\ube44\\Desktop\\cafe24-agent-workspace\\mcp\\backups\\ecudemo400786\\20260619-064510\\sde_design\\base\\layout\\basic\\layout.html"
+    },
+    {
+      "file": "layout/basic/header.html",
+      "uploaded": 1,
+      "failed": 0,
+      "backup": "C:\\Users\\gdgdg.\ud55c\ube44\\Desktop\\cafe24-agent-workspace\\mcp\\backups\\ecudemo400786\\20260619-064511\\sde_design\\base\\layout\\basic\\header.html"
+    },
+    {
+      "file": "layout/basic/footer.html",
+      "uploaded": 1,
+      "failed": 0,
+      "backup": "C:\\Users\\gdgdg.\ud55c\ube44\\Desktop\\cafe24-agent-workspace\\mcp\\backups\\ecudemo400786\\20260619-064511\\sde_design\\base\\layout\\basic\\footer.html"
+    },
+    {
+      "file": "_ref393674/",
+      "uploaded": 9,
+      "failed": 0,
+      "backup": null
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+# Secrets — never commit
+mcp/config/cafe24_config_*.py
+!mcp/config/cafe24_config.example.py
+mcp/config/*.token.json
+mcp/config/sftp_*.json
+
+# Local work / backups
+mcp/backups/
+mcp/work/clients/
+work/deploy-*/
+agent-kit/clients/nookitokki002/
+
+# Build artifacts (Release asset only)
+dist/
+cafe24-agent-kit-v*/
+cafe24-agent-kit-v*.zip
+
+# Dev session state
+.omc/
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+
+# Env
+.env
+.env.local
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+*.swp
+.cursor/mcp.json

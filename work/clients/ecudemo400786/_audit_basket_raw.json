@@ -1,0 +1,432 @@
+{
+  "ref_basket": {
+    "url": "https://ecudemo393674.cafe24.com/order/basket.html",
+    "bodyClass": "layout",
+    "isEmpty": false,
+    "itemCount": 0,
+    "contentsW": null,
+    "contentsPct": null,
+    "containerW": 390,
+    "viewportW": 390,
+    "scrollW": 390,
+    "hasOverflow": false,
+    "tableDisplay": "block",
+    "tableW": 360,
+    "theadDisplay": null,
+    "wrapIssues": [],
+    "priceEls": [],
+    "rows": [],
+    "qtyInput": null,
+    "totalBlock": null,
+    "btnSubmit": null,
+    "bottomNav": false,
+    "duplicateCTA": 0,
+    "label": "ref"
+  },
+  "tgt_basket": {
+    "url": "https://ecudemo400786.cafe24.com/order/basket.html",
+    "bodyClass": "theme01 layout ref393674-sub ref393674-sub-narrow button--fixed",
+    "isEmpty": false,
+    "itemCount": 0,
+    "contentsW": 331.1875,
+    "contentsPct": "84.9",
+    "containerW": 390,
+    "viewportW": 390,
+    "scrollW": 390,
+    "hasOverflow": false,
+    "tableDisplay": null,
+    "tableW": null,
+    "theadDisplay": null,
+    "wrapIssues": [],
+    "priceEls": [],
+    "rows": [],
+    "qtyInput": null,
+    "totalBlock": null,
+    "btnSubmit": {
+      "w": 0,
+      "h": 0,
+      "bg": "rgb(17, 17, 17)",
+      "text": "전체상품주문"
+    },
+    "bottomNav": true,
+    "duplicateCTA": 2,
+    "label": "tgt"
+  },
+  "spot_checks": {
+    "tgt_home": {
+      "path": "/",
+      "contentsW": 390,
+      "viewportW": 390,
+      "contentsPct": "100.0",
+      "hasOverflow": false,
+      "scrollW": 390,
+      "bottomNav": true,
+      "footerLinks": [
+        {
+          "text": "Terms of Use",
+          "w": 77.078125,
+          "h": 68
+        },
+        {
+          "text": "Privacy Policy",
+          "w": 80.484375,
+          "h": 68
+        },
+        {
+          "text": "Contact",
+          "w": 46.3125,
+          "h": 68
+        },
+        {
+          "text": "Guide",
+          "w": 34.109375,
+          "h": 68
+        },
+        {
+          "text": "Instagram",
+          "w": 58.109375,
+          "h": 68
+        }
+      ],
+      "smallTapCount": 3,
+      "smallTapSample": [
+        {
+          "tag": "A",
+          "cls": "",
+          "w": 37,
+          "h": 19
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "w": 23,
+          "h": 32
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "w": 34,
+          "h": 68
+        }
+      ]
+    },
+    "tgt_plp": {
+      "path": "/product/list.html",
+      "contentsW": 360,
+      "viewportW": 390,
+      "contentsPct": "92.3",
+      "hasOverflow": false,
+      "scrollW": 390,
+      "bottomNav": true,
+      "footerLinks": [
+        {
+          "text": "Terms of Use",
+          "w": 77.078125,
+          "h": 68
+        },
+        {
+          "text": "Privacy Policy",
+          "w": 80.484375,
+          "h": 68
+        },
+        {
+          "text": "Contact",
+          "w": 46.3125,
+          "h": 68
+        },
+        {
+          "text": "Guide",
+          "w": 34.109375,
+          "h": 68
+        },
+        {
+          "text": "Instagram",
+          "w": 58.109375,
+          "h": 68
+        }
+      ],
+      "smallTapCount": 7,
+      "smallTapSample": [
+        {
+          "tag": "A",
+          "cls": "",
+          "w": 68,
+          "h": 28
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "w": 37,
+          "h": 19
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "w": 23,
+          "h": 32
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "w": 111,
+          "h": 14
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "w": 59,
+          "h": 19
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "w": 58,
+          "h": 19
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "w": 34,
+          "h": 68
+        }
+      ]
+    },
+    "tgt_pdp": {
+      "path": "/product/%EC%83%98%ED%94%8C%EC%83%81%ED%92%88-2/10/category/24/display/1/",
+      "contentsW": 331,
+      "viewportW": 390,
+      "contentsPct": "84.9",
+      "hasOverflow": false,
+      "scrollW": 390,
+      "bottomNav": true,
+      "footerLinks": [
+        {
+          "text": "Terms of Use",
+          "w": 77.078125,
+          "h": 68
+        },
+        {
+          "text": "Privacy Policy",
+          "w": 80.484375,
+          "h": 68
+        },
+        {
+          "text": "Contact",
+          "w": 46.3125,
+          "h": 68
+        },
+        {
+          "text": "Guide",
+          "w": 34.109375,
+          "h": 68
+        },
+        {
+          "text": "Instagram",
+          "w": 58.109375,
+          "h": 68
+        }
+      ],
+      "smallTapCount": 10,
+      "smallTapSample": [
+        {
+          "tag": "A",
+          "cls": "",
+          "w": 68,
+          "h": 28
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "w": 37,
+          "h": 19
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "w": 23,
+          "h": 32
+        },
+        {
+          "tag": "A",
+          "cls": "up QuantityUp",
+          "w": 30,
+          "h": 30
+        },
+        {
+          "tag": "A",
+          "cls": "down QuantityDown",
+          "w": 30,
+          "h": 30
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "w": 32,
+          "h": 26
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "w": 40,
+          "h": 24
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "w": 30,
+          "h": 24
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "w": 99,
+          "h": 24
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "w": 34,
+          "h": 68
+        }
+      ]
+    },
+    "tgt_login": {
+      "path": "/member/login.html",
+      "contentsW": 331,
+      "viewportW": 390,
+      "contentsPct": "84.9",
+      "hasOverflow": false,
+      "scrollW": 390,
+      "bottomNav": true,
+      "footerLinks": [
+        {
+          "text": "Terms of Use",
+          "w": 77.078125,
+          "h": 68
+        },
+        {
+          "text": "Privacy Policy",
+          "w": 80.484375,
+          "h": 68
+        },
+        {
+          "text": "Contact",
+          "w": 46.3125,
+          "h": 68
+        },
+        {
+          "text": "Guide",
+          "w": 34.109375,
+          "h": 68
+        },
+        {
+          "text": "Instagram",
+          "w": 58.109375,
+          "h": 68
+        }
+      ],
+      "smallTapCount": 6,
+      "smallTapSample": [
+        {
+          "tag": "A",
+          "cls": "",
+          "w": 68,
+          "h": 28
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "w": 37,
+          "h": 19
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "w": 23,
+          "h": 32
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "w": 69,
+          "h": 20
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "w": 81,
+          "h": 20
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "w": 34,
+          "h": 68
+        }
+      ]
+    },
+    "tgt_basket": {
+      "path": "/order/basket.html",
+      "contentsW": 331,
+      "viewportW": 390,
+      "contentsPct": "84.9",
+      "hasOverflow": false,
+      "scrollW": 390,
+      "bottomNav": true,
+      "footerLinks": [
+        {
+          "text": "Terms of Use",
+          "w": 77.078125,
+          "h": 68
+        },
+        {
+          "text": "Privacy Policy",
+          "w": 80.484375,
+          "h": 68
+        },
+        {
+          "text": "Contact",
+          "w": 46.3125,
+          "h": 68
+        },
+        {
+          "text": "Guide",
+          "w": 34.109375,
+          "h": 68
+        },
+        {
+          "text": "Instagram",
+          "w": 58.109375,
+          "h": 68
+        }
+      ],
+      "smallTapCount": 4,
+      "smallTapSample": [
+        {
+          "tag": "A",
+          "cls": "",
+          "w": 68,
+          "h": 28
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "w": 37,
+          "h": 19
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "w": 23,
+          "h": 32
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "w": 34,
+          "h": 68
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,50 @@
+# Phase 1-B — developers.cafe24.com 앱 개발 가이드 인용 (2026-06-19)
+# HTML 원본: docs/_evidence/dev_*.html
+
+[앱 생성 — createapps]
+- 개발자센터 로그인 → 개발자 어드민 [Apps > App 관리]
+- App 등록 화면에서 항목 입력 후 저장
+- URL: https://developers.cafe24.com/app/front/app/develop/createapps
+
+[필수 정보 등록 — oauth/put]
+- 앱 정보 등록: [개발자 어드민 > 상품관리 > App 관리 > STEP 1. 개발정보관리]
+- Redirect URI: 반드시 HTTPS, 실제 앱이 서비스되는 서버 도메인
+- URL: https://developers.cafe24.com/app/front/app/develop/oauth/put
+
+[인증코드 요청 전제 — oauth/oauthcode]
+① 개발자 어드민에 앱 등록
+② Redirect URI 및 Scope 설정 (oauth/put)
+③ client_id, redirect_uri, scope는 앱 기본정보와 정확히 일치
+- 인증 URL: https://{mall_id}.cafe24api.com/api/v2/oauth/authorize?response_type=code&client_id=...&state=...&redirect_uri=...&scope=...
+- 인증 코드는 발급 후 1분이면 만료
+- URL: https://developers.cafe24.com/app/front/app/develop/oauth/oauthcode
+
+[액세스 토큰 발급 — oauth/token]
+- POST https://{mall_id}.cafe24api.com/api/v2/oauth/token
+- Authorization: Basic base64(client_id:client_secret)
+- grant_type=authorization_code, code=..., redirect_uri=...
+- URL: https://developers.cafe24.com/app/front/app/develop/oauth/token
+
+[액세스 토큰 재발급 — oauth/retoken]
+- access_token 유효기간 2시간
+- refresh_token 유효기간 14일 (발급으로부터)
+- refresh 만료 시 인증코드 요청부터 다시
+- grant_type=refresh_token
+- URL: https://developers.cafe24.com/app/front/app/develop/oauth/retoken
+
+[인증 프로세스 — oauth/process]
+1. 쇼핑몰 운영자가 앱 실행 (최초는 권한 위임)
+2. (중략)
+3. Redirect URI로 인증 코드 발급
+- URL: https://developers.cafe24.com/app/front/app/develop/oauth/process
+
+[Scope — api/scope]
+- mall.read_design: 디자인(Themes), 화면(Pages) 조회
+- mall.write_design: 생성/수정/삭제 (동의 문구에 read 포함 형태도 있음)
+- URL: https://developers.cafe24.com/app/front/app/develop/api/scope
+
+[Admin API 문서 — docs/api/admin]
+- OAuth authorize/token (동일 내용)
+- authorization code 1분 만료, 재사용 불가
+- X-Cafe24-Api-Version 헤더로 API 버전 지정 (미지정 시 앱에 설정된 버전)
+- PUT themes/{skin_no}/pages: 특정 클라이언트만 — 개발자센터 문의

@@ -1,0 +1,1362 @@
+<!DOCTYPE html>
+<html lang="ko" id="html" class="ms fb ih ia rpc rb af">
+
+
+
+<head><script>(function(i, s, o, g, r) {
+    var a = s.createElement(o);
+    var m = s.getElementsByTagName(o)[0];
+    a.async = true;
+    a.src = g;
+    a.onload = function() {
+        if (i[r].init) {
+            i[r].init('https://js-error-tracer-api.cafe24.com', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJlY3VkZW1vMzkzNjc0LmNhZmUyNC5jb20iLCJhdWQiOiJqcy1lcnJvci10cmFjZXItYXBpLmNhZmUyNC5jb20iLCJtYWxsX2lkIjoiZWN1ZGVtbzM5MzY3NCIsInNob3Bfbm8iOjEsInBhdGhfcm9sZSI6IlBST0RVQ1RfTElTVCIsImxhbmd1YWdlX2NvZGUiOiJrb19LUiIsImNvdW50cnlfY29kZSI6IktSIiwiaXNfeXRzIjpmYWxzZSwiaXNfY29udGFpbmVyIjpmYWxzZSwid29ya3NwYWNlIjoicHJvZHVjdGlvbiJ9.rpwlu0tS0N3O8hy7r_ZGvLaUe6G-JHLbJGPVmCJ4uVY', {"errors":{"path":"\/api\/v1\/store","collectWindowErrors":true,"preventDuplicateReports":true,"storageKeyPrefix":"EC_JET.PRODUCT_LIST","samplingEnabled":true,"samplingRate":0.5},"vitals":{"path":"\/api\/v1\/vitals","samplingEnabled":true,"samplingRate":0.3},"resources":{"path":"\/api\/v1\/resources","samplingEnabled":true,"samplingRate":0.5,"durationThreshold":3000}});
+        }
+    };
+    m.parentNode.insertBefore(a, m);
+}(window, document, 'script', '//assets.poxo.com/jet/jet.js', 'EC_JET'));</script>
+<script type="text/javascript">window.CAFE24 = window.CAFE24 || {};CAFE24.ROUTE = {"is_mobile":false,"is_need_route":false,"language_code":"ZZ","path":{"origin":"\/product\/list.html","result":"\/product\/list.html","prefix":""},"shop_no":0,"skin_code":"default","support_language_list":{"ar":"ar_EG","ar-EG":"ar_EG","de":"de_DE","de-DE":"de_DE","en":"en_US","en-IN":"en_IN","en-PH":"en_PH","en-US":"en_US","es":"es_ES","es-ES":"es_ES","hi":"hi_IN","hi-IN":"hi_IN","id":"id_ID","id-ID":"id_ID","it":"it_IT","it-IT":"it_IT","ja":"ja_JP","ja-JP":"ja_JP","ko":"ko_KR","ko-KR":"ko_KR","ms":"ms_MY","ms-MY":"ms_MY","pt":"pt_PT","pt-PT":"pt_PT","ru":"ru_RU","ru-RU":"ru_RU","th":"th_TH","th-TH":"th_TH","tr":"tr_TR","tr-TR":"tr_TR","vi":"vi_VN","vi-VN":"vi_VN","zh":"zh_CN","zh-CN":"zh_CN","zh-HK":"zh_HK","zh-MO":"zh_MO","zh-SG":"zh_SG","zh-TW":"zh_TW"}};</script><script type="text/javascript">if (typeof EC_ROUTE === "undefined") {
+    /**
+     * 프론트용 라우트 플러그인
+     * @type {{bInit: boolean, init: EC_ROUTE.init}}
+     * CAFE24.ROUTE 참조
+     */
+    var EC_ROUTE = {
+        EC_DOMAIN_PATH_INFO: 'EC_DOMAIN_PATH_INFO',
+        bInit: false,
+        aFromList: [],
+        aToList: [],
+        aCleanFilter: null,
+        init: function () {
+            if (this.bInit || typeof CAFE24.ROUTE === 'undefined') {
+                return;
+            }
+            this.bInit = true;
+            this.aCleanFilter = [
+                /^shop[1-9][0-9]*$/,
+                /^(m|p)$/,
+                new RegExp('^(' + Object.keys(CAFE24.ROUTE.support_language_list).join('|')  + ')$'),
+                /^skin-(base|skin[1-9][0-9]*|mobile[0-9]*)$/,
+            ];
+        },
+        isNeedRoute: function ()
+        {
+            return CAFE24.ROUTE.is_need_route;
+        },
+        /**
+         *
+         * @param iShopNo
+         * @param bMobile
+         * @param sFrontLanguage
+         * @param sSkinCode
+         * @returns {*|string}
+         */
+        getUrlDomain: function (iShopNo, bMobile, sFrontLanguage, sSkinCode)
+        {
+            var oRouteConfig = {};
+            if (typeof iShopNo == 'undefined') {
+                oRouteConfig.shop_no = CAFE24.SDE_SHOP_NUM;
+            } else {
+                oRouteConfig.shop_no = iShopNo;
+            }
+            if (typeof bMobile == 'undefined') {
+                oRouteConfig.is_mobile = false;
+            } else {
+                oRouteConfig.is_mobile = bMobile;
+            }
+            if (typeof sFrontLanguage == 'undefined') {
+                oRouteConfig.language_code = '';
+            }else {
+                oRouteConfig.language_code = sFrontLanguage; // 내부에서 로직으로 동작할땐 언어_지역 형태의 로케일 형태를 따른다.
+            }
+            if (typeof sSkinCode == 'undefined') {
+                oRouteConfig.skin_code = '';
+            }else {
+                oRouteConfig.skin_code = sSkinCode;
+            }
+
+            var sDomain = '';
+            if (oRouteConfig.shop_no != CAFE24.SDE_SHOP_NUM) {
+                // 접근된 다른 멀티샵 도메인 정보는 primary domain 를 조회해야함으로 ajax 를 통해 정보를 얻는다.
+                sDomain = this._getUrlDomainMultishop(oRouteConfig);
+            } else {
+                // 샵이 동일할 경우에는 접근된 domain 에 path 정보만 정리하여 반환함.
+                sDomain = this._getUrlDomain(oRouteConfig);
+            }
+            return sDomain;
+        },
+        _getUrlDomainMultishop: function (oRouteConfig)
+        {
+            var sDomain = '';
+            EC$.ajax({
+                type: 'GET',
+                url: '/exec/front/Shop/Domain',
+                data: {
+                    '_shop_no' : oRouteConfig.shop_no,
+                    'is_mobile' : oRouteConfig.is_mobile,
+                    'language_code' : oRouteConfig.language_code,
+                    'skin_code' : oRouteConfig.skin_code,
+                },
+                async: false,
+                dataType: 'json',
+                cache: true,
+                success: function(oResult) {
+                    switch (oResult.code) {
+                        case '0000' :
+                            sDomain = oResult.data;
+                            break;
+                        default :
+                            break;
+                    }
+                    return false;
+                }
+            });
+            return sDomain;
+        },
+        _getUrlDomain: function (oRouteConfig)
+        {
+            oRouteConfig.domain = this._getCreateHost(oRouteConfig);
+            return location.protocol + '//' + oRouteConfig.domain + this._getCreateUri(oRouteConfig);
+        },
+        _getCreateHost : function (oRouteConfig)
+        {
+            var sHost = location.host;
+            var aHost = sHost.split('.');
+            if (this.isBaseDomain(sHost)) {
+                if (aHost.length > 3) {
+                    aHost[0] = '';
+                }
+            } else if (oRouteConfig.is_mobile) {
+                if (this.isMobileDomain()) {
+                    oRouteConfig.is_mobile = false;
+                }
+            }
+            return aHost.filter(Boolean).join('.');
+        },
+        _getCreateUri: function (oRouteInfo)
+        {
+            var aUrl = [];
+            if (this.isBaseDomain() && oRouteInfo.shop_no > 1) {
+                aUrl.push('shop' + oRouteInfo.shop_no);
+            }
+            if (oRouteInfo.is_mobile) {
+                aUrl.push('m');
+            }
+            if (oRouteInfo.language_code != 'ZZ' && oRouteInfo.language_code != '') {
+                var iIndex = Object.values(CAFE24.ROUTE.support_language_list).indexOf(oRouteInfo.language_code);
+                if (iIndex !== -1) {
+                    aUrl.push(Object.keys(CAFE24.ROUTE.support_language_list)[iIndex]);
+                }
+            }
+            if (this.isBaseDomain() && oRouteInfo.skin_code != 'default' && oRouteInfo.skin_code != '') {
+                aUrl.push('skin-' + oRouteInfo.skin_code);
+            }
+            var sUrl= '/';
+            if (aUrl.length > 0) {
+                sUrl= '/' + aUrl.join('/');
+                sUrl = this.rtrim(sUrl, '/');
+            }
+            return sUrl;
+        },
+        /**
+         * en, en-US => en_US
+         */
+        convertValidLanguageCode: function (sUrlLanguageCode)
+        {
+            if (typeof CAFE24.ROUTE.support_language_list[sUrlLanguageCode] != 'undefined') {
+                return CAFE24.ROUTE.support_language_list[sUrlLanguageCode];
+            }
+            return false;
+        },
+        isMobileDomain: function (sHost)
+        {
+            if (typeof sHost == 'undefined') {
+                sHost = location.host;
+            }
+            var aMatched = sHost.match(/^(m|mobile|skin\-mobile|skin\-mobile[0-9]+[\-]{2}shop[0-9]+|skin\-mobile[0-9]+|mobile[\-]{2}shop[0-9]+)\./i);
+            return aMatched != null;
+        },
+        isBaseDomain: function (sHost)
+        {
+            if (typeof sHost == 'undefined') {
+                sHost = location.host;
+            }
+            return sHost.indexOf(CAFE24.GLOBAL_INFO.getRootDomain()) !== -1;
+        },
+        removePrefixUrl: function (sUrl)
+        {
+            if (this.isNeedRoute()) {
+                sUrl = sUrl.replace(this.getPrefixUrl('/'), '/'); // 자동으로  prefix 붙은 영역을 제거해준다.
+            }
+            return sUrl;
+        },
+        getPrefixUrl: function (sUrl)
+        {
+            if (this.isNeedRoute() === false) {
+                return sUrl;
+            }
+            if (sUrl.indexOf('/') !== 0) {
+                return sUrl;
+            }
+            if (sUrl.match(/^\/{2,}/) !== null) {
+                return sUrl;
+            }
+
+            var iCachedPosition = this.aFromList.indexOf(sUrl);
+            if (iCachedPosition > -1) {
+                return this.aToList[iCachedPosition];
+            }
+
+            var bTailSlash = (sCleanUrl !== '/' && sUrl.substr(-1) === '/');
+            var sCleanUrl = this.getCleanUrl(sUrl);
+            var aPrefixPart = CAFE24.ROUTE.path.prefix.split('/');
+            var aUrlPart = sCleanUrl.split('/');
+            var bMatched = true;
+            var sReturnUrl = sCleanUrl;
+            if (aUrlPart.length < aPrefixPart.length) {
+                bMatched = false;
+            } else {
+                for (var i = 0; i < aPrefixPart.length ; i++) {
+                    if (aPrefixPart[i] != aUrlPart[i]) {
+                        bMatched = false;
+                        break;
+                    }
+                }
+            }
+            if (bMatched === false) {
+                if (sCleanUrl == '/') {
+                    sReturnUrl = CAFE24.ROUTE.path.prefix;
+                } else {
+                    sReturnUrl = CAFE24.ROUTE.path.prefix +  sCleanUrl;
+                }
+                sReturnUrl = bTailSlash ? sReturnUrl : this.rtrim(sReturnUrl, '/')
+                this.aFromList.push(sUrl);
+                this.aToList.push(sReturnUrl);
+            }
+            return sReturnUrl;
+        },
+        /**
+         * document.location.pathname 이 필요할 경우 사용한다.
+         * @returns {*}
+         */
+        getPathName: function()
+        {
+            if (typeof CAFE24.ROUTE.path.result == 'undefined') {
+                return document.location.pathname;
+            }
+            return CAFE24.ROUTE.path.result;
+        },
+        rtrim: function (str, chr)
+        {
+            var rgxtrim = (!chr) ? new RegExp('\\s+$') : new RegExp(chr+'+$');
+            return str.replace(rgxtrim, '');
+        },
+        getShopNo: function ()
+        {
+            return CAFE24.ROUTE.shop_no;
+        },
+        getSkinCode: function ()
+        {
+            return CAFE24.ROUTE.skin_code;
+        },
+        getLanguageCode: function ()
+        {
+            return CAFE24.ROUTE.language_code;
+        },
+        getMobile: function ()
+        {
+            return CAFE24.ROUTE.is_mobile;
+        },
+        getIsMobile: function ()
+        {
+            return CAFE24.ROUTE.is_mobile || CAFE24.ROUTE.skin_code.match(/^mobile[0-9]*$/);
+        },
+        getCleanUrl: function (sUrl)
+        {
+            if (sUrl === '/') {
+                return sUrl;
+            }
+
+            var aUrl = sUrl.split('/');
+            aUrl.shift();
+
+            if (aUrl.length < 1) {
+                return sUrl;
+            }
+
+            // 현재 4 depth 까지 미리보기 기능이 구현되어있음
+            var iPos = 0;
+            var bFind = false;
+            for (var i = 0; i < aUrl.length ; i++) {
+                bFind = false;
+                for (var iSub = iPos, iSubCount = this.aCleanFilter.length; iSub < iSubCount ; iSub++) {
+                    if (aUrl[i].match(this.aCleanFilter[iSub]) !== null) {
+                        bFind = true;
+                        iPos = iSub + 1;
+                        aUrl.splice(i, 1);
+                        i--; // aUrl 을 삭제해 주었으니 검색 조건을 -1 제거하여 초기화 한다. 다음 for i++ 로 증감 조회됨.
+                        break;
+                    }
+                }
+                if (bFind === false) {
+                    break;
+                }
+            }
+            return '/' + aUrl.join('/');
+        },
+        getIsEasyUrl : function ()
+        {
+            return !window.location.pathname.match(/^[\w\/\-\.]+(php|html|htm)$/i);
+        }
+    };
+    EC_ROUTE.init();
+}
+</script>
+<meta name="path_role" content="PRODUCT_LIST" />
+<meta name="author" content="maeve" />
+<meta name="description" content="Women" />
+<meta name="keywords" content="Women, maeve, Women" /><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+
+    <!-- PG크로스브라우징필수내용 -->
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <!-- // PG크로스브라우징필수내용 -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=yes"/>        
+    <!-- 해당 CSS는 쇼핑몰 전체 페이지에 영향을 줍니다. 삭제와 수정에 주의해주세요. -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&amp;display=swap" rel="stylesheet">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="canonical" href="https://ecudemo393674.cafe24.com/category/women/23/" />
+<meta property="og:url" content="https://ecudemo393674.cafe24.com/category/women/23/" />
+<meta property="og:title" content="Women - Women - maeve" />
+<meta property="og:description" content="Women" />
+<meta property="og:site_name" content="maeve" />
+<meta property="og:type" content="product.group" />
+<script type="text/javascript">var CAFE24API = { instance: [], MALL_ID: 'ecudemo393674', SHOP_NO: 1, basicAuthKeys: {}, setBasicAuthKey: function (clientId, basicAuthKey) { if (typeof basicAuthKey !== 'string') { return; } if (clientId) { CAFE24API.basicAuthKeys[clientId] = basicAuthKey; } else { CAFE24API.basicAuthKeys['default'] = basicAuthKey; } }, init: function (appInfo) { if (typeof appInfo == 'object') { if (appInfo.hasOwnProperty('client_id')) { var appKey = appInfo.client_id; } } else { var appKey = appInfo; } if (appKey) { if (!this.instance[appKey]) { CAFE24API.clientId = appKey; if (appInfo.hasOwnProperty('version')) { CAFE24API.version = appInfo.version; } else { if (CAFE24API.hasOwnProperty('version')) { delete CAFE24API.version; } } var copyObject = CAFE24API.constructor(); for (var attr in CAFE24API) { if (CAFE24API.hasOwnProperty(attr)) { copyObject[attr] = CAFE24API[attr]; } } this.instance[appKey] = copyObject; } return this.instance[appKey]; } }, initializeXhr: function () { try { return new XMLHttpRequest(); } catch (error) { return new window.ActiveXObject('Microsoft.XMLHTTP'); } }, fullPath: function (url) { return 'https://ecudemo393674.cafe24api.com' + url; }, getLoginProvider: function (callback) { if (!CAFE24API.__chkValidSessionScope(callback, 'customer')) { return; } callback(null, { 'login': CAPP_ASYNC_METHODS.AppCommon.getLoginProvider() }); }, getCustomerProvider: function (callback) { if (!CAFE24API.__chkValidSessionScope(callback, 'customer')) { return; } callback(null, { 'login': CAPP_ASYNC_METHODS.AppCommon.getCustomerProvider() }); }, getMemberID: function (callback) { if (!CAPP_ASYNC_METHODS.IS_LOGIN) { callback(null); } else { callback(CAPP_ASYNC_METHODS.AppCommon.getMemberID()); } }, getEncryptedMemberId: function (client_id, callback) { if (!CAFE24API.__chkValidSessionScope(callback, 'customer')) { return; } callback(null, CAPP_ASYNC_METHODS.AppCommon.getEncryptedMemberId(client_id)); }, getMemberInfo: function (callback) { callback({ 'id': CAPP_ASYNC_METHODS.AppCommon.getMemberInfo() }); }, getCustomerIDInfo: function (callback) { if (!CAFE24API.__scopeErr(callback, 'application')) { return; } callback(null, { 'id': CAPP_ASYNC_METHODS.AppCommon.getCustomerIDInfo() }); }, getCustomerInfo: function (callback) { if (!CAFE24API.__chkValidSessionScope(callback, 'customer')) { return; } callback(null, { 'customer': CAPP_ASYNC_METHODS.AppCommon.getCustomerInfo() }); }, getDefaultShippingAddress: function (callback) { if (!CAFE24API.__chkValidSessionScope(callback, 'customer')) { return; } callback(null, { 'shipping_address': CAPP_ASYNC_METHODS.AppCommon.getDefaultShippingAddress() }); }, getMileageInfo: function (callback) { if (!CAFE24API.__chkValidSessionScope(callback, 'customer')) { return; } callback(null, { 'mileage': CAPP_ASYNC_METHODS.AppCommon.getMileageInfo() }); }, getPointInfo: function (callback) { if (!CAFE24API.__chkValidSessionScope(callback, 'customer')) { return; } callback(null, { 'point': CAPP_ASYNC_METHODS.AppCommon.getPointInfo() }); }, getDepositInfo: function (callback) { if (!CAFE24API.__chkValidSessionScope(callback, 'customer')) { return; } callback(null, { 'deposit': CAPP_ASYNC_METHODS.AppCommon.getDepositInfo() }); }, getCreditInfo: function (callback) { if (!CAFE24API.__chkValidSessionScope(callback, 'customer')) { return; } callback(null, { 'credit': CAPP_ASYNC_METHODS.AppCommon.getCreditInfo() }); }, getCartList: function (callback) { if (!CAFE24API.__scopeErr(callback, 'personal')) { return; } CAPP_ASYNC_METHODS.AppCommon.getCartList().then(function (data) { callback(null, { 'carts': data }); }); }, getCartInfo: function (callback) { if (!CAFE24API.__chkValidSessionScope(callback, 'personal')) { return; } callback(null, { 'cart': CAPP_ASYNC_METHODS.AppCommon.getCartInfo() }); }, getCartItemList: function (callback) { if (!CAFE24API.__scopeErr(callback, 'order')) { return; } callback(null, { 'items': CAPP_ASYNC_METHODS.AppCommon.getCartItemList() }); }, getCartCount: function (callback) { if (!CAFE24API.__chkValidSessionScope(callback, 'personal')) { return; } callback(null, CAPP_ASYNC_METHODS.AppCommon.getCartCount()); }, getCouponCount: function (callback) { if (!CAFE24API.__chkValidSessionScope(callback, 'promotion')) { return; } callback(null, CAPP_ASYNC_METHODS.AppCommon.getCouponCount()); }, getWishCount: function (callback) { if (!CAFE24API.__chkValidSessionScope(callback, 'personal')) { return; } callback(null, CAPP_ASYNC_METHODS.AppCommon.getWishCount()); }, getShopInfo: function (callback) { if (!CAFE24API.__scopeErr(callback, 'store')) { return; } callback(null, { 'shop': CAPP_ASYNC_METHODS.AppCommon.getShopInfo() }); }, addCurrentProductToCart: function (mall_id, time, app_key, member_id, hmac, callback) { if (!CAFE24API.__scopeErr(callback, 'order')) { return; } CAPP_ASYNC_METHODS.AppCommon.addCurrentProductToCart(mall_id, time, app_key, member_id, hmac).then(function (data) { callback(null, { 'cart': data }); }).catch(function (data) { if (data) { callback(new Error('422'), { 'error': { code: data.code, message: data.message } }); } else { callback(new Error('422'), { 'error': { code: 422, message: 'This sdk is not available on the current page' } }); } }); }, precreateOrder: function (mall_id, time, app_key, member_id, hmac, callback) { if (!CAFE24API.__scopeErr(callback, 'order')) { return; } CAPP_ASYNC_METHODS.AppCommon.precreateOrder(mall_id, time, app_key, member_id, hmac).then(function (data) { callback(null, { 'order': data }); }).catch(function (data) { if (data) { callback(new Error('422'), { 'error': { code: data.code, message: data.message } }); } else { callback(new Error('422'), { 'error': { code: 422, message: 'This sdk is not available on the current page' } }); } }); }, calculatePayment: function (mall_id, request_time, app_key, member_id, request_data_json, hmac, callback) { if (!CAFE24API.__scopeErr(callback, 'order')) { return; } CAPP_ASYNC_METHODS.AppCommon.calculatePayment(mall_id, request_time, app_key, member_id, request_data_json, hmac).then(function (data) { callback(null, { 'expected_payment': data }); }).catch(function (data) { if (data) { callback(new Error('422'), { 'error': { code: data.code, message: data.message } }); } else { callback(new Error('422'), { 'error': { code: 422, message: 'This sdk is not available on the current page' } }); } }); }, precreateOrderV2: function (mall_id, time, app_key, member_id, request_data_json, hmac, callback) { if (!CAFE24API.__scopeErr(callback, 'order')) { return; } CAPP_ASYNC_METHODS.AppCommon.precreateOrderV2(mall_id, time, app_key, member_id, request_data_json, hmac).then(function (data) { callback(null, { 'order': data }); }).catch(function (data) { if (data) { callback(new Error('422'), { 'error': { code: data.code, message: data.message } }); } else { callback(new Error('422'), { 'error': { code: 422, message: 'This sdk is not available on the current page' } }); } }); }, getOrderItemList: function (start_date, end_date, order_status, page, count, order_id, callback) { if (!CAFE24API.__scopeErr(callback, 'order')) { return; } CAPP_ASYNC_METHODS.AppCommon.getOrderItemList(start_date, end_date, order_status, page, count, order_id).then(function (data) { callback(null, { 'items': data }); }).catch(function (data) { if (data) { callback(new Error('422'), { 'error': { code: data.code, message: data.message } }); } else { callback(new Error(422), { 'error': { code: 422, message: 'This sdk is not available on the current page' } }); } }); }, getOrderDetailInfo: function (shop_no, order_id, callback) { if (!CAFE24API.__scopeErr(callback, 'order')) { return; } CAPP_ASYNC_METHODS.AppCommon.getOrderDetailInfo(shop_no, order_id).then(function (data) { callback(null, { 'orders': data }); }).catch(function (data) { if (data) { callback(new Error('422'), { 'error': { code: data.code, message: data.message } }); } else { callback(new Error(422), { 'error': { code: 422, message: 'This sdk is not available on the current page' } }); } }); }, getClaimableItemList: function (order_id, customer_service_type, callback) { if (!CAFE24API.__scopeErr(callback, 'order')) { return; } CAPP_ASYNC_METHODS.AppCommon.getClaimableItemList(order_id, customer_service_type).then(function (data) { callback(null, { 'items': data }); }).catch(function (data) { if (data) { callback(new Error('422'), { 'error': { code: data.code, message: data.message } }); } else { callback(new Error(422), { 'error': { code: 422, message: 'This sdk is not available on the current page' } }); } }); }, emptyCart: function (basket_shipping_type, callback) { if (!CAFE24API.__scopeErr(callback, 'personal')) { return; } CAPP_ASYNC_METHODS.AppCommon.emptyCart(basket_shipping_type).then(function (data) { callback(null, { 'result': data }); }).catch(function (data) { if (data) { callback(new Error('422'), { 'error': { code: data.code, message: data.message } }); } else { callback(new Error(422), { 'error': { code: 422, message: 'This sdk is not available on the current page' } }); } }); }, deleteCartItems: function (basket_shipping_type, product_list, callback) { if (!CAFE24API.__scopeErr(callback, 'personal')) { return; } CAPP_ASYNC_METHODS.AppCommon.deleteCartItems(basket_shipping_type, product_list).then(function (data) { callback(null, { 'result': data }); }).catch(function (data) { if (data) { callback(new Error('422'), { 'error': { code: data.code, message: data.message } }); } else { callback(new Error(422), { 'error': { code: 422, message: 'This sdk is not available on the current page' } }); } }); }, addCart: function (basket_type, prepaid_shipping_fee, product_list, callback) { if (!CAFE24API.__scopeErr(callback, 'personal')) { return; } CAPP_ASYNC_METHODS.AppCommon.addCart(basket_type, prepaid_shipping_fee, product_list).then(function (data) { callback(null, data); }).catch(function (data) { if (data) { callback(new Error('422'), { 'error': { code: data.code, message: data.message } }); } else { callback(new Error(422), { 'error': { code: 422, message: 'This sdk is not available on the current page' } }); } }) }, addBundleProductsCart: function (basket_type, prepaid_shipping_fee, product_list, callback) { if (!CAFE24API.__scopeErr(callback, 'personal')) { return; } CAPP_ASYNC_METHODS.AppCommon.addBundleProductsCart(basket_type, prepaid_shipping_fee, product_list).then(function (data) { callback(null, data); }).catch(function (data) { if (data) { callback(new Error('422'), { 'error': { code: data.code, message: data.message } }); } else { callback(new Error(422), { 'error': { code: 422, message: 'This sdk is not available on the current page' } }); } }) }, get: function (url, callback) { return CAFE24API.complete('GET', url, this, null, callback); }, post: function (url, params, callback) { return CAFE24API.complete('POST', url, this, params, callback); }, put: function (url, params, callback) { return CAFE24API.complete('PUT', url, this, params, callback); }, delete: function (url, callback) { return CAFE24API.complete('DELETE', url, this, null, callback); }, complete: function (method, url, obj, params, callback) { var xhr = CAFE24API.sendXhr(method, url, obj, params, callback); xhr.onreadystatechange = function () { if (xhr.readyState === XMLHttpRequest.DONE) { if (xhr.status >= 200 && xhr.status <= 208) { callback(null, JSON.parse(xhr.responseText)); } else { callback(new Error(xhr.status), JSON.parse(xhr.responseText)); } } }; }, sendXhr: function (method, url, obj, params, callback) { if (method !== 'POST') { var url = obj.fullPath(url); } var xhr = obj.initializeXhr(); var queryVars = {}; if (obj.clientId) queryVars['cafe24_app_key'] = obj.clientId; if (obj.version) queryVars['cafe24_api_version'] = obj.version; var basicAuthKey = CAFE24API.basicAuthKeys[obj.clientId] || CAFE24API.basicAuthKeys['default']; if (basicAuthKey && basicAuthKey.length > 0) { queryVars['authorization'] = 'Basic ' + basicAuthKey; } if (params === null) { var seperator = url.indexOf('?') == -1 ? '?' : '&'; var queryString = []; for (var key in queryVars) { queryString.push(key + '=' + encodeURIComponent(queryVars[key])); } if (queryString.length > 0) { url = url + seperator + queryString.join('&'); } } xhr.open(method, url, true); if (typeof params == 'object' && params !== null) { xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded; charset=utf-8'); for (var key in queryVars) { params[key] = queryVars[key]; } params = 'formData=' + JSON.stringify(params); } xhr.send(params || null); return xhr; }, __sessionErr: function (callback) { callback(new Error(403), { 'error': { code: 403, message: 'Failed to get session. Only available when log in.' } }); }, __scopeErr: function (callback, scope) { if (typeof CAFE24.APPSCRIPT_SDK_DATA != "undefined" && jQuery.inArray(scope, CAFE24.APPSCRIPT_SDK_DATA) > -1) { return true; } callback(new Error(403), { 'error': { code: 403, message: 'You do not have the necessary authority(scope) to use the SDK.' } }); }, __chkValidSessionScope: function (callback, scope) { if (!CAPP_ASYNC_METHODS.IS_LOGIN) { CAFE24API.__sessionErr(callback); return false; } if (!CAFE24API.__scopeErr(callback, scope)) { return false; } return true; } }; </script>
+<script type="text/javascript">
+window.CAFE24 = window.CAFE24 || {};
+CAFE24.MANIFEST_CACHE_REVISION = '2606171486';
+CAFE24.getDeprecatedNamespace = function(sDeprecatedNamespace, sSupersededNamespace) {
+var sNamespace = sSupersededNamespace 
+? sSupersededNamespace 
+: sDeprecatedNamespace.replace(/^EC_/, '');
+return CAFE24[sNamespace];
+}
+CAFE24.FRONT_LANGUAGE_CODE = "ko_KR";
+CAFE24.MOBILE = false;
+CAFE24.MOBILE_DEVICE = false;
+CAFE24.MOBILE_USE = false;
+var EC_MOBILE = CAFE24.MOBILE;
+var EC_MOBILE_DEVICE = CAFE24.MOBILE_DEVICE;
+var EC_MOBILE_USE = CAFE24.MOBILE_USE;
+CAFE24.SKIN_CODE = "base";
+CAFE24.FRONT_EXTERNAL_SCRIPT_VARIABLE_DATA = {"common_member_id_crypt":""};
+var EC_FRONT_EXTERNAL_SCRIPT_VARIABLE_DATA = CAFE24.getDeprecatedNamespace('EC_FRONT_EXTERNAL_SCRIPT_VARIABLE_DATA');
+CAFE24.SDE_SHOP_NUM = 1;CAFE24.SHOP = {getLanguage : function() { return "ko_KR"; },getSkinLanguageCode : function() { return "ko_KR"; },getCurrency : function() { return "KRW"; },getFlagCode : function() { return "KR"; },getTimezone: function() { return "Asia/Seoul" },getDateFormat: function() { return "Y-m-d" },isMultiShop : function() { return false; },isDefaultShop : function() { return true; },isDefaultLanguageShop : function(sLanguageCode) { return SHOP.isDefaultShop() && SHOP.isLanguageShop(sLanguageCode); },isKR : function() { return true; },isUS : function() { return false; },isJP : function() { return false; },isCN : function() { return false; },isTW : function() { return false; },isES : function() { return false; },isPT : function() { return false; },isVN : function() { return false; },isPH : function() { return false; },getCountryAndLangMap : function() { return {
+"KR": "ko_KR",
+"US": "en_US",
+"JP": "ja_JP",
+"CN": "zh_CN",
+"TW": "zh_TW",
+"VN": "vi_VN",
+"PH": "en_PH"
+}},isLanguageShop : function(sLanguageCode) { return sLanguageCode === "ko_KR"; },getDefaultShopNo : function() { return 1; },getProductVer : function() { return 2; },isSDE : function() { return true; },isMode : function() {return false; },getModeName : function() {return false; },isMobileAdmin : function() {return false; },isNewProMode : function() {return true; },isExperienceMall : function() { return false; },isDcollection : function() {return false; },isYoutubeShops : function() {return false; },getYtShopsShopNo : function() {return 0; },isFrontDesignChangeRequired : function() {return false;},isG2G : function() {return false; },getAdminID : function() {return ''},getMallID : function() {return 'ecudemo393674'},getCurrencyFormat : function(sPriceTxt, bIsNumberFormat) { 
+sPriceTxt = String(sPriceTxt);
+var aCurrencySymbol = ["","\uc6d0",false];
+if (typeof CAFE24.SHOP_PRICE !== 'undefined' && isNaN(sPriceTxt.replace(/[,]/gi, '')) === false && bIsNumberFormat === true) {
+// bIsNumberFormat 사용하려면 Ui(':libUipackCurrency')->plugin('Currency') 화폐 라이브러리 추가 필요
+sPriceTxt = CAFE24.SHOP_PRICE.toShopPrice(sPriceTxt.replace(/[,]/gi, ''), true, CAFE24.SDE_SHOP_NUM);
+}
+try {
+var sPlusMinusSign = (sPriceTxt.toString()).substr(0, 1);
+if (sPlusMinusSign === '-' || sPlusMinusSign === '+') {
+sPriceTxt = (sPriceTxt.toString()).substr(1);
+return sPlusMinusSign + aCurrencySymbol[0] + sPriceTxt + aCurrencySymbol[1];
+} else {
+return aCurrencySymbol[0] + sPriceTxt + aCurrencySymbol[1];
+}
+} catch (e) {
+return aCurrencySymbol[0] + sPriceTxt + aCurrencySymbol[1];
+}
+}};CAFE24.CURRENCY_INFO = {getOriginReferenceCurrency : function() {return 'USD'},getCurrencyList : function(sCurrencyCode) { var aCurrencyList = {"JPY":{"currency_symbol":"&yen;","decimal_place":0,"round_method_type":"F"},"VND":{"currency_symbol":"&#8363;","decimal_place":0,"round_method_type":"F"},"PHP":{"currency_symbol":"&#8369;","decimal_place":2,"round_method_type":"R"},"USD":{"currency_symbol":"$","decimal_place":2,"round_method_type":"R"},"CNY":{"currency_symbol":"&yen;","decimal_place":2,"round_method_type":"R"},"TWD":{"currency_symbol":"NT$","decimal_place":0,"round_method_type":"F"},"EUR":{"currency_symbol":"\u20ac","decimal_place":2,"round_method_type":"R"},"BRL":{"currency_symbol":"R$","decimal_place":2,"round_method_type":"R"},"AUD":{"currency_symbol":"A$","decimal_place":2,"round_method_type":"R"},"BHD":{"currency_symbol":".&#1583;.&#1576;","decimal_place":3,"round_method_type":"R"},"BDT":{"currency_symbol":"&#2547;","decimal_place":2,"round_method_type":"R"},"GBP":{"currency_symbol":"&pound;","decimal_place":2,"round_method_type":"R"},"CAD":{"currency_symbol":"C$","decimal_place":2,"round_method_type":"R"},"CZK":{"currency_symbol":"K&#269;","decimal_place":2,"round_method_type":"R"},"DKK":{"currency_symbol":"kr","decimal_place":2,"round_method_type":"R"},"HKD":{"currency_symbol":"HK$","decimal_place":2,"round_method_type":"R"},"HUF":{"currency_symbol":"Ft","decimal_place":2,"round_method_type":"R"},"INR":{"currency_symbol":"&#8377;","decimal_place":2,"round_method_type":"R"},"IDR":{"currency_symbol":"Rp","decimal_place":0,"round_method_type":"F"},"ILS":{"currency_symbol":"&#8362;","decimal_place":2,"round_method_type":"R"},"JOD":{"currency_symbol":" &#1583;&#1610;&#1606;&#1575;&#1585;","decimal_place":3,"round_method_type":"R"},"KWD":{"currency_symbol":"&#1583;&#1610;&#1606;&#1575;&#1585;","decimal_place":3,"round_method_type":"R"},"MYR":{"currency_symbol":"RM","decimal_place":2,"round_method_type":"R"},"MXN":{"currency_symbol":"Mex$","decimal_place":2,"round_method_type":"R"},"NZD":{"currency_symbol":"NZ$","decimal_place":2,"round_method_type":"R"},"NOK":{"currency_symbol":"kr","decimal_place":2,"round_method_type":"R"},"PKR":{"currency_symbol":"&#8360;","decimal_place":2,"round_method_type":"R"},"PLN":{"currency_symbol":"z\u0142","decimal_place":2,"round_method_type":"R"},"RUB":{"currency_symbol":"\u0440\u0443\u0431","decimal_place":2,"round_method_type":"R"},"SAR":{"currency_symbol":"&#65020;","decimal_place":2,"round_method_type":"R"},"SGD":{"currency_symbol":"S$","decimal_place":2,"round_method_type":"R"},"ZAR":{"currency_symbol":"R","decimal_place":2,"round_method_type":"R"},"SEK":{"currency_symbol":"kr","decimal_place":2,"round_method_type":"R"},"CHF":{"currency_symbol":"Fr","decimal_place":2,"round_method_type":"R"},"THB":{"currency_symbol":"&#3647;","decimal_place":2,"round_method_type":"R"},"TRY":{"currency_symbol":"TL","decimal_place":2,"round_method_type":"R"},"AED":{"currency_symbol":"&#1601;&#1604;&#1587;","decimal_place":2,"round_method_type":"R"}}; return aCurrencyList[sCurrencyCode] },isUseReferenceCurrency : function() {return false }};CAFE24.COMMON_UTIL = {convertSslForString : function(sString) { return sString.replace(/http:/gi, '');},convertSslForHtml : function(sHtml) { return sHtml.replace(/((?:src|href)\s*=\s*['"])http:(\/\/(?:[a-z0-9\-_\.]+)\/)/ig, '$1$2');},getProtocol : function() { return 'https'; },moveSsl : function() { if (CAFE24.COMMON_UTIL.getProtocol() === 'http') { var oLocation = jQuery(window.location); var sUrl = 'https://' + oLocation.attr('host') + oLocation.attr('pathname') + oLocation.attr('search'); window.location.replace(sUrl); } },setEcCookie : function(sKey, sValue, iExpire) {var exdate = new Date();exdate.setDate(exdate.getDate() + iExpire);var setValue = escape(sValue) + "; domain=." + CAFE24.GLOBAL_INFO.getBaseDomain() + "; path=/;expires=" + exdate.toUTCString();document.cookie = sKey + "=" + setValue;}};CAFE24.SHOP_LIB_INFO = {getBankInfo : function() { 
+var oBankInfo = "";
+$.ajax({
+type: "GET",
+url: "/exec/front/Shop/Bankinfo",
+dataType: "json",
+async: false,
+success: function(oResponse) {
+oBankInfo = oResponse;
+}
+});
+return oBankInfo; }};            var EC_SDE_SHOP_NUM = CAFE24.SDE_SHOP_NUM;
+var SHOP = CAFE24.getDeprecatedNamespace('SHOP');
+var EC_COMMON_UTIL = CAFE24.getDeprecatedNamespace('EC_COMMON_UTIL');
+var EC_SHOP_LIB_INFO = CAFE24.getDeprecatedNamespace('EC_SHOP_LIB_INFO');
+var EC_CURRENCY_INFO = CAFE24.getDeprecatedNamespace('EC_CURRENCY_INFO');
+CAFE24.ROOT_DOMAIN = "cafe24.com";
+CAFE24.API_DOMAIN = "cafe24api.com";
+CAFE24.GLOBAL_INFO = (function() {
+var oData = {"base_domain":"ecudemo393674.cafe24.com","root_domain":"cafe24.com","api_domain":"cafe24api.com","is_global":false,"is_global_standard":false,"country_code":"KR","language_code":"ko_KR","admin_language_code":"ko_KR","front_language_code":"ko_KR"};
+return {
+getBaseDomain: function() {
+return oData['base_domain'];
+},
+getRootDomain: function() {
+return oData['root_domain'];
+},
+getApiDomain: function() {
+return oData['api_domain'];
+},
+isGlobal: function() {
+return oData['is_global'];
+},
+isGlobalStandard: function() {
+return oData['is_global_standard'];
+},
+getCountryCode: function() {
+return oData['country_code'];
+},
+getLanguageCode: function() {
+return oData['language_code'];
+},
+getAdminLanguageCode: function() {
+return oData['admin_language_code'];
+},
+getFrontLanguageCode: function() {
+return oData['front_language_code'];
+}
+};
+})();
+var EC_ROOT_DOMAIN = CAFE24.ROOT_DOMAIN;
+var EC_API_DOMAIN = CAFE24.API_DOMAIN;
+var EC_TRANSLATE_LOG_STATUS = CAFE24.TRANSLATE_LOG_STATUS;
+var EC_GLOBAL_INFO = CAFE24.getDeprecatedNamespace('EC_GLOBAL_INFO');
+CAFE24.AVAILABLE_LANGUAGE = ["ko_KR","zh_CN","en_US","zh_TW","es_ES","pt_PT","vi_VN","ja_JP","en_PH"];
+CAFE24.AVAILABLE_LANGUAGE_CODES = {"ko_KR":"KOR","zh_CN":"CHN","en_US":"ENG","zh_TW":"TWN","es_ES":"ESP","pt_PT":"PRT","vi_VN":"VNM","ja_JP":"JPN","en_PH":"PHL"};
+var EC_AVAILABLE_LANGUAGE = CAFE24.AVAILABLE_LANGUAGE;
+var EC_AVAILABLE_LANGUAGE_CODES = CAFE24.AVAILABLE_LANGUAGE_CODES;
+CAFE24.GLOBAL_PRODUCT_LANGUAGE_CODES = {  
+sClearanceCategoryCode: '',
+sManualLink: '//support.cafe24.com/hc/ko/articles/7739013909529',
+sHsCodePopupLink: 'https://www.wcotradetools.org/en/harmonized-system',
+aCustomRegex: '"PHL" : "^[0-9]{8}[A-Z]?$"',
+sCountryCodeData: 'kor',
+sEnglishExampleURlForGlobal: '',
+aReverseAddressCountryCode: ["VNM","PHL"],
+aSizeGuideCountryAlign: '["US","UK","EU","KR","JP","CN"]',
+aIsSupportTran: ["ja_JP","zh_CN","zh_TW","en_US","vi_VN","en_PH","pt_PT","es_ES"]
+};
+var EC_GLOBAL_PRODUCT_LANGUAGE_CODES = CAFE24.getDeprecatedNamespace('EC_GLOBAL_PRODUCT_LANGUAGE_CODES');
+CAFE24.GLOBAL_ORDER_LANGUAGE_CODES = {
+aModifyOrderLanguage: {"KR":"ko_KR","JP":"ja_JP","CN":"zh_CN","TW":"zh_TW","VN":"vi_VN","PH":"en_PH"},
+aUseIdCardKeyCountry: ["CN","TW"],
+aLanguageWithCountryCode: {"zh_CN":["CN","CHN","HK","HNK"],"ja_JP":["JP","JPN"],"zh_TW":["TW","TWN"],"ko_KR":["KR","KOR"],"vi_VN":["VN","VNM"],"en_PH":["PH","PHL"]},
+aCheckDisplayRequiredIcon: ["ja_JP","zh_CN","zh_TW","en_US","vi_VN","en_PH"],
+aSetReceiverName: {"zh_CN":{"sCountry":"CN","bUseLastName":true},"zh_TW":{"sCountry":"TW","bUseLastName":false},"ja_JP":{"sCountry":"JP","bUseLastName":true}},
+aSetDeferPaymethodLanguage: {"ja_JP":"\uc77c\ubcf8","zh_CN":"\uc911\uad6d"},
+aUseDeferPaymethod: ["ja_JP","zh_CN"],
+aCheckShippingCompanyAndPaymethod: ["ja_JP","zh_CN"],
+aSetDeferPaymethodLanguageForShipping: {"ja_JP":"\u65e5\u672c","zh_CN":"\uc911\uad6d"},
+aCheckStoreByPaymethod: ["ja_JP","zh_CN"],
+aCheckIsEmailRequiredForJs: ["en_US","zh_CN","zh_TW","ja_JP","vi_VN","en_PH"],
+aSetIdCardKeyCountryLanguage: {"CN":"\uc911\uad6d\uc758","TW":"\ub300\ub9cc\uc758"},
+aReverseGlobalAddress: ["en_PH","vi_VN","PHL","VNM","VN","PH"],
+aNoCheckZipCode: ["KOR","JPN"],
+aNotPostCodeAPICountryList: ["en_US","es_ES","pt_PT","en_PH"],
+aEnableSearchExchangeAddr: ["KR","JP","CN","VN","TW","PH"],
+aDuplicatedBaseAddr: ["TW","JP"],
+aReverseAddressCountryCode: ["VN","PH"],
+aCheckZipCode: ["PHL","en_PH","PH"]
+};
+var EC_GLOBAL_ORDER_LANGUAGE_CODES = CAFE24.getDeprecatedNamespace('EC_GLOBAL_ORDER_LANGUAGE_CODES');
+CAFE24.GLOBAL_MEMBER_LANGUAGE_CODES = {  
+sAdminWebEditorLanguageCode: 'ko' ,
+oNotAvailDecimalPointLanguages: ["ko_KR","ja_JP","zh_TW","vi_VN"],
+oAddressCountryCode: {"KOR":"ko_KR","JPN":"ja_JP","CHN":"zh_CN","TWN":"zh_TW","VNM":"vi_VN","PHL":"en_PH"},
+};
+var EC_GLOBAL_MEMBER_LANGUAGE_CODES = CAFE24.getDeprecatedNamespace('EC_GLOBAL_MEMBER_LANGUAGE_CODES');
+CAFE24.GLOBAL_BOARD_LANGUAGE_CODES = {  
+bUseLegacyBoard: true
+};
+var EC_GLOBAL_BOARD_LANGUAGE_CODES = CAFE24.getDeprecatedNamespace('EC_GLOBAL_BOARD_LANGUAGE_CODES');
+CAFE24.GLOBAL_MALL_LANGUAGE_CODES = {
+oDesign: {
+oDesignAddReplaceInfo: {"group_id":"SKIN.ADD.ADMIN.DESIGNDETAIL","replacement":{"KR":"KOREAN","US":"ENGLISH","JP":"JAPANESE","CN":"SIMPLIFIED.CHINESE","TW":"TRADITIONAL.CHINESE","ES":"SPANISH","PT":"PORTUGUESE","PH":"ENGLISH"}},
+oDesignDetailLanguageCountryMap: {"KR":"ko_KR","JP":"ja_JP","CN":"zh_CN","TW":"zh_TW","US":"en_US","ES":"es_ES","PT":"pt_PT","PH":"en_PH"},
+oSmartDesignSwitchTipLink: {"edibot":{"img":"\/\/img.echosting.cafe24.com\/smartAdmin\/img\/design\/img_editor_dnd.png","link":"\/\/ecsupport.cafe24.com\/board\/free\/list.html?board_act=list&board_no=12&category_no=9&cate_no=9"},"smart":{"img":"\/\/img.echosting.cafe24.com\/smartAdmin\/img\/design\/ko_KR\/img_editor_smart.png","link":"\/\/sdsupport.cafe24.com"}},
+oSmartDesignDecoShopList: ["ko_KR","ja_JP","zh_CN","en_US","zh_TW","es_ES","pt_PT"],
+oSmartDesignDecoMultilingual: {"list":{"ko_KR":"KOREAN","en_US":"ENGLISH","ja_JP":"JAPANESE","zh_CN":"SIMPLIFIED.CHINESE","zh_TW":"TRADITIONAL.CHINESE","es_ES":"SPANISH","pt_PT":"PORTUGUESE","vi_VN":"VIETNAMESE"},"group_id":"EDITOR.LAYER.EDITING.DECO"},
+aSmartDesignModuleShopList: ["ko_KR","ja_JP","zh_CN","en_US","zh_TW","es_ES","pt_PT"]
+},
+oStore: {
+oMultiShopCurrencyInfo: {"en_US":{"currency":"USD"},"zh_CN":{"currency":"USD","sub_currency":"CNY"},"ja_JP":{"currency":"JPY"},"zh_TW":{"currency":"TWD"},"es_ES":{"currency":"EUR"},"pt_PT":{"currency":"EUR"},"ko_KR":{"currency":"KRW"},"vi_VN":{"currency":"VND"},"en_PH":{"currency":"PHP"}},
+oBrowserRedirectLanguage: {"ko":{"primary":"ko_KR","secondary":"en_US"},"en":{"detail":{"en-ph":{"primary":"en_PH","secondary":"en_US"},"en-us":{"primary":"en_US","secondary":"es_ES"},"default":{"primary":"en_US","secondary":"es_ES"}}},"ja":{"primary":"ja_JP","secondary":"en_US"},"zh":{"detail":{"zh-cn":{"primary":"zh_CN","secondary":"en_US"},"zh-tw":{"primary":"zh_TW","secondary":"zh_CN"},"default":{"primary":"en_US","secondary":"ko_KR"}}},"es":{"primary":"es_ES","secondary":"en_US"},"pt":{"primary":"pt_PT","secondary":"en_US"},"vi":{"primary":"vi_VN","secondary":"en_US"},"default":{"primary":"en_US","secondary":"ko_KR"}},
+aChangeableLanguages: ["en_US","ja_JP","ko_KR"],
+aNoZipCodeLanguage: ["ko_KR","ja_JP"]
+},
+oMobile: {
+sSmartWebAppFaqUrl: "https://support.cafe24.com/hc/ko/articles/8466586607641",
+sAmpFaqUrl: "https://ecsupport.cafe24.com/board/free/read.html?no=1864&board_no=5&category_no=13&cate_no=13&category_no=13&category_no=13",
+},
+oPromotion: {
+bQrCodeAvailable: true,
+bSnsMarketingAvailable: true
+},
+oShippingReverseAddressLanguage: ["vi_VN","en_PH"] ,
+oGlobalStandardSwitchHelpCodeLink: {"SH.DS":{"link":"\/\/serviceguide.cafe24shop.com\/en_PH\/SH.DS.html"},"PR.DS":{"link":"\/\/serviceguide.cafe24shop.com\/en_PH\/PR.DS.html"},"OR.SM.BO":{"link":"\/\/serviceguide.cafe24shop.com\/en_PH\/OR.SM.BO.html"},"DE.DS":{"link":"\/\/serviceguide.cafe24shop.com\/en_PH\/DE.DS.html"},"MB.DS":{"link":"\/\/serviceguide.cafe24shop.com\/en_PH\/MB.DS.html"},"PM.DS":{"link":"\/\/serviceguide.cafe24shop.com\/en_PH\/PM.DS.html"}},
+getAdminMainLocaleLanguage: function(sSkinLocaleCode) {
+var oLocaleData = [];
+var locale = "";
+var shopLangName = "";
+if (sSkinLocaleCode == "US") {
+locale = "en_US";
+shopLangName = "ENGLISH";
+} else if (sSkinLocaleCode == "JP") {
+locale = "ja_JP";
+shopLangName = "JAPANESE";
+} else if (sSkinLocaleCode == "CN") {
+locale = "zh_CN";
+shopLangName = "SIMPLIFIED.CHINESE";
+} else if (sSkinLocaleCode == "TW") {
+locale = "zh_TW";
+shopLangName = "TRADITIONAL.CHINESE";
+} else if (sSkinLocaleCode == "ES") {
+locale = "es_ES";
+shopLangName = "SPANISH";
+} else if (sSkinLocaleCode == "PT") {
+locale = "pt_PT";
+shopLangName = "PORTUGUESE";
+} else if (sSkinLocaleCode == "VN") {
+locale = "vi_VN";
+shopLangName = "VIETNAMESE";
+} else if(sSkinLocaleCode == "PH") {
+locale = "en_PH";
+shopLangName = "ENGLISH.PH";
+}
+oLocaleData["locale"] = locale;
+oLocaleData["shopLangName"] = shopLangName;
+return oLocaleData;
+}
+};
+var EC_GLOBAL_MALL_LANGUAGE_CODES = CAFE24.getDeprecatedNamespace('EC_GLOBAL_MALL_LANGUAGE_CODES');
+CAFE24.GLOBAL_DATETIME_INFO = {
+oConstants: {"STANDARD_DATE_REGEX":"\/([12]\\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]))\/","IN_ZONE":"inZone","OUT_ZONE":"outZone","IN_FORMAT":"inFormat","OUT_FORMAT":"outFormat","IN_DATE_FORMAT":"inDateFormat","IN_TIME_FORMAT":"inTimeFormat","OUT_DATE_FORMAT":"outDateFormat","OUT_TIME_FORMAT":"outTimeFormat","IN_FORMAT_DATE_ONLY":1,"IN_FORMAT_TIME_ONLY":2,"IN_FORMAT_ALL":3,"OUT_FORMAT_DATE_ONLY":1,"OUT_FORMAT_TIME_ONLY":2,"OUT_FORMAT_ALL":3,"DATE_ONLY":"YYYY-MM-DD","TIME_ONLY":"HH:mm:ss","FULL_TIME":"YYYY-MM-DD HH:mm:ss","ISO_8601":"YYYY-MM-DD[T]HH:mm:ssZ","YEAR_ONLY":"YYYY","MONTH_ONLY":"MM","DAY_ONLY":"DD","WEEK_ONLY":"e","TIME_H_I_ONLY":"HH:mm","TIME_HOUR_ONLY":"HH","TIME_MINUTE_ONLY":"mm","POSTGRE_FULL_TIME":"YYYY-MM-DD HH24:MI:SS","POSTGRE_TIME_ONLY":" HH24:MI:SS","MICRO_SECOND_ONLY":"u","SEOUL":"Asia\/Seoul","TOKYO":"Asia\/Tokyo","SHANGHAI":"Asia\/Shanghai","TAIPEI":"Asia\/Taipei","HANOI":"Asia\/Bangkok","LOS_ANGELES":"America\/Los_Angeles","LISBON":"Europe\/Lisbon","MADRID":"Europe\/Madrid","SINGAPORE":"Asia\/Singapore","UTC":"Etc\/UTC","MAX_DATETIME":"9999-12-31 23:59:59"},
+oOptions: {"inZone":"Asia\/Seoul","inFormat":"YYYY-MM-DD HH:mm:ss","inDateFormat":"YYYY-MM-DD","inTimeFormat":"HH:mm:ss","outZone":"Asia\/Seoul","outFormat":"YYYY-MM-DD HH:mm:ss","outDateFormat":"YYYY-MM-DD","outTimeFormat":"HH:mm:ss"},
+oPolicies: {"shop":{"outZone":"Asia\/Seoul","outFormat":"YYYY-MM-DD HH:mm:ss","outDateFormat":"YYYY-MM-DD","outTimeFormat":"HH:mm:ss"}},
+sOverrideTimezone: '',
+sMomentNamespace: 'EC_GLOBAL_MOMENT'
+};
+CAFE24.FRONT_JS_CONFIG_MANAGE = {"sSmartBannerScriptUrl":"https:\/\/app4you.cafe24.com\/SmartBanner\/tunnel\/scriptTags?vs=1563164396689206","sMallId":"ecudemo393674","sDefaultAppDomain":"https:\/\/app4you.cafe24.com","sWebLogOffFlag":"F"};
+var EC_FRONT_JS_CONFIG_MANAGE = CAFE24.getDeprecatedNamespace('EC_FRONT_JS_CONFIG_MANAGE');
+CAFE24.FRONT_JS_CONFIG_MEMBER = {"sAuthUrl":"https:\/\/ipin-ec.cafe24.com\/certify\/v1\/?action=auth"};
+var EC_FRONT_JS_CONFIG_MEMBER = CAFE24.getDeprecatedNamespace('EC_FRONT_JS_CONFIG_MEMBER');
+CAFE24.FRONT_JS_CONFIG_SHOP = {"search_period":[],"calendar_config":{"maxDate":"2028-06-19","locale":"ko"},"aProductPurchaseInfo_11":{"bIsSuccess":true,"sMessage":"","bReplaceLoginPage":false,"bIsDisplayPurchaseButton":true},"aProductPurchaseInfo_12":{"bIsSuccess":true,"sMessage":"","bReplaceLoginPage":false,"bIsDisplayPurchaseButton":true},"aProductPurchaseInfo_13":{"bIsSuccess":true,"sMessage":"","bReplaceLoginPage":false,"bIsDisplayPurchaseButton":true},"aProductPurchaseInfo_14":{"bIsSuccess":true,"sMessage":"","bReplaceLoginPage":false,"bIsDisplayPurchaseButton":true},"aProductPurchaseInfo_15":{"bIsSuccess":true,"sMessage":"","bReplaceLoginPage":false,"bIsDisplayPurchaseButton":true},"aProductPurchaseInfo_16":{"bIsSuccess":true,"sMessage":"","bReplaceLoginPage":false,"bIsDisplayPurchaseButton":true},"aProductPurchaseInfo_17":{"bIsSuccess":true,"sMessage":"","bReplaceLoginPage":false,"bIsDisplayPurchaseButton":true}};
+var EC_FRONT_JS_CONFIG_SHOP = CAFE24.getDeprecatedNamespace('EC_FRONT_JS_CONFIG_SHOP');
+typeof window.CAFE24 === "undefined" && (window.CAFE24 = {});
+CAFE24.FRONTEND = {"FW_MANIFEST_CACHE_REVISION":2606171486,"IS_WEB_VIEW":"F"};
+CAFE24.ROUTE = {"is_mobile":false,"is_need_route":false,"language_code":"ZZ","path":{"origin":"\/product\/list.html","result":"\/product\/list.html","prefix":""},"shop_no":0,"skin_code":"default","support_language_list":{"ar":"ar_EG","ar-EG":"ar_EG","de":"de_DE","de-DE":"de_DE","en":"en_US","en-IN":"en_IN","en-PH":"en_PH","en-US":"en_US","es":"es_ES","es-ES":"es_ES","hi":"hi_IN","hi-IN":"hi_IN","id":"id_ID","id-ID":"id_ID","it":"it_IT","it-IT":"it_IT","ja":"ja_JP","ja-JP":"ja_JP","ko":"ko_KR","ko-KR":"ko_KR","ms":"ms_MY","ms-MY":"ms_MY","pt":"pt_PT","pt-PT":"pt_PT","ru":"ru_RU","ru-RU":"ru_RU","th":"th_TH","th-TH":"th_TH","tr":"tr_TR","tr-TR":"tr_TR","vi":"vi_VN","vi-VN":"vi_VN","zh":"zh_CN","zh-CN":"zh_CN","zh-HK":"zh_HK","zh-MO":"zh_MO","zh-SG":"zh_SG","zh-TW":"zh_TW"}};
+</script>
+
+<link rel="stylesheet" type="text/css" href="/ind-script/optimizer.php?filename=lZBNCgIxDIX3ZbaeIy70BIIHUDxA2ulomDQJ_QG9vcOsHEGk2_B97z1iWe8ZE-RYtOUQIZQCU1apEDQllWE57Ow3FYMryq2SivP67MJbrX0FjK-Ye4SKnmOXoOaYJDqPIl9dTB5uZBhmuHymnJCjjJjhMByHPUyM1SjMWxnN4PpQ26rndcDCjC3UfztFGxWmcZmVaP3bGw&type=css&k=ed3ab432d607d3fdda8164ebefe3f5b04302752e&t=1726130154"  /><link rel="stylesheet" type="text/css" href="/ind-script/optimizer_user.php?filename=lZRBbgMhDEX3abY5B4fpCTzgzlgBG2GjprcvpKM2qZIIVnzh_wwYjAZ8C6i0sltA0UFAp2di51VdJLVjEyf95-rBJKFGdLm00ZtLyDWDP8OKo0hPz1ISxIdEhC-p1jX5K-4lJeEx78_EmBf9oQcOleb8JhKN8hy0YZwk9nJNQrASg-HkiWCZA5ZqNnolv4xcpncVJw_STH6OaAEsD5G7ltBPyiO-F2_1Pl8Tr10fwqZuKeQltub6UyNYLmjIAUq4kSPgBdsqvA_H9GSTN029FzbV1hK6SX7fKGfidfQzUITitwAGnfgG&type=css&k=ff887d0d08c9ebe28d7c9a706d9c67a799faa855&t=1779174429&user=T"  />
+<style type="text/css">
+
+</style>
+<title>Women - Women - maeve</title></head>
+<body class="layout"><div id="loading"></div>
+<div id="wrap">
+    <div id="header" class="a-header">
+    <!-- 상단배너 -->
+    <div class="header-sec1 a-section check-use add displaynone">
+	<ul class="a-wrap morenvy-banner-area" area_id="749b" data-pc="col1" data-tb="col1" data-mo="col1" data-set="loop width auto1 speed20000 notouch">
+		<li class="a-list morenvy-banner">
+            <a href="%7B#link_1%7D" target="{#target_1}">{#title}</a>
+            <style> .a-header .header-sec1 { {#areaDesc} } </style>
+        </li>
+	</ul>
+</div>
+    <div class="visible">
+        <div class="v-bg"></div>
+        <div class="btn-menu">Menu</div>
+        <div class="menu-main">
+            <ul><li class="a-replace">
+	<ul class="xans-element- xans-layout xans-layout-category rep"><li class="xans-record-"><a href="/product/list.html?cate_no=23">Women</a></li>
+<li class="xans-record-"><a href="/product/list.html?cate_no=24">Men</a></li>
+</ul>
+</li>
+<li><a href="/pages/collection/list.html?cate_no=27">Collection</a></li>
+<li>
+    <a href="#none">Info</a>
+    <ul class="sub">
+        <li><a href="/pages/about.html">About</a></li>        
+        <li><a href="/pages/contact.html">Contact</a></li>
+        <li class="a-replace">
+    <ul class="xans-element- xans-layout xans-layout-boardinfo rep"><li class="xans-record-"><a href="/board/free/list.html?board_no=1">Notice</a></li>
+<li class="xans-record-"><a href="/board/free/list.html?board_no=3">FAQ</a></li>
+<li class="xans-record-"><a href="/board/product/list.html?board_no=6">Q&A</a></li>
+<li class="xans-record-"><a href="/board/product/list.html?board_no=4">Review</a></li>
+</ul>
+</li>   
+    </ul>
+</li></ul>
+        </div>
+        <div class="logo">
+            <div class="morenvy-banner-area" area_id="5856">
+    <a class="morenvy-banner" href="/" data-big="{#html}">
+        <img src="%7B#imgSrc_1%7D" alt="{#title}"><span>{#title}</span>
+        <style>
+            .a-header .logo img { max-height:{#text_1} }
+            @media (max-width:1023px) {
+                .a-header .logo img { max-height:{#link_1} }
+            }
+        </style>
+    </a>
+</div>
+        </div>
+        <div class="menu-etc">
+            <ul>
+                <li class="btn-search"><a href="#none">Search</a></li>
+                <li class="xans-element- xans-layout xans-layout-statelogoff "><a href="/member/login.html">Login</a>
+</li>
+            	                
+                <li><a href="/myshop/wish_list.html">Wishlist</a></li>
+                <li class="xans-element- xans-layout xans-layout-orderbasketcount "><a href="/order/basket.html">Cart<span class="count displaynone EC-Layout_Basket-count-display"><span class="EC-Layout-Basket-count">0</span></span></a>
+</li>
+                <li class="check-use"></li>
+            </ul>
+        </div> 
+    </div>
+    <div class="hidden">
+        <div class="a-menu">
+            <div class="wrap">
+                <div class="inner">
+                    <div class="menu-main">
+                        <ul><li class="a-replace">
+	<ul class="xans-element- xans-layout xans-layout-category rep"><li class="xans-record-"><a href="/product/list.html?cate_no=23">Women</a></li>
+<li class="xans-record-"><a href="/product/list.html?cate_no=24">Men</a></li>
+</ul>
+</li>
+<li><a href="/pages/collection/list.html?cate_no=27">Collection</a></li>
+<li>
+    <a href="#none">Info</a>
+    <ul class="sub">
+        <li><a href="/pages/about.html">About</a></li>        
+        <li><a href="/pages/contact.html">Contact</a></li>
+        <li class="a-replace">
+    <ul class="xans-element- xans-layout xans-layout-boardinfo rep"><li class="xans-record-"><a href="/board/free/list.html?board_no=1">Notice</a></li>
+<li class="xans-record-"><a href="/board/free/list.html?board_no=3">FAQ</a></li>
+<li class="xans-record-"><a href="/board/product/list.html?board_no=6">Q&A</a></li>
+<li class="xans-record-"><a href="/board/product/list.html?board_no=4">Review</a></li>
+</ul>
+</li>   
+    </ul>
+</li></ul>
+                    </div>
+                    <div class="menu-etc">
+                        <ul>
+                            <li class="xans-element- xans-layout xans-layout-statelogoff "><a href="/member/login.html">Login</a>
+</li>
+                                                        <li><a href="/myshop/index.html">Account</a></li>
+                            <li><a href="/myshop/wish_list.html">Wishlist</a></li>
+                            <li class="check-use"></li>
+                        </ul>
+                    </div>                    
+                    <form id="searchBarForm" name="" action="/product/search.html" method="get" target="_self" enctype="multipart/form-data" >
+<input id="banner_action" name="banner_action" value="" type="hidden"  /><div class="xans-element- xans-layout xans-layout-searchheader "><fieldset data-ph="Search">
+                            <input id="keyword" name="keyword" fw-filter="" fw-label="검색어" fw-msg="" class="inputTypeText" placeholder="" onmousedown="SEARCH_BANNER.clickSearchForm(this)" value="" type="text"  />                            <input name="product_price1" value="1" type="hidden">
+                             <span class="btn" onclick="SEARCH_BANNER.submitSearchBanner(this); return false;">SEARCH</span>
+                        </fieldset>
+<div class="">
+                            <div class="xans-element- xans-search xans-search-hotkeyword a-section"><ul class="a-wrap" data-pc="col1" data-tb="col1" data-mo="col1" data-set="auto speed1 notouch">
+                                    <li class="xans-record-"><a href="/product/search.html?keyword=Daily Dress">Daily Dress</a></li>
+                                    <li class="xans-record-"><a href="/product/search.html?keyword=Basic Top">Basic Top</a></li>
+<li class="xans-record-"><a href="/product/search.html?keyword=Formal Blouse">Formal Blouse</a></li>
+                                </ul>
+</div>
+                        </div>
+</div>
+</form>				</div>
+            </div>
+        </div>
+        <div class="a-search">
+            <form id="searchBarForm" name="" action="/product/search.html" method="get" target="_self" enctype="multipart/form-data" >
+<input id="banner_action" name="banner_action" value="" type="hidden"  /><div class="xans-element- xans-layout xans-layout-searchheader "><fieldset data-ph="">
+                    <input id="keyword" name="keyword" fw-filter="" fw-label="검색어" fw-msg="" class="inputTypeText" placeholder="" onmousedown="SEARCH_BANNER.clickSearchForm(this)" value="" type="text"  />                    <input name="product_price1" value="1" type="hidden">
+                     <span class="btn" onclick="SEARCH_BANNER.submitSearchBanner(this); return false;">SEARCH</span>
+                </fieldset>
+<div class="">
+                    <div class="xans-element- xans-search xans-search-hotkeyword"><ul>
+                            <li class="xans-record-"><a href="/product/search.html?keyword=Daily Dress">Daily Dress</a></li>
+                            <li class="xans-record-"><a href="/product/search.html?keyword=Basic Top">Basic Top</a></li>
+<li class="xans-record-"><a href="/product/search.html?keyword=Formal Blouse">Formal Blouse</a></li>
+                        </ul>
+</div>
+                </div>
+<div class="btn-close">Close</div>
+</div>
+</form>            
+		</div>
+    </div>
+</div>
+    <div id="container" class="a-container">
+        
+
+<div class="xans-element- xans-product xans-product-headcategory path "><span>현재 위치</span>
+<ol>
+		<li><a href="/">홈</a></li>
+		<li class=""><a href="/product/list.html?cate_no=23" data-cate="23">Women</a></li>
+		<li class="displaynone"><a href="/product/list.html"></a></li>
+		<li class="displaynone"><a href="/product/list.html"></a></li>
+		<li class="displaynone"><strong><a href="/product/list.html"></a></strong></li>
+	</ol>
+</div>
+
+<div class="xans-element- xans-product xans-product-headcategory banner ">
+	
+</div>
+<div class="xans-element- xans-product xans-product-headcategory title "><h2><a href="#none">Women</a></h2>
+</div>
+
+
+<div class="xans-element- xans-product xans-product-menupackage "><ul class="menuCategory">
+        <li class="xans-element- xans-product xans-product-headcategory "><a href="#none">Women</a>
+</li>
+        <li style="display:;" class="xans-element- xans-product xans-product-displaycategory  xans-record-"><a href="/product/list.html?cate_no=43">Outerwear <span class="count displaynone">()</span></a>
+</li>
+<li style="display:;" class="xans-element- xans-product xans-product-displaycategory  xans-record-"><a href="/product/list.html?cate_no=44">Tops <span class="count displaynone">()</span></a>
+</li>
+<li style="display:;" class="xans-element- xans-product xans-product-displaycategory  xans-record-"><a href="/product/list.html?cate_no=45">Bottoms <span class="count displaynone">()</span></a>
+</li>
+<li style="display:;" class="xans-element- xans-product xans-product-displaycategory  xans-record-"><a href="/product/list.html?cate_no=46">Dresses <span class="count displaynone">()</span></a>
+</li>
+<li style="display:;" class="xans-element- xans-product xans-product-displaycategory  xans-record-"><a href="/product/list.html?cate_no=47">Accessories <span class="count displaynone">()</span></a>
+</li>
+    </ul>
+</div>
+
+
+<div class="xans-element- xans-product xans-product-normalpackage "><div class="xans-element- xans-product xans-product-normalmenu "><!--
+            $compare_page = /product/compare.html
+        -->
+<div class="count">8 items</div>
+<div class="sortby">
+        	<div class="title"></div>
+        	<ul id="type" class="xans-element- xans-product xans-product-orderby"><li class="xans-record-"><a href="?cate_no=23&sort_method=5" >신상품</a></li>
+<li class="xans-record-"><a href="?cate_no=23&sort_method=1" >상품명</a></li>
+<li class="xans-record-"><a href="?cate_no=23&sort_method=3" >낮은가격</a></li>
+<li class="xans-record-"><a href="?cate_no=23&sort_method=4" >높은가격</a></li>
+<li class="xans-record-"><a href="?cate_no=23&sort_method=2" >제조사</a></li>
+<li class="xans-record-"><a href="?cate_no=23&sort_method=7" >사용후기</a></li>
+</ul>
+            <select id="selArray" name="selArray" class="xans-element- xans-product xans-product-orderby"><option value="?cate_no=23&sort_method=5#Product_ListMenu" class="xans-record-">신상품</option>
+<option value="?cate_no=23&sort_method=1#Product_ListMenu" class="xans-record-">상품명</option>
+<option value="?cate_no=23&sort_method=3#Product_ListMenu" class="xans-record-">낮은가격</option>
+<option value="?cate_no=23&sort_method=4#Product_ListMenu" class="xans-record-">높은가격</option>
+<option value="?cate_no=23&sort_method=2#Product_ListMenu" class="xans-record-">제조사</option>
+<option value="?cate_no=23&sort_method=7#Product_ListMenu" class="xans-record-">사용후기</option>
+</select>
+		</div>
+<fieldset class="condition displaynone">
+            <legend>조건별 검색</legend>
+            <p>
+                
+                <select class="xans-element- xans-product xans-product-firstselect FirstSelect"><option value="">-조건선택-</option>
+<option value=""  class=""></option>
+</select>
+                <select class="xans-element- xans-product xans-product-secondselect SecondSelect"><option value="">-조건선택-</option>
+<option value=""  class=""></option>
+</select>
+                <a href="#SelectSearch" class="btnSubmitFix">검색</a>
+            </p>
+        </fieldset>
+</div>
+<div class="xans-element- xans-product xans-product-listnormal ec-base-product"><!--		
+	$count = 12
+	※ 상품진열갯수를 설정하는 변수입니다. 설정하지 않을 경우, 최대 200개의 상품이 진열 됩니다.
+	※ 진열된 상품이 많으면, 쇼핑몰에 부하가 발생할 수 있습니다.
+	$moreview = no
+	$cache = yes
+-->
+<ul class="prdList" data-pc="col4" data-tb="col2" data-mo="col2">
+            <li id="anchorBoxId_11" class="item xans-record-">
+	<div class="thumbnail">
+		<div class="prdImg">
+			<a href="/product/sample-product-01/11/category/23/display/1/" name="anchorBoxName_11"><img src="//ecudemo393674.cafe24.com/web/product/medium/1.jpg" id="eListPrdImage11_1" alt="Sample Product 01"><div data-use="on" class="effect"><div data-src="//ecudemo393674.cafe24.com/web/product/small/1.jpg" class="hover"></div></div>
+</a>
+		</div>   
+	</div>
+    <div class="button">
+        <div class="icon-wish"></div>
+        <div class="icon-basket"><span></span>
+</div>
+    </div>
+	<div class="description">        
+ 		<strong class="name "><a href="/product/sample-product-01/11/category/23/display/1/"><span class="title displaynone"><span class="" style="font-size:13px;color:#222222;">상품명</span> :</span> <span class="" style="font-size:13px;color:#222222;">Sample Product 01</span></a></strong>
+        <ul class="xans-element- xans-product xans-product-listitem spec"><li class=" prd_price_sale xans-record-">
+<strong class="title displaynone"><span class="" style="font-size:13px;color:#222222;">할인판매가</span> :</strong> <span class="" style="font-size:13px;color:#222222;">KRW 225,000 <span style="font-size:13px;color:#222222;font-weight:bold;">10%</span></span></li>
+<li class=" product_price xans-record-">
+<strong class="title displaynone"><span class="" style="font-size:13px;color:#222222;">판매가</span> :</strong> <span class="" style="font-size:13px;color:#222222;text-decoration:line-through;">KRW 250,000</span><span id="span_product_tax_type_text" style="text-decoration:line-through;"> </span></li>
+</ul>
+        <div class="icon">
+<span class="ico-soldout displaynone"></span>         </div>         
+	</div>
+</li>
+<li id="anchorBoxId_12" class="item xans-record-">
+	<div class="thumbnail">
+		<div class="prdImg">
+			<a href="/product/sample-product-02/12/category/23/display/1/" name="anchorBoxName_12"><img src="//ecudemo393674.cafe24.com/web/product/medium/2.jpg" id="eListPrdImage12_1" alt="Sample Product 02"><div data-use="on" class="effect"><div data-src="//ecudemo393674.cafe24.com/web/product/small/2.jpg" class="hover"></div></div>
+</a>
+		</div>   
+	</div>
+    <div class="button">
+        <div class="icon-wish"></div>
+        <div class="icon-basket"><span></span>
+</div>
+    </div>
+	<div class="description">        
+ 		<strong class="name "><a href="/product/sample-product-02/12/category/23/display/1/"><span class="title displaynone"><span class="" style="font-size:13px;color:#222222;">상품명</span> :</span> <span class="" style="font-size:13px;color:#222222;">Sample Product 02</span></a></strong>
+        <ul class="xans-element- xans-product xans-product-listitem spec"><li class=" product_price xans-record-">
+<strong class="title displaynone"><span class="" style="font-size:13px;color:#222222;">판매가</span> :</strong> <span class="" style="font-size:13px;color:#222222;">KRW 170,000</span><span id="span_product_tax_type_text" style=""> </span></li>
+</ul>
+        <div class="icon">
+<span class="ico-soldout displaynone"></span>         </div>         
+	</div>
+</li>
+<li id="anchorBoxId_13" class="item xans-record-">
+	<div class="thumbnail">
+		<div class="prdImg">
+			<a href="/product/sample-product-03/13/category/23/display/1/" name="anchorBoxName_13"><img src="//ecudemo393674.cafe24.com/web/product/medium/3.jpg" id="eListPrdImage13_1" alt="Sample Product 03"><div data-use="on" class="effect"><div data-src="//ecudemo393674.cafe24.com/web/product/small/3.jpg" class="hover"></div></div>
+</a>
+		</div>   
+	</div>
+    <div class="button">
+        <div class="icon-wish"></div>
+        <div class="icon-basket"><span></span>
+</div>
+    </div>
+	<div class="description">        
+ 		<strong class="name "><a href="/product/sample-product-03/13/category/23/display/1/"><span class="title displaynone"><span class="" style="font-size:13px;color:#222222;">상품명</span> :</span> <span class="" style="font-size:13px;color:#222222;">Sample Product 03</span></a></strong>
+        <ul class="xans-element- xans-product xans-product-listitem spec"><li class=" product_price xans-record-">
+<strong class="title displaynone"><span class="" style="font-size:13px;color:#222222;">판매가</span> :</strong> <span class="" style="font-size:13px;color:#222222;">KRW 230,000</span><span id="span_product_tax_type_text" style=""> </span></li>
+<li class=" summary_desc xans-record-">
+<strong class="title displaynone"><span class="" style="font-size:12px;color:#888888;">상품요약정보</span> :</strong> <span class="" style="font-size:12px;color:#888888;">예약주문</span></li>
+</ul>
+        <div class="icon">
+<span class="ico-soldout displaynone"></span>         </div>         
+	</div>
+</li>
+<li id="anchorBoxId_14" class="item xans-record-">
+	<div class="thumbnail">
+		<div class="prdImg">
+			<a href="/product/sample-product-04/14/category/23/display/1/" name="anchorBoxName_14"><img src="//ecudemo393674.cafe24.com/web/product/medium/4.jpg" id="eListPrdImage14_1" alt="Sample Product 04"><div data-use="on" class="effect"><div data-src="//ecudemo393674.cafe24.com/web/product/small/4.jpg" class="hover"></div></div>
+</a>
+		</div>   
+	</div>
+    <div class="button">
+        <div class="icon-wish"></div>
+        <div class="icon-basket"><span></span>
+</div>
+    </div>
+	<div class="description">        
+ 		<strong class="name "><a href="/product/sample-product-04/14/category/23/display/1/"><span class="title displaynone"><span class="" style="font-size:13px;color:#222222;">상품명</span> :</span> <span class="" style="font-size:13px;color:#222222;">Sample Product 04</span></a></strong>
+        <ul class="xans-element- xans-product xans-product-listitem spec"><li class=" product_price xans-record-">
+<strong class="title displaynone"><span class="" style="font-size:13px;color:#222222;">판매가</span> :</strong> <span class="" style="font-size:13px;color:#222222;">KRW 110,000</span><span id="span_product_tax_type_text" style=""> </span></li>
+</ul>
+        <div class="icon">
+<span class="ico-soldout displaynone"></span>         </div>         
+	</div>
+</li>
+<li id="anchorBoxId_15" class="item xans-record-">
+	<div class="thumbnail">
+		<div class="prdImg">
+			<a href="/product/sample-product-05/15/category/23/display/1/" name="anchorBoxName_15"><img src="//ecudemo393674.cafe24.com/web/product/medium/5.jpg" id="eListPrdImage15_1" alt="Sample Product 05"><div data-use="on" class="effect"><div data-src="//ecudemo393674.cafe24.com/web/product/small/5.jpg" class="hover"></div></div>
+</a>
+		</div>   
+	</div>
+    <div class="button">
+        <div class="icon-wish"></div>
+        <div class="icon-basket"><span></span>
+</div>
+    </div>
+	<div class="description">        
+ 		<strong class="name "><a href="/product/sample-product-05/15/category/23/display/1/"><span class="title displaynone"><span class="" style="font-size:13px;color:#222222;">상품명</span> :</span> <span class="" style="font-size:13px;color:#222222;">Sample Product 05</span></a></strong>
+        <ul class="xans-element- xans-product xans-product-listitem spec"><li class=" product_price xans-record-">
+<strong class="title displaynone"><span class="" style="font-size:13px;color:#222222;">판매가</span> :</strong> <span class="" style="font-size:13px;color:#222222;">KRW 190,000</span><span id="span_product_tax_type_text" style=""> </span></li>
+</ul>
+        <div class="icon">
+<span class="ico-soldout displaynone"></span>         </div>         
+	</div>
+</li>
+<li id="anchorBoxId_16" class="item xans-record-">
+	<div class="thumbnail">
+		<div class="prdImg">
+			<a href="/product/sample-product-06/16/category/23/display/1/" name="anchorBoxName_16"><img src="//ecudemo393674.cafe24.com/web/product/medium/6.jpg" id="eListPrdImage16_1" alt="Sample Product 06"><div data-use="on" class="effect"><div data-src="//ecudemo393674.cafe24.com/web/product/small/6.jpg" class="hover"></div></div>
+</a>
+		</div>   
+	</div>
+    <div class="button">
+        <div class="icon-wish"></div>
+        <div class="icon-basket"><span></span>
+</div>
+    </div>
+	<div class="description">        
+ 		<strong class="name "><a href="/product/sample-product-06/16/category/23/display/1/"><span class="title displaynone"><span class="" style="font-size:13px;color:#222222;">상품명</span> :</span> <span class="" style="font-size:13px;color:#222222;">Sample Product 06</span></a></strong>
+        <ul class="xans-element- xans-product xans-product-listitem spec"><li class=" product_price xans-record-">
+<strong class="title displaynone"><span class="" style="font-size:13px;color:#222222;">판매가</span> :</strong> <span class="" style="font-size:13px;color:#222222;">KRW 330,000</span><span id="span_product_tax_type_text" style=""> </span></li>
+</ul>
+        <div class="icon">
+<span class="ico-soldout displaynone"></span>         </div>         
+	</div>
+</li>
+<li id="anchorBoxId_17" class="item xans-record-">
+	<div class="thumbnail">
+		<div class="prdImg">
+			<a href="/product/sample-product-07/17/category/23/display/1/" name="anchorBoxName_17"><img src="//ecudemo393674.cafe24.com/web/product/medium/7.jpg" id="eListPrdImage17_1" alt="Sample Product 07"><div data-use="on" class="effect"><div data-src="//ecudemo393674.cafe24.com/web/product/small/7.jpg" class="hover"></div></div>
+</a>
+		</div>   
+	</div>
+    <div class="button">
+        <div class="icon-wish"></div>
+        <div class="icon-basket"><span></span>
+</div>
+    </div>
+	<div class="description">        
+ 		<strong class="name "><a href="/product/sample-product-07/17/category/23/display/1/"><span class="title displaynone"><span class="" style="font-size:13px;color:#222222;">상품명</span> :</span> <span class="" style="font-size:13px;color:#222222;">Sample Product 07</span></a></strong>
+        <ul class="xans-element- xans-product xans-product-listitem spec"><li class=" product_price xans-record-">
+<strong class="title displaynone"><span class="" style="font-size:13px;color:#222222;">판매가</span> :</strong> <span class="" style="font-size:13px;color:#222222;">KRW 120,000</span><span id="span_product_tax_type_text" style=""> </span></li>
+</ul>
+        <div class="icon">
+<span class="ico-soldout displaynone"></span>         </div>         
+	</div>
+</li>
+<li id="anchorBoxId_18" class="item xans-record-">
+	<div class="thumbnail">
+		<div class="prdImg">
+			<a href="/product/sample-product-08/18/category/23/display/1/" name="anchorBoxName_18"><img src="//ecudemo393674.cafe24.com/web/product/medium/8.jpg" id="eListPrdImage18_1" alt="Sample Product 08"><div data-use="on" class="effect"><div data-src="//ecudemo393674.cafe24.com/web/product/small/8.jpg" class="hover"></div></div>
+</a>
+		</div>   
+	</div>
+    <div class="button">
+        <div class="icon-wish"></div>
+        <div class="icon-basket"><span></span>
+</div>
+    </div>
+	<div class="description">        
+ 		<strong class="name "><a href="/product/sample-product-08/18/category/23/display/1/"><span class="title displaynone"><span class="" style="font-size:13px;color:#222222;">상품명</span> :</span> <span class="" style="font-size:13px;color:#222222;">Sample Product 08</span></a></strong>
+        <ul class="xans-element- xans-product xans-product-listitem spec"><li class=" product_price xans-record-">
+<strong class="title displaynone"><span class="" style="font-size:13px;color:#222222;">판매가</span> :</strong> <span class="" style="font-size:13px;color:#222222;">KRW 170,000</span><span id="span_product_tax_type_text" style=""> </span></li>
+</ul>
+        <div class="icon">
+<span class="ico-soldout "></span>         </div>         
+	</div>
+</li>
+        </ul>
+</div>
+</div>
+
+
+<div class="xans-element- xans-product xans-product-normalpaging ec-base-paginate hide"><a href="#none" class="first"><img src="//img.echosting.cafe24.com/skin/base/common/btn_page_first.gif" alt="첫 페이지"></a>
+<a href="#none"><img src="//img.echosting.cafe24.com/skin/base/common/btn_page_prev.gif" alt="이전 페이지"></a>
+<ol>
+        <li class="xans-record-"><a href="?cate_no=23&page=1" class="this">1</a></li>
+            </ol>
+<a href="#none"><img src="//img.echosting.cafe24.com/skin/base/common/btn_page_next.gif" alt="다음 페이지"></a>
+<a href="#none" class="last"><img src="//img.echosting.cafe24.com/skin/base/common/btn_page_last.gif" alt="마지막 페이지"></a>
+</div>
+        
+    </div>
+    <div id="footer" class="xans-element- xans-layout xans-layout-footer a-footer"><div class="wrap ">
+        <div class="legal">
+    		<ul>
+<li><a href="/member/agreement.html">Terms of Use</a></li>
+<li><a href="/member/privacy.html">Privacy Policy</a></li>
+</ul>
+    	</div>
+    	<div class="menu">
+            <ul>
+                <li><a href="/pages/contact.html">Contact</a></li>
+                <li><a href="/pages/guide.html">Guide</a></li>
+            </ul>
+    	</div>
+    	<div class="sns">
+    		<ul>
+<li><a href="/" target="_blank">Instagram</a></li>
+<li><a href="/" target="_blank">KakaoTalk</a></li>
+</ul>
+    	</div>
+    	<div class="copy">© maeve</div>
+	</div>
+<div class="company ">
+        <span class="company_name">상호</span><span>메이브</span>
+    	<span class="mall_addr">주소</span><span><!--00000-->서울특별시 동작구 모모로 35 </span>
+    	<span class="president_name">대표</span><span>이수정</span>
+    	<span class="company_regno ">사업자등록번호</span><span>123-45-67890 <a href="#none" onclick="window.open('http://www.ftc.go.kr/bizCommPop.do?wrkr_no=1234567890', 'bizCommPop', 'width=750, height=950;');return false;">[사업자정보확인]</a></span>
+    	<span class="network_regno ">통신판매업신고</span><span>2035-서울동작-0175</span>
+    	<span class="phone">전화</span><span>070-1234-5678</span>
+    	<span class="email">이메일</span><span>info@adestudio.kr</span>    	<span class="cpo_name">개인정보보호책임자</span><span><a href="mailto:info@adestudio.kr">이수정</a></span>
+    	<span class="hosting">호스팅서비스</span><span>카페24(주)</span>        
+        <span class="copy">© maeve<span>. All rights reserved.</span></span>
+        <a href="#" target="_blank" class="escrow">고객님은 안전거래를 위해 현금 등으로 결제 시 저희 쇼핑몰에서 가입한 OOO의 구매안전서비스를 이용하실 수 있습니다. [서비스가입사실확인]</a>
+	</div>
+</div>
+    <div id="aModal">
+	<div class="header">
+        <div class="title"></div>
+		<div class="close"></div>
+	</div>
+	<div class="content"><ul></ul></div>
+</div>
+    </div>
+<script src="//ecudemo393674.cafe24.com/web/upload/appfiles/gSOPn7dNJxAp8cu31kDDtD/e1807655df223265727decc38db6bc06.js"></script>
+<script type="text/javascript">
+    load_Morenvy_BannerManagerScript( false,
+        "//ecudemo393674.cafe24.com/web/upload/appfiles/gSOPn7dNJxAp8cu31kDDtD/52dc1a0f34b9e66b3bef4a77815a3a40.js" );
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        if (window.location.href.includes("ecudemo")) {
+            if (document.querySelector(".review-board")) {
+                const listItems = document.querySelectorAll(".rv-list");
+                const listGrid = document.querySelector(".rv-grid");
+                for (let i = 0; i < 3; i++) {
+                    listItems.forEach((item) => {
+                        const clonedItem = item.cloneNode(true);
+                        listGrid.appendChild(clonedItem);
+                    });
+                }
+
+                const fixDiv = document.createElement("div");
+                fixDiv.classList.add("xans-board-fixed", "a-section");
+                const fixUl = document.createElement("ul");
+                fixUl.classList.add("rv-grid", "a-wrap");
+                fixUl.setAttribute("data-pc", "per1 col4");
+                fixUl.setAttribute("data-tb", "per1 col2");
+                fixUl.setAttribute("data-mo", "per1 col2");
+                fixUl.setAttribute("data-set", "navi scroll auto free");
+                fixDiv.appendChild(fixUl);
+
+                const listElement = document.querySelector(".xans-board-list");
+                if (listElement) {
+                    const parentElement = listElement.parentNode;
+                    parentElement.insertBefore(fixDiv, listElement);
+                }
+
+                for (let i = 0; i < 5; i++) {
+                    listItems.forEach((item) => {
+                        const clonedItem = item.cloneNode(true);
+                        fixUl.appendChild(clonedItem);
+                    });
+                }
+            }
+            document.documentElement.classList.add("sample-site");
+            
+            function changeImage() {
+                if ($(window).width() <= 1023) {
+                    $(".xans-product-headcategory.banner img").attr("src", "/web/upload/category/mobile/shop1_24_top_289132.jpg");
+                } else {
+                    $(".xans-product-headcategory.banner img").attr("src", "/web/upload/category/shop1_24_top_936808.jpg");
+                }
+            }
+            changeImage();
+            $(window).resize(function () {
+                changeImage();
+            });
+		}
+    });
+</script>
+<style>
+    .sample-site .xans-member-login .snsArea .naver { display:block !important; }
+    .sample-site .xans-member-login .snsArea .kakao { display:block !important; }
+    
+    .sample-site .review-board .rv-photo img { display:none; }
+    .sample-site .review-board .rv-photo { background-image:url("/web/product/medium/b.jpg") !important; }
+    .sample-site .xans-board-fixed .rv-list:nth-child(1) .rv-photo { background-image:url("/web/product/small/1.jpg") !important; }
+    .sample-site .xans-board-fixed .rv-list:nth-child(2) .rv-photo { background-image:url("/web/product/small/2.jpg") !important; }
+    .sample-site .xans-board-fixed .rv-list:nth-child(3) .rv-photo { background-image:url("/web/product/medium/1.jpg") !important; }
+    .sample-site .xans-board-fixed .rv-list:nth-child(4) .rv-photo { background-image:url("/web/product/medium/2.jpg") !important; }
+    .sample-site .xans-board-fixed .rv-list:nth-child(5) .rv-photo { background-image:url("/web/product/medium/4.jpg") !important; }
+</style>
+<span itemscope="" itemtype="https://schema.org/Organization">
+<link itemprop="url" href="https://ecudemo393674.cafe24.com">
+</span>
+<script type="text/javascript" src="/app/Eclog/js/cid.generate.js?vs=f6a93bcb219a42f5dd457b5578a9e79c&u=ecudemo393674.1"></script>
+<script>        (function (i, s, o, g) {
+            var a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+            var initialized = false;
+            var interval = null;
+
+            function safeInit() {
+              if (initialized) return;
+              if (typeof i.initCaWebAnalytics === 'function') {
+                try {
+                  i.initCaWebAnalytics({"mid":"ecudemo393674","stype":"e","domain":"","shop_no":1,"lang":"ko_KR","mobile_flag":"F","send_endpoint":"https://ca-log.cafe24data.com","path_role":"PRODUCT_LIST"});
+                  initialized = true;
+                } finally {
+                  if (interval) clearInterval(interval);
+                  a.onload = a.onreadystatechange = a.onerror = null;
+                }
+              }
+            }
+
+            a.onload = a.onreadystatechange = function () {
+              if (!a.readyState || a.readyState === 'loaded' || a.readyState === 'complete') {
+                safeInit();
+              }
+            };
+
+            a.onerror = function () {
+              if (interval) { clearInterval(interval); interval = null; }
+              a.onload = a.onreadystatechange = a.onerror = null;
+            };
+
+            interval = setInterval(safeInit, 200);
+            setTimeout(function () {
+              if (interval) { clearInterval(interval); interval = null; }
+            }, 10000);
+
+            safeInit();
+
+            a.async = 1;
+            a.setAttribute('crossorigin', 'anonymous');
+            a.src = g;
+            m.parentNode.insertBefore(a, m);
+        })(window, document, 'script', "//optimizer.poxo.com/ca2/analytics.js?v=20260619");</script>
+<script type="text/javascript" src="/ind-script/i18n.php?v=2606171486&lang=ko_KR&domain=front&type=" charset="utf-8"></script>
+
+<script src="/ind-script/optimizer.php?filename=vVlbV-M2EH4Hv_Z3ePf0cvpKkqXlLBQOYZdnWR4ng2VJ1YXg_fUdX6AkjonkpH1IYlvzfSPJn2ZGSmFYBRtlytSAVd5wSJ9sip9_l8mT_akYtnrUjJfp098eTN3__Jz8lnwKsocXB0YyYfsHCVeqRJiG9UZEdDIBnhQyEsAEMhuDoVanTDsgbdSKUFsTmzMHDitIK1WBdCnwm_biEd364ceCOZZUKA-iBWZkCw90PWZrtUHpilEqxX3j-FKZaq6kM0oIMGPWd8LbC61nBvPVqEfvUIy1FUa1oz2zSpCdkmdO6TOBEs4yJuW45w7IVVUp-bHNC5MkXEka0QbcIcbW2kGlBc3je1OmdXqjMhSQ3r9DdT0YjHHEulK5p0d2gzqEvPCSN5OSkl3uuUuqHQmF4gYOSSjpt06n74GC_aiFYnmAaeUda3zcZhbM8_a0jkC0EnWB4oAYciiYF64Zmq2YcbOBDpqm5VrpLfLLFvyVlUylZfN9hy8ghsr8ADxv3-W3Pa9yBLCAzK9CyUlPK2Xqa7QuEHIPBRiQHObeNL_1nUE-GMxMMZNvoelpkjVPp4XPbIUt6P8P3DnFLWlJVHYaHphFuZqGrcCxvImzYe_GAjN8HSB6x4qifg3eB7ulhV8hRaBnSjDUG2Veu_f2ICL1DMmaUcvcDkmJQdO0w6l51yA0_Ed9XjOZ97nplLQUy5De2IlZKe65IydCKM4o0JdqLH7-6-2wLOdEJXNm0l-SX5NPaUHpTiMvo6Di8ye5050PVsyyXTFNA-WLNnW8EgUS_AWb9BpLSGdGbYhkzvgaYrHzQcUQjnoN4RHoe3hG2Dgmyv5yrrx0IZPch_zUEvm53g38QSje350XVMyxiV6PA_vwZNpMF33uupKlU8tiJyC_V7tUHi0JnlbVTmkc7CQiF28DL9ryatrAnOLlNP31DBHgPgw92ajOvke9Bazwgd4KGTPAW92Wql9enGEtvL1vb5dK5Mq705DtLZ6mUV1VbHUiqgVa2mrUSFuOowmviGRJBZCAJQiIleiHnTREN2O2hBO9jEsv875UO57ssbLxRG8U0RlhSCCP8T9DmR8BX4TXrPvg37uaIVwqfRCivY9jKNKZb4owelipfSQ3TNJS2aLZQCbUaiyqr11FRYFDh2DHbOam1k59hTrAG7O15N13pHUFVTbcdx4A3RrKR1y6SFi3tKbi9L7IFoQcySgHsFTD0GYhvrc3KGBP4DyAWoBWFmN9PaJd70vvATC-W6IF4Cg-QjTovgWVUNM-IJ-EfVBUWs4n9LfVaaxkQEKB0yR6zepof38YlseK5cI7RdUq8hZMIWwTq1EvHN4p7XXsovCWXIOhJfWM8ZO76E69lmvUmhLjRZ5TxLOxna-barFf1FNksUUwYfm0svoTm6PuerIse_wDy45AN7XQ1AF0qe1KFipWA4JhxTIB0d41c2ujBJzv3cMHuL7eObUdgejggN-lv3NK1RiS1e0m4Wz3r4LG9kt_0LZ9QN2WEtRsuUHtgjDNuWx60RQmGnh7nl-wYdrbC92KEFrPP_zXwNCOAy7xhdr_AQ&type=js&k=ef6fbd3011d5fd34ddea968e992a034903b1e3bf&t=1779149242" ></script><script src="/ind-script/optimizer_user.php?filename=jZBRDgIhDEQPsP56Dg7jCSo00LVQQiEGTy-Y_VzFr5mkb9pm1OHmUMkncwdFs6uJ4hqjyWWorSZiahYqein9sutVl4lDN0VGWxWh2HCWZOjS6vRk55qP-XLCSoySzobg0OiD0qSGXyH6pIxlRTG8Ogu4FfffW1N_V3dUERtX0iD5FihnSn6k3g&type=js&k=b090bd1392f5819497b9f1844da047d35f17422f&t=1777723943&user=T" ></script>
+<script type="text/javascript">
+var sIsFrontDesignChangeRequired = 'F';
+var sYtshopping = 'F';
+var sIsYoutubeShops = 'F';
+var sIsValidChRef = 'F';
+var sChRef = '';
+var sIsDropshipping = 'F';
+if (sIsValidChRef === 'T') {
+sessionStorage.setItem('ch_ref', sChRef);
+}
+// ch_ref 존재 여부 체크
+CAFE24.hasChRef = function() {
+if (sIsValidChRef === 'T' && sessionStorage.getItem('ch_ref')) {
+return true;
+}
+return false;
+}
+// ch_ref 데이터 조회
+CAFE24.getChRefData = function() {
+if (sIsValidChRef === 'T') {
+return sessionStorage.getItem('ch_ref');
+}
+}
+// 프론트 디자인 변경이 필요한지 여부 반환
+CAFE24.checkChannelUI = function() {
+// [ECHOSTING-598429] 드롭쉬핑은 항상 전체 UI 노출
+if (sIsDropshipping === 'T') {
+return false;
+}
+if ((sIsFrontDesignChangeRequired === 'T' && sessionStorage.getItem('ch_ref')) || sIsYoutubeShops === 'T') {
+return true;
+} else {
+return false;
+}
+}
+// 파라미터에 ch_ref 추가
+CAFE24.attachChRef = function(sUrl) {
+if (sUrl) {
+var sChRef = CAFE24.getChRefData();
+if (sChRef) {
+var sSeparator = (sUrl.includes('?')) ? '&' : '?';
+sUrl += sSeparator + 'ch_ref=' + sChRef;
+}
+}
+return sUrl;
+}
+var sIsCheckout = 'F';
+var sCheckoutToken = '';
+if (sIsCheckout === 'T') {
+sessionStorage.setItem('checkoutToken', sCheckoutToken);
+} else {
+sessionStorage.removeItem('checkoutToken');
+}
+CAFE24.getCheckoutToken = function() {
+if (sIsCheckout === 'T') {
+return sessionStorage.getItem('checkoutToken');
+}
+}
+CAFE24.attachCheckoutParam = function(sUrl) {
+if (sUrl) {
+var sCheckoutToken = CAFE24.getCheckoutToken();
+if (sCheckoutToken) {
+var sSeparator = (sUrl.includes('?')) ? '&' : '?';
+sUrl += sSeparator + 'checkoutToken=' + sCheckoutToken;
+}
+}
+return sUrl;
+}
+CAFE24.MOBILE_WEB = false; var mobileWeb = CAFE24.MOBILE_WEB;
+try {
+var isUseLoginKeepingSubmit = false;
+// isSeqNoKeyExpiretime
+function isSeqNoKeyExpiretime(iExpiretime)
+{
+var sDate = new Date();
+var iNow = Math.floor(sDate.getTime() / 1000);
+// 유효시간 확인
+if (iExpiretime > iNow) {
+return false;
+}
+return true;
+}
+function isUseLoginKeeping()
+{
+// 디바이스 확인
+if (EC_MOBILE_DEVICE === false) {
+return;
+}
+// 로그인 여부
+var isLogin = document.cookie.match(/(?:^| |;)iscache=F/) ? true : false
+if (isLogin) {
+return;
+}
+var sLoginKeepingInfo = localStorage.getItem('use_login_keeping_info');
+var iSeqnoExpiretime;
+var iSeqNoKey;
+if (sLoginKeepingInfo == null) {
+iSeqnoExpiretime = localStorage.getItem('seq_no_key_expiretime');
+iSeqNoKey = localStorage.getItem('seq_no_key');
+// 유효시간, key 값 확인
+if (iSeqnoExpiretime === null || iSeqNoKey === null) {
+return;
+}
+} else {
+var oLoginKeepingInfo = JSON.parse(sLoginKeepingInfo);
+iSeqNoKey = oLoginKeepingInfo.seq_no_key;
+iSeqnoExpiretime = oLoginKeepingInfo.seq_no_key_expiretime;
+if (isNaN(iSeqNoKey) === true || isNaN(iSeqnoExpiretime) === true) {
+return;
+}
+}
+if (isSeqNoKeyExpiretime(iSeqnoExpiretime) === false) {
+return;
+}
+useLoginKeepingSubmit();
+}
+function findGetParamValue(paramKey)
+{
+var result = null,
+tmp = [];
+location.search.substr(1).split('&').forEach(function (item) {
+tmp = item.split('=');
+if (tmp[0] === paramKey) result = decodeURIComponent(tmp[1]);
+});
+return result;
+}
+function useLoginKeepingSubmit()
+{
+var iSeqnoExpiretime;
+var iSeqNoKey;
+var sUseLoginKeepingIp;
+var sLoginKeepingInfo = localStorage.getItem('use_login_keeping_info');
+if (sLoginKeepingInfo == null) {
+iSeqnoExpiretime = localStorage.getItem('seq_no_key_expiretime');
+iSeqNoKey = localStorage.getItem('seq_no_key');
+} else {
+var oLoginKeepingInfo = JSON.parse(sLoginKeepingInfo);
+iSeqNoKey = oLoginKeepingInfo.seq_no_key;
+iSeqnoExpiretime = oLoginKeepingInfo.seq_no_key_expiretime;
+sUseLoginKeepingIp = oLoginKeepingInfo.use_login_keeping_ip;
+}
+var oForm = document.createElement('form');
+oForm.method = 'post';
+oForm.action = '/exec/front/member/LoginKeeping';
+document.body.appendChild(oForm);
+var oSeqNoObj = document.createElement('input');
+oSeqNoObj.name = 'seq_no_key';
+oSeqNoObj.type = 'hidden';
+oSeqNoObj.value = iSeqNoKey;
+oForm.appendChild(oSeqNoObj);
+oSeqNoObj = document.createElement('input');
+oSeqNoObj.name = 'seq_no_key_expiretime';
+oSeqNoObj.type = 'hidden';
+oSeqNoObj.value = iSeqnoExpiretime;
+oForm.appendChild(oSeqNoObj);
+var returnUrl = findGetParamValue('returnUrl');
+if (returnUrl == '' || returnUrl == null) {
+returnUrl = location.pathname + location.search;
+}
+oSeqNoObj = document.createElement('input');
+oSeqNoObj.name = 'returnUrl';
+oSeqNoObj.type = 'hidden';
+oSeqNoObj.value = returnUrl;
+oForm.appendChild(oSeqNoObj);
+if (sUseLoginKeepingIp != undefined) {
+oSeqNoObj = document.createElement('input');
+oSeqNoObj.name = 'use_login_keeping_ip';
+oSeqNoObj.type = 'hidden';
+oSeqNoObj.value = sUseLoginKeepingIp;
+oForm.appendChild(oSeqNoObj);
+}
+oForm.submit();
+isUseLoginKeepingSubmit = true;
+}
+isUseLoginKeeping();
+} catch(e) {
+}
+var bUseElastic = false;
+var sSearchBannerUseFlag = 'F';
+var bUseElastic = false;
+if (typeof CAFE24.SHOP_FRONT_NEW_LIKE_COMMON !== "undefined") {CAFE24.SHOP_FRONT_NEW_LIKE_COMMON.init({"bIsUseLikeProduct":false,"bIsUseLikeCategory":false});}
+if (typeof CAFE24.SHOP_FRONT_REVIEW_TALK_REVIEW_COUNT !== "undefined") {CAFE24.SHOP_FRONT_REVIEW_TALK_REVIEW_COUNT.bIsReviewTalk = 'F';}
+CAFE24.FRONT_PRODUCT_SEARCH_DATA.bEmptyElasticData = true;
+CAFE24.SHOP_CURRENCY_INFO = {"1":{"aShopCurrencyInfo":{"currency_code":"KRW","currency_no":"410","currency_symbol":"\uffe6","currency_name":"South Korean won","currency_desc":"\uffe6 \uc6d0 (\ud55c\uad6d)","decimal_place":0,"round_method_type":"F"},"aShopSubCurrencyInfo":null,"aBaseCurrencyInfo":{"currency_code":"KRW","currency_no":"410","currency_symbol":"\uffe6","currency_name":"South Korean won","currency_desc":"\uffe6 \uc6d0 (\ud55c\uad6d)","decimal_place":0,"round_method_type":"F"},"fExchangeRate":1,"fExchangeSubRate":null,"aFrontCurrencyFormat":{"head":"KRW ","tail":""},"aFrontSubCurrencyFormat":{"head":" ","tail":""}}}; var SHOP_CURRENCY_INFO = CAFE24.SHOP_CURRENCY_INFO;
+CAFE24.FRONT_PRODUCT_SEARCH_DATA.bEmptyElasticData = true;
+var max_comp_number = 4;
+var sComparePageUrl = "/product/compare.html";
+if (typeof CAFE24.SHOP_FRONT_NEW_OPTION_COMMON !== "undefined") {CAFE24.SHOP_FRONT_NEW_OPTION_COMMON.initObject();}
+if (typeof CAFE24.SHOP_FRONT_NEW_OPTION_BIND !== "undefined") {CAFE24.SHOP_FRONT_NEW_OPTION_BIND.initChooseBox();}
+if (typeof CAFE24.SHOP_FRONT_NEW_OPTION_DATA !== "undefined") {CAFE24.SHOP_FRONT_NEW_OPTION_DATA.initData();}
+var aLogData = {"log_server1":"eclog2-225.cafe24.com","log_server2":"elg-db-svcm-369.cafe24.com","mid":"ecudemo393674","stype":"e","domain":"","shop_no":1,"lang":"ko_KR","ver":2,"hash":"","ca":"cfa-js.cafe24.com\/cfa.js","etc":"","mobile_flag":"F"};
+var sMileageName = '적립금';
+var sMileageUnit = '[:PRICE:]원';
+var sDepositName = '예치금';
+var sDepositUnit = '원';
+CAFE24.APPSCRIPT_ASSIGN_DATA = CAFE24.APPSCRIPT_ASSIGN_DATA || [{'src':'https://apps.hyapps.com/BannerManagerApp/view/HY.js?vs=20260330143912.1&client_id=gSOPn7dNJxAp8cu31kDDtD'}];
+CAFE24.APPSCRIPT_SDK_DATA = CAFE24.APPSCRIPT_SDK_DATA || ['application','category','collection','design','product','store'];
+var EC_APPSCRIPT_ASSIGN_DATA = CAFE24.getDeprecatedNamespace('EC_APPSCRIPT_ASSIGN_DATA');
+var EC_APPSCRIPT_SDK_DATA = CAFE24.getDeprecatedNamespace('EC_APPSCRIPT_SDK_DATA');
+</script></body>
+</html>

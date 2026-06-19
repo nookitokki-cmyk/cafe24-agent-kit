@@ -1,0 +1,33 @@
+# Phase 1-A — developers.cafe24.com/docs/api/admin/ 에서 추출 (2026-06-19 curl)
+# 용도: OFFICIAL-AUDIT.md 인용 근거. HTML 태그 제거 전 원문 일부.
+
+[OAuth authorize]
+GET 'https://{mallid}.cafe24api.com/api/v2/oauth/authorize?response_type=code&client_id={client_id}&state={state}&redirect_uri={redirect_uri}&scope={scope}'
+
+[OAuth token fields]
+access_token : 접근 토큰으로서 클라이언트가 리소스 서버에 접근시 사용됩니다.
+refresh_token : 접근 토큰 만료 후 재발급을 위해 사용하는 토큰입니다.
+
+[Scope read design]
+SCOPE | 디자인 읽기권한 (mall.read_design)
+
+[Scope write design]
+SCOPE | 디자인 쓰기권한 (mall.write_design)
+
+[PUT themes pages — 쓰기 제한]
+PUT /api/v2/admin/themes/{skin_no}/pages
+스킨을 지정한 테마 페이지를 수정할 수 있습니다.
+해당 API는 특정 클라이언트만 사용할 수 있는 API입니다. 사용하시려면 카페24 개발자센터로 (문의)
+
+[Themes skin_no]
+skin_no | 디자인 번호
+
+[Themes skin_code]
+skin_code | 디자인 코드
+
+[Themes editor_type]
+editor_type | H : 스마트 디자인 (HTML) / E : 스마트디자인Easy (등)
+
+[Product image — 웹FTP 언급]
+※ EC Global은 FTP를 지원하지 않으므로 C는 사용할 수 없음
+C : 웹FTP 등록

@@ -1,0 +1,33 @@
+# Phase 1-F — 풀 감사 마무리 (2026-06-19)
+
+## 감사 범위 완료
+- 1-A FTP·몰ID·접속 분기
+- 1-B OAuth·앱·Scope
+- 1-C HTML 문법·F1~F26·traps/INDEX
+- 1-D Easy vs HTML
+- 1-E skin_no · skin_code · SFTP
+
+## 공식 ✅ 확정 (에이전트가 「카페24 공식」이라 말해도 됨)
+- Themes: skin_no, skin_code, usage_type, editor_type (H/E/D/W/C)
+- Themes pages: path, source (HTML read)
+- OAuth: HTTPS Redirect, code 1분, access 2h, refresh 14d
+- Scope mall.read_design = Themes/Pages 조회
+- HTML 스마트디자인: 편집창 화면보기+HTML보기 (developers sdsupport)
+- SmartDesign module="", 변수 module 상속 (basic 가이드)
+
+## ⚠️ 실무·실측만 (공식 동일 문장 없음 — 가이드에 라벨 필수)
+- skin_code → SFTP /{skin_code}
+- skin_no ≠ 폴더 숫자
+- 파트너 웹FTP 호스트·포트 예시
+- base/ fallback, anchorBoxId 2개+, @css?v=, F1~F24 대부분
+- Easy: sde_design, data-ez, SFTP 불가
+
+## ❌ 키트가 고쳐야 할 것 (Phase 2~7에서 처리)
+- getting-started 없음 → Phase 2 생성
+- CLAUDE 파트너 분기 없음 → Phase 5
+- /카페24-mcp 미구현 → /API발급 대본 Phase 4
+- MCP design_type 비공식 필드 → Phase 5 제거
+- http Redirect 예제 vs HTTPS 공식 → MCP 가이드에 분리
+
+## 미해결 백로그 (차단 아님, AUDIT §F-3)
+P1A-1~4, P1D-1~4, P1E-1~4 — 공식 URL 추가 수집 시 AUDIT 갱신

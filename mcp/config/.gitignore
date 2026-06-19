@@ -1,0 +1,5 @@
+# 비밀키·토큰은 절대 git에 올리지 않는다
+cafe24_config_*.py
+*.token.json
+sftp_*.json
+__pycache__/

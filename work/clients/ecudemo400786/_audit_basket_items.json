@@ -1,0 +1,205 @@
+{
+  "tgt": {
+    "itemCount": 1,
+    "tabText": "국내배송상품 (1)",
+    "isEmpty": false,
+    "prdInfos": [
+      {
+        "idx": 0,
+        "price": {
+          "name": "price strong",
+          "text": "10,000",
+          "lines": 1,
+          "w": 41,
+          "h": 19,
+          "whiteSpace": "nowrap",
+          "wordBreak": "normal",
+          "display": "inline",
+          "flexWrap": "nowrap",
+          "fontSize": "13px",
+          "minWidth": "0px"
+        },
+        "sumPrice": {
+          "name": "sumPrice",
+          "text": "주문금액\n10,000\n원",
+          "lines": 3,
+          "w": 360,
+          "h": 51,
+          "whiteSpace": "nowrap",
+          "wordBreak": "normal",
+          "display": "flex",
+          "flexWrap": "nowrap",
+          "fontSize": "13px",
+          "minWidth": "auto"
+        },
+        "quantity": {
+          "name": "quantity",
+          "text": "수량\n수량증가\n수량감소\n 변경",
+          "lines": 4,
+          "w": 360,
+          "h": 40,
+          "whiteSpace": "nowrap",
+          "wordBreak": "normal",
+          "display": "flex",
+          "flexWrap": "nowrap",
+          "fontSize": "12px",
+          "minWidth": "auto"
+        },
+        "qtyInput": {
+          "w": 45,
+          "h": 40
+        },
+        "prdBox": {
+          "name": "prdBox",
+          "text": "샘플상품 2\n10,000원\n배송 : 2,500원 [조건] / 기본배송\n-\n수량\n수량증가\n수량감소\n 변경\n주문금액\n10,000\n원\n관심상품\n주문하",
+          "lines": 13,
+          "w": 360,
+          "h": 373,
+          "whiteSpace": "normal",
+          "wordBreak": "normal",
+          "display": "flex",
+          "flexWrap": "wrap",
+          "fontSize": "13px",
+          "minWidth": "0px"
+        },
+        "children": [
+          {
+            "name": "check",
+            "text": "",
+            "lines": 0,
+            "w": 24,
+            "h": 24,
+            "whiteSpace": "normal",
+            "wordBreak": "normal",
+            "display": "block",
+            "flexWrap": "nowrap",
+            "fontSize": "13px",
+            "minWidth": "auto"
+          },
+          {
+            "name": "thumbnail",
+            "text": "",
+            "lines": 0,
+            "w": 80,
+            "h": 88,
+            "whiteSpace": "normal",
+            "wordBreak": "normal",
+            "display": "block",
+            "flexWrap": "nowrap",
+            "fontSize": "13px",
+            "minWidth": "auto"
+          },
+          {
+            "name": "description",
+            "text": "샘플상품 2\n10,000원\n배송 : 2,500원 [조건] / 기본배송\n-",
+            "lines": 4,
+            "w": 227,
+            "h": 88,
+            "whiteSpace": "normal",
+            "wordBreak": "normal",
+            "display": "block",
+            "flexWrap": "nowrap",
+            "fontSize": "13px",
+            "minWidth": "auto"
+          },
+          {
+            "name": "quantity",
+            "text": "수량\n수량증가\n수량감소\n 변경",
+            "lines": 4,
+            "w": 360,
+            "h": 40,
+            "whiteSpace": "nowrap",
+            "wordBreak": "normal",
+            "display": "flex",
+            "flexWrap": "nowrap",
+            "fontSize": "12px",
+            "minWidth": "auto"
+          },
+          {
+            "name": "sumPrice",
+            "text": "주문금액\n10,000\n원",
+            "lines": 3,
+            "w": 360,
+            "h": 51,
+            "whiteSpace": "nowrap",
+            "wordBreak": "normal",
+            "display": "flex",
+            "flexWrap": "nowrap",
+            "fontSize": "13px",
+            "minWidth": "auto"
+          },
+          {
+            "name": "buttonGroup",
+            "text": "관심상품\n주문하기",
+            "lines": 2,
+            "w": 360,
+            "h": 52,
+            "whiteSpace": "normal",
+            "wordBreak": "normal",
+            "display": "flex",
+            "flexWrap": "nowrap",
+            "fontSize": "13px",
+            "minWidth": "auto"
+          }
+        ]
+      }
+    ],
+    "totals": [
+      {
+        "cls": "total",
+        "text": "결제예정금액\n12,500원",
+        "lines": 2,
+        "w": 310,
+        "h": 77,
+        "whiteSpace": "nowrap",
+        "wordBreak": "normal",
+        "display": "flex"
+      },
+      {
+        "cls": "paymentPrice",
+        "text": "12,500원",
+        "lines": 1,
+        "w": 61,
+        "h": 26,
+        "whiteSpace": "nowrap",
+        "wordBreak": "normal",
+        "display": "block"
+      },
+      {
+        "cls": "total",
+        "text": "결제예정금액\n                        \n                            12,500원",
+        "lines": 3,
+        "w": 0,
+        "h": 0,
+        "whiteSpace": "nowrap",
+        "wordBreak": "normal",
+        "display": "flex"
+      },
+      {
+        "cls": "paymentPrice",
+        "text": "12,500원",
+        "lines": 1,
+        "w": 0,
+        "h": 0,
+        "whiteSpace": "nowrap",
+        "wordBreak": "normal",
+        "display": "block"
+      }
+    ],
+    "bottomNav": true,
+    "orderFix": true,
+    "orderFixVisible": false,
+    "added": true
+  },
+  "ref": {
+    "itemCount": 0,
+    "tabText": "국내배송상품 (0)",
+    "isEmpty": false,
+    "prdInfos": [],
+    "totals": [],
+    "bottomNav": false,
+    "orderFix": false,
+    "orderFixVisible": false,
+    "added": false
+  }
+}
