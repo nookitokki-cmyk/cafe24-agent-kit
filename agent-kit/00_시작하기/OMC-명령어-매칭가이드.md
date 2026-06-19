@@ -142,7 +142,7 @@ Cursor에서 agent-kit 폴더를 워크스페이스 루트로 열면 `.claude/co
 
 ```
 /도움말  (또는 /카페24-도와줘)
-  → getting-started 00~05
+  → 00_시작하기 00~05
   → 02_막혔을때/함정-INDEX.md
 ```
 

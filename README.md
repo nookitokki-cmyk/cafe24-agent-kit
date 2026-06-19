@@ -2,23 +2,16 @@
 
 # cafe24-agent-kit
 
-카페24 **두뇌(agent-kit)** + **손발(mcp)** 단일 기준 저장소.
+카페24 **두뇌(agent-kit)** + **손발(mcp)** 단일 기준 저장소. (이 README는 30초 오리엔테이션용입니다.)
 
-## 빠른 시작
+## ▶ 시작은 여기부터
+
+**[`agent-kit/README.md`](agent-kit/README.md) — 단일 진입점.** 명령표·폴더맵·온보딩 순서가 모두 여기 있습니다.
 
 1. 이 폴더를 Cursor에서 연다  
-2. 채팅: **`/도움말`** 또는 **`/접속세팅`**  
-3. [`agent-kit/00_시작하기/00-아무것도-모를-때.md`](agent-kit/00_시작하기/00-아무것도-모를-때.md)
+2. **[`agent-kit/README.md`](agent-kit/README.md)** 를 펼친다 (명령어·폴더맵·다음 단계)
 
-## 명령어 (OMC)
-
-| 명령 | 설명 |
-|------|------|
-| `/도움말` | 지도 (구 `/카페24-시작`) |
-| `/접속세팅` | FTP/SFTP·몰 ID·skin |
-| `/API발급` | OAuth · `mall.read_design` |
-| `/요소측정` | 수정 전 실측 |
-| `/디자인수정` | 실측 후 코드 |
+> 명령어 표는 중복을 막기 위해 [`agent-kit/README.md`](agent-kit/README.md)에 한 곳으로 모았습니다.
 
 ## 검증
 
