@@ -2,7 +2,7 @@
 description: 카페24 개발자센터 앱·OAuth·MCP 토큰 발급 핑퐁 (read_design)
 ---
 
-사용자가 `/API발급` 을 요청했습니다. `docs/MCP-OAUTH-GUIDE.md` 순서를 **질문 하나씩** 진행.
+사용자가 `/API발급` 을 요청했습니다. `connect/MCP-OAUTH-GUIDE.md` 순서를 **질문 하나씩** 진행.
 
 ## 규칙
 
@@ -12,7 +12,7 @@ description: 카페24 개발자센터 앱·OAuth·MCP 토큰 발급 핑퐁 (read
 
 ## 질문 대본
 
-0. 「**partners.cafe24.com** 로그인 → **Apps** → **App product** 들어갈 수 있나요? (화면: `docs/MCP-OAUTH-GUIDE.md`)」
+0. 「**partners.cafe24.com** 로그인 → **Apps** → **App product** 들어갈 수 있나요? (화면: `connect/MCP-OAUTH-GUIDE.md`)」
 1. 「**App URL** = `https://{몰ID}.cafe24.com` 넣었나요?」
 2. 「**Redirect URI** = `https://{몰ID}.cafe24.com/oauth-callback` 넣었나요?」
 3. 「**권한**은 **디자인(Design) 읽기**만 남겼나요? (나머지 삭제 권장)」

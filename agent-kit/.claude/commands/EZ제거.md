@@ -4,13 +4,13 @@ description: Phase C EZ strip — strip_ez.py·사용자 승인 게이트
 
 사용자가 `/EZ제거` 를 요청했습니다. **한 번에 질문 하나.**
 
-전략: [`docs/EZ-STRATEGY.md`](../../docs/EZ-STRATEGY.md) — 기본 **strip** (demo000). ecudemo400786 Phase C 스킵은 **예외**.
+전략: [`brain/docs/EZ-STRATEGY.md`](../../brain/docs/EZ-STRATEGY.md) — 기본 **strip** (demo000). ecudemo400786 Phase C 스킵은 **예외**.
 
 ## Q1. Phase B 완료
 
 「Phase B (EZ overlay + `_ref*/`) 가 끝났고 **Pre-flight C1 PASS** 인가요?」
 
-- 아니오 → `workflows/08-ez-three-step-pingpong.md` Phase B 먼저
+- 아니오 → `01_작업하기/workflows/08-ez-three-step-pingpong.md` Phase B 먼저
 
 ## Q2. strip 범위
 
@@ -36,7 +36,7 @@ description: Phase C EZ strip — strip_ez.py·사용자 승인 게이트
 python mcp/work/scripts/strip_ez.py --help
 ```
 
-워크플로: `workflows/08-ez-three-step-pingpong.md` Phase C
+워크플로: `01_작업하기/workflows/08-ez-three-step-pingpong.md` Phase C
 
 ## 완료
 

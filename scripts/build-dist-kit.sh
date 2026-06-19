@@ -89,7 +89,7 @@ cat > "$BUILD_ROOT/mcp/config/README.txt" <<'EOF'
 
 4. Cursor MCP
    ../.cursor/mcp.json.example → ../.cursor/mcp.json 복사 후 Cursor 재시작
-   상세: agent-kit/getting-started/05b-MCP-등록.md
+   상세: agent-kit/00_시작하기/05b-MCP-등록.md
 
 5. OAuth 토큰
    python cli.py auth-url --mall {몰ID}
@@ -139,9 +139,9 @@ Source: cafe24-agent-workspace/
 
 **검증:** \`python -c "import server"\` · \`python cli.py status --mall {몰ID}\` · MCP \`get_kit_guides\`
 
-초보자 가이드: \`agent-kit/getting-started/05b-MCP-등록.md\` · 슬래시 \`/키트시작\`  
-GitHub Release: \`github.com/nookitokki-cmyk/cafe24-agent-kit\` · \`python cli.py kit-update --from-github\`  
-번들·제외 목록: \`agent-kit/docs/DISTRIBUTION-KIT.md\` §2·§4·§7 · \`CHANGELOG.md\`
+초보자 가이드: \`agent-kit/00_시작하기/05b-MCP-등록.md\` · 슬래시 \`/키트시작\`
+GitHub Release: \`github.com/nookitokki-cmyk/cafe24-agent-kit\` · \`python cli.py kit-update --from-github\`
+번들·제외 목록: \`agent-kit/connect/DISTRIBUTION-KIT.md\` §2·§4·§7 · \`CHANGELOG.md\`
 EOF
 
 # Promote staging → dist (Windows: target dir may be locked by IDE)
@@ -182,9 +182,9 @@ rm -rf "$STAGE"
 
 # Post-build sanity checks
 REQUIRED=(
-  "$OUT/agent-kit/docs/LEGACY-HUNTER.md"
-  "$OUT/agent-kit/docs/DISTRIBUTION-KIT.md"
-  "$OUT/agent-kit/getting-started/05b-MCP-등록.md"
+  "$OUT/agent-kit/brain/docs/LEGACY-HUNTER.md"
+  "$OUT/agent-kit/connect/DISTRIBUTION-KIT.md"
+  "$OUT/agent-kit/00_시작하기/05b-MCP-등록.md"
   "$OUT/agent-kit/clients/demo000/.workflow.md"
   "$OUT/agent-kit/.claude/commands/키트시작.md"
   "$OUT/agent-kit/.claude/commands/새클라이언트.md"

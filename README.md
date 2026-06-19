@@ -8,7 +8,7 @@
 
 1. 이 폴더를 Cursor에서 연다  
 2. 채팅: **`/도움말`** 또는 **`/접속세팅`**  
-3. [`agent-kit/getting-started/00-아무것도-모를-때.md`](agent-kit/getting-started/00-아무것도-모를-때.md)
+3. [`agent-kit/00_시작하기/00-아무것도-모를-때.md`](agent-kit/00_시작하기/00-아무것도-모를-때.md)
 
 ## 명령어 (OMC)
 
@@ -23,12 +23,12 @@
 ## 검증
 
 ```bash
-bash agent-kit/scripts/verify-kit.sh    # 구조·문서 29항목
-bash agent-kit/scripts/verify-live.sh   # 운영 MCP smoke 5/5 (토큰 필요)
+bash agent-kit/connect/scripts/verify-kit.sh    # 구조·문서 29항목
+bash agent-kit/connect/scripts/verify-live.sh   # 운영 MCP smoke 5/5 (토큰 필요)
 ```
 
 ## 문서
 
-- 공식 대조: `agent-kit/docs/OFFICIAL-AUDIT.md`
-- API 튜토리얼: `agent-kit/docs/MCP-OAUTH-GUIDE.md`
+- 공식 대조: `agent-kit/brain/docs/OFFICIAL-AUDIT.md`
+- API 튜토리얼: `agent-kit/connect/MCP-OAUTH-GUIDE.md`
 - 복제 기록: `MANIFEST.txt`

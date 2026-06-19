@@ -2,7 +2,7 @@
 
 > **이 폴더는 그 자체로 "카페24 SmartDesign 스킨 전문 프론트엔드 에이전트"다.**
 > Claude Code / Cursor 어디서 열든, 이 `CLAUDE.md` 하나가 자동 주입되어 에이전트 역할·규칙·작업 흐름을 정의한다.
-> 더 깊은 시스템 프롬프트와 실전 교훈은 `docs/` 에 있다 (아래 "참조 문서" 참고).
+> 더 깊은 시스템 프롬프트와 실전 교훈은 `brain/docs/` 에 있다 (아래 "참조 문서" 참고).
 
 ---
 
@@ -23,17 +23,17 @@
 
 | # | 확인 | 없으면 |
 |---|------|--------|
-| 0 | **파트너 샘플몰 vs 일반 운영 몰** | `getting-started/00` · `03` |
-| 1 | **몰 ID** (`https://{id}.cafe24.com`) | `getting-started/02` |
+| 0 | **파트너 샘플몰 vs 일반 운영 몰** | `00_시작하기/00` · `03` |
+| 1 | **몰 ID** (`https://{id}.cafe24.com`) | `00_시작하기/02` |
 | 2 | **접속** (웹 FTP 또는 디자인 SFTP 호스트·포트 — **발급값 그대로**) | `/접속세팅` |
 | 3 | **skin_no · skin_code · SFTP `/{skin_code}`** (`skin_no`≠폴더숫자 ⚠️) | `cafe24_list_themes` |
-| 4 | **editor_type=H** (HTML) 확인 — E/D/W/C면 HTML 워크플로 자동 금지 | `docs/OFFICIAL-AUDIT.md` §D |
-| 5 | **실측** (폰트·여백 px) — `/요소측정` | `workflows/04-measure-first.md` |
+| 4 | **editor_type=H** (HTML) 확인 — E/D/W/C면 HTML 워크플로 자동 금지 | `brain/docs/OFFICIAL-AUDIT.md` §D |
+| 5 | **실측** (폰트·여백 px) — `/요소측정` | `01_작업하기/workflows/04-measure-first.md` |
 | 6 | **백업·업로드 OK** | MCP backup 또는 수동 |
 
-명령 레지스트리: `commands/COMMANDS.md` · OAuth: `docs/MCP-OAUTH-GUIDE.md`
+명령 레지스트리: `commands/COMMANDS.md` · OAuth: `connect/MCP-OAUTH-GUIDE.md`
 
-초보 온보딩: `getting-started/00`~`05`. 막힘: `/도움말` + `04-자주-막히는-5가지.md`.
+초보 온보딩: `00_시작하기/00`~`05`. 막힘: `/도움말` + `04-자주-막히는-5가지.md`.
 
 ---
 
@@ -41,8 +41,8 @@
 
 새 작업을 받으면 아래 순서로 컨텍스트를 로드한다.
 
-1. **`docs/CAFE24-SMARTDESIGN-AGENT.md`** — 자립형 에이전트 시스템 프롬프트. 워크플로우(분석→클리닝→세팅→생성→검증→출력), 디자인 토큰 시스템, SmartDesign 문법 핵심, 절대 제약(F1~F26 함정), 모바일 스태킹·드로어, sticky 구현법, 검증 방법론까지 **이 한 문서로 자립 동작**한다. → **모든 작업의 1차 기준.**
-2. **`docs/WORK-GUIDE.md`** — skin10~14 단계별 상세 작업 로그·교훈. AGENT.md가 요약한 내용의 "원본 근거"가 필요할 때 참조.
+1. **`brain/docs/CAFE24-SMARTDESIGN-AGENT.md`** — 자립형 에이전트 시스템 프롬프트. 워크플로우(분석→클리닝→세팅→생성→검증→출력), 디자인 토큰 시스템, SmartDesign 문법 핵심, 절대 제약(F1~F26 함정), 모바일 스태킹·드로어, sticky 구현법, 검증 방법론까지 **이 한 문서로 자립 동작**한다. → **모든 작업의 1차 기준.**
+2. **`brain/docs/WORK-GUIDE.md`** — skin10~14 단계별 상세 작업 로그·교훈. AGENT.md가 요약한 내용의 "원본 근거"가 필요할 때 참조.
 3. **`.claude/skills/cafe24/SKILL.md`** — 카페24 변수/모듈/지시어 문법, IDIO→NK 구조, EZ 시스템, SFTP 배포 레퍼런스. (참조: `references/modules.md`, `references/variables.md`)
 
 > ⚠️ **AGENT.md(요약·현행) vs WORK-GUIDE.md(상세·이력)가 충돌하면 AGENT.md가 현행 정답.**
@@ -75,7 +75,7 @@
 - **`<section>` 120px margin 함정**: `_nk/css/common.css` 전역 `section{margin:120px !important}` 때문에 풀블리드 히어로/배너는 `margin:0 !important` 오버라이드 필요.
 - **PC·모바일 동시 설계**: 새 CSS를 쓰는 그 순간 모바일 레이아웃·드로어·고정요소 z-index 스태킹까지 함께 작성. 한쪽만 정상이면 "미완료". 검증도 PC + 모바일(360/768px) 스크린샷을 항상 함께 본다.
 
-> 위 규칙의 **정확한 코드·수치·함정 20종(F1~F20)·z-index 레이어 표·드로어 버그 처방**은 모두 `docs/CAFE24-SMARTDESIGN-AGENT.md` 에 인라인으로 들어있다.
+> 위 규칙의 **정확한 코드·수치·함정 20종(F1~F20)·z-index 레이어 표·드로어 버그 처방**은 모두 `brain/docs/CAFE24-SMARTDESIGN-AGENT.md` 에 인라인으로 들어있다.
 
 ---
 
@@ -103,13 +103,13 @@ cafe24-agent-kit/
 ├── CLAUDE.md                      ← (이 파일) 에이전트 진입점·헌법
 ├── README.md                      ← 사람용 사용법
 ├── commands/COMMANDS.md           ← OMC 슬래시 명령 레지스트리
-├── getting-started/                 ← 접속·MCP 온보딩 00~05
-├── docs/
+├── 00_시작하기/                 ← 접속·MCP 온보딩 00~05
+├── brain/docs/
 │   ├── CAFE24-SMARTDESIGN-AGENT.md ← 자립형 시스템 프롬프트 (1차 기준)
 │   ├── OFFICIAL-AUDIT.md           ← 공식 대조표 (✅/⚠️/❌)
 │   ├── MCP-OAUTH-GUIDE.md          ← API 발급 튜토리얼
 │   └── WORK-GUIDE.md               ← skin10~14 상세 작업 로그·교훈
-├── traps/INDEX.md                  ← F1~F26 인덱스
+├── 02_막혔을때/함정-INDEX.md                  ← F1~F26 인덱스
 ├── .claude/commands/               ← /접속세팅, /API발급, /요소측정 …
 │   └── skills/cafe24/SKILL.md
 └── clients/_template/
@@ -123,8 +123,8 @@ cafe24-agent-kit/
 
 ## 6. SFTP 배포 (참고)
 
-- **호스트·포트:** 관리자/발급 SFTP 정보 또는 `mcp/config/sftp_{몰ID}.json` 만 신뢰. 예시 호스트·22번 포트 **기본값 금지** ([AUDIT](docs/OFFICIAL-AUDIT.md) §A-2).
-- **폴더:** `skin_code` → `/{skin_code}` ⚠️ 실측 ([AUDIT](docs/OFFICIAL-AUDIT.md) §E-2).
+- **호스트·포트:** 관리자/발급 SFTP 정보 또는 `mcp/config/sftp_{몰ID}.json` 만 신뢰. 예시 호스트·22번 포트 **기본값 금지** ([AUDIT](brain/docs/OFFICIAL-AUDIT.md) §A-2).
+- **폴더:** `skin_code` → `/{skin_code}` ⚠️ 실측 ([AUDIT](brain/docs/OFFICIAL-AUDIT.md) §E-2).
 - 업로드: MCP `cafe24_sftp_upload` (화이트리스트·백업·사용자 OK) 또는 관리자 파일관리.
 - 자동화 IP 차단 시 수동 업로드.
 - 반영 확인: 라이브 `?v=N`, PC+모바일.
@@ -135,4 +135,4 @@ cafe24-agent-kit/
 
 - "완료"의 정의 = **라이브에서 PC + 모바일 둘 다 의도대로 보인다**는 스크린샷 증거가 있을 때.
 - 코드만 고치고 "됐을 것"이라고 추정하지 말 것. 카페24 최적화 번들(optimizer_user.php)은 서버 파일보다 2~5분 늦을 수 있으니 반영 안 보이면 잠시 후 재확인.
-- 작업 후 새로 얻은 교훈은 `docs/WORK-GUIDE.md` (또는 클라이언트 `05_work-log.md`)에 누적한다.
+- 작업 후 새로 얻은 교훈은 `brain/docs/WORK-GUIDE.md` (또는 클라이언트 `05_work-log.md`)에 누적한다.

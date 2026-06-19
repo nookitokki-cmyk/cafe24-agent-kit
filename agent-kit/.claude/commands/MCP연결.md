@@ -4,7 +4,7 @@ description: Cursor·Claude Code 공통 MCP stdio 등록 (mcp.json)
 
 사용자가 `/MCP연결` 을 요청했습니다. **한 번에 질문 하나.**
 
-상세 문서: `getting-started/05b-MCP-등록.md`
+상세 문서: `00_시작하기/05b-MCP-등록.md`
 
 ## Q1. IDE
 

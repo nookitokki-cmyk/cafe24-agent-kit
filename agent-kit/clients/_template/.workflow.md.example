@@ -9,7 +9,7 @@
 |-------|------|------|
 | A | HTML 타입 작업 skin 복사 | Easy 타입 등록 금지 (**F35**) |
 | B | EZ FTP overlay + `_ref*/` | Pre-flight C1 PASS |
-| C | **strip** (demo000/skin14) | [`EZ-STRATEGY.md`](../../docs/EZ-STRATEGY.md) — ecudemo400786 스킵은 파일럿 예외만 |
+| C | **strip** (demo000/skin14) | [`EZ-STRATEGY.md`](../../brain/docs/EZ-STRATEGY.md) — ecudemo400786 스킵은 파일럿 예외만 |
 
 ## 메타
 - 클라: musatax

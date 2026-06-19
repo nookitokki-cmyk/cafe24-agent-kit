@@ -15,11 +15,11 @@ mcp 원본:       C:\Users\gdgdg.한비\OneDrive\문서\개발\web\cafe24\mcp
 ## Phase 로드맵
 - [x] Phase 0 — 복제
 - [x] Phase 1-A ~ 1-F — OFFICIAL-AUDIT + evidence
-- [x] Phase 2 — getting-started/ 00~05
-- [x] Phase 3 — docs/MCP-OAUTH-GUIDE.md
+- [x] Phase 2 — 00_시작하기/ 00~05
+- [x] Phase 3 — connect/MCP-OAUTH-GUIDE.md
 - [x] Phase 4 — commands/COMMANDS.md + .claude/commands (OMC)
 - [x] Phase 5 — CLAUDE.md 게이트·README·MCP design_type 제거
-- [x] Phase 6 — workflows/04-measure-first.md
+- [x] Phase 6 — 01_작업하기/workflows/04-measure-first.md
 - [x] Phase 7 — scripts/verify-kit.sh
 
-검증: `bash agent-kit/scripts/verify-kit.sh`
+검증: `bash agent-kit/connect/scripts/verify-kit.sh`

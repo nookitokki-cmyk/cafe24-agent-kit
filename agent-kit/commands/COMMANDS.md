@@ -37,7 +37,7 @@
 | `/EZ제거` | `.claude/commands/EZ제거.md` | Phase C strip 게이트 |
 | `/버전확인` | `.claude/commands/버전확인.md` | VERSION · kit-update |
 
-상황별: [`getting-started/OMC-명령어-매칭가이드.md`](../getting-started/OMC-명령어-매칭가이드.md)
+상황별: [`00_시작하기/OMC-명령어-매칭가이드.md`](../00_시작하기/OMC-명령어-매칭가이드.md)
 
 ---
 
@@ -46,18 +46,18 @@
 | 구 명령 | 신 명령 |
 |---------|---------|
 | `/카페24-시작` | `/도움말` |
-| `/카페24-도와줘` | `/도움말` + [04-함정](../getting-started/04-자주-막히는-5가지.md) |
+| `/카페24-도와줘` | `/도움말` + [04-함정](../00_시작하기/04-자주-막히는-5가지.md) |
 | `/카페24-새작업` | `/디자인수정` — **신규 몰은 `/새클라이언트`** |
-| `/카페24-워크플로우` | `workflows/` + 전용 에이전트 |
+| `/카페24-워크플로우` | `01_작업하기/workflows/` + 전용 에이전트 |
 
 ---
 
 ## traps 인덱스
 
-문제 생기면 [`traps/INDEX.md`](../traps/INDEX.md)
+문제 생기면 [`02_막혔을때/함정-INDEX.md`](../02_막혔을때/함정-INDEX.md)
 
 ---
 
 ## 공식 대조
 
-[`docs/OFFICIAL-AUDIT.md`](../docs/OFFICIAL-AUDIT.md)
+[`brain/docs/OFFICIAL-AUDIT.md`](../brain/docs/OFFICIAL-AUDIT.md)

@@ -113,8 +113,8 @@ PREFLIGHT_CHECKS: dict[str, str] = {
 PILOT_MALL = "ecudemo400786"
 
 MCP_CONFIG_DIR = Path(__file__).resolve().parent / "config"
-OAUTH_GUIDE = "docs/MCP-OAUTH-GUIDE.md"
-OAUTH_BEGINNER = "docs/OAUTH-BEGINNER-5MIN.md"
+OAUTH_GUIDE = "connect/MCP-OAUTH-GUIDE.md"
+OAUTH_BEGINNER = "connect/OAUTH-BEGINNER-5MIN.md"
 
 
 def _malls_missing_token() -> list[str]:
@@ -178,15 +178,15 @@ def get_kit_guides(
         ),
         "onboarding_commands": ONBOARDING_COMMANDS,
         "mcp_registration_guide": str(
-            KIT_ROOT / "getting-started/05b-MCP-등록.md"
+            KIT_ROOT / "00_시작하기/05b-MCP-등록.md"
         ),
         "constitution": str(KIT_ROOT / "CLAUDE.md"),
-        "f_index": str(KIT_ROOT / "docs/F-상황-인덱스.md"),
-        "workflows_readme": str(KIT_ROOT / "workflows/README.md"),
+        "f_index": str(KIT_ROOT / "02_막혔을때/F-상황-인덱스.md"),
+        "workflows_readme": str(KIT_ROOT / "01_작업하기/workflows/README.md"),
         "workflows": [
             {
                 "id": wid,
-                "path": str(KIT_ROOT / "workflows" / f"{wid}.md"),
+                "path": str(KIT_ROOT / "01_작업하기/workflows" / f"{wid}.md"),
                 "steps": steps,
             }
             for wid, steps in WORKFLOWS
@@ -196,20 +196,20 @@ def get_kit_guides(
             KIT_ROOT / ".claude/commands/카페24-워크플로우.md"
         ),
         "next_read": [
-            str(KIT_ROOT / "workflows/08-ez-three-step-pingpong.md"),
-            str(KIT_ROOT / "workflows/07-ez-on-legacy-setup.md"),
-            str(KIT_ROOT / "docs/F-상황-인덱스.md"),
+            str(KIT_ROOT / "01_작업하기/workflows/08-ez-three-step-pingpong.md"),
+            str(KIT_ROOT / "01_작업하기/workflows/07-ez-on-legacy-setup.md"),
+            str(KIT_ROOT / "02_막혔을때/F-상황-인덱스.md"),
         ],
         "next_read_hint": "실행: 08-ez-three-step-pingpong · 배경·판정·0-C/0-D: 07-ez-on-legacy-setup",
         "oauth_onboarding": [
             str(KIT_ROOT / OAUTH_BEGINNER),
-            str(KIT_ROOT / "getting-started/05-MCP-연결-개요.md"),
+            str(KIT_ROOT / "00_시작하기/05-MCP-연결-개요.md"),
             str(KIT_ROOT / OAUTH_GUIDE),
         ],
     }
 
     if workflow_id:
-        p = KIT_ROOT / "workflows" / f"{workflow_id}.md"
+        p = KIT_ROOT / "01_작업하기/workflows" / f"{workflow_id}.md"
         out["focused_workflow"] = str(p) if p.exists() else None
         if out["focused_workflow"]:
             out["next_read"] = [out["focused_workflow"], out["f_index"]]
@@ -219,13 +219,13 @@ def get_kit_guides(
         if not code.startswith("F"):
             code = f"F{code}"
         out["f_code_hint"] = (
-            f"Read F-index section {code} in docs/F-상황-인덱스.md"
+            f"Read F-index section {code} in 02_막혔을때/F-상황-인덱스.md"
         )
-        pitfalls = KIT_ROOT / "docs/common-pitfalls.md"
+        pitfalls = KIT_ROOT / "02_막혔을때/common-pitfalls.md"
         out["f_code_docs"] = {
             "f_index": out["f_index"],
             "common_pitfalls": str(pitfalls),
-            "brain": str(KIT_ROOT / "docs/CAFE24-SMARTDESIGN-AGENT.md"),
+            "brain": str(KIT_ROOT / "brain/docs/CAFE24-SMARTDESIGN-AGENT.md"),
         }
 
     missing_tokens = _malls_missing_token()
