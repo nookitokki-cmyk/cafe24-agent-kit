@@ -1,0 +1,25 @@
+# cafe24-agent-workspace — Phase 0 복제 기록
+# 생성: 2026-06-19
+
+## 원본 (수정 금지)
+agent-kit 원본: C:\Users\gdgdg.한비\OneDrive\문서\개발\web\cafe24\agent-kit
+mcp 원본:       C:\Users\gdgdg.한비\OneDrive\문서\개발\web\cafe24\mcp
+
+## 복제본 (이 워크스페이스)
+경로: C:\Users\gdgdg.한비\Desktop\cafe24-agent-workspace
+├── agent-kit/   ← 업그레이드 대상
+├── mcp/
+├── README.md
+└── MANIFEST.txt
+
+## Phase 로드맵
+- [x] Phase 0 — 복제
+- [x] Phase 1-A ~ 1-F — OFFICIAL-AUDIT + evidence
+- [x] Phase 2 — getting-started/ 00~05
+- [x] Phase 3 — docs/MCP-OAUTH-GUIDE.md
+- [x] Phase 4 — commands/COMMANDS.md + .claude/commands (OMC)
+- [x] Phase 5 — CLAUDE.md 게이트·README·MCP design_type 제거
+- [x] Phase 6 — workflows/04-measure-first.md
+- [x] Phase 7 — scripts/verify-kit.sh
+
+검증: `bash agent-kit/scripts/verify-kit.sh`

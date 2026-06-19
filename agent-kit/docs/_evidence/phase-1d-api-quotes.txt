@@ -1,0 +1,67 @@
+# Phase 1-D — 스마트디자인Easy vs HTML 공식 대조 인용 (2026-06-19)
+# 원본 HTML: docs/_evidence/p1d_admin_api.html, sds1d_*.html, p1d_developers_*.html
+# 수집: curl developers.cafe24.com (ecsupport 검색은 동일 랜딩만 반환 — Easy 본문 미수집)
+
+## 출처 A: Admin API — Themes property list
+URL: https://developers.cafe24.com/docs/api/admin/#themes-property-list
+파일: p1d_admin_api.html (2026-06-19 curl, 3.2MB)
+
+[usage_type — 디자인 용도 구분]
+S : PC 기본스킨
+C : PC 복사된 스킨
+I : PC 상속된 스킨
+M : 모바일 기본스킨/상속된 스킨
+N : 모바일 복사된 스킨
+
+[editor_type — 에디터 타입]
+H : 스마트 디자인 (HTML)
+D : 에디봇 디자인 (Drag & Drop)
+W : 심플 디자인 (WYSIWYG)
+E : 스마트디자인Easy
+C : 콘텐츠스튜디오(Contents Studio)
+
+[기타 Themes 필드]
+skin_no : 디자인 번호
+skin_code : 디자인 코드
+parent_skin_no : 부모 디자인 번호
+
+## 출처 B: Admin API — Themes pages property list
+URL: https://developers.cafe24.com/docs/api/admin/#themes-pages-property-list
+
+path : 파일 경로
+source : 소스 코드
+skin_code : 디자인 코드
+display_location : 화면 분류
+
+GET /api/v2/admin/themes/{skin_no}/pages — path(Required) 파일 경로
+
+## 출처 C: developers — 스마트디자인 소개 (HTML 편집)
+URL: https://developers.cafe24.com/design/front/smart/sdsupport
+파일: p1d_developers_cafe24_com_design_front_smart_sdsupport.html
+
+「스마트 디자인 편집 창을 통해 HTML을 직접 편집하거나 cafe24에서 제공하는 모듈을 활용하여 디자인을 사용자 정의 할 수 있습니다.」
+「전문 개발자나 관련 지식 없이도 HTML을 수정할 수 있도록 가이드를 제공합니다.」
+
+※ 본 페이지 본문에서 「스마트디자인Easy」「sde_design」「data-ez」「FTP」「SFTP」 문자열 **0건** (2026-06-19 grep)
+
+## 출처 D: developers — 디자인 편집창 이해하기
+URL: https://developers.cafe24.com/design/front/smart/sdsupport/editor
+파일: sds1d_design_front_smart_sdsupport_editor.html
+
+「기본적인 HTML과 CSS지식만 알아도 충분히 쇼핑몰을 디자인 할 수 있습니다.」
+「편집 영역은 크게 '화면 보기' 영역과 'HTML 보기' 영역으로 나뉩니다.」
+「이 영역을 모듈이라 부르며, 모듈별로 '편집' 버튼을 클릭해 디자인 수정 또는 관련 설정 사항을 변경할 수 있습니다.」
+「수정하려는 화면의 HTML 소스를 직접 수정할 수 있는 영역입니다.」
+
+※ 본 페이지에서 「Easy」「sde_design」「data-ez」 **0건**
+
+## 출처 E: developers 사이트 메뉴 (스마트 디자인 하위)
+sdsupport 하위 공식 링크: 스마트디자인 소개, 스마트디자인 모듈(sdsupport.cafe24.com), basic/editor 가이드
+**「스마트디자인Easy」전용 가이드 URL은 developers 스마트 디자인 메뉴에 없음** (HTML 스크랩 기준)
+
+## 미수집 (Phase 1-D에서 공식 인용 0건 → AUDIT ⚠️ 처리)
+- `/sde_design/base/` 경로
+- `data-ez-*`, `ez-prop`, `ez-var` 속성
+- Easy 스킨 SFTP/FTP 접근 불가
+- HTML 스킨 ↔ Easy 스킨 상호 편집 불가
+- editor_type E일 때 SFTP 루트 폴더 규칙

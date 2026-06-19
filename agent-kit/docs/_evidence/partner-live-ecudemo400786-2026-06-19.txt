@@ -1,0 +1,51 @@
+# Partner demo live FTP — ecudemo400786 (2026-06-19)
+# Credentials NOT stored. Password supplied by user in session only.
+
+mall_id=ecudemo400786
+storefront=https://ecudemo400786.cafe24.com/  (HTTP 200, active shop)
+account_type=partner_center_sample (user confirmed)
+
+connect:
+  protocol=ftp
+  host=ecudemo400786.ftp.cafe24.com
+  port=21
+  port_22=TCP timeout (not used)
+  login=OK (mall_id as username)
+
+root_nlst:
+  - sde_design
+  - web
+  - w3c
+
+sde_design_nlst:
+  - base
+  - mobile
+
+root_probes_NO:
+  - /skin1, /skin2, /base, /mobile  (not at FTP root — unlike paransky97)
+
+web_nlst (sample):
+  - product, upload, season2_skin, mobile, open_product, csv, bbs_member_icon, favprodbest
+
+html_sample /sde_design/base/index.html:
+  size=36628
+  data-ez=0
+  module_attr_count=39
+  layout=<!--@layout(/layout/basic/main.html)-->
+
+html_sample /sde_design/base/layout/basic/layout.html:
+  size=20312
+  data-ez=0
+  module_attr_count=37
+
+compare_paransky97 (2026-06-19 1st live):
+  general_mall SFTP root: /base, /skin14, /skin16, /mobile, /web — NO /sde_design
+  partner_mall FTP root: /sde_design, /web — NO /skinN at root
+  path_rule: partner edits under /sde_design/{base|mobile|skin*} NOT /{skin_code} at root
+
+ecudemo394381 (legacy template-01):
+  storefront=inactive (cafe24 warn page)
+  FTP ports 21/22/3822=all timeout on 2026-06-19
+  historical scan 2026-05: same /sde_design structure when active
+
+API_MCP: not tested (no OAuth token for ecudemo400786)

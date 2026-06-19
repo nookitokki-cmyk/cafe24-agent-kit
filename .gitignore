@@ -1,0 +1,44 @@
+# Secrets — never commit
+mcp/config/cafe24_config_*.py
+!mcp/config/cafe24_config.example.py
+mcp/config/*.token.json
+mcp/config/sftp_*.json
+
+# Local work / backups
+mcp/backups/
+mcp/work/clients/
+work/deploy-*/
+agent-kit/clients/nookitokki002/
+agent-kit/clients/paransky97/
+agent-kit/clients/ecudemo400786/
+**/.vscode/sftp.json
+
+# api-poc 보존 자산은 설계서·PoC만 (실제 비밀 설정/토큰은 추적 금지)
+api-poc/cafe24_config.py
+api-poc/*.token.json
+api-poc/auth_url.txt
+
+# Build artifacts (Release asset only)
+dist/
+cafe24-agent-kit-v*/
+cafe24-agent-kit-v*.zip
+
+# Dev session state
+.omc/
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+
+# Env
+.env
+.env.local
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+*.swp
+.cursor/mcp.json

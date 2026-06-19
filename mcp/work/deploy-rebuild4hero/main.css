@@ -1,0 +1,53 @@
+@charset "utf-8";
+/* nookitokki002 design v1 — main page section styles bundle */
+@import url('/_nk/css/mainBnr.css?v=rebuild4hero');
+@import url('/_nk/css/bnrArea1.css?v=rebuild4hero');
+@import url('/_nk/css/prdTab.css?v=rebuild4hero');
+@import url('/_nk/css/bnrArea2.css?v=rebuild4hero');
+@import url('/_nk/css/bnrArea3.css?v=rebuild4hero');
+@import url('/_nk/css/prdArea1.css?v=rebuild4hero');
+@import url('/_nk/css/prdArea2.css?v=rebuild4hero');
+@import url('/_nk/css/vodArea1.css?v=rebuild4hero');
+@import url('/_nk/css/rvArea.css?v=rebuild4hero');
+@import url('/_nk/css/topBnr.css?v=rebuild4hero');
+@import url('/_nk/css/insta.css?v=rebuild4hero');
+@import url('/_nk/css/bbsArea1.css?v=rebuild4hero');
+
+/* shared section shell — full-bleed bands; vertical rhythm in custom.css .nk-sec */
+body#nk-skin10 #contents > section,
+body#nk-skin10 #contents > .nk-sec {
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* 풀블리드: layout .section max-width 상쇄 (optimizer에 _nk/custom 미번들 시 대비) */
+body#nk-skin10 #container.inner #contents > section.nk-full {
+  margin-left: calc(50% - 50vw) !important;
+  margin-right: calc(50% - 50vw) !important;
+  max-width: 100vw !important;
+  width: 100vw !important;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+/* container width — single source: color.css --nk-container (1920px) */
+body#nk-skin10 #contents > section .inner {
+  max-width: var(--nk-container);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* section rhythm: first content block after hero breathes */
+body#nk-skin10 #contents > section.nk-full + section.nk-sec {
+  padding-top: clamp(72px, 9vw, 120px);
+}
+
+/* alternating surface — subtle band separation vs paransky */
+body#nk-skin10 #contents > section.nk-sec:nth-of-type(even) {
+  background: var(--nk-bg);
+}
+body#nk-skin10 #contents > section.nk-sec:nth-of-type(odd):not(.nk-full) {
+  background: var(--nk-bg2, #faf9f7);
+}
