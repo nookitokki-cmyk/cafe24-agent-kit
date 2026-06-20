@@ -243,13 +243,17 @@ if [[ "$(head -1 "$OUT/VERSION")" != "$DIST_VERSION" ]]; then
   exit 1
 fi
 
-# Import smoke (no OAuth tokens required)
+# Import smoke (no OAuth tokens required) — PYTHONDONTWRITEBYTECODE so the smoke
+# import never leaves .pyc (build-machine paths) inside the shipped dist.
 if command -v python >/dev/null 2>&1; then
-  (cd "$OUT/mcp" && python -c "import server") || {
+  (cd "$OUT/mcp" && PYTHONDONTWRITEBYTECODE=1 python -c "import server") || {
     echo "FAIL: python -c 'import server' in dist/mcp" >&2
     exit 1
   }
 fi
+# Belt-and-suspenders: strip any bytecode caches before shipping
+find "$OUT" -type d -name '__pycache__' -prune -exec rm -rf {} + 2>/dev/null || true
+find "$OUT" -name '*.pyc' -delete 2>/dev/null || true
 
 echo "dist ready: $OUT"
 find "$OUT" -type f | wc -l | xargs echo "files:"
