@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "cafe24-mcp": {
+      "type": "stdio",
+      "command": "python",
+      "args": ["C:/dev/cafe24-agent-kit/mcp/server.py"],
+      "cwd": "C:/dev/cafe24-agent-kit/mcp",
+      "env": {
+        "CAFE24_KIT_ROOT": "C:/dev/cafe24-agent-kit/agent-kit"
+      }
+    }
+  }
+}

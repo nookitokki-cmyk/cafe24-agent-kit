@@ -50,7 +50,32 @@
 |------|------|
 | `mcp/config/cafe24_config_{몰ID}.py` | client_id, secret, REDIRECT_URI (HTTPS) |
 | `mcp/config/{몰ID}.token.json` | OAuth 토큰 (자동 생성) |
-| `mcp/config/sftp_{몰ID}.json` | SFTP 호스트·포트·비밀번호 |
+| `mcp/config/sftp_{몰ID}.json` | 업로드 접속 정보 — **FTP·SFTP 공용 파일** |
+
+> ⚠️ **파일 이름은 `sftp_` 지만 웹 FTP도 이 파일을 씁니다.** 안에 `"protocol": "ftp"` 를 넣으면 모든 도구(`cafe24_sftp_*`)가 자동으로 **웹 FTP(파트너센터)** 로 동작합니다. (없으면 SFTP로 시도 → 파트너센터에서 실패)
+
+**① 파트너센터 (웹 FTP)** — `mcp/config/sftp_{몰ID}.json`:
+```json
+{
+  "protocol": "ftp",
+  "host": "{몰ID}.ftp.cafe24.com",
+  "port": 21,
+  "username": "{발급 아이디(보통 몰ID)}",
+  "password": "********",
+  "write_allowed": ["/sde_design/base", "/sde_design/mobile"]
+}
+```
+
+**② 일반 운영몰 (SFTP)** — 같은 파일, `protocol` 생략:
+```json
+{
+  "host": "{발급 호스트}",
+  "port": 22,
+  "username": "{발급 아이디}",
+  "password": "********",
+  "write_allowed": ["/{skin_code}"]
+}
+```
 
 비밀번호·secret은 **채팅에 붙이지 마세요.**  
 모노레po만 clone: OneDrive `api-poc/cafe24_config.py` 자동 탐색 또는 py 복사.
