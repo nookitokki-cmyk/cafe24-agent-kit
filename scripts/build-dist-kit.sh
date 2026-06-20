@@ -31,6 +31,16 @@ else
   rm -rf "$BUILD_ROOT/agent-kit/clients/paransky97"
 fi
 
+# clients: allowlist — ship ONLY _template + demo000 (drop real/test client folders e.g. ecudemo*,
+# and stray runtime dirs like .omc). find (mindepth 1) catches hidden entries too; rsync/cp ignore .gitignore.
+if [[ -d "$BUILD_ROOT/agent-kit/clients" ]]; then
+  find "$BUILD_ROOT/agent-kit/clients" -mindepth 1 -maxdepth 1 \
+    ! -name '_template' ! -name 'demo000' -exec rm -rf {} +
+fi
+
+# strip OMC runtime state anywhere under agent-kit (never distributable; e.g. clients/demo000/.omc)
+find "$BUILD_ROOT/agent-kit" -type d -name '.omc' -exec rm -rf {} + 2>/dev/null || true
+
 # MCP runtime (no config secrets) — server.py imports auth.*, backends.*, config.*
 # Use cp -R for packages: cp --parents on Git Bash Windows preserves absolute paths (mcp/c/Users/...).
 copy_mcp_pkg() {
@@ -231,13 +241,14 @@ if find "$OUT/mcp/config" -name 'cafe24_config_*.py' ! -name 'cafe24_config.exam
   echo "FAIL: real cafe24_config_*.py leaked into dist" >&2
   exit 1
 fi
-if [[ -d "$OUT/agent-kit/clients/nookitokki002" ]]; then
-  echo "FAIL: agent-kit/clients/nookitokki002 must not be in dist" >&2
-  exit 1
-fi
-if [[ -d "$OUT/agent-kit/clients/paransky97" ]]; then
-  echo "FAIL: agent-kit/clients/paransky97 must not be in dist (real client data)" >&2
-  exit 1
+# clients allowlist — only _template + demo000 may ship (catches ecudemo* and any future stray)
+if [[ -d "$OUT/agent-kit/clients" ]]; then
+  STRAY_CLIENTS=$(find "$OUT/agent-kit/clients" -mindepth 1 -maxdepth 1 ! -name '_template' ! -name 'demo000' 2>/dev/null)
+  if [[ -n "$STRAY_CLIENTS" ]]; then
+    echo "FAIL: unexpected client folder(s) in dist (only _template, demo000 allowed):" >&2
+    echo "$STRAY_CLIENTS" >&2
+    exit 1
+  fi
 fi
 if [[ "$(head -1 "$OUT/VERSION")" != "$DIST_VERSION" ]]; then
   echo "FAIL: dist VERSION ($(head -1 "$OUT/VERSION")) != root VERSION ($DIST_VERSION)" >&2

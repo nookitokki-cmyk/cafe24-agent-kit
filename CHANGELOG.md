@@ -8,6 +8,7 @@
 ### Fixed
 - `/디자인수정` 게이트 재구성 — **공통 필수 / 작업종류별(1:1 vs quick-fix)** 분기 명시. 레퍼런스인입 조건이 괄호에 묻혀 quick-fix에도 레퍼런스를 요구하던 모호함 해소
 - `설치-안내.md` 릴리스 zip 이름 실제와 일치: `cafe24-agent-kit-v*.zip` → `cafe24-agent-kit.zip`
+- `build-dist-kit.sh` 클라이언트 **allowlist** 화 — `_template`·`demo000`만 배포. `ecudemo400864` 등 실/테스트 클라 폴더가 배포 zip에 섞이던 것 차단 (기존 denylist는 신규 폴더를 놓침)
 
 ---
 
