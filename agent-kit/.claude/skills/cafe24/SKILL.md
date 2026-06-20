@@ -612,11 +612,13 @@ div.xans-layout-logotop.nk-header__logo {
 <span class="nk-drawer__brand">내쇼핑몰</span>
 ```
 
-### SFTP IP 단위 차단 — 수동 업로드 우회
+### SFTP IP 단위 차단 — 수동 업로드 우회 (오직 IP 차단 시 최후 수단)
+
+> ❗ **범위 주의 — 파트너센터와 혼동 금지.** 이 항목은 *자동 접속이 IP로 막혔을 때만* 쓰는 최후 우회다. **"파트너센터 = 웹 FTP"** 는 차단된 게 아니라 *다른 프로토콜*이며, `sftp_{몰ID}.json` 에 `"protocol":"ftp"` 만 넣으면 MCP `cafe24_sftp_upload` 가 **Python(ftplib)으로 자동 업로드**한다. 파트너 작업을 "SFTP 차단이라 수동 업로드"라고 안내하지 말 것.
 
 카페24 SFTP는 paramiko, OpenSSH 등 자동화 라이브러리 접속을 IP 기반으로 차단하는 경우 있음. 증상: `Connection reset by peer`, `SSH handshake failed` 등.
 
-**해결책**: 카페24 관리자 패널 → 파일관리에서 직접 업로드. 자동 스크립트 업로드가 불가한 상황에서는 수동으로 진행.
+**해결책**: 위 증상이 **실제로 떴을 때만** 카페24 관리자 패널 → 파일관리에서 직접 업로드. 평상시 업로드는 `cafe24_sftp_upload` 자동 경로(FTP·SFTP 공용)가 기본이다.
 
 ### 모바일 드로어 — 풀스크린 fade-in 패턴
 

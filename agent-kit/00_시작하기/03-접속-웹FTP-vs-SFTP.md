@@ -53,6 +53,8 @@
 | `mcp/config/sftp_{몰ID}.json` | 업로드 접속 정보 — **FTP·SFTP 공용 파일** |
 
 > ⚠️ **파일 이름은 `sftp_` 지만 웹 FTP도 이 파일을 씁니다.** 안에 `"protocol": "ftp"` 를 넣으면 모든 도구(`cafe24_sftp_*`)가 자동으로 **웹 FTP(파트너센터)** 로 동작합니다. (없으면 SFTP로 시도 → 파트너센터에서 실패)
+>
+> ✅ **업로드도 `cafe24_sftp_upload` 가 Python(ftplib)으로 자동**으로 올립니다. 파트너센터라고 해서 **"수동 업로드"하지 마세요** — 수동(관리자 파일관리)은 IP 일시 차단 시 최후 수단일 뿐입니다.
 
 **① 파트너센터 (웹 FTP)** — `mcp/config/sftp_{몰ID}.json`:
 ```json

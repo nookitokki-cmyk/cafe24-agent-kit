@@ -1,5 +1,13 @@
 # Cafe24 Agent Kit — Changelog
 
+## v2.3.5 (2026-06-20)
+
+### Fixed — 파트너센터 웹 FTP = 자동 업로드 (수동 오안내 차단)
+- 에이전트가 "파트너센터 웹 FTP는 수동 업로드 (SFTP 차단)" 라고 오안내하던 문제 수정. `sftp_{몰}.json` 에 `"protocol":"ftp"` 가 있으면 `cafe24_sftp_upload` 가 **Python(ftplib)으로 자동 업로드**함을 지침에 명시 (CLAUDE.md §6 · SKILL.md SFTP-차단 항목 · `/접속세팅` · `03-접속-웹FTP-vs-SFTP`)
+- "수동 업로드(관리자 파일관리)"의 범위를 **IP 일시 차단 시 최후 우회**로 한정 — 파트너센터의 기본 경로가 아님을 명문화
+
+---
+
 ## v2.3.4 (2026-06-20)
 
 ### Added

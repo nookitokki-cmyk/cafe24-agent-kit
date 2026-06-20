@@ -128,12 +128,12 @@ cafe24-agent-kit/
 
 ---
 
-## 6. SFTP 배포 (참고)
+## 6. 업로드 배포 — FTP·SFTP 공용 (참고)
 
-- **호스트·포트:** 관리자/발급 SFTP 정보 또는 `mcp/config/sftp_{몰ID}.json` 만 신뢰. 예시 호스트·22번 포트 **기본값 금지** ([AUDIT](brain/docs/OFFICIAL-AUDIT.md) §A-2).
-- **폴더:** `skin_code` → `/{skin_code}` ⚠️ 실측 ([AUDIT](brain/docs/OFFICIAL-AUDIT.md) §E-2).
-- 업로드: MCP `cafe24_sftp_upload` (화이트리스트·백업·사용자 OK) 또는 관리자 파일관리.
-- 자동화 IP 차단 시 수동 업로드.
+- **호스트·포트:** 관리자/발급 정보 또는 `mcp/config/sftp_{몰ID}.json` 만 신뢰. 예시 호스트·22번 포트 **기본값 금지** ([AUDIT](brain/docs/OFFICIAL-AUDIT.md) §A-2).
+- **폴더:** 일반몰 `skin_code` → `/{skin_code}` ⚠️ 실측 ([AUDIT](brain/docs/OFFICIAL-AUDIT.md) §E-2) / 파트너센터 → `/sde_design/base`·`/sde_design/mobile`.
+- 업로드 도구는 **하나** — MCP `cafe24_sftp_upload` (화이트리스트·백업·사용자 OK). 이름이 `sftp_` 일 뿐, `sftp_{몰ID}.json` 에 `"protocol":"ftp"` 가 있으면 **파트너센터 웹 FTP를 Python(ftplib)으로 자동 업로드**한다(SFTP와 똑같이 자동).
+- ❗ **"파트너센터는 SFTP가 아니라서 수동 업로드"는 틀린 안내다.** 웹 FTP는 *막힌 게 아니라 다른 프로토콜*이고, 위 도구로 그대로 자동 업로드된다. **수동 업로드(관리자 파일관리)는 오직 IP 일시 차단(`Connection reset`) 시 최후 우회**일 뿐, 파트너센터의 기본이 아니다.
 - 반영 확인: 라이브 `?v=N`, PC+모바일.
 
 ---
