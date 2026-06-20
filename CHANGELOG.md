@@ -1,5 +1,16 @@
 # Cafe24 Agent Kit — Changelog
 
+## v2.3.4 (2026-06-20)
+
+### Added
+- `references/modifiers.md` — 수정자 13종(`|cut`·`|numberformat`·`|display`·`|date` 등) + 조건/반복 제어 문법 (SKILL.md·CLAUDE.md 레퍼런스 연결)
+
+### Fixed
+- 파트너센터 **웹 FTP** 설정법 명시 — `sftp_{몰}.json`에 `"protocol":"ftp"`(port 21·`/sde_design` 경로). `/접속세팅`·`03-접속` 문서 분기 보강 (SFTP만 묻던 혼란 해소)
+- `.gitignore`: `agent-kit/clients/*` 일괄 제외(+`_template`·`demo000`만 허용) · `.mcp.json` 제외 — 새 클라 폴더 실수 커밋 방지
+
+---
+
 ## v2.3.3 (2026-06-20)
 
 ### Added — Mac/Linux 지원 보강
