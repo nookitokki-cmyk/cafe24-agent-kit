@@ -1,5 +1,16 @@
 # Cafe24 Agent Kit — Changelog
 
+## v2.3.1 (2026-06-20)
+
+### Added
+- 루트 `설치-안내.md` — 경로 무관 설치·사용·새 클라이언트 안내 (배포물 zip에도 포함)
+- 범용 클라이언트 온보딩: "새 클라이언트" 한마디 → 몰 ID 하나만 묻고 `clients/{몰ID}/` 자동 생성·누적 (Tally·Notion 등 외부 폼 안 물음)
+
+### Fixed
+- 배포물에서 `__pycache__/*.pyc`(빌드 PC 경로·잉여 파일) 제외 — 빌드 시 `PYTHONDONTWRITEBYTECODE` + 사후 정리
+
+---
+
 ## v2.3.0 (2026-06-20)
 
 ### Changed — 구조 재편 (Step 4b)
