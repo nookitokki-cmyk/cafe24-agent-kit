@@ -8,9 +8,10 @@ mcp/config/sftp_*.json
 mcp/backups/
 mcp/work/clients/
 work/deploy-*/
-agent-kit/clients/nookitokki002/
-agent-kit/clients/paransky97/
-agent-kit/clients/ecudemo400786/
+# 클라이언트 폴더: _template·demo000(예시)만 추적, 나머지 실/테스트 클라는 전부 제외
+agent-kit/clients/*
+!agent-kit/clients/_template/
+!agent-kit/clients/demo000/
 **/.vscode/sftp.json
 
 # api-poc 보존 자산은 설계서·PoC만 (실제 비밀 설정/토큰은 추적 금지)
@@ -42,6 +43,7 @@ venv/
 Thumbs.db
 *.swp
 .cursor/mcp.json
+.mcp.json
 
 # 키트 내부 보관 (배포·git 추적 제외)
 _archive/
