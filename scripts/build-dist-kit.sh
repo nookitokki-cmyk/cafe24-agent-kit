@@ -119,6 +119,7 @@ fi
 # Root pointers
 cp "$ROOT/AGENTS.md" "$BUILD_ROOT/"
 [[ -f "$ROOT/CHANGELOG.md" ]] && cp "$ROOT/CHANGELOG.md" "$BUILD_ROOT/"
+[[ -f "$ROOT/설치-안내.md" ]] && cp "$ROOT/설치-안내.md" "$BUILD_ROOT/"
 DIST_VERSION="$(head -1 "$ROOT/VERSION" 2>/dev/null || echo v2.3.0)"
 DIST_DATE="$(date -u +%Y-%m-%d)"
 cat > "$BUILD_ROOT/VERSION" <<EOF
