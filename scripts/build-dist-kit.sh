@@ -112,9 +112,9 @@ fi
 
 # Cursor MCP registration template (user copies → .cursor/mcp.json)
 mkdir -p "$BUILD_ROOT/.cursor"
-if [[ -f "$ROOT/.cursor/mcp.json.example" ]]; then
-  cp "$ROOT/.cursor/mcp.json.example" "$BUILD_ROOT/.cursor/"
-fi
+for ex in "$ROOT"/.cursor/mcp.json*.example; do
+  [[ -f "$ex" ]] && cp "$ex" "$BUILD_ROOT/.cursor/"
+done
 
 # Root pointers
 cp "$ROOT/AGENTS.md" "$BUILD_ROOT/"

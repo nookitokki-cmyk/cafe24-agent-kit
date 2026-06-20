@@ -31,7 +31,7 @@ pip install -r requirements.txt
 python -c "import server"
 ```
 
-> Windows: `python` 대신 `py -3` — MCP JSON `command`도 동일하게.
+> **Windows:** `python` / `py -3`. **Mac/Linux:** `python` 대신 **`python3`** (아래 명령·MCP JSON `command` 모두 OS에 맞게).
 
 ---
 
@@ -50,7 +50,7 @@ cp cafe24_config.example.py cafe24_config_{몰ID}.py
 
 #### Cursor
 
-1. `.cursor/mcp.json.example` → `.cursor/mcp.json`
+1. **Windows** `.cursor/mcp.json.example` · **Mac** `.cursor/mcp.json.mac.example` → `.cursor/mcp.json` 로 복사 (Mac판은 `command`이 `python3`)
 2. Cursor 재시작
 3. MCP 목록 `cafe24-mcp` 초록색 확인
 

@@ -1,5 +1,14 @@
 # Cafe24 Agent Kit — Changelog
 
+## v2.3.3 (2026-06-20)
+
+### Added — Mac/Linux 지원 보강
+- `.cursor/mcp.json.mac.example` (command=`python3`) 추가 — 배포물 포함. Mac 사용자는 이걸 복사
+- 설치 문서(`05b-MCP-등록.md`·`설치-안내.md`)에 Windows(`py -3`)/Mac(`python3`) 분기 명시
+- build-dist: `.cursor/mcp.json*.example` 전부 배포물에 포함
+
+---
+
 ## v2.3.2 (2026-06-20)
 
 ### Changed
