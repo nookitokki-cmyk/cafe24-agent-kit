@@ -1,5 +1,16 @@
 # Cafe24 Agent Kit — Changelog
 
+## v2.3.6 (2026-06-20)
+
+### Added
+- `00_시작하기/프롬프트-템플릿.md` **#13 — EZ 템플릿 overlay**(테마조회→FTP→엎기): `/카페24-워크플로우` 08 Phase A→B 복붙 프롬프트 (F35·F36 가드 + `cafe24_list_themes`·`cafe24_sftp_upload` 명시). `/프롬프트참고`로 호출
+
+### Fixed
+- `/디자인수정` 게이트 재구성 — **공통 필수 / 작업종류별(1:1 vs quick-fix)** 분기 명시. 레퍼런스인입 조건이 괄호에 묻혀 quick-fix에도 레퍼런스를 요구하던 모호함 해소
+- `설치-안내.md` 릴리스 zip 이름 실제와 일치: `cafe24-agent-kit-v*.zip` → `cafe24-agent-kit.zip`
+
+---
+
 ## v2.3.5 (2026-06-20)
 
 ### Fixed — 파트너센터 웹 FTP = 자동 업로드 (수동 오안내 차단)
