@@ -43,7 +43,7 @@
 
 1. **`brain/docs/CAFE24-SMARTDESIGN-AGENT.md`** — 자립형 에이전트 시스템 프롬프트. 워크플로우(분석→클리닝→세팅→생성→검증→출력), 디자인 토큰 시스템, SmartDesign 문법 핵심, 절대 제약(F1~F26 함정), 모바일 스태킹·드로어, sticky 구현법, 검증 방법론까지 **이 한 문서로 자립 동작**한다. → **모든 작업의 1차 기준.**
 2. **`brain/docs/WORK-GUIDE.md`** — skin10~14 단계별 상세 작업 로그·교훈. AGENT.md가 요약한 내용의 "원본 근거"가 필요할 때 참조.
-3. **`.claude/skills/cafe24/SKILL.md`** — 카페24 변수/모듈/지시어 문법, IDIO→NK 구조, EZ 시스템, SFTP 배포 레퍼런스. (참조: `references/modules.md`, `references/variables.md`)
+3. **`.claude/skills/cafe24/SKILL.md`** — 카페24 변수/모듈/지시어 문법, IDIO→NK 구조, EZ 시스템, SFTP 배포 레퍼런스. (참조: `references/modules.md`, `references/variables.md`, `references/modifiers.md`)
 
 > ⚠️ **AGENT.md(요약·현행) vs WORK-GUIDE.md(상세·이력)가 충돌하면 AGENT.md가 현행 정답.**
 > WORK-GUIDE 안에 "폐기(superseded)" 배너가 붙은 섹션은 구버전 화석이므로 따르지 말 것.

@@ -761,5 +761,6 @@ Ctrl+U 브라우저 소스 보기
 
 - `references/modules.md` — 상품 상세·장바구니·주문서·회원·게시판 모듈 ID 전체
 - `references/variables.md` — 상세/장바구니/주문서/회원/게시판 변수 전체 + `member_join` 폼 변수
+- `references/modifiers.md` — 수정자 13종(`|cut`·`|numberformat`·`|display`·`|date` 등) + 조건/반복 제어 문법
 
 > 출처: 본문은 reference-case 실프로젝트 분석 기반. references/ 사전 항목은 kimyoungwopo/cafe24-smart-design(MIT) + 공식문서에서 보강.
