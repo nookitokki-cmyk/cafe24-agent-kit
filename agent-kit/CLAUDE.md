@@ -27,9 +27,12 @@
 | 1 | **몰 ID** (`https://{id}.cafe24.com`) | `00_시작하기/02` |
 | 2 | **접속** (웹 FTP 또는 디자인 SFTP 호스트·포트 — **발급값 그대로**) | `/접속세팅` |
 | 3 | **skin_no · skin_code · SFTP `/{skin_code}`** (`skin_no`≠폴더숫자 ⚠️) | `cafe24_list_themes` |
-| 4 | **editor_type=H** (HTML) 확인 — E/D/W/C면 HTML 워크플로 자동 금지 | `brain/docs/OFFICIAL-AUDIT.md` §D |
-| 5 | **실측** (폰트·여백 px) — `/요소측정` | `01_작업하기/workflows/04-measure-first.md` |
-| 6 | **백업·업로드 OK** | MCP backup 또는 수동 |
+| 4 | **★ 작업 방식 판별** — **A. HTML 네이티브** vs **B. EZ 엎기**(EZ-on-legacy). `ez/` 폴더·`body[data-ez-theme]`·`sub_theme.css`로 판별 후 분기 **선언**하고 시작 | `.claude/skills/cafe24/references/skin-method-detect.md` |
+| 5 | **editor_type=H** (HTML) 확인 — E/D/W/C면 HTML 워크플로 자동 금지 (Easy 타입 FTP 대량수정 = F35) | `brain/docs/OFFICIAL-AUDIT.md` §D |
+| 6 | **실측** (폰트·여백 px) — `/요소측정` | `01_작업하기/workflows/04-measure-first.md` |
+| 7 | **백업·업로드 OK** | MCP backup 또는 수동 |
+
+> **★ 4번이 핵심:** 카페24 작업 지시를 받으면 **코드 만지기 전에 방식(A/B)부터 판별·선언**한다. 방식에 따라 base가 이기는 경로·후처리·함정이 다르다 — 빠른 룰: **`ez/` 폴더 있으면 EZ(B), 없으면 HTML(A)**. 운영 중인 몰은 `scripts/diagnose-overrides.js`가 상단에 방식을 자동 판정한다.
 
 명령 레지스트리: `commands/COMMANDS.md` · OAuth: `connect/MCP-OAUTH-GUIDE.md`
 
