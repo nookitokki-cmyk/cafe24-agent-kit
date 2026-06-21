@@ -1,0 +1,192 @@
+/*!
+ * nk-toast-notification — 토스트 알림 (성공·경고·에러·정보, 자동 사라짐)
+ * 사용처: "장바구니에 담겼습니다", "로그인 필요", "복사됨" 등 짧은 피드백
+ * 의존성:
+ *   - CSS 변수 (--nk-color-success / --nk-color-warning / --nk-color-error / --nk-color-accent)
+ *   - JS는 별도 파일 없이 인라인으로 호출 가능 (아래 사용 예시 참고)
+ *
+ * 비코더 사용법:
+ *   1. SFTP로 _nk/css/ 폴더에 업로드
+ *   2. <head> 에 <link rel="stylesheet" href="/_nk/css/nk-toast-notification.css">
+ *   3. <body> 마지막에 컨테이너 한 번만 배치:
+ *      <div class="nk-toast-container" id="nk-toast-container" aria-live="polite" aria-atomic="false"></div>
+ *
+ *   4. JS로 토스트 표시 (이 코드를 nk.js 등에 추가):
+ *      window.nkToast = function(message, type){
+ *        const container = document.getElementById('nk-toast-container');
+ *        if(!container) return;
+ *        const toast = document.createElement('div');
+ *        toast.className = 'nk-toast nk-toast-' + (type || 'info');
+ *        toast.textContent = message;
+ *        container.appendChild(toast);
+ *        setTimeout(() => toast.classList.add('is-leaving'), 2700);
+ *        setTimeout(() => toast.remove(), 3000);
+ *      };
+ *
+ *   5. 호출 예시:
+ *      nkToast('장바구니에 담겼습니다.', 'success');
+ *      nkToast('로그인이 필요합니다.', 'warning');
+ *      nkToast('이미 담긴 상품입니다.', 'error');
+ *      nkToast('변경 사항이 저장되었습니다.', 'info');
+ */
+
+/* ───── 컨테이너 (한 번만 배치) ───── */
+
+.nk-toast-container {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2000;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 8px;
+  pointer-events: none;
+  max-width: calc(100% - 32px);
+  width: auto;
+}
+
+/* 변형: 우측 상단 (관리자 페이지 스타일) */
+.nk-toast-container.is-top-right {
+  top: 24px;
+  bottom: auto;
+  left: auto;
+  right: 24px;
+  transform: none;
+  align-items: flex-end;
+  flex-direction: column;
+}
+
+/* ───── 토스트 본체 ───── */
+
+.nk-toast {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  background: var(--nk-color-text, #1a1a1a);
+  color: var(--nk-color-bg, #ffffff);
+  border-radius: 9999px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.4;
+  pointer-events: auto;
+  animation: nk-toast-in 0.25s ease-out;
+  max-width: 480px;
+}
+
+.nk-toast.is-leaving {
+  animation: nk-toast-out 0.25s ease-in forwards;
+}
+
+/* 아이콘 추가용 (선택, Phosphor) */
+.nk-toast::before {
+  font-family: 'Phosphor', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+/* ───── 변형 (type) ───── */
+
+.nk-toast-success {
+  background: var(--nk-color-success, #10b981);
+  color: #ffffff;
+}
+.nk-toast-success::before { content: "\f167"; /* ph-check-circle */ }
+
+.nk-toast-warning {
+  background: var(--nk-color-warning, #f59e0b);
+  color: #ffffff;
+}
+.nk-toast-warning::before { content: "\f3ed"; /* ph-warning */ }
+
+.nk-toast-error {
+  background: var(--nk-color-error, #ef4444);
+  color: #ffffff;
+}
+.nk-toast-error::before { content: "\f361"; /* ph-x-circle */ }
+
+.nk-toast-info {
+  background: var(--nk-color-accent, #2b6cb0);
+  color: #ffffff;
+}
+.nk-toast-info::before { content: "\f24b"; /* ph-info */ }
+
+/* 기본 (type 미지정) — 다크 배경 */
+.nk-toast:not([class*="nk-toast-"]):not(.nk-toast-success):not(.nk-toast-warning):not(.nk-toast-error):not(.nk-toast-info)::before {
+  display: none;
+}
+
+/* ───── 액션 버튼이 있는 토스트 (선택) ───── */
+
+.nk-toast-action {
+  margin-left: auto;
+  background: transparent;
+  border: 0;
+  color: inherit;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+.nk-toast-close {
+  background: transparent;
+  border: 0;
+  color: inherit;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 0 4px;
+  opacity: 0.7;
+}
+.nk-toast-close:hover { opacity: 1; }
+
+/* ───── 애니메이션 ───── */
+
+@keyframes nk-toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes nk-toast-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nk-toast { animation: none; }
+}
+
+/* ───── 모바일 ───── */
+
+@media (max-width: 480px) {
+  .nk-toast-container { bottom: 16px; }
+  .nk-toast-container.is-top-right {
+    top: 16px;
+    right: 16px;
+    left: 16px;
+    align-items: stretch;
+  }
+  .nk-toast {
+    border-radius: 12px;
+    padding: 12px 16px;
+    font-size: 13px;
+  }
+}

@@ -1,0 +1,180 @@
+<!--!
+ * nk-banner-slider — 메인 배너 슬라이더 (자동 재생 + 인디케이터 + 이전/다음 버튼)
+ * 사용처: 메인 페이지 (index.html) 의 ModuleMain 안 또는 layout 의 hero 영역
+ * 의존성:
+ *   - CSS 변수: --nk-color-bg / --nk-color-text / --nk-color-accent / --nk-radius-md
+ *   - JS: 인라인 (Vanilla, jQuery 의존성 없음)
+ *   - Phosphor Icons (이전/다음 버튼)
+ *
+ * 비코더 사용법:
+ *   1. 이 HTML 통째로 메인 페이지 상단에 붙여넣기
+ *   2. .nk-slide 를 원하는 만큼 복사/삭제 (3-5개 권장)
+ *   3. 각 슬라이드의 이미지 src 와 텍스트를 본인 콘텐츠로 교체
+ *   4. SFTP로 업로드
+ *
+ * 카페24 변수 사용 시 주의:
+ *   카페24 ModuleBanner 와 연결하려면 .nk-slide 안의 img 와 텍스트를
+ *   {$image_link} / {$banner_link} 등으로 교체하고 ModuleBanner 안에서 each 반복.
+-->
+
+<section class="nk-slider" data-nk-slider data-autoplay="4000" aria-roledescription="carousel" aria-label="메인 배너">
+
+  <div class="nk-slider-track" data-nk-slider-track>
+
+    <!-- 슬라이드 1 — 여기만 바꾸세요 -->
+    <div class="nk-slide is-active" role="group" aria-roledescription="slide" aria-label="1 / 3">
+      <a href="/product/list.html?cate_no=24" class="nk-slide-link">
+        <img src="/web/upload/banner/main-1.jpg" alt="신상품 컬렉션" class="nk-slide-img">
+        <div class="nk-slide-caption">
+          <p class="nk-slide-sub">NEW ARRIVAL</p>
+          <h2 class="nk-slide-title">신상품 컬렉션</h2>
+          <span class="nk-slide-cta">자세히 보기</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- 슬라이드 2 -->
+    <div class="nk-slide" role="group" aria-roledescription="slide" aria-label="2 / 3">
+      <a href="/product/list.html?cate_no=25" class="nk-slide-link">
+        <img src="/web/upload/banner/main-2.jpg" alt="베스트 셀러" class="nk-slide-img">
+        <div class="nk-slide-caption">
+          <p class="nk-slide-sub">BEST SELLER</p>
+          <h2 class="nk-slide-title">베스트 셀러</h2>
+          <span class="nk-slide-cta">자세히 보기</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- 슬라이드 3 -->
+    <div class="nk-slide" role="group" aria-roledescription="slide" aria-label="3 / 3">
+      <a href="/board/product/list.html?board_no=4" class="nk-slide-link">
+        <img src="/web/upload/banner/main-3.jpg" alt="이번 주 이벤트" class="nk-slide-img">
+        <div class="nk-slide-caption">
+          <p class="nk-slide-sub">EVENT</p>
+          <h2 class="nk-slide-title">이번 주 이벤트</h2>
+          <span class="nk-slide-cta">자세히 보기</span>
+        </div>
+      </a>
+    </div>
+
+  </div>
+
+  <!-- 이전/다음 버튼 -->
+  <button type="button" class="nk-slider-arrow nk-slider-prev" data-nk-slider-prev aria-label="이전 배너">
+    <i class="ph ph-caret-left" aria-hidden="true"></i>
+  </button>
+  <button type="button" class="nk-slider-arrow nk-slider-next" data-nk-slider-next aria-label="다음 배너">
+    <i class="ph ph-caret-right" aria-hidden="true"></i>
+  </button>
+
+  <!-- 인디케이터 점 -->
+  <div class="nk-slider-dots" data-nk-slider-dots role="tablist" aria-label="배너 인디케이터">
+    <button type="button" class="nk-slider-dot is-active" data-index="0" role="tab" aria-label="1번 배너" aria-selected="true"></button>
+    <button type="button" class="nk-slider-dot" data-index="1" role="tab" aria-label="2번 배너" aria-selected="false"></button>
+    <button type="button" class="nk-slider-dot" data-index="2" role="tab" aria-label="3번 배너" aria-selected="false"></button>
+  </div>
+
+</section>
+
+<style>
+  .nk-slider{
+    position:relative; overflow:hidden;
+    background:var(--nk-color-surface, #f8f9fa);
+    border-radius:var(--nk-radius-md, 12px);
+    aspect-ratio:16/9;
+  }
+  @media(max-width:767px){.nk-slider{aspect-ratio:4/3}}
+  .nk-slider-track{position:absolute; inset:0}
+  .nk-slide{
+    position:absolute; inset:0;
+    opacity:0; visibility:hidden;
+    transition:opacity .5s;
+  }
+  .nk-slide.is-active{opacity:1; visibility:visible}
+  .nk-slide-link{display:block; position:absolute; inset:0; color:#fff}
+  .nk-slide-img{
+    position:absolute; inset:0;
+    width:100%; height:100%; object-fit:cover;
+  }
+  .nk-slide-caption{
+    position:absolute; left:8%; bottom:12%;
+    color:#fff; max-width:80%;
+    text-shadow:0 2px 8px rgba(0,0,0,0.4);
+  }
+  .nk-slide-sub{
+    margin:0 0 8px; font-size:13px; font-weight:600;
+    letter-spacing:0.1em; opacity:0.9;
+  }
+  .nk-slide-title{
+    margin:0 0 16px; font-size:32px; font-weight:700;
+    line-height:1.2;
+  }
+  @media(max-width:767px){.nk-slide-title{font-size:22px}}
+  .nk-slide-cta{
+    display:inline-block; padding:10px 20px;
+    background:rgba(255,255,255,0.95); color:var(--nk-color-text, #1a1a1a);
+    border-radius:9999px; font-size:13px; font-weight:600;
+  }
+  .nk-slider-arrow{
+    position:absolute; top:50%; transform:translateY(-50%);
+    width:44px; height:44px; border:0;
+    background:rgba(255,255,255,0.9); color:var(--nk-color-text, #1a1a1a);
+    border-radius:9999px; cursor:pointer; font-size:20px;
+    display:inline-flex; align-items:center; justify-content:center;
+    transition:background .2s;
+  }
+  .nk-slider-arrow:hover{background:#fff}
+  .nk-slider-prev{left:16px}
+  .nk-slider-next{right:16px}
+  @media(max-width:767px){.nk-slider-arrow{display:none}}
+  .nk-slider-dots{
+    position:absolute; left:0; right:0; bottom:16px;
+    display:flex; gap:8px; justify-content:center;
+  }
+  .nk-slider-dot{
+    width:8px; height:8px; padding:0; border:0;
+    background:rgba(255,255,255,0.5);
+    border-radius:9999px; cursor:pointer;
+    transition:width .2s, background .2s;
+  }
+  .nk-slider-dot.is-active{width:24px; background:#fff}
+</style>
+
+<script>
+  (function(){
+    const root = document.currentScript.previousElementSibling.previousElementSibling.closest('.nk-slider');
+    if(!root || root.dataset.nkSliderInit) return;
+    root.dataset.nkSliderInit = '1';
+
+    const slides = root.querySelectorAll('.nk-slide');
+    const dots   = root.querySelectorAll('.nk-slider-dot');
+    const prev   = root.querySelector('[data-nk-slider-prev]');
+    const next   = root.querySelector('[data-nk-slider-next]');
+    let current  = 0;
+    let timer;
+
+    function go(idx){
+      current = (idx + slides.length) % slides.length;
+      slides.forEach((s,i) => s.classList.toggle('is-active', i === current));
+      dots.forEach((d,i) => {
+        d.classList.toggle('is-active', i === current);
+        d.setAttribute('aria-selected', i === current ? 'true' : 'false');
+      });
+    }
+    function start(){
+      const delay = parseInt(root.dataset.autoplay, 10) || 0;
+      if(delay > 0){
+        clearInterval(timer);
+        timer = setInterval(() => go(current + 1), delay);
+      }
+    }
+    function stop(){ clearInterval(timer); }
+
+    prev?.addEventListener('click', () => { go(current - 1); start(); });
+    next?.addEventListener('click', () => { go(current + 1); start(); });
+    dots.forEach(d => d.addEventListener('click', () => { go(parseInt(d.dataset.index, 10)); start(); }));
+    root.addEventListener('mouseenter', stop);
+    root.addEventListener('mouseleave', start);
+    start();
+  })();
+</script>

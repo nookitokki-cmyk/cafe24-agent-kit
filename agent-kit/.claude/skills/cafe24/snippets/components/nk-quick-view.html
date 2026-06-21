@@ -1,0 +1,159 @@
+<!--!
+ * nk-quick-view — 상품 퀵뷰 모달 (이미지 + 핵심 정보 + 장바구니 담기)
+ * 사용처: 상품 목록 페이지에서 "퀵뷰" 버튼 클릭 시 표시되는 모달
+ * 의존성:
+ *   - CSS 변수: --nk-color-bg / --nk-color-text / --nk-color-border / --nk-space-md
+ *   - JS: snippets/js/nk-modal-toggle.js (모달 열기/닫기 로직)
+ *   - Phosphor Icons (닫기 버튼)
+ *
+ * 비코더 사용법:
+ *   1. layout.html 의 </body> 직전에 모달 HTML 한 번만 붙여넣기
+ *   2. 상품 카드의 퀵뷰 버튼에 data-nk-modal-open="nk-quick-view" 속성 추가
+ *   3. JS 가 자동으로 상품 정보를 가져와서 모달 내용 채움 (API 연동 필요)
+ *
+ * 카페24 변수 사용 시 주의:
+ *   퀵뷰는 보통 AJAX로 상품 정보를 가져옴. 변수 직접 치환이 아니라 JS가 채움.
+ *   간단한 구현은 상품 페이지의 ModuleProductDetail HTML을 fetch해서 일부만 표출.
+-->
+
+<!-- 모달 오버레이 + 컨테이너 -->
+<div class="nk-modal" id="nk-quick-view" role="dialog" aria-modal="true" aria-labelledby="nk-qv-title" hidden>
+
+  <!-- 배경 오버레이 (클릭 시 닫힘) -->
+  <div class="nk-modal-overlay" data-nk-modal-close aria-hidden="true"></div>
+
+  <!-- 모달 본체 -->
+  <div class="nk-modal-content nk-quick-view-content">
+
+    <!-- 닫기 버튼 -->
+    <button type="button" class="nk-modal-close" data-nk-modal-close aria-label="닫기">
+      <i class="ph ph-x" aria-hidden="true"></i>
+    </button>
+
+    <!-- 본문 영역 -->
+    <div class="nk-qv-body">
+
+      <!-- 왼쪽: 이미지 -->
+      <div class="nk-qv-image">
+        <img src="" alt="" data-nk-qv-image>
+      </div>
+
+      <!-- 오른쪽: 정보 + 액션 -->
+      <div class="nk-qv-info">
+
+        <h2 class="nk-qv-name" id="nk-qv-title" data-nk-qv-name>상품명</h2>
+
+        <p class="nk-qv-prices">
+          <span class="nk-qv-price-original" data-nk-qv-price-original></span>
+          <span class="nk-qv-price-sale" data-nk-qv-price-sale>0원</span>
+        </p>
+
+        <div class="nk-qv-summary" data-nk-qv-summary>
+          <!-- AJAX로 상품 짧은 설명 주입 -->
+        </div>
+
+        <!-- 옵션 영역 (AJAX로 채움) -->
+        <div class="nk-qv-options" data-nk-qv-options></div>
+
+        <!-- 수량 -->
+        <div class="nk-qv-quantity">
+          <label for="nk-qv-qty" class="nk-qv-label">수량</label>
+          <div class="nk-qv-qty-wrap">
+            <button type="button" class="nk-qv-qty-btn" data-nk-qty-minus aria-label="수량 감소">−</button>
+            <input type="number" id="nk-qv-qty" class="nk-qv-qty-input" value="1" min="1" inputmode="numeric">
+            <button type="button" class="nk-qv-qty-btn" data-nk-qty-plus aria-label="수량 증가">+</button>
+          </div>
+        </div>
+
+        <!-- 액션 버튼 -->
+        <div class="nk-qv-actions">
+          <button type="button" class="nk-btn nk-btn-secondary" data-nk-qv-wishlist>위시리스트</button>
+          <button type="button" class="nk-btn nk-btn-primary" data-nk-qv-basket>장바구니 담기</button>
+        </div>
+
+        <a href="" class="nk-qv-detail-link" data-nk-qv-detail-link>상품 상세 페이지로 →</a>
+
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<style>
+  .nk-modal{
+    position:fixed; inset:0; z-index:1000;
+    display:flex; align-items:center; justify-content:center;
+    padding:var(--nk-space-md, 16px);
+  }
+  .nk-modal[hidden]{display:none}
+  .nk-modal-overlay{
+    position:absolute; inset:0;
+    background:rgba(0,0,0,0.5);
+    backdrop-filter:blur(2px);
+  }
+  .nk-modal-content{
+    position:relative; z-index:1;
+    background:var(--nk-color-bg, #fff);
+    border-radius:var(--nk-radius-lg, 16px);
+    max-width:900px; width:100%;
+    max-height:90vh; overflow-y:auto;
+    box-shadow:0 20px 50px rgba(0,0,0,0.2);
+  }
+  .nk-modal-close{
+    position:absolute; top:12px; right:12px;
+    width:44px; height:44px;
+    background:transparent; border:0; cursor:pointer;
+    color:var(--nk-color-text-sub, #5f6368); font-size:24px;
+    border-radius:9999px;
+    display:inline-flex; align-items:center; justify-content:center;
+  }
+  .nk-modal-close:hover{background:var(--nk-color-surface, #f8f9fa); color:var(--nk-color-text)}
+
+  .nk-qv-body{
+    display:grid; grid-template-columns:1fr;
+    gap:var(--nk-space-lg, 24px);
+    padding:var(--nk-space-lg, 24px);
+  }
+  @media(min-width:768px){.nk-qv-body{grid-template-columns:1fr 1fr}}
+  .nk-qv-image{
+    aspect-ratio:1/1;
+    background:var(--nk-color-surface, #f8f9fa);
+    border-radius:var(--nk-radius-md, 12px);
+    overflow:hidden;
+  }
+  .nk-qv-image img{width:100%; height:100%; object-fit:cover; display:block}
+  .nk-qv-info{display:flex; flex-direction:column; gap:var(--nk-space-md, 16px)}
+  .nk-qv-name{margin:0; font-size:20px; font-weight:700; line-height:1.3}
+  .nk-qv-prices{margin:0; display:flex; gap:12px; align-items:baseline; flex-wrap:wrap}
+  .nk-qv-price-original{color:var(--nk-color-text-sub, #5f6368); text-decoration:line-through; font-size:14px}
+  .nk-qv-price-original:empty{display:none}
+  .nk-qv-price-sale{color:var(--nk-color-text); font-size:24px; font-weight:700}
+  .nk-qv-summary{font-size:14px; color:var(--nk-color-text-sub, #5f6368); line-height:1.6}
+  .nk-qv-summary:empty{display:none}
+  .nk-qv-options:empty{display:none}
+  .nk-qv-quantity{display:flex; align-items:center; gap:12px}
+  .nk-qv-label{font-size:13px; font-weight:600}
+  .nk-qv-qty-wrap{
+    display:inline-flex; align-items:center;
+    border:1px solid var(--nk-color-border, #e5e7eb);
+    border-radius:var(--nk-radius-sm, 4px);
+    overflow:hidden;
+  }
+  .nk-qv-qty-btn{
+    width:36px; height:36px; border:0;
+    background:transparent; cursor:pointer;
+    color:var(--nk-color-text); font-size:18px;
+  }
+  .nk-qv-qty-input{
+    width:48px; height:36px; border:0; text-align:center;
+    background:transparent; color:var(--nk-color-text);
+    font-family:inherit; font-size:14px;
+  }
+  .nk-qv-actions{display:flex; gap:8px}
+  .nk-qv-actions .nk-btn{flex:1; min-height:44px}
+  .nk-qv-detail-link{
+    color:var(--nk-color-accent, #2b6cb0); font-size:13px;
+    text-align:center; margin-top:4px;
+  }
+</style>
