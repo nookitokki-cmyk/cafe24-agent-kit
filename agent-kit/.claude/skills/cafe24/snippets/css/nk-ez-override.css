@@ -1,0 +1,170 @@
+/*
+ * nk-ez-override.css — EZ 에디터 인라인 스타일 안전 오버라이드
+ * 사용법: 카페24 관리자 → 디자인 → HTML/CSS 편집 → style.css 가장 마지막에 붙여넣기
+ *         (다른 nk-*.css 파일보다 나중에 로드되어야 합니다)
+ *
+ * 카페24 EZ 에디터 특성:
+ *   - EZ 에디터는 요소에 인라인 style="..." 을 직접 주입합니다.
+ *   - 인라인 스타일은 외부 CSS보다 우선 순위가 높아 덮어쓰기가 어렵습니다.
+ *   - 이 파일은 !important 를 통해 안전하게 오버라이드합니다.
+ *   - !important 사용 이유가 명시되지 않은 곳은 절대 추가하지 마세요.
+ */
+
+
+/* =========================================================
+   [EZ 에디터 주요 선택자 목록 — 참고용]
+
+   .xans-layout-*          → 헤더/푸터/사이드바 등 레이아웃 영역
+   .xans-product-*         → 상품 목록/상세/옵션 관련
+   .xans-order-*           → 주문/결제 관련
+   .xans-mypage-*          → 마이페이지 관련
+   .xans-board-*           → 게시판/리뷰 관련
+   .xans-search-*          → 검색 관련
+   .xans-member-*          → 회원가입/로그인 관련
+   #contents               → 메인 콘텐츠 래퍼
+   #wrap                   → 전체 페이지 래퍼
+   .ec-base-*              → 카페24 기본 UI 컴포넌트
+   .displaynone            → 카페24 시스템 숨김 클래스 (건드리지 말 것)
+   ========================================================= */
+
+
+/* =========================================================
+   1. 레이아웃 영역 기본 폰트 강제 적용
+   EZ 에디터가 레이아웃 요소에 굴림/돋움을 주입하는 경우 차단
+   ========================================================= */
+.xans-layout-header,
+.xans-layout-footer,
+.xans-layout-navi,
+#wrap,
+#contents {
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont,
+               'Apple SD Gothic Neo', sans-serif !important; /* EZ 오버라이드 */
+}
+
+
+/* =========================================================
+   2. 상품 목록 (.xans-product-listitem) 폰트/색상 정리
+   상품 카드 내 제목/가격의 인라인 스타일 덮어쓰기
+   ========================================================= */
+.xans-product-listitem .name,
+.xans-product-listitem .description,
+.xans-product-listitem .price {
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont,
+               'Apple SD Gothic Neo', sans-serif !important; /* EZ 오버라이드 */
+}
+
+/* 상품 가격 색상 — 빨간색 기본값 제거 */
+.xans-product-listitem .price strong {
+  color: var(--color-text, #1a1a1a) !important; /* EZ 오버라이드 */
+}
+
+/* 상품 목록 ul 스타일 초기화 */
+.xans-product-listitem ul,
+.xans-product-listitem li {
+  list-style: none !important; /* EZ 오버라이드 */
+  margin: 0 !important;        /* EZ 오버라이드 */
+  padding: 0 !important;       /* EZ 오버라이드 */
+}
+
+
+/* =========================================================
+   3. 상품 상세 (.xans-product-detail) 본문 스타일
+   에디터로 입력된 상품 설명 텍스트의 폰트 강제 적용
+   ========================================================= */
+.xans-product-detail .xans-product-additional {
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont,
+               'Apple SD Gothic Neo', sans-serif !important; /* EZ 오버라이드 */
+  line-height: 1.7 !important;     /* EZ 오버라이드 */
+  word-break: keep-all !important; /* EZ 오버라이드 */
+}
+
+/* 상품 상세 이미지 넘침 방지 */
+.xans-product-detail img {
+  max-width: 100% !important; /* EZ 오버라이드 */
+  height: auto !important;    /* EZ 오버라이드 */
+}
+
+
+/* =========================================================
+   4. 기본 버튼 (.ec-base-button) 스타일 리셋
+   카페24 기본 버튼의 파란색/굵은 테두리 제거
+   ========================================================= */
+.ec-base-button button,
+.ec-base-button a {
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont,
+               'Apple SD Gothic Neo', sans-serif !important; /* EZ 오버라이드 */
+  border-radius: 0 !important; /* EZ 오버라이드 — 둥근 모서리 제거 */
+  cursor: pointer !important;  /* EZ 오버라이드 */
+}
+
+
+/* =========================================================
+   5. 게시판/리뷰 (.xans-board-*) 스타일 정리
+   ========================================================= */
+.xans-board-listitem,
+.xans-board-detail {
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont,
+               'Apple SD Gothic Neo', sans-serif !important; /* EZ 오버라이드 */
+  word-break: keep-all !important; /* EZ 오버라이드 */
+}
+
+/* 게시판 테이블 테두리 색상 통일 */
+.xans-board-listitem table,
+.xans-board-detail table {
+  border-color: var(--color-border, #e0e0e0) !important; /* EZ 오버라이드 */
+}
+
+
+/* =========================================================
+   6. 검색 결과 (.xans-search-*) 스타일
+   ========================================================= */
+.xans-search-result {
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont,
+               'Apple SD Gothic Neo', sans-serif !important; /* EZ 오버라이드 */
+}
+
+
+/* =========================================================
+   7. EZ 에디터 인라인 margin/padding 리셋 패턴
+   EZ 에디터로 배치한 섹션의 의도치 않은 여백 제거 예시.
+   필요한 섹션 ID/클래스로 교체해서 사용하세요.
+
+   예시 사용법:
+   #section_main_banner {
+     margin-top: 0 !important;    !important: EZ 오버라이드
+     padding-top: 0 !important;   !important: EZ 오버라이드
+   }
+   ========================================================= */
+
+
+/* =========================================================
+   8. 카페24 기본 팝업/레이어 폰트
+   ========================================================= */
+#popupLayer,
+.layerPopup,
+.ec-popup-layer {
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont,
+               'Apple SD Gothic Neo', sans-serif !important; /* EZ 오버라이드 */
+}
+
+
+/* =========================================================
+   9. 모바일에서 EZ 오버라이드 추가 보완
+   ========================================================= */
+@media (max-width: 768px) {
+  /* 모바일에서 EZ가 고정 너비를 주입하는 경우 차단 */
+  .xans-product-listitem,
+  .xans-product-detail,
+  .xans-board-listitem {
+    width: 100% !important;     /* EZ 오버라이드 */
+    max-width: 100% !important; /* EZ 오버라이드 */
+  }
+
+  /* 모바일에서 EZ 테이블 가로 스크롤 처리 */
+  .xans-board-listitem table,
+  .xans-board-detail table {
+    display: block !important;      /* EZ 오버라이드 */
+    overflow-x: auto !important;    /* EZ 오버라이드 — 가로 스크롤 허용 */
+    -webkit-overflow-scrolling: touch;
+  }
+}

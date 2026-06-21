@@ -1,0 +1,213 @@
+/*
+ * nk-typography.css — Pretendard 폰트 + 타이포그래피 시스템
+ * 사용법: 카페24 관리자 → 디자인 → HTML/CSS 편집 → style.css에 붙여넣기
+ *         nk-reset.css 다음에 위치시킬 것
+ */
+
+/* =========================================================
+   1. Pretendard 폰트 로드
+   Google Fonts CDN 방식 — 인터넷 연결 시 자동으로 폰트를 불러옵니다.
+   ========================================================= */
+@import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800&display=swap');
+
+/*
+ * Google Fonts에 Pretendard가 없다면 CDN 대안:
+ * @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
+ * 위 줄을 복사해서 @import 교체 가능
+ */
+
+
+/* =========================================================
+   2. 기본 body 타이포그래피
+   ========================================================= */
+body {
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont,
+               'Apple SD Gothic Neo', sans-serif;
+  font-size: 16px;            /* 기준 폰트 크기 (1rem = 16px) */
+  font-weight: 400;           /* 기본 굵기: 보통 */
+  line-height: 1.6;           /* 줄 간격: 폰트 크기의 1.6배 */
+  letter-spacing: -0.01em;    /* 한국어에 맞는 자간 (살짝 좁게) */
+  color: var(--color-text, #1a1a1a);
+  word-break: keep-all;       /* 한국어: 단어 단위로 줄바꿈 */
+  overflow-wrap: break-word;  /* 긴 영어 단어가 넘칠 때 강제 줄바꿈 */
+}
+
+
+/* =========================================================
+   3. 헤딩 체계 (h1 ~ h6)
+   Figma 디자인 토큰 기준. 수치는 프로젝트에 맞게 수정하세요.
+   ========================================================= */
+
+/* h1 — 메인 타이틀 (히어로 섹션, 페이지 제목) */
+.nk-h1,
+h1 {
+  font-size: 3rem;          /* 48px */
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  word-break: keep-all;
+}
+
+/* h2 — 섹션 제목 */
+.nk-h2,
+h2 {
+  font-size: 2.25rem;       /* 36px */
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+  word-break: keep-all;
+}
+
+/* h3 — 서브 섹션 제목 */
+.nk-h3,
+h3 {
+  font-size: 1.75rem;       /* 28px */
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  word-break: keep-all;
+}
+
+/* h4 — 카드 제목, 항목 제목 */
+.nk-h4,
+h4 {
+  font-size: 1.375rem;      /* 22px */
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+  word-break: keep-all;
+}
+
+/* h5 — 소제목 */
+.nk-h5,
+h5 {
+  font-size: 1.125rem;      /* 18px */
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  word-break: keep-all;
+}
+
+/* h6 — 가장 작은 헤딩 */
+.nk-h6,
+h6 {
+  font-size: 1rem;           /* 16px */
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  word-break: keep-all;
+}
+
+
+/* =========================================================
+   4. 본문 텍스트 유틸리티 클래스
+   ========================================================= */
+
+/* 큰 본문 — 리드 문장, 소개글 */
+.nk-text-lg {
+  font-size: 1.125rem;      /* 18px */
+  font-weight: 400;
+  line-height: 1.7;
+  letter-spacing: -0.01em;
+}
+
+/* 기본 본문 */
+.nk-text-md {
+  font-size: 1rem;           /* 16px */
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+}
+
+/* 작은 본문 — 설명, 부가 정보 */
+.nk-text-sm {
+  font-size: 0.875rem;      /* 14px */
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: 0;
+}
+
+
+/* =========================================================
+   5. 캡션 & 레이블
+   ========================================================= */
+
+/* 캡션 — 이미지 설명, 주석 */
+.nk-caption {
+  font-size: 0.75rem;       /* 12px */
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0;
+  color: var(--color-text-muted, #999999);
+}
+
+/* 레이블 — 폼 레이블, 태그, 뱃지 */
+.nk-label {
+  font-size: 0.75rem;       /* 12px */
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.04em;   /* 레이블은 자간을 살짝 넓게 */
+  text-transform: uppercase; /* 영문 레이블 대문자 */
+}
+
+/* 상품 가격 텍스트 */
+.nk-price {
+  font-size: 1.125rem;      /* 18px */
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+/* 할인 전 가격 (취소선) */
+.nk-price-original {
+  font-size: 0.875rem;      /* 14px */
+  font-weight: 400;
+  line-height: 1;
+  color: var(--color-text-muted, #999999);
+  text-decoration: line-through;
+}
+
+
+/* =========================================================
+   6. 반응형 폰트 크기 조정
+   화면이 작아질수록 폰트 크기를 단계적으로 줄입니다.
+   ========================================================= */
+
+/* 태블릿 (768px 이하) */
+@media (max-width: 768px) {
+  body {
+    font-size: 15px;
+  }
+
+  .nk-h1, h1 { font-size: 2.25rem; }   /* 48px → 36px */
+  .nk-h2, h2 { font-size: 1.75rem; }   /* 36px → 28px */
+  .nk-h3, h3 { font-size: 1.5rem;  }   /* 28px → 24px */
+  .nk-h4, h4 { font-size: 1.25rem; }   /* 22px → 20px */
+  .nk-h5, h5 { font-size: 1.0625rem; } /* 18px → 17px */
+  .nk-h6, h6 { font-size: 0.9375rem; } /* 16px → 15px */
+}
+
+/* 모바일 (375px 이하) */
+@media (max-width: 375px) {
+  body {
+    font-size: 14px;
+  }
+
+  .nk-h1, h1 { font-size: 1.875rem; }  /* 30px */
+  .nk-h2, h2 { font-size: 1.5rem;   }  /* 24px */
+  .nk-h3, h3 { font-size: 1.25rem;  }  /* 20px */
+  .nk-h4, h4 { font-size: 1.125rem; }  /* 18px */
+  .nk-h5, h5 { font-size: 1rem;     }  /* 16px */
+  .nk-h6, h6 { font-size: 0.875rem; }  /* 14px */
+}
+
+/* 대형 화면 (1440px 이상) — 폰트 살짝 키움 */
+@media (min-width: 1440px) {
+  body {
+    font-size: 17px;
+  }
+
+  .nk-h1, h1 { font-size: 3.5rem;  }   /* 56px */
+  .nk-h2, h2 { font-size: 2.625rem; }  /* 42px */
+  .nk-h3, h3 { font-size: 2rem;     }  /* 32px */
+}

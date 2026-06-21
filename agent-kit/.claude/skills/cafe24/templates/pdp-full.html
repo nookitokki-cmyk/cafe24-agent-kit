@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{$product_name} | {$shop_name}</title>
+
+  <!-- 폰트: Pretendard CDN -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+
+  <!-- 아이콘: Phosphor Icons CDN -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+  <!-- 스킨 기본 스타일 시트 -->
+  <link rel="stylesheet" href="{$skin_path}/css/nk-reset.css">
+  <link rel="stylesheet" href="{$skin_path}/css/nk-typography.css">
+  <link rel="stylesheet" href="{$skin_path}/css/nk-pdp.css">
+
+  <style>
+    /* =============================================
+       CSS 변수 (디자인 토큰)
+    ============================================= */
+    :root {
+      --nk-color-primary: #111111;
+      --nk-color-secondary: #555555;
+      --nk-color-accent: #FF5A2C;   /* ↑ 브랜드 포인트 컬러 변경 */
+      --nk-color-bg: #FFFFFF;
+      --nk-color-bg-subtle: #F7F7F7;
+      --nk-color-border: #E5E5E5;
+      --nk-color-white: #FFFFFF;
+      --nk-font-base: 'Pretendard', sans-serif;
+      --nk-space-xs: 8px;
+      --nk-space-sm: 16px;
+      --nk-space-md: 24px;
+      --nk-space-lg: 48px;
+      --nk-space-xl: 80px;
+      --nk-radius-sm: 4px;
+      --nk-radius-md: 8px;
+      --nk-radius-lg: 16px;
+      --nk-max-width: 1280px;
+      --nk-header-height: 72px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--nk-font-base); color: var(--nk-color-primary); background-color: var(--nk-color-bg); -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    ul, ol { list-style: none; }
+    img { max-width: 100%; display: block; }
+
+    .nk-container { width: 100%; max-width: var(--nk-max-width); margin-inline: auto; padding-inline: var(--nk-space-sm); }
+
+    /* =============================================
+       헤더 (공통)
+    ============================================= */
+    .nk-header { position: sticky; top: 0; z-index: 100; height: var(--nk-header-height); background-color: var(--nk-color-white); border-bottom: 1px solid var(--nk-color-border); }
+    .nk-header__inner { display: flex; align-items: center; justify-content: space-between; height: 100%; }
+    .nk-logo { font-size: 20px; font-weight: 700; }
+    .nk-nav { display: flex; gap: var(--nk-space-md); }
+    .nk-nav__item a { font-size: 15px; font-weight: 500; transition: color 0.2s; }
+    .nk-nav__item a:hover { color: var(--nk-color-accent); }
+    .nk-header__actions { display: flex; align-items: center; gap: var(--nk-space-sm); }
+    .nk-header__actions a { font-size: 22px; color: var(--nk-color-primary); }
+    .nk-hamburger { display: none; background: none; border: none; cursor: pointer; padding: var(--nk-space-xs); }
+
+    /* =============================================
+       브레드크럼 (현재 위치 경로)
+    ============================================= */
+    .nk-breadcrumb {
+      padding-block: var(--nk-space-sm);
+      border-bottom: 1px solid var(--nk-color-border);
+    }
+    .nk-breadcrumb__list {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--nk-color-secondary);
+    }
+    .nk-breadcrumb__list a:hover { color: var(--nk-color-primary); }
+    .nk-breadcrumb__sep { opacity: 0.4; }
+
+    /* =============================================
+       PDP 메인 레이아웃 (이미지 + 구매 영역)
+    ============================================= */
+    .nk-pdp { padding-block: var(--nk-space-lg); }
+    .nk-pdp__main {
+      display: grid;
+      grid-template-columns: 1fr 480px;
+      gap: var(--nk-space-lg);
+      align-items: flex-start;
+    }
+
+    /* =============================================
+       상품 이미지 갤러리
+    ============================================= */
+    .nk-gallery {}
+    .nk-gallery__main {
+      position: relative;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      border-radius: var(--nk-radius-lg);
+      background-color: var(--nk-color-bg-subtle);
+      margin-bottom: var(--nk-space-sm);
+    }
+    .nk-gallery__main img { width: 100%; height: 100%; object-fit: cover; }
+    .nk-gallery__badge {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: var(--nk-radius-sm);
+      background-color: var(--nk-color-accent);
+      color: var(--nk-color-white);
+    }
+    .nk-gallery__thumbs {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+    }
+    .nk-gallery__thumb {
+      aspect-ratio: 1 / 1;
+      border-radius: var(--nk-radius-sm);
+      overflow: hidden;
+      border: 2px solid transparent;
+      cursor: pointer;
+      background-color: var(--nk-color-bg-subtle);
+      transition: border-color 0.2s;
+    }
+    .nk-gallery__thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .nk-gallery__thumb--active { border-color: var(--nk-color-primary); }
+
+    /* =============================================
+       상품 정보 + 구매 패널 (오른쪽)
+    ============================================= */
+    .nk-purchase {
+      position: sticky;
+      top: calc(var(--nk-header-height) + 24px);
+    }
+
+    /* 브랜드명 */
+    .nk-purchase__brand {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--nk-color-secondary);
+      margin-bottom: 6px;
+    }
+
+    /* 상품명 */
+    .nk-purchase__name {
+      font-size: clamp(20px, 2.5vw, 28px);
+      font-weight: 700;
+      line-height: 1.3;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--nk-space-sm);
+    }
+
+    /* 별점 + 리뷰 */
+    .nk-purchase__rating {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--nk-color-secondary);
+      margin-bottom: var(--nk-space-md);
+      padding-bottom: var(--nk-space-md);
+      border-bottom: 1px solid var(--nk-color-border);
+    }
+    .nk-purchase__stars { color: #FBBF24; display: flex; gap: 2px; }
+
+    /* 가격 */
+    .nk-purchase__price-wrap {
+      margin-bottom: var(--nk-space-md);
+    }
+    .nk-purchase__price-original {
+      font-size: 14px;
+      color: var(--nk-color-secondary);
+      text-decoration: line-through;
+      margin-bottom: 4px;
+    }
+    .nk-purchase__price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+    .nk-purchase__price {
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+    .nk-purchase__discount {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--nk-color-accent);
+    }
+    .nk-purchase__shipping {
+      margin-top: 8px;
+      font-size: 13px;
+      color: var(--nk-color-secondary);
+    }
+
+    /* 구분선 */
+    .nk-purchase__divider {
+      border: none;
+      border-top: 1px solid var(--nk-color-border);
+      margin-block: var(--nk-space-md);
+    }
+
+    /* 옵션 선택 */
+    .nk-option-group { margin-bottom: var(--nk-space-sm); }
+    .nk-option-group__label {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .nk-option-select {
+      width: 100%;
+      padding: 12px var(--nk-space-sm);
+      border: 1px solid var(--nk-color-border);
+      border-radius: var(--nk-radius-sm);
+      font-family: var(--nk-font-base);
+      font-size: 14px;
+      background-color: var(--nk-color-white);
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 256 256'%3E%3Cpath d='M213.66 101.66l-80 80a8 8 0 0 1-11.32 0l-80-80a8 8 0 0 1 11.32-11.32L128 164.69l74.34-74.35a8 8 0 0 1 11.32 11.32z' fill='%23555'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      transition: border-color 0.2s;
+    }
+    .nk-option-select:focus { border-color: var(--nk-color-primary); outline: 2px solid rgba(17,17,17,0.15); }
+
+    /* 선택된 옵션 미리보기 */
+    .nk-option-preview {
+      background-color: var(--nk-color-bg-subtle);
+      border-radius: var(--nk-radius-md);
+      padding: var(--nk-space-sm);
+      margin-bottom: var(--nk-space-sm);
+    }
+    .nk-option-preview__item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      padding-block: 6px;
+    }
+    .nk-option-preview__name { color: var(--nk-color-secondary); }
+    .nk-option-preview__qty {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nk-qty-btn {
+      width: 24px;
+      height: 24px;
+      border: 1px solid var(--nk-color-border);
+      border-radius: var(--nk-radius-sm);
+      background: var(--nk-color-white);
+      cursor: pointer;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.2s;
+    }
+    .nk-qty-btn:hover { border-color: var(--nk-color-primary); }
+    .nk-option-preview__total {
+      display: flex;
+      justify-content: flex-end;
+      font-size: 16px;
+      font-weight: 700;
+      padding-top: var(--nk-space-xs);
+      border-top: 1px solid var(--nk-color-border);
+      margin-top: var(--nk-space-xs);
+    }
+
+    /* 구매 버튼 그룹 */
+    .nk-purchase__actions {
+      display: grid;
+      grid-template-columns: 48px 1fr 1fr;
+      gap: 8px;
+      margin-top: var(--nk-space-md);
+    }
+    .nk-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 15px;
+      border-radius: var(--nk-radius-sm);
+      font-family: var(--nk-font-base);
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .nk-btn--wish {
+      border: 1px solid var(--nk-color-border);
+      background-color: var(--nk-color-white);
+      color: var(--nk-color-secondary);
+      font-size: 22px;
+    }
+    .nk-btn--wish:hover { border-color: var(--nk-color-primary); color: var(--nk-color-primary); }
+    .nk-btn--cart {
+      border: 1px solid var(--nk-color-primary);
+      background-color: var(--nk-color-white);
+      color: var(--nk-color-primary);
+    }
+    .nk-btn--cart:hover { background-color: var(--nk-color-bg-subtle); }
+    .nk-btn--buy {
+      background-color: var(--nk-color-primary);
+      color: var(--nk-color-white);
+    }
+    .nk-btn--buy:hover { background-color: #333333; }
+
+    /* =============================================
+       상세 설명 탭
+    ============================================= */
+    .nk-pdp-tabs { border-top: 2px solid var(--nk-color-primary); margin-top: var(--nk-space-xl); }
+    .nk-tab-list {
+      display: flex;
+      border-bottom: 1px solid var(--nk-color-border);
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .nk-tab-list::-webkit-scrollbar { display: none; }
+    .nk-tab-btn {
+      padding: 16px var(--nk-space-md);
+      font-family: var(--nk-font-base);
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--nk-color-secondary);
+      border: none;
+      border-bottom: 2px solid transparent;
+      background: none;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+      margin-bottom: -1px;
+    }
+    .nk-tab-btn--active {
+      color: var(--nk-color-primary);
+      font-weight: 700;
+      border-bottom-color: var(--nk-color-primary);
+    }
+    .nk-tab-panel { display: none; padding: var(--nk-space-lg) 0; }
+    .nk-tab-panel--active { display: block; }
+
+    /* =============================================
+       관련 상품
+    ============================================= */
+    .nk-relation { padding-block: var(--nk-space-xl); border-top: 1px solid var(--nk-color-border); }
+    .nk-relation__title { font-size: 22px; font-weight: 700; margin-bottom: var(--nk-space-md); }
+    .nk-product-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--nk-space-sm);
+    }
+    .nk-product-card__thumb {
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
+      border-radius: var(--nk-radius-md);
+      background-color: var(--nk-color-bg-subtle);
+      margin-bottom: 12px;
+    }
+    .nk-product-card__thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+    .nk-product-card__thumb:hover img { transform: scale(1.04); }
+    .nk-product-card__name { font-size: 14px; font-weight: 500; line-height: 1.4; margin-bottom: 6px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .nk-product-card__price { font-size: 16px; font-weight: 700; }
+
+    /* =============================================
+       리뷰 섹션
+    ============================================= */
+    .nk-review-summary {
+      display: flex;
+      align-items: center;
+      gap: var(--nk-space-lg);
+      padding: var(--nk-space-md);
+      background-color: var(--nk-color-bg-subtle);
+      border-radius: var(--nk-radius-lg);
+      margin-bottom: var(--nk-space-md);
+    }
+    .nk-review-score {
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .nk-review-score__num { font-size: 48px; font-weight: 700; line-height: 1; }
+    .nk-review-score__stars { color: #FBBF24; display: flex; gap: 2px; justify-content: center; margin-top: 6px; }
+    .nk-review-score__count { font-size: 12px; color: var(--nk-color-secondary); margin-top: 4px; }
+
+    .nk-review-item {
+      border-bottom: 1px solid var(--nk-color-border);
+      padding-block: var(--nk-space-md);
+    }
+    .nk-review-item__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--nk-space-xs);
+    }
+    .nk-review-item__author { font-size: 14px; font-weight: 600; }
+    .nk-review-item__date { font-size: 12px; color: var(--nk-color-secondary); }
+    .nk-review-item__stars { color: #FBBF24; display: flex; gap: 2px; font-size: 14px; margin-bottom: var(--nk-space-xs); }
+    .nk-review-item__text { font-size: 14px; line-height: 1.7; color: var(--nk-color-secondary); }
+
+    /* Q&A 섹션 */
+    .nk-qna-item {
+      border-bottom: 1px solid var(--nk-color-border);
+      padding-block: var(--nk-space-sm);
+    }
+    .nk-qna-item__header { display: flex; align-items: center; gap: var(--nk-space-sm); cursor: pointer; }
+    .nk-qna-item__type {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: var(--nk-radius-sm);
+      background-color: var(--nk-color-bg-subtle);
+      color: var(--nk-color-secondary);
+      white-space: nowrap;
+    }
+    .nk-qna-item__type--answered { background-color: #D1FAE5; color: #065F46; }
+    .nk-qna-item__title { font-size: 14px; font-weight: 500; flex: 1; }
+    .nk-qna-item__meta { font-size: 12px; color: var(--nk-color-secondary); white-space: nowrap; }
+
+    /* =============================================
+       모바일 고정 구매 바 (화면 하단 고정)
+    ============================================= */
+    .nk-purchase-bar {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      background-color: var(--nk-color-white);
+      border-top: 1px solid var(--nk-color-border);
+      padding: var(--nk-space-sm);
+    }
+    .nk-purchase-bar__inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    /* =============================================
+       푸터
+    ============================================= */
+    .nk-footer { background-color: var(--nk-color-primary); color: rgba(255,255,255,0.6); padding-block: var(--nk-space-lg); }
+    .nk-footer__info { font-size: 12px; line-height: 2; }
+    .nk-footer__copy { border-top: 1px solid rgba(255,255,255,0.1); margin-top: var(--nk-space-md); padding-top: var(--nk-space-md); font-size: 11px; text-align: center; }
+
+    /* =============================================
+       반응형 — 1024px 이하
+    ============================================= */
+    @media (max-width: 1024px) {
+      .nk-pdp__main { grid-template-columns: 1fr; }
+      .nk-purchase { position: static; }
+      .nk-purchase__actions { display: none; } /* 모바일에서는 하단 고정 바로 이동 */
+      .nk-purchase-bar { display: block; }
+      body { padding-bottom: 80px; } /* 하단 바 높이만큼 여백 */
+      .nk-product-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .nk-nav { display: none; }
+      .nk-hamburger { display: flex; }
+      .nk-product-grid { grid-template-columns: repeat(2, 1fr); }
+      .nk-gallery__thumbs { grid-template-columns: repeat(4, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===================================================
+     헤더 (공통)
+=================================================== -->
+<header class="nk-header">
+  <div class="nk-container">
+    <div class="nk-header__inner">
+      <a href="/" class="nk-logo">{$mall_name}</a>
+      <nav class="nk-nav">
+        <li class="nk-nav__item"><a href="/product/list.html?cate_no=26">신상품</a></li>
+        <li class="nk-nav__item"><a href="/product/list.html?cate_no=27">베스트</a></li>
+        <li class="nk-nav__item"><a href="/product/list.html?cate_no=28">세일</a></li>
+      </nav>
+      <div class="nk-header__actions">
+        <a href="/member/search.html" aria-label="검색"><i class="ph ph-magnifying-glass"></i></a>
+        <a href="/myshop/index.html" aria-label="마이페이지"><i class="ph ph-user"></i></a>
+        <a href="/order/basket.html" aria-label="장바구니"><i class="ph ph-shopping-cart"></i></a>
+      </div>
+      <button class="nk-hamburger" aria-label="메뉴 열기">
+        <i class="ph ph-list" style="font-size: 24px;"></i>
+      </button>
+    </div>
+  </div>
+</header>
+<!-- === 헤더 끝 === -->
+
+
+<!-- ===================================================
+     브레드크럼 (현재 위치 경로 표시)
+=================================================== -->
+<div class="nk-breadcrumb">
+  <div class="nk-container">
+    <ol class="nk-breadcrumb__list">
+      <li><a href="/">홈</a></li>
+      <li class="nk-breadcrumb__sep"><i class="ph ph-caret-right"></i></li>
+      <li><a href="/product/list.html?cate_no={$cate_no}">{$category_name}</a></li>
+      <li class="nk-breadcrumb__sep"><i class="ph ph-caret-right"></i></li>
+      <li>{$product_name}</li>
+    </ol>
+  </div>
+</div>
+<!-- === 브레드크럼 끝 === -->
+
+
+<!-- ===================================================
+     상품 이미지 + 구매 영역
+=================================================== -->
+<main class="nk-pdp">
+  <div class="nk-container">
+    <div class="nk-pdp__main">
+
+      <!-- === 상품 이미지 갤러리 (왼쪽) === -->
+      <!-- 카페24 상품 이미지 모듈 -->
+      <div module="product_image">
+        <div class="nk-gallery">
+
+          <!-- 메인 이미지 -->
+          <div class="nk-gallery__main" id="nk-main-image">
+            <img src="{$main_image}" alt="{$product_name}" id="nk-gallery-main-img">
+            <!-- 배지 — 뱃지 설정 시 자동 출력 -->
+            <span class="nk-gallery__badge">{$badge}</span>
+          </div>
+
+          <!-- 썸네일 이미지 목록 (최대 5개) -->
+          <div class="nk-gallery__thumbs">
+            <div class="nk-gallery__thumb nk-gallery__thumb--active">
+              <img src="{$main_image}" alt="{$product_name} 대표 이미지">
+            </div>
+            <!-- 추가 이미지 반복 -->
+            <div class="nk-gallery__thumb">
+              <img src="{$sub_image_1}" alt="{$product_name} 이미지 2">
+            </div>
+            <div class="nk-gallery__thumb">
+              <img src="{$sub_image_2}" alt="{$product_name} 이미지 3">
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!-- === 상품 이미지 갤러리 끝 === -->
+
+
+      <!-- === 구매 패널 (오른쪽) === -->
+      <div class="nk-purchase">
+
+        <!-- 카페24 상품 상세 정보 모듈 -->
+        <div module="product_detail">
+
+          <!-- 브랜드명 -->
+          <p class="nk-purchase__brand">{$brand_name}</p>  <!-- ↑ 브랜드 설정 시 자동 출력 -->
+
+          <!-- 상품명 -->
+          <h1 class="nk-purchase__name">{$product_name}</h1>
+
+          <!-- 별점 + 리뷰 수 -->
+          <div class="nk-purchase__rating">
+            <span class="nk-purchase__stars">
+              <i class="ph-fill ph-star"></i>
+              <i class="ph-fill ph-star"></i>
+              <i class="ph-fill ph-star"></i>
+              <i class="ph-fill ph-star"></i>
+              <i class="ph ph-star"></i>
+            </span>
+            <span>{$review_score}</span>
+            <a href="#nk-tab-review">리뷰 {$review_count}개</a>
+          </div>
+
+          <!-- 가격 영역 -->
+          <div class="nk-purchase__price-wrap">
+            <!-- 할인 전 원가 (할인 없으면 숨길 것) -->
+            <p class="nk-purchase__price-original">{$retail_price|number_format}원</p>
+            <div class="nk-purchase__price-row">
+              <span class="nk-purchase__price">{$product_price|number_format}원</span>
+              <span class="nk-purchase__discount">{$discount_rate}%</span>
+            </div>
+            <p class="nk-purchase__shipping">
+              배송비 {$shipping_fee|number_format}원  <!-- ↑ 무료배송이면 "무료" 텍스트로 변경 -->
+            </p>
+          </div>
+
+          <hr class="nk-purchase__divider">
+
+        </div>
+        <!-- 카페24 상품 상세 정보 모듈 끝 -->
+
+
+        <!-- 옵션 선택 영역 -->
+        <!-- 카페24 옵션 모듈 -->
+        <div module="product_option">
+
+          <!-- 색상 옵션 -->
+          <div class="nk-option-group">
+            <p class="nk-option-group__label">색상</p>
+            <select class="nk-option-select" name="option_1">
+              <option value="">색상을 선택하세요</option>
+              <!-- 옵션 반복 — 카페24가 자동으로 채움 -->
+              <option value="{$option_value}">{$option_name}</option>
+            </select>
+          </div>
+
+          <!-- 사이즈 옵션 -->
+          <div class="nk-option-group">
+            <p class="nk-option-group__label">사이즈</p>
+            <select class="nk-option-select" name="option_2">
+              <option value="">사이즈를 선택하세요</option>
+              <option value="{$option_value}">{$option_name}</option>
+            </select>
+          </div>
+
+          <!-- 선택된 옵션 미리보기 -->
+          <div class="nk-option-preview" id="nk-option-preview">
+            <div class="nk-option-preview__item">
+              <span class="nk-option-preview__name">블랙 / M</span>
+              <div class="nk-option-preview__qty">
+                <button class="nk-qty-btn" type="button" aria-label="수량 감소">-</button>
+                <span>1</span>
+                <button class="nk-qty-btn" type="button" aria-label="수량 증가">+</button>
+              </div>
+              <span>29,000원</span>
+            </div>
+            <div class="nk-option-preview__total">
+              <span>총 29,000원</span>
+            </div>
+          </div>
+
+        </div>
+        <!-- 옵션 모듈 끝 -->
+
+
+        <!-- 구매 버튼 영역 -->
+        <!-- 카페24 구매 액션 모듈 -->
+        <div module="product_action">
+          <div class="nk-purchase__actions">
+            <!-- 찜하기 버튼 -->
+            <button class="nk-btn nk-btn--wish" type="button" aria-label="위시리스트에 추가">
+              <i class="ph ph-heart"></i>
+            </button>
+            <!-- 장바구니 버튼 -->
+            <button class="nk-btn nk-btn--cart" type="button">
+              장바구니
+            </button>
+            <!-- 바로구매 버튼 -->
+            <button class="nk-btn nk-btn--buy" type="button">
+              바로구매
+            </button>
+          </div>
+        </div>
+        <!-- 구매 액션 모듈 끝 -->
+
+      </div>
+      <!-- === 구매 패널 끝 === -->
+
+    </div>
+  </div>
+</main>
+<!-- === 상품 이미지 + 구매 영역 끝 === -->
+
+
+<!-- ===================================================
+     상품 상세 설명 탭 (설명 / 배송·교환 / 리뷰 / Q&A)
+=================================================== -->
+<div class="nk-pdp-tabs">
+  <div class="nk-container">
+
+    <!-- 탭 버튼 목록 -->
+    <div class="nk-tab-list" role="tablist">
+      <button class="nk-tab-btn nk-tab-btn--active" role="tab" aria-selected="true" data-target="nk-tab-detail">
+        상품설명
+      </button>
+      <button class="nk-tab-btn" role="tab" aria-selected="false" data-target="nk-tab-shipping">
+        배송·교환·반품
+      </button>
+      <button class="nk-tab-btn" role="tab" aria-selected="false" data-target="nk-tab-review" id="nk-tab-review">
+        리뷰 ({$review_count})
+      </button>
+      <button class="nk-tab-btn" role="tab" aria-selected="false" data-target="nk-tab-qna">
+        Q&amp;A ({$qna_count})
+      </button>
+    </div>
+
+    <!-- === 상품 설명 탭 패널 === -->
+    <div class="nk-tab-panel nk-tab-panel--active" id="nk-tab-detail" role="tabpanel">
+      <!-- 카페24 상품 상세 이미지/설명 모듈 -->
+      <div module="product_detaildesign">
+        {$detail_image}  <!-- ↑ 어드민 상품 등록 > 상세설명 에디터에서 작성한 내용 자동 출력 -->
+      </div>
+    </div>
+
+    <!-- === 배송·교환·반품 탭 패널 === -->
+    <div class="nk-tab-panel" id="nk-tab-shipping" role="tabpanel">
+      <!-- 배송/교환/반품 정보 — 아래 내용 직접 수정 -->
+      <table style="width:100%; border-collapse: collapse; font-size: 14px; line-height: 1.8;">
+        <tr>
+          <th style="width: 120px; padding: 12px; text-align: left; border-bottom: 1px solid #E5E5E5; font-weight: 600;">배송 방법</th>
+          <td style="padding: 12px; border-bottom: 1px solid #E5E5E5;">택배</td>  <!-- ↑ 변경 -->
+        </tr>
+        <tr>
+          <th style="padding: 12px; text-align: left; border-bottom: 1px solid #E5E5E5; font-weight: 600;">배송비</th>
+          <td style="padding: 12px; border-bottom: 1px solid #E5E5E5;">3,000원 (50,000원 이상 무료)</td>  <!-- ↑ 변경 -->
+        </tr>
+        <tr>
+          <th style="padding: 12px; text-align: left; border-bottom: 1px solid #E5E5E5; font-weight: 600;">교환/반품</th>
+          <td style="padding: 12px; border-bottom: 1px solid #E5E5E5;">수령 후 7일 이내 가능 (왕복 배송비 고객 부담)</td>  <!-- ↑ 변경 -->
+        </tr>
+        <tr>
+          <th style="padding: 12px; text-align: left; font-weight: 600;">교환/반품 불가</th>
+          <td style="padding: 12px;">착용·세탁 후, 택 제거, 냄새·오염 발생 시</td>  <!-- ↑ 변경 -->
+        </tr>
+      </table>
+    </div>
+
+    <!-- === 리뷰 탭 패널 === -->
+    <div class="nk-tab-panel" id="nk-tab-review" role="tabpanel">
+
+      <!-- 리뷰 요약 -->
+      <div class="nk-review-summary">
+        <div class="nk-review-score">
+          <p class="nk-review-score__num">{$review_score}</p>
+          <div class="nk-review-score__stars">
+            <i class="ph-fill ph-star"></i>
+            <i class="ph-fill ph-star"></i>
+            <i class="ph-fill ph-star"></i>
+            <i class="ph-fill ph-star"></i>
+            <i class="ph ph-star"></i>
+          </div>
+          <p class="nk-review-score__count">리뷰 {$review_count}개</p>
+        </div>
+      </div>
+
+      <!-- 카페24 리뷰 모듈 -->
+      <div module="product_review">
+        <div class="nk-review-item">
+          <div class="nk-review-item__header">
+            <span class="nk-review-item__author">{$writer}</span>  <!-- ↑ 작성자 자동 출력 -->
+            <span class="nk-review-item__date">{$write_date}</span>
+          </div>
+          <div class="nk-review-item__stars">
+            <!-- 별점 반복 출력 -->
+            <i class="ph-fill ph-star"></i>
+          </div>
+          <p class="nk-review-item__text">{$review_content}</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- === Q&A 탭 패널 === -->
+    <div class="nk-tab-panel" id="nk-tab-qna" role="tabpanel">
+
+      <!-- 글쓰기 버튼 -->
+      <div style="display: flex; justify-content: flex-end; margin-bottom: var(--nk-space-md);">
+        <a href="/board/write.html?board_no={$qna_board_no}&amp;product_no={$product_no}" class="nk-btn nk-btn--cart" style="display:inline-flex; padding: 10px 20px; font-size: 14px;">
+          <!-- ↑ qna_board_no를 어드민에서 확인한 Q&A 게시판 번호로 변경 -->
+          <i class="ph ph-pencil-simple"></i>
+          문의하기
+        </a>
+      </div>
+
+      <!-- 카페24 Q&A 모듈 -->
+      <div module="product_qna">
+        <div class="nk-qna-item">
+          <div class="nk-qna-item__header">
+            <span class="nk-qna-item__type nk-qna-item__type--answered">답변완료</span>
+            <!-- ↑ 미답변이면 nk-qna-item__type--answered 클래스 제거 -->
+            <span class="nk-qna-item__title">{$subject}</span>
+            <span class="nk-qna-item__meta">{$writer} · {$write_date}</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+<!-- === 상품 상세 설명 탭 끝 === -->
+
+
+<!-- ===================================================
+     관련 상품
+=================================================== -->
+<section class="nk-relation">
+  <div class="nk-container">
+    <h2 class="nk-relation__title">함께 보면 좋은 상품</h2>
+
+    <!-- 카페24 관련 상품 모듈 -->
+    <div module="product_relation">
+      <ul class="nk-product-grid">
+        <li>
+          <a href="/product/detail.html?product_no={$product_no}">
+            <div class="nk-product-card__thumb">
+              <img src="{$product_image}" alt="{$product_name}" loading="lazy">
+            </div>
+            <p class="nk-product-card__name">{$product_name}</p>
+            <span class="nk-product-card__price">{$product_price|number_format}원</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+<!-- === 관련 상품 끝 === -->
+
+
+<!-- ===================================================
+     모바일 하단 고정 구매 바
+=================================================== -->
+<div class="nk-purchase-bar">
+  <div class="nk-purchase-bar__inner">
+    <button class="nk-btn nk-btn--cart">장바구니</button>
+    <button class="nk-btn nk-btn--buy">바로구매</button>
+  </div>
+</div>
+<!-- === 모바일 하단 구매 바 끝 === -->
+
+
+<!-- ===================================================
+     푸터
+=================================================== -->
+<footer class="nk-footer">
+  <div class="nk-container">
+    <address class="nk-footer__info">
+      <strong style="color: rgba(255,255,255,0.9); font-weight: 700;">{$mall_name}</strong>&nbsp;&nbsp;
+      대표자: 홍길동&nbsp;&nbsp;  <!-- ↑ 변경 -->
+      사업자등록번호: 000-00-00000&nbsp;&nbsp;  <!-- ↑ 변경 -->
+      고객센터: 00-0000-0000  <!-- ↑ 변경 -->
+    </address>
+    <p class="nk-footer__copy">&#169; {$year} {$mall_name}. All rights reserved.</p>
+  </div>
+</footer>
+<!-- === 푸터 끝 === -->
+
+<!-- 탭 전환 스크립트 -->
+<script>
+  /* PDP 탭 전환 — 탭 버튼 클릭 시 패널 교체 */
+  document.querySelectorAll('.nk-tab-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      /* 모든 탭 버튼 비활성화 */
+      document.querySelectorAll('.nk-tab-btn').forEach(function(b) {
+        b.classList.remove('nk-tab-btn--active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      /* 모든 탭 패널 숨기기 */
+      document.querySelectorAll('.nk-tab-panel').forEach(function(p) {
+        p.classList.remove('nk-tab-panel--active');
+      });
+      /* 클릭한 탭 활성화 */
+      btn.classList.add('nk-tab-btn--active');
+      btn.setAttribute('aria-selected', 'true');
+      /* 해당 패널 표시 */
+      var target = btn.getAttribute('data-target');
+      document.getElementById(target).classList.add('nk-tab-panel--active');
+    });
+  });
+</script>
+
+<script src="{$skin_path}/js/nk-pdp.js"></script>
+
+</body>
+</html>
