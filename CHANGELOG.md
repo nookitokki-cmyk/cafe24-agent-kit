@@ -1,5 +1,16 @@
 # Cafe24 Agent Kit — Changelog
 
+## v2.3.7 (2026-06-21)
+
+### Added
+- **시작 시 자동 업데이트 체크** — `python cli.py kit-autoupdate`. `/키트시작` 첫 단계로 실행되어, 로컬 `VERSION` vs 원격(GitHub Release)을 비교하고 새 버전이면 안내/적용
+  - **채널 감지**(`detect_install_channel`): `git` clone / GitHub Release `zip` / 향후 `npm` 을 구분해 알맞은 업데이트 명령 제시 (env `CAFE24_KIT_CHANNEL` 로 강제 지정 가능)
+  - **조건부 자동 적용** `--apply`: Release 채널은 `kit-update --from-github` 자동 실행, git 채널은 **클린 트리일 때만** `git pull --ff-only`. config/*·clients/{몰} 은 항상 보존
+  - **스로틀**(기본 12h) + **오프라인 안전**: 매 시작마다 네트워크를 때리지 않고, 원격 확인 실패 시에도 시작을 막지 않음. `--force` 로 즉시 재확인
+  - 스로틀 상태 파일 `mcp/config/.autoupdate_check.json` 은 gitignore 처리(로컬 전용)
+
+---
+
 ## v2.3.6 (2026-06-20)
 
 ### Added
