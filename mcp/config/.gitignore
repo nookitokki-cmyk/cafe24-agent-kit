@@ -3,3 +3,5 @@ cafe24_config_*.py
 *.token.json
 sftp_*.json
 __pycache__/
+# 자동 업데이트 체크 로컬 상태 (스로틀 타임스탬프)
+.autoupdate_check.json

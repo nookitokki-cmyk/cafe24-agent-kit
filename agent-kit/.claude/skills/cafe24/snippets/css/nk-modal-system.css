@@ -1,0 +1,196 @@
+/*!
+ * nk-modal-system — 모달·팝업 시스템 (오버레이 + 슬라이드인 + 닫기 버튼)
+ * 사용처: 퀵뷰·옵션 선택·약관 보기·이미지 확대 등 모든 모달
+ * 의존성:
+ *   - CSS 변수 (--nk-color-bg / --nk-color-text / --nk-radius-lg / --nk-space-md)
+ *   - JS: snippets/js/nk-modal-toggle.js (열기/닫기 로직)
+ *
+ * 비코더 사용법:
+ *   1. SFTP로 _nk/css/ 폴더에 업로드
+ *   2. <head> 에 <link rel="stylesheet" href="/_nk/css/nk-modal-system.css">
+ *   3. HTML 구조:
+ *      <div class="nk-modal" id="my-modal" role="dialog" aria-modal="true" hidden>
+ *        <div class="nk-modal-overlay" data-nk-modal-close></div>
+ *        <div class="nk-modal-content">
+ *          <button class="nk-modal-close" data-nk-modal-close aria-label="닫기">
+ *            <i class="ph ph-x"></i>
+ *          </button>
+ *          <h2 class="nk-modal-title">제목</h2>
+ *          <div class="nk-modal-body">본문...</div>
+ *          <div class="nk-modal-footer">
+ *            <button class="nk-btn nk-btn-outline" data-nk-modal-close>취소</button>
+ *            <button class="nk-btn nk-btn-primary">확인</button>
+ *          </div>
+ *        </div>
+ *      </div>
+ *
+ *   4. 열기: <button data-nk-modal-open="my-modal">열기</button>
+ *   5. 닫기: data-nk-modal-close 속성 + ESC 키 + 오버레이 클릭
+ */
+
+/* ───── 컨테이너 ───── */
+
+.nk-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--nk-space-md, 16px);
+  animation: nk-modal-fade-in 0.2s ease-out;
+}
+
+.nk-modal[hidden] { display: none; }
+
+/* 본문 스크롤 잠금 (JS에서 body에 클래스 추가) */
+body.nk-modal-open {
+  overflow: hidden;
+}
+
+/* ───── 오버레이 ───── */
+
+.nk-modal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+/* ───── 콘텐츠 (본체) ───── */
+
+.nk-modal-content {
+  position: relative;
+  z-index: 1;
+  background: var(--nk-color-bg, #ffffff);
+  color: var(--nk-color-text, #1a1a1a);
+  border-radius: var(--nk-radius-lg, 16px);
+  max-width: 560px;
+  width: 100%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+  animation: nk-modal-slide-up 0.25s ease-out;
+}
+
+/* 크기 변형 */
+.nk-modal-content.is-sm { max-width: 400px; }
+.nk-modal-content.is-md { max-width: 560px; }
+.nk-modal-content.is-lg { max-width: 800px; }
+.nk-modal-content.is-xl { max-width: 1100px; }
+
+/* 모바일 전체 화면 변형 */
+@media (max-width: 480px) {
+  .nk-modal-content.is-fullscreen-mobile {
+    max-width: none;
+    max-height: 100vh;
+    height: 100vh;
+    border-radius: 0;
+  }
+}
+
+/* ───── 닫기 버튼 ───── */
+
+.nk-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 44px;
+  height: 44px;
+  background: transparent;
+  border: 0;
+  color: var(--nk-color-text-sub, #5f6368);
+  font-size: 24px;
+  cursor: pointer;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+.nk-modal-close:hover {
+  background: var(--nk-color-surface, #f8f9fa);
+  color: var(--nk-color-text, #1a1a1a);
+}
+.nk-modal-close:focus-visible {
+  outline: 2px solid var(--nk-color-accent, #2b6cb0);
+  outline-offset: 2px;
+}
+
+/* ───── 헤더 / 본문 / 푸터 영역 ───── */
+
+.nk-modal-title {
+  margin: 0;
+  padding: var(--nk-space-lg, 24px) var(--nk-space-lg, 24px) var(--nk-space-md, 16px);
+  font-size: 18px;
+  font-weight: 700;
+  padding-right: 60px; /* 닫기 버튼 공간 */
+}
+
+.nk-modal-body {
+  flex: 1;
+  padding: 0 var(--nk-space-lg, 24px) var(--nk-space-lg, 24px);
+  overflow-y: auto;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* 제목이 없으면 본문에 상단 패딩 추가 */
+.nk-modal-content > .nk-modal-body:first-child {
+  padding-top: var(--nk-space-lg, 24px);
+}
+
+.nk-modal-footer {
+  padding: var(--nk-space-md, 16px) var(--nk-space-lg, 24px);
+  border-top: 1px solid var(--nk-color-border, #e5e7eb);
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+@media (max-width: 480px) {
+  .nk-modal-footer {
+    flex-direction: column-reverse;
+  }
+  .nk-modal-footer .nk-btn {
+    width: 100%;
+  }
+}
+
+/* ───── 변형: 하단 시트 (모바일에서 자주 씀) ───── */
+
+.nk-modal.is-bottom-sheet {
+  align-items: flex-end;
+  padding: 0;
+}
+.nk-modal.is-bottom-sheet .nk-modal-content {
+  max-width: none;
+  width: 100%;
+  border-radius: var(--nk-radius-lg, 16px) var(--nk-radius-lg, 16px) 0 0;
+  max-height: 85vh;
+  animation: nk-modal-slide-up-sheet 0.3s ease-out;
+}
+
+/* ───── 애니메이션 ───── */
+
+@keyframes nk-modal-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes nk-modal-slide-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes nk-modal-slide-up-sheet {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nk-modal,
+  .nk-modal-content { animation: none; }
+}
