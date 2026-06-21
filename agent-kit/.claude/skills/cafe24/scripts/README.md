@@ -4,9 +4,11 @@
 
 | 파일 | 누가 | 무엇 |
 |---|---|---|
-| `diagnose-overrides.js` | **비코더용** (설치 0) | 라이브 화면 F12 콘솔에 붙여넣으면 진단표 출력 |
-| `preflight.mjs` | 자동화/CI용 | Playwright 로 PC+모바일 자동 점검 → JSON 리포트 |
-| `../references/traps.json` | 엔진 데이터 정본 | 함정 22종(증상·탐지·처방). 위 둘이 이걸 미러/참조 |
+| `diagnose-overrides.js` | **비코더용** (설치 0) | 라이브 화면 F12 콘솔에 붙여넣으면 진단표 + **방식(HTML/EZ) 자동판정** 출력 |
+| `preflight.mjs` | 자동화/CI용 | Playwright 로 PC+모바일 자동 점검 → JSON 리포트 (override 축) |
+| `capture-pair.mjs` | 자동화/CI용 | 레퍼런스 vs 결과 스크린샷 4장(PC+모바일) 캡처 → qa-checker visual 축 입력. **★ 데스크톱 UA 고정**(카페24 모바일 스킨 회피) |
+| `../references/traps.json` | 엔진 데이터 정본 | 함정 47종(증상·탐지·처방, `method` 축). 위 진단이 이걸 미러/참조 |
+| `../references/accuracy-gate.md` | 합격 계약 | "정확" = visual+override+rule 3축 게이트 정의 |
 
 ---
 

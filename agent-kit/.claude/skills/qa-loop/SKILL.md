@@ -1,209 +1,141 @@
 ---
 name: qa-loop
 description: >
-  css-builder ↔ qa-checker 수렴 루프. 코드 생성 후 합격 점수(0.85)가 나올 때까지
-  자동으로 수정→재채점을 반복한다. 카페24/아임웹/식스샵 HTML/CSS 작업 완료 후 호출.
+  정확성 3축 합격 게이트(visual + override + rule)가 모두 통과할 때까지 수정→재검증을
+  자동 반복하는 수렴 루프. 카페24/아임웹/식스샵 HTML/CSS 작업·배포 후 호출.
+  "정확"의 정의는 references/accuracy-gate.md.
 triggers:
   - qa-loop
   - qa 루프
   - 합격까지 반복
   - 점수 나올 때까지
+  - 정확까지 반복
 ---
 
-# QA 수렴 루프 (qa-loop)
+# QA 수렴 루프 (qa-loop) — 3축 합격 게이트
 
-css-builder가 코드를 생성한 후, qa-checker가 합격 판정(PASS)을 줄 때까지
-자동으로 수정→재채점을 반복하는 오케스트레이션 스킬.
+작성 에이전트(cafe24-ez/css-builder)가 만든 결과가 **"정확"(3축 PASS)** 이 될 때까지
+자동으로 수정→재검증을 반복한다. **"정확"의 정의 = `references/accuracy-gate.md`.**
+
+> 핵심: 세 검증기는 **서로 다른 것만** 본다 (P1 환각 방지). qa-checker=시각, diagnose=base충돌, code-reviewer=코드규칙.
 
 ---
 
-## 설정값 (변경 가능)
+## 3축 (accuracy-gate.md)
+
+| 축 | 검증기 | 합격 |
+|---|---|---|
+| **visual** | `qa-checker` (시각 전용, 레퍼 vs 결과 스크린샷 PC+모바일) | aggregate ≥ 0.85, 각 축 ≥ 0.70, PC·모바일 둘 다 |
+| **override** | `scripts/diagnose-overrides.js` / `preflight.mjs` | `❌(high)` = 0, dangling = 0 |
+| **rule** | `.claude/agents/code-reviewer.md` (코드 규칙) | `blocking` = 0 |
+
+```
+정확 PASS ⟺ visual PASS AND override PASS AND rule PASS
+```
+
+---
+
+## 설정값
 
 | 변수 | 기본값 | 의미 |
 |------|--------|------|
 | `MAX_ITER` | 5 | 최대 반복 회차 |
-| `THRESHOLD` | 0.85 | 합격 기준 (qa-checker와 동일) |
-| `STALL_WINDOW` | 2 | N회 연속 개선폭 < 0.02 이면 정체로 판정 |
+| `VISUAL_THRESHOLD` | 0.85 | visual 합격 기준 |
+| `STALL_WINDOW` | 2 | N회 연속 visual 개선폭 < 0.02 이면 정체 |
 
 ---
 
 ## 루프 실행 순서
 
 ### 준비
+1. 검증 대상: 변경 파일 경로 + **라이브/프리뷰 URL**(시각·override 검증용) + **레퍼런스 스크린샷**.
+   - 레퍼런스 없으면 visual 채점 불가 → 중단하고 레퍼런스 요청.
+2. `iteration = 1`, `history = []`, `prev_visual = null`.
 
-1. 검증 대상 파일 경로를 확인한다 (css-builder가 생성한 HTML/CSS).
-2. `iteration = 1`, `history = []`, `prev_aggregate = null` 로 초기화한다.
-3. 루프를 시작한다.
+### 매 회차 (1 → MAX_ITER)
 
----
+#### STEP A — 3축 병렬 검증
+세 검증을 **병렬로** 호출(서로 맥락 공유 금지):
 
-### 매 회차 (iteration 1 → MAX_ITER)
+1. **visual** — `qa-checker` 호출: 레퍼런스 스크린샷 + 결과 스크린샷(PC+모바일) + `iteration` + `prev_aggregate`. → JSON.
+2. **override** — `scripts/diagnose-overrides.js` 를 라이브에 주입(PC+모바일) 또는 `preflight.mjs <url>` 실행. → `❌(high)` 수 + dangling 수.
+3. **rule** — `code-reviewer` 호출: 변경 파일 경로 + 작업 방식(html/ez). → JSON `blocking[]`.
 
-#### STEP A — qa-checker 호출
-
-다음 정보를 포함해서 `qa-checker` 서브에이전트를 호출한다:
-
+#### STEP B — 게이트 판정
 ```
-검증 파일: {파일 경로}
-iteration: {현재 회차}
-prev_aggregate: {이전 회차 종합 점수 또는 null}
+visualPass   = (PC.aggregate ≥ 0.85 AND mobile.aggregate ≥ 0.85 AND 모든 축 ≥ 0.70)
+overridePass = (high == 0 AND dangling == 0)
+rulePass     = (blocking.length == 0)
+PASS         = visualPass AND overridePass AND rulePass
 ```
+- **PASS** → [성공 보고]
+- **visual STALL**(2회 연속 개선폭<0.02) → [정체 보고] + 사람 요청
+- 그 외 → STEP C
 
-qa-checker는 **JSON만** 반환한다. 그 JSON을 그대로 파싱한다.
-
-#### STEP B — verdict 분기
-
-**`PASS`인 경우:**
-- 루프 종료 → [최종 보고 — 성공](#최종-보고--성공) 으로 이동
-
-**`STALL`인 경우:**
-- 루프 중단 → [최종 보고 — 정체](#최종-보고--정체) 로 이동
-- 사람(대표님)에게 방향 결정 요청
-
-**`NEEDS_WORK`인 경우:**
-- STEP C로 진행
-
-#### STEP C — css-builder 호출
-
-qa-checker JSON의 `priority_fixes` + 각 축의 `notes` 를 css-builder에게 그대로 전달한다.
-
+#### STEP C — 수정 지시 (작성 에이전트 재호출)
+세 축의 실패 항목을 **통합**해 cafe24-ez(또는 css-builder)에 전달:
 ```
-[css-builder 호출 메시지 형식]
+[수정 지시 — 회차 {N}]
+■ 시각 차이 (qa-checker, 보이는 현상):
+  - {visual.priority_fixes ...}
+■ base 충돌 (diagnose, ❌/dangling):
+  - {override 항목: ID·증상·처방 CSS}
+■ 코드 규칙 위반 (code-reviewer, blocking):
+  - {rule.blocking: rule·file·line·fix}
 
-qa-checker 채점 결과 (회차 {N}):
-- 종합 점수: {aggregate} / 0.85 기준
-- 레이아웃: {score} — {notes}
-- 타이포그래피: {score} — {notes}
-- 색상: {score} — {notes}
-- 네이밍: {score} — {notes}
-- 접근성: {score} — {notes}
-
-우선 수정 항목:
-1. {priority_fixes[0]}
-2. {priority_fixes[1]}
-3. {priority_fixes[2]}
-
-위 항목만 수정하고 다른 부분은 건드리지 마세요.
+위 항목만 수정. 다른 부분 건드리지 말 것. 처방의 SKIN은 실제 #nk-skin{번호}로.
 ```
+> 통과한 축은 전달하지 않는다.
 
-#### STEP D — 회차 기록 및 반복
-
+#### STEP D — 기록·반복
 ```
-history.append({
-  iteration: N,
-  aggregate: {점수},
-  verdict: {판정},
-  axes: {축별 점수}
-})
-prev_aggregate = aggregate
+history.append({ iteration:N, visual_pc, visual_mobile, high, dangling, blocking, verdict })
+prev_visual = visual.aggregate
 iteration += 1
 ```
-
-- `iteration > MAX_ITER` 이면 → [최종 보고 — 회차 소진](#최종-보고--회차-소진)
-- 아니면 → STEP A 반복
-
----
-
-## 정체(STALL) 감지 규칙
-
-qa-checker가 `STALL`을 직접 판정하지만, 루프에서도 이중 확인한다:
-
-```
-최근 STALL_WINDOW(=2)회 history를 보고,
-연속으로 (aggregate 개선폭 < 0.02) 이면 정체로 판정.
-```
-
-정체 판정 시 → 루프 강제 중단 → 사람에게 best-of 결과와 함께 보고
+- `iteration > MAX_ITER` → [회차 소진 보고]
+- 아니면 STEP A 반복
 
 ---
 
-## 최종 보고 형식
+## 최종 보고
 
-### 최종 보고 — 성공
-
+### 성공
 ```
-✅ QA 루프 완료 — {N}회차만에 합격
-
-종합 점수: {aggregate} / 0.85
-
-회차별 점수 추이:
-  회차 1: {score}
-  회차 2: {score}
-  ...
-  회차 N: {score} ← PASS
-
-최종 축별 점수:
-  레이아웃    {score}
-  타이포그래피 {score}
-  색상       {score}
-  네이밍     {score}
-  접근성     {score}
+✅ 정확 합격 — {N}회차
+  visual:   PC {pc} / MO {mobile}  (≥0.85)
+  override: high 0, dangling 0
+  rule:     blocking 0
+증거: 라이브 URL + PC/모바일 스크린샷
 ```
 
-### 최종 보고 — 정체
-
+### 정체 / 회차 소진
 ```
-⚠️ QA 루프 정체 — {N}회차에서 막힘
-
-종합 점수: {aggregate} (목표 0.85 미달)
-판단: {STALL_WINDOW}회 연속 개선폭 < 0.02
-
-회차별 점수 추이:
-  회차 1: {score}
-  회차 2: {score}
-  ...
-
-현재 최선 결과 (회차 {best_iter}, 점수 {best_score}):
-  레이아웃    {score} — {notes}
-  타이포그래피 {score} — {notes}
-  색상       {score} — {notes}
-  네이밍     {score} — {notes}
-  접근성     {score} — {notes}
-
+⚠️ 미합격 — {정체|회차소진}
+  visual:   PC {pc} / MO {mobile}
+  override: high {n}, dangling {n}
+  rule:     blocking {n}
+최선 회차 {best}: {요약}
 선택지:
-  A) 디자인 요구사항을 완화하고 현재 결과로 진행
-  B) css-builder에게 특정 항목 집중 수정 지시 후 재시도
-  C) 처음부터 다시 (ref-analyzer → css-builder)
-```
-
-### 최종 보고 — 회차 소진
-
-```
-⏱ QA 루프 최대 회차({MAX_ITER}회) 소진
-
-종합 점수: {aggregate} (목표 0.85 미달)
-
-회차별 점수 추이:
-  회차 1 → {score}
-  회차 2 → {score}
-  ...
-  회차 {MAX_ITER} → {score}
-
-최선 결과: 회차 {best_iter}, 점수 {best_score}
-
-위와 동일한 선택지(A/B/C)로 판단 요청
+  A) 요구 완화하고 현재로 진행
+  B) 특정 축(visual/override/rule) 집중 수정 후 재시도
+  C) 처음부터 (ref 재분석 → 재생성)
 ```
 
 ---
 
-## 핵심 원칙 (APapeIsName에서 차용)
-
-1. **측정과 수정 분리**: qa-checker(측정)와 css-builder(수정)는 서로 대화하지 않는다. 루프가 중간에서 JSON 전달만 한다.
-2. **종료 조건은 코드가 정한다**: AI 재량으로 "이만하면 됐다"를 선언하지 않는다. threshold와 MAX_ITER가 결정한다.
-3. **실패를 몰래 통과시키지 않는다**: STALL/소진 시 사람에게 best-of를 올리고 판단을 받는다.
-4. **점수가 낮은 축만 수정한다**: 통과한 축(≥0.85)은 css-builder에게 전달하지 않는다.
+## 핵심 원칙
+1. **3축 분리**: 시각/충돌/규칙을 한 채점기에 섞지 않는다 (P1 환각의 근본 차단).
+2. **측정 ↔ 수정 분리**: 검증기와 작성 에이전트는 직접 대화하지 않는다(루프가 JSON만 전달). 자가승인 금지.
+3. **종료는 게이트가 정한다**: AI 재량으로 "됐다" 선언 금지 — 3축 AND + MAX_ITER.
+4. **실패 은폐 금지**: STALL/소진 시 best-of 와 함께 사람에게 보고 (F33: 점수 미달 완료보고 금지).
+5. **통과 축은 안 건드린다**.
 
 ---
 
 ## 사용 예시
-
 ```
-대표님: "이 코드 QA 루프 돌려줘"
-→ /oh-my-claudecode:qa-loop 또는 "qa-loop 실행해줘"
-
-대표님: "최대 3번만 반복해"
-→ MAX_ITER=3으로 설정 후 실행
-
-대표님: "기준 좀 낮춰서 0.80으로"
-→ THRESHOLD=0.80으로 설정 후 실행
+"qa-loop 돌려줘" / "정확까지 반복"  → 3축 게이트 루프
+"최대 3번만"  → MAX_ITER=3
+"visual 기준 0.80으로"  → VISUAL_THRESHOLD=0.80
 ```

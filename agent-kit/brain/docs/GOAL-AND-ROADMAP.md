@@ -69,8 +69,8 @@
 
 | Phase | 내용 | 목적 | 비고 |
 |---|---|---|---|
-| **0. 마무리** (작음) | detectJS 2버그(F7·F14) 수정 · nk-ez-override §10 repo 동기화 · **code-reviewer 키트 내장** | 자립성·정확성 기반 | 이번 세션 잔여 + 기존 Phase B |
-| **1. ★ 검증 루프 (키스톤)** | "정확" 정의 + qa-checker **시각 전용** 재설계 + **레퍼런스 vs 결과 스크린샷 visual-diff** + diagnose 통합 → 합격 게이트 | "정확하게"를 **측정·보장** | P1 해결. 없으면 나머지 다 무의미 |
+| **0. 마무리** ✅ | detectJS 2버그(F7·F14) 수정 · nk-ez-override §10 repo 동기화 · code-reviewer 키트 내장 | 자립성·정확성 기반 | **완료 2026-06-22** (commit feat/self-diagnose-and-method-gate) |
+| **1. ★ 검증 루프 (키스톤)** ✅ | "정확" 정의(accuracy-gate.md) + qa-checker **시각 전용** 재설계 + qa-loop **3축 게이트**(visual+override+rule) + capture-pair.mjs(레퍼 vs 결과 캡처) + 자동화 워크플로우 정렬 | "정확하게"를 **측정·보장** | **완료 2026-06-22**. 남은 정합성 검증은 Phase 3 spine 관통에서 실증 |
 | **2. 입력 강화** | 레퍼런스 **URL→토큰 자동**(P4) + 히어로/배경 **이미지 추출**(P3) + Figma 토큰 안정화 | 파이프라인 front door | |
 | **3. spine 관통** | 레퍼런스 1개 → **HTML 스킨**(ecudemo400919) → main+PLP+PDP → 합격까지. 성공 후 **EZ 분기** 동일 관통 | end-to-end 1회 증명 | vertical slice |
 | **4. 실험적→안정** | 관통 과정에서 templates/snippets/pipeline/`/카페24-자동화` 검증·승격 | 🧪 → ✅ | **v2.4.1 릴리스** |

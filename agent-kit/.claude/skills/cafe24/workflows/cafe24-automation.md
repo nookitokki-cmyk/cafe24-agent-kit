@@ -25,17 +25,21 @@
 ```
 입력: /카페24-자동화 {client}
   ↓
+[0] 작업 방식 판별 (HTML 네이티브 vs EZ 엎기 — references/skin-method-detect.md)
+  ↓
 [1] 컨텍스트 로드 (brand-profile.json + design-tokens.json)
   ↓
 [2] design-tokens.json → nk-tokens.css 자동 생성 (css-builder)
   ↓
 [3] 페이지별 HTML 생성·갱신 (cafe24-ez + templates/{type}.html)
   ↓
-[4] 코드 리뷰 (code-reviewer Opus, 누끼토끼 규칙 검증)
+[4] 배포·캡처 (SFTP/프리뷰 + scripts/capture-pair.mjs: 레퍼 vs 결과, PC+모바일)
   ↓
-[5] qa-loop 합격 점수 0.85까지 자동 수정 (qa-checker + 재수정)
+[5] ★ 3축 합격 게이트 (references/accuracy-gate.md) — qa-loop:
+      visual(qa-checker) + override(diagnose-overrides.js) + rule(code-reviewer)
+      → 3축 PASS 까지 자동 수정 반복
   ↓
-[6] SFTP 업로드 (deploy-assistant) + 완료 보고 (client-writer 초안)
+[6] 완료 보고 — 라이브 URL + PC/모바일 스크린샷 증거 (client-writer 초안)
 ```
 
 ---
@@ -93,50 +97,38 @@ brand-profile.json 의 pages[] 순회:
 
 각 페이지 작업 후 brand-profile.json 의 page.status를 "implementation"으로 자동 업데이트.
 
-### 4단계: 코드 리뷰 (필수)
+### 4단계: 배포·캡처 (검증 입력 생성)
+
+base 충돌(override)·시각(visual) 검증은 **배포본/프리뷰에서만** 가능하므로 게이트 전에 배포·캡처한다.
 
 ```
-code-reviewer (Opus) 에이전트 호출:
-  대상: 3단계에서 생성/수정된 모든 HTML/CSS
-  체크:
-    - nk- 접두사 준수
-    - Pretendard / Phosphor 외 폰트·아이콘 없음
-    - 인라인 style 없음
-    - !important 없음 (또는 주석 사유)
-    - italic 없음
-    - 색상 대비 WCAG AA
-    - 모바일 터치 타겟 44px
-    - alt 텍스트 있음
-    - 모듈 변수 모듈 scope 안에 사용
+1) 결과 스킨 SFTP 업로드(또는 프리뷰)
+2) scripts/capture-pair.mjs --ref <레퍼런스URL> --result <결과URL> --name {page}
+   → 레퍼 vs 결과 PC(1440) + 모바일(390) 4장
+   ★ 데스크톱 UA 고정 — 모바일 UA 쓰면 카페24가 별도 모바일 스킨을 띄움
 ```
 
-실패 시:
-- 자동 수정 가능: cafe24-ez 재호출로 수정
-- 자동 수정 어려움: 사용자에게 보고 후 중단
+### 5단계: ★ 3축 합격 게이트 (references/accuracy-gate.md)
 
-### 5단계: qa-loop 시각 검증
+qa-loop 이 세 검증기를 **병렬** 실행해 "정확"을 판정한다. 셋은 **서로 다른 것만** 본다(P1 환각 차단).
 
 ```
-qa-loop 스킬 호출:
-  대상: 4단계 통과한 페이지들
-  비교: Figma 원본 시안 vs 실제 렌더링 스크린샷
-  합격 기준: 점수 0.85 이상
-
-  loop:
-    qa-checker 점수 측정
-    if 점수 < 0.85:
-      cafe24-ez 재호출 (피드백 반영)
-    else:
-      break
+qa-loop:
+  visual   = qa-checker (레퍼 vs 결과 스크린샷 PC+모바일)  → aggregate ≥ 0.85, 각 축 ≥ 0.70
+  override = diagnose-overrides.js (라이브 PC+모바일)       → ❌(high) 0, dangling 0
+  rule     = code-reviewer (변경 파일 + 방식 html/ez)       → blocking 0
+  PASS  ⟺  visual AND override AND rule
+  NEEDS_WORK → 3축 fix 통합 → cafe24-ez 재호출 → 반복
+  STALL/소진 → best-of 보고 + 사람 판단 (F33: 점수 미달 완료보고 금지)
 ```
 
-최대 3회 반복 후 미합격이면 사용자에게 보고.
+### 6단계: 완료 확정 + 보고
 
-### 6단계: 배포 + 보고
+3축 게이트(5단계) PASS 후. 4단계에서 프리뷰로 검증했다면 여기서 라이브 최종 배포, 라이브로 검증했다면 확정만.
 
 ```
-deploy-assistant 에이전트 호출:
-  대상: 5단계 합격한 HTML/CSS/JS
+deploy-assistant 에이전트 호출 (최종 배포가 필요한 경우):
+  대상: 5단계 3축 합격한 HTML/CSS/JS
   방식: SFTP 업로드 (platform_detail.ftp_configured == true 일 때만)
   경로: 카페24 스킨 폴더 (skin_code 기반)
 
