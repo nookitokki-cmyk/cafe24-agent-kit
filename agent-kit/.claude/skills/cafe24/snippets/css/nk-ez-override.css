@@ -168,3 +168,52 @@
     -webkit-overflow-scrolling: touch;
   }
 }
+
+
+/* =========================================================
+   10. 실전 검증 오버라이드 6종 (SmartDesign HTML 방식 실배포 진단)
+   2026-06-22 ecudemo 실서버에서 진단·수정·라이브검증 완료.
+   카페24가 우리 nk 스킨 위에 끼워넣는 인라인/모듈/기본 스타일을 바로잡는
+   "거의 모든 카페24 작업에서 재발하는" 패턴 모음.
+
+   진단 한 줄 원칙:
+   · element.style{} 에 값 있음 → 인라인 → !important 로만 이김(또는 관리자에서 끄기)
+   · logotop.css / ec-base-* / xans-* → 부모 선택자 덧붙여 우선순위로 이김
+   · 우리 nk CSS인데 값 이상 → 우리 템플릿/모디파이어 버그(코드 수정)
+   ========================================================= */
+
+/* ① 로고 이중·깨짐 — Layout_LogoTop 이 빈 src="" 이미지 로고를 출력해
+   깨진 이미지 박스 + 텍스트 로고가 둘 다 노출됨. 이미지 모듈 숨기고 텍스트 로고만.
+   (실제 이미지 로고를 쓸 거면 이 규칙을 제거) */
+.nk-header__logo .xans-layout-logotop { display: none; }
+
+/* ② 상품명 색/크기 — 카페24가 상품명을 <span style="font-size:..;color:#000">로
+   감싸 출력(관리자 상품진열 설정). 인라인이라 클래스로 못 이김 → !important.
+   (근본 해결: 관리자 > 상품 > 진열 설정에서 상품명 글꼴/색 '사용 안 함') */
+.nk-product-card__name span {
+  color: var(--nk-color-text, #222) !important; /* 카페24 인라인 색 오버라이드 */
+  font-family: inherit;
+}
+
+/* ③ 정가 취소선 — 할인 없는 상품은 세일가 노드가 비어 있는데 정가에 취소선이 남음.
+   인접 형제 선택자로, 세일가 비면 정가를 일반 가격처럼(!important 불필요). */
+.nk-product-card__price-sale:empty { display: none; }
+.nk-product-card__price-sale:empty + .nk-product-card__price-origin {
+  text-decoration: none;
+  color: var(--nk-color-text, #222);
+  margin-left: 0;
+}
+
+/* ④ SOLD OUT 배지 — 템플릿에서 style="display:{$soldout_icon|display}" 로 쓰면
+   'displaynone' 문자열이 그대로 박혀 무효(오타 버그). 템플릿을
+   class="... {$soldout_icon|display}" 로 바꾸고, 아래로 .displaynone 동작 보장. */
+.displaynone { display: none !important; } /* 카페24 |display 모디파이어 출력 클래스 보장 */
+
+/* ⑤ 전역 풀폭 — 브라우저/카페24 기본 body 마진(8px)이 살아남아 풀폭 섹션이
+   좌우로 좁아짐(예: 1440→1424). 확실히 제거. */
+html, body { margin: 0; padding: 0; }
+
+/* ⑥ GNB 항목 — Layout_category 의 <li> 가 기본 display:list-item 으로 남는 경우
+   정돈(불릿/리스트 동작 제거). 부모가 flex면 시각 영향은 작지만 의미상 정리. */
+.nk-gnb__item { display: block; }
+.nk-gnb__list { list-style: none; margin: 0; padding: 0; }
