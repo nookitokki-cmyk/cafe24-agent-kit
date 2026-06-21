@@ -1,8 +1,10 @@
-> ✅ **단일 기준(THE ONE) · v3 · 2026-06-20** — 이 폴더(`C:\dev\cafe24-agent-kit`)가 유일한 진짜 키트입니다. 다른 사본은 `_archive` 보관소(사용 금지). 현재 상태는 [`__지금상태_STATUS.md`](__지금상태_STATUS.md) 참고.
+> ✅ **단일 기준(THE ONE) · v2.4.0 · 2026-06-21** — 이 폴더(`C:\dev\cafe24-agent-kit`)가 유일한 진짜 키트입니다. 다른 사본은 `_archive` 보관소(사용 금지). 현재 상태는 [`__지금상태_STATUS.md`](__지금상태_STATUS.md) 참고.
 
 # cafe24-agent-kit
 
 카페24 **두뇌(agent-kit)** + **손발(mcp)** 단일 기준 저장소. (이 README는 30초 오리엔테이션용입니다.)
+
+> 🆕 **v2.4.0 (2026-06-21)** — cafe24 skill 대폭 확장 (45개 신규 파일): 모듈 레시피북·페이지 템플릿·스니펫·Design Token·Brand Profile·원클릭 자동화 명령. 일부 자료는 🧪 **실험적** 표시 — 실 클라이언트 검증 후 안정화 예정. **안정 자료**(✅: troubleshooting, variables, recipes, module-browser)부터 도입 권장. 상세 → [`CHANGELOG.md`](CHANGELOG.md) v2.4.0 / [`agent-kit/README.md`](agent-kit/README.md) "🆕 v2.4.0 신규 자료" 섹션.
 
 ## ▶ 시작은 여기부터
 

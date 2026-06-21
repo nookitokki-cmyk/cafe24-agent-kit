@@ -1,0 +1,232 @@
+/*
+ * nk-responsive-grid.css — 반응형 그리드 & 레이아웃 시스템
+ * 사용법: 카페24 관리자 → 디자인 → HTML/CSS 편집 → style.css에 붙여넣기
+ *         nk-reset.css 다음에 위치시킬 것
+ *
+ * 브레이크포인트: 375px / 768px / 1280px / 1440px
+ */
+
+/* =========================================================
+   1. CSS 간격 변수
+   숫자만 바꾸면 전체 여백이 조정됩니다.
+   ========================================================= */
+:root {
+  /* 간격(gap) 시스템 */
+  --gap-xs:  8px;    /* 아주 좁은 간격 (아이콘-텍스트 사이 등) */
+  --gap-sm:  16px;   /* 좁은 간격 (카드 내부 요소 간) */
+  --gap-md:  24px;   /* 기본 간격 (그리드 열 간) */
+  --gap-lg:  40px;   /* 넓은 간격 (섹션 내 요소 간) */
+  --gap-xl:  64px;   /* 아주 넓은 간격 (섹션과 섹션 사이) */
+
+  /* 좌우 여백 (화면 크기별) */
+  --padding-mobile:  20px;   /* 375px 이하 */
+  --padding-tablet:  32px;   /* 768px ~ */
+  --padding-desktop: 60px;   /* 1280px ~ */
+  --padding-wide:    80px;   /* 1440px ~ */
+}
+
+
+/* =========================================================
+   2. 컨테이너 (.nk-container)
+   좌우 패딩만 적용 — max-width 없음 (별도 지시 없는 경우 기본값)
+   ========================================================= */
+.nk-container {
+  width: 100%;
+  padding-left:  var(--padding-desktop);
+  padding-right: var(--padding-desktop);
+}
+
+/* 태블릿 (768px 이하) */
+@media (max-width: 768px) {
+  .nk-container {
+    padding-left:  var(--padding-tablet);
+    padding-right: var(--padding-tablet);
+  }
+}
+
+/* 모바일 (375px 이하) */
+@media (max-width: 375px) {
+  .nk-container {
+    padding-left:  var(--padding-mobile);
+    padding-right: var(--padding-mobile);
+  }
+}
+
+/* 대형 화면 (1440px 이상) */
+@media (min-width: 1440px) {
+  .nk-container {
+    padding-left:  var(--padding-wide);
+    padding-right: var(--padding-wide);
+  }
+}
+
+
+/* =========================================================
+   3. 그리드 시스템 (.nk-grid-*)
+   .nk-grid-2 → 2열 | .nk-grid-3 → 3열 | .nk-grid-4 → 4열
+   모바일에서는 모두 1열로 자동 변환됩니다.
+   ========================================================= */
+
+/* 공통 그리드 기반 */
+.nk-grid-2,
+.nk-grid-3,
+.nk-grid-4 {
+  display: grid;
+  gap: var(--gap-md);
+  width: 100%;
+}
+
+/* 2열 그리드 */
+.nk-grid-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+/* 3열 그리드 */
+.nk-grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* 4열 그리드 */
+.nk-grid-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* 태블릿 (768px 이하): 4열 → 2열로 */
+@media (max-width: 768px) {
+  .nk-grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--gap-sm);
+  }
+
+  .nk-grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--gap-sm);
+  }
+}
+
+/* 모바일 (375px 이하): 모두 1열로 */
+@media (max-width: 375px) {
+  .nk-grid-2,
+  .nk-grid-3,
+  .nk-grid-4 {
+    grid-template-columns: 1fr;
+    gap: var(--gap-sm);
+  }
+}
+
+/* 그리드 간격 변형 — 좁게 */
+.nk-grid-2.gap-sm,
+.nk-grid-3.gap-sm,
+.nk-grid-4.gap-sm {
+  gap: var(--gap-sm);
+}
+
+/* 그리드 간격 변형 — 넓게 */
+.nk-grid-2.gap-lg,
+.nk-grid-3.gap-lg,
+.nk-grid-4.gap-lg {
+  gap: var(--gap-lg);
+}
+
+
+/* =========================================================
+   4. 행/열 유틸리티 (.nk-row, .nk-col)
+   Flexbox 기반의 간단한 행·열 정렬 유틸리티
+   ========================================================= */
+
+/* 행 (가로 방향 배치) */
+.nk-row {
+  display: flex;
+  flex-wrap: wrap;        /* 공간 부족 시 다음 줄로 넘김 */
+  gap: var(--gap-md);
+  align-items: flex-start;
+}
+
+/* 행 수직 가운데 정렬 */
+.nk-row.align-center {
+  align-items: center;
+}
+
+/* 행 수직 끝 정렬 */
+.nk-row.align-end {
+  align-items: flex-end;
+}
+
+/* 행 가로 가운데 정렬 */
+.nk-row.justify-center {
+  justify-content: center;
+}
+
+/* 행 양쪽 끝 정렬 */
+.nk-row.justify-between {
+  justify-content: space-between;
+}
+
+/* 열 (세로 방향 배치) */
+.nk-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-sm);
+}
+
+/* 열 가운데 정렬 */
+.nk-col.align-center {
+  align-items: center;
+  text-align: center;
+}
+
+
+/* =========================================================
+   5. 섹션 여백 유틸리티 (.nk-section-*)
+   상하 패딩으로 섹션 간격을 만들 때 사용합니다.
+   ========================================================= */
+
+.nk-section-sm {
+  padding-top:    var(--gap-lg);
+  padding-bottom: var(--gap-lg);
+}
+
+.nk-section-md {
+  padding-top:    80px;
+  padding-bottom: 80px;
+}
+
+.nk-section-lg {
+  padding-top:    120px;
+  padding-bottom: 120px;
+}
+
+/* 태블릿 (768px 이하) — 섹션 여백 축소 */
+@media (max-width: 768px) {
+  .nk-section-sm { padding-top: 40px;  padding-bottom: 40px; }
+  .nk-section-md { padding-top: 60px;  padding-bottom: 60px; }
+  .nk-section-lg { padding-top: 80px;  padding-bottom: 80px; }
+}
+
+/* 모바일 (375px 이하) — 섹션 여백 더 축소 */
+@media (max-width: 375px) {
+  .nk-section-sm { padding-top: 32px;  padding-bottom: 32px; }
+  .nk-section-md { padding-top: 48px;  padding-bottom: 48px; }
+  .nk-section-lg { padding-top: 60px;  padding-bottom: 60px; }
+}
+
+
+/* =========================================================
+   6. 반응형 숨김/표시 유틸리티
+   특정 화면 크기에서만 요소를 보이거나 숨길 때 사용합니다.
+   ========================================================= */
+
+/* 모바일에서만 숨김 */
+.nk-hide-mobile {
+  display: block;
+}
+
+/* 데스크톱에서만 숨김 */
+.nk-hide-desktop {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .nk-hide-mobile  { display: none; }    /* 모바일에서 숨김 */
+  .nk-hide-desktop { display: block; }   /* 모바일에서 표시 */
+}

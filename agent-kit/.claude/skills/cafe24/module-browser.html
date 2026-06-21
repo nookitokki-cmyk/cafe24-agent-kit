@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="ko" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>카페24 모듈 브라우저 — nookitokki</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard.css">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+<style>
+:root{
+  --nk-color-bg:#ffffff; --nk-color-surface:#f8f9fa;
+  --nk-color-text:#1a1a1a; --nk-color-text-sub:#5f6368;
+  --nk-color-accent:#2b6cb0; --nk-color-accent-bg:#ebf3fb;
+  --nk-color-border:#e5e7eb; --nk-color-success:#10b981;
+  --nk-color-warning:#f59e0b; --nk-color-code-bg:#f3f4f6;
+  --nk-font:'Pretendard',-apple-system,system-ui,sans-serif;
+  --nk-radius-sm:6px; --nk-radius-md:12px; --nk-radius-lg:20px;
+  --nk-shadow-sm:0 1px 3px rgba(0,0,0,.06);
+  --nk-shadow-md:0 6px 18px rgba(0,0,0,.08);
+}
+[data-theme="dark"]{
+  --nk-color-bg:#0f172a; --nk-color-surface:#1e293b;
+  --nk-color-text:#f1f5f9; --nk-color-text-sub:#94a3b8;
+  --nk-color-accent:#60a5fa; --nk-color-accent-bg:#1e3a5f;
+  --nk-color-border:#334155; --nk-color-code-bg:#0b1224;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:var(--nk-font);
+  background:var(--nk-color-bg); color:var(--nk-color-text);
+  line-height:1.5; transition:background .2s,color .2s;
+}
+a{color:var(--nk-color-accent); text-decoration:none}
+code,pre{font-family:'JetBrains Mono','Pretendard Mono',ui-monospace,monospace}
+
+.nk-header{
+  position:sticky; top:0; z-index:50;
+  background:var(--nk-color-bg);
+  border-bottom:1px solid var(--nk-color-border);
+  padding:16px 24px;
+}
+.nk-header-inner{
+  max-width:1280px; margin:0 auto;
+  display:flex; flex-wrap:wrap; gap:16px; align-items:center;
+}
+.nk-title{font-size:20px; font-weight:700; margin:0; display:flex; align-items:center; gap:8px}
+.nk-title i{color:var(--nk-color-accent)}
+.nk-search{
+  flex:1; min-width:200px;
+  display:flex; align-items:center; gap:8px;
+  background:var(--nk-color-surface);
+  border:1px solid var(--nk-color-border);
+  border-radius:var(--nk-radius-sm);
+  padding:8px 12px;
+}
+.nk-search input{
+  flex:1; border:0; outline:0; background:transparent;
+  color:var(--nk-color-text); font-family:inherit; font-size:14px;
+}
+.nk-search i{color:var(--nk-color-text-sub)}
+.nk-icon-btn{
+  background:transparent; border:1px solid var(--nk-color-border);
+  color:var(--nk-color-text); width:36px; height:36px;
+  border-radius:var(--nk-radius-sm); cursor:pointer;
+  display:inline-flex; align-items:center; justify-content:center;
+  font-size:18px;
+}
+.nk-icon-btn:hover{background:var(--nk-color-surface)}
+.nk-icon-btn:focus-visible{outline:2px solid var(--nk-color-accent); outline-offset:2px}
+
+.nk-tabs{
+  position:sticky; top:73px; z-index:40;
+  background:var(--nk-color-bg);
+  border-bottom:1px solid var(--nk-color-border);
+  overflow-x:auto;
+}
+.nk-tabs-inner{
+  max-width:1280px; margin:0 auto;
+  display:flex; gap:4px; padding:8px 24px;
+  white-space:nowrap;
+}
+.nk-tab{
+  background:transparent; border:0; color:var(--nk-color-text-sub);
+  padding:8px 14px; border-radius:var(--nk-radius-sm);
+  font-family:inherit; font-size:14px; font-weight:500; cursor:pointer;
+}
+.nk-tab:hover{background:var(--nk-color-surface); color:var(--nk-color-text)}
+.nk-tab.is-active{background:var(--nk-color-accent-bg); color:var(--nk-color-accent); font-weight:600}
+.nk-tab:focus-visible{outline:2px solid var(--nk-color-accent); outline-offset:2px}
+
+main{max-width:1280px; margin:0 auto; padding:24px}
+.nk-empty{padding:48px 24px; text-align:center; color:var(--nk-color-text-sub)}
+.nk-section{margin-bottom:48px}
+.nk-section-title{
+  font-size:18px; font-weight:700; margin:0 0 16px;
+  padding-bottom:8px; border-bottom:2px solid var(--nk-color-border);
+  display:flex; align-items:center; gap:8px;
+}
+.nk-section-title i{color:var(--nk-color-accent)}
+.nk-grid{display:grid; grid-template-columns:1fr; gap:16px}
+@media(min-width:768px){.nk-grid{grid-template-columns:1fr 1fr}}
+@media(min-width:1280px){.nk-grid{grid-template-columns:1fr 1fr 1fr}}
+
+.nk-card{
+  background:var(--nk-color-surface);
+  border:1px solid var(--nk-color-border);
+  border-radius:var(--nk-radius-md);
+  padding:20px; cursor:pointer;
+  transition:transform .15s,box-shadow .15s,border-color .15s;
+}
+.nk-card:hover{transform:translateY(-2px); box-shadow:var(--nk-shadow-md); border-color:var(--nk-color-accent)}
+.nk-card-head{display:flex; align-items:start; justify-content:space-between; gap:12px; margin-bottom:12px}
+.nk-card-name{margin:0; font-size:15px; font-weight:600; word-break:break-all}
+.nk-card-name code{background:var(--nk-color-code-bg); padding:2px 6px; border-radius:4px; font-size:13px}
+.nk-card-ko{font-size:13px; color:var(--nk-color-text-sub); margin-top:4px}
+.nk-card-tag{
+  background:var(--nk-color-accent-bg); color:var(--nk-color-accent);
+  padding:2px 8px; border-radius:9999px; font-size:11px; font-weight:600;
+  white-space:nowrap;
+}
+
+.nk-preview{
+  background:var(--nk-color-bg);
+  border:1px dashed var(--nk-color-border);
+  border-radius:var(--nk-radius-sm);
+  padding:12px; margin-bottom:12px; min-height:80px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:12px; color:var(--nk-color-text-sub);
+}
+.nk-preview-box{
+  width:100%; display:flex; flex-direction:column; gap:6px;
+}
+.nk-pv-row{display:flex; gap:6px; align-items:center}
+.nk-pv-img{
+  width:36px; height:36px; background:var(--nk-color-border);
+  border-radius:4px; flex-shrink:0;
+}
+.nk-pv-line{height:8px; background:var(--nk-color-border); border-radius:2px; flex:1}
+.nk-pv-line.short{max-width:40%}
+.nk-pv-line.med{max-width:70%}
+.nk-pv-grid{display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px}
+.nk-pv-cell{aspect-ratio:1; background:var(--nk-color-border); border-radius:4px}
+.nk-pv-banner{
+  height:60px; background:linear-gradient(135deg,var(--nk-color-accent) 0%,var(--nk-color-accent-bg) 100%);
+  border-radius:4px; display:flex; align-items:center; justify-content:center;
+  color:#fff; font-size:11px; font-weight:600;
+}
+.nk-pv-btn{
+  display:inline-block; padding:6px 12px;
+  background:var(--nk-color-accent); color:#fff;
+  border-radius:4px; font-size:11px; font-weight:600;
+}
+.nk-pv-input{
+  width:100%; height:24px; background:var(--nk-color-bg);
+  border:1px solid var(--nk-color-border); border-radius:4px;
+}
+
+.nk-card-section{margin-top:12px}
+.nk-card-label{font-size:11px; font-weight:600; color:var(--nk-color-text-sub); text-transform:uppercase; margin-bottom:6px}
+.nk-card-usage{font-size:13px; color:var(--nk-color-text)}
+.nk-var-list{display:flex; flex-wrap:wrap; gap:4px}
+.nk-var{
+  display:inline-flex; align-items:center; gap:4px;
+  background:var(--nk-color-code-bg); color:var(--nk-color-text);
+  padding:3px 8px; border-radius:4px; font-size:12px;
+  font-family:'JetBrains Mono',monospace; cursor:pointer; border:0;
+}
+.nk-var:hover{background:var(--nk-color-accent-bg); color:var(--nk-color-accent)}
+.nk-var:focus-visible{outline:2px solid var(--nk-color-accent); outline-offset:1px}
+
+.nk-snippet{position:relative; margin-top:6px}
+.nk-snippet pre{
+  background:var(--nk-color-code-bg); color:var(--nk-color-text);
+  padding:10px 12px; border-radius:var(--nk-radius-sm);
+  font-size:12px; overflow-x:auto; margin:0;
+  white-space:pre; line-height:1.5;
+}
+.nk-copy{
+  position:absolute; top:6px; right:6px;
+  background:var(--nk-color-bg); border:1px solid var(--nk-color-border);
+  color:var(--nk-color-text); padding:4px 8px; font-size:11px;
+  border-radius:4px; cursor:pointer; font-family:inherit;
+}
+.nk-copy:hover{background:var(--nk-color-accent); color:#fff; border-color:var(--nk-color-accent)}
+
+.nk-recipe-link{
+  display:inline-flex; align-items:center; gap:4px;
+  color:var(--nk-color-accent); font-size:13px; font-weight:500;
+}
+.nk-recipe-link i{font-size:14px}
+
+.nk-toast{
+  position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(20px);
+  background:var(--nk-color-text); color:var(--nk-color-bg);
+  padding:12px 20px; border-radius:9999px;
+  font-size:14px; font-weight:600; opacity:0;
+  transition:opacity .2s,transform .2s; pointer-events:none; z-index:100;
+}
+.nk-toast.is-show{opacity:1; transform:translateX(-50%) translateY(0)}
+
+.nk-footer{
+  border-top:1px solid var(--nk-color-border);
+  padding:32px 24px; margin-top:48px;
+  color:var(--nk-color-text-sub); font-size:13px;
+  text-align:center;
+}
+.nk-footer-links{display:flex; flex-wrap:wrap; gap:16px; justify-content:center; margin-bottom:12px}
+.nk-footer-links a{color:var(--nk-color-accent); display:inline-flex; align-items:center; gap:4px}
+
+@media(prefers-reduced-motion:reduce){
+  /* WCAG 2.3.3: 사용자 OS '모션 줄임' 설정 시 모든 트랜지션 강제 차단. !important 필수 */
+  *{transition:none !important; animation:none !important}
+}
+</style>
+</head>
+<body>
+
+<header class="nk-header">
+  <div class="nk-header-inner">
+    <h1 class="nk-title"><i class="ph ph-shopping-cart"></i> 카페24 모듈 브라우저</h1>
+    <div class="nk-search">
+      <i class="ph ph-magnifying-glass"></i>
+      <input id="search" type="search" placeholder="모듈명 · 한글명 · 태그 검색" aria-label="모듈 검색">
+    </div>
+    <button class="nk-icon-btn" id="theme-toggle" aria-label="다크모드 토글" title="다크모드 토글">
+      <i class="ph ph-sun"></i>
+    </button>
+  </div>
+</header>
+
+<nav class="nk-tabs" aria-label="카테고리">
+  <div class="nk-tabs-inner" id="tabs"></div>
+</nav>
+
+<main id="main">
+  <div class="nk-empty" id="empty" hidden>
+    <i class="ph ph-empty" style="font-size:32px"></i>
+    <p>검색 결과가 없습니다.</p>
+  </div>
+</main>
+
+<footer class="nk-footer">
+  <div class="nk-footer-links">
+    <a href="recipes/"><i class="ph ph-bowl-food"></i> 레시피북</a>
+    <a href="references/"><i class="ph ph-book-open"></i> 변수·문법 사전</a>
+    <a href="snippets/"><i class="ph ph-code"></i> 스니펫</a>
+    <a href="templates/"><i class="ph ph-layout"></i> 스타터 템플릿</a>
+    <a href="design-tokens/"><i class="ph ph-palette"></i> Design Token</a>
+  </div>
+  <p>이 페이지는 nookitokki cafe24-agent-kit의 일부입니다.</p>
+</footer>
+
+<div class="nk-toast" id="toast" role="status" aria-live="polite">복사됨!</div>
+
+<script>
+const CATEGORIES = [
+  {id:'product', label:'상품', icon:'ph-package'},
+  {id:'cat',     label:'카테고리·검색', icon:'ph-magnifying-glass'},
+  {id:'order',   label:'장바구니·주문', icon:'ph-shopping-cart'},
+  {id:'member',  label:'회원', icon:'ph-user'},
+  {id:'board',   label:'게시판', icon:'ph-chat-circle-text'},
+  {id:'misc',    label:'마케팅·기타', icon:'ph-megaphone'},
+];
+
+const MODULES = [
+  // 1. 상품
+  {cat:'product', name:'ModuleProductList', ko:'상품 목록', tag:'PLP',
+    preview:'grid',
+    usage:'카테고리 페이지의 상품 그리드. 4열 또는 3열 표시.',
+    vars:['{$product_no}','{$product_name}','{$image_medium}','{$product_price}','{$product_sale_price}','{$link_product_detail}'],
+    snippet:'<div module="product_listmain_2">\n  <ul class="nk-product-grid">\n    <li>\n      <a href="{$link_product_detail}">\n        <img src="{$image_medium}" alt="{$product_name}">\n        <p>{$product_name}</p>\n        <span>{$product_price}</span>\n      </a>\n    </li>\n  </ul>\n</div>',
+    recipe:'recipes/02_상품목록-그리드.md'},
+  {cat:'product', name:'ModuleProductDetail', ko:'상품 상세', tag:'PDP',
+    preview:'detail',
+    usage:'상품 상세 페이지. 이미지·옵션·구매 버튼.',
+    vars:['{$name}','{$image_big}','{$product_price}','{$dc_price}','{$mileage_value}','{$form.option}'],
+    snippet:'<div module="product_detail">\n  <img src="{$image_big}" alt="{$name}">\n  <h1>{$name}</h1>\n  <p class="nk-price">{$product_price}</p>\n  {$form.option}\n</div>',
+    recipe:'recipes/03_상품상세.md'},
+  {cat:'product', name:'ModuleProductNew', ko:'신상품', tag:'홈',
+    preview:'grid',
+    usage:'메인 페이지의 신상품 위젯. 보통 4-8개 표시.',
+    vars:['{$product_name}','{$image_medium}','{$product_sale_price}','{$new_icon}'],
+    snippet:'<div module="product_listnew_1">\n  <ul class="nk-new-products">\n    <li>\n      <img src="{$image_medium}" alt="">\n      <p>{$product_name}</p>\n      {$new_icon}\n    </li>\n  </ul>\n</div>',
+    recipe:'recipes/01_메인-히어로.md'},
+  {cat:'product', name:'ModuleProductBest', ko:'베스트 상품', tag:'홈',
+    preview:'grid',
+    usage:'판매량 상위 상품 위젯.',
+    vars:['{$product_name}','{$image_medium}','{$product_sale_price}'],
+    snippet:'<div module="product_listbest_1">\n  <ul class="nk-best-products">\n    <li>\n      <span class="nk-rank">1</span>\n      <img src="{$image_medium}" alt="">\n      <p>{$product_name}</p>\n    </li>\n  </ul>\n</div>',
+    recipe:'recipes/01_메인-히어로.md'},
+  {cat:'product', name:'ModuleProductRecommend', ko:'추천 상품', tag:'홈',
+    preview:'grid',
+    usage:'관리자가 직접 선택한 추천 상품.',
+    vars:['{$product_name}','{$image_medium}','{$recommend_icon}'],
+    snippet:'<div module="product_listrecommend_1">\n  <ul>\n    <li>\n      <img src="{$image_medium}" alt="">\n      <p>{$product_name}</p>\n    </li>\n  </ul>\n</div>',
+    recipe:'recipes/01_메인-히어로.md'},
+  {cat:'product', name:'ModuleProductOption', ko:'상품 옵션', tag:'PDP',
+    preview:'form',
+    usage:'색상·사이즈·수량 등 옵션 선택 영역.',
+    vars:['{$option_name}','{$option_value}','{$form.option}','{$form.add_option}'],
+    snippet:'{$form.option}\n{$form.add_option}\n<input type="number" name="quantity" min="1" value="1">',
+    recipe:'recipes/03_상품상세.md'},
+
+  // 2. 카테고리·검색
+  {cat:'cat', name:'ModuleCategoryList', ko:'카테고리 메뉴', tag:'GNB',
+    preview:'menu',
+    usage:'1~4단 카테고리 트리. 헤더 또는 사이드바.',
+    vars:['{$category_name}','{$name_1}','{$name_2}','{$param_1}','{$disp_cate_1}'],
+    snippet:'<ul class="nk-cat-menu" module="category_menu">\n  <li>{$disp_cate_1}\n    <a href="{$param_1}">{$name_1}</a>\n  </li>\n</ul>',
+    recipe:'recipes/02_상품목록-그리드.md'},
+  {cat:'cat', name:'ModuleProductSearch', ko:'상품 검색', tag:'전역',
+    preview:'search',
+    usage:'헤더 검색창. 키워드 입력 → 검색 결과.',
+    vars:['{$form.keyword}','{$action_search}'],
+    snippet:'<form action="{$action_search}" method="get" module="product_search">\n  <input type="text" name="keyword" placeholder="검색">\n  <button type="submit">검색</button>\n</form>',
+    recipe:'recipes/07_검색결과.md'},
+  {cat:'cat', name:'ModulePagination', ko:'페이지네이션', tag:'PLP',
+    preview:'pagination',
+    usage:'상품 목록·게시판 페이지 이동.',
+    vars:['{$total_count}','{$param_first}','{$param_before}','{$param_next}','{$param_last}','{$no}'],
+    snippet:'<div module="pagination">\n  <a href="{$param_first}">처음</a>\n  <a href="{$param_before}">이전</a>\n  <a href="{$param_num}" class="{$param_class}">{$no}</a>\n  <a href="{$param_next}">다음</a>\n  <a href="{$param_last}">마지막</a>\n</div>',
+    recipe:'recipes/02_상품목록-그리드.md'},
+
+  // 3. 장바구니·주문
+  {cat:'order', name:'ModuleCart', ko:'장바구니', tag:'Cart',
+    preview:'cart',
+    usage:'담긴 상품 목록 + 수량 변경 + 결제 진행.',
+    vars:['{$img}','{$product_name}','{$form.quantity}','{$total_product_price}','{$total_sum_price_front}'],
+    snippet:'<table module="basket_basket">\n  <tr>\n    <td><img src="{$img}" alt=""></td>\n    <td>{$product_name}</td>\n    <td>{$form.quantity}</td>\n    <td>{$sum_price_front}</td>\n  </tr>\n</table>',
+    recipe:'recipes/04_장바구니-결제.md'},
+  {cat:'order', name:'ModuleOrderForm', ko:'주문서', tag:'Checkout',
+    preview:'form',
+    usage:'주문자·받는이·결제 수단·쿠폰·적립금 입력.',
+    vars:['{$form.oname}','{$form.oaddr1}','{$form.rname}','{$total_price}','{$addr_paymethod}'],
+    snippet:'<form module="order_orderform">\n  <input name="oname" value="{$form.oname}">\n  <input name="rname" value="{$form.rname}">\n  <div>{$addr_paymethod}</div>\n  <p>총 {$total_price}원</p>\n</form>',
+    recipe:'recipes/04_장바구니-결제.md'},
+
+  // 4. 회원
+  {cat:'member', name:'ModuleMemberLogin', ko:'로그인', tag:'Auth',
+    preview:'login',
+    usage:'아이디·비밀번호 입력 + 로그인 유지.',
+    vars:['{$form.member_id}','{$form.member_passwd}','{$form.use_login_keeping}','{$action_func_login}'],
+    snippet:'<form module="Member_Login" action="{$action_func_login}">\n  <input name="member_id" placeholder="아이디">\n  <input name="member_passwd" type="password" placeholder="비밀번호">\n  <label><input type="checkbox" name="use_login_keeping"> 로그인 유지</label>\n  <button type="submit">로그인</button>\n</form>',
+    recipe:'recipes/06_로그인-회원가입.md'},
+  {cat:'member', name:'ModuleMemberJoin', ko:'회원가입', tag:'Auth',
+    preview:'form',
+    usage:'아이디·비밀번호·약관 동의·이메일 등 가입 폼.',
+    vars:['{$form.member_id}','{$form.member_passwd}','{$form.email}','{$form.agree_terms}'],
+    snippet:'<form module="Member_Join">\n  <input name="member_id" placeholder="아이디">\n  <input name="member_passwd" type="password" placeholder="비밀번호">\n  <input name="email" placeholder="이메일">\n  <label><input type="checkbox" name="agree_terms"> 약관 동의</label>\n  <button type="submit">가입</button>\n</form>',
+    recipe:'recipes/06_로그인-회원가입.md'},
+  {cat:'member', name:'ModuleMyPage', ko:'마이페이지', tag:'Mypage',
+    preview:'detail',
+    usage:'회원 정보·주문 내역·적립금·쿠폰.',
+    vars:['{$member_name}','{$group_name}','{$total_avail_mileage}','{$coupon_cnt}'],
+    snippet:'<div module="mypage_main">\n  <h2>{$member_name}님 ({$group_name})</h2>\n  <p>적립금: {$total_avail_mileage}</p>\n  <p>쿠폰: {$coupon_cnt}장</p>\n</div>'},
+
+  // 5. 게시판
+  {cat:'board', name:'ModuleBoardList', ko:'게시판 목록', tag:'Board',
+    preview:'list',
+    usage:'공지·이벤트·QnA 게시판 목록.',
+    vars:['{$subject}','{$writer}','{$write_date}','{$hit_count}','{$param_read}','{$notice_icon}'],
+    snippet:'<table module="board_list">\n  <tr>\n    <td>{$notice_icon}<a href="{$param_read}">{$subject}</a></td>\n    <td>{$writer}</td>\n    <td>{$write_date}</td>\n    <td>{$hit_count}</td>\n  </tr>\n</table>',
+    recipe:'recipes/05_게시판-공지사항.md'},
+  {cat:'board', name:'ModuleBoardView', ko:'게시판 글 보기', tag:'Board',
+    preview:'detail',
+    usage:'게시글 상세 + 댓글.',
+    vars:['{$subject}','{$content}','{$writer}','{$write_date}','{$comment_count}'],
+    snippet:'<div module="board_view">\n  <h1>{$subject}</h1>\n  <p>{$writer} · {$write_date}</p>\n  <div>{$content|noescape}</div>\n  <div>댓글 {$comment_count}</div>\n</div>',
+    recipe:'recipes/05_게시판-공지사항.md'},
+  {cat:'board', name:'ModuleBoardWrite', ko:'글쓰기', tag:'Board',
+    preview:'form',
+    usage:'게시글 작성 폼.',
+    vars:['{$form.subject}','{$form.content}','{$form.board_category}','{$form.attach}'],
+    snippet:'<form module="board_write">\n  {$form.board_category}\n  <input name="subject" placeholder="제목">\n  <textarea name="content" placeholder="내용"></textarea>\n  <button type="submit">등록</button>\n</form>',
+    recipe:'recipes/05_게시판-공지사항.md'},
+
+  // 6. 마케팅·기타
+  {cat:'misc', name:'ModuleBanner', ko:'배너', tag:'홈',
+    preview:'banner',
+    usage:'메인 배너 슬라이드 또는 정적 배너.',
+    vars:['{$image_link}','{$banner_link}','{$alt_text}'],
+    snippet:'<div module="banner_main" data-banner-area="main">\n  <a href="{$banner_link}">\n    <img src="{$image_link}" alt="{$alt_text}">\n  </a>\n</div>',
+    recipe:'recipes/01_메인-히어로.md'},
+  {cat:'misc', name:'ModuleMain', ko:'메인 위젯', tag:'홈',
+    preview:'banner',
+    usage:'메인 페이지 전체 컨테이너. 다른 모듈을 묶음.',
+    vars:['{$mall_name}','{$mobile_title}'],
+    snippet:'<div module="main">\n  <h1>{$mall_name}</h1>\n  <!-- 다른 모듈들 -->\n</div>'},
+];
+
+const PREVIEW_TEMPLATES = {
+  grid: `<div class="nk-preview-box"><div class="nk-pv-grid"><div class="nk-pv-cell"></div><div class="nk-pv-cell"></div><div class="nk-pv-cell"></div></div><div class="nk-pv-row"><div class="nk-pv-line short"></div></div></div>`,
+  detail: `<div class="nk-preview-box"><div class="nk-pv-row"><div class="nk-pv-img" style="width:80px;height:80px"></div><div style="flex:1"><div class="nk-pv-line med" style="margin-bottom:6px"></div><div class="nk-pv-line short"></div></div></div><span class="nk-pv-btn">구매</span></div>`,
+  form: `<div class="nk-preview-box"><div class="nk-pv-input"></div><div class="nk-pv-input"></div><span class="nk-pv-btn">확인</span></div>`,
+  menu: `<div class="nk-preview-box"><div class="nk-pv-row"><div class="nk-pv-line short"></div></div><div class="nk-pv-row"><div class="nk-pv-line med"></div></div><div class="nk-pv-row"><div class="nk-pv-line short"></div></div></div>`,
+  search: `<div class="nk-preview-box"><div class="nk-pv-row"><div class="nk-pv-input"></div><span class="nk-pv-btn">검색</span></div></div>`,
+  pagination: `<div class="nk-preview-box"><div class="nk-pv-row" style="justify-content:center"><span class="nk-pv-btn" style="background:var(--nk-color-border);color:var(--nk-color-text)">‹</span><span class="nk-pv-btn">1</span><span class="nk-pv-btn" style="background:var(--nk-color-border);color:var(--nk-color-text)">2</span><span class="nk-pv-btn" style="background:var(--nk-color-border);color:var(--nk-color-text)">›</span></div></div>`,
+  cart: `<div class="nk-preview-box"><div class="nk-pv-row"><div class="nk-pv-img"></div><div class="nk-pv-line med"></div><div class="nk-pv-line short"></div></div><div class="nk-pv-row"><div class="nk-pv-img"></div><div class="nk-pv-line med"></div><div class="nk-pv-line short"></div></div></div>`,
+  login: `<div class="nk-preview-box"><div class="nk-pv-input"></div><div class="nk-pv-input"></div><div class="nk-pv-row"><span class="nk-pv-btn">로그인</span></div></div>`,
+  list: `<div class="nk-preview-box"><div class="nk-pv-row"><div class="nk-pv-line med"></div><div class="nk-pv-line short"></div></div><div class="nk-pv-row"><div class="nk-pv-line med"></div><div class="nk-pv-line short"></div></div><div class="nk-pv-row"><div class="nk-pv-line med"></div><div class="nk-pv-line short"></div></div></div>`,
+  banner: `<div class="nk-preview-box"><div class="nk-pv-banner">BANNER</div></div>`,
+};
+
+const $ = (s, root=document) => root.querySelector(s);
+const $$ = (s, root=document) => Array.from(root.querySelectorAll(s));
+const escapeHTML = s => s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+function renderTabs() {
+  const tabs = $('#tabs');
+  tabs.innerHTML = '<button class="nk-tab is-active" data-cat="all"><i class="ph ph-list"></i> 전체</button>' +
+    CATEGORIES.map(c => `<button class="nk-tab" data-cat="${c.id}"><i class="ph ${c.icon}"></i> ${c.label}</button>`).join('');
+}
+
+function renderCard(m) {
+  const preview = PREVIEW_TEMPLATES[m.preview] || '';
+  const vars = m.vars.map(v => `<button class="nk-var" data-copy="${escapeHTML(v)}"><i class="ph ph-copy" style="font-size:11px"></i>${escapeHTML(v)}</button>`).join('');
+  const recipe = m.recipe ? `<a href="${m.recipe}" class="nk-recipe-link"><i class="ph ph-bowl-food"></i> ${m.recipe.split('/').pop().replace('.md','')}</a>` : '';
+  return `<article class="nk-card">
+    <div class="nk-card-head">
+      <div>
+        <h3 class="nk-card-name"><code>${m.name}</code></h3>
+        <div class="nk-card-ko">${m.ko}</div>
+      </div>
+      <span class="nk-card-tag">${m.tag}</span>
+    </div>
+    <div class="nk-preview" aria-hidden="true">${preview}</div>
+    <div class="nk-card-section">
+      <div class="nk-card-label">사용처</div>
+      <div class="nk-card-usage">${m.usage}</div>
+    </div>
+    <div class="nk-card-section">
+      <div class="nk-card-label">주요 변수 (클릭해 복사)</div>
+      <div class="nk-var-list">${vars}</div>
+    </div>
+    <div class="nk-card-section">
+      <div class="nk-card-label">HTML 스니펫</div>
+      <div class="nk-snippet">
+        <button class="nk-copy" data-copy="${escapeHTML(m.snippet)}"><i class="ph ph-copy"></i> 복사</button>
+        <pre><code>${escapeHTML(m.snippet)}</code></pre>
+      </div>
+    </div>
+    ${recipe ? `<div class="nk-card-section">${recipe}</div>` : ''}
+  </article>`;
+}
+
+function render(filterCat='all', query='') {
+  const q = query.trim().toLowerCase();
+  const main = $('#main');
+  const empty = $('#empty');
+  let html = '';
+  let total = 0;
+  for (const c of CATEGORIES) {
+    if (filterCat !== 'all' && filterCat !== c.id) continue;
+    const items = MODULES.filter(m => m.cat === c.id).filter(m =>
+      !q || m.name.toLowerCase().includes(q) || m.ko.toLowerCase().includes(q) || m.tag.toLowerCase().includes(q)
+    );
+    if (items.length === 0) continue;
+    total += items.length;
+    html += `<section class="nk-section" id="sec-${c.id}">
+      <h2 class="nk-section-title"><i class="ph ${c.icon}"></i> ${c.label} <span style="color:var(--nk-color-text-sub);font-weight:400;font-size:14px">(${items.length})</span></h2>
+      <div class="nk-grid">${items.map(renderCard).join('')}</div>
+    </section>`;
+  }
+  main.innerHTML = html + '<div class="nk-empty" id="empty" ' + (total > 0 ? 'hidden' : '') + '><i class="ph ph-empty" style="font-size:32px"></i><p>검색 결과가 없습니다.</p></div>';
+}
+
+function showToast(msg='복사됨!') {
+  const t = $('#toast');
+  t.textContent = msg;
+  t.classList.add('is-show');
+  clearTimeout(showToast._t);
+  showToast._t = setTimeout(() => t.classList.remove('is-show'), 1600);
+}
+
+async function copyText(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+    showToast('복사됨!');
+  } catch {
+    const ta = document.createElement('textarea');
+    ta.value = text; document.body.appendChild(ta); ta.select();
+    document.execCommand('copy'); document.body.removeChild(ta);
+    showToast('복사됨!');
+  }
+}
+
+function applyTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('nk-theme', theme);
+  const icon = $('#theme-toggle i');
+  icon.className = theme === 'dark' ? 'ph ph-moon' : 'ph ph-sun';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const saved = localStorage.getItem('nk-theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  applyTheme(saved || (prefersDark ? 'dark' : 'light'));
+
+  renderTabs();
+  render();
+
+  $('#theme-toggle').addEventListener('click', () => {
+    const cur = document.documentElement.getAttribute('data-theme');
+    applyTheme(cur === 'dark' ? 'light' : 'dark');
+  });
+
+  let activeCat = 'all';
+  $('#tabs').addEventListener('click', e => {
+    const btn = e.target.closest('.nk-tab');
+    if (!btn) return;
+    $$('.nk-tab').forEach(b => b.classList.remove('is-active'));
+    btn.classList.add('is-active');
+    activeCat = btn.dataset.cat;
+    render(activeCat, $('#search').value);
+  });
+
+  let timer;
+  $('#search').addEventListener('input', e => {
+    clearTimeout(timer);
+    timer = setTimeout(() => render(activeCat, e.target.value), 150);
+  });
+
+  document.addEventListener('click', e => {
+    const copyBtn = e.target.closest('[data-copy]');
+    if (copyBtn) {
+      e.preventDefault();
+      copyText(copyBtn.dataset.copy);
+    }
+  });
+});
+</script>
+
+</body>
+</html>

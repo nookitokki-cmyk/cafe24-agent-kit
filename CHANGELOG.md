@@ -1,5 +1,60 @@
 # Cafe24 Agent Kit — Changelog
 
+## v2.4.0 (2026-06-21)
+
+### Added — 카페24 스킨 작업 풀스택 자동화 (대규모 추가)
+
+**비코더가 막히는 지점 3가지(레시피·에러·시각 미리보기) 해소 + Figma→CSS 토큰 파이프라인 + 클라이언트 통합 프로필 + 원클릭 자동화 명령. 총 28개 신규 파일, 1개 갱신.**
+
+#### `agent-kit/.claude/skills/cafe24/` 대폭 확장
+- `recipes/` (7) — 모듈 조합 레시피북 (메인-히어로 / 상품목록-그리드 / 상품상세 / 장바구니-결제 / 게시판-공지사항 / 로그인-회원가입 / 검색결과). "내가 원하는 화면 → 어떤 모듈 어떻게 조합" 매핑 사전
+- `templates/` (5) — 페이지 타입 스타터 (hero-main / plp-full / pdp-full / narrow / board). SFTP 업로드 → EZ로 텍스트만 바꾸면 끝나는 완성형
+- `snippets/` (20) — HTML 컴포넌트 6개 (header / product-card / banner-slider / footer / breadcrumb / quick-view) + CSS 시스템 8개 (reset / typography / responsive-grid / ez-override / button / form / modal / toast) + JavaScript 6개 (sticky-header / product-hover / scroll-animation / modal-toggle / tab-switcher / form-validator). 전부 Vanilla, nk- prefix, Pretendard / Phosphor 준수
+- `design-tokens/` (4) — Figma URL → JSON → CSS 토큰 자동 파이프라인 (README / schema / example / builder-guide)
+- `brand-profile/` (3) — 클라이언트 통합 프로필 (메타·연락처·프로젝트·브랜드·페이지 구성) JSON 스키마 + 예시
+- `workflows/` (1) — `/카페24-자동화` 6단계 파이프라인 문서
+- `module-browser.html` (1) — 19개 모듈 시각 카탈로그 단일 HTML (검색·다크모드·복사 버튼)
+- `references/troubleshooting.md` (1) — 비코더 마주치는 5대 에러 + 수정 템플릿 (21KB)
+- `references/variables.md` (확장) — 6.4KB → 13.6KB. 15개 섹션 마스터 사전 (상품 기본/가격/이미지/상태·아이콘/옵션/상세·배송/구매 액션/카테고리/정렬·페이지네이션/쇼핑 전역/장바구니/주문서/회원/게시판/Config 조건) + 비코더 빠른 가이드
+- `references/modifiers.md` (확장) — 13개 모디파이어(`|cut`·`|display`·`|number_format` 등) + Foreach·If 문법 상세 (17KB)
+- `SKILL.md` (갱신) — 12번 섹션을 신규 자료 통합 인덱스로 재편
+
+#### 부속 인프라
+- `agent-kit/.claude/agents/qa-checker.md` — 카페24 비주얼 검증 에이전트 (Haiku)
+- `agent-kit/.claude/skills/qa-loop/SKILL.md` — 합격 점수 0.85 자동 수정 루프 스킬
+- `agent-kit/.claude/commands/카페24-자동화.md` — 원클릭 파이프라인 슬래시 명령 (토큰 빌드 → HTML → 리뷰 → QA → SFTP)
+
+### Stability — 자료별 검증 상태
+
+**✅ 즉시 사용 권장 (Stable)** — 글 정리·공식 문서·MIT 출처 기반, 검증 완료
+- `references/troubleshooting.md` (21KB, 비코더 5대 에러 + 해법)
+- `references/variables.md` 확장 (6.4KB → 13.6KB, 15섹션 250+ 변수)
+- `references/modifiers.md` 확장 (13개 모디파이어 + Foreach/If 문법)
+- `recipes/01~07.md` (모듈 조합 매핑 사전)
+- `module-browser.html` (의존성 없는 단일 HTML, 브라우저 더블클릭)
+
+**🧪 실험적 (Experimental)** — 카페24 라이브 환경 검증 부족, 실 클라이언트 작업 검증 후 v2.4.1에서 안정화 예정
+- `templates/{hero-main,plp-full,pdp-full,narrow,board}.html` — 페이지 타입 스타터 5종
+- `snippets/components/` — HTML 컴포넌트 6개
+- `snippets/css/` 추가분 (button/form/modal/toast) — 4개
+- `snippets/js/` 추가분 (scroll-anim/modal/tabs/form-validator) — 4개
+- `design-tokens/` — Figma → CSS 토큰 파이프라인
+- `brand-profile/` — 클라이언트 통합 프로필 JSON
+- `workflows/cafe24-automation.md` + `/카페24-자동화` 명령
+- `agents/qa-checker.md` + `skills/qa-loop/`
+
+**실험적 자료 사용 시 주의:** 백업 + 소규모 테스트 후 라이브 검증 → 본격 사용. 문제 발생 시 GitHub Issue 환영.
+
+### Notes
+- 출처 명시: kimyoungwopo/cafe24-smart-design (MIT) + APapeIsName/web-uiux-design-from-reference (MIT) 분석 + 누끼토끼 실무 정리
+- 표준 준수: `nk-` 접두사 / Pretendard / Phosphor / italic 금지 / WCAG AA / 모바일 터치 타겟 44px
+- 예시 클라이언트 `demo-brand` 사용 (실제 클라이언트 정보 미포함)
+- 사전 처리: 절대 경로 `/Users/{user}/...` → `~/.claude/...` 치환 (개인정보 보호)
+- 파일명 통일: `modifiers-and-syntax.md` → `modifiers.md` (기존 GitHub 파일명 유지)
+
+---
+
+
 ## v2.3.6 (2026-06-20)
 
 ### Added

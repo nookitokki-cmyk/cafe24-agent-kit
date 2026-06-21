@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{$board_name} | {$shop_name}</title>
+
+  <!-- 폰트: Pretendard CDN -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+
+  <!-- 아이콘: Phosphor Icons CDN -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+  <!-- 스킨 기본 스타일 시트 -->
+  <link rel="stylesheet" href="{$skin_path}/css/nk-reset.css">
+  <link rel="stylesheet" href="{$skin_path}/css/nk-typography.css">
+  <link rel="stylesheet" href="{$skin_path}/css/nk-board.css">
+
+  <style>
+    /* =============================================
+       CSS 변수 (디자인 토큰)
+    ============================================= */
+    :root {
+      --nk-color-primary: #111111;
+      --nk-color-secondary: #555555;
+      --nk-color-accent: #FF5A2C;   /* ↑ 브랜드 포인트 컬러 변경 */
+      --nk-color-bg: #FFFFFF;
+      --nk-color-bg-subtle: #F7F7F7;
+      --nk-color-border: #E5E5E5;
+      --nk-color-white: #FFFFFF;
+      --nk-font-base: 'Pretendard', sans-serif;
+      --nk-space-xs: 8px;
+      --nk-space-sm: 16px;
+      --nk-space-md: 24px;
+      --nk-space-lg: 48px;
+      --nk-space-xl: 80px;
+      --nk-radius-sm: 4px;
+      --nk-radius-md: 8px;
+      --nk-max-width: 1280px;
+      --nk-header-height: 72px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--nk-font-base); color: var(--nk-color-primary); background-color: var(--nk-color-bg); -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    ul, ol { list-style: none; }
+    img { max-width: 100%; display: block; }
+
+    .nk-container { width: 100%; max-width: var(--nk-max-width); margin-inline: auto; padding-inline: var(--nk-space-sm); }
+
+    /* =============================================
+       헤더 (공통)
+    ============================================= */
+    .nk-header { position: sticky; top: 0; z-index: 100; height: var(--nk-header-height); background-color: var(--nk-color-white); border-bottom: 1px solid var(--nk-color-border); }
+    .nk-header__inner { display: flex; align-items: center; justify-content: space-between; height: 100%; }
+    .nk-logo { font-size: 20px; font-weight: 700; }
+    .nk-nav { display: flex; gap: var(--nk-space-md); }
+    .nk-nav__item a { font-size: 15px; font-weight: 500; transition: color 0.2s; }
+    .nk-nav__item a:hover { color: var(--nk-color-accent); }
+    .nk-header__actions { display: flex; align-items: center; gap: var(--nk-space-sm); }
+    .nk-header__actions a { font-size: 22px; color: var(--nk-color-primary); }
+    .nk-hamburger { display: none; background: none; border: none; cursor: pointer; padding: var(--nk-space-xs); }
+
+    /* =============================================
+       페이지 타이틀
+    ============================================= */
+    .nk-page-hero {
+      background-color: var(--nk-color-bg-subtle);
+      padding-block: var(--nk-space-lg);
+      text-align: center;
+      border-bottom: 1px solid var(--nk-color-border);
+    }
+    .nk-page-hero__title {
+      font-size: clamp(22px, 3vw, 36px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .nk-page-hero__sub { font-size: 14px; color: var(--nk-color-secondary); margin-top: 8px; }
+
+    /* =============================================
+       게시판 페이지 본문
+    ============================================= */
+    .nk-board-page { padding-block: var(--nk-space-xl); }
+
+    /* =============================================
+       검색 영역
+    ============================================= */
+    .nk-board-search {
+      margin-bottom: var(--nk-space-md);
+    }
+    .nk-board-search__inner {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .nk-search-type {
+      padding: 10px 12px;
+      border: 1px solid var(--nk-color-border);
+      border-radius: var(--nk-radius-sm);
+      font-family: var(--nk-font-base);
+      font-size: 13px;
+      background-color: var(--nk-color-white);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .nk-search-input {
+      flex: 1;
+      padding: 10px var(--nk-space-sm);
+      border: 1px solid var(--nk-color-border);
+      border-radius: var(--nk-radius-sm);
+      font-family: var(--nk-font-base);
+      font-size: 14px;
+      transition: border-color 0.2s;
+    }
+    .nk-search-input:focus { border-color: var(--nk-color-primary); outline: 2px solid rgba(17,17,17,0.15); }
+    .nk-search-input::placeholder { color: rgba(85,85,85,0.6); }
+    .nk-search-btn {
+      padding: 10px 20px;
+      background-color: var(--nk-color-primary);
+      color: var(--nk-color-white);
+      border: none;
+      border-radius: var(--nk-radius-sm);
+      font-family: var(--nk-font-base);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background-color 0.2s;
+      flex-shrink: 0;
+    }
+    .nk-search-btn:hover { background-color: #333; }
+
+    /* =============================================
+       상단: 총 게시글 수 + 글쓰기 버튼
+    ============================================= */
+    .nk-board-topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--nk-space-sm);
+    }
+    .nk-board-topbar__count {
+      font-size: 14px;
+      color: var(--nk-color-secondary);
+    }
+    .nk-board-topbar__count strong {
+      color: var(--nk-color-primary);
+      font-weight: 700;
+    }
+    .nk-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px 20px;
+      border-radius: var(--nk-radius-sm);
+      font-family: var(--nk-font-base);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid var(--nk-color-border);
+      background: none;
+      color: var(--nk-color-primary);
+      transition: all 0.2s;
+    }
+    .nk-btn:hover { border-color: var(--nk-color-primary); background-color: var(--nk-color-bg-subtle); }
+    .nk-btn--primary { background-color: var(--nk-color-primary); border-color: var(--nk-color-primary); color: var(--nk-color-white); }
+    .nk-btn--primary:hover { background-color: #333; }
+
+    /* =============================================
+       게시글 목록 테이블
+    ============================================= */
+    /* Q&A / 리뷰 게시판 — 열 구성: 번호 / 제목 / 작성자 / 날짜 / 상태 */
+    .nk-board-list__header {
+      display: grid;
+      grid-template-columns: 72px 1fr 100px 110px 80px;
+      gap: var(--nk-space-sm);
+      padding-block: 12px;
+      border-top: 2px solid var(--nk-color-primary);
+      border-bottom: 1px solid var(--nk-color-border);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--nk-color-secondary);
+      text-align: center;
+    }
+    .nk-board-list__header-title { text-align: left; }
+
+    .nk-board-list__row {
+      display: grid;
+      grid-template-columns: 72px 1fr 100px 110px 80px;
+      gap: var(--nk-space-sm);
+      align-items: center;
+      padding-block: 16px;
+      border-bottom: 1px solid var(--nk-color-border);
+      transition: background-color 0.15s;
+    }
+    .nk-board-list__row:hover { background-color: var(--nk-color-bg-subtle); }
+
+    /* 공지 행 스타일 */
+    .nk-board-list__row--notice { background-color: #FAFAF0; }
+    .nk-board-list__row--notice:hover { background-color: #F5F5E0; }
+
+    .nk-board-list__num {
+      text-align: center;
+      font-size: 13px;
+      color: var(--nk-color-secondary);
+    }
+    .nk-board-list__num--notice {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--nk-color-accent);
+      background-color: rgba(255, 90, 44, 0.08);
+      padding: 3px 6px;
+      border-radius: var(--nk-radius-sm);
+      text-align: center;
+      display: inline-block;
+    }
+    .nk-board-list__title {
+      font-size: 14px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+    .nk-board-list__title a {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    .nk-board-list__title a:hover { color: var(--nk-color-accent); }
+    .nk-board-list__new {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 5px;
+      background-color: var(--nk-color-accent);
+      color: var(--nk-color-white);
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+    /* 비밀글 자물쇠 아이콘 */
+    .nk-board-list__lock { color: var(--nk-color-secondary); flex-shrink: 0; font-size: 14px; }
+
+    .nk-board-list__writer {
+      text-align: center;
+      font-size: 13px;
+      color: var(--nk-color-secondary);
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    .nk-board-list__date {
+      text-align: center;
+      font-size: 13px;
+      color: var(--nk-color-secondary);
+    }
+
+    /* 답변 상태 뱃지 */
+    .nk-board-list__status { text-align: center; }
+    .nk-status-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: var(--nk-radius-sm);
+    }
+    .nk-status-badge--answered { background-color: #D1FAE5; color: #065F46; }
+    .nk-status-badge--waiting { background-color: var(--nk-color-bg-subtle); color: var(--nk-color-secondary); }
+
+    /* 게시글 없을 때 */
+    .nk-board-empty {
+      text-align: center;
+      padding: var(--nk-space-xl) 0;
+      color: var(--nk-color-secondary);
+      border-bottom: 1px solid var(--nk-color-border);
+    }
+    .nk-board-empty__icon { font-size: 48px; margin-bottom: var(--nk-space-sm); opacity: 0.35; }
+    .nk-board-empty__text { font-size: 15px; }
+
+    /* =============================================
+       하단: 글쓰기 버튼 반복 + 페이지네이션
+    ============================================= */
+    .nk-board-footer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--nk-space-md);
+      margin-top: var(--nk-space-lg);
+    }
+    .nk-board-footer__write {
+      align-self: flex-end;
+    }
+
+    /* =============================================
+       페이지네이션
+    ============================================= */
+    .nk-pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: var(--nk-space-xs);
+    }
+    .nk-pagination__btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--nk-color-border);
+      border-radius: var(--nk-radius-sm);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--nk-color-secondary);
+      transition: all 0.2s;
+    }
+    .nk-pagination__btn:hover { border-color: var(--nk-color-primary); color: var(--nk-color-primary); }
+    .nk-pagination__btn--active { background-color: var(--nk-color-primary); border-color: var(--nk-color-primary); color: var(--nk-color-white); }
+    .nk-pagination__nav { font-size: 18px; }
+
+    /* =============================================
+       [상세 뷰] 게시글 상세 (Q&A / 리뷰)
+    ============================================= */
+    .nk-article__header {
+      border-top: 2px solid var(--nk-color-primary);
+      padding-block: var(--nk-space-md);
+      border-bottom: 1px solid var(--nk-color-border);
+    }
+    .nk-article__category { font-size: 12px; font-weight: 600; color: var(--nk-color-accent); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.06em; }
+    .nk-article__title { font-size: clamp(18px, 2.5vw, 26px); font-weight: 700; line-height: 1.35; letter-spacing: -0.02em; margin-bottom: var(--nk-space-sm); }
+    .nk-article__meta { display: flex; align-items: center; gap: var(--nk-space-sm); font-size: 13px; color: var(--nk-color-secondary); flex-wrap: wrap; }
+    .nk-article__meta-sep { opacity: 0.35; }
+
+    .nk-article__body {
+      padding-block: var(--nk-space-lg);
+      font-size: 15px;
+      line-height: 1.85;
+      border-bottom: 1px solid var(--nk-color-border);
+    }
+    .nk-article__body p { margin-bottom: 1em; }
+    .nk-article__body img { max-width: 100%; border-radius: var(--nk-radius-md); margin-block: var(--nk-space-md); }
+
+    /* 답변 블록 (Q&A용) */
+    .nk-answer {
+      margin-top: var(--nk-space-md);
+      background-color: var(--nk-color-bg-subtle);
+      border-left: 3px solid var(--nk-color-primary);
+      border-radius: 0 var(--nk-radius-md) var(--nk-radius-md) 0;
+      padding: var(--nk-space-md);
+    }
+    .nk-answer__header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: var(--nk-space-sm);
+    }
+    .nk-answer__label {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 3px 8px;
+      background-color: var(--nk-color-primary);
+      color: var(--nk-color-white);
+      border-radius: var(--nk-radius-sm);
+    }
+    .nk-answer__meta { font-size: 12px; color: var(--nk-color-secondary); }
+    .nk-answer__body { font-size: 14px; line-height: 1.8; }
+
+    /* 리뷰 상품 정보 박스 */
+    .nk-review-product {
+      display: flex;
+      align-items: center;
+      gap: var(--nk-space-md);
+      padding: var(--nk-space-sm);
+      border: 1px solid var(--nk-color-border);
+      border-radius: var(--nk-radius-md);
+      margin-bottom: var(--nk-space-md);
+    }
+    .nk-review-product__img {
+      width: 72px;
+      height: 72px;
+      border-radius: var(--nk-radius-sm);
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+    .nk-review-product__name { font-size: 14px; font-weight: 500; }
+    .nk-review-product__option { font-size: 12px; color: var(--nk-color-secondary); margin-top: 4px; }
+    .nk-review-product__stars { display: flex; gap: 3px; color: #FBBF24; margin-top: 6px; }
+
+    /* 리뷰 이미지 갤러리 */
+    .nk-review-images {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: var(--nk-space-md);
+    }
+    .nk-review-img {
+      width: 100px;
+      height: 100px;
+      border-radius: var(--nk-radius-sm);
+      object-fit: cover;
+    }
+
+    /* 이전/다음 네비게이션 */
+    .nk-article__nav { border-bottom: 1px solid var(--nk-color-border); }
+    .nk-article__nav-item { display: flex; align-items: center; gap: var(--nk-space-sm); padding-block: 14px; border-bottom: 1px solid var(--nk-color-border); font-size: 14px; }
+    .nk-article__nav-item:last-child { border-bottom: none; }
+    .nk-article__nav-label { font-size: 12px; font-weight: 700; color: var(--nk-color-secondary); width: 40px; flex-shrink: 0; }
+    .nk-article__nav-title { flex: 1; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+    .nk-article__nav-title:hover { color: var(--nk-color-accent); }
+
+    /* 하단 버튼 */
+    .nk-article__footer { display: flex; justify-content: space-between; align-items: center; padding-top: var(--nk-space-md); }
+
+    /* =============================================
+       글쓰기 폼
+    ============================================= */
+    .nk-write-form { padding-block: var(--nk-space-xl); }
+    .nk-write-form__title { font-size: 22px; font-weight: 700; margin-bottom: var(--nk-space-lg); }
+    .nk-form-group { margin-bottom: var(--nk-space-md); }
+    .nk-form-label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+    .nk-form-label--required::after { content: ' *'; color: var(--nk-color-accent); }
+    .nk-form-input {
+      width: 100%;
+      padding: 12px var(--nk-space-sm);
+      border: 1px solid var(--nk-color-border);
+      border-radius: var(--nk-radius-sm);
+      font-family: var(--nk-font-base);
+      font-size: 14px;
+      transition: border-color 0.2s;
+    }
+    .nk-form-input:focus { border-color: var(--nk-color-primary); outline: 2px solid rgba(17,17,17,0.15); }
+    .nk-form-input::placeholder { color: rgba(85,85,85,0.5); }
+    .nk-form-textarea {
+      width: 100%;
+      min-height: 200px;
+      padding: 12px var(--nk-space-sm);
+      border: 1px solid var(--nk-color-border);
+      border-radius: var(--nk-radius-sm);
+      font-family: var(--nk-font-base);
+      font-size: 14px;
+      resize: vertical;
+      transition: border-color 0.2s;
+      line-height: 1.7;
+    }
+    .nk-form-textarea:focus { border-color: var(--nk-color-primary); outline: 2px solid rgba(17,17,17,0.15); }
+    .nk-form-secret {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .nk-form-secret input { width: 16px; height: 16px; accent-color: var(--nk-color-primary); }
+    .nk-form-actions { display: flex; justify-content: flex-end; gap: 8px; }
+
+    /* =============================================
+       푸터
+    ============================================= */
+    .nk-footer { background-color: var(--nk-color-primary); color: rgba(255,255,255,0.6); padding-block: var(--nk-space-lg); margin-top: var(--nk-space-xl); }
+    .nk-footer__info { font-size: 12px; line-height: 2; }
+    .nk-footer__copy { border-top: 1px solid rgba(255,255,255,0.1); margin-top: var(--nk-space-md); padding-top: var(--nk-space-md); font-size: 11px; text-align: center; }
+
+    /* =============================================
+       반응형
+    ============================================= */
+    @media (max-width: 768px) {
+      .nk-nav { display: none; }
+      .nk-hamburger { display: flex; }
+      /* 모바일: 상태/작성자 열 숨기고 간소화 */
+      .nk-board-list__header,
+      .nk-board-list__row { grid-template-columns: 50px 1fr 80px; }
+      .nk-board-list__header-writer,
+      .nk-board-list__writer,
+      .nk-board-list__header-status,
+      .nk-board-list__status { display: none; }
+      .nk-board-search__inner { flex-wrap: wrap; }
+      .nk-search-type { flex: 1; }
+    }
+    @media (max-width: 375px) {
+      .nk-board-list__header,
+      .nk-board-list__row { grid-template-columns: 40px 1fr 70px; gap: var(--nk-space-xs); }
+      .nk-board-list__date { font-size: 11px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===================================================
+     헤더 (공통)
+=================================================== -->
+<header class="nk-header">
+  <div class="nk-container">
+    <div class="nk-header__inner">
+      <a href="/" class="nk-logo">{$mall_name}</a>
+      <nav class="nk-nav">
+        <li class="nk-nav__item"><a href="/product/list.html?cate_no=26">신상품</a></li>
+        <li class="nk-nav__item"><a href="/product/list.html?cate_no=27">베스트</a></li>
+        <li class="nk-nav__item"><a href="/board/list.html?board_no=6">Q&amp;A</a></li>  <!-- ↑ board_no 변경 -->
+      </nav>
+      <div class="nk-header__actions">
+        <a href="/member/search.html" aria-label="검색"><i class="ph ph-magnifying-glass"></i></a>
+        <a href="/myshop/index.html" aria-label="마이페이지"><i class="ph ph-user"></i></a>
+        <a href="/order/basket.html" aria-label="장바구니"><i class="ph ph-shopping-cart"></i></a>
+      </div>
+      <button class="nk-hamburger" aria-label="메뉴 열기">
+        <i class="ph ph-list" style="font-size: 24px;"></i>
+      </button>
+    </div>
+  </div>
+</header>
+<!-- === 헤더 끝 === -->
+
+
+<!-- ===================================================
+     페이지 타이틀
+=================================================== -->
+<div class="nk-page-hero">
+  <div class="nk-container">
+    <h1 class="nk-page-hero__title">{$board_name}</h1>  <!-- ↑ 게시판명 자동 출력 -->
+    <p class="nk-page-hero__sub">구매 전 궁금한 점을 남겨주세요. 빠르게 답변 드리겠습니다.</p>  <!-- ↑ 설명 문구 변경 -->
+  </div>
+</div>
+<!-- === 페이지 타이틀 끝 === -->
+
+
+<!-- ===================================================
+     게시판 목록 + 상세 + 글쓰기 (카페24 조건부 렌더링)
+=================================================== -->
+<main class="nk-board-page">
+  <div class="nk-container">
+
+    <!-- =============================================
+         검색 영역
+         board_no를 실제 Q&A 게시판 번호로 변경하세요
+         예시: module="board_search_6"
+    ============================================= -->
+    <!-- ↓ {$board_no}를 어드민에서 확인한 실제 게시판 번호로 변경 -->
+    <div module="board_search_{$board_no}">
+      <div class="nk-board-search">
+        <div class="nk-board-search__inner">
+
+          <!-- 검색 유형 셀렉트 -->
+          <select class="nk-search-type" name="search_type">
+            <option value="all">전체</option>
+            <option value="subject">제목</option>
+            <option value="content">내용</option>
+            <option value="writer">작성자</option>
+          </select>
+
+          <!-- 검색어 입력 -->
+          <input
+            class="nk-search-input"
+            type="text"
+            name="search_word"
+            value="{$search_word}"
+            placeholder="검색어를 입력하세요"
+            aria-label="검색어"
+          >
+
+          <!-- 검색 버튼 -->
+          <button class="nk-search-btn" type="submit">
+            <i class="ph ph-magnifying-glass"></i>
+            검색
+          </button>
+
+        </div>
+      </div>
+    </div>
+    <!-- 검색 모듈 끝 -->
+
+
+    <!-- =============================================
+         목록 상단: 총 글 수 + 글쓰기 버튼
+    ============================================= -->
+    <div class="nk-board-topbar">
+      <p class="nk-board-topbar__count">
+        총 <strong>{$total_count}</strong>개의 글
+      </p>
+      <!-- 글쓰기 버튼 — 로그인 상태일 때만 표시 (카페24가 자동 처리) -->
+      <a href="/board/write.html?board_no={$board_no}" class="nk-btn nk-btn--primary">
+        <!-- ↑ board_no를 실제 게시판 번호로 변경 -->
+        <i class="ph ph-pencil-simple"></i>
+        글쓰기
+      </a>
+    </div>
+
+
+    <!-- =============================================
+         [목록 뷰] 게시글 목록
+         board_no를 실제 게시판 번호로 변경하세요
+         예시: module="board_list_6"
+    ============================================= -->
+    <div module="board_list_{$board_no}">
+
+      <!-- 테이블 헤더 -->
+      <div class="nk-board-list__header">
+        <span class="nk-board-list__header-num">번호</span>
+        <span class="nk-board-list__header-title">제목</span>
+        <span class="nk-board-list__header-writer">작성자</span>
+        <span class="nk-board-list__header-date">등록일</span>
+        <span class="nk-board-list__header-status">답변</span>
+      </div>
+
+      <!-- 게시글 없을 때 표시 -->
+      <!--
+      <div class="nk-board-empty">
+        <p class="nk-board-empty__icon"><i class="ph ph-chat-circle-dots"></i></p>
+        <p class="nk-board-empty__text">등록된 문의가 없습니다.</p>
+      </div>
+      -->
+
+      <!-- 공지 게시글 (상단 고정) -->
+      <div class="nk-board-list__row nk-board-list__row--notice">
+        <span class="nk-board-list__num">
+          <span class="nk-board-list__num--notice">공지</span>
+        </span>
+        <div class="nk-board-list__title">
+          <a href="/board/read.html?board_no={$board_no}&amp;no={$no}">
+            {$subject}
+          </a>
+        </div>
+        <span class="nk-board-list__writer">{$writer}</span>
+        <span class="nk-board-list__date">{$regist_date}</span>
+        <div class="nk-board-list__status">
+          <span class="nk-status-badge nk-status-badge--answered">공지</span>
+        </div>
+      </div>
+
+      <!-- 일반 게시글 반복 -->
+      <div class="nk-board-list__row">
+        <span class="nk-board-list__num">{$no}</span>
+        <div class="nk-board-list__title">
+
+          <!-- 비밀글 자물쇠 (비밀글일 경우) -->
+          <!--<i class="ph ph-lock nk-board-list__lock"></i>-->
+
+          <a href="/board/read.html?board_no={$board_no}&amp;no={$no}">
+            {$subject}
+          </a>
+
+          <!-- 최근 게시글 NEW 뱃지 (3일 이내) -->
+          <!--<span class="nk-board-list__new">N</span>-->
+
+        </div>
+        <span class="nk-board-list__writer">{$writer}</span>
+        <span class="nk-board-list__date">{$regist_date}</span>
+        <div class="nk-board-list__status">
+          <!-- 답변 상태 뱃지 -->
+          <!-- {$is_answered}가 Y이면 아래 answered, N이면 waiting 표시 -->
+          <span class="nk-status-badge nk-status-badge--answered">답변완료</span>
+          <!--<span class="nk-status-badge nk-status-badge--waiting">답변대기</span>-->
+        </div>
+      </div>
+
+    </div>
+    <!-- 게시글 목록 모듈 끝 -->
+
+
+    <!-- =============================================
+         페이지네이션
+    ============================================= -->
+    <div class="nk-board-footer">
+      <div module="ModulePagination">
+        <nav class="nk-pagination" aria-label="페이지 이동">
+          <a href="{$first_page_url}" class="nk-pagination__btn nk-pagination__nav" aria-label="첫 페이지">
+            <i class="ph ph-caret-double-left"></i>
+          </a>
+          <a href="{$prev_url}" class="nk-pagination__btn nk-pagination__nav" aria-label="이전 페이지">
+            <i class="ph ph-caret-left"></i>
+          </a>
+          <a href="{$page_url}" class="nk-pagination__btn {$is_current_page}">
+            {$page_no}
+          </a>
+          <a href="{$next_url}" class="nk-pagination__btn nk-pagination__nav" aria-label="다음 페이지">
+            <i class="ph ph-caret-right"></i>
+          </a>
+          <a href="{$last_page_url}" class="nk-pagination__btn nk-pagination__nav" aria-label="마지막 페이지">
+            <i class="ph ph-caret-double-right"></i>
+          </a>
+        </nav>
+      </div>
+
+      <!-- 하단 글쓰기 버튼 반복 -->
+      <div class="nk-board-footer__write">
+        <a href="/board/write.html?board_no={$board_no}" class="nk-btn nk-btn--primary">
+          <i class="ph ph-pencil-simple"></i>
+          글쓰기
+        </a>
+      </div>
+    </div>
+
+
+    <!-- =============================================
+         [상세 뷰] 게시글 상세 (Q&A 전용)
+         board_no를 실제 게시판 번호로 변경하세요
+         예시: module="board_read_6"
+    ============================================= -->
+    <div module="board_read_{$board_no}">
+      <article>
+
+        <!-- 게시글 헤더 -->
+        <div class="nk-article__header">
+          <p class="nk-article__category">{$category}</p>
+          <h2 class="nk-article__title">
+            <!--비밀글 자물쇠-->
+            <!--<i class="ph ph-lock"></i>-->
+            {$subject}
+          </h2>
+          <div class="nk-article__meta">
+            <span>{$writer}</span>
+            <span class="nk-article__meta-sep">|</span>
+            <span>{$regist_date}</span>
+            <span class="nk-article__meta-sep">|</span>
+            <span>조회 {$hit}</span>
+            <span class="nk-article__meta-sep">|</span>
+            <!-- 답변 상태 표시 -->
+            <span class="nk-status-badge nk-status-badge--answered">답변완료</span>
+          </div>
+        </div>
+
+        <!-- 문의한 상품 정보 (리뷰 게시판일 때 특히 유용) -->
+        <!--
+        <div class="nk-review-product">
+          <img class="nk-review-product__img" src="{$product_image}" alt="{$product_name}">
+          <div>
+            <p class="nk-review-product__name">{$product_name}</p>
+            <p class="nk-review-product__option">옵션: {$option_value}</p>
+          </div>
+        </div>
+        -->
+
+        <!-- 리뷰 이미지 (리뷰 게시판 전용) -->
+        <!--
+        <div class="nk-review-images">
+          <img class="nk-review-img" src="{$review_image_1}" alt="리뷰 이미지 1">
+          <img class="nk-review-img" src="{$review_image_2}" alt="리뷰 이미지 2">
+        </div>
+        -->
+
+        <!-- 게시글 본문 -->
+        <div class="nk-article__body">
+          {$content}  <!-- ↑ 게시글 내용 자동 출력 -->
+        </div>
+
+        <!-- 관리자 답변 블록 (답변 있을 때만 표시) -->
+        <div class="nk-answer">
+          <div class="nk-answer__header">
+            <span class="nk-answer__label">답변</span>
+            <span class="nk-answer__meta">{$answer_date}</span>
+          </div>
+          <div class="nk-answer__body">
+            {$answer_content}  <!-- ↑ 관리자 답변 내용 자동 출력 -->
+          </div>
+        </div>
+
+        <!-- 이전/다음 글 네비게이션 -->
+        <nav class="nk-article__nav">
+          <div class="nk-article__nav-item">
+            <span class="nk-article__nav-label">이전</span>
+            <a class="nk-article__nav-title" href="/board/read.html?board_no={$board_no}&amp;no={$prev_no}">
+              {$prev_subject}
+            </a>
+          </div>
+          <div class="nk-article__nav-item">
+            <span class="nk-article__nav-label">다음</span>
+            <a class="nk-article__nav-title" href="/board/read.html?board_no={$board_no}&amp;no={$next_no}">
+              {$next_subject}
+            </a>
+          </div>
+        </nav>
+
+        <!-- 하단 버튼 -->
+        <div class="nk-article__footer">
+          <a href="/board/list.html?board_no={$board_no}" class="nk-btn">
+            <i class="ph ph-list"></i>
+            목록
+          </a>
+          <!-- 본인 글일 때만 수정/삭제 표시 (카페24 자동 처리) -->
+          <!--
+          <div style="display: flex; gap: 8px;">
+            <a href="/board/edit.html?board_no={$board_no}&no={$no}" class="nk-btn">수정</a>
+            <a href="/board/delete.html?board_no={$board_no}&no={$no}" class="nk-btn">삭제</a>
+          </div>
+          -->
+        </div>
+
+      </article>
+    </div>
+    <!-- 게시글 상세 모듈 끝 -->
+
+
+    <!-- =============================================
+         [글쓰기 뷰] 글쓰기 폼
+         board_no를 실제 게시판 번호로 변경하세요
+         예시: module="board_write_6"
+    ============================================= -->
+    <div module="board_write_{$board_no}">
+      <section class="nk-write-form">
+        <h2 class="nk-write-form__title">문의하기</h2>  <!-- ↑ 제목 변경 -->
+
+        <!-- 카테고리 선택 (게시판에 카테고리 설정한 경우) -->
+        <!--
+        <div class="nk-form-group">
+          <label class="nk-form-label" for="nk-category">문의 유형</label>
+          <select class="nk-form-input" id="nk-category" name="category">
+            <option value="">선택하세요</option>
+            <option value="배송">배송 문의</option>
+            <option value="교환반품">교환/반품</option>
+            <option value="상품">상품 문의</option>
+            <option value="기타">기타</option>
+          </select>
+        </div>
+        -->
+
+        <!-- 제목 -->
+        <div class="nk-form-group">
+          <label class="nk-form-label nk-form-label--required" for="nk-subject">제목</label>
+          <input
+            class="nk-form-input"
+            type="text"
+            id="nk-subject"
+            name="subject"
+            placeholder="제목을 입력하세요"
+            maxlength="100"
+          >
+        </div>
+
+        <!-- 내용 -->
+        <div class="nk-form-group">
+          <label class="nk-form-label nk-form-label--required" for="nk-content">내용</label>
+          <textarea
+            class="nk-form-textarea"
+            id="nk-content"
+            name="content"
+            placeholder="문의 내용을 자세히 작성해 주세요."
+          ></textarea>
+        </div>
+
+        <!-- 비밀글 체크박스 -->
+        <div class="nk-form-group">
+          <label class="nk-form-secret">
+            <input type="checkbox" name="is_secret" value="Y">
+            비밀글로 등록
+          </label>
+        </div>
+
+        <!-- 파일 첨부 (게시판 첨부 허용 시) -->
+        <!--
+        <div class="nk-form-group">
+          <label class="nk-form-label" for="nk-file">파일 첨부</label>
+          <input type="file" id="nk-file" name="file1" accept="image/*">
+        </div>
+        -->
+
+        <!-- 제출 버튼 -->
+        <div class="nk-form-actions">
+          <a href="/board/list.html?board_no={$board_no}" class="nk-btn">취소</a>
+          <button class="nk-btn nk-btn--primary" type="submit">
+            <i class="ph ph-paper-plane-tilt"></i>
+            등록하기
+          </button>
+        </div>
+
+      </section>
+    </div>
+    <!-- 글쓰기 모듈 끝 -->
+
+  </div>
+</main>
+<!-- === 게시판 본문 끝 === -->
+
+
+<!-- ===================================================
+     푸터
+=================================================== -->
+<footer class="nk-footer">
+  <div class="nk-container">
+    <address class="nk-footer__info">
+      <strong style="color: rgba(255,255,255,0.9); font-weight: 700;">{$mall_name}</strong>&nbsp;&nbsp;
+      대표자: 홍길동&nbsp;&nbsp;  <!-- ↑ 변경 -->
+      사업자등록번호: 000-00-00000&nbsp;&nbsp;  <!-- ↑ 변경 -->
+      고객센터: 00-0000-0000  <!-- ↑ 변경 -->
+    </address>
+    <p class="nk-footer__copy">&#169; {$year} {$mall_name}. All rights reserved.</p>
+  </div>
+</footer>
+<!-- === 푸터 끝 === -->
+
+<script src="{$skin_path}/js/nk-board.js"></script>
+
+</body>
+</html>
