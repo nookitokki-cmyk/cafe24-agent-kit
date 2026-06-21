@@ -8,7 +8,7 @@ import shutil
 import sys
 import tempfile
 import zipfile
-from datetime import date
+from datetime import date, datetime, timezone
 from pathlib import Path
 from typing import Any
 from urllib.error import HTTPError, URLError
@@ -20,6 +20,8 @@ KIT_ROOT = Path(
     os.environ.get("CAFE24_KIT_ROOT", WORKSPACE_ROOT / "agent-kit")
 )
 CONFIG_DIR = MCP_DIR / "config"
+# Throttle cache for start-time auto-update check (gitignored — local state only)
+AUTOUPDATE_CACHE = CONFIG_DIR / ".autoupdate_check.json"
 TEMPLATE_CLIENT = KIT_ROOT / "clients" / "_template"
 VERSION_FILE = WORKSPACE_ROOT / "VERSION"
 CHANGELOG_FILE = WORKSPACE_ROOT / "CHANGELOG.md"
@@ -240,6 +242,166 @@ def kit_update_from_github(
     finally:
         if tmp_zip.parent.exists():
             shutil.rmtree(tmp_zip.parent, ignore_errors=True)
+
+
+def detect_install_channel() -> str:
+    """Best-effort guess of how this kit was installed: git | npm | release.
+
+    Override with env CAFE24_KIT_CHANNEL. A channel-aware updater lets the same
+    start-time check serve git clones, GitHub Release zips, and future npm users.
+    """
+    override = os.environ.get("CAFE24_KIT_CHANNEL", "").strip().lower()
+    if override in {"git", "npm", "release"}:
+        return override
+    if (WORKSPACE_ROOT / ".git").exists():
+        return "git"
+    if "node_modules" in WORKSPACE_ROOT.parts:
+        return "npm"
+    return "release"
+
+
+def _channel_update_command(channel: str) -> str:
+    return {
+        "git": "git pull --ff-only",
+        "npm": "npm update -g cafe24-agent-kit",
+        "release": "python cli.py kit-update --from-github",
+    }.get(channel, "python cli.py kit-update --from-github")
+
+
+def _git_is_clean() -> bool:
+    """True only if the workspace git tree has no uncommitted changes."""
+    try:
+        import subprocess
+
+        r = subprocess.run(
+            ["git", "-C", str(WORKSPACE_ROOT), "status", "--porcelain"],
+            capture_output=True, text=True, timeout=15, check=False,
+        )
+        return r.returncode == 0 and not r.stdout.strip()
+    except (OSError, subprocess.SubprocessError):
+        return False
+
+
+def _git_pull_ff() -> dict[str, Any]:
+    import subprocess
+
+    try:
+        r = subprocess.run(
+            ["git", "-C", str(WORKSPACE_ROOT), "pull", "--ff-only"],
+            capture_output=True, text=True, timeout=120, check=False,
+        )
+        return {
+            "ok": r.returncode == 0,
+            "output": (r.stdout + r.stderr).strip()[:500],
+        }
+    except (OSError, subprocess.SubprocessError) as e:
+        return {"ok": False, "output": str(e)}
+
+
+def _load_autoupdate_cache() -> dict[str, Any]:
+    try:
+        return json.loads(AUTOUPDATE_CACHE.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+
+
+def _save_autoupdate_cache(data: dict[str, Any]) -> None:
+    try:
+        AUTOUPDATE_CACHE.parent.mkdir(parents=True, exist_ok=True)
+        AUTOUPDATE_CACHE.write_text(
+            json.dumps(data, ensure_ascii=False), encoding="utf-8"
+        )
+    except OSError:
+        pass
+
+
+def kit_autoupdate(
+    *, apply: bool = False, force: bool = False, throttle_hours: float = 12.0
+) -> dict[str, Any]:
+    """Start-time update check: compare local vs remote VERSION, channel-aware.
+
+    - Throttled: skips the network call if checked within ``throttle_hours``
+      (so running it on every start is cheap). ``force=True`` bypasses it.
+    - Offline-safe: a failed remote lookup never raises — startup proceeds.
+    - ``apply=True`` performs a *conditional* auto-update: GitHub-Release and
+      git (clean tree) channels self-apply; otherwise the command is returned
+      for the user to run. config/* and clients/{mall} are always preserved.
+    """
+    local = read_kit_version()
+    channel = detect_install_channel()
+    now = datetime.now(timezone.utc)
+    cache = _load_autoupdate_cache()
+
+    if not force and cache.get("last_check"):
+        try:
+            last = datetime.fromisoformat(cache["last_check"])
+            if (now - last).total_seconds() < throttle_hours * 3600:
+                return {
+                    "checked": False,
+                    "throttled": True,
+                    "channel": channel,
+                    "local": local,
+                    "throttle_hours": throttle_hours,
+                    "cached_remote_version": cache.get("remote_version"),
+                }
+        except ValueError:
+            pass
+
+    remote = fetch_remote_version()
+    cache.update(
+        {"last_check": now.isoformat(), "remote_version": remote.get("version")}
+    )
+    _save_autoupdate_cache(cache)
+
+    if not remote.get("available"):
+        return {
+            "checked": True,
+            "channel": channel,
+            "local": local,
+            "remote": remote,
+            "update_available": False,
+            "note": "원격 버전 확인 실패(오프라인일 수 있음) — 무시하고 진행",
+        }
+
+    update_available = bool(
+        local.get("version")
+        and remote.get("version")
+        and remote["version"] != local["version"]
+    )
+    result: dict[str, Any] = {
+        "checked": True,
+        "channel": channel,
+        "local": local,
+        "remote": remote,
+        "update_available": update_available,
+        "recommended_command": _channel_update_command(channel),
+    }
+    if not update_available or not apply:
+        return result
+
+    # Conditional auto-apply (best-effort; never crashes startup)
+    if channel == "release":
+        try:
+            result["applied"] = kit_update_from_github(tag="latest", dry_run=False)
+            result["apply_status"] = "updated"
+        except (
+            URLError, HTTPError, OSError, TimeoutError, ValueError,
+            zipfile.BadZipFile, FileNotFoundError,
+        ) as e:
+            result["apply_status"] = "failed"
+            result["apply_error"] = str(e)
+    elif channel == "git":
+        if _git_is_clean():
+            pull = _git_pull_ff()
+            result["applied"] = pull
+            result["apply_status"] = "updated" if pull["ok"] else "failed"
+        else:
+            result["apply_status"] = "manual"
+            result["note"] = "로컬 변경이 있어 자동 pull 보류 — 직접 git pull 하세요"
+    else:  # npm
+        result["apply_status"] = "manual"
+        result["note"] = "npm 채널은 수동 업데이트 명령을 실행하세요"
+    return result
 
 
 def _safe_mall_id(mall_id: str) -> str:

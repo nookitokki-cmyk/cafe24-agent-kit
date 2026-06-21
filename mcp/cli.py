@@ -9,6 +9,9 @@
   python cli.py scaffold --mall {몰ID}      clients/{몰ID} scaffold
   python cli.py kit-version                 로컬 VERSION
   python cli.py kit-version --check-remote  GitHub Release 또는 VERSION URL 비교
+  python cli.py kit-autoupdate              시작 시 자동 업데이트 체크 (12h 스로틀)
+  python cli.py kit-autoupdate --apply      새 버전이면 조건부 자동 적용 (채널 감지)
+  python cli.py kit-autoupdate --force      스로틀 무시하고 즉시 재확인
   python cli.py kit-update --source <path>  코드만 갱신 (config·clients 보존)
   python cli.py kit-update --from-github [--tag v2.2.0]  Release zip 자동 적용
   python cli.py kit-update --dry-run        갱신 대상 미리보기
@@ -33,12 +36,32 @@ import json
 import sys
 from pathlib import Path
 
-from auth.oauth import AuthError, TokenManager
-from backends.cafe24_api import Cafe24API, Cafe24ApiError
-from backends.cafe24_sftp import Cafe24SFTP, SftpWriteDenied
+# Backends (auth/api/sftp) pull extra deps like paramiko. kit-* commands don't,
+# so defer any ImportError — version/update/diagnose must work *before* the user
+# runs `pip install -r requirements.txt` (e.g. /키트시작 Q0 auto-update check).
+try:
+    from auth.oauth import AuthError, TokenManager
+    from backends.cafe24_api import Cafe24API, Cafe24ApiError
+    from backends.cafe24_sftp import Cafe24SFTP, SftpWriteDenied
+
+    _BACKENDS_IMPORT_ERROR: Exception | None = None
+except ImportError as _e:
+    _BACKENDS_IMPORT_ERROR = _e
+    TokenManager = Cafe24API = Cafe24SFTP = None  # type: ignore[assignment,misc]
+
+    class AuthError(Exception):  # type: ignore[no-redef]
+        pass
+
+    class Cafe24ApiError(Exception):  # type: ignore[no-redef]
+        pass
+
+    class SftpWriteDenied(Exception):  # type: ignore[no-redef]
+        pass
+
 from kit_tools import (
     diagnose_kit_setup,
     fetch_remote_version,
+    kit_autoupdate,
     kit_update,
     kit_update_from_github,
     read_kit_version,
@@ -86,8 +109,24 @@ def main():
     check_remote = _pop_flag(args, "--check-remote")
     overwrite = _pop_flag(args, "--overwrite")
     from_github = _pop_flag(args, "--from-github")
+    apply_update = _pop_flag(args, "--apply")
+    force = _pop_flag(args, "--force")
     github_tag = _pop_opt(args, "--tag") or "latest"
     cmd = args[0] if args else "status"
+
+    # Backend commands need the optional deps; kit-* commands do not.
+    backend_cmds = {
+        "status", "themes", "page", "auth-url", "code",
+        "ls", "cat", "get", "backup", "put",
+    }
+    if cmd in backend_cmds and _BACKENDS_IMPORT_ERROR is not None:
+        print(
+            "ERROR: 백엔드 의존성이 없습니다 — `mcp/` 에서 "
+            "`pip install -r requirements.txt` 후 다시 시도하세요.\n"
+            f"  ({_BACKENDS_IMPORT_ERROR})",
+            file=sys.stderr,
+        )
+        sys.exit(1)
 
     try:
         if cmd == "diagnose":
@@ -109,6 +148,10 @@ def main():
                         remote.get("version") != local.get("version")
                     )
             print(json.dumps(out, ensure_ascii=False, indent=2))
+
+        elif cmd == "kit-autoupdate":
+            result = kit_autoupdate(apply=apply_update, force=force)
+            print(json.dumps(result, ensure_ascii=False, indent=2))
 
         elif cmd == "kit-update":
             if from_github:
