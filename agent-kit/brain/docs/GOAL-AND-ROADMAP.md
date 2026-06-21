@@ -71,7 +71,7 @@
 |---|---|---|---|
 | **0. 마무리** ✅ | detectJS 2버그(F7·F14) 수정 · nk-ez-override §10 repo 동기화 · code-reviewer 키트 내장 | 자립성·정확성 기반 | **완료 2026-06-22** (commit feat/self-diagnose-and-method-gate) |
 | **1. ★ 검증 루프 (키스톤)** ✅ | "정확" 정의(accuracy-gate.md) + qa-checker **시각 전용** 재설계 + qa-loop **3축 게이트**(visual+override+rule) + capture-pair.mjs(레퍼 vs 결과 캡처) + 자동화 워크플로우 정렬 | "정확하게"를 **측정·보장** | **완료 2026-06-22**. 남은 정합성 검증은 Phase 3 spine 관통에서 실증 |
-| **2. 입력 강화** | 레퍼런스 **URL→토큰 자동**(P4) + 히어로/배경 **이미지 추출**(P3) + Figma 토큰 안정화 | 파이프라인 front door | |
+| **2. 입력 강화** 🔄 | 레퍼런스 **URL→토큰 자동**(P4, extract-tokens.mjs) + 히어로/배경 **이미지 추출**(P3, extract-assets.mjs) + input-pipeline.md | 파이프라인 front door | **빌드중**: 스크립트·문서 완료. 남음: 실 URL 추출 정확도 검증(Phase 3 spine)·Figma 토큰 안정화 |
 | **3. spine 관통** | 레퍼런스 1개 → **HTML 스킨**(ecudemo400919) → main+PLP+PDP → 합격까지. 성공 후 **EZ 분기** 동일 관통 | end-to-end 1회 증명 | vertical slice |
 | **4. 실험적→안정** | 관통 과정에서 templates/snippets/pipeline/`/카페24-자동화` 검증·승격 | 🧪 → ✅ | **v2.4.1 릴리스** |
 | **5. 비코더 원버튼 + 배포** | `/카페24-자동화` 정비 + npm/plugin 결정·실행 | "설치하면" 실현 | distribution 핸드오버 |

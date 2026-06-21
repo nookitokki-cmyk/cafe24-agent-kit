@@ -7,6 +7,8 @@
 | `diagnose-overrides.js` | **비코더용** (설치 0) | 라이브 화면 F12 콘솔에 붙여넣으면 진단표 + **방식(HTML/EZ) 자동판정** 출력 |
 | `preflight.mjs` | 자동화/CI용 | Playwright 로 PC+모바일 자동 점검 → JSON 리포트 (override 축) |
 | `capture-pair.mjs` | 자동화/CI용 | 레퍼런스 vs 결과 스크린샷 4장(PC+모바일) 캡처 → qa-checker visual 축 입력. **★ 데스크톱 UA 고정**(카페24 모바일 스킨 회피) |
+| `extract-tokens.mjs` | 입력(P4) | 레퍼런스 URL → 색·폰트·타입스케일 추출 → design-tokens.json 초안 |
+| `extract-assets.mjs` | 입력(P3) | 레퍼런스 URL → 이미지 인벤토리(img/srcset/data-src/picture/**background-image**) + 히어로 후보 |
 | `../references/traps.json` | 엔진 데이터 정본 | 함정 47종(증상·탐지·처방, `method` 축). 위 진단이 이걸 미러/참조 |
 | `../references/accuracy-gate.md` | 합격 계약 | "정확" = visual+override+rule 3축 게이트 정의 |
 
