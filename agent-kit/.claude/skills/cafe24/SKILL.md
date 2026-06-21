@@ -763,6 +763,10 @@ Ctrl+U 브라우저 소스 보기
 - `references/variables.md` — **전 영역 250+ 변수 마스터 사전** (15개 섹션 + 비코더 가이드)
 - `references/modifiers.md` — 13개 모디파이어 (`|cut`, `|display`, `|number_format` 등) + Foreach·If 문법
 - `references/troubleshooting.md` — 비코더가 실제 마주치는 에러 5가지 + 수정 템플릿 (모듈 미렌더링 / 변수 미치환 / EZ 오버라이드 / 모바일 깨짐 / 캐시 문제)
+- `references/skin-method-detect.md` — **★ 작업 시작 전 필수**: HTML 네이티브 vs EZ 엎기 방식 판별·분기
+- `references/traps.json` — base 가 nk 스킨을 이기는 함정 47종 머신리더블 카탈로그 (`method` 축, detectJS 처방). `traps.schema.json` 스키마
+- `references/accuracy-gate.md` — **"정확"의 정의 = 3축 합격 게이트**(visual+override+rule). qa-loop·자동화가 따름
+- `scripts/diagnose-overrides.js` — 비코더 콘솔 자가진단(F12 붙여넣기). `preflight.mjs` — Playwright 자동 진단. `scripts/README.md` 사용법
 
 ### 🍳 `recipes/` — 모듈 조합 레시피북
 
