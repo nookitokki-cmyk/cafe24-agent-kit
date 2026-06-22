@@ -592,6 +592,7 @@ UPDATE_PATHS = [
     "mcp/README.md",
     "work/scripts",
     ".cursor/mcp.json.example",
+    "README.md",
     "AGENTS.md",
     "VERSION",
     "CHANGELOG.md",
