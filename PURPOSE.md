@@ -71,21 +71,23 @@ cafe24-agent-kit/                  (개발 레포)
 ├─ scripts/             ← 빌드 도구 (build-dist-kit.sh)
 ├─ dist/                ← 배포 산출물
 └─ _dev/                ← ★[백스테이지] 배포·업데이트 완전 제외
-   ├─ evidence/         (현 agent-kit/brain/_evidence → 이동 후 brain에서 물리삭제)
-   ├─ history/          (개발 이력 화석 — WORK-GUIDE 등 검토 후)
-   └─ meta/             (__THE-ONE·__STATUS·MANIFEST)
+   ├─ history/          (개발 이력 화석 — 검토 후. ※WORK-GUIDE는 두뇌라 brain 유지)
+   └─ meta/             (__THE-ONE·__STATUS·MANIFEST) ✅단계1 완료
+   ※ agent-kit/brain/_evidence 는 brain에 **유지** — 두뇌 문서(OFFICIAL-AUDIT·admin-verify·07-ez)가
+     참조하므로 이동 시 링크 깨짐. 격리는 build 제외(단계4)로. 자동업데이트는 brain 통째
+     rmtree+재복사(UPDATE_PATHS:580)라 build에서 빠지면 기존 설치자에게도 사라짐(좀비 없음).
 ```
 
-**핵심**: 폴더 **개명은 안 한다**(고위험). 개편의 실질 = ① 개발 흔적 `_dev/` 격리 ② 진입점 README 단일화 ③ 배포 빌드에 `_dev` 제외. 표면 가독성(번호 폴더 직관성)은 README가 안내.
+**핵심**: 폴더 **개명·이동은 최소화**(고위험). 개편의 실질 = ① 개발 메타 `_dev/` 격리(이동) + 개발 증거는 build 제외(비이동) ② 진입점 README 단일화 ③ 배포 빌드에 `_dev`·`_evidence` 제외. 표면 가독성(번호 폴더 직관성)은 README가 안내.
 
 ## 5. 개편 단계 (단계별 100점 게이트)
 | 단계 | 작업 | 불변식 영향·주의 |
 |---|---|---|
 | **0** | 이 PURPOSE.md 박제 (검증 완료) | — |
-| **1** | 개발 흔적 격리 → 루트 `_dev/`로 `git mv`: `_evidence`·메타(`__THE-ONE`·`__STATUS`·`MANIFEST`)·이력. **brain 내부에서 물리삭제 필수**(UPDATE_PATHS:580이 brain 통째 덮으므로 안 지우면 좀비). api-poc 유지/이동 결정 | ★단계3보다 먼저. brain 물리삭제·UPDATE_PATHS 점검 |
+| **1** ✅ | 메타(`__THE-ONE`·`__STATUS`·`MANIFEST`)만 루트 `_dev/meta`로 `git mv` + README 링크 2곳 수정. **`_evidence`는 brain 유지**(두뇌 문서 다수 참조) — 격리는 build 제외(단계4)로. | 완료 (깨진 참조 0) |
 | **2** | 진입점 단일화 — README 1개로 통합, `__*` 메타·중복 진입 문서 정리(1단계서 _dev 이동) | 낮음 |
 | **3** | (축소) 폴더 **개명 없이** brain/docs 내 이력만 정리, 표면 가독성은 진입점으로 | 낮음 (개명 회피로 위험 제거) |
-| **4** | 배포 빌드 — `build-dist-kit.sh`에 `_dev` 제외 추가(루트면 allowlist라 자동 제외 확인), zip 루트 구조 유지, DISTRIBUTION-KIT.md 구버전 서술 정정 | 중 (§3 zip 구조 유지) |
+| **4** | 배포 빌드 — `build-dist-kit.sh`에 `_dev`(루트 allowlist 자동제외 확인) + **`agent-kit/brain/_evidence` 제외** 추가, zip 루트 구조 유지, DISTRIBUTION-KIT.md 구버전 서술 정정 | 중 (§3 zip 구조 유지) |
 | **5** | 온보딩 동선 검증 — 받기→/키트시작→작업 막힘 제거 + verify 2종 PASS | 낮음 |
 
 > **단계 순서 의존**: 단계1의 brain 물리삭제가 안 되면 이후가 무의미. 1 → 2 → (3) → 4 → 5 순서 고정.
