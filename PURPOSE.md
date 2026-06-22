@@ -87,7 +87,7 @@ cafe24-agent-kit/                  (개발 레포)
 | **1** ✅ | 메타(`__THE-ONE`·`__STATUS`·`MANIFEST`)만 루트 `_dev/meta`로 `git mv` + README 링크 2곳 수정. **`_evidence`는 brain 유지**(두뇌 문서 다수 참조) — 격리는 build 제외(단계4)로. | 완료 (깨진 참조 0) |
 | **2** | 진입점 단일화 — README 1개로 통합, `__*` 메타·중복 진입 문서 정리(1단계서 _dev 이동) | 낮음 |
 | **3** | (축소) 폴더 **개명 없이** brain/docs 내 이력만 정리, 표면 가독성은 진입점으로 | 낮음 (개명 회피로 위험 제거) |
-| **4** | 배포 빌드 — `build-dist-kit.sh`에 `_dev`(루트 allowlist 자동제외 확인) + **`agent-kit/brain/_evidence` 제외** 추가, zip 루트 구조 유지, DISTRIBUTION-KIT.md 구버전 서술 정정 | 중 (§3 zip 구조 유지) |
+| **4** | 배포 빌드 — `build-dist-kit.sh`에 `_dev`(루트 allowlist 자동제외 확인) + **`agent-kit/brain/_evidence` 제외** 추가, zip 루트 구조 유지. **★C1: 배포 진입점 = 루트 `README.md`를 dist 루트에 복사(영어 `README-DIST.md` 대체) + `UPDATE_PATHS`에 `README.md` 추가** (안 하면 zip 사용자가 루트 README를 못 봄). DISTRIBUTION-KIT.md 구버전 서술 정정 | 중 (§3 zip 구조 유지) |
 | **5** | 온보딩 동선 검증 — 받기→/키트시작→작업 막힘 제거 + verify 2종 PASS | 낮음 |
 
 > **단계 순서 의존**: 단계1의 brain 물리삭제가 안 되면 이후가 무의미. 1 → 2 → (3) → 4 → 5 순서 고정.

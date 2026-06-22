@@ -1,29 +1,42 @@
-> ✅ **단일 기준(THE ONE) · v2.4.0 · 2026-06-21** — 이 폴더(`C:\dev\cafe24-agent-kit`)가 유일한 진짜 키트입니다. 다른 사본은 `_archive` 보관소(사용 금지). 현재 상태는 [`_dev/meta/__지금상태_STATUS.md`](_dev/meta/__지금상태_STATUS.md) 참고.
+# 카페24 에이전트 키트
 
-# cafe24-agent-kit
+> **비코더가 Cursor / Claude Code로 카페24 스킨 작업을 자동화하는 키트.**
+> 코드 몰라도, 채팅 명령으로 카페24 디자인을 수정·배포합니다.
 
-카페24 **두뇌(agent-kit)** + **손발(mcp)** 단일 기준 저장소. (이 README는 30초 오리엔테이션용입니다.)
+**이 README가 유일한 시작점입니다.** 여기서 모든 길이 갈라집니다.
 
-> 🆕 **v2.4.0 (2026-06-21)** — cafe24 skill 대폭 확장 (45개 신규 파일): 모듈 레시피북·페이지 템플릿·스니펫·Design Token·Brand Profile·원클릭 자동화 명령. 일부 자료는 🧪 **실험적** 표시 — 실 클라이언트 검증 후 안정화 예정. **안정 자료**(✅: troubleshooting, variables, recipes, module-browser)부터 도입 권장. 상세 → [`CHANGELOG.md`](CHANGELOG.md) v2.4.0 / [`agent-kit/README.md`](agent-kit/README.md) "🆕 v2.4.0 신규 자료" 섹션.
+## 🚀 시작 (3단계)
 
-## ▶ 시작은 여기부터
+1. **받기** — GitHub Release에서 `cafe24-agent-kit*.zip` 다운로드 → 압축 해제 (또는 `git clone`)
+2. **열기** — 그 폴더를 **Cursor 또는 Claude Code**로 열기
+3. **채팅에 `/키트시작`** — 설치·연결을 하나씩 안내합니다 (준비물: Python 3.10+, 내 몰 ID)
 
-**[`agent-kit/README.md`](agent-kit/README.md) — 단일 진입점.** 명령표·폴더맵·온보딩 순서가 모두 여기 있습니다.
+→ 설치가 막히면: [`설치-안내.md`](설치-안내.md) (수동 설치·트러블슈팅)
 
-1. 이 폴더를 Cursor에서 연다  
-2. **[`agent-kit/README.md`](agent-kit/README.md)** 를 펼친다 (명령어·폴더맵·다음 단계)
+## 📂 다음은 어디로?
 
-> 명령어 표는 중복을 막기 위해 [`agent-kit/README.md`](agent-kit/README.md)에 한 곳으로 모았습니다.
+| 하려는 것 | 가는 곳 |
+|---|---|
+| 키트가 뭔지·명령·폴더맵 | [`agent-kit/README.md`](agent-kit/README.md) — **키트 본체 지도** |
+| 처음부터 차근차근 | [`agent-kit/00_시작하기/`](agent-kit/00_시작하기/) — 온보딩 순서 |
+| 카페24 연결(토큰) | 채팅 `/API발급` |
+| 작업하다 막힘 | [`agent-kit/02_막혔을때/F-상황-인덱스.md`](agent-kit/02_막혔을때/F-상황-인덱스.md) |
 
-## 검증
+## 🔧 구조 (한눈에)
+
+| 폴더 | 내용 |
+|---|---|
+| `agent-kit/` | 키트 본체 — 가이드·스킬·두뇌 (배포 대상) |
+| `mcp/` | 카페24 연결 손발 (MCP 서버) |
+| `scripts/` · `dist/` | 빌드 도구·배포 산출물 |
+| `_dev/` | 개발용 (배포 제외) |
+
+## ✅ 검증
 
 ```bash
-bash agent-kit/connect/scripts/verify-kit.sh    # 구조·문서 29항목
-bash agent-kit/connect/scripts/verify-live.sh   # 운영 MCP smoke 5/5 (토큰 필요)
+bash agent-kit/connect/scripts/verify-kit.sh    # 소스 구조·문서 점검
 ```
 
-## 문서
+---
 
-- 공식 대조: `agent-kit/brain/docs/OFFICIAL-AUDIT.md`
-- API 튜토리얼: `agent-kit/connect/MCP-OAUTH-GUIDE.md`
-- 복제 기록: `_dev/meta/MANIFEST.txt`
+> 목적·구조 원칙(개발자용): [`PURPOSE.md`](PURPOSE.md) · 변경 이력: [`CHANGELOG.md`](CHANGELOG.md)

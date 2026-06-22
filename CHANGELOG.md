@@ -1,5 +1,13 @@
 # Cafe24 Agent Kit — Changelog
 
+## Unreleased — 레포 구조 개편 (목적·진입점 단일화)
+
+### Changed
+- **`PURPOSE.md` 신설** — 목적·3층 분리·자동업데이트 불변식 헌장 (개편 기준)
+- **진입점 단일화** — 루트 `README.md`를 유일 시작점으로 재작성, `agent-kit/README.md`는 "본체 지도"로 역할 정정 (구 v2.3 Step4b의 "단일 진입점 = agent-kit/README" 서술을 갱신)
+- **개발 메타 격리** — `__THE-ONE_단일기준`·`__지금상태_STATUS`·`MANIFEST` → `_dev/meta/`
+- (단계4 예정) 배포 진입점(`README-DIST`)을 루트 README로 통일 + `_dev`/`_evidence` build 제외
+
 ## v2.4.0 (2026-06-21)
 
 ### Added — 카페24 스킨 작업 풀스택 자동화 (대규모 추가)
