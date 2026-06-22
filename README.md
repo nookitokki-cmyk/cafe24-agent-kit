@@ -39,4 +39,4 @@ bash agent-kit/connect/scripts/verify-kit.sh    # 소스 구조·문서 점검
 
 ---
 
-> 목적·구조 원칙(개발자용): [`PURPOSE.md`](PURPOSE.md) · 변경 이력: [`CHANGELOG.md`](CHANGELOG.md)
+> 변경 이력: [`CHANGELOG.md`](CHANGELOG.md)  ·  (목적·구조 원칙은 개발 레포의 `PURPOSE.md` 참고 — 배포본 미포함)

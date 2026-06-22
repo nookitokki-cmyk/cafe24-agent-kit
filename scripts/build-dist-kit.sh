@@ -24,11 +24,13 @@ if command -v rsync >/dev/null 2>&1; then
   rsync -a --exclude '.git' --exclude '__pycache__' --exclude '*.pyc' \
     --exclude 'clients/nookitokki002' \
     --exclude 'clients/paransky97' \
+    --exclude 'brain/_evidence' \
     "$ROOT/agent-kit/" "$BUILD_ROOT/agent-kit/"
 else
   copy_tree "$ROOT/agent-kit" "$BUILD_ROOT/agent-kit"
   rm -rf "$BUILD_ROOT/agent-kit/clients/nookitokki002"
   rm -rf "$BUILD_ROOT/agent-kit/clients/paransky97"
+  rm -rf "$BUILD_ROOT/agent-kit/brain/_evidence"
 fi
 
 # clients: allowlist — ship ONLY _template + demo000 (drop real/test client folders e.g. ecudemo*,
@@ -128,6 +130,7 @@ done
 
 # Root pointers
 cp "$ROOT/AGENTS.md" "$BUILD_ROOT/"
+[[ -f "$ROOT/README.md" ]] && cp "$ROOT/README.md" "$BUILD_ROOT/"   # 배포 진입점 = 루트 README (README-DIST 대체)
 [[ -f "$ROOT/CHANGELOG.md" ]] && cp "$ROOT/CHANGELOG.md" "$BUILD_ROOT/"
 [[ -f "$ROOT/설치-안내.md" ]] && cp "$ROOT/설치-안내.md" "$BUILD_ROOT/"
 DIST_VERSION="$(head -1 "$ROOT/VERSION" 2>/dev/null || echo v2.3.0)"
@@ -136,26 +139,7 @@ cat > "$BUILD_ROOT/VERSION" <<EOF
 $DIST_VERSION
 $DIST_DATE
 EOF
-cat > "$BUILD_ROOT/README-DIST.md" <<EOF
-# cafe24-agent-kit (distribution)
-
-Version: $DIST_VERSION ($DIST_DATE)
-Built: $(date -u +%Y-%m-%dT%H:%M:%SZ)
-Source: cafe24-agent-workspace/
-
-## Quick start (4 steps)
-
-1. **의존성** — \`cd mcp && pip install -r requirements.txt\`
-2. **몰 설정** — \`mcp/config/cafe24_config.example.py\` → \`cafe24_config_{몰ID}.py\` (CLIENT_ID/SECRET 입력)
-3. **Cursor MCP** — \`.cursor/mcp.json.example\` → \`.cursor/mcp.json\` 복사 후 Cursor 재시작
-4. **OAuth** — \`python cli.py auth-url --mall {몰ID}\` → 브라우저 허용 → \`python cli.py code "oauth-callback?code=..." --mall {몰ID}\`
-
-**검증:** \`python -c "import server"\` · \`python cli.py status --mall {몰ID}\` · MCP \`get_kit_guides\`
-
-초보자 가이드: \`agent-kit/00_시작하기/05b-MCP-등록.md\` · 슬래시 \`/키트시작\`
-GitHub Release: \`github.com/nookitokki-cmyk/cafe24-agent-kit\` · \`python cli.py kit-update --from-github\`
-번들·제외 목록: \`agent-kit/connect/DISTRIBUTION-KIT.md\` §2·§4·§7 · \`CHANGELOG.md\`
-EOF
+# (README-DIST.md 폐지 — 배포 진입점은 루트 README.md. 위 Root pointers에서 dist 루트로 복사됨.)
 
 # Promote staging → dist (Windows: target dir may be locked by IDE)
 if [[ -d "$OUT" ]] && ! rm -rf "$OUT" 2>/dev/null; then
@@ -216,6 +200,7 @@ REQUIRED=(
   "$OUT/mcp/work/scripts/strip_ez.py"
   "$OUT/.cursor/mcp.json.example"
   "$OUT/CHANGELOG.md"
+  "$OUT/README.md"
 )
 MISSING=0
 for f in "${REQUIRED[@]}"; do

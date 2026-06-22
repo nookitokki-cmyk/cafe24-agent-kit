@@ -26,7 +26,7 @@ bash scripts/build-dist-kit.sh
 
 
 
-빌드 후 `dist/cafe24-agent-kit/README-DIST.md`에 UTC 타임스탬프가 기록된다.
+빌드 후 dist 루트에 **루트 `README.md`가 진입점으로 복사**된다 (구 `README-DIST.md`는 폐지). `VERSION`에 빌드 날짜가 기록된다.
 
 
 
