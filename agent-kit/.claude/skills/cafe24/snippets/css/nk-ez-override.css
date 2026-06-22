@@ -217,3 +217,73 @@ html, body { margin: 0; padding: 0; }
    정돈(불릿/리스트 동작 제거). 부모가 flex면 시각 영향은 작지만 의미상 정리. */
 .nk-gnb__item { display: block; }
 .nk-gnb__list { list-style: none; margin: 0; padding: 0; }
+
+
+/* =========================================================
+   11. 전수분석 일괄 차단 (BASE-CSS-MAP.md 기반 · 2026-06-22)
+   카페24 base/모듈 CSS가 nk 스킨에 거는 고정폭·float·가상요소선·
+   폰트·테두리를 한 번에 무력화. 새 몰에 이 블록째 적용 가능.
+   ※ #nk-skin1 = 메인 body 스코프. 다른 id면 일괄 치환.
+   근거: skin1 layout/basic/css + css/module 전수 정독.
+   ========================================================= */
+
+/* [고정폭·float — 반응형 복구] common.css:10 / layout.css:22,23,25,36 */
+body { min-width: 0; }   /* common.css:10 body min-width:1480px 해제(전역) */
+#nk-skin1 #wrap, #nk-skin1 #container, #nk-skin1 #contents,
+#nk-skin1 #sidebar { width: auto; min-width: 0; float: none; }
+
+/* [가상요소 유령선 제거] layout.css:5,6,43 / ec-base-table.css:4 / category 화살표 */
+#nk-skin1 #header:before, #nk-skin1 #header:after,
+#nk-skin1 #footer:before, #nk-skin1 #footer:after,
+#nk-skin1 .ec-base-table table:before,
+#nk-skin1 .xans-layout-category .sub-category ul:before,
+#nk-skin1 .xans-layout-category .sub-category ul:after { display: none; content: none; }
+
+/* [base 경계선] layout.css:4,42 */
+#nk-skin1 #header, #nk-skin1 #footer { border: 0; }
+
+/* [전역 폰트·링크] common.css:9,19,20 / ec-base-ui.css:49 */
+#nk-skin1, #nk-skin1 input, #nk-skin1 select, #nk-skin1 textarea, #nk-skin1 button {
+  font-family: 'Pretendard', -apple-system, sans-serif; }
+#nk-skin1 a { color: inherit; }
+#nk-skin1 a:hover { text-decoration: none; }
+
+/* [표 흰글자] ec-base-table.css:1 */
+#nk-skin1 .ec-base-table table { color: inherit; }
+
+/* [헤더 모듈 — float·음수마진·고정폭·파란폰트·구분선이미지] */
+#nk-skin1 .xans-layout-logotop { width: auto; margin: 0; text-align: inherit; }
+#nk-skin1 .xans-layout-logotop a { font: inherit; color: inherit; }
+#nk-skin1 .xans-layout-searchheader { float: none; margin: 0; }
+#nk-skin1 .xans-layout-statelogoff, #nk-skin1 .xans-layout-statelogon { float: none; height: auto; line-height: normal; }
+#nk-skin1 .xans-layout-statelogoff > a, #nk-skin1 .xans-layout-statelogon > a { background: none; padding: 0; color: inherit; }
+#nk-skin1 .xans-layout-shoppinginfo { position: static; height: auto; }
+#nk-skin1 .xans-layout-shoppinginfo:before { content: none; }
+#nk-skin1 .xans-layout-shoppinginfo li { float: none; background: none; padding: 0; }
+#nk-skin1 .xans-layout-category { margin: 0; }
+#nk-skin1 .xans-layout-category .position > ul > li > a { padding: 0; font: inherit; font-weight: inherit; }
+#nk-skin1 .xans-layout-category .position > ul > li > a:hover,
+#nk-skin1 .xans-layout-category .position > ul > li.selected > a,
+#nk-skin1 .xans-layout-category .position > ul > li.on > a { color: inherit; }
+
+/* [푸터 모듈 — float·고정폭·절대배치·밑줄·폰트] footer/info/logobottom.css */
+#nk-skin1 .xans-layout-footer { float: none; width: auto; height: auto; }
+#nk-skin1 .xans-layout-footer .utilMenu li { float: none; background: none; padding: 0; }
+#nk-skin1 .xans-layout-footer .copyright,
+#nk-skin1 .xans-layout-footer .pageTop,
+#nk-skin1 .xans-layout-footer .hosting { position: static; }
+#nk-skin1 .xans-layout-info { margin: 0; padding: 0; border: 0; }
+#nk-skin1 .xans-layout-info li.tel { font: inherit; color: inherit; }
+#nk-skin1 .xans-layout-info li strong { width: auto; color: inherit; }
+#nk-skin1 .xans-layout-logobottom { float: none; width: auto; padding: 0; }
+#nk-skin1 .xans-layout-logobottom a { font: inherit; color: inherit; }
+
+/* [상품 진열 — ec-base-product.css 가 보스(listmain.css 없음)] :6,8,9,17 */
+#nk-skin1 .ec-base-product { margin: 0; }
+#nk-skin1 .ec-base-product .prdList { min-width: 0; margin: 0; font-size: inherit; line-height: inherit; }
+#nk-skin1 .ec-base-product a[href^='/product/detail.html'] > img { border: 0; }
+#nk-skin1 .ec-base-product .prdList .thumbnail .icon { border: 0; }
+
+/* [!important 함정 — CSS로 못 이김 → HTML 에서 회피]
+   ec-base-ui.css:63  .radioType input / .noBorder input → nk 폼에 이 클래스명 금지
+   ec-base-button.css [class^='btn'] → nk 요소에 base btn 클래스 혼용 금지 (nk-btn 단독은 안전) */
