@@ -74,9 +74,11 @@
 
   // F3) 토큰 미로드 (번들 지연) — 다른 진단의 신뢰도에 영향
   (function () {
-    var v = (gcs(document.documentElement).getPropertyValue('--nk-theme') || '').trim();
-    if (!v) add('🟡', 'F3', '배포', '디자인 토큰(--nk-theme)이 비어 있음 — 번들이 아직 안 왔거나 토큰 미정의',
-                '--nk-theme = (빈값)',
+    var rs = gcs(document.documentElement);
+    var v = ['--nk-theme', '--nk-color-primary', '--nk-color-text', '--nk-color-background', '--nk-font-display']
+      .map(function (n) { return (rs.getPropertyValue(n) || '').trim(); }).filter(Boolean);
+    if (!v.length) add('🟡', 'F3', '배포', 'nk 디자인 토큰(:root --nk-*)이 비어 있음 — 번들 미반영(optimizer 지연)이거나 토큰 미정의',
+                '--nk-* 토큰 전부 빈값',
                 '하드리로드(Ctrl/Cmd+Shift+R) 후 5~10분 대기 재확인. 계속 비면 custom.css :root 토큰 정의 확인');
   })();
 
@@ -255,7 +257,7 @@
   (function () { // F7 로고 중앙/고정폭 (실측: .xans-layout-logotop{width:800px;text-align:center})
     var logo = $('.xans-layout-logotop') || $('#header [class*="logo"]') || $('.xans-layout-logo');
     if (logo) { var c = gcs(logo);
-      if (c.textAlign === 'center' || (c.width !== 'auto' && px(c.width) >= 400))
+      if (c.display !== 'none' && c.visibility !== 'hidden' && (c.textAlign === 'center' || (c.width !== 'auto' && px(c.width) >= 400)))
         add('⚠️', 'F7', '헤더', '로고가 base(logotop.css)에 의해 가운데/고정폭으로 강제됨',
             '로고 ' + (c.textAlign === 'center' ? 'text-align:center' : 'width:' + c.width),
             S + ' #header .xans-layout-logotop, ' + S + ' #header [class*="logo"]{width:auto!important; margin:0 auto 0 0!important; text-align:left!important}');
