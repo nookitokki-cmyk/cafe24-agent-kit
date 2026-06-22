@@ -58,7 +58,9 @@ try {
 const engineSrc = readFileSync(ENGINE, 'utf8');
 const VIEWPORTS = [
   { name: 'PC', width: 1280, height: 900, isMobile: false },
-  { name: 'MOBILE', width: 375, height: 812, isMobile: true }
+  // 카페24: 모바일 UA는 별도 모바일 스킨(/sde_design/mobile)을 띄움 → PC 반응형 스킨이 안 잡힘.
+  // 데스크톱 UA + 좁은 뷰포트로 검증한다 (capture-pair.mjs 와 동일 규칙). [2026-06-22 실증 보정]
+  { name: 'MOBILE', width: 375, height: 812, isMobile: false }
 ];
 
 const results = [];
