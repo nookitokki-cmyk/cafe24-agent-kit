@@ -96,7 +96,7 @@
       "symptom": "헤더 로고/글씨가 가운데로 정렬됨 (왼쪽 정렬 의도인데)",
       "rootCause": "Layout_LogoTop 자동주입이 로고에 margin:auto 를 줘 중앙 강제",
       "detectable": "runtime",
-      "detectJS": "var l=document.querySelector('.xans-layout-logotop, #header [class*=logo]'); if(l){var c=getComputedStyle(l); if(c.textAlign==='center'||(c.width!=='auto'&&parseFloat(c.width)>=400)) return {hit:true, detail:'logo '+(c.textAlign==='center'?'text-align:center':'width:'+c.width)+' (중앙/고정폭 강제)'};}",
+      "detectJS": "var l=document.querySelector('.xans-layout-logotop, #header [class*=logo]'); if(l){var c=getComputedStyle(l); if(c.display!=='none'&&c.visibility!=='hidden'&&(c.textAlign==='center'||(c.width!=='auto'&&parseFloat(c.width)>=400))) return {hit:true, detail:'logo '+(c.textAlign==='center'?'text-align:center':'width:'+c.width)+' (중앙/고정폭 강제)'};}",
       "fixCSS": "SKIN #header .xans-layout-logotop, SKIN #header [class*=logo]{width:auto!important; margin:0 auto 0 0!important; text-align:left!important}",
       "source": "AGENT.md §6-7 · 실측 logotop.css {width:800px;margin:0 auto;text-align:center} (2026-06-22 ecudemo400919)"
     },
@@ -278,7 +278,7 @@
       "symptom": "업로드했는데 화면에 즉시 반영 안 됨 → '미적용' 오판 위험",
       "rootCause": "서버 번들·페이지 캐시가 2~5분 지연. <link> custom.css 는 브라우저 캐시 재사용",
       "detectable": "runtime",
-      "detectJS": "var v=getComputedStyle(document.documentElement).getPropertyValue('--nk-theme'); if(!v||!v.trim()) return {hit:true, detail:'--nk-theme 토큰 빈값 → 번들 아직 안 옴 (잠시 후 재확인 / 하드리로드)'};",
+      "detectJS": "var rs=getComputedStyle(document.documentElement); var v=['--nk-theme','--nk-color-primary','--nk-color-text','--nk-color-background','--nk-font-display'].map(function(n){return (rs.getPropertyValue(n)||'').trim();}).filter(Boolean); if(!v.length) return {hit:true, detail:'nk 토큰(:root --nk-*) 빈값 → 번들 미반영(optimizer 지연) 또는 토큰 미정의'};",
       "fixCSS": "/* 코드 문제 아님 */ 하드리로드(Cmd/Ctrl+Shift+R) 후 5~10분 대기 재확인. 페이지는 ?v=N, CSS 는 하드리로드",
       "source": "AGENT.md §6-3"
     },
