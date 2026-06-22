@@ -79,3 +79,16 @@ skin1 라이브에는 `_nk/css/nk-main.css` §8에 동일 처방 반영 완료(2
 
 ## 5. 재사용 지침
 새 카페24 몰 작업 시: ① 이 지도로 TOP 위험 선제 차단 → ② `diagnose-overrides.js`로 런타임 확인 → ③ 남는 것만 개별 처방. "전수 정독 → 일괄 차단 → 런타임 검증" 순서.
+
+## 6. 순정 skin3 교차검증 + 보완 (2026-06-22)
+순정 HTML 스킨 **skin3**(편집 노이즈 0)로 §1~2 재검증: **줄번호·값 100% 일치**(skin1·skin3 동일 base 버전, 어긋남 0건). 기존 지도가 정확함이 입증됨. 추가 발견(기존 지도에 빠졌던 것):
+| 파일:줄 | 셀렉터 | 속성 | 처방 |
+|---|---|---|---|
+| layout.css:42 | `#footer` | **border-bottom:45px solid #e8e8e8** (가상요소 아닌 실 border 띠) | `#nk-skin1 #footer{border:0!important}` (§8서 이미 차단) |
+| relation.css:4 | `.prdList` | min-width:756 (연관상품 복제) | `.ec-base-product .prdList{min-width:0}` 자식 커버 |
+| board_listpackage_5/6.css:1 | float:left/right;width:49% | 메인 게시판 2단 float | `#nk-skin1 .xans-board-listpackage-5,-6{float:none!important}` ★신규 |
+| ec-base-product.css:8 | `.prdList` font-size:0;line-height:0 | li 공백제거 트릭 → 그 안 텍스트 증발 | 텍스트 넣을 때 `font-size:initial` |
+| detail.css:14 | `.imgArea` float;width:546;margin-left:-546 | 상세 음수마진 float(반응형 무시) | 모바일 `float:none;width:auto;margin:0` |
+| searchHeader.css:1 / shoppingInfo.css:1 | float:right;margin:-50px / position:absolute | 헤더 검색 음수마진 / 우상단 절대배치 | `float:none;margin:0` / `position:static` (§11 일부 커버) |
+| ec-base-button.css:48,50 | `.btnLogin`/`.btnAgree` 고정크기·굴림 | | `#nk-skin1 .btnLogin,.btnAgree{font-family:Pretendard}` ★신규 |
+→ 핵심: **푸터 45px border 띠**는 가상요소가 아닌 실 border라 놓치기 쉬움(§8서 `#footer{border:0}`로 이미 차단됨). 대부분 §11 일괄차단이 커버, **board float·btnLogin·btnAgree만 nk-ez-override 신규 추가**.

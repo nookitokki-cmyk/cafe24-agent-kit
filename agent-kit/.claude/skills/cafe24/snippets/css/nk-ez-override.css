@@ -287,3 +287,8 @@ body { min-width: 0; }   /* common.css:10 body min-width:1480px 해제(전역) *
 /* [!important 함정 — CSS로 못 이김 → HTML 에서 회피]
    ec-base-ui.css:63  .radioType input / .noBorder input → nk 폼에 이 클래스명 금지
    ec-base-button.css [class^='btn'] → nk 요소에 base btn 클래스 혼용 금지 (nk-btn 단독은 안전) */
+
+/* [skin3 순정 교차검증 신규] 메인 게시판 2단 float / 로그인·약관 버튼 폰트 */
+#nk-skin1 .xans-board-listpackage-5,
+#nk-skin1 .xans-board-listpackage-6 { float: none; width: auto; }   /* board_listpackage_5/6.css:1 */
+#nk-skin1 .btnLogin, #nk-skin1 .btnAgree { font-family: 'Pretendard', sans-serif; }  /* ec-base-button.css:48,50 */

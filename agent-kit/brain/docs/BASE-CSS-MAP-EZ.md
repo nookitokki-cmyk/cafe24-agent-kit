@@ -58,3 +58,13 @@
 
 ## 5. EZ 결론 (방식 선택 함의)
 이 분석은 **"HTML 네이티브(skin1)가 EZ-on-legacy(skin2)보다 우월"**을 재확인한다: EZ는 아키테이블 하이브리드라 클래스 불일치·late-load·무스코프 골드·!important 폭격·italic 강제까지 떠안는다. **EZ 몰이 출발점일 때만** EZ-on-legacy를 쓰고, 그때도 strip(HTML-clean)으로 수렴시키는 게 정공법.
+
+## 6. 순정 skin4 교차검증 + 정정 (2026-06-22)
+★ **skin4(순정 추가본) CSS = skin2(작업본) CSS 바이트 단위 100% 동일**(diff/md5 실측 212파일). 대표님 편집은 **CSS가 아니라 HTML 템플릿·EZ 블록(`layout/basic/*.html`, `ez/`) 레벨** → CSS 지도는 그대로 유효(편집 탓 오기록 없음).
+기존 §1~3 검증: italic(`sub_style.css:40`)·late-load(`layout.html:125~129`, `</body>` 직전)·BEM(`.navigation__category`·`.info__*`)·골드·Swiper·아키테이블 6파일 전부 **정확**.
+
+**정정 2건 (편집 탓 아닌 원래 오기록):**
+1. **theme 파일번호 ≠ 테마번호 (1칸 밀림)**: `sub_theme.css`=theme01(골드 #d0ac88, **무스코프 base 디폴트**), `add_theme01.css`=**theme02**(#9fa581 + Lora, `.theme02` 스코프), `add_theme02.css`=**theme03**(Roboto, `.theme03`).
+2. **상품 그리드 = `inline-block` + `ul.grid_N` 퍼센트**(ec-base-product.css:9,39-42), flex/calc 아님. 레거시 `li.item` 고정폭 float은 `basketAdd2.css`(레이어 장바구니)에만 잔존.
+
+**신규**: `body{max-width:1480}`(layout.css:6) → 풀블리드는 `.section_full`(add_layout:84) 차용이 정석 / z-index 사다리(header 998·aside 1001·검색 1005·모달 10001) 회피 / detail.css !important 24개(지도 "17" 정정).
