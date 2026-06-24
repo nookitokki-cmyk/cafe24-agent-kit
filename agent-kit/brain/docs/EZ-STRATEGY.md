@@ -12,7 +12,7 @@
 | 항목 | 내용 |
 |------|------|
 | **기본 전략** | Phase B(EZ FTP overlay) 직후 **Phase C strip** — `data-ez-*`·`<ez-prop>` 제거, HTML-clean DOM으로 전환 (demo000 / skin14) |
-| **템플릿 방향** | IDIO(skin2)와 동일 — EZ 출신 아키테이블을 **걷어낸 뒤** `_nk/`·에이전트/FTP로 자유 편집 |
+| **템플릿 방향** | 구매템플릿(skin2)와 동일 — EZ 출신 아키테이블을 **걷어낸 뒤** `_nk/`·에이전트/FTP로 자유 편집 |
 | **예외 (파일럿)** | ecudemo400786 — Phase C **스킵**, `data-ez-*` 유지 + `_ref393674/` CSS override만. **템플릿 기본이 아님** |
 
 ---
@@ -33,9 +33,9 @@
 | **detail.css late-load** | PDP·서브에서 EZ 테마 CSS가 늦게 로드되어 override 전쟁 | HTML-clean + `#nk-skinN` 스코프로 예측 가능 |
 | **data-ez-module 노이즈** | grep·diff·에이전트 컨텍스트 오염, 「어느 속성이 라이브인지」 혼란 | `data-ez` 0건 목표 — `VERIFICATION-EVIDENCE.md` skin14 실측 |
 
-### 1.3 IDIO / skin2 수준 유지보수
+### 1.3 구매템플릿 / skin2 수준 유지보수
 
-- IDIO는 아키테이블 EZ를 베이스로 가져온 뒤 **EZ 기능을 전부 걷어냈다** ([`WORK-GUIDE.md` §0 결론 2](WORK-GUIDE.md)).
+- 구매템플릿는 아키테이블 EZ를 베이스로 가져온 뒤 **EZ 기능을 전부 걷어냈다** ([`WORK-GUIDE.md` §0 결론 2](WORK-GUIDE.md)).
 - demo000 skin14: `layout.html` **data-ez False** (base는 True) — overlay·strip이 끝난 **목표 상태**의 실측 증거.
 - 장기적으로 재판매 템플릿·클라이언트 커스텀은 이 수준의 **독립 레이어**(`_nk/`, `_ref*/`)가 표준이다.
 
@@ -52,7 +52,7 @@
 | 잃는 것 | 완화 |
 |---------|------|
 | EZST 스마트배너 **관리자 GUI** 편집 | HTML/이미지 직접 제작 · `_nk/inc/` 배너 · Swiper 등 독자 JS ([`WORK-GUIDE` §15 EZST 제거](WORK-GUIDE.md)) |
-| header `data-ez-module` 기반 GNB 옵션 패널 | `module="Layout_category"` 또는 커스텀 `_nk` 헤더로 대체 (IDIO 패턴) |
+| header `data-ez-module` 기반 GNB 옵션 패널 | `module="Layout_category"` 또는 커스텀 `_nk` 헤더로 대체 (구매템플릿 패턴) |
 | EZ 테마 색·옵션 실시간 미리보기 | 디자인 토큰·`custom.css` + verify-loop score 100 |
 
 > strip 전 **백업** (`_ez-backup/`) 필수. `ez/ez-module.html`·`smart-banner/init/` 등 시스템 파일은 삭제하지 않는다 (§15 표).

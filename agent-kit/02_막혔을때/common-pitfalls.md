@@ -372,7 +372,7 @@ if (document.querySelector('[module="product_detail"]')) return "pdp";
 ### 처방
 
 - **FTP·에이전트 작업:** 관리자 **HTML 타입** skin 복사본 + EZ 마크업 선별 이식 — [`01_작업하기/workflows/07-ez-on-legacy-setup.md`](../01_작업하기/workflows/07-ez-on-legacy-setup.md) **Phase 0-D**
-- **EZ 마크업 in HTML skin** ≠ **Easy 타입 등록** (코드에 `data-ez-*`만 있는 IDIO/아키테이블 패턴은 HTML 타입에서 가능)
+- **EZ 마크업 in HTML skin** ≠ **Easy 타입 등록** (코드에 `data-ez-*`만 있는 구매템플릿/아키테이블 패턴은 HTML 타입에서 가능)
 - **하지 말 것:** Easy 대표 + 파트너 FTP 전면 개편 동시 약속 · 「GUI 끄고 HTML만」을 기본 기능처럼 안내
 
 ---
@@ -394,7 +394,7 @@ if (document.querySelector('[module="product_detail"]')) return "pdp";
 | 1 | EZ base를 작업 skin에 **통째 FTP 덮기** → 스마트배너·EZST·카페24 core module 경로 불일치 |
 | 2 | `layout.html`만 교체 — 필수 `css/ec-base-*`·`product/`·`js/` 미동기 |
 | 3 | `ez-settings.json`·`@js(/ez/init.js)` **무분별 삭제** — 관리자 레이아웃 옵션·런타임 의존 |
-| 4 | **전량 EZ 제거**를 기본값으로 가정 — IDIO/아키테이블은 `data-ez-*`를 header/footer 옵션용으로 **남기는** 패턴도 있음 |
+| 4 | **전량 EZ 제거**를 기본값으로 가정 — 구매템플릿/아키테이블은 `data-ez-*`를 header/footer 옵션용으로 **남기는** 패턴도 있음 |
 | 5 | `strip_ez.py` 후 `main.js`에서 `EZST.register`가 `new Swiper`보다 **앞**이면 슬라이더 깨짐 |
 
 ### 처방

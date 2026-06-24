@@ -76,7 +76,7 @@ _KNOWN_SFTP_SOURCES = {
 }
 
 # demo000 쓰기 허용 슬롯 (2026-06-10 재개설 후 대표님 확정)
-# /skin14=_nk 신규 템플릿, /mobile=모바일 스킨. /skin2(IDIO원본)·/skin15(베이직)·/base 보호
+# /skin14=_nk 신규 템플릿, /mobile=모바일 스킨. /skin2(구매템플릿원본)·/skin15(베이직)·/base 보호
 _DEFAULT_WRITE_ALLOWED = {
     "demo000": ["/skin14", "/mobile"],
 }

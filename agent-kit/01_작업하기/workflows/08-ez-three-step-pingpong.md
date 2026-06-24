@@ -33,7 +33,7 @@
 | `layout.html`만 EZ로 교체 (통째 base 없음) | **F36** — module·CSS·MO 불일치 (07 전략 C) |
 | strip **없이** `data-ez-*`만 유지한 채 장기 커스텀 | F27·detail.css·에이전트 markup 노이즈 — **파일럿 스킵**만 예외 ([`EZ-STRATEGY.md`](../../brain/docs/EZ-STRATEGY.md) §4) |
 | 검증 루프 없이 「완료」 선언 | **F33** — score 100 미만 잔존 |
-| 신규 몰·전면 커스텀 (IDIO급) | `02-skin-build-standard` + §15 전량 걷어내기가 최종 목표면, overlay 후 다시 strip하는 **이중 작업** |
+| 신규 몰·전면 커스텀 (구매템플릿급) | `02-skin-build-standard` + §15 전량 걷어내기가 최종 목표면, overlay 후 다시 strip하는 **이중 작업** |
 
 ### B) cafe24-agent-kit에서 3단계 핑퐁 가능한가?
 
@@ -291,7 +291,7 @@ ecudemo400786: Phase C 스킵은 파일럿 예외 — 신규 몰 기본은 strip
 | [`07-ez-on-legacy-setup.md`](07-ez-on-legacy-setup.md) | 전체 Phase 0~4·판정 근거·0-D F35 |
 | [`06-verify-loop.md`](06-verify-loop.md) | Phase B 이후 필수 검증 |
 | [`05-reference-intake.md`](05-reference-intake.md) | 레퍼런스 있을 때 Phase C 다음 |
-| [`02-skin-build-standard.md`](02-skin-build-standard.md) | Phase C 전량(IDIO) 후 |
+| [`02-skin-build-standard.md`](02-skin-build-standard.md) | Phase C 전량(구매템플릿) 후 |
 
 ---
 
