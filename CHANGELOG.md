@@ -3,6 +3,7 @@
 ## Unreleased — 레포 구조 개편 (목적·진입점 단일화)
 
 ### Added
+- **base 전수 스캔 명령 세트 추가** (`CAFE24-SMARTDESIGN-AGENT.md` STEP 2) — 새 클라 base CSS를 7종 grep(고정폭·파란색·강제폰트·가상요소선·echosting 이미지·!important·태그누수)으로 전수 스캔해 `BASE-CSS-MAP.md`를 생성·검증. 함정을 사람이 하나씩 발견하지 않고 기계가 색출 → 게시판·주문·회원 등 안 본 페이지 함정도 사전 포착. (계기: 클라마다 base가 달라 두더지잡기가 반복되던 문제)
 - **`brain/rules/responsive-fullrange.md` 신설** — 전체 해상도 대응 규칙(모바일 375 ~ 울트라와이드 2560). 콘텐츠 `max-width` 상한 함정(와이드 좁은 밴드)·카드 이미지 미충전(체인 inline) 함정 + copy-paste 처방. (계기: ecudemo400125 — 1440에서만 검증해 와이드 전용 버그를 놓친 사고)
 - **`capture-pair.mjs` 와이드 캡처 추가** — 기본 뷰포트에 `wide(1920)`·`ultrawide(2560)` 추가(기존 pc 1440·mobile 390). lazy 이미지 로딩용 자동 스크롤 추가 → 1600 초과 전용 버그를 검증 단계에서 포착.
 - **`accuracy-gate.md` visual 축 폭 확장** — PC·모바일 → 모바일·PC·와이드·울트라와이드 전 구간. 풀블리드 레퍼는 1600 초과 폭 생략 불가.

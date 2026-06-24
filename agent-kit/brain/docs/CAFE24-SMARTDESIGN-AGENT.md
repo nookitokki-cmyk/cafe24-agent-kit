@@ -85,6 +85,18 @@
 - **백업 필수**: 치환·걷어내기 전 `cp -R css/module /tmp/backup`, EZ 걷어내기는 `_ez-backup/`에 복사. (롤백 안전망)
 - **불필요 EZ 제거(필요 시)**: `python3 strip_ez.py src/skinNN/index.html`(미리보기) → `--write`. 대상: index.html, layout/basic/{header,footer,layout,main}.html, product/{detail,list}.html. 제거 후 `data-ez` 잔여 0 + 카페24 코어 module 생존 확인. (EZ 런타임 EZST 제거는 `main.js`의 `EZST.register`가 `new Swiper`보다 **뒤**에 있을 때만 안전 — §6 F 참고.)
 - **base CSS 토큰화 (재판매 템플릿 핵심)**: 하드코딩 색이 박힌 base CSS는 **두 레이어** — ① `layout/basic/css/*.css` ② **`css/module/**/*.css`(188개)**. 두 레이어 모두 토큰 참조로 치환(§4 D4 perl 명령). `css/module`을 빠뜨리면 `.totalPrice`·`.tabProduct`·골드가 영원히 잔존(whack-a-mole의 진짜 원인).
+- **★ base 전수 스캔 명령 세트 (새 클라 base → BASE-CSS-MAP 생성·검증)**: 클라마다 base 스킨이 조금씩 달라 함정도 다르다. 함정을 사람이 하나씩 발견하지 말고(=두더지잡기), 새 작업 시작 시 그 클라의 base CSS 폴더를 아래 7종 grep 으로 전수 스캔해 누수 규칙을 자동 추출 → `BASE-CSS-MAP.md`(없으면 신규) 갱신. 게시판·주문·회원·상품 등 **안 본 페이지의 함정까지 사전 색출**된다. **스캔 결과가 곧 처방 목록 — 사용자에게 셀렉터를 되묻지 말 것.**
+  ```bash
+  B="<그 클라 base CSS 루트>"   # 예: 다운로드한 skinN 의 layout/basic/css + css/module
+  grep -rhnE "(min-width|width)\s*:\s*[0-9]{3,}px|float\s*:\s*(left|right)" "$B" | grep -viE "100%|auto" | sort -u   # ① 고정폭·float (모바일 가로스크롤·좌측쏠림)
+  grep -rhniE "#00[89][0-9a-f]{3}|#0088d4|#009ffa|#1b87d4" "$B"                                                      # ② 카페24 기본 파란색 (→ 브랜드색 토큰)
+  grep -rhniE "font-family[^;]*(돋움|dotum|gulim|굴림|verdana|tahoma|arial)" "$B"                                    # ③ 강제 폰트 (Pretendard 무력화)
+  grep -rhnE ":(before|after)\b" "$B" -A2 | grep -E "border|background|content\s*:\s*[\"']"                          # ④ 가상요소 가짜선/아이콘
+  grep -rhnE "background[^;]*url\([^)]*echosting[^)]*\.(gif|png)" "$B"                                                # ⑤ echosting gif/png 이미지버튼·불릿
+  grep -rhn "!important" "$B" | sort -u                                                                              # ⑥ 덮기 어려운 규칙(같은 !important로만 대응)
+  grep -rhnE "^\s*(li|caption|a:hover|table|th\s*,\s*td)\s*\{" "$B"                                                  # ⑦ 전역 태그 reset 누수(특히 프린트 CSS가 일반 페이지에 새는지)
+  ```
+  처방: `nk-ez-override.css` §11(전수분석 일괄 차단)이 이미 잡는 카테고리면 그걸로 끝. 못 잡는 **클라 고유 셀렉터만** `#nk-skinN` 스코프로 보강 + `BASE-CSS-MAP.md` 기록.
 - **환경 세팅**: 폰트 `<link>`(§3 A4), Phosphor `<link>`(§3 A5), `_nk/inc` 폴더, `@import` 경로 교체(§3 A6).
 - **레이아웃 뼈대 + 초기 CSS 토큰(:root) 세팅**: §4 토큰 블록을 custom.css 상단에 정의.
 
