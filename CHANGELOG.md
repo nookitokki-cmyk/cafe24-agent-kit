@@ -1,5 +1,13 @@
 # Cafe24 Agent Kit — Changelog
 
+## v2.6.2 (2026-06-24) — /토대정리 스킬 신설 (워크플로우 C단계)
+
+### Added
+- **`/토대정리` 스킬** — 시안/레퍼런스 구현의 **C단계**(섹션 제작 직전 1회)를 한 스킬로: ① base 함정 전수 스캔 → `BASE-CSS-MAP.md` ② `nk-cafe24-reset.css` 적용 ③ 디자인 토큰 세팅(`--nk-point`·Pretendard·Phosphor). 상세는 기존 문서(reset 가이드·`CAFE24-SMARTDESIGN-AGENT.md` STEP 2·design-tokens)를 가리켜 **중복 없음**.
+- `03-reference-renewal.md`에 **2.5단계(토대 정리)** 연결, `commands/COMMANDS.md`에 `/토대정리` 등록.
+
+> A→Z 파이프라인(`/카페24-워크플로우`→`03-reference-renewal`)에서 유일하게 빠져 있던 C(토대) 단계 보완. A·B·D·E·F는 기존 스킬로 이미 커버.
+
 ## v2.6.1 (2026-06-24) — nk-cafe24-reset.css 사용 가이드 신설
 
 ### Added
