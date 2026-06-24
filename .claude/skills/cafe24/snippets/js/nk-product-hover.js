@@ -3,15 +3,22 @@
  * 사용법: 카페24 관리자 → 디자인 → HTML/CSS 편집 → 레이아웃 HTML의 </body> 바로 위에 붙여넣기
  *         또는 EZ 에디터 → 공통 영역 → <body> 끝 부분에 <script> 태그로 감싸서 붙여넣기
  *
+ * 사전 준비 (카페24 공식 방법): 카페24엔 "롤오버 전용 이미지 칸"이 없습니다.
+ *   "축소 이미지" 칸을 마우스오버용으로 빌려 씁니다.
+ *   관리자 [상품 > 상품목록 > 수정 > 이미지 정보 > 이미지 등록 > '개별 이미지 등록']에서
+ *   - 목록 이미지 = 평소 이미지  ({$image_medium})
+ *   - 축소 이미지 = 마우스오버 시 이미지  ({$image_small})   ← 여기에 두 번째 사진 등록
+ *   ⚠️ 두 이미지 사이즈를 동일하게 (안 맞으면 hover 시 깨짐).
+ *
  * HTML 적용 방법:
- *   상품 목록 템플릿(product/list.html)의 상품 이미지 <img> 태그에
- *   data-hover-src="{두번째이미지URL}" 속성을 추가하세요.
+ *   상품 진열 모듈(anchorBoxId 카드) 안의 상품 이미지 <img> 태그에
+ *   data-hover-src 로 "축소 이미지 변수"를 지정하세요.
  *
- *   예시:
- *   <img src="{상품이미지}" data-hover-src="{두번째상품이미지}" alt="{상품명}">
+ *   카페24 변수 예시:
+ *   <img src="{$image_medium}" data-hover-src="{$image_small}" alt="{$product_name}">
  *
- *   카페24 템플릿 변수로는:
- *   <img src="{$product_image}" data-hover-src="{$product_image2}" alt="{$product_name}">
+ *   ※ 더 간단한 카페24 공식 방법(JS 없이 인라인):
+ *   <img src="{$image_medium}" onmouseover="this.src='{$image_small}'" onmouseout="this.src='{$image_medium}'" alt="{$product_name}">
  *
  * 주의: data-hover-src 속성이 없는 이미지는 hover 효과가 적용되지 않습니다.
  *       모바일/터치 환경에서는 동작하지 않습니다 (의도된 동작).

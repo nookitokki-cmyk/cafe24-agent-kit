@@ -1,5 +1,16 @@
 # Cafe24 Agent Kit — Changelog
 
+## v2.6.3 (2026-06-25) — 상품 마우스오버 롤오버: 틀린 변수 정정 + 공식 방법 반영
+
+### Fixed
+- **`snippets/js/nk-product-hover.js` · `snippets/components/nk-product-card.html`** — 존재하지 않는 변수 `{$product_image2}`(검증 안 된 추측)를 **카페24 공식 방법**으로 정정. 카페24엔 롤오버 전용 변수가 없고, **'축소 이미지' 칸(`{$image_small}`)**을 마우스오버 이미지로 활용. (출처: 카페24 Help Center "상품 이미지에 마우스오버 시 다른 이미지 노출시키는 방법")
+
+### Added
+- **`recipes/02_상품목록-그리드.md`** — "마우스오버 롤오버(PC 전용)" 섹션: 목록·축소 이미지 등록 + `onmouseover="this.src='{$image_small}'" onmouseout="this.src='{$image_medium}'"` + 두 이미지 사이즈 동일 주의.
+- **`references/variables.md`** — `{$image_small}`이 목록 롤오버에도 쓰임 명시(기존 '상세' 단독 표기 보강).
+
+> ⚠️ 이 정정은 v2.4.0 실험적(🧪) 자료의 미검증 코드를 잡은 첫 건. 동일 묶음(snippets·recipes·templates) 전체 팩트체크 감사(STATUS Step 8) 후속 진행 예정.
+
 ## v2.6.2 (2026-06-24) — /토대정리 스킬 신설 (워크플로우 C단계)
 
 ### Added
