@@ -89,13 +89,13 @@ fi
 echo ""
 echo "[6] 민감 키워드 광역 검색"
 LEAKED=$(grep -r --include="*.py" --include="*.json" --include="*.md" \
-  -l "paransky97\|beautysleep001\|__REDACTED_ROTATE__\|__REDACTED_ROTATE__" \
+  -l "paransky97\|beautysleep001\|__REDACTED_ROTATE__\|IDIO\|_idio\|idio\.js" \
   "$OUT" 2>/dev/null || true)
 if [[ -n "$LEAKED" ]]; then
   fail "민감 키워드 발견:"
   echo "$LEAKED" | while read -r f; do echo "     $f"; done
 else
-  ok "민감 키워드(paransky97 등) 미발견"
+  ok "민감 키워드(paransky97·IDIO 등) 미발견"
 fi
 
 # ── [7] VERSION 및 CHANGELOG 확인 ────────────────────────────────

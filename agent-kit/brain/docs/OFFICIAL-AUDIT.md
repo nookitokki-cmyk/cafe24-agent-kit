@@ -265,7 +265,7 @@
 | SFTP 경로 | 대응 API (실측) | 키트 역할 주장 | 판정 |
 |-----------|-----------------|----------------|------|
 | `/skin14` | skin_no=16, skin_code=skin14 | 작업 스킨 (`_nk` 등) | ⚠️ 실측 1몰 |
-| `/skin2` | skin_no=4 | IDIO 원본·보호 | ⚠️ |
+| `/skin2` | skin_no=4 | 구매템플릿 원본·보호 | ⚠️ |
 | `/base` | skin_no=1 | fallback·**수정 금지** | ⚠️ SKILL §4 — **API·공식 폴더 문서 0건** |
 | `/mobile` | (mobile type 목록 별도) | 모바일 스킨 | ⚠️ |
 | `/skin15`, `/web` | README·SKILL에 언급 | 보호·업로드물 | ⚠️ 몰마다 다름 |

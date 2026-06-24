@@ -47,6 +47,12 @@ else fail "시크릿 파일 ${sec}개 발견 (배포 금지)"
   find "$KIT" "${SECRET_FIND[@]}" 2>/dev/null >&2
 fi
 
+# 5b) 실명 누출 — 벤더 브랜드(IDIO) 0건 (배포 금지)
+IDLEAK=$(grep -rIlE 'IDIO|_idio|idio\.js' "$AK" "$KIT/mcp" 2>/dev/null | grep -vE '/\.git/|verify-kit\.sh' || true)
+if [[ -z "$IDLEAK" ]]; then pass "벤더 브랜드(IDIO) 0건"
+else fail "벤더 브랜드(IDIO) 발견 (배포 금지)"; echo "$IDLEAK" >&2
+fi
+
 # 6) 실 클라이언트 폴더 없음 (_template/demo000 만 허용)
 realc=$(find "$AK/clients" -mindepth 1 -maxdepth 1 -type d \
           ! -name '_template' ! -name 'demo000' 2>/dev/null | wc -l | tr -d ' ')

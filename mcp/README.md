@@ -126,7 +126,7 @@ python cli.py put ./로컬파일 /skin4/경로        # ★업로드 (사용자 
 ### upload 안전장치 (운영 반영)
 
 - `write_allowed` 화이트리스트(`config/sftp_{mall}.json`) 밖 경로는 **무조건 거부**
-  — demo000: `/skin14`·`/mobile`만 허용, `/skin2`(IDIO원본)·`/skin15`·`/base` 보호 ✅ 검증 통과
+  — demo000: `/skin14`·`/mobile`만 허용, `/skin2`(구매템플릿원본)·`/skin15`·`/base` 보호 ✅ 검증 통과
 - 업로드 전 원본을 `backups/{mall}/{시각}/`에 **자동 백업** (기본 ON)
 - 에이전트는 upload 호출 전 반드시 사용자 확인 (누끼토끼 절대룰)
 
