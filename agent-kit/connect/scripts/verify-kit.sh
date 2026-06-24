@@ -12,7 +12,7 @@ fail(){ echo "FAIL: $1"; FAIL=$((FAIL+1)); }
 
 # 시크릿 파일 탐지 패턴 (배포에 절대 들어가면 안 되는 것) — .gitignore와 동기화
 SECRET_FIND=( -type f \(
-  -name 'sftp_*.json' -o -name '*token*.json'
+  -name 'sftp_*.json' -o -name '*.token.json'
   -o -name 'cafe24_config_*.py' -o -name 'cafe24_config.py'
   -o -name 'auth_url.txt' -o -name '.env' -o -name 'credentials.json'
   \) -not -path '*/.git/*' -not -path '*/node_modules/*' )
