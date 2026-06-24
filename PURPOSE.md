@@ -3,6 +3,8 @@
 > 이 문서는 키트의 **목적·구조 원칙·개편 불변식**을 고정하는 단일 기준이다.
 > 구조를 바꾸는 모든 작업은 §3 "자동업데이트 불변식"을 위반하지 않아야 한다.
 > 작성: 2026-06-22 · 0단계 검증(critic) 반영본
+>
+> **🔄 v2.6.0 갱신**: 슬래시 명령 19개가 **스킬로 통합**되어 `agent-kit/.claude/` → **워크스페이스 루트 `.claude/skills/`** 로 이동(구 별칭 3개 폐기, 에이전트 4개는 `.claude/agents/` 유지). `UPDATE_PATHS`의 `agent-kit/.claude` → `.claude`(루트)로 교체, `build-dist-kit.sh`가 루트 `.claude/{skills,agents}`를 dist에 복사. 아래 본문의 `agent-kit/.claude` 서술은 이 변경 기준으로 읽을 것.
 
 ---
 
@@ -17,7 +19,7 @@
 | 층 | 누가 보나 | 무엇 | 위치 |
 |---|---|---|---|
 | **표면 (Surface)** | 사용자(사람) | 진입점 README, 온보딩, 슬래시 명령, 가이드 | `README.md`, `agent-kit/00_시작하기/`, `01_작업하기/`, `02_막혔을때/` |
-| **두뇌 (Brain)** | 에이전트(Claude) | cafe24 스킬·지식·규칙·base CSS 지도 | `agent-kit/.claude/skills/`, `agent-kit/brain/docs/` |
+| **두뇌 (Brain)** | 에이전트(Claude) | cafe24 스킬·지식·규칙·base CSS 지도 | `.claude/skills/`, `agent-kit/brain/docs/` |
 | **빌드/배포 (Build)** | 개발자 | dist 빌드 도구·산출물 (자동업데이트 일부 의존) | `scripts/`, `dist/`, `mcp/work/scripts/` |
 | **백스테이지 (Dev)** | 개발자(대표님)만 | 개발 이력·증거·메타 (배포·업데이트 **완전 제외**) | `_dev/`(신설) |
 

@@ -37,5 +37,5 @@ Firecrawl CLI 미인증 시: `developers.cafe24.com` · `brain/_evidence/*.html`
 
 ## 참조
 
-- `agent-kit/.claude/commands/레퍼런스인입.md`
+- `.claude/skills/레퍼런스인입/SKILL.md`
 - `agent-kit/brain/docs/OFFICIAL-AUDIT.md`

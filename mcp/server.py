@@ -193,7 +193,7 @@ def get_kit_guides(
         ],
         "f_quick": F_QUICK,
         "slash_command": str(
-            KIT_ROOT / ".claude/commands/카페24-워크플로우.md"
+            KIT_ROOT.parent / ".claude/skills/카페24-워크플로우/SKILL.md"
         ),
         "next_read": [
             str(KIT_ROOT / "01_작업하기/workflows/08-ez-three-step-pingpong.md"),

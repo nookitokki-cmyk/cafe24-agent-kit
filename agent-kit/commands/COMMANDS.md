@@ -9,9 +9,9 @@
 
 | 명령 | 파일 | 역할 |
 |------|------|------|
-| `/키트시작` | `.claude/commands/키트시작.md` | zip 풀고 pip·import·smoke (5/9 정상) |
-| `/새클라이언트` | `.claude/commands/새클라이언트.md` | `clients/_template` scaffold |
-| `/MCP연결` | `.claude/commands/MCP연결.md` | Cursor·Claude Code MCP 등록 |
+| `/키트시작` | `.claude/skills/키트시작/SKILL.md` | zip 풀고 pip·import·smoke (5/9 정상) |
+| `/새클라이언트` | `.claude/skills/새클라이언트/SKILL.md` | `clients/_template` scaffold |
+| `/MCP연결` | `.claude/skills/MCP연결/SKILL.md` | Cursor·Claude Code MCP 등록 |
 
 ---
 
@@ -19,12 +19,12 @@
 
 | 명령 | 파일 | 역할 |
 |------|------|------|
-| `/도움말` | `.claude/commands/도움말.md` | 전체 지도·문서 링크 |
-| `/레퍼런스인입` | `.claude/commands/레퍼런스인입.md` | URL **또는** 시안 → 인벤토리·실측 |
-| `/접속세팅` | `.claude/commands/접속세팅.md` | 파트너 vs 일반, 몰 ID, SFTP, skin |
-| `/API발급` | `.claude/commands/API발급.md` | OAuth·MCP 토큰 핑퐁 |
-| `/요소측정` | `.claude/commands/요소측정.md` | 수정 전 숫자 수집 |
-| `/디자인수정` | `.claude/commands/디자인수정.md` | 실측 후 코드 작업 게이트 |
+| `/도움말` | `.claude/skills/도움말/SKILL.md` | 전체 지도·문서 링크 |
+| `/레퍼런스인입` | `.claude/skills/레퍼런스인입/SKILL.md` | URL **또는** 시안 → 인벤토리·실측 |
+| `/접속세팅` | `.claude/skills/접속세팅/SKILL.md` | 파트너 vs 일반, 몰 ID, SFTP, skin |
+| `/API발급` | `.claude/skills/API발급/SKILL.md` | OAuth·MCP 토큰 핑퐁 |
+| `/요소측정` | `.claude/skills/요소측정/SKILL.md` | 수정 전 숫자 수집 |
+| `/디자인수정` | `.claude/skills/디자인수정/SKILL.md` | 실측 후 코드 작업 게이트 |
 
 ---
 
@@ -32,23 +32,18 @@
 
 | 명령 | 파일 | 역할 |
 |------|------|------|
-| `/검증` | `.claude/commands/검증.md` | `run_preflight` · score 해석 |
-| `/캐시확인` | `.claude/commands/캐시확인.md` | `?v=N` · 캐시 대기 · 스킨 경로 |
-| `/EZ제거` | `.claude/commands/EZ제거.md` | Phase C strip 게이트 |
-| `/버전확인` | `.claude/commands/버전확인.md` | VERSION · kit-update |
+| `/검증` | `.claude/skills/검증/SKILL.md` | `run_preflight` · score 해석 |
+| `/캐시확인` | `.claude/skills/캐시확인/SKILL.md` | `?v=N` · 캐시 대기 · 스킨 경로 |
+| `/EZ제거` | `.claude/skills/EZ제거/SKILL.md` | Phase C strip 게이트 |
+| `/버전확인` | `.claude/skills/버전확인/SKILL.md` | VERSION · kit-update |
 
 상황별: [`00_시작하기/OMC-명령어-매칭가이드.md`](../00_시작하기/OMC-명령어-매칭가이드.md)
 
 ---
 
-## 별칭 (구 명령 → 신 명령)
+## (참고) 폐기된 구 별칭
 
-| 구 명령 | 신 명령 |
-|---------|---------|
-| `/카페24-시작` | `/도움말` |
-| `/카페24-도와줘` | `/도움말` + [04-함정](../00_시작하기/04-자주-막히는-5가지.md) |
-| `/카페24-새작업` | `/디자인수정` — **신규 몰은 `/새클라이언트`** |
-| `/카페24-워크플로우` | `01_작업하기/workflows/` + 전용 에이전트 |
+구 별칭 `/카페24-시작`·`/카페24-도와줘`·`/카페24-새작업` 은 **v2.6.0에서 폐기**되었습니다. 각각 `/도움말` · `/도움말`+[04-함정](../00_시작하기/04-자주-막히는-5가지.md) · `/디자인수정`(신규 몰은 `/새클라이언트`) 를 직접 사용하세요. `/카페24-워크플로우` 는 정규 명령으로 유지됩니다.
 
 ---
 

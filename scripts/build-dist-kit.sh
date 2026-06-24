@@ -128,6 +128,20 @@ for ex in "$ROOT"/.cursor/mcp.json*.example; do
   [[ -f "$ex" ]] && cp "$ex" "$BUILD_ROOT/.cursor/"
 done
 
+# Root .claude — 슬래시 스킬·에이전트 (워크스페이스 루트에서 /명령 인식). worktrees 등 런타임은 제외.
+if [[ -d "$ROOT/.claude" ]]; then
+  mkdir -p "$BUILD_ROOT/.claude"
+  for sub in skills agents; do
+    if [[ -d "$ROOT/.claude/$sub" ]]; then
+      if command -v rsync >/dev/null 2>&1; then
+        rsync -a --exclude '.git' --exclude '__pycache__' --exclude '*.pyc' "$ROOT/.claude/$sub" "$BUILD_ROOT/.claude/"
+      else
+        cp -R "$ROOT/.claude/$sub" "$BUILD_ROOT/.claude/"
+      fi
+    fi
+  done
+fi
+
 # Root pointers
 cp "$ROOT/AGENTS.md" "$BUILD_ROOT/"
 [[ -f "$ROOT/README.md" ]] && cp "$ROOT/README.md" "$BUILD_ROOT/"   # 배포 진입점 = 루트 README (README-DIST 대체)
@@ -183,9 +197,9 @@ REQUIRED=(
   "$OUT/agent-kit/connect/DISTRIBUTION-KIT.md"
   "$OUT/agent-kit/00_시작하기/05b-MCP-등록.md"
   "$OUT/agent-kit/clients/demo000/.workflow.md"
-  "$OUT/agent-kit/.claude/commands/키트시작.md"
-  "$OUT/agent-kit/.claude/commands/새클라이언트.md"
-  "$OUT/agent-kit/.claude/commands/MCP연결.md"
+  "$OUT/.claude/skills/키트시작/SKILL.md"
+  "$OUT/.claude/skills/새클라이언트/SKILL.md"
+  "$OUT/.claude/skills/MCP연결/SKILL.md"
   "$OUT/mcp/server.py"
   "$OUT/mcp/kit_tools.py"
   "$OUT/mcp/requirements.txt"

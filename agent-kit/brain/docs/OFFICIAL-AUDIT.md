@@ -336,7 +336,7 @@
 |----|--------|------|------|
 | F-2a | `00_시작하기/00`~`05` | 파트너/일반 분기, 몰ID, MCP 개요 | ✅ 구조 완료 — 파트너 호스트 등 ⚠️ 라벨 유지 |
 | F-2b | `connect/MCP-OAUTH-GUIDE.md` | OAuth 핑퐁·read_design | ✅ 공식 순서 반영 |
-| F-2c | `commands/COMMANDS.md` + `.claude/commands/` 5+4별칭 | OMC 대본 | ✅ |
+| F-2c | `commands/COMMANDS.md` + 루트 `.claude/skills/` 16개 스킬(구 별칭 폐기) | OMC 대본 | ✅ |
 | F-2d | `01_작업하기/workflows/04-measure-first.md` | 실측 우선 | ✅ |
 | F-2e | `CLAUDE.md` 게이트 0~6 | 파트너·editor_type·실측 | ✅ |
 | F-2f | `connect/scripts/verify-kit.sh` | 자동 검증 | ✅ |
