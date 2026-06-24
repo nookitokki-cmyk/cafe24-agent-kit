@@ -20,9 +20,11 @@ fi
 # ── [1] Python 환경 ──────────────────────────────────────────────
 echo ""
 echo "[1] Python 환경"
-if command -v python >/dev/null 2>&1; then
-  PY_VER=$(python --version 2>&1)
-  ok "Python 발견: $PY_VER"
+# python3(Mac/Linux 기본) 우선, 없으면 python(Windows) 폴백
+PY="$(command -v python3 || command -v python || true)"
+if [[ -n "$PY" ]]; then
+  PY_VER=$("$PY" --version 2>&1)
+  ok "Python 발견: $PY_VER ($PY)"
 else
   fail "python 명령어 없음 — Python 3.10+ 필요"
 fi
@@ -30,20 +32,20 @@ fi
 # ── [2] MCP 서버 import 테스트 ────────────────────────────────────
 echo ""
 echo "[2] MCP 서버 import 테스트"
-(cd "$OUT/mcp" && python -c "import server" 2>&1)        && ok "import server" \
+(cd "$OUT/mcp" && "$PY" -c "import server" 2>&1)        && ok "import server" \
   || fail "import server 실패 (requirements.txt 의존성 확인)"
-(cd "$OUT/mcp" && python -c "import kit_tools" 2>&1)     && ok "import kit_tools" \
+(cd "$OUT/mcp" && "$PY" -c "import kit_tools" 2>&1)     && ok "import kit_tools" \
   || fail "import kit_tools 실패"
-(cd "$OUT/mcp" && python -c "from backends import cafe24_sftp" 2>&1) && ok "import cafe24_sftp" \
+(cd "$OUT/mcp" && "$PY" -c "from backends import cafe24_sftp" 2>&1) && ok "import cafe24_sftp" \
   || fail "import cafe24_sftp 실패"
-(cd "$OUT/mcp" && python -c "from auth import oauth" 2>&1) && ok "import oauth" \
+(cd "$OUT/mcp" && "$PY" -c "from auth import oauth" 2>&1) && ok "import oauth" \
   || fail "import oauth 실패"
 
 # ── [3] Cursor MCP 예시 파일 JSON 유효성 ─────────────────────────
 echo ""
 echo "[3] Cursor MCP 예시 파일 JSON 파싱"
 if [[ -f "$OUT/.cursor/mcp.json.example" ]]; then
-  python -c "import json; json.load(open('$OUT/.cursor/mcp.json.example'))" 2>&1 \
+  "$PY" -c "import json; json.load(open('$OUT/.cursor/mcp.json.example'))" 2>&1 \
     && ok "mcp.json.example 유효한 JSON" \
     || fail "mcp.json.example JSON 파싱 오류"
 else

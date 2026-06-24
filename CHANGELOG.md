@@ -1,6 +1,6 @@
 # Cafe24 Agent Kit — Changelog
 
-## Unreleased — 레포 구조 개편 (목적·진입점 단일화)
+## v2.5.0 (2026-06-24) — 레포 구조 개편 + 카페24 함정 대응 강화
 
 ### Added
 - **`snippets/css/nk-cafe24-reset.css` 신설** — `body.nk-skin` opt-in 방식의 **카페24 base 7대 함정 범용 중화 레이어**(고정폭·가짜선·a밑줄·상품 회색테두리·카페24 블루·gif/PNG 폼컨트롤·푸터 고정폭). 기존 `nk-ez-override.css`(#nk-skinN, base 소스 토큰화 보완)와 달리 **base를 못 고치는 클라이언트 운영 스킨에서 오버라이드 레이어로 쓰는 휴대용 버전**. 색은 `--nk-point` 등 변수 위임, 체크박스 체크표시는 `<input>` 자체 background SVG(pseudo-element 미렌더 회피), select caret 중립색 고정. (code-reviewer 2회 + 크로스브라우저 검증)
@@ -13,7 +13,7 @@
 - **`PURPOSE.md` 신설** — 목적·3층 분리·자동업데이트 불변식 헌장 (개편 기준)
 - **진입점 단일화** — 루트 `README.md`를 유일 시작점으로 재작성, `agent-kit/README.md`는 "본체 지도"로 역할 정정 (구 v2.3 Step4b의 "단일 진입점 = agent-kit/README" 서술을 갱신)
 - **개발 메타 격리** — `__THE-ONE_단일기준`·`__지금상태_STATUS`·`MANIFEST` → `_dev/meta/`
-- (단계4 예정) 배포 진입점(`README-DIST`)을 루트 README로 통일 + `_dev`/`_evidence` build 제외
+- **배포 진입점 통일** — dist 진입점을 루트 `README.md`로 통일(구 `README-DIST` 대체) + `_dev`/`brain/_evidence` build 제외
 
 ## v2.4.0 (2026-06-21)
 
