@@ -1,5 +1,13 @@
 # Cafe24 Agent Kit — Changelog
 
+## v2.6.1 (2026-06-24) — nk-cafe24-reset.css 사용 가이드 신설
+
+### Added
+- **`snippets/css/nk-cafe24-reset-사용가이드.md`** — base 함정 중화 레이어의 독립 사용 가이드(비개발자용). 적용 3단계(업로드→`@css` 맨 위 로드→`<body class="nk-skin">`), 안 먹을 때(`body#main.nk-skin`로 명시도 보강), 색 위임(`--nk-point`), 10개 섹션이 막는 함정 표, 3형제 구분(reset/ez-override/일반 reset), Step 0 base 스캔 연계, 적용 체크리스트.
+
+### Fixed
+- `SKILL.md` snippets 목록에 누락돼 있던 `nk-cafe24-reset.css`를 등록 + 가이드 링크 연결(기존엔 파일만 있고 문서화 X라 못 찾던 문제).
+
 ## v2.6.0 (2026-06-24) — 명령→스킬 통합 + 진입점 정상화
 
 ### Changed
