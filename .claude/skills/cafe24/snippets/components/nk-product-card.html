@@ -21,9 +21,10 @@
   <a href="{$link_product_detail}" class="nk-product-img-link" aria-label="{$product_name}">
     <div class="nk-product-img" data-nk-product-hover>
       <img src="{$image_medium}" alt="{$product_name}" class="nk-product-img-main" loading="lazy">
-      <!-- 2번째 이미지 (마우스오버 시 전환). data-hover-src 가 있으면 nk-product-hover.js 가 자동 처리.
-           카페24에 2번째 이미지 변수가 없으면 이 줄 통째로 삭제해도 OK -->
-      <img src="{$image_medium}" alt="" class="nk-product-img-hover" aria-hidden="true" loading="lazy" data-hover-placeholder>
+      <!-- 2번째 이미지 (마우스오버 시 전환). 카페24는 '축소 이미지' 칸을 롤오버용으로 사용 → {$image_small}.
+           관리자 [상품 수정 > 이미지 등록 > 개별 이미지 등록]에서 축소 이미지에 두 번째 사진 등록(목록 이미지와 사이즈 동일).
+           롤오버 안 쓰면 이 줄 통째로 삭제해도 OK -->
+      <img src="{$image_small}" alt="" class="nk-product-img-hover" aria-hidden="true" loading="lazy">
     </div>
 
     <!-- 배지 영역: 신상품·세일 등 -->
