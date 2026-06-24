@@ -3,6 +3,7 @@
 ## Unreleased — 레포 구조 개편 (목적·진입점 단일화)
 
 ### Added
+- **`snippets/css/nk-cafe24-reset.css` 신설** — `body.nk-skin` opt-in 방식의 **카페24 base 7대 함정 범용 중화 레이어**(고정폭·가짜선·a밑줄·상품 회색테두리·카페24 블루·gif/PNG 폼컨트롤·푸터 고정폭). 기존 `nk-ez-override.css`(#nk-skinN, base 소스 토큰화 보완)와 달리 **base를 못 고치는 클라이언트 운영 스킨에서 오버라이드 레이어로 쓰는 휴대용 버전**. 색은 `--nk-point` 등 변수 위임, 체크박스 체크표시는 `<input>` 자체 background SVG(pseudo-element 미렌더 회피), select caret 중립색 고정. (code-reviewer 2회 + 크로스브라우저 검증)
 - **base 전수 스캔 명령 세트 추가** (`CAFE24-SMARTDESIGN-AGENT.md` STEP 2) — 새 클라 base CSS를 7종 grep(고정폭·파란색·강제폰트·가상요소선·echosting 이미지·!important·태그누수)으로 전수 스캔해 `BASE-CSS-MAP.md`를 생성·검증. 함정을 사람이 하나씩 발견하지 않고 기계가 색출 → 게시판·주문·회원 등 안 본 페이지 함정도 사전 포착. (계기: 클라마다 base가 달라 두더지잡기가 반복되던 문제)
 - **`brain/rules/responsive-fullrange.md` 신설** — 전체 해상도 대응 규칙(모바일 375 ~ 울트라와이드 2560). 콘텐츠 `max-width` 상한 함정(와이드 좁은 밴드)·카드 이미지 미충전(체인 inline) 함정 + copy-paste 처방. (계기: ecudemo400125 — 1440에서만 검증해 와이드 전용 버그를 놓친 사고)
 - **`capture-pair.mjs` 와이드 캡처 추가** — 기본 뷰포트에 `wide(1920)`·`ultrawide(2560)` 추가(기존 pc 1440·mobile 390). lazy 이미지 로딩용 자동 스크롤 추가 → 1600 초과 전용 버그를 검증 단계에서 포착.
