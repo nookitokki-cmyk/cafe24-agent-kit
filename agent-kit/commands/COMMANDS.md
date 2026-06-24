@@ -24,6 +24,7 @@
 | `/접속세팅` | `.claude/skills/접속세팅/SKILL.md` | 파트너 vs 일반, 몰 ID, SFTP, skin |
 | `/API발급` | `.claude/skills/API발급/SKILL.md` | OAuth·MCP 토큰 핑퐁 |
 | `/요소측정` | `.claude/skills/요소측정/SKILL.md` | 수정 전 숫자 수집 |
+| `/토대정리` | `.claude/skills/토대정리/SKILL.md` | **C단계** base 스캔 + reset.css + 토큰 세팅 (섹션 제작 전 1회) |
 | `/디자인수정` | `.claude/skills/디자인수정/SKILL.md` | 실측 후 코드 작업 게이트 |
 
 ---
