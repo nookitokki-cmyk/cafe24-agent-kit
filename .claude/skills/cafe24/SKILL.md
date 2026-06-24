@@ -769,19 +769,7 @@ Ctrl+U 브라우저 소스 보기
 - `references/input-pipeline.md` — **입력 정문**: 레퍼런스 URL/Figma → 토큰+에셋 (`scripts/extract-tokens.mjs`·`extract-assets.mjs`)
 - `scripts/diagnose-overrides.js` — 비코더 콘솔 자가진단(F12 붙여넣기). `preflight.mjs` — Playwright 자동 진단. `scripts/README.md` 사용법
 
-### 🍳 `recipes/` — 모듈 조합 레시피북
-
-"내가 원하는 화면 → 어떤 모듈을 어떻게 조합" 매핑 사전. AI가 코드를 더 정확히 뽑게 해줌.
-
-- `recipes/01_메인-히어로.md` — 배너 + 신상품 + 이벤트 조합
-- `recipes/02_상품목록-그리드.md` — PLP 그리드형 (필터·검색·페이지네이션)
-- `recipes/03_상품상세.md` — PDP (옵션·이미지 갤러리·구매 액션)
-- `recipes/04_장바구니-결제.md` — Cart + Order Form
-- `recipes/05_게시판-공지사항.md` — Board List + View
-- `recipes/06_로그인-회원가입.md` — Member Login + Join
-- `recipes/07_검색결과.md` — Product Search
-
-### 🎨 `snippets/` — 복사해서 쓰는 코드 조각 (총 20개)
+### 🎨 `snippets/` — 복사해서 쓰는 코드 조각
 
 검증된 HTML·CSS·JS 컴포넌트. `nk-` 접두사 / Pretendard / Phosphor 표준 준수.
 
@@ -812,16 +800,6 @@ Ctrl+U 브라우저 소스 보기
 - `nk-tab-switcher.js` — 탭 메뉴 전환 (키보드 화살표 네비게이션 + WAI-ARIA)
 - `nk-form-validator.js` — 폼 유효성 검사 (이메일·전화·비밀번호·매칭 등 8종 룰)
 
-### 🏗️ `templates/` — 페이지 타입 스타터
-
-SFTP 업로드 → EZ로 텍스트만 바꾸면 끝나는 완성형 페이지 5종.
-
-- `templates/hero-main.html` — 메인 (배너 + 추천상품 + 이벤트, container 100%)
-- `templates/plp-full.html` — 상품목록 (필터·그리드·페이지네이션, max-width 1440)
-- `templates/pdp-full.html` — 상품상세 (옵션·이미지·상세설명·관련상품)
-- `templates/narrow.html` — 좁은 페이지 (About·Login·게시판형, max-width 1200 중앙)
-- `templates/board.html` — 일반 게시판 (테이블 + 글쓰기·검색·페이지네이션)
-
 ### 🎯 `design-tokens/` — Figma → CSS 토큰 자동 파이프라인
 
 Figma URL만 넣으면 색상·폰트·간격이 `:root { --nk-color-* }` CSS로 자동 변환되는 시스템.
@@ -838,4 +816,5 @@ Figma URL만 넣으면 색상·폰트·간격이 `:root { --nk-color-* }` CSS로
 
 ---
 
-> **출처**: 본문은 demo-brand 실프로젝트 분석 기반. references / recipes / snippets / templates / design-tokens는 kimyoungwopo/cafe24-smart-design(MIT) + APapeIsName/web-uiux-design-from-reference(MIT) + 공식문서 + 누끼토끼 실무 정리.
+> **출처**: 본문은 demo-brand 실프로젝트 분석 + 카페24 공식문서(sdsupport.cafe24.com) 기반. references / snippets / design-tokens는 kimyoungwopo/cafe24-smart-design(MIT, 카페24 전용) + 공식문서 + 누끼토끼 실무 정리.
+> ⚠️ **v2.7.0**: 비-카페24 출처(`APapeIsName/web-uiux-design-from-reference`)에서 일반 웹 쇼핑몰 변수가 유입돼 가짜 카페24 변수가 섞였던 `recipes`·`templates`는 **제거**됨. 카페24 변수는 `references/variables.md`(검증본)가 단일 기준.

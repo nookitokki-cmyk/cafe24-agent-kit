@@ -1,5 +1,21 @@
 # Cafe24 Agent Kit — Changelog
 
+## v2.7.0 (2026-06-25) — 미검증(비-카페24 출처) recipes·templates 제거 + 변수 가드 (Step 8)
+
+### Removed
+- **`recipes/`(7) · `templates/`(5) 제거** — 비-카페24 출처 `APapeIsName/web-uiux-design-from-reference`(일반 웹 디자인 레포)에서 유입돼 변수의 **67~100%가 카페24에 없는 가짜**(`{$thumbnail_url}`·`{$product_url}`·`{$sale_price}` 등). "진짜처럼 보이는 가짜 코드"라 오히려 위험 → 제거. (git 히스토리 보존, 복구 가능)
+
+### Fixed
+- **`references/troubleshooting.md`** — "올바른 가격 변수명" 섹션이 정작 가짜 변수(`{$price}`·`{$retail_price}`·`{$discount_price}`)를 안내하던 것을 **검증본**(`{$product_sale_price}`·`{$product_price}`)으로 정정.
+
+### Added
+- **변수 재유입 가드** — `verify-kit`에 비-카페24 가짜 변수 denylist 검사(FAIL) 추가. 미검증 변수 재유입 자동 차단.
+
+### Changed
+- `SKILL.md`·`CLAUDE.md`·`README.md` 인덱스에서 recipes/templates 제거 + 출처 표기에서 비-카페24 `APapeIsName` 제거. **카페24 변수 단일 기준 = `references/variables.md`(검증본).**
+
+> 팩트체크 감사(STATUS Step 8) 결과. 유지: SKILL.md 본문·`references/`·`snippets/`(components·css·js)·`design-tokens/`·`module-browser.html`(검증·카페24 변수 무관).
+
 ## v2.6.3 (2026-06-25) — 상품 마우스오버 롤오버: 틀린 변수 정정 + 공식 방법 반영
 
 ### Fixed

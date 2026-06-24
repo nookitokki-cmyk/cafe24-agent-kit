@@ -157,15 +157,9 @@ cafe24-agent-kit/
 
 `.claude/skills/cafe24/` 안에 다음 자료가 추가됨. 작업 도중 필요할 때 핀포인트 로드 (전체 로드 X).
 
-### `recipes/` — 모듈 조합 레시피북 (7개)
-"이런 화면 만들고 싶다 → 어떤 모듈을 어떻게 조합" 매핑 사전.
-`01_메인-히어로.md` · `02_상품목록-그리드.md` · `03_상품상세.md` · `04_장바구니-결제.md` · `05_게시판-공지사항.md` · `06_로그인-회원가입.md` · `07_검색결과.md`
+> ⚠️ **v2.7.0**: `recipes/`·`templates/`는 비-카페24 출처(APapeIsName)에서 가짜 변수가 유입돼 **제거**됨. 카페24 변수 기준은 `references/variables.md`(검증본). 화면 조합은 검증된 `references/` + `snippets/`로.
 
-### `templates/` — 페이지 타입 스타터 (5개)
-SFTP 업로드 → EZ로 텍스트만 바꾸면 끝나는 완성형 페이지.
-`hero-main.html` · `plp-full.html` · `pdp-full.html` · `narrow.html` · `board.html`
-
-### `snippets/` — 복사해서 쓰는 코드 조각 (20개)
+### `snippets/` — 복사해서 쓰는 코드 조각
 - `components/` (6) — header-sticky / product-card / banner-slider / footer-standard / breadcrumb / quick-view
 - `css/` (8) — reset / typography / responsive-grid / ez-override / button-system / form-controls / modal-system / toast-notification
 - `js/` (6, vanilla) — sticky-header / product-hover / scroll-animation / modal-toggle / tab-switcher / form-validator

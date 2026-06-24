@@ -53,6 +53,14 @@ if [[ -z "$IDLEAK" ]]; then pass "벤더 브랜드(IDIO) 0건"
 else fail "벤더 브랜드(IDIO) 발견 (배포 금지)"; echo "$IDLEAK" >&2
 fi
 
+# 5c) 미검증 변수 재유입 차단 — 비-카페24(APapeIsName) 출처 가짜 변수 denylist (배포 금지)
+#     v2.7.0에서 recipes/templates 제거로 정리. 재유입 시 FAIL. (카페24 변수 단일 기준: references/variables.md)
+FAKEVARS='\{\$(thumbnail_url|product_url|main_image_url|sale_price|retail_price|brand_name|review_score|kakao_login_url|naver_login_url|product_image2)\}'
+fakev=$(grep -rIlE "$FAKEVARS" "$KIT/.claude/skills" 2>/dev/null | grep -vE '/\.git/|verify-kit\.sh' || true)
+if [[ -z "$fakev" ]]; then pass "미검증 가짜 변수 0건"
+else fail "미검증 가짜 변수 발견 (references/variables.md 검증본으로 교체 필요)"; echo "$fakev" >&2
+fi
+
 # 6) 실 클라이언트 폴더 없음 (_template/demo000 만 허용)
 realc=$(find "$AK/clients" -mindepth 1 -maxdepth 1 -type d \
           ! -name '_template' ! -name 'demo000' 2>/dev/null | wc -l | tr -d ' ')
