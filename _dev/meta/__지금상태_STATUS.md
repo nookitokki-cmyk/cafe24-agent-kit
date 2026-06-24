@@ -1,7 +1,7 @@
 # ✅ 카페24 에이전트 키트 — 단일 기준 (THE ONE)
 
 - 위치: C:\dev\cafe24-agent-kit  (← 작업은 여기서만)
-- 버전: **v2.5.0** / 2026-06-24 (Release latest)
+- 버전: **v2.6.0** / 2026-06-24 (Release latest)
 - 다른 곳의 사본은 전부 구버전·보관용. 헷갈리면 이 파일을 보세요.
 
 ## 어디까지 했나 (재발 방지 현재상태)
@@ -27,8 +27,10 @@
 - [ ] Step 8 (후순위·선택): v2.4.0 실험적 자료(🧪) 실 클라이언트 검증 → v2.4.1 안정화 릴리스
 
 ## 다음 할 일
-**Step 0~7 + 출고 후 추가 작업 5건 → v2.5.0 정식 발행 완료 (2026-06-24).** 원격 `nookitokki-cmyk/cafe24-agent-kit` main(4b8b0f8) + Release **latest = v2.5.0** + 태그 v2.5.0. 검증 양쪽 ALL PASS.
-- **선택 사항만 남음**: Step 5(자동 함정 발굴·H+EZ 교리·preflight score 스크립트 키트 편입) / Step 5.5(키트로 데모몰 스킨 1개 dogfooding) / **Step 8(v2.4.0 실험적 자료 🧪 실 클라이언트 검증 → 안정화)** / (필요 시) 수동 복사본 보유자에게 폐기통지.
+**v2.6.0까지 발행 완료 (2026-06-24).** Release **latest = v2.6.0**. 검증 양쪽 ALL PASS.
+- **v2.5.1** (2026-06-24): 벤더 브랜드 실명(IDIO) 제거 — 문서·코드 12파일 202회 → 0건(본문 `구매템플릿`, 코드 `_ext_`), verify 소스·dist에 재유입 가드 추가.
+- **v2.6.0** (2026-06-24): 명령 19개 → **스킬 통합 + 루트 `.claude/`로 이동**(최상위 폴더 열면 `/키트시작` 인식). 구 별칭 3개 폐기, 에이전트 4개 `.claude/agents/`로 이동. UPDATE_PATHS·build·server.py·verify·PURPOSE 동기화. (계기: `/키트시작`이 중첩 폴더라 루트에서 안 뜨던 문제 + 파편화)
+- **선택 사항만 남음**: Step 5(자동 함정 발굴·preflight) / Step 5.5(데모몰 dogfooding) / Step 8(v2.4.0 🧪 실검증→안정화) / kimdongwopo 출처 스킬은 **글로벌 `~/.claude`** 쪽 별도 점검(이 키트엔 0건).
 (보류: ① cafe24-agent-workspace는 앱 종료 후 _archive로 이동 ② OneDrive 라이브 mcp는 현재 환경 유지 — 새 키트로의 MCP 연결 전환은 별도 결정 ③ git push는 Step 6에서 승인 후)
 
 ## 핵심 자산 위치

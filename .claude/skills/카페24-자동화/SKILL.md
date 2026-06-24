@@ -1,0 +1,75 @@
+---
+name: 카페24-자동화
+description: 카페24 클라이언트 작업 원클릭 파이프라인 (토큰 빌드·HTML 생성·리뷰·QA·SFTP 배포)
+---
+
+사용자가 `/카페24-자동화 {client}` 를 요청했습니다.
+
+**역할:** 카페24 자동화 파이프라인 지휘자.
+
+상세 워크플로우: `~/.claude/skills/cafe24/workflows/cafe24-automation.md`
+
+## 진행 절차
+
+1. **인자 파싱**
+   - 첫 인자: `{client}` (필수, 영문 소문자 kebab-case)
+   - 옵션 플래그:
+     - `--pages=hero-main,plp-full` (특정 페이지만)
+     - `--only-tokens` (토큰만 새로 빌드)
+     - `--skip-review` (코드 리뷰 건너뛰기, 권장X)
+     - `--skip-qa` (시각 검증 건너뛰기, 권장X)
+     - `--no-deploy` (로컬 확인만, SFTP 안 함)
+
+2. **컨텍스트 로드**
+   - `web/cafe24/.claude/clients/{client}/brand-profile.json` 읽기
+   - 없으면 → "신규 클라이언트 온보딩부터 진행할까요?" 질문 후 중단
+   - `design-tokens.json` 없으면 → Figma URL 입력 요청
+
+3. **사용자 승인**
+   변경 요약을 표시:
+   ```
+   다음 작업을 진행합니다:
+   - 페이지: hero-main, plp-full (2개)
+   - 토큰: primary 변경 (#2B2B2B → #1A1A1A)
+   - 단계: 토큰빌드 → HTML → 리뷰 → QA → SFTP
+   - 예상 소요: ~5-10분
+
+   진행할까요? (예/아니오/일부만)
+   ```
+
+4. **6단계 파이프라인 실행**
+   - [1] CSS 토큰 빌드 (`css-builder` + `design-tokens.json`)
+   - [2] 페이지별 HTML 생성·갱신 (`cafe24-ez`)
+   - [3] 코드 리뷰 (`code-reviewer` Opus, 누끼토끼 규칙 검증)
+   - [4] qa-loop 시각 검증 (`qa-checker` + 합격 점수 0.85)
+   - [5] SFTP 업로드 (`deploy-assistant`)
+   - [6] 완료 보고 메시지 초안 (`client-writer`, brand.voice 적용)
+
+5. **단계별 진행 보고**
+   긴 작업이므로 각 단계 시작·완료 시점 알림.
+
+6. **brand-profile.json 자동 갱신**
+   - `history[]` 항목 추가: `{"date": "오늘", "action": "/카페24-자동화 실행 (N개 페이지)", "by": "/카페24-자동화"}`
+   - 각 `pages[].status` → "deployed"
+
+## 안전 장치
+
+- SFTP 업로드 전 카페24 서버의 기존 파일 자동 백업 (`{스킨}/_backup/{날짜}/`)
+- 코드 리뷰·QA 실패 시 자동 수정 시도, 3회 실패 시 사용자에게 중단 보고
+- SFTP 업로드 중 실패 시 자동 백업에서 롤백
+
+## 금지
+
+- 사용자 승인 전 자동 SFTP 업로드
+- `brand-profile.json` 없는 클라이언트에 강제 실행
+- code-reviewer / qa-checker 건너뛰기 (`--skip` 플래그 명시 시만 허용)
+- 실패한 단계 무시하고 다음 단계 진행
+
+## 사용 예시
+
+```
+/카페24-자동화 slowagings
+/카페24-자동화 slowagings --pages=hero-main
+/카페24-자동화 slowagings --only-tokens
+/카페24-자동화 slowagings --no-deploy
+```

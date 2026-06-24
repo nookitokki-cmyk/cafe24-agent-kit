@@ -572,7 +572,7 @@ def _next_steps(checks: list[dict], tokens: list[Path]) -> list[str]:
 
 # Paths updated by kit-update (never touch user secrets or client trees)
 UPDATE_PATHS = [
-    "agent-kit/.claude",
+    ".claude",
     "agent-kit/commands",
     "agent-kit/00_시작하기",
     "agent-kit/01_작업하기",

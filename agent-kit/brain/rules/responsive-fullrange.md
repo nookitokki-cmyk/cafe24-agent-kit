@@ -77,7 +77,7 @@ base가 `.thumbnail / .prdImg / a`를 `inline`으로 두면, 이미지에 `width
 ## 검증 (capture-pair)
 
 ```bash
-node agent-kit/.claude/skills/cafe24/scripts/capture-pair.mjs <레퍼URL> <라이브URL>
+node .claude/skills/cafe24/scripts/capture-pair.mjs <레퍼URL> <라이브URL>
 # → pc(1440) · mobile(390) · wide(1920) · ultrawide(2560) 캡처
 ```
 

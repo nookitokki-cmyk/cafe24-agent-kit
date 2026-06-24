@@ -1,5 +1,18 @@
 # Cafe24 Agent Kit — Changelog
 
+## v2.6.0 (2026-06-24) — 명령→스킬 통합 + 진입점 정상화
+
+### Changed
+- **슬래시 명령 19개 → 스킬 통합** — 모든 슬래시 명령을 스킬로 전환해 워크스페이스 **루트 `.claude/skills/`** 로 이동(16개 정규 + 기존 `cafe24`·`qa-loop`). 키트 **최상위 폴더를 열면 `/키트시작` 등이 바로 인식**됨. (기존엔 `agent-kit/.claude/commands/` 중첩이라 루트를 열면 명령이 안 떴음 — Claude Code는 워크스페이스 루트 `.claude/`만 스캔.)
+- **에이전트 4개 루트 이동** — `code-reviewer`·`qa-checker`·`카페24-워크플로우`·`카페24-도우미` → 루트 `.claude/agents/` (스킬 전환 없이 에이전트로 유지).
+- **구 별칭 3개 폐기** — `/카페24-시작`·`/카페24-도와줘`·`/카페24-새작업` 제거. 각각 `/도움말`·`/도움말`+함정·`/디자인수정`(신규 몰 `/새클라이언트`) 직접 사용.
+
+### Fixed
+- **진입점 깨짐 해결** — `/키트시작` 등이 최상위 폴더에서 인식 안 되던 문제. 스킬은 루트에서 prefix 없이 `/명령` 호출 + 관련 상황에 자동 트리거.
+
+### Internal
+- `UPDATE_PATHS` `agent-kit/.claude`→`.claude`(루트) / `build-dist-kit.sh` 루트 `.claude/{skills,agents}` dist 포함(worktrees 제외) / `mcp/server.py` 워크플로 경로 루트 기준 보정 / verify·문서·`PURPOSE.md` 동기화.
+
 ## v2.5.1 (2026-06-24) — 벤더 브랜드 실명 제거
 
 ### Fixed

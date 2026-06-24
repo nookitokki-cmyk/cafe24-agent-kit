@@ -113,10 +113,14 @@ cafe24-agent-kit/
 │   ├── MCP-OAUTH-GUIDE.md          ← API 발급 튜토리얼
 │   └── WORK-GUIDE.md               ← skin10~14 상세 작업 로그·교훈
 ├── 02_막혔을때/함정-INDEX.md                  ← F1~F26 인덱스
-├── .claude/commands/               ← /접속세팅, /API발급, /요소측정 …
-│   └── skills/cafe24/SKILL.md
-└── clients/_template/
+├── clients/_template/            ← scaffold 원본
+│
+└── (워크스페이스 루트, agent-kit 밖) .claude/   ← ★ 슬래시 스킬·에이전트는 여기 (루트를 열어야 /명령 인식)
+    ├── skills/                   ← 스킬 16개 (/키트시작·/도움말·/디자인수정·/카페24-자동화 …) + cafe24·qa-loop
+    └── agents/                   ← 서브에이전트 (code-reviewer·qa-checker·카페24-워크플로우·카페24-도우미)
 ```
+
+> ⚠️ v2.6.0부터 슬래시 명령은 모두 **스킬**로 통합되어 **워크스페이스 루트 `.claude/skills/`** 에 있습니다. 키트의 **최상위 폴더(`cafe24-agent-kit`)를 열어야** `/키트시작` 등이 인식됩니다(안쪽 `agent-kit` 폴더 X).
 
 ### 신규 클라이언트 온보딩 (트리거: "새 클라이언트" · "새 몰" · "새 작업 들어왔어" · "클라이언트 추가")
 
@@ -151,7 +155,7 @@ cafe24-agent-kit/
 
 ## 8. v2.4.0+ 신규 자료 인덱스 (cafe24 skill 확장)
 
-`agent-kit/.claude/skills/cafe24/` 안에 다음 자료가 추가됨. 작업 도중 필요할 때 핀포인트 로드 (전체 로드 X).
+`.claude/skills/cafe24/` 안에 다음 자료가 추가됨. 작업 도중 필요할 때 핀포인트 로드 (전체 로드 X).
 
 ### `recipes/` — 모듈 조합 레시피북 (7개)
 "이런 화면 만들고 싶다 → 어떤 모듈을 어떻게 조합" 매핑 사전.
@@ -182,6 +186,6 @@ SFTP 업로드 → EZ로 텍스트만 바꾸면 끝나는 완성형 페이지.
 모듈 미렌더링 / 변수 미치환 / EZ 오버라이드 / 모바일 깨짐 / 캐시 문제.
 
 ### 부속 인프라
-- `agent-kit/.claude/agents/qa-checker.md` — Haiku 비주얼 검증 에이전트
-- `agent-kit/.claude/skills/qa-loop/` — 합격 점수 0.85 자동 수정 루프
-- `agent-kit/.claude/commands/카페24-자동화.md` — 원클릭 파이프라인 슬래시 명령
+- `.claude/agents/qa-checker.md` — Haiku 비주얼 검증 에이전트
+- `.claude/skills/qa-loop/` — 합격 점수 0.85 자동 수정 루프
+- `.claude/skills/카페24-자동화/SKILL.md` — 원클릭 파이프라인 슬래시 명령
