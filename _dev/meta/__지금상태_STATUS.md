@@ -1,7 +1,7 @@
 # ✅ 카페24 에이전트 키트 — 단일 기준 (THE ONE)
 
 - 위치: C:\dev\cafe24-agent-kit  (← 작업은 여기서만)
-- 버전: **v2.4.0** / 2026-06-21
+- 버전: **v2.5.0** / 2026-06-24 (Release latest)
 - 다른 곳의 사본은 전부 구버전·보관용. 헷갈리면 이 파일을 보세요.
 
 ## 어디까지 했나 (재발 방지 현재상태)
@@ -22,14 +22,13 @@
   - `14f5090` (06-24) 전체 해상도 대응 규칙 — `brain/rules/responsive-fullrange.md` 신설 + capture-pair.mjs 와이드(1920/2560) 캡처·lazy 스크롤 + accuracy-gate 폭 확장. (ecudemo400125 와이드 버그 사고 대응, 검증 범위 375~2560 전 구간으로 확대)
   - `b148502` (06-24) base 전수 스캔 명령 세트(STEP 2) — 새 클라 base CSS를 7종 grep으로 전수 스캔해 BASE-CSS-MAP 생성·검증, 함정 기계 색출(두더지잡기 탈피).
   - `c78e9c5` (06-24) `nk-cafe24-reset.css` 신설 — base 못 고치는 클라 운영 스킨용 `body.nk-skin` opt-in 7대 함정 중화 레이어. (nk-ez-override.css와 용도 구분)
-  > ⚠️ 위 5건은 **로컬 커밋 + CHANGELOG Unreleased** 상태. **버전 부여·Release 발행 안 됨** → 다음 정식 릴리스(예: v2.4.1 또는 v2.5.0) 때 CHANGELOG Unreleased를 버전 헤더로 승격 필요.
+  > ✅ 위 5건은 **v2.5.0 (2026-06-24)으로 정식 발행 완료** — CHANGELOG v2.5.0 헤더 승격 + 원격 main(4b8b0f8) + Release latest + 태그 v2.5.0. 발행 과정에서 검증 게이트 2건도 수정: ① 소스 verify 시크릿 오탐(`*token*.json`→`*.token.json`) ② dist verify python3 폴백(Mac 이식성). 소스/dist 검증 양쪽 ALL PASS(15/15).
 - [ ] Step 5 (후순위·선택) · Step 5.5 (후순위·선택)
 - [ ] Step 8 (후순위·선택): v2.4.0 실험적 자료(🧪) 실 클라이언트 검증 → v2.4.1 안정화 릴리스
 
 ## 다음 할 일
-**Step 0~4 + Step 6 + Step 7(v2.4.0 출고) 완료 + 출고 후 추가 작업 5건(2026-06-24까지, 로컬 커밋·미릴리스).** 원격 `nookitokki-cmyk/cafe24-agent-kit` main + Release **latest = v2.4.0**.
-- **선반영 필요(택1 시점)**: CHANGELOG "Unreleased"의 추가 작업 5건을 **버전 부여 + Release 발행**(v2.4.1 또는 v2.5.0). ※ 와이드 해상도 규칙·base 스캔·reset.css는 UPDATE_PATHS 경유라 발행 시 기존 설치자에게 자동 전파.
-- **선택 사항**: Step 5(자동 함정 발굴·H+EZ 교리·preflight score 스크립트 키트 편입) / Step 5.5(키트로 데모몰 스킨 1개 dogfooding) / **Step 8(v2.4.0 실험적 자료 🧪 실 클라이언트 검증 → v2.4.1 안정화)** / (필요 시) 수동 복사본 보유자에게 폐기통지.
+**Step 0~7 + 출고 후 추가 작업 5건 → v2.5.0 정식 발행 완료 (2026-06-24).** 원격 `nookitokki-cmyk/cafe24-agent-kit` main(4b8b0f8) + Release **latest = v2.5.0** + 태그 v2.5.0. 검증 양쪽 ALL PASS.
+- **선택 사항만 남음**: Step 5(자동 함정 발굴·H+EZ 교리·preflight score 스크립트 키트 편입) / Step 5.5(키트로 데모몰 스킨 1개 dogfooding) / **Step 8(v2.4.0 실험적 자료 🧪 실 클라이언트 검증 → 안정화)** / (필요 시) 수동 복사본 보유자에게 폐기통지.
 (보류: ① cafe24-agent-workspace는 앱 종료 후 _archive로 이동 ② OneDrive 라이브 mcp는 현재 환경 유지 — 새 키트로의 MCP 연결 전환은 별도 결정 ③ git push는 Step 6에서 승인 후)
 
 ## 핵심 자산 위치
