@@ -793,8 +793,9 @@ Ctrl+U 브라우저 소스 보기
 - `nk-breadcrumb.html` — 현재 위치 표시 (홈 > 카테고리 > 상품)
 - `nk-quick-view.html` — 상품 퀵뷰 모달 (이미지·정보·장바구니)
 
-**`snippets/css/`** — CSS 시스템 8개
-- `nk-reset.css` — 카페24 기본 스타일 초기화
+**`snippets/css/`** — CSS 시스템 9개
+- **`nk-cafe24-reset.css`** ⭐ — 카페24 base 함정 7종 **범용 중화 레이어** (`body.nk-skin` opt-in, 운영 몰 덮어쓰기용). **사용법: [`nk-cafe24-reset-사용가이드.md`](snippets/css/nk-cafe24-reset-사용가이드.md)** (적용 3단계·안 먹을 때·색 위임·체크리스트)
+- `nk-reset.css` — 일반 CSS 초기화 (범용)
 - `nk-typography.css` — Pretendard 시스템 (heading/body/caption 토큰 연동)
 - `nk-responsive-grid.css` — 375 / 768 / 1280 / 1440 브레이크포인트 그리드
 - `nk-ez-override.css` — EZ 에디터 덮어쓰기 우회 패턴
