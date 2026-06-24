@@ -2,6 +2,11 @@
 
 ## Unreleased — 레포 구조 개편 (목적·진입점 단일화)
 
+### Added
+- **`brain/rules/responsive-fullrange.md` 신설** — 전체 해상도 대응 규칙(모바일 375 ~ 울트라와이드 2560). 콘텐츠 `max-width` 상한 함정(와이드 좁은 밴드)·카드 이미지 미충전(체인 inline) 함정 + copy-paste 처방. (계기: ecudemo400125 — 1440에서만 검증해 와이드 전용 버그를 놓친 사고)
+- **`capture-pair.mjs` 와이드 캡처 추가** — 기본 뷰포트에 `wide(1920)`·`ultrawide(2560)` 추가(기존 pc 1440·mobile 390). lazy 이미지 로딩용 자동 스크롤 추가 → 1600 초과 전용 버그를 검증 단계에서 포착.
+- **`accuracy-gate.md` visual 축 폭 확장** — PC·모바일 → 모바일·PC·와이드·울트라와이드 전 구간. 풀블리드 레퍼는 1600 초과 폭 생략 불가.
+
 ### Changed
 - **`PURPOSE.md` 신설** — 목적·3층 분리·자동업데이트 불변식 헌장 (개편 기준)
 - **진입점 단일화** — 루트 `README.md`를 유일 시작점으로 재작성, `agent-kit/README.md`는 "본체 지도"로 역할 정정 (구 v2.3 Step4b의 "단일 진입점 = agent-kit/README" 서술을 갱신)

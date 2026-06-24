@@ -39,7 +39,7 @@ let chromium;
 try { ({ chromium } = await import('playwright')); }
 catch {
   console.error('\n⚠️  Playwright 미설치: npm i -D playwright && npx playwright install chromium');
-  console.error('   (또는 에이전트가 Playwright MCP 로 캡처 — 데스크톱 UA·뷰포트 1440/390 고정)\n');
+  console.error('   (또는 에이전트가 Playwright MCP 로 캡처 — 데스크톱 UA·뷰포트 2560/1920/1440/390 고정)\n');
   process.exit(3);
 }
 
@@ -47,6 +47,8 @@ mkdirSync(outDir, { recursive: true });
 
 // ★ 데스크톱 UA 고정. 모바일은 뷰포트 폭만 좁힘 (isMobile:false)
 const VIEWPORTS = [
+  { tag: 'ultrawide', width: 2560, height: 1080 }, // 풀블리드 레퍼 1:1 — max-width 상한·이미지 미충전 버그는 여기서만 드러남
+  { tag: 'wide', width: 1920, height: 1080 },      // 1600 초과 = 와이드 상한 버그 발동 구간 (필수) — brain/rules/responsive-fullrange.md
   { tag: 'pc', width: 1440, height: 960 },
   { tag: 'mobile', width: 390, height: 844 }  // 데스크톱 UA + 좁은 폭 = 반응형 모바일 (카페24 별도 스킨 회피)
 ];
@@ -63,6 +65,12 @@ for (const t of TARGETS) {
     const file = `${outDir}/${name}_${t.role}_${vp.tag}.png`;
     try {
       await page.goto(t.url, { waitUntil: 'networkidle', timeout: 45000 });
+      // lazy 이미지 로딩: 아래까지 스크롤 후 복귀 (와이드 상품 섹션 이미지가 빈칸으로 안 잡히게)
+      await page.evaluate(async () => {
+        const h = document.body.scrollHeight;
+        for (let y = 0; y < h; y += 700) { window.scrollTo(0, y); await new Promise((r) => setTimeout(r, 200)); }
+        window.scrollTo(0, 0);
+      });
       await page.waitForTimeout(800); // lazy 이미지·폰트 안착
       await page.screenshot({ path: file, fullPage: true });
       saved.push({ role: t.role, vp: vp.tag, file, ok: true });
@@ -74,7 +82,8 @@ for (const t of TARGETS) {
 }
 await browser.close();
 
-console.log('\n══════ capture-pair (데스크톱 UA · PC 1440 / 모바일 390) ══════');
+console.log('\n══════ capture-pair (데스크톱 UA · ultrawide 2560 / wide 1920 / PC 1440 / 모바일 390) ══════');
 for (const s of saved) console.log(`  ${s.ok ? '✅' : '❌'} ${s.role}/${s.vp}  ${s.file}${s.err ? '  (' + s.err + ')' : ''}`);
-console.log('\nqa-checker 에 전달: 레퍼(ref) vs 결과(result) PC·모바일 4장을 시각 비교 → accuracy-gate visual 축');
+console.log('\nqa-checker 에 전달: 레퍼(ref) vs 결과(result) 폭별 캡처를 시각 비교 → accuracy-gate visual 축');
+console.log('※ 와이드(1920/2560)에서 콘텐츠 좌우 여백·카드 폭·이미지 충전 일치 확인 — brain/rules/responsive-fullrange.md');
 process.exit(saved.some((s) => !s.ok) ? 1 : 0);

@@ -69,6 +69,7 @@ python ref393674-score-mobile-full.py   # 390×844, 5 URLs, PASS = 100 only
 
 ## 관련
 
+- `brain/rules/responsive-fullrange.md` — **전체 해상도 대응(와이드 끝단 포함)**. 이 문서는 모바일, full-range는 1920/2560 와이드 버그를 다룬다. 검증은 **둘 다** 필수.
 - `02_막혔을때/common-pitfalls.md` §모바일 별도 스킨
 - `01_작업하기/workflows/06-verify-loop.md` §반응형 MO
 - `brain/rules/cafe24-admin-verify.md` — 관리자 경로 안내 전 웹 fetch
