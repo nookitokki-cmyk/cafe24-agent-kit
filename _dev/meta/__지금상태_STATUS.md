@@ -1,7 +1,7 @@
 # ✅ 카페24 에이전트 키트 — 단일 기준 (THE ONE)
 
 - 위치: C:\dev\cafe24-agent-kit  (← 작업은 여기서만)
-- 버전: **v2.6.3** / 2026-06-25 (Release latest)
+- 버전: **v2.7.0** / 2026-06-25 (Release latest)
 - 다른 곳의 사본은 전부 구버전·보관용. 헷갈리면 이 파일을 보세요.
 
 ## 어디까지 했나 (재발 방지 현재상태)
@@ -27,7 +27,8 @@
 - [ ] Step 8 (후순위·선택): v2.4.0 실험적 자료(🧪) 실 클라이언트 검증 → v2.4.1 안정화 릴리스
 
 ## 다음 할 일
-**v2.6.3까지 발행 완료 (2026-06-25).** Release **latest = v2.6.3**. 검증 양쪽 ALL PASS.
+**v2.7.0까지 발행 완료 (2026-06-25).** Release **latest = v2.7.0**. 검증 양쪽 ALL PASS.
+- **v2.7.0 (Step 8 착수)**: 팩트체크 감사 → 비-카페24 출처(APapeIsName)에서 가짜 변수 유입된 `recipes`(7)·`templates`(5) **제거**. troubleshooting.md 가짜 가격변수 정정. verify-kit에 **가짜 변수 denylist 가드** 추가. SKILL/CLAUDE/README 인덱스·출처 정리. (유지: references·snippets·design-tokens·SKILL 본문 = 검증) → **카페24 변수 단일 기준 = references/variables.md.** 후속: 남은 references/snippets 변수 심층 재검증(선택).
 - **v2.6.3**: 상품 마우스오버 롤오버 — 미검증 추측 변수 `{$product_image2}` → 카페24 공식 `{$image_small}`(축소이미지 활용)로 정정. recipes/02 롤오버 섹션 + variables.md 보강. **(v2.4.0 🧪 자료 첫 오류 적발 — 동일 계열 전수 감사 Step 8 착수 예정)**
 - **v2.5.1**: 벤더 브랜드 실명(IDIO) 제거 — 문서·코드 12파일 202회 → 0건(본문 `구매템플릿`, 코드 `_ext_`), verify 재유입 가드.
 - **v2.6.0**: 명령 19개 → **스킬 통합 + 루트 `.claude/` 이동**(최상위 폴더 열면 `/키트시작` 인식). 구 별칭 3개 폐기, 에이전트 4개 `.claude/agents/`. UPDATE_PATHS·build·server.py·verify·PURPOSE 동기화.
