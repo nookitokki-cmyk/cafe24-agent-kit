@@ -25,9 +25,9 @@
 ## 1. 축별 합격 기준
 
 ### ① visual (시각 일치) — qa-checker
-- 입력: **레퍼런스 스크린샷** + **결과(라이브) 스크린샷**, **PC(1280~1440) + 모바일(375)** 둘 다
+- 입력: **레퍼런스 스크린샷** + **결과(라이브) 스크린샷** — **모바일(375) · PC(1440) · 와이드(1920) · 울트라와이드(2560)** 전 구간. 레퍼가 풀블리드면 **1600 초과 폭 생략 불가** ([responsive-fullrange.md](../../../brain/rules/responsive-fullrange.md))
 - 채점 축(보이는 것만): `layout`(0.30) · `color`(0.25) · `typography`(0.25) · `imagery`(0.20, 이미지·여백·비율·정렬)
-- **합격: aggregate ≥ 0.85 AND 모든 축 ≥ 0.70 AND PC·모바일 둘 다 충족**
+- **합격: aggregate ≥ 0.85 AND 모든 축 ≥ 0.70 AND 캡처한 모든 폭(모바일·PC·와이드) 충족**
 - 코드축(naming/accessibility) **없음** — rule 축으로 이관
 
 ### ② override (base 충돌 없음) — diagnose-overrides.js / preflight.mjs
