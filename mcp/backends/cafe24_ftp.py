@@ -215,16 +215,25 @@ class Cafe24FTP:
     def backup(self, remote_path: str) -> str | None:
         rp = self._norm(remote_path)
         ftp = self._client()
+        # 존재 확인은 부모 폴더를 MLSD로 나열해 해당 이름이 있는지로 판단한다.
+        # (ftp.size()는 폴더에 실패하고, ASCII 모드에서는 파일도 error_perm을 내므로
+        #  "원본이 있는데도 없다"고 오판 → 백업 누락 → 원본 덮어쓰기 위험이 있었다.
+        #  list/download와 동일한 MLSD 방식으로 통일해 폴더·파일 모두 안전하게 백업한다.)
+        parent = os.path.dirname(rp) or "/"
+        name = rp.split("/")[-1]
+        if not name:
+            return None  # 루트 자체는 백업 대상 아님
         try:
-            self._cwd_abs(ftp, os.path.dirname(rp) or "/")
-            ftp.size(rp.split("/")[-1])
+            exists = any(n == name for n, _ in self._mlsd(ftp, parent))
         except ftplib.error_perm:
             return None
+        if not exists:
+            return None  # 원격에 원본이 없음(신규 파일) — 백업할 것 없음
         ts = datetime.now().strftime("%Y%m%d-%H%M%S")
         dest = os.path.join(
             MCP_ROOT, "backups", self.mall_id, ts, rp.lstrip("/").replace("/", os.sep)
         )
-        self.download(rp, dest)
+        self.download(rp, dest)  # download가 _is_dir로 폴더/파일을 자동 분기
         return dest
 
     def upload(
