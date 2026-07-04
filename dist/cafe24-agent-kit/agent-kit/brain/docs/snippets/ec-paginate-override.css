@@ -1,0 +1,50 @@
+/* 전역 ec-base-paginate 오버라이드 — body 끝 로드 필수 (sub_style.css 이후)
+   스니펫: agent-kit/brain/docs/snippets/ec-paginate-override.css */
+
+body.layout #contents .ec-base-paginate {
+	border: 0;
+	margin: 40px 0 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	text-align: center;
+	font-size: 0;
+	line-height: 0;
+}
+
+body.layout #contents .ec-base-paginate.section {
+	max-width: none !important;
+	width: auto !important;
+	margin-left: 0 !important;
+	margin-right: 0 !important;
+}
+
+body.layout #contents .ec-base-paginate.typeList > a {
+	font-size: 0 !important;
+	line-height: 0 !important;
+	color: transparent !important;
+	overflow: hidden;
+	text-indent: -9999px;
+	border: 0 !important;
+}
+
+body.layout #contents .ec-base-paginate.typeList ol {
+	display: inline-flex !important;
+	gap: 8px;
+	margin: 0;
+	padding: 0;
+	list-style: none !important;
+}
+
+body.layout #contents .ec-base-paginate.typeList ol li a {
+	border: 0 !important;
+	background: none !important;
+	font-size: var(--font-size) !important;
+}
+
+body.layout #contents .ec-base-paginate.typeList ol li a.this {
+	font-weight: var(--font-weight-bold);
+	text-decoration: underline;
+	text-underline-offset: 4px;
+}

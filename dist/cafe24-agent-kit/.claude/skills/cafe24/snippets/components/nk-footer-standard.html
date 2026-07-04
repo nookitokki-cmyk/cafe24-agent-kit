@@ -1,0 +1,136 @@
+<!--!
+ * nk-footer-standard — 표준 푸터 (사업자 정보 + 고객센터 + SNS + 카피라이트)
+ * 사용처: 카페24 layout/basic/layout.html 또는 _nk/inc/footer.html
+ * 의존성:
+ *   - CSS 변수: --nk-color-text / --nk-color-text-sub / --nk-color-border / --nk-space-md
+ *   - Phosphor Icons (SNS 아이콘)
+ *
+ * 비코더 사용법:
+ *   1. layout.html 의 </body> 직전에 이 HTML 붙여넣기
+ *   2. "여기만 바꾸세요" 표시된 사업자정보·연락처·SNS URL 을 본인 정보로 교체
+ *   3. SFTP로 업로드
+ *
+ * 한국 전자상거래 표시 의무 (반드시 노출):
+ *   - 상호 / 대표자 / 사업자등록번호 / 통신판매업신고번호
+ *   - 주소 / 대표전화 / 이메일 / 개인정보보호책임자
+-->
+
+<footer class="nk-footer" role="contentinfo">
+
+  <!-- 상단: 고객센터 + 입금계좌 + SNS -->
+  <div class="nk-footer-top">
+    <div class="nk-footer-inner">
+
+      <!-- 고객센터 — 여기만 바꾸세요 -->
+      <section class="nk-footer-col" aria-labelledby="nk-cs-title">
+        <h2 id="nk-cs-title" class="nk-footer-title">고객센터</h2>
+        <p class="nk-footer-tel">000-0000-0000</p>
+        <p class="nk-footer-hours">
+          평일 10:00 - 18:00 (점심 12:00 - 13:00)<br>
+          주말·공휴일 휴무
+        </p>
+        <p class="nk-footer-email">help@example.com</p>
+      </section>
+
+      <!-- 입금계좌 — 여기만 바꾸세요 (또는 통째로 삭제) -->
+      <section class="nk-footer-col" aria-labelledby="nk-bank-title">
+        <h2 id="nk-bank-title" class="nk-footer-title">무통장 입금</h2>
+        <p class="nk-footer-bank">국민은행 000000-00-000000</p>
+        <p class="nk-footer-bank-holder">예금주: 홍길동</p>
+      </section>
+
+      <!-- SNS — 여기만 바꾸세요 (사용 안 하는 항목은 li 통째로 삭제) -->
+      <section class="nk-footer-col" aria-labelledby="nk-sns-title">
+        <h2 id="nk-sns-title" class="nk-footer-title">SNS</h2>
+        <ul class="nk-footer-sns">
+          <li><a href="https://instagram.com/your-account" aria-label="인스타그램" target="_blank" rel="noopener"><i class="ph ph-instagram-logo" aria-hidden="true"></i></a></li>
+          <li><a href="https://youtube.com/@your-channel" aria-label="유튜브" target="_blank" rel="noopener"><i class="ph ph-youtube-logo" aria-hidden="true"></i></a></li>
+          <li><a href="https://pf.kakao.com/your-id" aria-label="카카오톡 채널" target="_blank" rel="noopener"><i class="ph ph-chat-circle" aria-hidden="true"></i></a></li>
+          <li><a href="https://blog.naver.com/your-id" aria-label="네이버 블로그" target="_blank" rel="noopener"><i class="ph ph-pencil-line" aria-hidden="true"></i></a></li>
+        </ul>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- 하단: 사업자 정보 -->
+  <div class="nk-footer-bottom">
+    <div class="nk-footer-inner">
+
+      <!-- 정책 링크 -->
+      <nav class="nk-footer-policy" aria-label="이용약관">
+        <a href="/board/free/list.html?board_no=8">공지사항</a>
+        <a href="/myshop/agreement.html"><strong>이용약관</strong></a>
+        <a href="/myshop/private.html"><strong>개인정보처리방침</strong></a>
+        <a href="/shopinfo/guide.html">이용안내</a>
+      </nav>
+
+      <!-- 사업자 정보 — 여기만 바꾸세요 -->
+      <address class="nk-footer-business">
+        <span>상호: 회사명</span>
+        <span>대표: 홍길동</span>
+        <span>사업자등록번호: <a href="https://www.ftc.go.kr/bizCommPop.do?wrkr_no=0000000000" target="_blank" rel="noopener">000-00-00000</a></span>
+        <span>통신판매업: 제 0000-서울강남-00000호</span>
+        <span>주소: 서울특별시 강남구 ...</span>
+        <span>개인정보보호책임자: 홍길동(help@example.com)</span>
+      </address>
+
+      <p class="nk-footer-copyright">
+        Copyright &copy; <span data-nk-year>2026</span> {$mall_name}. All rights reserved.
+      </p>
+
+    </div>
+  </div>
+
+</footer>
+
+<style>
+  .nk-footer{
+    background:var(--nk-color-surface, #f8f9fa);
+    border-top:1px solid var(--nk-color-border);
+    color:var(--nk-color-text-sub, #5f6368);
+    font-size:13px; line-height:1.6;
+  }
+  .nk-footer-inner{max-width:1440px; margin:0 auto; padding:var(--nk-space-lg, 24px) var(--nk-space-md, 16px)}
+  .nk-footer-top .nk-footer-inner{
+    display:grid; grid-template-columns:1fr; gap:var(--nk-space-lg, 24px);
+  }
+  @media(min-width:768px){
+    .nk-footer-top .nk-footer-inner{grid-template-columns:1fr 1fr 1fr}
+  }
+  .nk-footer-col{margin:0}
+  .nk-footer-title{
+    margin:0 0 12px; font-size:14px; font-weight:700;
+    color:var(--nk-color-text);
+  }
+  .nk-footer-tel{margin:0 0 8px; font-size:20px; font-weight:700; color:var(--nk-color-text)}
+  .nk-footer-hours,.nk-footer-email,.nk-footer-bank,.nk-footer-bank-holder{margin:0 0 4px}
+  .nk-footer-sns{list-style:none; margin:0; padding:0; display:flex; gap:8px}
+  .nk-footer-sns a{
+    width:40px; height:40px;
+    display:inline-flex; align-items:center; justify-content:center;
+    background:var(--nk-color-bg, #fff); color:var(--nk-color-text);
+    border-radius:9999px; font-size:20px;
+    transition:background .2s, color .2s;
+  }
+  .nk-footer-sns a:hover{background:var(--nk-color-accent, #2b6cb0); color:#fff}
+  .nk-footer-bottom{border-top:1px solid var(--nk-color-border)}
+  .nk-footer-policy{
+    display:flex; flex-wrap:wrap; gap:16px;
+    margin-bottom:var(--nk-space-md, 16px);
+  }
+  .nk-footer-policy a{color:var(--nk-color-text)}
+  .nk-footer-policy a:hover{color:var(--nk-color-accent, #2b6cb0)}
+  .nk-footer-business{
+    font-style:normal;
+    display:flex; flex-wrap:wrap; gap:4px 16px;
+    margin-bottom:var(--nk-space-md, 16px);
+  }
+  .nk-footer-business a{color:var(--nk-color-text-sub, #5f6368); text-decoration:underline}
+  .nk-footer-copyright{margin:0; font-size:12px}
+</style>
+
+<script>
+  // 카피라이트 연도 자동 갱신
+  document.querySelectorAll('[data-nk-year]').forEach(el => el.textContent = new Date().getFullYear());
+</script>
