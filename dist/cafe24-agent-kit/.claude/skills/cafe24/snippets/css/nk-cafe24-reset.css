@@ -1,0 +1,269 @@
+/* =========================================================================
+   nk-cafe24-reset.css  v2  — 카페24 base/모듈 CSS 함정 "범용 중화 레이어"
+   -------------------------------------------------------------------------
+   왜 이게 필요한가 (비개발자용 설명):
+   카페24 기본 디자인(base CSS)은 모든 쇼핑몰에 똑같은 함정 수백 개를 깐다.
+   화면을 고정폭으로 가두고, 헤더/푸터에 안 보이는 가짜 줄을 긋고, 게시판 제목·
+   상품 가격·링크에 카페24 파란색(#008bcc)과 옛날 폰트(돋움/Verdana)를 박고,
+   체크박스·화살표를 흐릿한 옛날 이미지로 그린다. 이걸 페이지마다 셀렉터를 하나씩
+   찾아 막으면 = 끝없는 두더지잡기. 이 파일 하나가 그 함정들을 "한 번에" 무력화한다.
+
+   ⚠️ 이 파일은 base 217개 파일(layout 25 + module 192)을 전수 분석해 만든
+      "공통층" 중화다. 클라이언트마다 base 스킨이 조금씩 다르므로(maison/기본스킨 등),
+      새 클라 작업 시에는 반드시 브레인독 "Step 0: base 전수 스캔" 절차로 그 클라의
+      base를 한 번 더 자동 스캔해 reset 미커버 잔존을 brain/docs/BASE-CSS-MAP.md 로 보강한다.
+      → 함정을 "사람이 발견"하지 말고 "기계가 스캔"하는 것이 박멸의 핵심.
+
+   쓰는 법 (Step 0, 디자인 짜기 전 제일 먼저):
+   1) 커스텀할 페이지 <body> 에 class="nk-skin" 을 붙인다. 예) <body id="main" class="nk-skin">
+      (이 클래스가 붙은 페이지에만 중화가 걸린다 → 손 안 댄 페이지는 base 그대로 = 안전)
+      ⚠️ [중요] 카페24 base 는 body#main 처럼 id 셀렉터·!important 로 거는 경우가 많다.
+         id/!important 는 class 보다 힘(명시도)이 세서, reset 의 일부 줄이 밀릴 수 있다.
+         그럴 땐 클라 CSS에서 body#main.nk-skin {...} 처럼 id 를 함께 붙여 한 번 더 감싼다.
+   2) custom.css(또는 _nk 메인 CSS) "맨 위"에서 이 파일을 먼저 로드. 예) <!--@css(/_nk/css/nk-cafe24-reset.css)-->
+   3) 그다음 클라이언트 디자인(색·폰트·레이아웃)을 얹는다.
+
+   설계 원칙 — "원위치만, 디자인은 위임":
+   - 레이아웃 가둠(고정폭·float·overflow)·가짜선·옛날 이미지버튼·강제 폰트는 reset 이 원위치.
+   - 색은 강제하지 않는다. 카페24 기본 파란색만 변수 --nk-point 로 위임(클라가 안 정하면 fallback 유지).
+     회색/검정 본문색 등 "디자인 판단"이 필요한 색은 reset 이 건드리지 않는다.
+   - !important 는 base 의 !important/id 를 맞받아야만 이기는 곳에만 + 주석으로 사유 명시.
+
+   출처: 카페24 base(layout/basic/css + css/module) 전수 분석. 상세 맵은 brain/docs/BASE-CSS-MAP.md.
+   ========================================================================= */
+
+/* -------------------------------------------------------------------------
+   0. 디자인 변수 기본값(fallback) — 클라 CSS :root 에서 덮으면 그 값 사용
+   ------------------------------------------------------------------------- */
+body.nk-skin {
+  --nk-sans: 'Pretendard', 'Noto Sans KR', 'Malgun Gothic', -apple-system, sans-serif;
+  --nk-point: #008bcc;          /* 카페24 기본 파란색 자리 — 클라 브랜드색으로 덮어쓸 것 */
+  --nk-line: #e3e3dc;           /* 옅은 구분선 */
+  --nk-content-max: 1280px;     /* 본문 최대폭 */
+  --nk-input-h: 48px;           /* 폼 컨트롤 높이 */
+  --nk-radius: 4px;
+}
+
+/* =========================================================================
+   1. 전역 골격 — 고정폭/min-width/overflow/헤더·푸터 강제 배경 (모든 페이지 공통)
+   base: body{min-width·max-width}, #wrap{overflow:hidden}, #container/#contents 고정폭,
+         #header{흰배경+선}, #footer{회색배경}
+   ========================================================================= */
+body.nk-skin {
+  min-width: 0 !important;                 /* base: min-width:360~1480px → 해제(가로스크롤 제거) */
+  max-width: none !important;              /* base: max-width:1760px → 풀블리드 허용 */
+  overflow-x: clip;                        /* 가로 넘침만 자름(hidden 아님 → sticky 살림). html 전역엔 절대 금지 */
+  font-family: var(--nk-sans);
+}
+body.nk-skin #wrap,
+body.nk-skin #container,
+body.nk-skin #contents {
+  width: 100% !important;                  /* base: 고정폭 컬럼 → 풀폭 */
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  float: none !important;                  /* base: #contents{float:right} 해제 */
+  box-sizing: border-box;
+}
+body.nk-skin #wrap { overflow: visible !important; }   /* base: #wrap{overflow:hidden} → sticky/드롭다운 clip 방지 */
+/* 헤더/푸터 강제 배경·선은 "디자인"이므로 제거만(색 강제 안 함) → 클라가 다시 칠함 */
+body.nk-skin #header { background: transparent; border-bottom: 0; }
+body.nk-skin #header.fixed { border-bottom: 0 !important; }   /* base: #header.fixed{border-bottom !important} */
+body.nk-skin #footer { background: transparent; overflow: visible; border-bottom: 0 !important; }  /* base: #footer{border-bottom:45px solid 회색띠} 제거 */
+body.nk-skin #header .inner,
+body.nk-skin #footer .inner {
+  width: auto !important;                  /* base: .inner{width:1218px 등 고정폭} 해제 */
+  max-width: var(--nk-content-max);
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* =========================================================================
+   2. 태그 reset 역중화 — a 밑줄·검정, img 정렬, 강제 폰트
+   base: a:hover{underline}, a{color:#000}, img{vertical-align:top},
+         body/input/button{돋움/Verdana/Montserrat !important}
+   ========================================================================= */
+body.nk-skin a { color: inherit; text-decoration: none; }
+body.nk-skin a:hover { text-decoration: none; }     /* base: a:hover{underline} 제거 */
+body.nk-skin img { vertical-align: middle; }         /* base: img{vertical-align:top} → flex/grid 오정렬 방지 */
+/* 강제 폰트 무력화 — base 가 !important(예: layout.css Montserrat) 로 박으므로 같은 !important 로 맞받음 */
+body.nk-skin,
+body.nk-skin input,
+body.nk-skin select,
+body.nk-skin textarea,
+body.nk-skin button,
+body.nk-skin code {
+  font-family: var(--nk-sans) !important;  /* base: 돋움/Verdana/Montserrat !important 강제 → Pretendard */
+}
+/* 아이콘 폰트는 강제 폰트에서 제외 — Phosphor 글리프가 네모(□)로 깨지는 것 방지 */
+body.nk-skin [class^="ph-"]::before,
+body.nk-skin [class*=" ph-"]::before,
+body.nk-skin i.ph::before,
+body.nk-skin i[class*="ph"]::before { font-family: "Phosphor" !important; }  /* reset 폰트 강제를 되받아 아이콘 보존 */
+
+/* =========================================================================
+   3. 폼 컨트롤 정규화 — 옛날 PNG 화살표/체크박스/라디오 제거 → 순수 CSS (이미지 의존 0)
+   base: select{background:echosting PNG 화살표}, radio/checkbox{echosting PNG}, input{height·border 하드코딩}
+   ========================================================================= */
+body.nk-skin input[type="text"],
+body.nk-skin input[type="password"],
+body.nk-skin input[type="email"],
+body.nk-skin input[type="tel"],
+body.nk-skin input[type="search"],
+body.nk-skin input[type="number"],
+body.nk-skin select,
+body.nk-skin textarea {
+  height: var(--nk-input-h);
+  line-height: normal;                     /* base: line-height:40px 등 강제 해제 */
+  border: 1px solid var(--nk-line);
+  border-radius: var(--nk-radius);
+  box-sizing: border-box;
+  background-color: #fff;
+}
+body.nk-skin textarea { height: auto; padding: 12px 16px; line-height: 1.6; resize: vertical; }
+body.nk-skin input[type="text"],
+body.nk-skin input[type="password"],
+body.nk-skin input[type="email"],
+body.nk-skin input[type="tel"],
+body.nk-skin input[type="search"],
+body.nk-skin input[type="number"] { padding: 0 16px; }
+/* 주문/결제/마이페이지 폼은 base 인라인 레이아웃(전화 3칸·우편번호·카드 4칸 등)에 의존 →
+   height/padding 강제 해제(인라인 칸 밀림·줄깨짐 방지). 정확한 셀렉터는 Step 0 스캔으로 확정. */
+body.nk-skin .xans-order input,
+body.nk-skin .xans-order select,
+body.nk-skin .xans-myshop input,
+body.nk-skin .xans-myshop select,
+body.nk-skin #order_form input { height: auto; padding-top: 0; padding-bottom: 0; }
+/* select — base 의 echosting PNG 화살표 제거 → CSS 삼각형(우측 caret 자리 확보) */
+body.nk-skin select {
+  padding: 0 36px 0 16px;                  /* 우측 caret 공간 */
+  -webkit-appearance: none; appearance: none;
+  /* caret 색은 중립 회색 고정 — currentColor 면 밝은 글자색 select 에서 흰배경 위 화살표가 안 보임 */
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--nk-caret, #888) 50%),
+    linear-gradient(135deg, var(--nk-caret, #888) 50%, transparent 50%);
+  background-position: right 18px center, right 13px center;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+}
+/* radio/checkbox — echosting PNG 제거 → 순수 CSS(이미지 0, 고DPI 선명) */
+body.nk-skin input[type="radio"],
+body.nk-skin input[type="checkbox"] {
+  width: 18px; height: 18px; margin: 0 6px 0 0;
+  border: 1px solid var(--nk-line); background: #fff none;   /* base: echosting PNG 제거 */
+  -webkit-appearance: none; appearance: none;
+  vertical-align: middle; cursor: pointer; box-sizing: border-box;
+}
+body.nk-skin input[type="radio"] { border-radius: 50%; }
+body.nk-skin input[type="checkbox"] { border-radius: 3px; }
+/* 체크/선택 표시는 input "자체의 background" 로만 그린다.
+   ※ ::before/::after pseudo-element 는 <input>(replaced element)에 렌더되지 않으므로 금지. */
+body.nk-skin input[type="radio"]:checked {
+  border-color: var(--nk-point);
+  background: radial-gradient(circle, var(--nk-point) 42%, transparent 44%);   /* 가운데 점(background, input 에 정상) */
+}
+body.nk-skin input[type="checkbox"]:checked {
+  border-color: var(--nk-point); background-color: var(--nk-point);
+  /* 흰 V자 체크 — background-image SVG(data URI). pseudo 가 아니라 input 자체 background 라 모든 브라우저 렌더 */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23fff' stroke-width='2.4' d='M3.5 8.5l3 3 6-6.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: center; background-size: 12px 12px;
+}
+/* 포커스 링 복구 — base: button{outline:none} 접근성 위반 교정 */
+body.nk-skin input:focus-visible,
+body.nk-skin select:focus-visible,
+body.nk-skin textarea:focus-visible,
+body.nk-skin button:focus-visible { outline: 2px solid var(--nk-point); outline-offset: 2px; }
+
+/* =========================================================================
+   4. 공통 컴포넌트 (.ec-base-*) — 탭/페이지네이션/버튼/테이블/툴팁/도움말
+   base: 탭·페이지네이션 회색박스 + 가짜 흰선, 버튼 흑백 강제, 테이블 검정선, 도움말 PNG아이콘
+   처방: 구조(가짜선·박스·이미지) 중화 + 색은 var(--nk-point) 위임
+   ========================================================================= */
+/* 탭 typeNav — 회색 박스 + selected:after 가짜 흰선 */
+body.nk-skin .ec-base-tab .menu { background: transparent; }
+body.nk-skin .ec-base-tab .menu li,
+body.nk-skin .ec-base-tab .menu li a { background: transparent; }
+body.nk-skin .ec-base-tab .menu li.selected a { color: var(--nk-point); border-bottom-color: var(--nk-point); }
+body.nk-skin .ec-base-tab .menu li.selected a:after { display: none; content: none; }  /* 가짜 흰선 제거 */
+body.nk-skin .ec-base-tab.typeMenu .button:hover::after { background-color: var(--nk-point); }  /* hover 검정밑줄 → point */
+/* 페이지네이션 — 회색 박스 + PNG 화살표 → 투명 박스 + CSS */
+body.nk-skin .ec-base-paginate.typeList li a {
+  border-color: var(--nk-line); background: transparent;     /* base: 회색 박스 */
+}
+body.nk-skin .ec-base-paginate.typeList a.this {
+  color: var(--nk-point); border-color: var(--nk-point);     /* 현재페이지 검정 → point */
+}
+body.nk-skin .ec-base-paginate.typeList > a {
+  background-image: none;                  /* base: PNG 화살표 제거(글리프로 대체는 클라가) */
+}
+/* 버튼 — 색은 변수 위임(구조 강제만 해제) */
+body.nk-skin [class^='btnNormal'] { border-color: var(--nk-line); }
+/* 테이블 — 검정 상단선 → 변수 */
+body.nk-skin .ec-base-table { border-top-color: var(--nk-line); }
+body.nk-skin .ec-base-table th { background-color: transparent; }
+/* 도움말 아이콘 PNG/SVG 제거 */
+body.nk-skin .ec-base-help { background-image: none; padding-left: 0; }
+
+/* =========================================================================
+   5. 카페24 기본 파란색(#008bcc 계열) — 와일드카드 hover 강제는 "디자인 침범"이라 금지.
+   base 가 order/board/coupon/product/layout 곳곳에 #008bcc 를 박지만, 링크·hover 색은
+   "디자인 판단"이므로 reset 이 전역 강제하지 않는다(설계 원칙: 색은 위임).
+   → 모듈별 #008bcc 본문색(가격·강조 등)은 Step 0 base 전수 스캔(F-0 grep #2)으로 추출해
+     클라 CSS에서 var(--nk-point) 로 일괄 치환한다. 공통 컴포넌트(.ec-base-paginate .this,
+     .ec-base-tab .selected)의 파랑은 위 4번 섹션에서 이미 var(--nk-point) 로 위임됨.
+   ========================================================================= */
+
+/* =========================================================================
+   6. 가상요소 가짜선 — 헤더/푸터/박스 ::before·::after border·background 선
+   base: #header:before/:after, #footer:before, joinArea/payArea/orderState 등 회색 선
+   처방: 구조용 가짜 가로/세로선 제거(색 입힌 의도된 아이콘은 변수로)
+   ========================================================================= */
+body.nk-skin #header::before,
+body.nk-skin #header::after,
+body.nk-skin #footer::before,
+body.nk-skin #footer::after {
+  display: none !important; content: none !important; border: 0 !important;  /* base: 가짜 가로선 */
+}
+
+/* =========================================================================
+   7. 상품 진열(.ec-base-product / .xans-product-*) — 회색테두리·고정폭·가운데정렬
+   base: 상품 img{border:1px}, .prdList{min-width:756px}, .description{center}, 목록 border-top
+   ========================================================================= */
+body.nk-skin .ec-base-product a > img,
+body.nk-skin .ec-base-product .thumbnail img { border: none !important; }   /* base: 회색 테두리 */
+body.nk-skin .ec-base-product .prdList { min-width: 0 !important; }         /* base: min-width:756px */
+body.nk-skin .ec-base-product .description { text-align: inherit; }         /* base: text-align:center 강제 해제 */
+body.nk-skin .xans-product-normalmenu,
+body.nk-skin .xans-product-listitem { border-top: 0; }                      /* base: 목록 상단 회색/검정선 */
+body.nk-skin .xans-product-normalmenu .prdCount { float: none; }
+
+/* =========================================================================
+   8. 푸터 모듈 (.xans-layout-footer) — float·고정폭·고정높이
+   ========================================================================= */
+body.nk-skin .xans-layout-footer {
+  float: none !important; width: auto !important; height: auto !important; position: static;  /* base: .xans-layout-footer{float:right;width:1000px;height:234px} 해제 */
+}
+body.nk-skin .xans-layout-footer .copyright { position: relative; left: auto; bottom: auto; height: auto; line-height: 1.6; }
+body.nk-skin .xans-layout-footer .util li a { text-transform: none; }       /* base: uppercase 강제 */
+
+/* =========================================================================
+   9. 고정폭/음수마진 팝업·레이어 — 모바일 화면 이탈 방지
+   base: confirm_layer/certification/boardReport/basketOption 등 width:NNNpx + margin 음수 중앙정렬
+   처방: 음수마진 중앙정렬 → transform 방식(어느 화면폭에도 안전)
+   ========================================================================= */
+body.nk-skin #popup { width: 100% !important; max-width: 100%; box-sizing: border-box; }  /* base: 팝업 700~975px 고정 */
+
+/* =========================================================================
+   10. gif/png 이미지 불릿·아이콘 (background:url(...echosting...gif|png))
+   base: 게시판 제목 ico_heading.gif, 목록 ico_dash/ico_bar, 캘린더 버튼, 헤더 구분선 등 수십 개
+   처방: 배경 이미지 제거 + 그 자리 비우기. (필요 아이콘은 Phosphor 로 클라가 다시)
+   ※ 카페24 echosting CDN 이미지만 노린다(클라 자체 이미지는 보존).
+   ========================================================================= */
+body.nk-skin .xans-board-title .title h2,
+body.nk-skin .xans-board-title .title p {
+  background-image: none; padding-left: 0;  /* 게시판 제목/부제목 gif 아이콘·구분선 제거 */
+}
+/* echosting CDN 이미지를 인라인 style 로 박은 경우만 일괄 제거(안전) */
+body.nk-skin [class*="xans-"] li[style*="echosting"] { background-image: none; }
+/* ※ .controlInfo li / .orderArea ul.list li 통짜 끄기는 주문 단계 UI(1-2-3 스텝 이미지)를
+   침범할 수 있어 제외 — echosting 배경을 쓰는 구체 셀렉터만 Step 0 스캔으로 보강한다. */
