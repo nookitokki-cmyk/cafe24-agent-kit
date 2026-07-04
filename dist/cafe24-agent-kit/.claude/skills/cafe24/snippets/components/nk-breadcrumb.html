@@ -1,0 +1,81 @@
+<!--!
+ * nk-breadcrumb — 현재 위치 표시 (홈 > 카테고리 > 상품)
+ * 사용처: 상품 상세 (PDP), 카테고리 목록 (PLP), 게시판 글 보기 등 깊이 있는 페이지
+ * 의존성:
+ *   - CSS 변수: --nk-color-text-sub / --nk-color-text / --nk-space-sm
+ *   - Phosphor Icons (구분자 아이콘, 선택)
+ *
+ * 비코더 사용법:
+ *   1. 상품 상세·목록 페이지 콘텐츠 상단에 붙여넣기
+ *   2. 카페24 카테고리 변수 ({$name_1}, {$param_1} 등) 자동 치환됨
+ *   3. 변수 없는 페이지에서는 nk-crumb 항목을 직접 손으로 작성
+ *
+ * 카페24 변수 사용 시 주의:
+ *   {$name_1} / {$name_2} / {$param_1} / {$param_2} 는 카테고리 모듈 안에서만 작동.
+ *   상품 상세에서는 {$display_category_name} 등 별도 변수를 써야 할 수 있음.
+-->
+
+<nav class="nk-breadcrumb" aria-label="현재 위치">
+  <ol class="nk-breadcrumb-list">
+
+    <!-- 홈 — 항상 첫 항목 -->
+    <li class="nk-crumb">
+      <a href="/" aria-label="홈">
+        <i class="ph ph-house" aria-hidden="true"></i>
+        <span class="nk-crumb-text">홈</span>
+      </a>
+    </li>
+
+    <!-- 1단 카테고리 -->
+    <li class="nk-crumb">
+      <i class="ph ph-caret-right nk-crumb-sep" aria-hidden="true"></i>
+      <a href="{$param_1}">{$name_1}</a>
+    </li>
+
+    <!-- 2단 카테고리 (없으면 자동 숨김) -->
+    <li class="nk-crumb">
+      <i class="ph ph-caret-right nk-crumb-sep" aria-hidden="true"></i>
+      <a href="{$param_2}">{$name_2}</a>
+    </li>
+
+    <!-- 현재 페이지 (링크 없음) — 여기만 바꾸세요 -->
+    <li class="nk-crumb is-current" aria-current="page">
+      <i class="ph ph-caret-right nk-crumb-sep" aria-hidden="true"></i>
+      <span>{$product_name}</span>
+    </li>
+
+  </ol>
+</nav>
+
+<style>
+  .nk-breadcrumb{
+    padding:var(--nk-space-sm, 8px) 0;
+    font-size:13px;
+    color:var(--nk-color-text-sub, #5f6368);
+  }
+  .nk-breadcrumb-list{
+    list-style:none; margin:0; padding:0;
+    display:flex; flex-wrap:wrap; gap:0;
+    align-items:center;
+  }
+  .nk-crumb{
+    display:inline-flex; align-items:center; gap:4px;
+  }
+  /* 카페24 변수가 비어서 출력될 경우 (예: {$name_2} 가 비어있음) 항목 자동 숨김 */
+  .nk-crumb a:empty,
+  .nk-crumb span:empty{display:none}
+  .nk-crumb a:empty + .nk-crumb-sep,
+  .nk-crumb:has(a:empty){display:none}
+  .nk-crumb a{color:var(--nk-color-text-sub, #5f6368)}
+  .nk-crumb a:hover{color:var(--nk-color-text); text-decoration:underline}
+  .nk-crumb i{font-size:14px}
+  .nk-crumb.is-current span{color:var(--nk-color-text); font-weight:500}
+  .nk-crumb-sep{
+    margin:0 4px;
+    color:var(--nk-color-border, #e5e7eb);
+  }
+  /* 모바일에서 너무 길어지면 첫 카테고리만 표시 */
+  @media(max-width:480px){
+    .nk-crumb-text{display:none}
+  }
+</style>

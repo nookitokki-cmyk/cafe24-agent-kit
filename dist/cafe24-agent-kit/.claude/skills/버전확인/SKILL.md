@@ -1,0 +1,68 @@
+---
+name: 버전확인
+description: 키트 VERSION·GitHub Release·kit-update 안내
+---
+
+사용자가 `/버전확인` 을 요청했습니다.
+
+## 로컬 버전
+
+```bash
+cd mcp
+python cli.py kit-version
+python cli.py kit-version --check-remote
+```
+
+MCP `diagnose_kit_setup` → `kit_version`
+
+## 시작 시 자동 업데이트 (`/키트시작` 0단계)
+
+```bash
+python cli.py kit-autoupdate          # 체크만 (12h 스로틀, 오프라인 안전)
+python cli.py kit-autoupdate --apply  # 새 버전이면 조건부 자동 적용 (채널 감지)
+python cli.py kit-autoupdate --force  # 스로틀 무시 즉시 재확인
+```
+
+| 채널 | 감지 | 자동 적용 | 명령 |
+|------|------|-----------|------|
+| `git` | `.git` 존재 | 클린 트리일 때만 | `git pull --ff-only` |
+| `release` | zip 배포본 | 가능 | `kit-update --from-github` |
+| `npm` | `node_modules` 경로 | 수동 | `npm update -g cafe24-agent-kit` |
+
+> 채널 강제 지정: env `CAFE24_KIT_CHANNEL=git|release|npm`. 스로틀 상태는 `mcp/config/.autoupdate_check.json`(gitignore).
+
+| 파일 | 내용 |
+|------|------|
+| `VERSION` (키트 루트) | `v2.2.0` 등 |
+| `CHANGELOG.md` | 변경 이력 |
+
+## GitHub Release (기본)
+
+| 항목 | 값 |
+|------|-----|
+| Repo | `nookitokki-cmyk/cafe24-agent-kit` |
+| 환경변수 | `CAFE24_KIT_GITHUB_REPO` (기본값 동일) |
+| private | `GITHUB_TOKEN` 필요할 수 있음 |
+
+`kit-version --check-remote` → Releases API `tag_name` vs 로컬 `VERSION`
+
+## 코드만 갱신 (config·clients 보존)
+
+```bash
+python cli.py kit-update --from-github --dry-run
+python cli.py kit-update --from-github
+python cli.py kit-update --from-github --tag v2.2.0
+```
+
+로컬 zip/폴더: `python cli.py kit-update --source <path>`
+
+**절대 덮어쓰지 않음:** `mcp/config/*`, `agent-kit/clients/{본인몰}/`
+
+## 완료
+
+```
+[버전확인]
+- local: {version}
+- remote: {tag|N/A}
+- 업데이트: kit-update --from-github
+```

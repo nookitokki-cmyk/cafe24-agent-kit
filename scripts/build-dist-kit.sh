@@ -128,6 +128,12 @@ for ex in "$ROOT"/.cursor/mcp.json*.example; do
   [[ -f "$ex" ]] && cp "$ex" "$BUILD_ROOT/.cursor/"
 done
 
+# Claude Code MCP registration template (user copies → 프로젝트 루트 .mcp.json)
+# Cursor는 ${workspaceFolder}, Claude Code는 ${CLAUDE_PROJECT_DIR:-.} 를 쓰므로 파일을 분리한다.
+for ex in "$ROOT"/.mcp.json*.example; do
+  [[ -f "$ex" ]] && cp "$ex" "$BUILD_ROOT/"
+done
+
 # Root .claude — 슬래시 스킬·에이전트 (워크스페이스 루트에서 /명령 인식). worktrees 등 런타임은 제외.
 if [[ -d "$ROOT/.claude" ]]; then
   mkdir -p "$BUILD_ROOT/.claude"
