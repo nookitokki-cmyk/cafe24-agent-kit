@@ -58,7 +58,13 @@ Settings → MCP → Edit Config 도 가능.
 
 #### Claude Code
 
-프로젝트 MCP 설정에 example 과 동일한 stdio 블록 추가:
+`.mcp.json.example`(Windows) / `.mcp.json.mac.example`(Mac) → 프로젝트 루트에 **`.mcp.json`** 으로 복사.
+(Cursor용 `.cursor/mcp.json` 과 **다른 파일** — Claude Code는 루트 `.mcp.json` 을 봅니다.)
+
+재시작 후 처음 뜨는 **"이 프로젝트의 MCP 서버를 신뢰하시겠습니까?" → Yes**.
+놓쳤으면 터미널에서 `claude mcp reset-project-choices` 후 다시 열기.
+
+직접 편집 시 (Claude Code는 `${workspaceFolder}` 미지원 → `${CLAUDE_PROJECT_DIR:-.}`):
 
 ```json
 {
@@ -66,10 +72,10 @@ Settings → MCP → Edit Config 도 가능.
     "cafe24-mcp": {
       "type": "stdio",
       "command": "python",
-      "args": ["${workspaceFolder}/mcp/server.py"],
-      "cwd": "${workspaceFolder}/mcp",
+      "args": ["${CLAUDE_PROJECT_DIR:-.}/mcp/server.py"],
       "env": {
-        "CAFE24_KIT_ROOT": "${workspaceFolder}/agent-kit"
+        "CAFE24_KIT_ROOT": "${CLAUDE_PROJECT_DIR:-.}/agent-kit",
+        "PYTHONUNBUFFERED": "1"
       }
     }
   }

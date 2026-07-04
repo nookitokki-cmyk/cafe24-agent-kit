@@ -21,26 +21,28 @@ description: Cursor·Claude Code 공통 MCP stdio 등록 (mcp.json)
 
 ### Claude Code
 
-1. 프로젝트 루트에 `.mcp.json` 또는 Claude Code MCP 설정 파일 편집
-2. example 과 동일 구조:
+1. **`.mcp.json.example`**(Windows) / **`.mcp.json.mac.example`**(Mac) → 프로젝트 루트에 **`.mcp.json`** 으로 복사
+   - ⚠️ Cursor용 `.cursor/mcp.json` 과 **다른 파일**. Claude Code는 **루트 `.mcp.json`** 을 봄
+2. Claude Code 재시작 → 처음 뜨는 **"이 프로젝트의 MCP 서버를 신뢰하시겠습니까?" → Yes**
+   - 놓쳤으면 터미널에서 `claude mcp reset-project-choices` 후 다시 열기
+3. `command` 가 본인 PC의 `python` / `python3` / `py -3` 와 맞는지 확인
 
-```json
-{
-  "mcpServers": {
-    "cafe24-mcp": {
-      "type": "stdio",
-      "command": "python",
-      "args": ["${workspaceFolder}/mcp/server.py"],
-      "cwd": "${workspaceFolder}/mcp",
-      "env": {
-        "CAFE24_KIT_ROOT": "${workspaceFolder}/agent-kit"
-      }
-    }
-  }
-}
-```
-
-3. `command` 를 본인 PC의 `python` / `py -3` 경로에 맞출 것
+> 직접 편집 시 구조 (Claude Code는 `${workspaceFolder}` 미지원 → `${CLAUDE_PROJECT_DIR:-.}` 사용):
+> ```json
+> {
+>   "mcpServers": {
+>     "cafe24-mcp": {
+>       "type": "stdio",
+>       "command": "python",
+>       "args": ["${CLAUDE_PROJECT_DIR:-.}/mcp/server.py"],
+>       "env": {
+>         "CAFE24_KIT_ROOT": "${CLAUDE_PROJECT_DIR:-.}/agent-kit",
+>         "PYTHONUNBUFFERED": "1"
+>       }
+>     }
+>   }
+> }
+> ```
 
 ## Q2. import 선행
 
@@ -48,12 +50,18 @@ description: Cursor·Claude Code 공통 MCP stdio 등록 (mcp.json)
 
 - 실패 → **`/키트시작`** Q2~Q3
 
-## Q3. 연결 확인
+## Q3. 연결 확인 (도구 이름은 몰라도 됩니다 — 내가 확인)
 
-「채팅에서 MCP **`get_kit_guides`** 를 호출해 `kit_version` 이 보이나요?」
+사용자에게 도구 이름을 시키지 말 것. **새 창(새 세션)** 을 연 뒤 사용자는 자연어 한마디면 된다:
 
-- 실패 → JSON 경로 · `cwd` · Python 경로 재확인
-- 성공 → **`/API발급`** (토큰 없을 때)
+> **"카페24 연결됐는지 확인해줘"**
+
+이 말이 들어오면 내가 `get_kit_guides` 를 호출해 `kit_version` 을 확인한다.
+- `kit_version` 이 나오면 → 성공 → **`/API발급`** (토큰 없을 때)
+- 도구가 안 보이면(아직 로드 전) → 「**새 창을 열고 다시 `/MCP연결`**」 안내
+- 그래도 실패 → `.mcp.json` 경로 · Python 경로 재확인
+
+> 왜 새 창이 필요한가: MCP는 **세션이 시작될 때 한 번** 로드됩니다. 방금 `.mcp.json`을 만든 이 세션엔 아직 없으니, 새 세션에서 확인합니다.
 
 ## 완료
 
