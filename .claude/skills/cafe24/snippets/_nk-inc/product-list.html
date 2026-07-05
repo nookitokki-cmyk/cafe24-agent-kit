@@ -16,7 +16,7 @@
     <li class="nk-product-card xans-record-" id="anchorBoxId_{$product_no}"><!-- ★보존 id -->
       <a href="{$link_product_detail}" class="nk-product-card__link"><!-- ★보존 {$link_product_detail} -->
         <div class="nk-product-card__thumb">
-          <img src="{$image_medium}" alt="{$product_name}"><!-- ★보존 {$image_medium}{$product_name} -->
+          <img src="{$image_medium}" alt="{$seo_alt_tag}"><!-- ★보존: alt엔 {$seo_alt_tag}(product_name은 span감쌈→attr 금지) -->
         </div>
         <p class="nk-product-card__name">{$product_name}</p><!-- ★보존 {$product_name} -->
         <span class="nk-product-card__price">{$product_price}</span><!-- ★보존 {$product_price} -->
@@ -26,7 +26,7 @@
     <li class="nk-product-card xans-record-" id="anchorBoxId_{$product_no}"><!-- ★보존: 반복단위 2번째(필수) -->
       <a href="{$link_product_detail}" class="nk-product-card__link">
         <div class="nk-product-card__thumb">
-          <img src="{$image_medium}" alt="{$product_name}">
+          <img src="{$image_medium}" alt="{$seo_alt_tag}">
         </div>
         <p class="nk-product-card__name">{$product_name}</p>
         <span class="nk-product-card__price">{$product_price}</span>
@@ -38,6 +38,6 @@
 
 <!--
   ⚠️ 변수 주의(references/variables.md): 목록은 {$product_name}/{$image_medium}/{$product_price},
-     상세는 {$name}/{$image_big}. 모듈 scope 밖에서 쓰면 문자 그대로 출력.
+     상세는 {$name}/{$image_big}. 모듈 scope 밖에서 쓰면 빈 값(문자 그대로 아님 — [실측 2026-07-06]).
   ⚠️ 🔴 옵션·장바구니·주문·결제 모듈은 이 골격 대상 아님 — module-safety.json 참고, 오버라이드 권장.
 -->
