@@ -1,0 +1,43 @@
+<!--@layout(/layout/basic/layout.html)-->
+<!--@css(/_nk/css/nk-cart-app.css)-->
+<!--
+  ★ 카트 JS 재구축 골격 (basket.html 대체용)
+  [프로토타입 · 검증됨 2026-07-06]
+
+  ▶ 적용법:
+  1) 아래 <div id="nk-cart-app"> 안에는 아무것도 안 넣는다 (JS가 채움).
+  2) <div id="nk-src"> 안에 이 몰의 ★원본 order/basket.html 전체 내용★을 그대로 붙여넣는다.
+     (원본 basket.html 첫 줄의 <!--@layout(...)--> 은 빼고 본문만 — 레이아웃은 이 파일 첫 줄이 이미 지정)
+  3) nk-cart-app.js / nk-cart-app.css 를 _nk/js · _nk/css 에 업로드.
+  4) 헤더/히어로/푸터 텍스트·링크는 이 몰 브랜드에 맞게 수정.
+
+  ▶ 안전: #nk-src 는 화면 밖 배치(left:-99999px)로만 숨긴다. visibility:hidden 금지(클릭 안 됨).
+-->
+<div id="nk-skin" class="nk-site nk-cartpage">
+  <header class="nk-nav"><div class="nk-nav__inner">
+    <a class="nk-nav__logo" href="/">BRAND</a>
+    <nav class="nk-nav__menu"><a href="/product/list.html">SHOP</a><a href="/order/basket.html">CART</a></nav>
+    <a class="nk-nav__cart" href="/order/basket.html" aria-label="장바구니">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8V6a3 3 0 016 0v2"/></svg>
+    </a>
+  </div></header>
+
+  <div class="nk-cart-hero"><p class="nk-cart-hero__eyebrow">YOUR BAG</p><h1 class="nk-cart-hero__title">Shopping Cart</h1></div>
+
+  <!-- ★ JS가 여기에 커스텀 카트를 그림 (비워둘 것) -->
+  <div id="nk-cart-app" class="nk-cart-app"><p class="nkc__loading">장바구니 불러오는 중…</p></div>
+
+  <footer class="nk-foot"><div class="nk-foot__inner">
+    <p class="nk-foot__logo">BRAND</p>
+    <p class="nk-foot__copy">© 2026 BRAND.</p>
+  </div></footer>
+</div>
+
+<!-- ★ 여기 아래에 이 몰의 원본 order/basket.html 본문 전체를 붙여넣기 (화면 밖 배치, 기능 엔진) -->
+<div id="nk-src" aria-hidden="true" style="position:absolute;left:-99999px;top:0;width:1100px;height:auto;overflow:visible;">
+  <!-- ▼▼▼ 원본 basket.html 본문(<!--@layout--> 제외) 붙여넣기 ▼▼▼ -->
+
+  <!-- ▲▲▲ 붙여넣기 끝 ▲▲▲ -->
+</div>
+
+<!--@js(/_nk/js/nk-cart-app.js)-->

@@ -1,0 +1,34 @@
+<!--
+  _nk/inc/header.html — 헤더 재마크업 골격 (등급 ✅ 쉬움)
+  구조는 자유. <!-- ★보존 --> 줄의 module=/변수/분기는 그대로 이식.
+  실제 모듈명·변수는 스킨 소스 + references/modules.md 로 확인([검증필요] 시 표기).
+-->
+<header class="nk-header" id="nk-header">
+  <div class="nk-header__inner">
+
+    <!-- 로고: 이미지 로고 모듈 유지, 없으면 텍스트 로고. -->
+    <h1 class="nk-header__logo" module="Layout_LogoTop"><!-- ★보존 module -->
+      <a href="/">{$mall_name}</a><!-- ★보존 {$mall_name} -->
+    </h1>
+
+    <!-- GNB: 카테고리 모듈 유지, 안쪽 li 구조·클래스는 내 것 -->
+    <nav class="nk-gnb">
+      <ul class="nk-gnb__list" module="Layout_category"><!-- ★보존 module -->
+        <li class="nk-gnb__item xans-record-"><!-- ★보존 반복단위(렌더타임 xans-record 주입) -->
+          <a href="{$link}">{$name}</a><!-- ★보존 {$link}{$name} -->
+        </li>
+      </ul>
+    </nav>
+
+    <!-- 유틸: 로그인 분기·검색·장바구니수 모듈 유지 -->
+    <div class="nk-header__util">
+      <div module="Layout_statelogoff"><a href="/member/login.html">LOGIN</a></div><!-- ★보존 분기 -->
+      <div module="Layout_statelogon"><a href="/myshop/">MYPAGE</a></div><!-- ★보존 분기 -->
+      <div module="Layout_SearchHeader"><!-- ★보존 검색 모듈 --></div>
+      <a href="/order/basket.html" class="nk-header__cart">
+        CART <span module="Layout_orderBasketcount">{$count}</span><!-- ★보존 {$count} -->
+      </a>
+    </div>
+
+  </div>
+</header>

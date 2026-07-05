@@ -1,0 +1,43 @@
+<!--
+  _nk/inc/product-list.html — 상품목록/메인진열 재마크업 골격 (등급 ✅ 쉬움)
+  ★핵심: module 래퍼 + anchorBoxId 반복 <li> 를 2개 이상 유지하면
+         카드 내부 마크업(썸네일/이름/가격 배치)은 자유롭게 새로 짜도 된다.
+  근거: references/module-remarkup.md §4 (xans-record 는 렌더타임 주입, 소스엔 anchorBoxId)
+-->
+<div module="product_listmain_1" class="ec-base-product"><!-- ★보존 module + ec-base-product -->
+  <!--
+    $count = 8        (진열 개수)
+    $moreview = no
+  -->
+  <ul class="nk-product-grid">
+
+    <!-- ★보존: 반복단위 <li id="anchorBoxId_{$product_no}"> — 최소 2개(아래처럼) 유지.
+         1개만 두면 상품이 1개만 출력됨. 내부 카드 마크업은 내 것으로 교체 가능. -->
+    <li class="nk-product-card xans-record-" id="anchorBoxId_{$product_no}"><!-- ★보존 id -->
+      <a href="{$link_product_detail}" class="nk-product-card__link"><!-- ★보존 {$link_product_detail} -->
+        <div class="nk-product-card__thumb">
+          <img src="{$image_medium}" alt="{$product_name}"><!-- ★보존 {$image_medium}{$product_name} -->
+        </div>
+        <p class="nk-product-card__name">{$product_name}</p><!-- ★보존 {$product_name} -->
+        <span class="nk-product-card__price">{$product_price}</span><!-- ★보존 {$product_price} -->
+      </a>
+    </li>
+
+    <li class="nk-product-card xans-record-" id="anchorBoxId_{$product_no}"><!-- ★보존: 반복단위 2번째(필수) -->
+      <a href="{$link_product_detail}" class="nk-product-card__link">
+        <div class="nk-product-card__thumb">
+          <img src="{$image_medium}" alt="{$product_name}">
+        </div>
+        <p class="nk-product-card__name">{$product_name}</p>
+        <span class="nk-product-card__price">{$product_price}</span>
+      </a>
+    </li>
+
+  </ul>
+</div>
+
+<!--
+  ⚠️ 변수 주의(references/variables.md): 목록은 {$product_name}/{$image_medium}/{$product_price},
+     상세는 {$name}/{$image_big}. 모듈 scope 밖에서 쓰면 문자 그대로 출력.
+  ⚠️ 🔴 옵션·장바구니·주문·결제 모듈은 이 골격 대상 아님 — module-safety.json 참고, 오버라이드 권장.
+-->
