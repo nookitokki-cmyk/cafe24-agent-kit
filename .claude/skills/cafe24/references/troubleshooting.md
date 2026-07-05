@@ -19,13 +19,13 @@
 
 ## 카테고리 1: 화면에 아무것도 안 나옴
 
-> **⚠️ [정정 2026-07-06] 이 문서의 모듈 표기 주의:** 카페24에서 모듈은 **`module="모듈명"` HTML 속성**으로 씁니다 (예: `<div module="product_list">...</div>`, 설정은 `<!-- $count = 4 -->` 주석). 아래 예시에 보이는 `<!--@module(...)-->` / `<!--@/module-->` 형태는 **("올바른 예" 포함) 전부 개념 축약 표기**이며, **실제 코드로 옮길 땐 반드시 `<div module="...">...</div>` 속성 + `$count`는 div 안 주석으로** 바꿔 쓰세요. (`@module`·`@/module`은 실제 지시어가 아님. 실제 지시어는 `@layout`·`@contents`·`@css`·`@js`·`@import` 괄호 단일태그만 — SKILL.md §1)
+> **⚠️ [모듈 표기 기준 · 2026-07-06 정정 완료]** 카페24에서 모듈은 **`module="모듈명"` HTML 속성**으로 씁니다 — 예: `<div module="product_list">...</div>`. 진열 개수 등 설정은 그 module 요소 **안에** `<!-- $count = 4 -->` 주석으로 넣습니다. **`<!--@module()-->` / `<!--@/module-->` 는 실제 지시어가 아닙니다**(과거 이 문서 예시가 이 가짜 표기를 썼으나 전부 실제 속성 형태로 교정함). 실제 지시어는 `@layout`·`@contents`·`@css`·`@js`·`@import` **괄호 단일태그**뿐입니다. (SKILL.md §1)
 
 ---
 
 ### 1-1. 모듈을 넣었는데 내용이 빈칸
 
-**증상:** `<!--@module()-->` 태그를 넣었는데 해당 영역이 완전히 비어 있거나 아무 내용도 표시되지 않음
+**증상:** `<div module="...">` 를 넣었는데 해당 영역이 완전히 비어 있거나 아무 내용도 표시되지 않음
 
 **원인:**
 - `module=""` 속성에 오타가 있음 (대소문자 포함)
@@ -39,11 +39,11 @@
 
 **수정법:**
 ```html
-<!-- 잘못된 예 (대소문자 오류) -->
-<!--@module(product_List)-->
+<!-- 잘못된 예 (대소문자 오류: L이 대문자) -->
+<div module="product_List"> ... </div>
 
-<!-- 올바른 예 -->
-<!--@module(product_list)-->
+<!-- 올바른 예 (전부 소문자) -->
+<div module="product_list"> ... </div>
 ```
 
 **예방법:** 모듈 ID는 반드시 편집창의 모듈 목록에서 클릭해서 삽입. 직접 입력하면 오타 위험이 높음
@@ -66,11 +66,15 @@
 
 **수정법:**
 ```html
-<!-- 잘못된 예 -->
-<!--@module(product_list_main, count=0)-->
+<!-- 잘못된 예: 진열 개수가 0 (module 요소 안 $count 주석) -->
+<div module="product_list_main">
+  <!-- $count = 0 -->
+</div>
 
 <!-- 올바른 예: 최소 1 이상 -->
-<!--@module(product_list_main, count=4)-->
+<div module="product_list_main">
+  <!-- $count = 4 -->
+</div>
 ```
 
 **예방법:** 상품 목록 모듈 삽입 후 반드시 어드민에서 카테고리 배치 상태를 먼저 확인
@@ -159,10 +163,11 @@
 
 **수정법:**
 ```html
-<!-- 올바른 사용 예 (상품 목록 모듈 내부) -->
-<!--@module(product_list)-->
-  <span class="nk-price">{$price}원</span>
-<!--@/module-->
+<!-- 올바른 사용 예 (상품 목록 모듈 내부, 올바른 가격 변수) -->
+<div module="product_list">
+  <span class="nk-price">{$product_price|number_format}원</span>
+</div>
+<!-- 주의: {$price}는 존재하지 않는 변수 → 빈 값. 정가는 {$product_price} -->
 ```
 
 **예방법:** 가격 변수 사용 전 반드시 해당 모듈 스코프 안에 있는지 확인
@@ -385,11 +390,11 @@ EZ 편집 화면에서 "HTML 직접 편집" 버튼으로 들어갔을 때 수정
 ```html
 <!-- 어드민에서 게시판 번호가 3번이라면 -->
 
-<!-- 잘못된 예 -->
-<!--@module(board_list_1)-->
+<!-- 잘못된 예 (1번 게시판 모듈) -->
+<div module="board_list_1"> ... </div>
 
-<!-- 올바른 예 -->
-<!--@module(board_list_3)-->
+<!-- 올바른 예 (3번 게시판 모듈) -->
+<div module="board_list_3"> ... </div>
 ```
 
 **예방법:** 게시판 모듈 삽입 시 어드민에서 번호를 복사해서 붙여넣기
