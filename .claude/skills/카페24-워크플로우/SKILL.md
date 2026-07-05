@@ -14,6 +14,7 @@ description: 카페24 표준 워크플로우 시작·진행·재개 — 6단계 
    - 어떤 작업이세요? (한 줄 설명)
    - 어떤 클라이언트?
    - 어떤 워크플로우 쓰시겠어요?
+     - **09-full-renewal** — ★A-to-Z 전체 페이지 개편 (유형별 재마크업/재스타일/JS재구축 자동 배분) `[검증됨·프로토타입]`
      - **08-ez-three-step-pingpong** — 레거시 EZ 3단계 핑퐁 (HTML skin → EZ FTP → strip 스킵/선별)
      - **07-ez-on-legacy-setup** — 레거시+EZ 초기 세팅 전체 (Phase 0~4)
      - **05-reference-intake** — 구현 전 인입 (`/레퍼런스인입`, URL 또는 시안)
