@@ -83,7 +83,9 @@
     "pdp-full",
     "narrow",
     "cart",
-    "board"
+    "board",
+    "order",
+    "member"
   ],
   "tone": "소프트 데일리 — 따뜻한 크림·둥근 모서리·편안함",
   "nk_prefix": "nk-",

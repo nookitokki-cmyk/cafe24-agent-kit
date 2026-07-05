@@ -230,7 +230,7 @@ find css/module layout/basic/css -name '*.css' -exec perl -pi -e 's/font-style\s
 
 **B2. module** — `<div module="모듈명">` 안에서만 데이터 바인딩·`{$변수}` 치환. module은 **가장 바깥 태그에만**. 구조 임의 변경 금지 → 스타일만 바꾸거나 바깥 래퍼 추가.
 
-**B3. `{$변수}` scope** — module 밖에서 쓰면 `{$변수}` 텍스트 그대로 노출 → 변하지 않는 값은 하드코딩.
+**B3. `{$변수}` scope** — module 밖에서 쓰면 빈 값(문자 그대로 아님 — [실측 2026-07-06]) → 변하지 않는 값은 하드코딩.
 
 **B4. 모디파이어** — `{$product_price|numberformat}원`, `{$x|display}`(false면 display:none), `|cut:N,...`, `|date:Y-m-d`, `|nl2br`, `|striptag`, `|replace:a,b`, `|cover:(,)`, `|imgconv:'/img/x.png'`.
 
@@ -253,7 +253,7 @@ find css/module layout/basic/css -name '*.css' -exec perl -pi -e 's/font-style\s
 ### C. 절대 금지
 | 금지 | 이유 |
 |---|---|
-| module 밖 `{$변수}` | 텍스트 그대로 노출 |
+| module 밖 `{$변수}` | 빈 값(문자 그대로 아님) [실측] |
 | `statelogoff/logon` 오타 | 로그인 분기 붕괴 |
 | `/layout/basic/css/` 직접 수정(원칙) | 스킨 업데이트 시 초기화 ※예외 아래 |
 | 정적 텍스트로 변수 덮어쓰기 | 데이터 바인딩 상실 |

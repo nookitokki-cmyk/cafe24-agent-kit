@@ -83,7 +83,9 @@
     "pdp-full",
     "narrow",
     "cart",
-    "board"
+    "board",
+    "order",
+    "member"
   ],
   "tone": "미니멀 모노 — 흑백·넓은 여백·절제",
   "nk_prefix": "nk-",

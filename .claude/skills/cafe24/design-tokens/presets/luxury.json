@@ -83,7 +83,9 @@
     "pdp-full",
     "narrow",
     "cart",
-    "board"
+    "board",
+    "order",
+    "member"
   ],
   "tone": "럭셔리 다크 — 다크 배경·골드 포인트·세리프 디스플레이",
   "nk_prefix": "nk-",
