@@ -1,0 +1,46 @@
+<!-- [메인 5] 신상품 캐러셀 — 메인진열1. 상품을 가로 스와이프. anchorBoxId 2개 이상 규칙 준수 -->
+<!--@css(/_nk/css/prdArea1.css)-->
+
+<section class="section nk-sec nk-prdslide">
+	<div class="inner">
+		<div class="nk-sec__head nk-prdslide__head">
+			<div>
+				<span class="nk-eyebrow">What's New</span>
+				<h2 class="nk-sec__title">신상품</h2>
+			</div>
+			<a href="/product/list.html" class="nk-btn-link nk-prdslide__more">View All <i class="ph ph-arrow-right"></i></a>
+		</div>
+
+		<div module="product_listmain_1" class="ec-base-product nk-prdslide__wrap">
+			<!--
+				$count = 12
+				$moreview = no
+				$cache = yes
+			-->
+			<div class="swiper nk-prdslide__swiper">
+				<div class="swiper-wrapper">
+					<div id="anchorBoxId_{$product_no}" class="swiper-slide nk-prd"><!--@import(/_nk/inc/prd.html)--></div>
+					<div id="anchorBoxId_{$product_no}" class="swiper-slide nk-prd"><!--@import(/_nk/inc/prd.html)--></div>
+				</div>
+			</div>
+			<button type="button" class="nk-arrow nk-prdslide__prev" aria-label="이전"><i class="ph ph-caret-left"></i></button>
+			<button type="button" class="nk-arrow nk-prdslide__next" aria-label="다음"><i class="ph ph-caret-right"></i></button>
+		</div>
+	</div>
+
+	<script>
+	(function(){
+		function init(){
+			/* 카페24 구버전 Swiper(v4/5) breakpoints min/max 의미가 불안정 →
+			   slidesPerView:'auto' + CSS 슬라이드 폭(반응형)으로 버전 무관 제어 */
+			new Swiper('.nk-prdslide__swiper', {
+				slidesPerView: 'auto',
+				spaceBetween: 24,
+				navigation: { prevEl: '.nk-prdslide__prev', nextEl: '.nk-prdslide__next' }
+			});
+		}
+		if (window.Swiper) init();
+		else window.addEventListener('load', init);
+	})();
+	</script>
+</section>

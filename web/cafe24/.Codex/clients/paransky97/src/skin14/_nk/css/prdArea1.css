@@ -1,0 +1,41 @@
+@charset "utf-8";
+/* [메인 5] 신상품 캐러셀 — 헤드(타이틀+View All) 양끝 정렬 + 스와이퍼 좌우 화살표 */
+
+#nk-skin14 .nk-prdslide__head {
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-between;
+	text-align: left;
+}
+/* custom.css 의 `.nk-sec__head{text-align:center}` 와 specificity 동일(id+class 1개)이라 로드순서로
+   center 가 이겨 제목(신상품/스테디셀러)이 가운데로 보임. 두 클래스 동시 선택자(id+class 2개)로
+   우선순위를 높여 좌측정렬 확정 → 내부 eyebrow·h2 가 좌측 기준으로 정렬됨. */
+#nk-skin14 .nk-sec__head.nk-prdslide__head { text-align: left; }
+#nk-skin14 .nk-prdslide__more { flex-shrink: 0; }
+
+/* 스와이퍼 래퍼 기준점 — 화살표 절대배치 */
+#nk-skin14 .nk-prdslide__wrap { position: relative; }
+#nk-skin14 .nk-prdslide__swiper { overflow: hidden; }
+
+/* slidesPerView:'auto' — 슬라이드 폭을 CSS로 직접 제어(버전 무관). 데스크탑 4 / 태블릿 3 / 모바일 2.
+   spaceBetween:24 가 슬라이드마다 우측 margin 으로 붙으므로 그만큼 폭에서 차감(24*(n-1)/n) */
+#nk-skin14 .nk-prdslide__swiper .swiper-slide { width: calc(25% - 18px); height: auto; }
+@media all and (max-width: 1024px) { #nk-skin14 .nk-prdslide__swiper .swiper-slide { width: calc(33.333% - 16px); } }
+@media all and (max-width: 767px)  { #nk-skin14 .nk-prdslide__swiper .swiper-slide { width: calc(50% - 12px); } }
+
+#nk-skin14 .nk-prdslide__prev,
+#nk-skin14 .nk-prdslide__next {
+	position: absolute;
+	top: 38%;
+	transform: translateY(-50%);
+	z-index: 5;
+}
+#nk-skin14 .nk-prdslide__prev { left: -10px; }
+#nk-skin14 .nk-prdslide__next { right: -10px; }
+
+/* 모바일에선 화살표 숨기고 스와이프로 */
+@media all and (max-width: 767px) {
+	#nk-skin14 .nk-prdslide__head { align-items: center; }
+	#nk-skin14 .nk-prdslide__prev,
+	#nk-skin14 .nk-prdslide__next { display: none; }
+}

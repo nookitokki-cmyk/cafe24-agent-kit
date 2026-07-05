@@ -1,0 +1,78 @@
+/** subpage_theme03 (button_color - Snuff),(Webfont - Nanum Gothic) **/
+.theme03,
+.theme03 input,
+.theme03 select,
+.theme03 textarea,
+.theme03 code,
+.theme03 button {font-family:"Roboto", "Nanum Gothic", Arial, sans-serif !important;}
+
+/* 버튼 */
+.theme03 .xans-product-action .action_button .sub_sold,
+.theme03 [class^='btnSubmit'],
+.theme03 a[class^='btnSubmit'] {background:#beacc4;color:#fff;}
+.theme03 [class^='btnNormal'], .theme03 a[class^='btnNormal'] {border:1px solid #beacc4;color:#beacc4;}
+.theme03 [class^='btnNormal']:not(.disabled):hover,
+.theme03 [class^='btnNormal']:not(.disabled).selected {border-color:#710795;}
+
+/* 최상단 배너 */
+.theme03 .main_top_banner {background-color:#beacc4;color:#fff;}
+
+/* 상단 메뉴 */
+.theme03 #header .inner .top_nav_box .top_category > ul > li > a:after {background-color:#beacc4;}
+.theme03 #header .inner .top_nav_box .top_mypage a.xans-layout-orderbasketcount span {background-color:#beacc4;}
+.theme03 #header .inner .top_nav_box .top_mypage .wrap_log_menu li a:hover,
+.theme03 #header .inner .top_nav_box .top_category .sub-category li:hover > a,
+.theme03 #header .inner .toparea .toparea_shoppinginfo .xans-layout-multishoplist > ul li a:hover {color:#beacc4 !important;}
+.theme03 #header .inner .toparea .toparea_state .toparea_state_board > ul li a:hover {color:#beacc4;}
+.theme03 #header .inner .top_nav_box .top_category .sub_cate01 li:hover > a,
+.theme03 #header .inner .top_nav_box .top_category .sub-category li:hover > a {color:#beacc4;}
+
+/* 메인타이틀 */
+.theme03 .listpage_title div:after,
+.theme03 .main_title .main_title_txt01:after {background:#beacc4;}
+
+/* 상품 진열 할인율 */
+.theme03 .sale_box {background-color:#beacc4 !important;}
+
+/* 비디오배너 */
+.theme03 .main_video .background_video {background:#beacc4;}
+
+/* 슬라이드바 */
+.theme03 .swiper-container .swiper-scrollbar .swiper-scrollbar-drag {background:#beacc4;}
+.theme03 .swiper-container-horizontal>.swiper-scrollbar {background:#e5e0e7;}
+.theme03 .swiper-pagination-bullet {background:#e5e0e7;opacity:1;}
+.theme03 .swiper-pagination-bullet-active {background:#beacc4;}
+
+/* 메인 탭상품 상품진열 */
+.theme03 .main_product_category .main_product_inner .main_product_tab li .button.active {color:#beacc4;}
+.theme03 .main_product_category .main_product_inner .main_product_tab li .button:after {background-color:#beacc4;}
+
+/* 메인 지도 */
+.theme03 .main_map .main_map_banner .main_map_banner_txt_box .main_long_banner_link a {color:#fff;background-color:#beacc4;border:1px solid #beacc4;}
+.theme03 .main_map .main_map_banner .main_map_banner_txt_box .main_long_banner_link a:hover {color:#beacc4;background-color:var(--nk-bg);border:1px solid #beacc4;}
+
+/* 하단 */
+.theme03 #right_quick > div:first-child a {background:#beacc4;}
+
+/* 목록페이지 중분류 */
+.theme03 .listpage_title:after {background:#beacc4;}
+.theme03 .ec-base-tab.typeMenu li.selected a.button {color:#beacc4;border:1px solid #beacc4;}
+.theme03 .ec-base-product .prdList .thumbnail .badge,
+.theme03 .ec-base-tab.typeMenu ul > li > ul > li a:hover {color:#beacc4 !important;}
+
+/* 상세페이지 */
+.theme03 .ec-base-paginate.typeSwipe button.circle {background:#e5e0e7 !important; opacity:1 !important;}
+.theme03 .ec-base-paginate.typeSwipe button.circle.selected {background:#beacc4 !important;}
+.theme03 .tabProduct li.selected a {color: #beacc4;border-bottom: 2px solid #beacc4;}
+.theme03 .xans-coupon-productdetailajax.section > .title h2 {color:#beacc4;border-bottom:2px solid #beacc4;}
+.theme03 .xans-product-detail .infoArea #totalProducts > table > tbody {background:#f4ecf7;}
+.theme03 .xans-product-additional .view .ec-base-button a {color:#beacc4;}
+.theme03 .xans-product-additional .view .ec-base-button a .icon[class*="icoArrow"] {border-left: 1px solid #beacc4;border-bottom: 1px solid #beacc4;}
+
+/* 사이드바 */
+.theme03 .navigation-menu__category .cate_h {color: #beacc4;}
+.theme03 .navigation-menu__board .title,
+.theme03 .navigation-menu__project .title {color: #beacc4;}
+.theme03 #aside .xans-layout-multishoplist .toggle {border: 1px solid #beacc4;color: #beacc4;}
+.theme03 #aside .xans-layout-multishoplist ul li {border: 1px solid #beacc4;border-top:none;}
+

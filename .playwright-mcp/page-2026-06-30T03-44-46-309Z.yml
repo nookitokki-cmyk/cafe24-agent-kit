@@ -1,0 +1,201 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - paragraph:
+      - link "전체상품목록 바로가기" [ref=e2] [cursor=pointer]:
+        - /url: "#contents"
+    - paragraph:
+      - link "본문 바로가기" [ref=e3] [cursor=pointer]:
+        - /url: "#contents"
+  - banner [ref=e4]:
+    - generic [ref=e7]:
+      - group "1 / 3" [ref=e8]: 특별한 순간은 디테일에서 시작됩니다 — MOMENT
+      - group "2 / 3": WELCOME · 신규 회원 가입 혜택을 확인하세요
+      - group "3 / 3": NEW ARRIVAL · 새로운 컬렉션을 만나보세요
+    - generic [ref=e9]:
+      - generic [ref=e10]:
+        - text: 
+        - navigation "주 메뉴" [ref=e11]:
+          - list [ref=e14]:
+            - listitem [ref=e15]:
+              - link "(대분류) Outerwear" [ref=e16] [cursor=pointer]:
+                - /url: /category/대분류-outerwear/24/
+          - list [ref=e19]:
+            - listitem [ref=e20]:
+              - link "(대분류) Tops" [ref=e21] [cursor=pointer]:
+                - /url: /category/대분류-tops/25/
+          - list [ref=e24]:
+            - listitem [ref=e25]:
+              - link "(대분류) Dresses" [ref=e26] [cursor=pointer]:
+                - /url: /category/대분류-dresses/26/
+      - heading "쇼핑몰 이름" [level=1] [ref=e27]:
+        - link "쇼핑몰 이름" [ref=e28] [cursor=pointer]:
+          - /url: /index.html
+          - generic [ref=e29]: MOMENT
+          - generic [ref=e30]: 쇼핑몰 이름
+      - generic [ref=e31]:
+        - generic [ref=e32]:
+          - link "테스트" [ref=e33] [cursor=pointer]:
+            - /url: /member/modify.html
+            - strong [ref=e34]: 테스트
+          - link "LOGOUT" [ref=e35] [cursor=pointer]:
+            - /url: /exec/front/Member/logout/
+          - link "ACCOUNT" [ref=e36] [cursor=pointer]:
+            - /url: /myshop/index.html
+        - button "검색 열기" [ref=e37] [cursor=pointer]: SEARCH
+        - link "CART 2" [ref=e38] [cursor=pointer]:
+          - /url: /order/basket.html
+          - text: CART
+          - generic [ref=e39]: "2"
+  - generic [ref=e41]:
+    - generic [ref=e43]:
+      - generic [ref=e44]:
+        - paragraph [ref=e45]: My Page
+        - paragraph [ref=e46]: 마이 쇼핑
+      - navigation "마이쇼핑 메뉴" [ref=e47]:
+        - generic [ref=e48]:
+          - link "마이페이지" [ref=e49] [cursor=pointer]:
+            - /url: /myshop/index.html
+          - link "주문" [ref=e50] [cursor=pointer]:
+            - /url: /myshop/order/list.html
+          - link "적립금" [ref=e51] [cursor=pointer]:
+            - /url: /myshop/mileage/historyList.html
+          - link "쿠폰" [ref=e52] [cursor=pointer]:
+            - /url: /myshop/coupon/coupon.html
+          - link "주소록" [ref=e53] [cursor=pointer]:
+            - /url: /myshop/addr/list.html
+          - link "최근 본 상품" [ref=e54] [cursor=pointer]:
+            - /url: /product/recent_view_product.html
+          - link "위시리스트" [ref=e55] [cursor=pointer]:
+            - /url: /myshop/wish_list.html
+          - link "나의 게시글" [ref=e56] [cursor=pointer]:
+            - /url: /myshop/board_list.html
+          - link "회원정보" [ref=e57] [cursor=pointer]:
+            - /url: /member/modify.html
+          - link "로그아웃" [ref=e59] [cursor=pointer]:
+            - /url: /exec/front/Member/logout/
+      - generic [ref=e60]:
+        - list [ref=e63]:
+          - listitem [ref=e64]:
+            - link "0원 총적립금" [ref=e65] [cursor=pointer]:
+              - /url: /myshop/mileage/historyList.html
+              - generic [ref=e66]: 0원
+              - generic [ref=e67]: 총적립금
+          - listitem [ref=e68]:
+            - link "0개 쿠폰" [ref=e69] [cursor=pointer]:
+              - /url: /myshop/coupon/coupon.html
+              - generic [ref=e70]: 0개
+              - generic [ref=e71]: 쿠폰
+          - listitem [ref=e72]:
+            - link "0원(0회) 총주문" [ref=e73] [cursor=pointer]:
+              - /url: /myshop/order/list.html
+              - generic [ref=e74]:
+                - generic [ref=e75]: 0원
+                - text: (0회)
+              - generic [ref=e76]: 총주문
+        - generic [ref=e78]:
+          - heading "나의 주문처리 현황 (최근 3개월 기준)" [level=3] [ref=e80]
+          - generic [ref=e82]:
+            - list [ref=e83]:
+              - listitem [ref=e84]:
+                - link "0" [ref=e85] [cursor=pointer]:
+                  - /url: /myshop/order/list.html?order_status=shipped_before
+                - generic [ref=e86]: 입금전
+              - listitem [ref=e87]:
+                - link "0" [ref=e88] [cursor=pointer]:
+                  - /url: /myshop/order/list.html?order_status=shipped_standby
+                - generic [ref=e89]: 배송준비중
+              - listitem [ref=e90]:
+                - link "0" [ref=e91] [cursor=pointer]:
+                  - /url: /myshop/order/list.html?order_status=shipped_begin
+                - generic [ref=e92]: 배송중
+              - listitem [ref=e93]:
+                - link "0" [ref=e94] [cursor=pointer]:
+                  - /url: /myshop/order/list.html?order_status=shipped_complate
+                - generic [ref=e95]: 배송완료
+            - list [ref=e96]:
+              - listitem [ref=e97]:
+                - strong [ref=e98]: "취소 :"
+                - link "0" [ref=e99] [cursor=pointer]:
+                  - /url: /myshop/order/list.html?order_status=order_cancel
+              - listitem [ref=e100]:
+                - strong [ref=e101]: "교환 :"
+                - link "0" [ref=e102] [cursor=pointer]:
+                  - /url: /myshop/order/list.html?order_status=order_exchange
+              - listitem [ref=e103]:
+                - strong [ref=e104]: "반품 :"
+                - link "0" [ref=e105] [cursor=pointer]:
+                  - /url: /myshop/order/list.html?order_status=order_return
+          - generic [ref=e106]:
+            - heading "주문내역 조회" [level=3] [ref=e108]
+            - generic [ref=e109]:
+              - heading "주문 내역" [level=3] [ref=e110]
+              - text: = =
+              - paragraph [ref=e111]: 주문 내역이 없습니다.
+            - text: « ‹ › »
+    - text: ",,"
+  - contentinfo [ref=e112]:
+    - generic [ref=e113]:
+      - generic [ref=e114]:
+        - generic [ref=e115]:
+          - heading "Customer Center" [level=2] [ref=e116]:
+            - button "Customer Center" [expanded] [ref=e117]:
+              - generic [ref=e118]: Customer Center
+              - text: 
+          - generic [ref=e119]:
+            - paragraph
+            - paragraph
+            - paragraph [ref=e120]: Sat·Sun·Holiday Closed
+        - generic [ref=e121]:
+          - heading "Support" [level=2] [ref=e122]:
+            - button "Support" [expanded] [ref=e123]:
+              - generic [ref=e124]: Support
+              - text: 
+          - list [ref=e126]:
+            - listitem [ref=e127]:
+              - link "Contact" [ref=e128] [cursor=pointer]:
+                - /url: /shopinfo/company.html
+            - listitem [ref=e129]:
+              - link "Guide" [ref=e130] [cursor=pointer]:
+                - /url: /shopinfo/guide.html
+        - generic [ref=e131]:
+          - heading "Legal" [level=2] [ref=e132]:
+            - button "Legal" [expanded] [ref=e133]:
+              - generic [ref=e134]: Legal
+              - text: 
+          - list [ref=e136]:
+            - listitem [ref=e137]:
+              - link "Terms of Use" [ref=e138] [cursor=pointer]:
+                - /url: /member/agreement.html
+            - listitem [ref=e139]:
+              - link "Privacy Policy" [ref=e140] [cursor=pointer]:
+                - /url: /member/privacy.html
+        - generic [ref=e141]:
+          - heading "Social" [level=2] [ref=e142]:
+            - button "Social" [expanded] [ref=e143]:
+              - generic [ref=e144]: Social
+              - text: 
+          - list [ref=e146]:
+            - listitem [ref=e147]:
+              - link "Instagram" [ref=e148] [cursor=pointer]:
+                - /url: "#none"
+            - listitem [ref=e149]:
+              - link "KakaoTalk" [ref=e150] [cursor=pointer]:
+                - /url: "#none"
+      - generic [ref=e151]:
+        - link "쇼핑몰 이름" [ref=e153] [cursor=pointer]:
+          - /url: /index.html
+          - generic [ref=e154]: MOMENT
+          - generic [ref=e155]: 쇼핑몰 이름
+        - generic [ref=e156]:
+          - paragraph [ref=e157]:
+            - generic [ref=e158]: 상호
+            - generic [ref=e159]: 대표 理
+            - generic [ref=e160]: 사업자등록번호 105-78-00513
+            - generic [ref=e161]: 통신판매업신고
+            - generic [ref=e162]: 주소
+            - generic [ref=e163]: 전화
+            - generic [ref=e164]:
+              - text: 이메일
+              - link:
+                - /url: "mailto:"
+          - paragraph [ref=e165]: Copyright © 쇼핑몰 이름. All rights reserved.

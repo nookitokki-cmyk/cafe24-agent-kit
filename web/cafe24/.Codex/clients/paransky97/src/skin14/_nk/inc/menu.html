@@ -1,0 +1,11 @@
+<!-- =========================================================
+     GNB 메뉴 — 카페24 상품분류(Layout_category)
+     · <li> 1개 패턴 = 카페24가 분류 수만큼 자동 반복 렌더
+     · 변수: {$link_product_list}=분류 링크 / {$name_or_img_tag}=분류명(또는 이미지탭)
+     · 관리자 → 상품분류 설정과 자동 연동 (구조 임의 변경 시 바인딩 깨짐 주의)
+     · header.html / navigation.html(모바일) 양쪽에서 import
+     ========================================================= -->
+<ul module="Layout_category" class="nk-gnb__list">
+	<li class="nk-gnb__item"><a href="{$link_product_list}" class="nk-gnb__link">{$name_or_img_tag}</a></li>
+	<li class="nk-gnb__item"><a href="{$link_product_list}" class="nk-gnb__link">{$name_or_img_tag}</a></li>
+</ul>

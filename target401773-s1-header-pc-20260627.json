@@ -1,0 +1,278 @@
+{
+  "url": "https://ecudemo401773.cafe24.com/?nk_s1=202606271815",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "body": {
+    "fontFamily": "Pretendard, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+    "background": "rgb(245, 245, 240)",
+    "color": "rgb(34, 34, 34)"
+  },
+  "matches": [
+    {
+      "selector": "#header",
+      "tag": "HEADER",
+      "id": "header",
+      "className": "layout5",
+      "text": "회원가입 로그인 주문조회 최근본상품 고객센터 쇼핑몰 이름 Necklace Earring Ring Bracelet Sale",
+      "box": {
+        "x": 0,
+        "y": 63.41071701049805,
+        "w": 1425.1429443359375,
+        "h": 180.57144165039062,
+        "top": 63.41071701049805,
+        "bottom": 243.98215866088867,
+        "left": 0,
+        "right": 1425.1429443359375
+      },
+      "style": {
+        "display": "block",
+        "position": "relative",
+        "background": "rgb(255, 255, 255)",
+        "color": "rgb(34, 34, 34)",
+        "fontFamily": "Pretendard, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "fontSize": "13px",
+        "lineHeight": "normal",
+        "borderTop": "0px none rgb(34, 34, 34)",
+        "borderBottom": "0.571429px solid rgb(255, 255, 255)",
+        "padding": "0px",
+        "margin": "0px",
+        "gap": "normal"
+      },
+      "children": [
+        {
+          "tag": "DIV",
+          "id": "",
+          "className": "inner",
+          "text": "회원가입 로그인 주문조회 최근본상품 고객센터 쇼핑몰 이름 Necklace Earring Ring Bracelet Sale",
+          "box": {
+            "x": 57.00893020629883,
+            "y": 63.41071701049805,
+            "w": 1311.125,
+            "h": 180.00001525878906
+          },
+          "display": "flex",
+          "position": "relative"
+        }
+      ]
+    },
+    {
+      "selector": "header",
+      "tag": "HEADER",
+      "id": "header",
+      "className": "layout5",
+      "text": "회원가입 로그인 주문조회 최근본상품 고객센터 쇼핑몰 이름 Necklace Earring Ring Bracelet Sale",
+      "box": {
+        "x": 0,
+        "y": 63.41071701049805,
+        "w": 1425.1429443359375,
+        "h": 180.57144165039062,
+        "top": 63.41071701049805,
+        "bottom": 243.98215866088867,
+        "left": 0,
+        "right": 1425.1429443359375
+      },
+      "style": {
+        "display": "block",
+        "position": "relative",
+        "background": "rgb(255, 255, 255)",
+        "color": "rgb(34, 34, 34)",
+        "fontFamily": "Pretendard, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "fontSize": "13px",
+        "lineHeight": "normal",
+        "borderTop": "0px none rgb(34, 34, 34)",
+        "borderBottom": "0.571429px solid rgb(255, 255, 255)",
+        "padding": "0px",
+        "margin": "0px",
+        "gap": "normal"
+      },
+      "children": [
+        {
+          "tag": "DIV",
+          "id": "",
+          "className": "inner",
+          "text": "회원가입 로그인 주문조회 최근본상품 고객센터 쇼핑몰 이름 Necklace Earring Ring Bracelet Sale",
+          "box": {
+            "x": 57.00893020629883,
+            "y": 63.41071701049805,
+            "w": 1311.125,
+            "h": 180.00001525878906
+          },
+          "display": "flex",
+          "position": "relative"
+        }
+      ]
+    },
+    {
+      "selector": "#header > div",
+      "tag": "DIV",
+      "id": "",
+      "className": "inner",
+      "text": "회원가입 로그인 주문조회 최근본상품 고객센터 쇼핑몰 이름 Necklace Earring Ring Bracelet Sale",
+      "box": {
+        "x": 57.00893020629883,
+        "y": 63.41071701049805,
+        "w": 1311.125,
+        "h": 180.00001525878906,
+        "top": 63.41071701049805,
+        "bottom": 243.4107322692871,
+        "left": 57.00893020629883,
+        "right": 1368.1339302062988
+      },
+      "style": {
+        "display": "flex",
+        "position": "relative",
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(34, 34, 34)",
+        "fontFamily": "Pretendard, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "fontSize": "13px",
+        "lineHeight": "normal",
+        "borderTop": "0px none rgb(34, 34, 34)",
+        "borderBottom": "0px none rgb(34, 34, 34)",
+        "padding": "0px",
+        "margin": "0px 57.0089px",
+        "gap": "normal"
+      },
+      "children": [
+        {
+          "tag": "DIV",
+          "id": "",
+          "className": "toparea display_pc_only",
+          "text": "회원가입 로그인 주문조회 최근본상품 고객센터",
+          "box": {
+            "x": 57.00893020629883,
+            "y": 73.41072082519531,
+            "w": 1311.125,
+            "h": 50.000003814697266
+          },
+          "display": "flex",
+          "position": "relative"
+        },
+        {
+          "tag": "DIV",
+          "id": "top_nav_box",
+          "className": "top_nav_box",
+          "text": "쇼핑몰 이름 Necklace Earring Ring Bracelet Sale",
+          "box": {
+            "x": 57.00893020629883,
+            "y": 123.41072082519531,
+            "w": 1311.125,
+            "h": 120.00000762939453
+          },
+          "display": "flex",
+          "position": "relative"
+        }
+      ]
+    },
+    {
+      "selector": "#header .inner",
+      "tag": "DIV",
+      "id": "",
+      "className": "inner",
+      "text": "회원가입 로그인 주문조회 최근본상품 고객센터 쇼핑몰 이름 Necklace Earring Ring Bracelet Sale",
+      "box": {
+        "x": 57.00893020629883,
+        "y": 63.41071701049805,
+        "w": 1311.125,
+        "h": 180.00001525878906,
+        "top": 63.41071701049805,
+        "bottom": 243.4107322692871,
+        "left": 57.00893020629883,
+        "right": 1368.1339302062988
+      },
+      "style": {
+        "display": "flex",
+        "position": "relative",
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(34, 34, 34)",
+        "fontFamily": "Pretendard, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "fontSize": "13px",
+        "lineHeight": "normal",
+        "borderTop": "0px none rgb(34, 34, 34)",
+        "borderBottom": "0px none rgb(34, 34, 34)",
+        "padding": "0px",
+        "margin": "0px 57.0089px",
+        "gap": "normal"
+      },
+      "children": [
+        {
+          "tag": "DIV",
+          "id": "",
+          "className": "toparea display_pc_only",
+          "text": "회원가입 로그인 주문조회 최근본상품 고객센터",
+          "box": {
+            "x": 57.00893020629883,
+            "y": 73.41072082519531,
+            "w": 1311.125,
+            "h": 50.000003814697266
+          },
+          "display": "flex",
+          "position": "relative"
+        },
+        {
+          "tag": "DIV",
+          "id": "top_nav_box",
+          "className": "top_nav_box",
+          "text": "쇼핑몰 이름 Necklace Earring Ring Bracelet Sale",
+          "box": {
+            "x": 57.00893020629883,
+            "y": 123.41072082519531,
+            "w": 1311.125,
+            "h": 120.00000762939453
+          },
+          "display": "flex",
+          "position": "relative"
+        }
+      ]
+    },
+    {
+      "selector": "#header .xans-layout-category",
+      "tag": "DIV",
+      "id": "",
+      "className": "xans-element- xans-layout xans-layout-category top_category",
+      "text": "Necklace Earring Ring Bracelet Sale",
+      "box": {
+        "x": 57.00893020629883,
+        "y": 193.4107208251953,
+        "w": 1311.125,
+        "h": 50.000003814697266,
+        "top": 193.4107208251953,
+        "bottom": 243.41072463989258,
+        "left": 57.00893020629883,
+        "right": 1368.1339302062988
+      },
+      "style": {
+        "display": "block",
+        "position": "relative",
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(34, 34, 34)",
+        "fontFamily": "Pretendard, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "fontSize": "13px",
+        "lineHeight": "normal",
+        "borderTop": "0px none rgb(34, 34, 34)",
+        "borderBottom": "0px none rgb(34, 34, 34)",
+        "padding": "0px",
+        "margin": "0px",
+        "gap": "normal"
+      },
+      "children": [
+        {
+          "tag": "UL",
+          "id": "",
+          "className": "",
+          "text": "Necklace Earring Ring Bracelet Sale",
+          "box": {
+            "x": 57.00893020629883,
+            "y": 193.4107208251953,
+            "w": 1311.125,
+            "h": 50.000003814697266
+          },
+          "display": "flex",
+          "position": "static"
+        }
+      ]
+    }
+  ],
+  "headerHtmlStart": "<header id=\"header\" class=\"layout5\" data-ez-layout=\"layout5\" data-ez=\"contents-1kbhajm-1\">\n\t\n\t<div class=\"inner\">\n\t\t<div class=\"toparea display_pc_only\">\n\t\t\t<div class=\"toparea_shoppinginfo\">\n\t\t\t\t                <div data-ez-group=\"shopping-info\" data-ez-role=\"list\">\n\t\t\t\t                </div>\n\t\t\t</div><!-- //toparea_shoppinginfo -->\n\n\t\t\t<div class=\"toparea_state\" data-ez-group=\"top-util-menu\" data-ez-role=\"list\">\n\t\t\t\t<a data-ez-item=\"join\" href=\"/member/agreement.html\" class=\"xans-element- xans-layout xans-layout-statelogoff \">회원가입\n</a>\n\t\t\t\t<a data-ez-item=\"login\" href=\"/member/login.html\" class=\"xans-element- xans-layout xans-layout-statelogoff \">로그인\n</a>\n\t\t\t\t\t\t\t\t\t\t\t\t<a data-ez-item=\"order\" href=\"/myshop/order/list.html\">주문조회</a>\n\t\t\t\t\t\t\t\t<a data-ez-item=\"recent\" href=\"/product/recent_view_product.html\">최근본상품</a>\n\t\t\t\t<div class=\"toparea_state_board\">\n\t\t\t\t\t<a data-ez-item=\"board\" href=\"#none\">고객센터 <i aria-hidden=\"true\" class=\"icon icoArrowBottom\"></i></a>\n\t\t\t\t\t<ul class=\"xans-element- xans-layout xans-layout-boardinfo\"><li class=\"xans-record-\"><a href=\"/board/공지사항/1/\">공지사항</a></li>\n<li class=\"xans-record-\"><a href=\"/board/상품-사용후기/4/\">상품 사용후기</a></li>\n<li class=\"xans-record-\"><a href=\"/board/상품-qa/6/\">상품 Q&amp;A</a></li>\n<li class=\"xans-record-\"><a href=\"/board/자유게시판/5/\">자유게시판</a></li>\n<li class=\"xans-record-\"><a href=\"/board/갤러리/8/\">갤러리</a></li>\n</ul>\n\t\t\t\t</div>\n\t\t\t</div><!-- //toparea_state -->\n\t\t</div><!-- //toparea -->\n\n\t\t<div class=\"top_nav_box\" id=\"top_nav_box\">\n\t\t\t<div class=\"xans-element- xans-layout xans-layout-logotop top_logo \"><a href=\"/\">쇼핑몰 이름</a>\n</div>\n<!-- //top_logo -->\n\t\t\t<div class=\"top_nav\"><a href=\"javascript:;\" class=\"eNavFold\"><i aria-hidden=\"true\" class=\"icon icoNav\"></i></a></div>\n\n\t\t\t<div data-ez-module=\"menu-main/1\" data-ez-mode=\"manual\">\n        <div class=\"xans-element- xans-layout xans-layout-category top_category\">\n<ul><li><a href=\"/category/Necklace/42/\">Necklace</a><ul class=\"sub_cate01\"><li class=\"noChild\"><a href=\"/category/Pendant/47/\">Pendant</a></li><li class=\"noChild\"><a href=\"/category/Wedding-Set/48/\">Wedding Set</a></li></ul></li><li><a href=\"/category/Earring/43/\">Earring</a></li><li><a href=\"/category/-Ring/44/\"> Ring</a></li><li><a href=\"/category/Bracelet/45/\">Bracelet</a></li><li><a href=\"/category/-Sale/46/\"> Sale</a></li></ul>\n</div>\n      </div><!-- //menu-main/1 -->\n\n\t\t\t<div class=\"top_mypage\">\n\t\t\t\t<a href=\"javascript:;\" class=\"eSearch\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"n"
+}

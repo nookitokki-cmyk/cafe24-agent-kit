@@ -1,0 +1,155 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - paragraph:
+      - link "전체상품목록 바로가기" [ref=e2] [cursor=pointer]:
+        - /url: "#category"
+    - paragraph:
+      - link "본문 바로가기" [ref=e3] [cursor=pointer]:
+        - /url: "#contents"
+  - generic [ref=e5]:
+    - heading "쇼핑몰 이름" [level=1] [ref=e7]:
+      - link "쇼핑몰 이름" [ref=e8] [cursor=pointer]:
+        - /url: /index.html
+    - generic [ref=e9]:
+      - link "로그인" [ref=e10] [cursor=pointer]:
+        - /url: "#"
+      - link "회원가입" [ref=e11] [cursor=pointer]:
+        - /url: /member/join.html
+      - link "장바구니" [ref=e12] [cursor=pointer]:
+        - /url: /order/basket.html
+      - link "주문조회" [ref=e13] [cursor=pointer]:
+        - /url: /myshop/order/list.html
+      - link "마이쇼핑" [ref=e14] [cursor=pointer]:
+        - /url: /myshop/index.html
+      - link "게시판" [ref=e15] [cursor=pointer]:
+        - /url: /board/index.html
+    - list [ref=e16]:
+      - listitem [ref=e17]:
+        - link "신상품" [ref=e18] [cursor=pointer]:
+          - /url: /product/list.html?cate_no=24
+      - listitem [ref=e19]:
+        - link "프리미엄" [ref=e20] [cursor=pointer]:
+          - /url: /product/list.html?cate_no=25
+      - listitem [ref=e21]:
+        - link "스페셜상품" [ref=e22] [cursor=pointer]:
+          - /url: /product/list.html?cate_no=26
+  - generic [ref=e24]:
+    - generic [ref=e25]:
+      - generic [ref=e26]:
+        - generic [ref=e27]:
+          - generic: 현재 위치
+          - list [ref=e28]:
+            - listitem [ref=e29]:
+              - link "홈" [ref=e30] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=e31]:
+              - link "(대분류) Outerwear" [ref=e32] [cursor=pointer]:
+                - /url: /category/대분류-outerwear/24/
+        - generic [ref=e33]:
+          - paragraph
+          - heading "(대분류) Outerwear" [level=2] [ref=e34]
+      - generic [ref=e35]:
+        - generic [ref=e37]:
+          - paragraph [ref=e38]:
+            - text: "등록 제품 :"
+            - strong [ref=e39]: "2"
+            - text: 개
+          - list [ref=e40]:
+            - listitem [ref=e41]:
+              - link "신상품" [ref=e42] [cursor=pointer]:
+                - /url: "?cate_no=24&sort_method=5#Product_ListMenu"
+            - listitem [ref=e43]:
+              - link "상품명" [ref=e44] [cursor=pointer]:
+                - /url: "?cate_no=24&sort_method=1#Product_ListMenu"
+            - listitem [ref=e45]:
+              - link "낮은가격" [ref=e46] [cursor=pointer]:
+                - /url: "?cate_no=24&sort_method=3#Product_ListMenu"
+            - listitem [ref=e47]:
+              - link "높은가격" [ref=e48] [cursor=pointer]:
+                - /url: "?cate_no=24&sort_method=4#Product_ListMenu"
+            - listitem [ref=e49]:
+              - link "제조사" [ref=e50] [cursor=pointer]:
+                - /url: "?cate_no=24&sort_method=2#Product_ListMenu"
+            - listitem [ref=e51]:
+              - link "사용후기" [ref=e52] [cursor=pointer]:
+                - /url: "?cate_no=24&sort_method=7#Product_ListMenu"
+        - list [ref=e54]:
+          - listitem [ref=e55]:
+            - link "샘플상품 2" [ref=e58] [cursor=pointer]:
+              - /url: /product/샘플상품-2/10/category/24/display/1/
+              - img "샘플상품 2" [ref=e59]
+            - generic [ref=e60]:
+              - strong [ref=e61]:
+                - link "샘플상품 2" [ref=e62] [cursor=pointer]:
+                  - /url: /product/샘플상품-2/10/category/24/display/1/
+              - list [ref=e63]:
+                - listitem [ref=e64]: 10,000원
+                - listitem [ref=e65]: 10,000원
+          - listitem [ref=e66]:
+            - link "샘플상품 1" [ref=e69] [cursor=pointer]:
+              - /url: /product/샘플상품-1/9/category/24/display/1/
+              - img "샘플상품 1" [ref=e70]
+            - generic [ref=e71]:
+              - strong [ref=e72]:
+                - link "샘플상품 1" [ref=e73] [cursor=pointer]:
+                  - /url: /product/샘플상품-1/9/category/24/display/1/
+              - list [ref=e74]:
+                - listitem [ref=e75]: 5,000원
+                - listitem [ref=e76]: 5,000원
+      - generic [ref=e77]:
+        - link "첫 페이지":
+          - /url: "#none"
+          - img "첫 페이지" [ref=e78] [cursor=pointer]
+        - link "이전 페이지":
+          - /url: "#none"
+          - img "이전 페이지" [ref=e79] [cursor=pointer]
+        - list [ref=e80]:
+          - listitem [ref=e81]:
+            - link "1" [ref=e82] [cursor=pointer]:
+              - /url: "?cate_no=24&v=plp-20260626-1&page=1"
+        - link "다음 페이지":
+          - /url: "#none"
+          - img "다음 페이지" [ref=e83] [cursor=pointer]
+        - link "마지막 페이지":
+          - /url: "#none"
+          - img "마지막 페이지" [ref=e84] [cursor=pointer]
+    - text: ",,"
+  - generic [ref=e86]:
+    - link "쇼핑몰 이름" [ref=e88] [cursor=pointer]:
+      - /url: /index.html
+    - generic [ref=e89]:
+      - list [ref=e90]:
+        - listitem [ref=e91]:
+          - link "홈" [ref=e92] [cursor=pointer]:
+            - /url: /index.html
+        - listitem [ref=e93]:
+          - link "회사소개" [ref=e94] [cursor=pointer]:
+            - /url: /shopinfo/company.html
+        - listitem [ref=e95]:
+          - link "이용약관" [ref=e96] [cursor=pointer]:
+            - /url: /member/agreement.html
+        - listitem [ref=e97]:
+          - link "개인정보처리방침" [ref=e98] [cursor=pointer]:
+            - /url: /member/privacy.html
+            - strong [ref=e99]: 개인정보처리방침
+        - listitem [ref=e100]:
+          - link "이용안내" [ref=e101] [cursor=pointer]:
+            - /url: /shopinfo/guide.html
+      - paragraph [ref=e102]:
+        - generic [ref=e103]: "법인명(상호) :"
+        - generic [ref=e104]: "대표자(성명) : 理"
+        - generic [ref=e105]: "사업자 등록번호 안내 : [105-78-00513]"
+        - generic [ref=e106]: 통신판매업 신고
+        - generic [ref=e107]: "전화 :"
+        - generic [ref=e108]: "팩스 :"
+        - generic [ref=e109]: "주소 :"
+        - generic [ref=e110]:
+          - text: Contact
+          - strong:
+            - link:
+              - /url: "mailto:"
+          - text: for more information.
+      - paragraph [ref=e111]:
+        - text: Copyright ©
+        - strong [ref=e112]: 쇼핑몰 이름
+        - text: . All rights reserved.

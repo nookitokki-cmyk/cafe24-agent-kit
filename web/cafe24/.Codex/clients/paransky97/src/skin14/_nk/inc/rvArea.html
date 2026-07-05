@@ -1,0 +1,70 @@
+<!-- [메인 9] 리뷰 캐러셀 — 상품후기 게시판의 '고정글'이 슬라이드로 노출.
+     ⚠️ 재판매 시: board_listpackage_4 / board_fixed_4 의 숫자 4를 해당 쇼핑몰의 상품후기 게시판 번호로 교체.
+        (관리자 > 게시판관리 > 게시판에서 번호 확인) -->
+<!--@css(/_nk/css/rvArea.css)-->
+
+<section class="section nk-sec nk-rv">
+	<div class="inner">
+		<div class="nk-sec__head">
+			<span class="nk-eyebrow">Reviews</span>
+			<h2 class="nk-sec__title">고객의 후기</h2>
+		</div>
+
+		<div id="nkReview" module="board_listpackage_4" class="nk-rv__wrap">
+			<div module="board_fixed_4" class="swiper nk-rv__swiper">
+				<!--
+					$count = 12
+				-->
+				<div class="swiper-wrapper">
+					<div class="swiper-slide nk-rv__card">
+						<a href="/board/review/read.html{$param_read}" class="nk-rv__link" aria-label="후기 보기"></a>
+						<div class="nk-rv__thumb"><img src="{$img_src|replace:/gallery,}" onerror="this.remove()" alt="후기 이미지">{$product_img}</div>
+						<div class="nk-rv__body">
+							<p class="nk-rv__subject">{$subject}</p>
+							<p class="nk-rv__content">{$content}</p>
+							<div class="nk-rv__meta"><span class="nk-rv__writer">{$writer}</span><span class="nk-rv__date">{$write_date|date:Y.m.d}</span></div>
+							<p class="nk-rv__prd elp">{$product_name}</p>
+						</div>
+					</div>
+					<div class="swiper-slide nk-rv__card">
+						<a href="/board/review/read.html{$param_read}" class="nk-rv__link" aria-label="후기 보기"></a>
+						<div class="nk-rv__thumb"><img src="{$img_src|replace:/gallery,}" onerror="this.remove()" alt="후기 이미지">{$product_img}</div>
+						<div class="nk-rv__body">
+							<p class="nk-rv__subject">{$subject}</p>
+							<p class="nk-rv__content">{$content}</p>
+							<div class="nk-rv__meta"><span class="nk-rv__writer">{$writer}</span><span class="nk-rv__date">{$write_date|date:Y.m.d}</span></div>
+							<p class="nk-rv__prd elp">{$product_name}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<button type="button" class="nk-arrow nk-rv__prev" aria-label="이전"><i class="ph ph-caret-left"></i></button>
+			<button type="button" class="nk-arrow nk-rv__next" aria-label="다음"><i class="ph ph-caret-right"></i></button>
+		</div>
+
+		<div class="nk-rv__foot">
+			<a href="/board/product/list.html?board_no=4" class="nk-btn-link">View All <i class="ph ph-arrow-right"></i></a>
+		</div>
+	</div>
+
+	<script>
+	(function(){
+		function init(){
+			var sec = document.querySelector('.nk-rv');
+			var sw  = document.querySelector('.nk-rv__swiper');
+			var slides = sw ? sw.querySelectorAll('.swiper-slide').length : 0;
+			/* 리뷰 게시판(board_4)에 고정글이 없으면 슬라이드 0 → 헤딩만 남는 빈 섹션이 되므로 통째 숨김.
+			   재판매 시 board_listpackage_4/board_fixed_4 번호를 실제 리뷰 게시판으로 바꾸면 자동 노출. */
+			if (!sw || slides === 0) { if (sec) sec.style.display = 'none'; return; }
+			/* 버전 무관: slidesPerView:'auto' + CSS 슬라이드 폭(반응형) */
+			new Swiper('.nk-rv__swiper', {
+				slidesPerView: 'auto',
+				spaceBetween: 24,
+				navigation: { prevEl: '.nk-rv__prev', nextEl: '.nk-rv__next' }
+			});
+		}
+		if (window.Swiper) init();
+		else window.addEventListener('load', init);
+	})();
+	</script>
+</section>

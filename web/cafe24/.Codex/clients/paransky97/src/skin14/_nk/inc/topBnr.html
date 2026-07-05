@@ -1,0 +1,31 @@
+<!--@css(/_nk/css/topBnr.css)-->
+<div id="nk-topBnr" class="nk-topbnr" data-ez="module-1gokfcu-1">
+	<div class="nk-topbnr-inner">
+		<div class="swiper nk-topbnr-swiper">
+			<div class="swiper-wrapper">
+
+				<div class="swiper-slide"><a href="#"><span>WELCOME · 신규회원 가입 시 적립금 즉시 지급</span></a></div>
+				<div class="swiper-slide"><a href="#"><span>전 상품 무료배송 · FREE SHIPPING ON ALL ORDERS</span></a></div>
+				<div class="swiper-slide"><a href="#"><span>NEW ARRIVAL · 신상품 입고 완료</span></a></div>
+
+			</div>
+		</div>
+	</div>
+</div>
+<div data-ez-module="user-defined/1" data-ez-name="USER DEFINED" data-ez-type="plain" data-ez="module-0wygpq4-1"><script>
+(function () {
+	/* 카페24 optimizer가 swiper-bundle.min.js 를 지연 로드할 수 있어, 파싱 시점엔
+	   Swiper 가 아직 없을 수 있다 → window.Swiper 준비된 뒤(없으면 load 이벤트)에 init */
+	function init() {
+		new Swiper('.nk-topbnr-swiper', {
+			loop: true,
+			autoplay: { delay: 3000, disableOnInteraction: false },
+			speed: 600,
+			allowTouchMove: false /* 탑배너 드래그 비활성 — 스크롤 중 슬라이드 넘어가는 오작동 방지 */
+		});
+	}
+	if (window.Swiper) init();
+	else window.addEventListener('load', init);
+})();
+</script></div>
+<!--#ez="1/1"-->

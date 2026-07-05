@@ -1,0 +1,35 @@
+<!-- [메인 6] 영상+텍스트 — 유튜브 임베드(좌) + 카피(우). YOUTUBE_ID 부분만 교체 -->
+<!--@css(/_nk/css/vodArea1.css)-->
+
+<section class="section nk-sec nk-vod">
+	<div class="inner nk-vod__inner">
+		<div class="nk-vod__media">
+			<div class="nk-vod__frame">
+				<!-- ▼ 00000000000 (11자리 유튜브 영상 ID) 만 교체하세요 ▼ -->
+				<iframe src="https://www.youtube.com/embed/00000000000?rel=0&loop=1&playlist=00000000000&mute=1" title="브랜드 영상" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+				<!-- ▲ 00000000000 만 교체하세요 ▲ -->
+			</div>
+		</div>
+		<div class="nk-vod__txt">
+			<span class="nk-eyebrow">Film</span>
+			<h2 class="nk-sec__title">움직임 속의<br>고요함</h2>
+			<p class="nk-sec__desc">
+				짧은 영상 한 편으로 전하는 브랜드의 결.<br>
+				소재가 움직이는 순간을 담았습니다.
+			</p>
+			<a href="/product/list.html" class="nk-btn">Shop Now <i class="ph ph-arrow-right"></i></a>
+		</div>
+	</div>
+
+	<script>
+	(function(){
+		/* 유튜브 ID가 아직 placeholder(00000000000)면 '영상을 사용할 수 없음' 깨진 임베드가 보이므로
+		   섹션 통째 숨김. 재판매 시 위 iframe 의 00000000000 을 실제 영상 ID로 바꾸면 자동 노출. */
+		var sec = document.currentScript.closest('.nk-vod');
+		var ifr = sec && sec.querySelector('iframe');
+		if (sec && ifr && (ifr.getAttribute('src') || '').indexOf('00000000000') > -1) {
+			sec.style.display = 'none';
+		}
+	})();
+	</script>
+</section>

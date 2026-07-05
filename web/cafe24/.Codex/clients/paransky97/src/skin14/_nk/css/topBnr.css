@@ -1,0 +1,79 @@
+/* ============================================================
+   NK Top Banner — skin14
+   - position: static (일반 흐름) — 헤더와 겹침 없이 위에서 자연스럽게 쌓임
+   - nk- 접두사, Pretendard, italic 금지, !important 금지
+   ============================================================ */
+
+:root {
+  --nk-tb-pc-height: 36px; /* PC 탑배너 높이 */
+  --nk-tb-m-height: 30px;  /* 모바일 탑배너 높이 */
+}
+
+/* ── 래퍼: 풀폭, 일반 흐름(position:static) ── */
+#nk-topBnr {
+  display: block;
+  width: 100%;
+  background-color: var(--nk-theme); /* 딥 차콜 (#1a1a1a) */
+  overflow: hidden;
+  /* position 미지정 = static — 헤더 위에 자연스럽게 쌓임, 겹침 없음 */
+}
+
+/* ── 슬라이더 컨테이너 ── */
+#nk-topBnr .nk-topbnr-inner {
+  width: 100%;
+  position: relative;
+}
+
+#nk-topBnr .nk-topbnr-swiper {
+  width: 100%;
+  overflow: hidden;
+  height: var(--nk-tb-pc-height);
+}
+
+/* ── 슬라이드 + 링크 ── */
+#nk-topBnr .swiper-slide {
+  display: block;
+  width: 100%;
+  height: var(--nk-tb-pc-height);
+}
+
+#nk-topBnr .swiper-slide > a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+/* ── 텍스트: 럭셔리 무드 — 넓은 자간 + 대문자감 + 흰색 ── */
+#nk-topBnr .swiper-slide > a > span {
+  display: block;
+  width: 100%;
+  padding: 0 30px;
+  text-align: center;
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1;
+  color: #ffffff;
+  letter-spacing: var(--nk-ls); /* 럭셔리 = 자간을 넉넉하게 */
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* ── 모바일 (≤1024px) ── */
+@media all and (max-width: 1024px) {
+  #nk-topBnr .nk-topbnr-swiper,
+  #nk-topBnr .swiper-slide {
+    height: var(--nk-tb-m-height);
+  }
+
+  #nk-topBnr .swiper-slide > a > span {
+    font-size: 10px;
+    letter-spacing: var(--nk-ls);
+    padding: 0 16px;
+  }
+}

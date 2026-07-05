@@ -1,0 +1,55 @@
+@charset "utf-8";
+/* [메인 1] 히어로 캐러셀 — 풀블리드 + 다크 오버레이 + 화이트 텍스트 */
+
+#nk-skin14 .nk-hero { position: relative; }
+#nk-skin14 .nk-hero__swiper { width: 100%; }
+
+/* 슬라이드: 풀폭 배경 이미지 + 세로 중앙 정렬. 높이는 뷰포트 비례(clamp) */
+#nk-skin14 .nk-hero__slide {
+	position: relative;
+	min-height: clamp(440px, 72vh, 780px);
+	background-size: cover;
+	background-position: center;
+	display: flex;
+	align-items: center;
+}
+/* 텍스트 가독성용 좌→우 어두운 그라데이션 오버레이 */
+#nk-skin14 .nk-hero__slide::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(90deg, rgba(0,0,0,.5) 0%, rgba(0,0,0,.2) 45%, rgba(0,0,0,0) 80%);
+}
+
+#nk-skin14 .nk-hero__inner { position: relative; z-index: 1; color: #fff; max-width: 640px; }
+#nk-skin14 .nk-hero__eyebrow { color: #fff; opacity: .9; }
+#nk-skin14 .nk-hero__title {
+	font-size: var(--nk-fs-h1);   /* ORDINARY 최대 33px 매칭 (기존 64px → 토큰화) */
+	font-weight: 400;
+	line-height: 1.15;
+	letter-spacing: var(--nk-ls);
+	color: #fff;
+}
+#nk-skin14 .nk-hero__desc {
+	margin: 18px 0 32px;
+	font-size: var(--nk-fs-lead);
+	color: rgba(255,255,255,.85);
+	line-height: 1.6;
+}
+/* 히어로 CTA: 화이트 버튼(다크 배경 위), 호버 시 골드 */
+#nk-skin14 .nk-hero .nk-btn-solid { background: #fff; color: var(--nk-theme); border-color: #fff; }
+#nk-skin14 .nk-hero .nk-btn-solid:hover { background: var(--nk-accent); border-color: var(--nk-accent); color: #fff; }
+
+/* 페이지네이션: 가는 선 바(럭셔리) */
+#nk-skin14 .nk-hero__pagination { position: absolute; left: 0; right: 0; bottom: 28px; text-align: center; z-index: 2; }
+#nk-skin14 .nk-hero__pagination .swiper-pagination-bullet {
+	width: 34px; height: 2px; border-radius: 0;
+	background: rgba(255,255,255,.45); opacity: 1; margin: 0 5px !important;
+	transition: background-color .25s;
+}
+#nk-skin14 .nk-hero__pagination .swiper-pagination-bullet-active { background: #fff; }
+
+@media all and (max-width: 767px) {
+	#nk-skin14 .nk-hero__slide { min-height: 68vh; }
+	#nk-skin14 .nk-hero__slide::before { background: linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.55)); }
+}

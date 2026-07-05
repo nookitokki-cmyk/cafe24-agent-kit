@@ -1,0 +1,1300 @@
+{
+  "measuredAt": "2026-06-26T06:03:55.193Z",
+  "url": "https://ecudemo392574.cafe24.com/product/list.html?cate_no=45",
+  "title": "SHOP - Dresses - ORDINARY",
+  "viewport": {
+    "w": 1440,
+    "h": 1100
+  },
+  "scroll": {
+    "scrollWidth": 1425,
+    "clientWidth": 1425,
+    "bodyHeight": 1630
+  },
+  "tokens": {
+    "body": {
+      "tag": "BODY",
+      "id": "",
+      "className": "layout",
+      "text": "O R D I N A R Y #loading img { max-height:20px } @media (max-width:1023px) { #loading img { max-heig",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "w": 1424.7,
+        "h": 1630.1
+      },
+      "style": {
+        "display": "block",
+        "position": "static",
+        "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+        "fontSize": "13px",
+        "fontWeight": "400",
+        "lineHeight": "20.8px",
+        "letterSpacing": "-0.25px",
+        "color": "rgb(34, 34, 34)",
+        "backgroundColor": "rgb(245, 245, 240)",
+        "padding": "0px",
+        "margin": "0px",
+        "gap": "normal",
+        "gridTemplateColumns": "none",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px"
+      }
+    },
+    "header": {
+      "tag": "DIV",
+      "id": "header",
+      "className": "a-header",
+      "text": "매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션 .a-header .header-sec1 { background:#b0b5b9; color:#fff; } 매일의 순",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "w": 1424.7,
+        "h": 91
+      },
+      "style": {
+        "display": "block",
+        "position": "relative",
+        "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+        "fontSize": "13px",
+        "fontWeight": "400",
+        "lineHeight": "20.8px",
+        "letterSpacing": "-0.25px",
+        "color": "rgb(34, 34, 34)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "padding": "0px",
+        "margin": "0px",
+        "gap": "normal",
+        "gridTemplateColumns": "none",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px"
+      }
+    },
+    "footer": {
+      "tag": "DIV",
+      "id": "footer",
+      "className": "xans-element- xans-layout xans-layout-footer a-footer",
+      "text": "CUSTOMER CENTER 070-1234-5678Monday-Friday 10:00-17:00Sat·Sun·Holiday Closed SUPPORT ContactGuide LE",
+      "box": {
+        "x": 0,
+        "y": 1387.5,
+        "w": 1424.7,
+        "h": 242.6
+      },
+      "style": {
+        "display": "block",
+        "position": "static",
+        "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+        "fontSize": "13px",
+        "fontWeight": "400",
+        "lineHeight": "20.8px",
+        "letterSpacing": "-0.25px",
+        "color": "rgb(34, 34, 34)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "padding": "30px",
+        "margin": "0px",
+        "gap": "normal",
+        "gridTemplateColumns": "none",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px"
+      }
+    }
+  },
+  "plp": {
+    "heading": {
+      "tag": "H2",
+      "id": "",
+      "className": "",
+      "text": "SHOPDresses",
+      "box": {
+        "x": 30,
+        "y": 121,
+        "w": 1364.7,
+        "h": 24
+      },
+      "style": {
+        "display": "block",
+        "position": "static",
+        "fontFamily": "Marcellus, \"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+        "fontSize": "15px",
+        "fontWeight": "400",
+        "lineHeight": "24px",
+        "letterSpacing": "-0.25px",
+        "color": "rgb(34, 34, 34)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "padding": "0px",
+        "margin": "0px",
+        "gap": "normal",
+        "gridTemplateColumns": "none",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px"
+      }
+    },
+    "productPackage": {
+      "tag": "DIV",
+      "id": "",
+      "className": "xans-element- xans-product xans-product-normalpackage ",
+      "text": "8 items 조건별 검색 -조건선택- -조건선택- 검색 상품명 : Sample Product 01 할인판매가 : KRW 225,000 10% 판매가 : KRW 250,000 상품",
+      "box": {
+        "x": 30,
+        "y": 181.8,
+        "w": 1364.7,
+        "h": 1105.7
+      },
+      "style": {
+        "display": "block",
+        "position": "static",
+        "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+        "fontSize": "13px",
+        "fontWeight": "400",
+        "lineHeight": "20.8px",
+        "letterSpacing": "-0.25px",
+        "color": "rgb(34, 34, 34)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "padding": "0px",
+        "margin": "0px",
+        "gap": "normal",
+        "gridTemplateColumns": "none",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px"
+      }
+    },
+    "menuPackage": {
+      "tag": "DIV",
+      "id": "",
+      "className": "xans-element- xans-product xans-product-menupackage ",
+      "text": "SHOPDresses Outerwear () Tops () Bottoms () Dresses () Accessories () Sale () 신상품 상품명 낮은가격 높은가격 제조사 ",
+      "box": {
+        "x": 30,
+        "y": 148,
+        "w": 1364.7,
+        "h": 20.8
+      },
+      "style": {
+        "display": "flex",
+        "position": "static",
+        "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+        "fontSize": "13px",
+        "fontWeight": "400",
+        "lineHeight": "20.8px",
+        "letterSpacing": "-0.25px",
+        "color": "rgb(34, 34, 34)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "padding": "0px",
+        "margin": "-7px 0px 13px",
+        "gap": "normal",
+        "gridTemplateColumns": "none",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px"
+      }
+    },
+    "normalMenu": {
+      "tag": "DIV",
+      "id": "",
+      "className": "sortby",
+      "text": "신상품 상품명 낮은가격 높은가격 제조사 사용후기 신상품 상품명 낮은가격 높은가격 제조사 사용후기",
+      "box": {
+        "x": 1351.7,
+        "y": 148,
+        "w": 43,
+        "h": 20.8
+      },
+      "style": {
+        "display": "block",
+        "position": "relative",
+        "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+        "fontSize": "13px",
+        "fontWeight": "400",
+        "lineHeight": "20.8px",
+        "letterSpacing": "-0.25px",
+        "color": "rgb(34, 34, 34)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "padding": "0px",
+        "margin": "0px",
+        "gap": "normal",
+        "gridTemplateColumns": "none",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px"
+      }
+    },
+    "prdList": {
+      "tag": "UL",
+      "id": "",
+      "className": "prdList",
+      "text": "상품명 : Sample Product 01 할인판매가 : KRW 225,000 10% 판매가 : KRW 250,000 상품명 : Sample Product 02 판매가 : KRW ",
+      "box": {
+        "x": 30,
+        "y": 181.8,
+        "w": 1384.7,
+        "h": 1105.7
+      },
+      "style": {
+        "display": "flex",
+        "position": "static",
+        "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+        "fontSize": "13px",
+        "fontWeight": "400",
+        "lineHeight": "20.8px",
+        "letterSpacing": "-0.25px",
+        "color": "rgb(34, 34, 34)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "padding": "0px",
+        "margin": "0px -20px 0px 0px",
+        "gap": "normal",
+        "gridTemplateColumns": "none",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px"
+      }
+    },
+    "cards": [
+      {
+        "tag": "LI",
+        "id": "anchorBoxId_53",
+        "className": "item xans-record-",
+        "text": "상품명 : Sample Product 01 할인판매가 : KRW 225,000 10% 판매가 : KRW 250,000",
+        "box": {
+          "x": 30,
+          "y": 181.8,
+          "w": 346.2,
+          "h": 487.7
+        },
+        "style": {
+          "display": "list-item",
+          "position": "relative",
+          "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "400",
+          "lineHeight": "20.8px",
+          "letterSpacing": "-0.25px",
+          "color": "rgb(34, 34, 34)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "padding": "0px",
+          "margin": "0px 0px 70px",
+          "gap": "normal",
+          "gridTemplateColumns": "none",
+          "borderTopWidth": "0px",
+          "borderBottomWidth": "0px"
+        }
+      },
+      {
+        "tag": "LI",
+        "id": "anchorBoxId_54",
+        "className": "item xans-record-",
+        "text": "상품명 : Sample Product 02 판매가 : KRW 170,000",
+        "box": {
+          "x": 376.2,
+          "y": 181.8,
+          "w": 346.2,
+          "h": 487.7
+        },
+        "style": {
+          "display": "list-item",
+          "position": "relative",
+          "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "400",
+          "lineHeight": "20.8px",
+          "letterSpacing": "-0.25px",
+          "color": "rgb(34, 34, 34)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "padding": "0px",
+          "margin": "0px 0px 70px",
+          "gap": "normal",
+          "gridTemplateColumns": "none",
+          "borderTopWidth": "0px",
+          "borderBottomWidth": "0px"
+        }
+      },
+      {
+        "tag": "LI",
+        "id": "anchorBoxId_55",
+        "className": "item xans-record-",
+        "text": "상품명 : Sample Product 03 판매가 : KRW 230,000 상품요약정보 : 예약주문",
+        "box": {
+          "x": 722.3,
+          "y": 181.8,
+          "w": 346.2,
+          "h": 487.7
+        },
+        "style": {
+          "display": "list-item",
+          "position": "relative",
+          "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "400",
+          "lineHeight": "20.8px",
+          "letterSpacing": "-0.25px",
+          "color": "rgb(34, 34, 34)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "padding": "0px",
+          "margin": "0px 0px 70px",
+          "gap": "normal",
+          "gridTemplateColumns": "none",
+          "borderTopWidth": "0px",
+          "borderBottomWidth": "0px"
+        }
+      },
+      {
+        "tag": "LI",
+        "id": "anchorBoxId_56",
+        "className": "item xans-record-",
+        "text": "상품명 : Sample Product 04 판매가 : KRW 110,000",
+        "box": {
+          "x": 1068.5,
+          "y": 181.8,
+          "w": 346.2,
+          "h": 487.7
+        },
+        "style": {
+          "display": "list-item",
+          "position": "relative",
+          "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "400",
+          "lineHeight": "20.8px",
+          "letterSpacing": "-0.25px",
+          "color": "rgb(34, 34, 34)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "padding": "0px",
+          "margin": "0px 0px 70px",
+          "gap": "normal",
+          "gridTemplateColumns": "none",
+          "borderTopWidth": "0px",
+          "borderBottomWidth": "0px"
+        }
+      },
+      {
+        "tag": "LI",
+        "id": "anchorBoxId_57",
+        "className": "item xans-record-",
+        "text": "상품명 : Sample Product 05 판매가 : KRW 190,000",
+        "box": {
+          "x": 30,
+          "y": 739.5,
+          "w": 346.2,
+          "h": 478
+        },
+        "style": {
+          "display": "list-item",
+          "position": "relative",
+          "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "400",
+          "lineHeight": "20.8px",
+          "letterSpacing": "-0.25px",
+          "color": "rgb(34, 34, 34)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "padding": "0px",
+          "margin": "0px 0px 70px",
+          "gap": "normal",
+          "gridTemplateColumns": "none",
+          "borderTopWidth": "0px",
+          "borderBottomWidth": "0px"
+        }
+      },
+      {
+        "tag": "LI",
+        "id": "anchorBoxId_58",
+        "className": "item xans-record-",
+        "text": "상품명 : Sample Product 06 판매가 : KRW 330,000",
+        "box": {
+          "x": 376.2,
+          "y": 739.5,
+          "w": 346.2,
+          "h": 478
+        },
+        "style": {
+          "display": "list-item",
+          "position": "relative",
+          "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "400",
+          "lineHeight": "20.8px",
+          "letterSpacing": "-0.25px",
+          "color": "rgb(34, 34, 34)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "padding": "0px",
+          "margin": "0px 0px 70px",
+          "gap": "normal",
+          "gridTemplateColumns": "none",
+          "borderTopWidth": "0px",
+          "borderBottomWidth": "0px"
+        }
+      },
+      {
+        "tag": "LI",
+        "id": "anchorBoxId_59",
+        "className": "item xans-record-",
+        "text": "상품명 : Sample Product 07 판매가 : KRW 120,000",
+        "box": {
+          "x": 722.3,
+          "y": 739.5,
+          "w": 346.2,
+          "h": 478
+        },
+        "style": {
+          "display": "list-item",
+          "position": "relative",
+          "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "400",
+          "lineHeight": "20.8px",
+          "letterSpacing": "-0.25px",
+          "color": "rgb(34, 34, 34)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "padding": "0px",
+          "margin": "0px 0px 70px",
+          "gap": "normal",
+          "gridTemplateColumns": "none",
+          "borderTopWidth": "0px",
+          "borderBottomWidth": "0px"
+        }
+      },
+      {
+        "tag": "LI",
+        "id": "anchorBoxId_60",
+        "className": "item xans-record-",
+        "text": "상품명 : Sample Product 08 판매가 : KRW 170,000",
+        "box": {
+          "x": 1068.5,
+          "y": 739.5,
+          "w": 346.2,
+          "h": 478
+        },
+        "style": {
+          "display": "list-item",
+          "position": "relative",
+          "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "400",
+          "lineHeight": "20.8px",
+          "letterSpacing": "-0.25px",
+          "color": "rgb(34, 34, 34)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "padding": "0px",
+          "margin": "0px 0px 70px",
+          "gap": "normal",
+          "gridTemplateColumns": "none",
+          "borderTopWidth": "0px",
+          "borderBottomWidth": "0px"
+        }
+      }
+    ],
+    "images": [
+      {
+        "tag": "IMG",
+        "id": "eListPrdImage53_1",
+        "className": "",
+        "text": "",
+        "box": {
+          "x": 30,
+          "y": 181.8,
+          "w": 326.2,
+          "h": 407.7
+        },
+        "style": {
+          "display": "inline",
+          "position": "static",
+          "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "400",
+          "lineHeight": "20.8px",
+          "letterSpacing": "-0.25px",
+          "color": "rgb(34, 34, 34)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "padding": "0px",
+          "margin": "0px",
+          "gap": "normal",
+          "gridTemplateColumns": "none",
+          "borderTopWidth": "0px",
+          "borderBottomWidth": "0px"
+        }
+      },
+      {
+        "tag": "IMG",
+        "id": "eListPrdImage54_1",
+        "className": "",
+        "text": "",
+        "box": {
+          "x": 376.2,
+          "y": 181.8,
+          "w": 326.2,
+          "h": 407.7
+        },
+        "style": {
+          "display": "inline",
+          "position": "static",
+          "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "400",
+          "lineHeight": "20.8px",
+          "letterSpacing": "-0.25px",
+          "color": "rgb(34, 34, 34)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "padding": "0px",
+          "margin": "0px",
+          "gap": "normal",
+          "gridTemplateColumns": "none",
+          "borderTopWidth": "0px",
+          "borderBottomWidth": "0px"
+        }
+      },
+      {
+        "tag": "IMG",
+        "id": "eListPrdImage55_1",
+        "className": "",
+        "text": "",
+        "box": {
+          "x": 722.3,
+          "y": 181.8,
+          "w": 326.2,
+          "h": 407.7
+        },
+        "style": {
+          "display": "inline",
+          "position": "static",
+          "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "400",
+          "lineHeight": "20.8px",
+          "letterSpacing": "-0.25px",
+          "color": "rgb(34, 34, 34)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "padding": "0px",
+          "margin": "0px",
+          "gap": "normal",
+          "gridTemplateColumns": "none",
+          "borderTopWidth": "0px",
+          "borderBottomWidth": "0px"
+        }
+      },
+      {
+        "tag": "IMG",
+        "id": "eListPrdImage56_1",
+        "className": "",
+        "text": "",
+        "box": {
+          "x": 1068.5,
+          "y": 181.8,
+          "w": 326.2,
+          "h": 407.7
+        },
+        "style": {
+          "display": "inline",
+          "position": "static",
+          "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "400",
+          "lineHeight": "20.8px",
+          "letterSpacing": "-0.25px",
+          "color": "rgb(34, 34, 34)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "padding": "0px",
+          "margin": "0px",
+          "gap": "normal",
+          "gridTemplateColumns": "none",
+          "borderTopWidth": "0px",
+          "borderBottomWidth": "0px"
+        }
+      },
+      {
+        "tag": "IMG",
+        "id": "eListPrdImage57_1",
+        "className": "",
+        "text": "",
+        "box": {
+          "x": 30,
+          "y": 739.5,
+          "w": 326.2,
+          "h": 407.7
+        },
+        "style": {
+          "display": "inline",
+          "position": "static",
+          "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "400",
+          "lineHeight": "20.8px",
+          "letterSpacing": "-0.25px",
+          "color": "rgb(34, 34, 34)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "padding": "0px",
+          "margin": "0px",
+          "gap": "normal",
+          "gridTemplateColumns": "none",
+          "borderTopWidth": "0px",
+          "borderBottomWidth": "0px"
+        }
+      },
+      {
+        "tag": "IMG",
+        "id": "eListPrdImage58_1",
+        "className": "",
+        "text": "",
+        "box": {
+          "x": 376.2,
+          "y": 739.5,
+          "w": 326.2,
+          "h": 407.7
+        },
+        "style": {
+          "display": "inline",
+          "position": "static",
+          "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "400",
+          "lineHeight": "20.8px",
+          "letterSpacing": "-0.25px",
+          "color": "rgb(34, 34, 34)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "padding": "0px",
+          "margin": "0px",
+          "gap": "normal",
+          "gridTemplateColumns": "none",
+          "borderTopWidth": "0px",
+          "borderBottomWidth": "0px"
+        }
+      },
+      {
+        "tag": "IMG",
+        "id": "eListPrdImage59_1",
+        "className": "",
+        "text": "",
+        "box": {
+          "x": 722.3,
+          "y": 739.5,
+          "w": 326.2,
+          "h": 407.7
+        },
+        "style": {
+          "display": "inline",
+          "position": "static",
+          "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "400",
+          "lineHeight": "20.8px",
+          "letterSpacing": "-0.25px",
+          "color": "rgb(34, 34, 34)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "padding": "0px",
+          "margin": "0px",
+          "gap": "normal",
+          "gridTemplateColumns": "none",
+          "borderTopWidth": "0px",
+          "borderBottomWidth": "0px"
+        }
+      },
+      {
+        "tag": "IMG",
+        "id": "eListPrdImage60_1",
+        "className": "",
+        "text": "",
+        "box": {
+          "x": 1068.5,
+          "y": 739.5,
+          "w": 326.2,
+          "h": 407.7
+        },
+        "style": {
+          "display": "inline",
+          "position": "static",
+          "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "400",
+          "lineHeight": "20.8px",
+          "letterSpacing": "-0.25px",
+          "color": "rgb(34, 34, 34)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "padding": "0px",
+          "margin": "0px",
+          "gap": "normal",
+          "gridTemplateColumns": "none",
+          "borderTopWidth": "0px",
+          "borderBottomWidth": "0px"
+        }
+      }
+    ],
+    "descriptions": [
+      {
+        "tag": "LI",
+        "id": "",
+        "className": "xans-element- xans-product xans-product-headcategory swiper-slide swiper-slide-active",
+        "text": "SHOPDresses",
+        "box": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "style": {
+          "display": "none",
+          "position": "relative",
+          "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "400",
+          "lineHeight": "20.8px",
+          "letterSpacing": "-0.25px",
+          "color": "rgb(34, 34, 34)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "padding": "0px",
+          "margin": "0px 15px 0px 0px",
+          "gap": "normal",
+          "gridTemplateColumns": "none",
+          "borderTopWidth": "0px",
+          "borderBottomWidth": "0px"
+        }
+      },
+      {
+        "tag": "LI",
+        "id": "",
+        "className": "xans-element- xans-product xans-product-displaycategory xans-record- swiper-slide swiper-slide-next",
+        "text": "Outerwear ()",
+        "box": {
+          "x": 30,
+          "y": 148,
+          "w": 61.6,
+          "h": 20.8
+        },
+        "style": {
+          "display": "flex",
+          "position": "relative",
+          "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "400",
+          "lineHeight": "20.8px",
+          "letterSpacing": "-0.25px",
+          "color": "rgb(34, 34, 34)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "padding": "0px",
+          "margin": "0px 15px 0px 0px",
+          "gap": "normal",
+          "gridTemplateColumns": "none",
+          "borderTopWidth": "0px",
+          "borderBottomWidth": "0px"
+        }
+      },
+      {
+        "tag": "LI",
+        "id": "",
+        "className": "xans-element- xans-product xans-product-displaycategory xans-record- swiper-slide",
+        "text": "Tops ()",
+        "box": {
+          "x": 106.6,
+          "y": 148,
+          "w": 27.4,
+          "h": 20.8
+        },
+        "style": {
+          "display": "flex",
+          "position": "relative",
+          "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "400",
+          "lineHeight": "20.8px",
+          "letterSpacing": "-0.25px",
+          "color": "rgb(34, 34, 34)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "padding": "0px",
+          "margin": "0px 15px 0px 0px",
+          "gap": "normal",
+          "gridTemplateColumns": "none",
+          "borderTopWidth": "0px",
+          "borderBottomWidth": "0px"
+        }
+      },
+      {
+        "tag": "LI",
+        "id": "",
+        "className": "xans-element- xans-product xans-product-displaycategory xans-record- swiper-slide",
+        "text": "Bottoms ()",
+        "box": {
+          "x": 148.9,
+          "y": 148,
+          "w": 50.1,
+          "h": 20.8
+        },
+        "style": {
+          "display": "flex",
+          "position": "relative",
+          "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "400",
+          "lineHeight": "20.8px",
+          "letterSpacing": "-0.25px",
+          "color": "rgb(34, 34, 34)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "padding": "0px",
+          "margin": "0px 15px 0px 0px",
+          "gap": "normal",
+          "gridTemplateColumns": "none",
+          "borderTopWidth": "0px",
+          "borderBottomWidth": "0px"
+        }
+      },
+      {
+        "tag": "LI",
+        "id": "",
+        "className": "xans-element- xans-product xans-product-displaycategory selected xans-record- swiper-slide",
+        "text": "Dresses ()",
+        "box": {
+          "x": 214,
+          "y": 148,
+          "w": 48.5,
+          "h": 20.8
+        },
+        "style": {
+          "display": "flex",
+          "position": "relative",
+          "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "400",
+          "lineHeight": "20.8px",
+          "letterSpacing": "-0.25px",
+          "color": "rgb(34, 34, 34)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "padding": "0px",
+          "margin": "0px 15px 0px 0px",
+          "gap": "normal",
+          "gridTemplateColumns": "none",
+          "borderTopWidth": "0px",
+          "borderBottomWidth": "0px"
+        }
+      },
+      {
+        "tag": "LI",
+        "id": "",
+        "className": "xans-element- xans-product xans-product-displaycategory xans-record- swiper-slide",
+        "text": "Accessories ()",
+        "box": {
+          "x": 277.5,
+          "y": 148,
+          "w": 70.9,
+          "h": 20.8
+        },
+        "style": {
+          "display": "flex",
+          "position": "relative",
+          "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "400",
+          "lineHeight": "20.8px",
+          "letterSpacing": "-0.25px",
+          "color": "rgb(34, 34, 34)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "padding": "0px",
+          "margin": "0px 15px 0px 0px",
+          "gap": "normal",
+          "gridTemplateColumns": "none",
+          "borderTopWidth": "0px",
+          "borderBottomWidth": "0px"
+        }
+      },
+      {
+        "tag": "LI",
+        "id": "",
+        "className": "xans-element- xans-product xans-product-displaycategory xans-record- swiper-slide",
+        "text": "Sale ()",
+        "box": {
+          "x": 363.4,
+          "y": 148,
+          "w": 24.7,
+          "h": 20.8
+        },
+        "style": {
+          "display": "flex",
+          "position": "relative",
+          "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "400",
+          "lineHeight": "20.8px",
+          "letterSpacing": "-0.25px",
+          "color": "rgb(34, 34, 34)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "padding": "0px",
+          "margin": "0px 15px 0px 0px",
+          "gap": "normal",
+          "gridTemplateColumns": "none",
+          "borderTopWidth": "0px",
+          "borderBottomWidth": "0px"
+        }
+      },
+      {
+        "tag": "DIV",
+        "id": "",
+        "className": "description",
+        "text": "상품명 : Sample Product 01 할인판매가 : KRW 225,000 10% 판매가 : KRW 250,000",
+        "box": {
+          "x": 30,
+          "y": 599.5,
+          "w": 326.2,
+          "h": 56
+        },
+        "style": {
+          "display": "block",
+          "position": "relative",
+          "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "400",
+          "lineHeight": "18.2px",
+          "letterSpacing": "-0.25px",
+          "color": "rgb(34, 34, 34)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "padding": "0px",
+          "margin": "10px 0px 0px",
+          "gap": "normal",
+          "gridTemplateColumns": "none",
+          "borderTopWidth": "0px",
+          "borderBottomWidth": "0px"
+        }
+      },
+      {
+        "tag": "STRONG",
+        "id": "",
+        "className": "name ",
+        "text": "상품명 : Sample Product 01",
+        "box": {
+          "x": 30,
+          "y": 601.5,
+          "w": 115.8,
+          "h": 15.3
+        },
+        "style": {
+          "display": "inline",
+          "position": "static",
+          "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "400",
+          "lineHeight": "18.2px",
+          "letterSpacing": "-0.25px",
+          "color": "rgb(34, 34, 34)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "padding": "0px",
+          "margin": "0px",
+          "gap": "normal",
+          "gridTemplateColumns": "none",
+          "borderTopWidth": "0px",
+          "borderBottomWidth": "0px"
+        }
+      },
+      {
+        "tag": "UL",
+        "id": "",
+        "className": "xans-element- xans-product xans-product-listitem spec",
+        "text": "할인판매가 : KRW 225,000 10% 판매가 : KRW 250,000",
+        "box": {
+          "x": 30,
+          "y": 619.1,
+          "w": 326.2,
+          "h": 36.4
+        },
+        "style": {
+          "display": "flex",
+          "position": "static",
+          "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "400",
+          "lineHeight": "18.2px",
+          "letterSpacing": "-0.25px",
+          "color": "rgb(34, 34, 34)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "padding": "0px",
+          "margin": "0px",
+          "gap": "normal",
+          "gridTemplateColumns": "none",
+          "borderTopWidth": "0px",
+          "borderBottomWidth": "0px"
+        }
+      },
+      {
+        "tag": "LI",
+        "id": "",
+        "className": " prd_price_sale xans-record-",
+        "text": "할인판매가 : KRW 225,000 10%",
+        "box": {
+          "x": 30,
+          "y": 619.1,
+          "w": 326.2,
+          "h": 18.2
+        },
+        "style": {
+          "display": "list-item",
+          "position": "static",
+          "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "400",
+          "lineHeight": "18.2px",
+          "letterSpacing": "-0.25px",
+          "color": "rgb(34, 34, 34)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "padding": "0px",
+          "margin": "0px",
+          "gap": "normal",
+          "gridTemplateColumns": "none",
+          "borderTopWidth": "0px",
+          "borderBottomWidth": "0px"
+        }
+      },
+      {
+        "tag": "LI",
+        "id": "",
+        "className": " product_price xans-record-",
+        "text": "판매가 : KRW 250,000",
+        "box": {
+          "x": 30,
+          "y": 637.3,
+          "w": 326.2,
+          "h": 18.2
+        },
+        "style": {
+          "display": "list-item",
+          "position": "static",
+          "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "400",
+          "lineHeight": "18.2px",
+          "letterSpacing": "-0.25px",
+          "color": "rgb(34, 34, 34)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "padding": "0px",
+          "margin": "0px",
+          "gap": "normal",
+          "gridTemplateColumns": "none",
+          "borderTopWidth": "0px",
+          "borderBottomWidth": "0px"
+        }
+      },
+      {
+        "tag": "DIV",
+        "id": "",
+        "className": "description",
+        "text": "상품명 : Sample Product 02 판매가 : KRW 170,000",
+        "box": {
+          "x": 376.2,
+          "y": 599.5,
+          "w": 326.2,
+          "h": 37.8
+        },
+        "style": {
+          "display": "block",
+          "position": "relative",
+          "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "400",
+          "lineHeight": "18.2px",
+          "letterSpacing": "-0.25px",
+          "color": "rgb(34, 34, 34)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "padding": "0px",
+          "margin": "10px 0px 0px",
+          "gap": "normal",
+          "gridTemplateColumns": "none",
+          "borderTopWidth": "0px",
+          "borderBottomWidth": "0px"
+        }
+      },
+      {
+        "tag": "STRONG",
+        "id": "",
+        "className": "name ",
+        "text": "상품명 : Sample Product 02",
+        "box": {
+          "x": 376.2,
+          "y": 601.5,
+          "w": 119.6,
+          "h": 15.3
+        },
+        "style": {
+          "display": "inline",
+          "position": "static",
+          "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "400",
+          "lineHeight": "18.2px",
+          "letterSpacing": "-0.25px",
+          "color": "rgb(34, 34, 34)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "padding": "0px",
+          "margin": "0px",
+          "gap": "normal",
+          "gridTemplateColumns": "none",
+          "borderTopWidth": "0px",
+          "borderBottomWidth": "0px"
+        }
+      },
+      {
+        "tag": "UL",
+        "id": "",
+        "className": "xans-element- xans-product xans-product-listitem spec",
+        "text": "판매가 : KRW 170,000",
+        "box": {
+          "x": 376.2,
+          "y": 619.1,
+          "w": 326.2,
+          "h": 18.2
+        },
+        "style": {
+          "display": "flex",
+          "position": "static",
+          "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "400",
+          "lineHeight": "18.2px",
+          "letterSpacing": "-0.25px",
+          "color": "rgb(34, 34, 34)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "padding": "0px",
+          "margin": "0px",
+          "gap": "normal",
+          "gridTemplateColumns": "none",
+          "borderTopWidth": "0px",
+          "borderBottomWidth": "0px"
+        }
+      },
+      {
+        "tag": "LI",
+        "id": "",
+        "className": " product_price xans-record-",
+        "text": "판매가 : KRW 170,000",
+        "box": {
+          "x": 376.2,
+          "y": 619.1,
+          "w": 326.2,
+          "h": 18.2
+        },
+        "style": {
+          "display": "list-item",
+          "position": "static",
+          "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "400",
+          "lineHeight": "18.2px",
+          "letterSpacing": "-0.25px",
+          "color": "rgb(34, 34, 34)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "padding": "0px",
+          "margin": "0px",
+          "gap": "normal",
+          "gridTemplateColumns": "none",
+          "borderTopWidth": "0px",
+          "borderBottomWidth": "0px"
+        }
+      },
+      {
+        "tag": "DIV",
+        "id": "",
+        "className": "description",
+        "text": "상품명 : Sample Product 03 판매가 : KRW 230,000 상품요약정보 : 예약주문",
+        "box": {
+          "x": 722.3,
+          "y": 599.5,
+          "w": 326.2,
+          "h": 70
+        },
+        "style": {
+          "display": "block",
+          "position": "relative",
+          "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "400",
+          "lineHeight": "18.2px",
+          "letterSpacing": "-0.25px",
+          "color": "rgb(34, 34, 34)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "padding": "0px",
+          "margin": "10px 0px 0px",
+          "gap": "normal",
+          "gridTemplateColumns": "none",
+          "borderTopWidth": "0px",
+          "borderBottomWidth": "0px"
+        }
+      },
+      {
+        "tag": "STRONG",
+        "id": "",
+        "className": "name ",
+        "text": "상품명 : Sample Product 03",
+        "box": {
+          "x": 722.3,
+          "y": 601.5,
+          "w": 119.9,
+          "h": 15.3
+        },
+        "style": {
+          "display": "inline",
+          "position": "static",
+          "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "400",
+          "lineHeight": "18.2px",
+          "letterSpacing": "-0.25px",
+          "color": "rgb(34, 34, 34)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "padding": "0px",
+          "margin": "0px",
+          "gap": "normal",
+          "gridTemplateColumns": "none",
+          "borderTopWidth": "0px",
+          "borderBottomWidth": "0px"
+        }
+      },
+      {
+        "tag": "UL",
+        "id": "",
+        "className": "xans-element- xans-product xans-product-listitem spec",
+        "text": "판매가 : KRW 230,000 상품요약정보 : 예약주문",
+        "box": {
+          "x": 722.3,
+          "y": 619.1,
+          "w": 326.2,
+          "h": 50.4
+        },
+        "style": {
+          "display": "flex",
+          "position": "static",
+          "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "400",
+          "lineHeight": "18.2px",
+          "letterSpacing": "-0.25px",
+          "color": "rgb(34, 34, 34)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "padding": "0px",
+          "margin": "0px",
+          "gap": "normal",
+          "gridTemplateColumns": "none",
+          "borderTopWidth": "0px",
+          "borderBottomWidth": "0px"
+        }
+      },
+      {
+        "tag": "LI",
+        "id": "",
+        "className": " product_price xans-record-",
+        "text": "판매가 : KRW 230,000",
+        "box": {
+          "x": 722.3,
+          "y": 619.1,
+          "w": 326.2,
+          "h": 18.2
+        },
+        "style": {
+          "display": "list-item",
+          "position": "static",
+          "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "400",
+          "lineHeight": "18.2px",
+          "letterSpacing": "-0.25px",
+          "color": "rgb(34, 34, 34)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "padding": "0px",
+          "margin": "0px",
+          "gap": "normal",
+          "gridTemplateColumns": "none",
+          "borderTopWidth": "0px",
+          "borderBottomWidth": "0px"
+        }
+      }
+    ]
+  }
+}

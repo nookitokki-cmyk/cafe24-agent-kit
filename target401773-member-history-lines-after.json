@@ -1,0 +1,288 @@
+{
+  "url": "https://ecudemo401773.cafe24.com/member/login.html?noMemberOrder&returnUrl=%2Fmyshop%2Forder%2Flist.html%3Fv%3Dnkbar-20260626-5",
+  "viewport": {
+    "w": 390,
+    "h": 1100
+  },
+  "scroll": {
+    "scrollWidth": 375,
+    "clientWidth": 375
+  },
+  "values": [
+    {
+      "selector": "form[id^=\"member_form_\"]",
+      "exists": true,
+      "tag": "FORM",
+      "id": "member_form_4544177283",
+      "className": "",
+      "display": "block",
+      "borderTopWidth": "0px",
+      "borderBottomWidth": "0px",
+      "borderLeftWidth": "0px",
+      "borderRightWidth": "0px",
+      "backgroundImage": "none",
+      "boxShadow": "none",
+      "rect": {
+        "x": 0,
+        "y": 376,
+        "w": 375,
+        "h": 317,
+        "right": 375
+      },
+      "before": {
+        "content": "none",
+        "display": "inline",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px"
+      },
+      "after": {
+        "content": "none",
+        "display": "inline",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px"
+      }
+    },
+    {
+      "selector": "form[id^=\"member_form_\"] > div",
+      "exists": true,
+      "tag": "DIV",
+      "id": "",
+      "className": "xans-element- xans-member xans-member-login ec-base-box typeThin ",
+      "display": "block",
+      "borderTopWidth": "0px",
+      "borderBottomWidth": "0px",
+      "borderLeftWidth": "0.666667px",
+      "borderRightWidth": "0.666667px",
+      "backgroundImage": "none",
+      "boxShadow": "none",
+      "rect": {
+        "x": 0,
+        "y": 376,
+        "w": 375,
+        "h": 317,
+        "right": 375
+      },
+      "before": {
+        "content": "none",
+        "display": "inline",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px"
+      },
+      "after": {
+        "content": "none",
+        "display": "inline",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px"
+      }
+    },
+    {
+      "selector": "form[id^=\"member_form_\"] > div > div",
+      "exists": true,
+      "tag": "DIV",
+      "id": "",
+      "className": "login",
+      "display": "block",
+      "borderTopWidth": "0px",
+      "borderBottomWidth": "0px",
+      "borderLeftWidth": "0px",
+      "borderRightWidth": "0px",
+      "backgroundImage": "none",
+      "boxShadow": "none",
+      "rect": {
+        "x": 1,
+        "y": 376,
+        "w": 373,
+        "h": 317,
+        "right": 374
+      },
+      "before": {
+        "content": "none",
+        "display": "inline",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px"
+      },
+      "after": {
+        "content": "none",
+        "display": "inline",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px"
+      }
+    },
+    {
+      "selector": "form#historyNoLoginForm",
+      "exists": true,
+      "tag": "FORM",
+      "id": "historyNoLoginForm",
+      "className": "",
+      "display": "block",
+      "borderTopWidth": "0px",
+      "borderBottomWidth": "0px",
+      "borderLeftWidth": "0px",
+      "borderRightWidth": "0px",
+      "backgroundImage": "none",
+      "boxShadow": "none",
+      "rect": {
+        "x": 0,
+        "y": 713,
+        "w": 375,
+        "h": 351,
+        "right": 375
+      },
+      "before": {
+        "content": "none",
+        "display": "inline",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px"
+      },
+      "after": {
+        "content": "none",
+        "display": "inline",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px"
+      }
+    },
+    {
+      "selector": "form#historyNoLoginForm > div",
+      "exists": true,
+      "tag": "DIV",
+      "id": "",
+      "className": "xans-element- xans-myshop xans-myshop-orderhistorynologin ec-base-box typeThin ",
+      "display": "block",
+      "borderTopWidth": "0px",
+      "borderBottomWidth": "0px",
+      "borderLeftWidth": "0.666667px",
+      "borderRightWidth": "0.666667px",
+      "backgroundImage": "none",
+      "boxShadow": "none",
+      "rect": {
+        "x": 0,
+        "y": 713,
+        "w": 375,
+        "h": 351,
+        "right": 375
+      },
+      "before": {
+        "content": "none",
+        "display": "inline",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px"
+      },
+      "after": {
+        "content": "none",
+        "display": "inline",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px"
+      }
+    },
+    {
+      "selector": "form#historyNoLoginForm > div > div",
+      "exists": false
+    },
+    {
+      "selector": ".xans-member-login.ec-base-box",
+      "exists": true,
+      "tag": "DIV",
+      "id": "",
+      "className": "xans-element- xans-member xans-member-login ec-base-box typeThin ",
+      "display": "block",
+      "borderTopWidth": "0px",
+      "borderBottomWidth": "0px",
+      "borderLeftWidth": "0.666667px",
+      "borderRightWidth": "0.666667px",
+      "backgroundImage": "none",
+      "boxShadow": "none",
+      "rect": {
+        "x": 0,
+        "y": 376,
+        "w": 375,
+        "h": 317,
+        "right": 375
+      },
+      "before": {
+        "content": "none",
+        "display": "inline",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px"
+      },
+      "after": {
+        "content": "none",
+        "display": "inline",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px"
+      }
+    },
+    {
+      "selector": ".xans-myshop-orderhistorynologin.ec-base-box",
+      "exists": true,
+      "tag": "DIV",
+      "id": "",
+      "className": "xans-element- xans-myshop xans-myshop-orderhistorynologin ec-base-box typeThin ",
+      "display": "block",
+      "borderTopWidth": "0px",
+      "borderBottomWidth": "0px",
+      "borderLeftWidth": "0.666667px",
+      "borderRightWidth": "0.666667px",
+      "backgroundImage": "none",
+      "boxShadow": "none",
+      "rect": {
+        "x": 0,
+        "y": 713,
+        "w": 375,
+        "h": 351,
+        "right": 375
+      },
+      "before": {
+        "content": "none",
+        "display": "inline",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px"
+      },
+      "after": {
+        "content": "none",
+        "display": "inline",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px"
+      }
+    },
+    {
+      "selector": "#noMemberWrap",
+      "exists": true,
+      "tag": "P",
+      "id": "noMemberWrap",
+      "className": "link displaynone",
+      "display": "none",
+      "borderTopWidth": "0px",
+      "borderBottomWidth": "0px",
+      "borderLeftWidth": "0px",
+      "borderRightWidth": "0px",
+      "backgroundImage": "none",
+      "boxShadow": "none",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0,
+        "right": 0
+      },
+      "before": {
+        "content": "none",
+        "display": "inline",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px"
+      },
+      "after": {
+        "content": "none",
+        "display": "inline",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px"
+      }
+    }
+  ],
+  "formIds": [
+    "searchBarForm",
+    "member_form_4544177283",
+    "historyNoLoginForm",
+    "searchBarForm",
+    "member_form_7127384544"
+  ]
+}

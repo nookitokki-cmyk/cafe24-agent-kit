@@ -1,0 +1,98 @@
+<!--@css(/_nk/css/footer.css)-->
+<div class="bottom-nav RMB RTB" ez-module="bottom-navigation" data-ez="module-1r1mmlx-1">
+	<ul class="bottom-nav__tabBar">
+		<li><button type="button" class="btnNav eNavFold"><i aria-hidden="true" class="icon icoNav"></i>네비게이션</button></li>
+		<li><button type="button" class="btnSearch eSearch"><!--@import(/svg/icon-search.html)-->검색</button></li>
+		<li><a href="/"><!--@import(/svg/icon-home.html)-->홈</a></li>
+		<li module="Layout_stateLogon"><a href="/order/basket.html"><!--@import(/svg/icon-cart.html)-->Cart <span class="count {$basket_count_display|display} {$basket_count_display_class}"><span class="{$basket_count_class}">{$basket_count}</span></span></a></li>
+		<li module="Layout_stateLogoff"><a href="/order/basket.html"><!--@import(/svg/icon-cart.html)-->Cart <span class="count {$basket_count_display|display} {$basket_count_display_class}"><span class="{$basket_count_class}">{$basket_count}</span></span></a></li>
+		<li><a href="/myshop/index.html"><!--@import(/svg/icon-user.html)-->마이쇼핑</a></li>
+	</ul>
+	<div class="bottom-nav__top">
+		<a href="#wrap" title="화면 최상단으로 이동하기"><!--@import(/svg/icon-quick-arrow.html)--></a>
+	</div>
+</div>
+<div class="footer_margin" data-ez="module-0z4k7sc-1" data-ez-module="user-defined/1" data-ez-name="USER DEFINED" data-ez-type="plain"></div>
+<footer id="footer" class="nk-ft" data-ez="module-1ox55yu-1">
+
+	<!-- 우측 플로팅 위젯: 최근 본 상품 / 맨 위 / 맨 아래 (Phosphor + 우리 톤, custom.css §8) -->
+	<div id="right_quick">
+		<div><a href="/product/recent_view_product.html" title="최근 본 상품"><i class="ph ph-clock-counter-clockwise" aria-hidden="true"></i></a></div>
+		<div><a href="#none" onclick="$('html,body').animate({scrollTop:0},'slow')" title="맨 위로"><i class="ph ph-caret-up" aria-hidden="true"></i></a></div>
+		<div><a href="#none" onclick="$('html,body').animate({scrollTop:$(document).height()},'slow');" title="맨 아래로"><i class="ph ph-caret-down" aria-hidden="true"></i></a></div>
+	</div><!-- //right_quick -->
+
+	<div class="inner nk-ft__inner">
+
+		<!-- ── 상단: 4컬럼 ── -->
+		<div class="nk-ft__top">
+
+			<!-- [1] 회사정보 (Layout_footer 안에서 변수 치환) -->
+			<div class="nk-ft__col nk-ft__company" module="Layout_footer">
+				<div class="nk-ft__logo" module="Layout_LogoBottom"><a href="/"><img src="{$logo}" alt="{$mall_name}" loading="lazy" ez-prevent="img"></a></div>
+				<dl class="nk-ft__info">
+					<div><dt>상호명</dt><dd>{$company_name}</dd></div>
+					<div><dt>대표자명</dt><dd>{$president_name}</dd></div>
+					<div><dt>사업장 주소</dt><dd>{$mall_zipcode} {$mall_addr1} {$mall_addr2}</dd></div>
+					<div><dt>대표 전화</dt><dd>{$phone}</dd></div>
+					<div><dt>사업자 등록번호</dt><dd>{$company_regno}</dd></div>
+					<div><dt>통신판매업 신고번호</dt><dd>{$network_regno} {$biz_no_link}</dd></div>
+					<div><dt>개인정보보호책임자</dt><dd>{$cpo_name}</dd></div>
+				</dl>
+			</div>
+
+			<!-- [2] 바로가기 (약관·정책 링크) -->
+			<nav class="nk-ft__col nk-ft__menu" aria-label="하단 바로가기">
+				<h3 class="nk-ft__title">Menu</h3>
+				<ul>
+					<li><a href="/shopinfo/company.html">회사소개</a></li>
+					<li><a href="/member/mall_agreement.html">이용약관</a></li>
+					<li><a href="/member/privacy.html"><strong>개인정보처리방침</strong></a></li>
+					<li><a href="/shopinfo/guide.html">이용안내</a></li>
+				</ul>
+			</nav>
+
+			<!-- [3] 고객센터 (Layout_Info 안에서 변수 치환) -->
+			<div class="nk-ft__col nk-ft__cs" module="Layout_Info">
+				<h3 class="nk-ft__title">Customer Center</h3>
+				<dl class="nk-ft__cs-list">
+					<div><dt>상담/주문전화</dt><dd><a href="tel:{$phone}">{$phone}</a></dd></div>
+					<div><dt>상담/주문 이메일</dt><dd><a href="mailto:{$inquiry_email}">{$inquiry_email}</a></dd></div>
+					<div><dt>CS운영시간</dt><dd>{$runtime}</dd></div>
+				</dl>
+			</div>
+
+			<!-- [4] SNS -->
+			<div class="nk-ft__col nk-ft__sns">
+				<h3 class="nk-ft__title">Follow</h3>
+				<ul>
+					<li><a href="https://instagram.com/" target="_blank" rel="noopener">Instagram</a></li>
+					<li><a href="https://youtube.com/" target="_blank" rel="noopener">Youtube</a></li>
+					<li><a href="https://facebook.com/" target="_blank" rel="noopener">Facebook</a></li>
+					<li><a href="https://pf.kakao.com/" target="_blank" rel="noopener">Kakao</a></li>
+					<li><a href="https://blog.naver.com/" target="_blank" rel="noopener">Blog</a></li>
+				</ul>
+			</div>
+
+		</div><!-- //nk-ft__top -->
+
+		<!-- ── 하단: 카피라이트 ── -->
+		<div class="nk-ft__bottom" module="Layout_footer">
+			<p class="nk-ft__copyright">Copyright © {$mall_name}. All Rights Reserved. Hosting by Cafe24 Corp.</p>
+		</div>
+
+	</div><!-- //inner -->
+</footer>
+<div data-ez-module="user-defined/1" data-ez-name="USER DEFINED" data-ez-type="plain" data-ez="module-0nvc4e0-1"><script>
+(function(){
+	var h = document.getElementById('header');
+	if(!h) return;
+	function onScroll(){
+		if(window.pageYOffset > 60) h.classList.add('nk-scrolled');
+		else h.classList.remove('nk-scrolled');
+	}
+	window.addEventListener('scroll', onScroll, {passive:true});
+	onScroll();
+})();
+</script></div>
+<!--#ez="1/1"-->

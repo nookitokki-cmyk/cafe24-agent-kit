@@ -1,0 +1,73 @@
+- generic [active] [ref=e1] [box=0,0,1265,1069]:
+  - generic [box=0,0,1265,0]:
+    - paragraph [box=0,0,1265,0]:
+      - link "전체상품목록 바로가기" [ref=e2] [cursor=pointer] [box=-1,0,1,1]:
+        - /url: "#contents"
+    - paragraph [box=0,0,1265,0]:
+      - link "본문 바로가기" [ref=e3] [cursor=pointer] [box=-1,0,1,1]:
+        - /url: "#contents"
+  - banner [ref=e4] [box=0,0,1265,92]:
+    - generic [ref=e7] [box=0,0,1265,28]:
+      - group "1 / 3" [box=0,0,1265,28]: 특별한 순간은 디테일에서 시작됩니다 — MOMENT
+      - group "2 / 3" [ref=e8] [box=0,0,1265,28]: WELCOME · 신규 회원 가입 혜택을 확인하세요
+      - group "3 / 3" [box=0,0,1265,28]: NEW ARRIVAL · 새로운 컬렉션을 만나보세요
+    - generic [ref=e9] [box=0,28,1265,63]:
+      - generic [ref=e10] [box=30,28,392,63]:
+        - text: 
+        - navigation "주 메뉴" [ref=e11] [box=30,28,392,63]:
+          - list [ref=e14] [box=30,28,142,63]
+          - list [ref=e19] [box=200,28,88,63]
+          - list [ref=e24] [box=315,28,107,63]
+      - heading "쇼핑몰 이름" [level=1] [ref=e27] [box=581,43,103,33]:
+        - link "쇼핑몰 이름" [ref=e28] [cursor=pointer] [box=581,43,103,33]:
+          - /url: /index.html
+          - generic [ref=e29] [box=581,43,103,33]: MOMENT
+          - generic [ref=e30] [box=580,59,1,1]: 쇼핑몰 이름
+      - generic [ref=e31] [box=917,51,318,18]:
+        - generic [ref=e32] [box=917,53,181,13]:
+          - link "테스트" [ref=e33] [cursor=pointer] [box=917,53,32,13]:
+            - /url: /member/modify.html
+          - link "LOGOUT" [ref=e35] [cursor=pointer] [box=968,53,52,13]:
+            - /url: /exec/front/Member/logout/
+          - link "ACCOUNT" [ref=e36] [cursor=pointer] [box=1037,53,61,13]:
+            - /url: /myshop/index.html
+        - button "검색 열기" [ref=e37] [cursor=pointer] [box=1116,53,45,13]: SEARCH
+        - link "CART 2" [ref=e38] [cursor=pointer] [box=1180,51,56,18]:
+          - /url: /order/basket.html
+          - text: CART
+          - generic [ref=e39] [box=1217,51,18,18]: "2"
+  - generic [ref=e41] [box=0,0,1265,743]:
+    - generic [ref=e43] [box=30,131,1205,612]:
+      - generic [ref=e44] [box=30,131,1205,79]:
+        - paragraph [ref=e45] [box=30,131,1205,51]: Address
+        - paragraph [ref=e46] [box=30,190,1205,21]: 배송 주소록 관리
+      - generic [ref=e47] [box=30,242,1205,453]:
+        - complementary "마이쇼핑 메뉴" [ref=e48] [box=30,242,220,385]:
+          - generic [ref=e49] [box=30,246,220,381]
+        - generic [ref=e77] [box=298,242,937,453]:
+          - generic [ref=e79] [box=298,242,937,241]
+          - generic [ref=e106] [box=298,532,937,143]
+    - text: ",,"
+  - contentinfo [ref=e113] [box=0,783,1265,286]:
+    - generic [ref=e114] [box=0,813,1265,226]:
+      - generic [ref=e115] [box=30,813,1205,85]:
+        - generic [ref=e116] [box=30,813,271,85]:
+          - heading "Customer Center" [level=2] [ref=e117] [box=30,813,271,36]
+          - generic [ref=e120] [box=30,855,271,25]
+        - generic [ref=e122] [box=341,813,271,85]:
+          - heading "Support" [level=2] [ref=e123] [box=341,813,271,36]
+          - list [ref=e127] [box=341,849,271,49]
+        - generic [ref=e132] [box=653,813,271,85]:
+          - heading "Legal" [level=2] [ref=e133] [box=653,813,271,36]
+          - list [ref=e137] [box=653,849,271,49]
+        - generic [ref=e142] [box=964,813,271,85]:
+          - heading "Social" [level=2] [ref=e143] [box=964,813,271,36]
+          - list [ref=e147] [box=964,849,271,49]
+      - generic [ref=e152] [box=30,928,1205,111]:
+        - link "쇼핑몰 이름" [ref=e154] [cursor=pointer] [box=30,948,103,26]:
+          - /url: /index.html
+          - generic [ref=e155] [box=30,948,103,26]: MOMENT
+          - generic [ref=e156] [box=29,961,1,1]: 쇼핑몰 이름
+        - generic [ref=e157] [box=30,988,1205,51]:
+          - paragraph [ref=e158] [box=30,988,1205,23]
+          - paragraph [ref=e166] [box=30,1019,1205,20]: Copyright © 쇼핑몰 이름. All rights reserved.

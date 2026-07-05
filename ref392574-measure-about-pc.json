@@ -1,0 +1,247 @@
+{
+  "measuredAt": "2026-06-26T06:05:43.369Z",
+  "url": "https://ecudemo392574.cafe24.com/pages/about.html",
+  "title": "",
+  "viewport": {
+    "w": 1440,
+    "h": 1100
+  },
+  "scroll": {
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "bodyHeight": 1100
+  },
+  "tokens": {
+    "body": {
+      "tag": "BODY",
+      "id": "",
+      "className": "layout",
+      "text": "O R D I N A R Y #loading img { max-height:20px } @media (max-width:1023px) { #loading img { max-heig",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "w": 1440,
+        "h": 1100
+      },
+      "style": {
+        "display": "block",
+        "position": "static",
+        "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+        "fontSize": "13px",
+        "fontWeight": "400",
+        "lineHeight": "20.8px",
+        "letterSpacing": "-0.25px",
+        "color": "rgb(34, 34, 34)",
+        "backgroundColor": "rgb(245, 245, 240)",
+        "padding": "0px",
+        "margin": "0px",
+        "maxWidth": "none",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px"
+      }
+    },
+    "header": {
+      "tag": "DIV",
+      "id": "header",
+      "className": "a-header",
+      "text": "매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션 .a-header .header-sec1 { background:#b0b5b9; color:#fff; } 매일의 순",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "w": 1440,
+        "h": 91
+      },
+      "style": {
+        "display": "block",
+        "position": "relative",
+        "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+        "fontSize": "13px",
+        "fontWeight": "400",
+        "lineHeight": "20.8px",
+        "letterSpacing": "-0.25px",
+        "color": "rgb(34, 34, 34)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "padding": "0px",
+        "margin": "0px",
+        "maxWidth": "none",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px"
+      }
+    },
+    "footer": {
+      "tag": "DIV",
+      "id": "footer",
+      "className": "xans-element- xans-layout xans-layout-footer a-footer",
+      "text": "CUSTOMER CENTER 070-1234-5678Monday-Friday 10:00-17:00Sat·Sun·Holiday Closed SUPPORT ContactGuide LE",
+      "box": {
+        "x": 0,
+        "y": 857.4,
+        "w": 1440,
+        "h": 242.6
+      },
+      "style": {
+        "display": "block",
+        "position": "static",
+        "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+        "fontSize": "13px",
+        "fontWeight": "400",
+        "lineHeight": "20.8px",
+        "letterSpacing": "-0.25px",
+        "color": "rgb(34, 34, 34)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "padding": "30px",
+        "margin": "0px",
+        "maxWidth": "none",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px"
+      }
+    }
+  },
+  "page": {
+    "main": null,
+    "heading": {
+      "tag": "H3",
+      "id": "",
+      "className": "",
+      "text": "RECENTLY VIEWED",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "style": {
+        "display": "block",
+        "position": "static",
+        "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+        "fontSize": "11px",
+        "fontWeight": "400",
+        "lineHeight": "20.9px",
+        "letterSpacing": "-0.25px",
+        "color": "rgb(34, 34, 34)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "padding": "0px",
+        "margin": "40px 0px 7px",
+        "maxWidth": "none",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px"
+      }
+    },
+    "paragraphs": [
+      {
+        "tag": "P",
+        "id": "",
+        "className": "num",
+        "text": "070-1234-5678",
+        "box": {
+          "x": 30,
+          "y": 923,
+          "w": 152.4,
+          "h": 21.8
+        },
+        "style": {
+          "display": "block",
+          "position": "static",
+          "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+          "fontSize": "13.65px",
+          "fontWeight": "400",
+          "lineHeight": "21.84px",
+          "letterSpacing": "-0.25px",
+          "color": "rgb(34, 34, 34)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "padding": "0px",
+          "margin": "0px",
+          "maxWidth": "none",
+          "borderTopWidth": "0px",
+          "borderBottomWidth": "0px"
+        }
+      },
+      {
+        "tag": "P",
+        "id": "",
+        "className": "",
+        "text": "Monday-Friday 10:00-17:00",
+        "box": {
+          "x": 30,
+          "y": 944.8,
+          "w": 152.4,
+          "h": 20.8
+        },
+        "style": {
+          "display": "block",
+          "position": "static",
+          "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "400",
+          "lineHeight": "20.8px",
+          "letterSpacing": "-0.25px",
+          "color": "rgb(34, 34, 34)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "padding": "0px",
+          "margin": "0px",
+          "maxWidth": "none",
+          "borderTopWidth": "0px",
+          "borderBottomWidth": "0px"
+        }
+      },
+      {
+        "tag": "P",
+        "id": "",
+        "className": "",
+        "text": "Sat·Sun·Holiday Closed",
+        "box": {
+          "x": 30,
+          "y": 965.6,
+          "w": 152.4,
+          "h": 20.8
+        },
+        "style": {
+          "display": "block",
+          "position": "static",
+          "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "400",
+          "lineHeight": "20.8px",
+          "letterSpacing": "-0.25px",
+          "color": "rgb(34, 34, 34)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "padding": "0px",
+          "margin": "0px",
+          "maxWidth": "none",
+          "borderTopWidth": "0px",
+          "borderBottomWidth": "0px"
+        }
+      }
+    ],
+    "images": [
+      {
+        "tag": "IMG",
+        "id": "",
+        "className": "",
+        "text": "",
+        "box": {
+          "x": 0,
+          "y": 0,
+          "w": 720,
+          "h": 1100
+        },
+        "style": {
+          "display": "block",
+          "position": "fixed",
+          "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "400",
+          "lineHeight": "20.8px",
+          "letterSpacing": "-0.25px",
+          "color": "rgb(34, 34, 34)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "padding": "0px",
+          "margin": "0px",
+          "maxWidth": "100%",
+          "borderTopWidth": "0px",
+          "borderBottomWidth": "0px"
+        }
+      }
+    ]
+  }
+}

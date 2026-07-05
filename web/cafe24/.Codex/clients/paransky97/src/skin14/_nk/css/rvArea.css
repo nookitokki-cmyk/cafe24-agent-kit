@@ -1,0 +1,72 @@
+@charset "utf-8";
+/* [메인 9] 리뷰 캐러셀 — 카드형 후기 슬라이드 */
+
+#nk-skin14 .nk-rv__wrap { position: relative; }
+#nk-skin14 .nk-rv__swiper { overflow: hidden; }
+
+/* slidesPerView:'auto' — CSS 슬라이드 폭(데스크탑 3 / 태블릿 2 / 모바일 1) */
+#nk-skin14 .nk-rv__swiper .swiper-slide { width: calc(33.333% - 16px); height: auto; }
+@media all and (max-width: 1024px) { #nk-skin14 .nk-rv__swiper .swiper-slide { width: calc(50% - 12px); } }
+@media all and (max-width: 767px)  { #nk-skin14 .nk-rv__swiper .swiper-slide { width: 100%; } }
+
+#nk-skin14 .nk-rv__card {
+	position: relative;
+	background: var(--nk-bg);
+	border: 1px solid var(--nk-line);
+	padding: 0 0 24px;
+	height: auto;
+}
+#nk-skin14 .nk-rv__link { position: absolute; inset: 0; z-index: 2; }
+
+#nk-skin14 .nk-rv__thumb {
+	aspect-ratio: 4 / 3;
+	overflow: hidden;
+	background: var(--nk-bg2);
+	margin-bottom: 18px;
+}
+#nk-skin14 .nk-rv__thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+#nk-skin14 .nk-rv__body { padding: 0 22px; }
+#nk-skin14 .nk-rv__subject {
+	font-size: var(--nk-fs-body);
+	font-weight: 500;
+	color: var(--nk-font);
+	margin-bottom: 8px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+#nk-skin14 .nk-rv__content {
+	font-size: var(--nk-fs-sm);
+	color: var(--nk-sub);
+	line-height: 1.6;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	min-height: 2.6em;
+}
+#nk-skin14 .nk-rv__meta {
+	display: flex;
+	gap: 10px;
+	margin-top: 14px;
+	font-size: var(--nk-fs-sm);
+	color: var(--nk-sub);
+}
+#nk-skin14 .nk-rv__prd {
+	margin-top: 10px;
+	padding-top: 12px;
+	border-top: 1px solid var(--nk-line);
+	font-size: var(--nk-fs-sm);
+	color: var(--nk-font);
+}
+#nk-skin14 .nk-rv__prd.elp { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+#nk-skin14 .nk-rv__prev { position: absolute; top: 30%; left: -10px; transform: translateY(-50%); z-index: 5; }
+#nk-skin14 .nk-rv__next { position: absolute; top: 30%; right: -10px; transform: translateY(-50%); z-index: 5; }
+
+#nk-skin14 .nk-rv__foot { margin-top: clamp(28px, 3vw, 48px); text-align: center; }
+
+@media all and (max-width: 767px) {
+	#nk-skin14 .nk-rv__prev, #nk-skin14 .nk-rv__next { display: none; }
+}

@@ -1,0 +1,14 @@
+@charset "utf-8";
+/* [메인 11] 인스타 위젯 — 헤드 중앙 + 풀폭 피드 */
+
+#nk-skin14 .nk-insta__head { text-align: center; margin-bottom: clamp(28px, 3vw, 48px); }
+#nk-skin14 .nk-insta__handle {
+	margin-top: 12px;
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	font-size: var(--nk-fs-body);
+	color: var(--nk-sub);
+}
+#nk-skin14 .nk-insta__handle i { font-size: 1.2em; color: var(--nk-accent); }
+#nk-skin14 .nk-insta__feed { width: 100%; }

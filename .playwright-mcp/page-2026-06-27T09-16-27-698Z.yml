@@ -1,0 +1,355 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - paragraph:
+      - link "전체상품목록 바로가기" [ref=e2] [cursor=pointer]:
+        - /url: "#category"
+    - paragraph:
+      - link "본문 바로가기" [ref=e3] [cursor=pointer]:
+        - /url: "#contents"
+  - generic [ref=e4]:
+    - generic [ref=e6]:
+      - link "매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션 매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션" [ref=e8] [cursor=pointer]:
+        - /url: "#"
+      - generic [ref=e9]:
+        - checkbox "오늘 하루 보지 않기" [ref=e10] [cursor=pointer]
+        - generic [ref=e11] [cursor=pointer]: 오늘 하루 보지 않기
+        - generic [ref=e12] [cursor=pointer]: 닫기
+    - banner [ref=e13]:
+      - generic [ref=e14]:
+        - generic [ref=e16]:
+          - link "로그인" [ref=e17] [cursor=pointer]:
+            - /url: /member/login.html
+          - link "주문조회" [ref=e18] [cursor=pointer]:
+            - /url: /myshop/order/list.html
+        - generic [ref=e19]:
+          - link "쇼핑몰 이름" [ref=e21] [cursor=pointer]:
+            - /url: /
+          - list [ref=e24]:
+            - listitem [ref=e25]:
+              - link "Necklace" [ref=e26] [cursor=pointer]:
+                - /url: /category/Necklace/42/
+            - listitem [ref=e27]:
+              - link "Earring" [ref=e28] [cursor=pointer]:
+                - /url: /category/Earring/43/
+            - listitem [ref=e29]:
+              - link "Ring" [ref=e30] [cursor=pointer]:
+                - /url: /category/-Ring/44/
+            - listitem [ref=e31]:
+              - link "Bracelet" [ref=e32] [cursor=pointer]:
+                - /url: /category/Bracelet/45/
+            - listitem [ref=e33]:
+              - link "Sale" [ref=e34] [cursor=pointer]:
+                - /url: /category/-Sale/46/
+          - generic [ref=e35]:
+            - link "SEARCH" [ref=e36] [cursor=pointer]:
+              - /url: javascript:;
+            - link:
+              - /url: /myshop/index.html
+            - link "CART" [ref=e37] [cursor=pointer]:
+              - /url: /order/basket.html
+    - generic [ref=e39]:
+      - generic [ref=e42]:
+        - generic [ref=e43]:
+          - list:
+            - listitem [ref=e44]:
+              - link [ref=e45]:
+                - /url: javascript:void(0)%5C;
+                - img [ref=e47]
+        - generic:
+          - generic [ref=e48]:
+            - link "1" [ref=e50] [cursor=pointer]:
+              - /url: ""
+            - link "2" [ref=e52] [cursor=pointer]:
+              - /url: ""
+          - generic:
+            - link [ref=e53] [cursor=pointer]:
+              - /url: ""
+            - link [ref=e54] [cursor=pointer]:
+              - /url: ""
+      - generic [ref=e55]:
+        - generic [ref=e56]:
+          - generic [ref=e57]: ON STORE!
+          - generic [ref=e58]: 요즘 가장 핫한 상품 온스토어
+        - list [ref=e60]:
+          - listitem [ref=e61]:
+            - link "특별한 날에는 로즈골드 링 자세히 살펴보기" [ref=e62] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e63]
+              - generic [ref=e64]:
+                - generic [ref=e65]: 특별한 날에는 로즈골드 링
+                - generic [ref=e66]: 자세히 살펴보기
+          - listitem [ref=e67]:
+            - link "웨딩밴드 컬렉션 세트 자세히 살펴보기" [ref=e68] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e69]
+              - generic [ref=e70]:
+                - generic [ref=e71]: 웨딩밴드 컬렉션 세트
+                - generic [ref=e72]: 자세히 살펴보기
+          - listitem [ref=e73]:
+            - link "크리스탈 보석 Necklace 자세히 살펴보기" [ref=e74] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e75]
+              - generic [ref=e76]:
+                - generic [ref=e77]: 크리스탈 보석 Necklace
+                - generic [ref=e78]: 자세히 살펴보기
+      - generic [ref=e79]:
+        - generic [ref=e80]:
+          - generic [ref=e81]: NEW! ARRIVALS
+          - generic [ref=e82]: 언제나 새로운 신상품
+        - list [ref=e85]:
+          - listitem [ref=e86]:
+            - generic [ref=e87]:
+              - generic [ref=e88]:
+                - link "샘플상품 2":
+                  - /url: /product/샘플상품-2/10/category/1/display/2/?icid=MAIN.product_listmain_1
+                  - img "샘플상품 2" [ref=e89] [cursor=pointer]
+                - text: LIKE
+                - generic [ref=e90]:
+                  - generic [ref=e91] [cursor=pointer]:
+                    - img "관심상품 등록 전" [ref=e92]
+                    - text: WISH
+                  - generic [ref=e93] [cursor=pointer]:
+                    - img "장바구니 담기" [ref=e94]
+                    - text: ADD
+                  - generic [ref=e95] [cursor=pointer]: OPTION
+              - generic [ref=e96]:
+                - link "샘플상품 2" [ref=e98] [cursor=pointer]:
+                  - /url: /product/샘플상품-2/10/category/1/display/2/?icid=MAIN.product_listmain_1
+                - list [ref=e99]:
+                  - listitem [ref=e100]: 10,000원
+                  - listitem [ref=e101]: 10,000원
+                  - listitem [ref=e102]:
+                    - generic [ref=e103]:
+                      - generic "#000000" [ref=e104]
+                      - generic "#FFFFFF" [ref=e105]
+          - listitem [ref=e106]:
+            - generic [ref=e107]:
+              - generic [ref=e108]:
+                - link "샘플상품 1":
+                  - /url: /product/샘플상품-1/9/category/1/display/2/?icid=MAIN.product_listmain_1
+                  - img "샘플상품 1" [ref=e109] [cursor=pointer]
+                - text: LIKE
+                - generic [ref=e110]:
+                  - generic [ref=e111] [cursor=pointer]:
+                    - img "관심상품 등록 전" [ref=e112]
+                    - text: WISH
+                  - generic [ref=e113] [cursor=pointer]:
+                    - img "장바구니 담기" [ref=e114]
+                    - text: ADD
+                  - generic [ref=e115] [cursor=pointer]: OPTION
+              - generic [ref=e116]:
+                - link "샘플상품 1" [ref=e118] [cursor=pointer]:
+                  - /url: /product/샘플상품-1/9/category/1/display/2/?icid=MAIN.product_listmain_1
+                - list [ref=e119]:
+                  - listitem [ref=e120]: 5,000원
+                  - listitem [ref=e121]: 5,000원
+      - generic [ref=e122]:
+        - generic [ref=e123]:
+          - generic [ref=e124]: FASHION CAMPAIGN
+          - generic [ref=e125]: 컬레버레이션 아이템들을 영상 속에서 만나보세요
+        - iframe [ref=e127]:
+          
+      - generic [ref=e128]:
+        - generic [ref=e129]:
+          - generic [ref=e130]:
+            - generic [ref=e131]: BEST! SELLER
+            - generic [ref=e132]: 베스트 셀러를 만나보세요
+          - list [ref=e133]:
+            - listitem [ref=e134]:
+              - button "새로운 카테고리" [ref=e135] [cursor=pointer]
+            - listitem [ref=e136]:
+              - button "새로운 카테고리" [ref=e137] [cursor=pointer]
+            - listitem [ref=e138]:
+              - button "새로운 카테고리" [ref=e139] [cursor=pointer]
+            - listitem [ref=e140]:
+              - button "새로운 카테고리" [ref=e141] [cursor=pointer]
+        - list [ref=e146]:
+          - listitem [ref=e147]:
+            - generic [ref=e148]:
+              - generic [ref=e149]:
+                - link "샘플상품 2":
+                  - /url: /product/샘플상품-2/10/category/1/display/2/?icid=MAIN.product_listmain_1
+                  - img "샘플상품 2" [ref=e150] [cursor=pointer]
+                - text: LIKE
+                - generic [ref=e151]:
+                  - generic [ref=e152] [cursor=pointer]:
+                    - img "관심상품 등록 전" [ref=e153]
+                    - text: WISH
+                  - generic [ref=e154] [cursor=pointer]:
+                    - img "장바구니 담기" [ref=e155]
+                    - text: ADD
+                  - generic [ref=e156] [cursor=pointer]: OPTION
+              - generic [ref=e157]:
+                - link "샘플상품 2" [ref=e159] [cursor=pointer]:
+                  - /url: /product/샘플상품-2/10/category/1/display/2/?icid=MAIN.product_listmain_1
+                - list [ref=e160]:
+                  - listitem [ref=e161]: 10,000원
+                  - listitem [ref=e162]: 10,000원
+                  - listitem [ref=e163]:
+                    - generic [ref=e164]:
+                      - generic "#000000" [ref=e165]
+                      - generic "#FFFFFF" [ref=e166]
+          - listitem [ref=e167]:
+            - generic [ref=e168]:
+              - generic [ref=e169]:
+                - link "샘플상품 1":
+                  - /url: /product/샘플상품-1/9/category/1/display/2/?icid=MAIN.product_listmain_1
+                  - img "샘플상품 1" [ref=e170] [cursor=pointer]
+                - text: LIKE
+                - generic [ref=e171]:
+                  - generic [ref=e172] [cursor=pointer]:
+                    - img "관심상품 등록 전" [ref=e173]
+                    - text: WISH
+                  - generic [ref=e174] [cursor=pointer]:
+                    - img "장바구니 담기" [ref=e175]
+                    - text: ADD
+                  - generic [ref=e176] [cursor=pointer]: OPTION
+              - generic [ref=e177]:
+                - link "샘플상품 1" [ref=e179] [cursor=pointer]:
+                  - /url: /product/샘플상품-1/9/category/1/display/2/?icid=MAIN.product_listmain_1
+                - list [ref=e180]:
+                  - listitem [ref=e181]: 5,000원
+                  - listitem [ref=e182]: 5,000원
+      - link [ref=e184]:
+        - /url: javascript:void(0)%5C;
+        - img [ref=e186]
+      - generic [ref=e187]:
+        - generic [ref=e188]:
+          - generic [ref=e189]: Sale Item
+          - generic [ref=e190]: 특별할인 세일 상품
+        - list [ref=e193]:
+          - listitem [ref=e194]:
+            - generic [ref=e195]:
+              - generic [ref=e196]:
+                - link "샘플상품 2":
+                  - /url: /product/샘플상품-2/10/category/1/display/2/?icid=MAIN.product_listmain_1
+                  - img "샘플상품 2" [ref=e197] [cursor=pointer]
+                - text: LIKE
+                - generic [ref=e198]:
+                  - generic [ref=e199] [cursor=pointer]:
+                    - img "관심상품 등록 전" [ref=e200]
+                    - text: WISH
+                  - generic [ref=e201] [cursor=pointer]:
+                    - img "장바구니 담기" [ref=e202]
+                    - text: ADD
+                  - generic [ref=e203] [cursor=pointer]: OPTION
+              - generic [ref=e204]:
+                - link "샘플상품 2" [ref=e206] [cursor=pointer]:
+                  - /url: /product/샘플상품-2/10/category/1/display/2/?icid=MAIN.product_listmain_1
+                - list [ref=e207]:
+                  - listitem [ref=e208]: 10,000원
+                  - listitem [ref=e209]: 10,000원
+                  - listitem [ref=e210]:
+                    - generic [ref=e211]:
+                      - generic "#000000" [ref=e212]
+                      - generic "#FFFFFF" [ref=e213]
+          - listitem [ref=e214]:
+            - generic [ref=e215]:
+              - generic [ref=e216]:
+                - link "샘플상품 1":
+                  - /url: /product/샘플상품-1/9/category/1/display/2/?icid=MAIN.product_listmain_1
+                  - img "샘플상품 1" [ref=e217] [cursor=pointer]
+                - text: LIKE
+                - generic [ref=e218]:
+                  - generic [ref=e219] [cursor=pointer]:
+                    - img "관심상품 등록 전" [ref=e220]
+                    - text: WISH
+                  - generic [ref=e221] [cursor=pointer]:
+                    - img "장바구니 담기" [ref=e222]
+                    - text: ADD
+                  - generic [ref=e223] [cursor=pointer]: OPTION
+              - generic [ref=e224]:
+                - link "샘플상품 1" [ref=e226] [cursor=pointer]:
+                  - /url: /product/샘플상품-1/9/category/1/display/2/?icid=MAIN.product_listmain_1
+                - list [ref=e227]:
+                  - listitem [ref=e228]: 5,000원
+                  - listitem [ref=e229]: 5,000원
+      - generic [ref=e230]:
+        - generic [ref=e231]: Special Event
+        - paragraph [ref=e233]: 지금 진행 중인 다양한 이벤트를 만나보세요.
+        - link "자세히 보기" [ref=e235] [cursor=pointer]:
+          - /url: "#"
+      - generic [ref=e237]:
+        - generic [ref=e239]:
+          - generic [ref=e240]: 오프라인 스토어
+          - generic [ref=e241]:
+            - paragraph [ref=e242]: 매장에서는 고객 여러분을 따뜻하게 맞이하고
+            - paragraph [ref=e243]: 기프트 구매를 위한 맞춤형 컨설팅을 제공해드립니다.
+            - paragraph [ref=e244]: "운영시간 : 평일 09:00-18:00"
+            - paragraph [ref=e245]: 서울특별시 동작구 보라매로0길 00
+          - link "VIEW MORE" [ref=e247] [cursor=pointer]:
+            - /url: https://www.google.com/maps/dir/%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%20%EB%8F%99%EC%9E%91%EA%B5%AC%20%EB%B3%B4%EB%9D%BC%EB%A7%A4%EB%A1%9C0%EA%B8%B8%2000
+            - text: VIEW MORE
+            - generic [ref=e248]: +
+        - img [ref=e250]
+    - contentinfo [ref=e251]:
+      - generic [ref=e252]:
+        - link "쇼핑몰 이름" [ref=e254] [cursor=pointer]:
+          - /url: /
+        - list [ref=e256]:
+          - listitem [ref=e257]:
+            - link "회사소개" [ref=e258] [cursor=pointer]:
+              - /url: /shopinfo/company.html
+          - listitem [ref=e259]:
+            - link "이용약관" [ref=e260] [cursor=pointer]:
+              - /url: /member/mall_agreement.html
+          - listitem [ref=e261]:
+            - link "개인정보처리방침" [ref=e262] [cursor=pointer]:
+              - /url: /member/privacy.html
+              - strong [ref=e263]: 개인정보처리방침
+          - listitem [ref=e264]:
+            - link "이용안내" [ref=e265] [cursor=pointer]:
+              - /url: /shopinfo/guide.html
+        - generic [ref=e266]:
+          - generic [ref=e267]:
+            - generic [ref=e268]: 쇼핑몰 기본정보
+            - generic [ref=e269]:
+              - generic [ref=e270]: 상호명
+              - generic [ref=e271]: 대표자명 理
+              - generic [ref=e272]: 사업장 주소
+              - generic [ref=e273]: 대표 전화
+              - generic [ref=e274]: 사업자 등록번호 105-78-00513
+              - generic [ref=e275]: 통신판매업 신고번호
+              - generic [ref=e276]: 개인정보보호책임자
+          - generic [ref=e277]:
+            - generic [ref=e278]: 고객센터 정보
+            - generic [ref=e279]:
+              - strong [ref=e281]: 상담/주문 전화
+              - strong [ref=e284]: 상담/주문 이메일
+              - strong [ref=e286]: CS운영시간
+          - generic [ref=e287]:
+            - generic [ref=e288]: 결제정보
+            - strong [ref=e290]: 무통장 계좌정보
+            - list [ref=e292]:
+              - listitem [ref=e293]:
+                - text: 은행
+                - text: 0000-000-00000
+                - text: 예금주
+        - generic [ref=e296]:
+          - generic [ref=e297]: Copyright © 쇼핑몰 이름. All Rights Reserved. Hosting by Cafe24 Corp.
+          - generic [ref=e298]:
+            - generic [ref=e299]: SNS
+            - link "instagram" [ref=e300] [cursor=pointer]:
+              - /url: https://instagram.com/
+              - img [ref=e301]
+              - text: instagram
+            - link "youtube" [ref=e305] [cursor=pointer]:
+              - /url: https://youtube.com/
+              - img [ref=e306]
+              - text: youtube
+            - link "facebook" [ref=e309] [cursor=pointer]:
+              - /url: https://facebook.com/
+              - img [ref=e310]
+              - text: facebook
+            - link "kakao" [ref=e312] [cursor=pointer]:
+              - /url: https://pf.kakao.com/
+              - img [ref=e313]
+              - text: kakao
+            - link "twitter" [ref=e317] [cursor=pointer]:
+              - /url: https://twitter.com/
+              - img [ref=e318]
+              - text: twitter
+            - link "blog" [ref=e320] [cursor=pointer]:
+              - /url: https://blog.naver.com/
+              - img [ref=e321]
+              - text: blog

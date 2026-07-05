@@ -1,0 +1,30 @@
+{
+  "url": "https://ecudemo401773.cafe24.com/?v=tode-20260626-1",
+  "title": "쇼핑몰 이름",
+  "mobileWeb": false,
+  "bodyId": "main",
+  "bodyClass": "",
+  "bodyMinWidth": "1480px",
+  "bodyMaxWidth": "none",
+  "overflowX": "visible",
+  "fontFamily": "Verdana, Dotum, AppleGothic, sans-serif",
+  "fontSize": "12px",
+  "lineHeight": "normal",
+  "bg": "rgb(255, 255, 255)",
+  "vars": {
+    "--nk-bg": "",
+    "--nk-text": "",
+    "--nk-point": "",
+    "--nk-header-pc": "",
+    "--nk-fs-pc": ""
+  },
+  "nkLinks": [],
+  "hasResetLink": false,
+  "hasMainLink": false,
+  "headerPseudoBefore": "\"\"",
+  "headerPseudoAfter": "\"\"",
+  "bodyBox": {
+    "width": 1480,
+    "height": 1463.791748046875
+  }
+}

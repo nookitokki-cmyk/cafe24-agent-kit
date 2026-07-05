@@ -1,0 +1,119 @@
+{
+  "url": "https://ecudemo401773.cafe24.com/?nk_s1=202606271820",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "stack": {
+    "x": 0,
+    "y": 0,
+    "w": 375.4285888671875,
+    "h": 70.0000057220459,
+    "bottom": 70.0000057220459
+  },
+  "topBanner": {
+    "x": 0,
+    "y": 0,
+    "w": 375.4285888671875,
+    "h": 26.000001907348633,
+    "top": 0,
+    "bottom": 26.000001907348633,
+    "left": 0,
+    "right": 375.4285888671875,
+    "display": "block",
+    "position": "fixed",
+    "background": "rgb(176, 181, 185)",
+    "color": "rgb(255, 255, 255)",
+    "fontFamily": "Pretendard, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+    "fontSize": "13px",
+    "lineHeight": "normal",
+    "borderBottom": "0px none rgb(255, 255, 255)"
+  },
+  "header": {
+    "x": 0,
+    "y": 26.000001907348633,
+    "w": 375.4285888671875,
+    "h": 44.000003814697266,
+    "top": 26.000001907348633,
+    "bottom": 70.0000057220459,
+    "left": 0,
+    "right": 375.4285888671875,
+    "display": "block",
+    "position": "fixed",
+    "background": "rgba(0, 0, 0, 0)",
+    "color": "rgb(34, 34, 34)",
+    "fontFamily": "Pretendard, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+    "fontSize": "13px",
+    "lineHeight": "normal",
+    "borderBottom": "0.571429px solid rgb(255, 255, 255)"
+  },
+  "nav": {
+    "box": {
+      "x": 15.000000953674316,
+      "y": 26.000001907348633,
+      "w": 34.142860412597656,
+      "h": 44.000003814697266,
+      "top": 26.000001907348633,
+      "bottom": 70.0000057220459,
+      "left": 15.000000953674316,
+      "right": 49.14286136627197,
+      "display": "flex",
+      "position": "static",
+      "background": "rgba(0, 0, 0, 0)",
+      "color": "rgb(34, 34, 34)",
+      "fontFamily": "Pretendard, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+      "fontSize": "13px",
+      "lineHeight": "normal",
+      "borderBottom": "0px none rgb(34, 34, 34)"
+    },
+    "text": ""
+  },
+  "logo": {
+    "box": {
+      "x": 160.27679443359375,
+      "y": 26.000001907348633,
+      "w": 54.875003814697266,
+      "h": 44.000003814697266,
+      "top": 26.000001907348633,
+      "bottom": 70.0000057220459,
+      "left": 160.27679443359375,
+      "right": 215.15179824829102,
+      "display": "flex",
+      "position": "static",
+      "background": "rgba(0, 0, 0, 0)",
+      "color": "rgb(34, 34, 34)",
+      "fontFamily": "Pretendard, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+      "fontSize": "13px",
+      "lineHeight": "normal",
+      "borderBottom": "0px none rgb(34, 34, 34)"
+    },
+    "text": "쇼핑몰 이름"
+  },
+  "cart": {
+    "box": {
+      "x": 329.7232360839844,
+      "y": 26.000001907348633,
+      "w": 30.705358505249023,
+      "h": 44.000003814697266,
+      "top": 26.000001907348633,
+      "bottom": 70.0000057220459,
+      "left": 329.7232360839844,
+      "right": 360.4285945892334,
+      "display": "flex",
+      "position": "static",
+      "background": "rgba(0, 0, 0, 0)",
+      "color": "rgb(34, 34, 34)",
+      "fontFamily": "Pretendard, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+      "fontSize": "13px",
+      "lineHeight": "13px",
+      "borderBottom": "0px none rgb(34, 34, 34)"
+    },
+    "text": ""
+  },
+  "checks": {
+    "overflow": 0,
+    "dataEzCount": 17,
+    "inlineStyleInHeader": 0,
+    "brokenImages": 0
+  }
+}

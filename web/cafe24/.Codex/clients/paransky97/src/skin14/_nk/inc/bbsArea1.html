@@ -1,0 +1,65 @@
+<!-- [메인 10] 저널(갤러리 게시판) 캐러셀 — 최신글 썸네일 슬라이드.
+     ⚠️ 재판매 시: board_listpackage_8 / board_list_8 의 숫자 8을 해당 쇼핑몰의 갤러리/저널 게시판 번호로 교체. -->
+<!--@css(/_nk/css/bbsArea1.css)-->
+
+<section class="section nk-sec nk-journal" module="board_listpackage_8">
+	<div class="inner">
+		<div class="nk-sec__head">
+			<span class="nk-eyebrow">Journal</span>
+			<h2 class="nk-sec__title">브랜드 저널</h2>
+		</div>
+
+		<div class="nk-journal__wrap">
+			<div module="board_list_8" class="swiper nk-journal__swiper">
+				<!--
+					$count = 8
+				-->
+				<div class="swiper-wrapper">
+					<div class="swiper-slide nk-journal__card">
+						<a href="{$link_board_detail}" class="nk-journal__img"><img src="{$img_src|replace:/gallery,}" alt="{$subject}" loading="lazy"></a>
+						<div class="nk-journal__body">
+							<span class="nk-journal__cat {$category_display|display}">{$category_name}</span>
+							<h3 class="nk-journal__title"><a href="{$link_board_detail}">{$subject}</a></h3>
+							<a href="{$link_board_detail}" class="nk-btn nk-btn--line nk-btn--sm">Read More <i class="ph ph-arrow-right"></i></a>
+						</div>
+					</div>
+					<div class="swiper-slide nk-journal__card">
+						<a href="{$link_board_detail}" class="nk-journal__img"><img src="{$img_src|replace:/gallery,}" alt="{$subject}" loading="lazy"></a>
+						<div class="nk-journal__body">
+							<span class="nk-journal__cat {$category_display|display}">{$category_name}</span>
+							<h3 class="nk-journal__title"><a href="{$link_board_detail}">{$subject}</a></h3>
+							<a href="{$link_board_detail}" class="nk-btn nk-btn--line nk-btn--sm">Read More <i class="ph ph-arrow-right"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<button type="button" class="nk-arrow nk-journal__prev" aria-label="이전"><i class="ph ph-caret-left"></i></button>
+			<button type="button" class="nk-arrow nk-journal__next" aria-label="다음"><i class="ph ph-caret-right"></i></button>
+		</div>
+
+		<div class="nk-journal__foot">
+			<a href="/board/gallery/list.html?board_no=8" class="nk-btn-link">View All <i class="ph ph-arrow-right"></i></a>
+		</div>
+	</div>
+
+	<script>
+	(function(){
+		function init(){
+			var sec = document.querySelector('.nk-journal');
+			var sw  = document.querySelector('.nk-journal__swiper');
+			var slides = sw ? sw.querySelectorAll('.swiper-slide').length : 0;
+			/* 저널 게시판(board_8)에 글이 없으면 슬라이드 0 → 헤딩만 남는 빈 섹션이 되므로 통째 숨김.
+			   재판매 시 board_listpackage_8/board_list_8 번호를 실제 갤러리/저널 게시판으로 바꾸면 자동 노출. */
+			if (!sw || slides === 0) { if (sec) sec.style.display = 'none'; return; }
+			/* 버전 무관: slidesPerView:'auto' + CSS 슬라이드 폭(반응형) */
+			new Swiper('.nk-journal__swiper', {
+				slidesPerView: 'auto',
+				spaceBetween: 28,
+				navigation: { prevEl: '.nk-journal__prev', nextEl: '.nk-journal__next' }
+			});
+		}
+		if (window.Swiper) init();
+		else window.addEventListener('load', init);
+	})();
+	</script>
+</section>

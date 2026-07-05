@@ -1,0 +1,32 @@
+@charset "utf-8";
+/* [메인 12] USP 아이콘 배너 — 3분할 그리드, 중앙 정렬, Phosphor 아이콘 */
+
+#nk-skin14 .nk-usp { background: var(--nk-bg2); }
+#nk-skin14 .nk-usp__grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: clamp(24px, 3vw, 56px);
+}
+#nk-skin14 .nk-usp__item { text-align: center; padding: 0 10px; }
+#nk-skin14 .nk-usp__item i {
+	font-size: 40px;
+	color: var(--nk-accent);
+	display: block;
+	margin-bottom: 18px;
+}
+#nk-skin14 .nk-usp__t1 {
+	font-size: var(--nk-fs-h3);
+	font-weight: 500;
+	letter-spacing: var(--nk-ls);
+	color: var(--nk-font);
+	margin-bottom: 8px;
+}
+#nk-skin14 .nk-usp__t2 {
+	font-size: var(--nk-fs-sm);
+	color: var(--nk-sub);
+	line-height: 1.6;
+}
+
+@media all and (max-width: 767px) {
+	#nk-skin14 .nk-usp__grid { grid-template-columns: 1fr; gap: 32px; }
+}

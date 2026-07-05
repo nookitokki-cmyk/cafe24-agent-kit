@@ -1,0 +1,16 @@
+{
+  "url": "https://ecudemo401773.cafe24.com/product/list.html?cate_no=26&v=tode-20260626-3",
+  "mobileWeb": false,
+  "bodyId": "main",
+  "bodyClass": "nk-skin",
+  "bodyMinWidth": "0px",
+  "overflowX": "clip",
+  "fontFamily": "Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", -apple-system, sans-serif",
+  "fontSize": "12px",
+  "lineHeight": "19.2px",
+  "bg": "rgb(245, 245, 240)",
+  "point": "#222222",
+  "bgToken": "#f5f5f0",
+  "scrollWidth": 800,
+  "clientWidth": 375
+}

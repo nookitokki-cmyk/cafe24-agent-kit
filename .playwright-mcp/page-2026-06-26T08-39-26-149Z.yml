@@ -1,0 +1,126 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - paragraph:
+      - link "전체상품목록 바로가기" [ref=e2] [cursor=pointer]:
+        - /url: "#category"
+    - paragraph:
+      - link "본문 바로가기" [ref=e3] [cursor=pointer]:
+        - /url: "#contents"
+  - generic [ref=e5]:
+    - heading "쇼핑몰 이름" [level=1] [ref=e7]:
+      - link "쇼핑몰 이름" [ref=e8] [cursor=pointer]:
+        - /url: /index.html
+    - generic [ref=e9]:
+      - link "로그인" [ref=e10] [cursor=pointer]:
+        - /url: "#"
+      - link "회원가입" [ref=e11] [cursor=pointer]:
+        - /url: /member/join.html
+      - link "장바구니" [ref=e12] [cursor=pointer]:
+        - /url: /order/basket.html
+      - link "주문조회" [ref=e13] [cursor=pointer]:
+        - /url: /myshop/order/list.html
+      - link "마이쇼핑" [ref=e14] [cursor=pointer]:
+        - /url: /myshop/index.html
+      - link "게시판" [ref=e15] [cursor=pointer]:
+        - /url: /board/index.html
+    - list [ref=e16]:
+      - listitem [ref=e17]:
+        - link "신상품" [ref=e18] [cursor=pointer]:
+          - /url: /product/list.html?cate_no=24
+      - listitem [ref=e19]:
+        - link "프리미엄" [ref=e20] [cursor=pointer]:
+          - /url: /product/list.html?cate_no=25
+      - listitem [ref=e21]:
+        - link "스페셜상품" [ref=e22] [cursor=pointer]:
+          - /url: /product/list.html?cate_no=26
+  - generic [ref=e24]:
+    - generic [ref=e25]:
+      - generic [ref=e26]:
+        - generic: 현재 위치
+        - list [ref=e27]:
+          - listitem [ref=e28]:
+            - link "홈" [ref=e29] [cursor=pointer]:
+              - /url: /
+          - listitem "현재 위치" [ref=e30]:
+            - strong [ref=e31]: 로그인
+      - heading "로그인" [level=2] [ref=e33]
+      - generic [ref=e36]:
+        - heading "회원로그인" [level=3] [ref=e37]
+        - group "회원로그인" [ref=e38]:
+          - generic "아이디" [ref=e39]:
+            - textbox [ref=e40]:
+              - /placeholder: 아이디
+          - generic "비밀번호" [ref=e41]:
+            - textbox [ref=e42]:
+              - /placeholder: 비밀번호
+          - paragraph [ref=e43]:
+            - img "보안접속" [ref=e44]
+            - text: 보안접속
+          - link "로그인" [ref=e45] [cursor=pointer]:
+            - /url: "#none"
+          - list
+          - list [ref=e46]:
+            - listitem [ref=e47]:
+              - link "아이디찾기" [ref=e48] [cursor=pointer]:
+                - /url: /member/id/find_id.html
+            - listitem [ref=e49]:
+              - link "비밀번호찾기" [ref=e50] [cursor=pointer]:
+                - /url: /member/passwd/find_passwd_info.html
+            - listitem [ref=e51]:
+              - link "회원가입" [ref=e52] [cursor=pointer]:
+                - /url: /member/join.html
+      - generic [ref=e54]:
+        - heading "비회원 로그인" [level=3] [ref=e55]
+        - paragraph [ref=e56]: 비회원의 경우, 주문시의 주문번호로 주문조회가 가능합니다.
+        - generic [ref=e57]:
+          - term [ref=e58]: 주문자명
+          - definition [ref=e59]:
+            - textbox [ref=e60]
+          - term [ref=e61]: 주문번호
+          - definition [ref=e62]:
+            - textbox "주문번호" [ref=e63]
+          - term [ref=e64]: 비회원주문 비밀번호
+          - definition [ref=e65]:
+            - textbox [ref=e66]
+        - paragraph [ref=e67]:
+          - button "조회" [ref=e68] [cursor=pointer]
+    - text: ",,"
+  - generic [ref=e70]:
+    - link "쇼핑몰 이름" [ref=e72] [cursor=pointer]:
+      - /url: /index.html
+    - generic [ref=e73]:
+      - list [ref=e74]:
+        - listitem [ref=e75]:
+          - link "홈" [ref=e76] [cursor=pointer]:
+            - /url: /index.html
+        - listitem [ref=e77]:
+          - link "회사소개" [ref=e78] [cursor=pointer]:
+            - /url: /shopinfo/company.html
+        - listitem [ref=e79]:
+          - link "이용약관" [ref=e80] [cursor=pointer]:
+            - /url: /member/agreement.html
+        - listitem [ref=e81]:
+          - link "개인정보처리방침" [ref=e82] [cursor=pointer]:
+            - /url: /member/privacy.html
+            - strong [ref=e83]: 개인정보처리방침
+        - listitem [ref=e84]:
+          - link "이용안내" [ref=e85] [cursor=pointer]:
+            - /url: /shopinfo/guide.html
+      - paragraph [ref=e86]:
+        - generic [ref=e87]: "법인명(상호) :"
+        - generic [ref=e88]: "대표자(성명) : 理"
+        - generic [ref=e89]: "사업자 등록번호 안내 : [105-78-00513]"
+        - generic [ref=e90]: 통신판매업 신고
+        - generic [ref=e91]: "전화 :"
+        - generic [ref=e92]: "팩스 :"
+        - generic [ref=e93]: "주소 :"
+        - generic [ref=e94]:
+          - text: Contact
+          - strong:
+            - link:
+              - /url: "mailto:"
+          - text: for more information.
+      - paragraph [ref=e95]:
+        - text: Copyright ©
+        - strong [ref=e96]: 쇼핑몰 이름
+        - text: . All rights reserved.

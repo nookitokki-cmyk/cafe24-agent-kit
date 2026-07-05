@@ -215,10 +215,13 @@ class Cafe24FTP:
     def backup(self, remote_path: str) -> str | None:
         rp = self._norm(remote_path)
         ftp = self._client()
+        parent = os.path.dirname(rp) or "/"
+        name = rp.split("/")[-1]
         try:
-            self._cwd_abs(ftp, os.path.dirname(rp) or "/")
-            ftp.size(rp.split("/")[-1])
+            exists = any(entry_name == name for entry_name, _facts in self._mlsd(ftp, parent))
         except ftplib.error_perm:
+            exists = False
+        if not exists:
             return None
         ts = datetime.now().strftime("%Y%m%d-%H%M%S")
         dest = os.path.join(

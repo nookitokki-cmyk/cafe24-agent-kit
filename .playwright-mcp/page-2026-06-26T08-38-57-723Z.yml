@@ -1,0 +1,123 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - paragraph:
+      - link "전체상품목록 바로가기" [ref=e2] [cursor=pointer]:
+        - /url: "#category"
+    - paragraph:
+      - link "본문 바로가기" [ref=e3] [cursor=pointer]:
+        - /url: "#contents"
+  - generic [ref=e5]:
+    - heading "쇼핑몰 이름" [level=1] [ref=e7]:
+      - link "쇼핑몰 이름" [ref=e8] [cursor=pointer]:
+        - /url: /index.html
+    - generic [ref=e9]:
+      - link "로그인" [ref=e10] [cursor=pointer]:
+        - /url: "#"
+      - link "회원가입" [ref=e11] [cursor=pointer]:
+        - /url: /member/join.html
+      - link "장바구니" [ref=e12] [cursor=pointer]:
+        - /url: /order/basket.html
+      - link "주문조회" [ref=e13] [cursor=pointer]:
+        - /url: /myshop/order/list.html
+      - link "마이쇼핑" [ref=e14] [cursor=pointer]:
+        - /url: /myshop/index.html
+      - link "게시판" [ref=e15] [cursor=pointer]:
+        - /url: /board/index.html
+    - list [ref=e16]:
+      - listitem [ref=e17]:
+        - link "신상품" [ref=e18] [cursor=pointer]:
+          - /url: /product/list.html?cate_no=24
+      - listitem [ref=e19]:
+        - link "프리미엄" [ref=e20] [cursor=pointer]:
+          - /url: /product/list.html?cate_no=25
+      - listitem [ref=e21]:
+        - link "스페셜상품" [ref=e22] [cursor=pointer]:
+          - /url: /product/list.html?cate_no=26
+  - generic [ref=e24]:
+    - generic [ref=e25]:
+      - generic [ref=e26]:
+        - generic: 현재 위치
+        - list [ref=e27]:
+          - listitem [ref=e28]:
+            - link "홈" [ref=e29] [cursor=pointer]:
+              - /url: /
+          - listitem "현재 위치" [ref=e30]:
+            - strong [ref=e31]: 장바구니
+      - heading "장바구니" [level=2] [ref=e33]
+      - generic [ref=e34]:
+        - paragraph [ref=e35]:
+          - img "01 장바구니" [ref=e36]
+        - list [ref=e38]:
+          - listitem [ref=e39]:
+            - link "국내배송상품 (0)" [ref=e40] [cursor=pointer]:
+              - /url: /order/basket.html
+          - listitem [ref=e41]:
+            - link "해외배송상품 (0)" [ref=e42] [cursor=pointer]:
+              - /url: /order/basket.html?delvtype=B
+        - paragraph [ref=e44]: 장바구니가 비어 있습니다.
+        - generic [ref=e45]:
+          - link "전체상품주문" [ref=e46] [cursor=pointer]:
+            - /url: "#none"
+          - link "선택상품주문" [ref=e47] [cursor=pointer]:
+            - /url: "#none"
+          - link "쇼핑계속하기" [ref=e49] [cursor=pointer]:
+            - /url: /
+      - generic [ref=e50]:
+        - heading "이용안내" [level=3] [ref=e51]
+        - generic [ref=e52]:
+          - heading "장바구니 이용안내" [level=4] [ref=e53]
+          - list [ref=e54]:
+            - listitem [ref=e55]: 선택하신 상품의 수량을 변경하시려면 수량변경 후 [변경] 버튼을 누르시면 됩니다.
+            - listitem [ref=e56]: "[쇼핑계속하기] 버튼을 누르시면 쇼핑을 계속 하실 수 있습니다."
+            - listitem [ref=e57]: 장바구니와 관심상품을 이용하여 원하시는 상품만 주문하거나 관심상품으로 등록하실 수 있습니다.
+            - listitem [ref=e58]: 파일첨부 옵션은 동일상품을 장바구니에 추가할 경우 마지막에 업로드 한 파일로 교체됩니다.
+            - listitem [ref=e59]: 해외배송 상품과 국내배송 상품은 함께 결제하실 수 없으니 장바구니 별로 따로 결제해 주시기 바랍니다.
+            - listitem [ref=e60]: 해외배송 가능 상품의 경우 국내배송 장바구니에 담았다가 해외배송 장바구니로 이동하여 결제하실 수 있습니다.
+          - heading "무이자할부 이용안내" [level=4] [ref=e61]
+          - list [ref=e62]:
+            - listitem [ref=e63]: 상품별 무이자할부 혜택을 받으시려면 무이자할부 상품만 선택하여 [주문하기] 버튼을 눌러 주문/결제 하시면 됩니다.
+            - listitem [ref=e64]: "[전체 상품 주문] 버튼을 누르시면 장바구니의 구분없이 선택된 모든 상품에 대한 주문/결제가 이루어집니다."
+            - listitem [ref=e65]: 단, 전체 상품을 주문/결제하실 경우, 상품별 무이자할부 혜택을 받으실 수 없습니다.
+            - listitem [ref=e66]:
+              - text: 무이자할부 상품은 장바구니에서 별도 무이자할부 상품 영역에 표시되어, 무이자할부 상품 기준으로 배송비가 표시됩니다.
+              - text: 실제 배송비는 함께 주문하는 상품에 따라 적용되오니 주문서 하단의 배송비 정보를 참고해주시기 바랍니다.
+    - text: ",,"
+  - generic [ref=e68]:
+    - link "쇼핑몰 이름" [ref=e70] [cursor=pointer]:
+      - /url: /index.html
+    - generic [ref=e71]:
+      - list [ref=e72]:
+        - listitem [ref=e73]:
+          - link "홈" [ref=e74] [cursor=pointer]:
+            - /url: /index.html
+        - listitem [ref=e75]:
+          - link "회사소개" [ref=e76] [cursor=pointer]:
+            - /url: /shopinfo/company.html
+        - listitem [ref=e77]:
+          - link "이용약관" [ref=e78] [cursor=pointer]:
+            - /url: /member/agreement.html
+        - listitem [ref=e79]:
+          - link "개인정보처리방침" [ref=e80] [cursor=pointer]:
+            - /url: /member/privacy.html
+            - strong [ref=e81]: 개인정보처리방침
+        - listitem [ref=e82]:
+          - link "이용안내" [ref=e83] [cursor=pointer]:
+            - /url: /shopinfo/guide.html
+      - paragraph [ref=e84]:
+        - generic [ref=e85]: "법인명(상호) :"
+        - generic [ref=e86]: "대표자(성명) : 理"
+        - generic [ref=e87]: "사업자 등록번호 안내 : [105-78-00513]"
+        - generic [ref=e88]: 통신판매업 신고
+        - generic [ref=e89]: "전화 :"
+        - generic [ref=e90]: "팩스 :"
+        - generic [ref=e91]: "주소 :"
+        - generic [ref=e92]:
+          - text: Contact
+          - strong:
+            - link:
+              - /url: "mailto:"
+          - text: for more information.
+      - paragraph [ref=e93]:
+        - text: Copyright ©
+        - strong [ref=e94]: 쇼핑몰 이름
+        - text: . All rights reserved.

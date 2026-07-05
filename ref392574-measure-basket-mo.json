@@ -1,0 +1,482 @@
+{
+  "measuredAt": "2026-06-26T06:07:36.105Z",
+  "url": "https://ecudemo392574.cafe24.com/order/basket.html",
+  "title": "",
+  "viewport": {
+    "w": 390,
+    "h": 1100
+  },
+  "scroll": {
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "bodyHeight": 1100
+  },
+  "tokens": {
+    "body": {
+      "tag": "BODY",
+      "id": "",
+      "className": "layout",
+      "text": "O R D I N A R Y #loading img { max-height:20px } @media (max-width:1023px) { #loading img { max-heig",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "w": 390,
+        "h": 1100
+      },
+      "style": {
+        "display": "block",
+        "position": "static",
+        "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+        "fontSize": "12px",
+        "fontWeight": "400",
+        "lineHeight": "19.2px",
+        "color": "rgb(34, 34, 34)",
+        "backgroundColor": "rgb(245, 245, 240)",
+        "padding": "0px",
+        "margin": "0px",
+        "border": "0px none rgb(34, 34, 34)",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px"
+      }
+    },
+    "header": {
+      "tag": "DIV",
+      "id": "header",
+      "className": "a-header",
+      "text": "매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션 .a-header .header-sec1 { background:#b0b5b9; color:#fff; } 매일의 순",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "w": 390,
+        "h": 70
+      },
+      "style": {
+        "display": "block",
+        "position": "relative",
+        "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+        "fontSize": "12px",
+        "fontWeight": "400",
+        "lineHeight": "19.2px",
+        "color": "rgb(34, 34, 34)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "padding": "0px",
+        "margin": "0px",
+        "border": "0px none rgb(34, 34, 34)",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px"
+      }
+    },
+    "footer": {
+      "tag": "DIV",
+      "id": "footer",
+      "className": "xans-element- xans-layout xans-layout-footer a-footer",
+      "text": "CUSTOMER CENTER 070-1234-5678Monday-Friday 10:00-17:00Sat·Sun·Holiday Closed SUPPORT ContactGuide LE",
+      "box": {
+        "x": 0,
+        "y": 890,
+        "w": 390,
+        "h": 210
+      },
+      "style": {
+        "display": "block",
+        "position": "static",
+        "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+        "fontSize": "12px",
+        "fontWeight": "300",
+        "lineHeight": "19.2px",
+        "color": "rgb(34, 34, 34)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "padding": "15px",
+        "margin": "0px",
+        "border": "0px none rgb(34, 34, 34)",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px"
+      }
+    }
+  },
+  "basket": {
+    "root": {
+      "tag": "DIV",
+      "id": "",
+      "className": "xans-element- xans-order xans-order-basketpackage ",
+      "text": "국내배송상품 (0) 해외배송상품 (0) 장바구니에 담긴 상품은 7일 동안 보관됩니다. 장바구니가 비어 있습니다. 전체상품주문 선택상품주문 쇼핑계속하기",
+      "box": {
+        "x": 15,
+        "y": 120.8,
+        "w": 360,
+        "h": 249.2
+      },
+      "style": {
+        "display": "flex",
+        "position": "static",
+        "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+        "fontSize": "12px",
+        "fontWeight": "400",
+        "lineHeight": "19.2px",
+        "color": "rgb(34, 34, 34)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "padding": "0px",
+        "margin": "0px",
+        "border": "0px none rgb(34, 34, 34)",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px"
+      }
+    },
+    "title": {
+      "tag": "H2",
+      "id": "",
+      "className": "",
+      "text": "장바구니",
+      "box": {
+        "x": 15,
+        "y": 85,
+        "w": 360,
+        "h": 20.8
+      },
+      "style": {
+        "display": "block",
+        "position": "static",
+        "fontFamily": "Marcellus, \"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+        "fontSize": "13px",
+        "fontWeight": "400",
+        "lineHeight": "20.8px",
+        "color": "rgb(34, 34, 34)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "padding": "0px",
+        "margin": "0px",
+        "border": "0px none rgb(34, 34, 34)",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px"
+      }
+    },
+    "table": {
+      "tag": "DIV",
+      "id": "",
+      "className": "orderListArea ec-base-table typeList gBorder",
+      "text": "",
+      "box": {
+        "x": 15,
+        "y": 228.9,
+        "w": 360,
+        "h": 0
+      },
+      "style": {
+        "display": "block",
+        "position": "static",
+        "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+        "fontSize": "12px",
+        "fontWeight": "400",
+        "lineHeight": "19.2px",
+        "color": "rgb(34, 34, 34)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "padding": "0px",
+        "margin": "0px",
+        "border": "0px none rgb(34, 34, 34)",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px"
+      }
+    },
+    "rows": [
+      {
+        "tag": "TR",
+        "id": "",
+        "className": "",
+        "text": "이미지 상품정보 판매가 선택",
+        "box": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "style": {
+          "display": "flex",
+          "position": "relative",
+          "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+          "fontSize": "12px",
+          "fontWeight": "400",
+          "lineHeight": "19.2px",
+          "color": "rgb(34, 34, 34)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "padding": "15px 0px",
+          "margin": "0px",
+          "border": "",
+          "borderTopWidth": "0.666667px",
+          "borderBottomWidth": "0.666667px"
+        }
+      }
+    ],
+    "total": null,
+    "buttons": [
+      {
+        "tag": "DIV",
+        "id": "",
+        "className": "btn-menu",
+        "text": "MENU",
+        "box": {
+          "x": 15,
+          "y": 39.5,
+          "w": 70,
+          "h": 16
+        },
+        "style": {
+          "display": "block",
+          "position": "static",
+          "fontFamily": "Marcellus, \"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+          "fontSize": "15px",
+          "fontWeight": "400",
+          "lineHeight": "15px",
+          "color": "rgb(34, 34, 34)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "padding": "0px",
+          "margin": "-1px 0px 0px",
+          "border": "0px none rgb(34, 34, 34)",
+          "borderTopWidth": "0px",
+          "borderBottomWidth": "0px"
+        }
+      },
+      {
+        "tag": "LI",
+        "id": "",
+        "className": "btn-search",
+        "text": "SEARCH",
+        "box": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "style": {
+          "display": "none",
+          "position": "static",
+          "fontFamily": "Marcellus, \"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+          "fontSize": "0px",
+          "fontWeight": "400",
+          "lineHeight": "0px",
+          "color": "rgb(34, 34, 34)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "padding": "0px",
+          "margin": "0px",
+          "border": "0px none rgb(34, 34, 34)",
+          "borderTopWidth": "0px",
+          "borderBottomWidth": "0px"
+        }
+      },
+      {
+        "tag": "LI",
+        "id": "",
+        "className": "btn-search",
+        "text": "SEARCH",
+        "box": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "style": {
+          "display": "list-item",
+          "position": "static",
+          "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+          "fontSize": "12.5px",
+          "fontWeight": "400",
+          "lineHeight": "23.75px",
+          "color": "rgb(34, 34, 34)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "padding": "0px",
+          "margin": "0px",
+          "border": "0px none rgb(34, 34, 34)",
+          "borderTopWidth": "0px",
+          "borderBottomWidth": "0px"
+        }
+      },
+      {
+        "tag": "SPAN",
+        "id": "",
+        "className": "btn",
+        "text": "SEARCH",
+        "box": {
+          "x": 335.6,
+          "y": 124,
+          "w": 15.4,
+          "h": 25
+        },
+        "style": {
+          "display": "block",
+          "position": "relative",
+          "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+          "fontSize": "0px",
+          "fontWeight": "400",
+          "lineHeight": "0px",
+          "color": "rgb(255, 255, 255)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "padding": "0px",
+          "margin": "0px",
+          "border": "0px none rgb(255, 255, 255)",
+          "borderTopWidth": "0px",
+          "borderBottomWidth": "0px"
+        }
+      },
+      {
+        "tag": "DIV",
+        "id": "",
+        "className": "btn-close",
+        "text": "CLOSE",
+        "box": {
+          "x": 39,
+          "y": 342.3,
+          "w": 312,
+          "h": 18.7
+        },
+        "style": {
+          "display": "block",
+          "position": "static",
+          "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+          "fontSize": "11.7px",
+          "fontWeight": "400",
+          "lineHeight": "18.72px",
+          "color": "rgb(255, 255, 255)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "padding": "0px",
+          "margin": "120px 0px 0px",
+          "border": "0px none rgb(255, 255, 255)",
+          "borderTopWidth": "0px",
+          "borderBottomWidth": "0px"
+        }
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "className": "btnSubmitFix sizeM  ",
+        "text": "전체상품주문",
+        "box": {
+          "x": 15,
+          "y": 248.9,
+          "w": 360,
+          "h": 34.5
+        },
+        "style": {
+          "display": "inline-block",
+          "position": "static",
+          "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+          "fontSize": "12px",
+          "fontWeight": "400",
+          "lineHeight": "19.2px",
+          "color": "rgb(255, 255, 255)",
+          "backgroundColor": "rgb(34, 34, 34)",
+          "padding": "7px 10px",
+          "margin": "0px 0px 6px",
+          "border": "0.666667px solid rgba(0, 0, 0, 0)",
+          "borderTopWidth": "0.666667px",
+          "borderBottomWidth": "0.666667px"
+        }
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "className": "btnEmFix sizeM ",
+        "text": "선택상품주문",
+        "box": {
+          "x": 15,
+          "y": 289.4,
+          "w": 360,
+          "h": 34.5
+        },
+        "style": {
+          "display": "inline-block",
+          "position": "static",
+          "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+          "fontSize": "12px",
+          "fontWeight": "400",
+          "lineHeight": "19.2px",
+          "color": "rgb(34, 34, 34)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "padding": "7px 10px",
+          "margin": "0px 0px 6px",
+          "border": "0.666667px solid rgb(204, 204, 204)",
+          "borderTopWidth": "0.666667px",
+          "borderBottomWidth": "0.666667px"
+        }
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "className": "btnNormalFix sizeM",
+        "text": "쇼핑계속하기",
+        "box": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "style": {
+          "display": "inline-block",
+          "position": "static",
+          "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+          "fontSize": "12px",
+          "fontWeight": "400",
+          "lineHeight": "19.2px",
+          "color": "rgb(34, 34, 34)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "padding": "7px 10px",
+          "margin": "0px",
+          "border": "0.666667px solid rgb(204, 204, 204)",
+          "borderTopWidth": "0.666667px",
+          "borderBottomWidth": "0.666667px"
+        }
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "className": "btnSubmitFix sizeS ec-basketOptionModifyLayer-add",
+        "text": "추가",
+        "box": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "style": {
+          "display": "inline-block",
+          "position": "static",
+          "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+          "fontSize": "12px",
+          "fontWeight": "400",
+          "lineHeight": "19.2px",
+          "color": "rgb(255, 255, 255)",
+          "backgroundColor": "rgb(34, 34, 34)",
+          "padding": "7px 10px",
+          "margin": "0px",
+          "border": "0.666667px solid rgba(0, 0, 0, 0)",
+          "borderTopWidth": "0.666667px",
+          "borderBottomWidth": "0.666667px"
+        }
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "className": "btnNormalFix sizeS ec-basketOptionModifyLayer-modify",
+        "text": "변경",
+        "box": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "style": {
+          "display": "inline-block",
+          "position": "static",
+          "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+          "fontSize": "12px",
+          "fontWeight": "400",
+          "lineHeight": "19.2px",
+          "color": "rgb(34, 34, 34)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "padding": "7px 10px",
+          "margin": "0px",
+          "border": "0.666667px solid rgb(204, 204, 204)",
+          "borderTopWidth": "0.666667px",
+          "borderBottomWidth": "0.666667px"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,26 @@
+<!-- [메인 7] 상품 그리드 + 더보기 — 메인진열2. 그리드 진열 후 view more. anchorBoxId 2개 이상 규칙 준수 -->
+<!--@css(/_nk/css/prdArea2.css)-->
+
+<section class="section nk-sec nk-prdgrid">
+	<div class="inner">
+		<div class="nk-sec__head">
+			<span class="nk-eyebrow">Best Sellers</span>
+			<h2 class="nk-sec__title">스테디 셀러</h2>
+		</div>
+
+		<div module="product_listmain_2" class="ec-base-product">
+			<!--
+				$count = 8
+				$moreview = yes
+				$cache = yes
+			-->
+			<ul class="nk-prd-grid grid4">
+				<li id="anchorBoxId_{$product_no}" class="nk-prd"><!--@import(/_nk/inc/prd.html)--></li>
+				<li id="anchorBoxId_{$product_no}" class="nk-prd"><!--@import(/_nk/inc/prd.html)--></li>
+			</ul>
+			<div module="product_listmore_2" class="nk-prdgrid__more">
+				<a href="#none" onclick="{$more_action}" class="nk-btn-solid">View More <i class="ph ph-plus"></i></a>
+			</div>
+		</div>
+	</div>
+</section>

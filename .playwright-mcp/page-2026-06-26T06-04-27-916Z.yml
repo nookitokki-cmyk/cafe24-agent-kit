@@ -1,0 +1,287 @@
+- generic [ref=e3]:
+  - generic [ref=e4]:
+    - list [ref=e9]:
+      - group "1 / 4" [ref=e10]:
+        - link "매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션" [ref=e11] [cursor=pointer]:
+          - /url: /
+      - group "2 / 4" [ref=e12]:
+        - link "매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션" [ref=e13] [cursor=pointer]:
+          - /url: /
+      - group "3 / 4" [ref=e14]:
+        - link "매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션" [ref=e15] [cursor=pointer]:
+          - /url: /
+      - group "4 / 4" [ref=e16]:
+        - link "매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션" [ref=e17] [cursor=pointer]:
+          - /url: /
+      - group "1 / 4" [ref=e18]:
+        - link "매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션" [ref=e19] [cursor=pointer]:
+          - /url: /
+      - group "2 / 4" [ref=e20]:
+        - link "매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션" [ref=e21] [cursor=pointer]:
+          - /url: /
+      - group "3 / 4" [ref=e22]:
+        - link "매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션" [ref=e23] [cursor=pointer]:
+          - /url: /
+      - group "4 / 4" [ref=e24]:
+        - link "매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션" [ref=e25] [cursor=pointer]:
+          - /url: /
+      - group "1 / 4" [ref=e26]:
+        - link "매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션" [ref=e27] [cursor=pointer]:
+          - /url: /
+      - group "2 / 4" [ref=e28]:
+        - link "매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션" [ref=e29] [cursor=pointer]:
+          - /url: /
+      - group "3 / 4" [ref=e30]:
+        - link "매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션" [ref=e31] [cursor=pointer]:
+          - /url: /
+      - group "4 / 4" [ref=e32]:
+        - link "매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션" [ref=e33] [cursor=pointer]:
+          - /url: /
+    - generic [ref=e34]:
+      - list [ref=e36]:
+        - listitem [ref=e37]:
+          - link "SHOP" [ref=e38] [cursor=pointer]:
+            - /url: /product/list.html?cate_no=23
+        - listitem [ref=e39]:
+          - link "ESSENTIAL" [ref=e40] [cursor=pointer]:
+            - /url: /product/list.html?cate_no=50
+        - listitem [ref=e41]:
+          - link "COLLECTION" [ref=e42] [cursor=pointer]:
+            - /url: /pages/collection/list.html?cate_no=24
+        - listitem [ref=e43]:
+          - link "INFO" [ref=e44] [cursor=pointer]:
+            - /url: "#none"
+      - link "ORDINARY" [ref=e47] [cursor=pointer]:
+        - /url: /
+      - list [ref=e49]:
+        - listitem [ref=e50]:
+          - link "LOGIN" [ref=e51] [cursor=pointer]:
+            - /url: /member/login.html
+        - listitem [ref=e52]:
+          - link "ACCOUNT" [ref=e53] [cursor=pointer]:
+            - /url: /myshop/index.html
+        - listitem [ref=e54]:
+          - link "SEARCH" [ref=e55] [cursor=pointer]:
+            - /url: "#none"
+        - listitem [ref=e56]:
+          - link "CART 0" [ref=e57] [cursor=pointer]:
+            - /url: /order/basket.html
+            - text: CART
+            - generic [ref=e58]: "0"
+  - generic [ref=e59]:
+    - generic [ref=e62]:
+      - generic: OUT OF STOCK
+      - table "기본 정보" [ref=e64]:
+        - rowgroup [ref=e65]:
+          - row "Sample Product 05" [ref=e66]:
+            - cell "Sample Product 05" [ref=e67]
+          - row "KRW 190,000 쿠폰받기 " [ref=e68]:
+            - cell "KRW 190,000 쿠폰받기 " [ref=e69]:
+              - strong [ref=e71]: KRW 190,000
+              - link "쿠폰받기 " [ref=e72] [cursor=pointer]:
+                - /url: "#none"
+          - row "카페24 쇼핑몰 제작 전문 에이드스튜디오입니다. 다수의 프로젝트 경험과 노하우를 바탕으로 브랜드 가치를 중시하는 감각적인 디자인을 만듭니다." [ref=e73]:
+            - cell "카페24 쇼핑몰 제작 전문 에이드스튜디오입니다. 다수의 프로젝트 경험과 노하우를 바탕으로 브랜드 가치를 중시하는 감각적인 디자인을 만듭니다." [ref=e74]:
+              - generic [ref=e75]:
+                - text: 카페24 쇼핑몰 제작 전문 에이드스튜디오입니다.
+                - text: 다수의 프로젝트 경험과 노하우를 바탕으로
+                - text: 브랜드 가치를 중시하는 감각적인 디자인을 만듭니다.
+      - generic [ref=e76]:
+        - table "상품 옵션" [ref=e77]:
+          - rowgroup
+          - rowgroup [ref=e78]:
+            - row "Size - [필수] 옵션을 선택해 주세요 -" [ref=e79]:
+              - rowheader "Size" [ref=e80]
+              - cell "- [필수] 옵션을 선택해 주세요 -" [ref=e81]:
+                - combobox [ref=e82]:
+                  - option "- [필수] 옵션을 선택해 주세요 -" [selected]
+                  - option "-------------------" [disabled]
+                  - option "S"
+                  - option "M"
+                  - option "L"
+                - paragraph
+          - rowgroup
+          - rowgroup
+        - generic:
+          - table "상품 목록":
+            - rowgroup
+        - generic [ref=e83]:
+          - strong [ref=e84]: TOTAL
+          - generic [ref=e85]:
+            - strong [ref=e86]:
+              - emphasis [ref=e87]: "0"
+            - text: (0개)
+        - generic [ref=e89]:
+          - link "BUY NOW" [ref=e90] [cursor=pointer]:
+            - /url: "#none"
+          - link "ADD TO CART" [ref=e91] [cursor=pointer]:
+            - /url: "#none"
+          - text: OUT OF STOCK
+      - generic [ref=e92] [cursor=pointer]: WISHLIST
+      - list [ref=e94]:
+        - listitem [ref=e95]:
+          - generic [ref=e96] [cursor=pointer]: DETAILS
+          - generic [ref=e97]:
+            - text: 넥라인의 버튼 클로징
+            - text: 앞뒤 길이가 다른 밑단
+            - text: 양옆 포켓
+            - text: 전체 안감
+        - listitem [ref=e98]:
+          - generic [ref=e99] [cursor=pointer]: SIZE&FIT
+          - generic:
+            - text: 어깨57 가슴62 소매52 총장110
+            - text: 측정 방법에 따라 오차가 있을 수 있습니다.
+            - text: (단면 기준/단위 cm)
+        - listitem [ref=e100]:
+          - generic [ref=e101] [cursor=pointer]: FABRIC&CARE
+          - generic:
+            - text: COTTON 100%
+            - text: 단독 세탁 혹은 드라이클리닝 권장
+        - listitem [ref=e102]:
+          - generic [ref=e103] [cursor=pointer]: SHIPPING
+          - generic:
+            - text: 7만원 이상 구매 시 무료배송
+            - text: 영업일 기준 3일~5일 정도 소요
+    - generic [ref=e104]:
+      - list [ref=e107]:
+        - listitem [ref=e108]:
+          - img "Sample Product 05" [ref=e109]
+        - listitem [ref=e110]
+        - listitem [ref=e111]
+      - generic [ref=e113]:
+        - paragraph [ref=e114]:
+          - img [ref=e115]
+        - paragraph [ref=e116]:
+          - img [ref=e117]
+      - generic [ref=e118]:
+        - heading "You May Also Like" [level=3] [ref=e119]
+        - list [ref=e120]:
+          - listitem [ref=e121]:
+            - link "Sample Product 01" [ref=e123] [cursor=pointer]:
+              - /url: /product/sample-product-01/53/category/23/display/1/
+              - img "Sample Product 01" [ref=e124]
+            - generic [ref=e125]:
+              - paragraph [ref=e126]:
+                - link "Sample Product 01" [ref=e127] [cursor=pointer]:
+                  - /url: /product/sample-product-01/53/category/23/display/1/
+              - list [ref=e128]:
+                - listitem [ref=e129]:
+                  - strong [ref=e130]: KRW 250,000
+                - listitem [ref=e131]: KRW 225,000
+          - listitem [ref=e132]:
+            - link "Sample Product 02" [ref=e134] [cursor=pointer]:
+              - /url: /product/sample-product-02/54/category/23/display/1/
+              - img "Sample Product 02" [ref=e135]
+            - generic [ref=e136]:
+              - paragraph [ref=e137]:
+                - link "Sample Product 02" [ref=e138] [cursor=pointer]:
+                  - /url: /product/sample-product-02/54/category/23/display/1/
+              - list [ref=e139]:
+                - listitem [ref=e140]:
+                  - strong [ref=e141]: KRW 170,000
+          - listitem [ref=e142]:
+            - link "Sample Product 03" [ref=e144] [cursor=pointer]:
+              - /url: /product/sample-product-03/55/category/23/display/1/
+              - img "Sample Product 03" [ref=e145]
+            - generic [ref=e146]:
+              - paragraph [ref=e147]:
+                - link "Sample Product 03" [ref=e148] [cursor=pointer]:
+                  - /url: /product/sample-product-03/55/category/23/display/1/
+              - list [ref=e149]:
+                - listitem [ref=e150]:
+                  - strong [ref=e151]: KRW 230,000
+          - listitem [ref=e152]:
+            - link "Sample Product 04" [ref=e154] [cursor=pointer]:
+              - /url: /product/sample-product-04/56/category/23/display/1/
+              - img "Sample Product 04" [ref=e155]
+            - generic [ref=e156]:
+              - paragraph [ref=e157]:
+                - link "Sample Product 04" [ref=e158] [cursor=pointer]:
+                  - /url: /product/sample-product-04/56/category/23/display/1/
+              - list [ref=e159]:
+                - listitem [ref=e160]:
+                  - strong [ref=e161]: KRW 110,000
+          - listitem [ref=e162]:
+            - link "Sample Product 06" [ref=e164] [cursor=pointer]:
+              - /url: /product/sample-product-06/58/category/23/display/1/
+              - img "Sample Product 06" [ref=e165]
+            - generic [ref=e166]:
+              - paragraph [ref=e167]:
+                - link "Sample Product 06" [ref=e168] [cursor=pointer]:
+                  - /url: /product/sample-product-06/58/category/23/display/1/
+              - list [ref=e169]:
+                - listitem [ref=e170]:
+                  - strong [ref=e171]: KRW 330,000
+          - listitem [ref=e172]:
+            - link "Sample Product 07" [ref=e174] [cursor=pointer]:
+              - /url: /product/sample-product-07/59/category/23/display/1/
+              - img "Sample Product 07" [ref=e175]
+            - generic [ref=e176]:
+              - paragraph [ref=e177]:
+                - link "Sample Product 07" [ref=e178] [cursor=pointer]:
+                  - /url: /product/sample-product-07/59/category/23/display/1/
+              - list [ref=e179]:
+                - listitem [ref=e180]:
+                  - strong [ref=e181]: KRW 120,000
+          - listitem [ref=e182]:
+            - link "Sample Product 08" [ref=e184] [cursor=pointer]:
+              - /url: /product/sample-product-08/60/category/23/display/1/
+              - img "Sample Product 08" [ref=e185]
+            - generic [ref=e186]:
+              - paragraph [ref=e187]:
+                - link "Sample Product 08" [ref=e188] [cursor=pointer]:
+                  - /url: /product/sample-product-08/60/category/23/display/1/
+              - list [ref=e189]:
+                - listitem [ref=e190]:
+                  - strong [ref=e191]: KRW 170,000
+      - generic [ref=e193]:
+        - heading "Review" [level=3] [ref=e195]
+        - paragraph [ref=e196]: 게시물이 없습니다
+        - paragraph [ref=e197]:
+          - generic [ref=e198]:
+            - link "상품후기쓰기" [ref=e199] [cursor=pointer]:
+              - /url: /board/product/write.html?board_no=4&product_no=57&cate_no=1&display_group=2
+            - link "모두보기" [ref=e200] [cursor=pointer]:
+              - /url: /board/product/review.html?board_no=4&link_product_no=57
+  - generic [ref=e201]:
+    - generic [ref=e202]:
+      - generic [ref=e203]:
+        - heading "CUSTOMER CENTER" [level=3] [ref=e204]
+        - generic [ref=e205]:
+          - paragraph [ref=e206]: 070-1234-5678
+          - paragraph [ref=e207]: Monday-Friday 10:00-17:00
+          - paragraph [ref=e208]: Sat·Sun·Holiday Closed
+      - generic [ref=e209]:
+        - heading "SUPPORT" [level=3] [ref=e210]
+        - generic [ref=e211]:
+          - link "Contact" [ref=e212] [cursor=pointer]:
+            - /url: /pages/contact.html
+          - link "Guide" [ref=e213] [cursor=pointer]:
+            - /url: /pages/guide.html
+      - generic [ref=e214]:
+        - heading "LEGAL" [level=3] [ref=e215]
+        - generic [ref=e216]:
+          - link "Terms of Use" [ref=e217] [cursor=pointer]:
+            - /url: /member/agreement.html
+          - link "Privacy Policy" [ref=e218] [cursor=pointer]:
+            - /url: /member/privacy.html
+      - generic [ref=e219]:
+        - heading "SOCIAL" [level=3] [ref=e220]
+        - generic [ref=e221]:
+          - link "Instagram" [ref=e222] [cursor=pointer]:
+            - /url: /
+          - link "KakaoTalk" [ref=e223] [cursor=pointer]:
+            - /url: /
+    - generic [ref=e224]:
+      - text: 상호오디너리 주소
+      - generic [ref=e225]: 서울특별시 동작구 모모로 35
+      - text: 대표이수정 사업자등록번호
+      - generic [ref=e226]:
+        - text: 123-45-67890
+        - link "[사업자정보확인]" [ref=e227] [cursor=pointer]:
+          - /url: "#none"
+      - text: 통신판매업신고2035-서울동작-0175 전화070-1234-5678 이메일info@adestudio.kr 개인정보보호책임자
+      - link "이수정" [ref=e229] [cursor=pointer]:
+        - /url: mailto:info@adestudio.kr
+      - text: 호스팅서비스카페24(주)
+      - generic [ref=e230]: © ORDINARY

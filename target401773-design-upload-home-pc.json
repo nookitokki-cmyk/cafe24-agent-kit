@@ -1,0 +1,89 @@
+{
+  "url": "https://ecudemo401773.cafe24.com/?v=202606261537",
+  "viewport": {
+    "w": 1707,
+    "h": 932
+  },
+  "scroll": {
+    "clientWidth": 1692,
+    "scrollWidth": 1712
+  },
+  "body": {
+    "fontFamily": "Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", -apple-system, sans-serif",
+    "fontSize": "13px",
+    "lineHeight": "20.8px",
+    "color": "rgb(34, 34, 34)",
+    "background": "rgb(245, 245, 240)"
+  },
+  "header": {
+    "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1692,
+      "h": 91
+    },
+    "borderBottom": "0px",
+    "bg": "rgb(245, 245, 240)"
+  },
+  "footer": {
+    "rect": {
+      "x": 0,
+      "y": 1625.5,
+      "w": 1692,
+      "h": 265.6
+    },
+    "paddingTop": "30px",
+    "paddingBottom": "30px",
+    "borderTop": "0px"
+  },
+  "special": {
+    "rect": {
+      "x": 746.6,
+      "y": 35.1,
+      "w": 198.8,
+      "h": 20.8
+    },
+    "display": "flex",
+    "gap": "32px"
+  },
+  "util": {
+    "rect": {
+      "x": 1343.8,
+      "y": 39.5,
+      "w": 318.2,
+      "h": 12
+    },
+    "display": "flex",
+    "gap": "18px"
+  },
+  "productList": {
+    "rect": {
+      "x": 0,
+      "y": 640,
+      "w": 1712,
+      "h": 761.3
+    },
+    "display": "flex",
+    "marginRight": "-20px"
+  },
+  "firstCard": {
+    "rect": {
+      "x": 0,
+      "y": 640,
+      "w": 428,
+      "h": 761.3
+    },
+    "widthStyle": "428px",
+    "paddingRight": "20px"
+  },
+  "firstImg": {
+    "rect": {
+      "x": 0,
+      "y": 640,
+      "w": 408,
+      "h": 510
+    },
+    "aspectRatio": "4 / 5",
+    "objectFit": "cover"
+  }
+}

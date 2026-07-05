@@ -1,0 +1,273 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - paragraph:
+      - link "전체상품목록 바로가기" [ref=e2] [cursor=pointer]:
+        - /url: "#category"
+    - paragraph:
+      - link "본문 바로가기" [ref=e3] [cursor=pointer]:
+        - /url: "#contents"
+  - generic [ref=e5]:
+    - heading "쇼핑몰 이름" [level=1] [ref=e7]:
+      - link "쇼핑몰 이름" [ref=e8] [cursor=pointer]:
+        - /url: /index.html
+    - generic [ref=e9]:
+      - link "로그인" [ref=e10] [cursor=pointer]:
+        - /url: "#"
+      - link "회원가입" [ref=e11] [cursor=pointer]:
+        - /url: /member/join.html
+      - link "장바구니" [ref=e12] [cursor=pointer]:
+        - /url: /order/basket.html
+  - generic [ref=e14]:
+    - generic [ref=e15]:
+      - generic [ref=e16]:
+        - generic: 현재 위치
+        - list [ref=e17]:
+          - listitem [ref=e18]:
+            - link "홈" [ref=e19] [cursor=pointer]:
+              - /url: /
+          - listitem [ref=e20]:
+            - link "(대분류) Outerwear" [ref=e21] [cursor=pointer]:
+              - /url: /category/대분류-outerwear/24/
+      - generic [ref=e22]:
+        - heading "[] 샘플상품 2" [level=2] [ref=e24]
+        - generic [ref=e25]:
+          - generic [ref=e28]:
+            - link "샘플상품 2" [ref=e29] [cursor=pointer]:
+              - /url: /product/image_zoom2.html?product_no=10&cate_no=24&display_group=1
+              - img "샘플상품 2" [ref=e30]
+            - img "관심상품 등록 전" [ref=e31] [cursor=pointer]
+          - generic [ref=e32]:
+            - table "기본 정보" [ref=e34]:
+              - rowgroup [ref=e35]:
+                - row "상품명 샘플상품 2" [ref=e36]:
+                  - rowheader "상품명" [ref=e37]
+                  - cell "샘플상품 2" [ref=e38]
+                - row "소비자가 10,000원" [ref=e39]:
+                  - rowheader "소비자가" [ref=e40]
+                  - cell "10,000원" [ref=e41]:
+                    - generic [ref=e43]: 10,000원
+                - row "판매가 10,000원" [ref=e44]:
+                  - rowheader "판매가" [ref=e45]
+                  - cell "10,000원" [ref=e46]:
+                    - strong [ref=e48]: 10,000원
+                - row "국내·해외배송 국내배송" [ref=e49]:
+                  - rowheader "국내·해외배송" [ref=e50]
+                  - cell "국내배송" [ref=e51]
+                - row "배송방법 택배" [ref=e52]:
+                  - rowheader "배송방법" [ref=e53]
+                  - cell "택배" [ref=e54]
+                - row "배송비 2,500원 (50,000원 이상 구매 시 무료)" [ref=e55]:
+                  - rowheader "배송비" [ref=e56]
+                  - cell "2,500원 (50,000원 이상 구매 시 무료)" [ref=e57]:
+                    - generic [ref=e59]:
+                      - strong [ref=e60]: 2,500원
+                      - text: (50,000원 이상 구매 시 무료)
+            - table "상품 옵션":
+              - rowgroup
+              - rowgroup
+            - paragraph [ref=e62]: (최소주문수량 1개 이상 )
+            - generic [ref=e63]:
+              - paragraph [ref=e64]: 수량을 선택해주세요.
+              - table "상품 목록" [ref=e65]:
+                - rowgroup [ref=e70]:
+                  - row "상품명 상품수 가격" [ref=e71]:
+                    - columnheader "상품명" [ref=e72]
+                    - columnheader "상품수" [ref=e73]
+                    - columnheader "가격" [ref=e74]
+                - rowgroup [ref=e75]:
+                  - row "샘플상품 2 1 수량증가 수량감소 10000" [ref=e76]:
+                    - cell "샘플상품 2" [ref=e77]
+                    - cell "1 수량증가 수량감소" [ref=e78]:
+                      - generic [ref=e79]:
+                        - textbox [ref=e80]: "1"
+                        - link "수량증가" [ref=e81] [cursor=pointer]:
+                          - /url: javascript:;
+                          - img "수량증가" [ref=e82]
+                        - link "수량감소" [ref=e83] [cursor=pointer]:
+                          - /url: javascript:;
+                          - img "수량감소" [ref=e84]
+                    - cell "10000" [ref=e85]
+                  - row "옵션 정보":
+                    - cell "옵션 정보":
+                      - table "옵션 정보":
+                        - rowgroup
+                - rowgroup
+            - generic [ref=e86]:
+              - strong [ref=e87]: 총 상품금액
+              - text: "(수량) :"
+              - generic [ref=e88]:
+                - strong [ref=e89]:
+                  - emphasis [ref=e90]: "0"
+                - text: (0개)
+            - generic [ref=e92]:
+              - link "바로 구매하기" [ref=e93] [cursor=pointer]:
+                - /url: "#none"
+                - generic [ref=e94]: 바로 구매하기
+              - link "장바구니 담기" [ref=e95] [cursor=pointer]:
+                - /url: "#none"
+              - link "관심상품등록" [ref=e96] [cursor=pointer]:
+                - /url: "#none"
+      - generic [ref=e97]:
+        - generic [ref=e98]:
+          - list [ref=e99]:
+            - listitem [ref=e100]:
+              - link "상품상세정보" [ref=e101] [cursor=pointer]:
+                - /url: "#prdDetail"
+            - listitem [ref=e102]:
+              - link "상품구매안내" [ref=e103] [cursor=pointer]:
+                - /url: "#prdInfo"
+            - listitem [ref=e104]:
+              - link "상품사용후기" [ref=e105] [cursor=pointer]:
+                - /url: "#prdReview"
+            - listitem [ref=e106]:
+              - link "상품Q&A" [ref=e107] [cursor=pointer]:
+                - /url: "#prdQnA"
+            - listitem [ref=e108]:
+              - link "관련상품" [ref=e109] [cursor=pointer]:
+                - /url: "#prdRelated"
+          - generic [ref=e110]:
+            - heading "상품상세정보" [level=3] [ref=e111]
+            - paragraph [ref=e112]: 샘플상품 입니다.
+        - generic [ref=e113]:
+          - list [ref=e114]:
+            - listitem [ref=e115]:
+              - link "상품상세정보" [ref=e116] [cursor=pointer]:
+                - /url: "#prdDetail"
+            - listitem [ref=e117]:
+              - link "상품구매안내" [ref=e118] [cursor=pointer]:
+                - /url: "#prdInfo"
+            - listitem [ref=e119]:
+              - link "상품사용후기" [ref=e120] [cursor=pointer]:
+                - /url: "#prdReview"
+            - listitem [ref=e121]:
+              - link "상품Q&A" [ref=e122] [cursor=pointer]:
+                - /url: "#prdQnA"
+            - listitem [ref=e123]:
+              - link "관련상품" [ref=e124] [cursor=pointer]:
+                - /url: "#prdRelated"
+          - generic [ref=e125]:
+            - heading "상품결제정보" [level=3] [ref=e126]
+            - text: 고액결제의 경우 안전을 위해 카드사에서 확인전화를 드릴 수도 있습니다. 확인과정에서 도난 카드의 사용이나 타인 명의의 주문등 정상적인 주문이 아니라고 판단될 경우 임의로 주문을 보류 또는 취소할 수 있습니다.
+            - text: 무통장 입금은 상품 구매 대금은 PC뱅킹, 인터넷뱅킹, 텔레뱅킹 혹은 가까운 은행에서 직접 입금하시면 됩니다.
+            - text: 주문시 입력한 입금자명과 실제입금자의 성명이 반드시 일치하여야 하며, 7일 이내로 입금을 하셔야 하며 입금되지 않은 주문은 자동취소 됩니다.
+          - generic [ref=e127]:
+            - heading "배송정보" [level=3] [ref=e128]
+            - list [ref=e129]:
+              - listitem [ref=e130]: "배송 방법 : 택배"
+              - listitem [ref=e131]: "배송 지역 : 전국지역"
+              - listitem [ref=e132]: "배송 비용 : 2,500원"
+              - listitem [ref=e133]: "배송 기간 : 3일 ~ 7일"
+              - listitem [ref=e134]:
+                - text: "배송 안내 : - 산간벽지나 도서지방은 별도의 추가금액을 지불하셔야 하는 경우가 있습니다."
+                - text: 고객님께서 주문하신 상품은 입금 확인후 배송해 드립니다. 다만, 상품종류에 따라서 상품의 배송이 다소 지연될 수 있습니다.
+          - generic [ref=e135]:
+            - heading "교환 및 반품정보" [level=3] [ref=e136]
+            - strong [ref=e137]: 교환 및 반품 주소
+            - text: "-"
+            - strong [ref=e138]: 교환 및 반품이 가능한 경우
+            - text: "- 계약내용에 관한 서면을 받은 날부터 7일. 단, 그 서면을 받은 때보다 재화등의 공급이 늦게 이루어진 경우에는 재화등을 공급받거나 재화등의 공급이 시작된 날부터 7일 이내"
+            - text: "- 공급받으신 상품 및 용역의 내용이 표시.광고 내용과 다르거나 계약내용과 다르게 이행된 때에는 당해 재화 등을 공급받은 날 부터 3월이내, 그사실을 알게 된 날 또는 알 수 있었던 날부터 30일이내"
+            - strong [ref=e139]: 교환 및 반품이 불가능한 경우
+            - text: "- 이용자에게 책임 있는 사유로 재화 등이 멸실 또는 훼손된 경우(다만, 재화 등의 내용을 확인하기 위하여 포장 등을 훼손한 경우에는 청약철회를 할 수 있습니다)"
+            - text: "- 이용자의 사용 또는 일부 소비에 의하여 재화 등의 가치가 현저히 감소한 경우"
+            - text: "- 시간의 경과에 의하여 재판매가 곤란할 정도로 재화등의 가치가 현저히 감소한 경우"
+            - text: "- 복제가 가능한 재화등의 포장을 훼손한 경우"
+            - text: "- 개별 주문 생산되는 재화 등 청약철회시 판매자에게 회복할 수 없는 피해가 예상되어 소비자의 사전 동의를 얻은 경우"
+            - text: "- 디지털 콘텐츠의 제공이 개시된 경우, (다만, 가분적 용역 또는 가분적 디지털콘텐츠로 구성된 계약의 경우 제공이 개시되지 아니한 부분은 청약철회를 할 수 있습니다.)"
+            - text: ※ 고객님의 마음이 바뀌어 교환, 반품을 하실 경우 상품반송 비용은 고객님께서 부담하셔야 합니다.
+            - text: (색상 교환, 사이즈 교환 등 포함)
+          - heading "서비스문의" [level=3] [ref=e141]
+        - generic [ref=e142]:
+          - list [ref=e143]:
+            - listitem [ref=e144]:
+              - link "상품상세정보" [ref=e145] [cursor=pointer]:
+                - /url: "#prdDetail"
+            - listitem [ref=e146]:
+              - link "상품구매안내" [ref=e147] [cursor=pointer]:
+                - /url: "#prdInfo"
+            - listitem [ref=e148]:
+              - link "상품사용후기" [ref=e149] [cursor=pointer]:
+                - /url: "#prdReview"
+            - listitem [ref=e150]:
+              - link "상품Q&A" [ref=e151] [cursor=pointer]:
+                - /url: "#prdQnA"
+            - listitem [ref=e152]:
+              - link "관련상품" [ref=e153] [cursor=pointer]:
+                - /url: "#prdRelated"
+          - generic [ref=e154]:
+            - heading "상품사용후기" [level=3] [ref=e155]
+            - paragraph [ref=e156]: 상품의 사용후기를 적어주세요.
+            - paragraph [ref=e157]: 게시물이 없습니다
+            - paragraph [ref=e158]:
+              - generic [ref=e159]:
+                - link "상품후기쓰기" [ref=e160] [cursor=pointer]:
+                  - /url: /board/product/write.html?board_no=4&product_no=10&cate_no=24&display_group=1
+                - link "모두 보기" [ref=e161] [cursor=pointer]:
+                  - /url: /board/product/list.html?board_no=4&link_product_no=10
+        - generic [ref=e162]:
+          - list [ref=e163]:
+            - listitem [ref=e164]:
+              - link "상품상세정보" [ref=e165] [cursor=pointer]:
+                - /url: "#prdDetail"
+            - listitem [ref=e166]:
+              - link "상품구매안내" [ref=e167] [cursor=pointer]:
+                - /url: "#prdInfo"
+            - listitem [ref=e168]:
+              - link "상품사용후기" [ref=e169] [cursor=pointer]:
+                - /url: "#prdReview"
+            - listitem [ref=e170]:
+              - link "상품Q&A" [ref=e171] [cursor=pointer]:
+                - /url: "#prdQnA"
+            - listitem [ref=e172]:
+              - link "관련상품" [ref=e173] [cursor=pointer]:
+                - /url: "#prdRelated"
+          - generic [ref=e174]:
+            - heading "상품 Q&A" [level=3] [ref=e175]
+            - paragraph [ref=e176]: 상품에 대해 궁금한 점을 해결해 드립니다.
+            - paragraph [ref=e177]: 게시물이 없습니다
+            - paragraph [ref=e178]:
+              - generic [ref=e179]:
+                - link "상품문의하기" [ref=e180] [cursor=pointer]:
+                  - /url: /board/product/write.html?board_no=6&product_no=10&cate_no=24&display_group=1
+                - link "모두 보기" [ref=e181] [cursor=pointer]:
+                  - /url: /board/product/list.html?board_no=6&link_product_no=10
+    - text: ",,"
+  - generic [ref=e183]:
+    - link "쇼핑몰 이름" [ref=e185] [cursor=pointer]:
+      - /url: /index.html
+    - generic [ref=e186]:
+      - list [ref=e187]:
+        - listitem [ref=e188]:
+          - link "홈" [ref=e189] [cursor=pointer]:
+            - /url: /index.html
+        - listitem [ref=e190]:
+          - link "회사소개" [ref=e191] [cursor=pointer]:
+            - /url: /shopinfo/company.html
+        - listitem [ref=e192]:
+          - link "이용약관" [ref=e193] [cursor=pointer]:
+            - /url: /member/agreement.html
+        - listitem [ref=e194]:
+          - link "개인정보처리방침" [ref=e195] [cursor=pointer]:
+            - /url: /member/privacy.html
+            - strong [ref=e196]: 개인정보처리방침
+        - listitem [ref=e197]:
+          - link "이용안내" [ref=e198] [cursor=pointer]:
+            - /url: /shopinfo/guide.html
+      - paragraph [ref=e199]:
+        - generic [ref=e200]: "법인명(상호) :"
+        - generic [ref=e201]: "대표자(성명) : 理"
+        - generic [ref=e202]: "사업자 등록번호 안내 : [105-78-00513]"
+        - generic [ref=e203]: 통신판매업 신고
+        - generic [ref=e204]: "전화 :"
+        - generic [ref=e205]: "팩스 :"
+        - generic [ref=e206]: "주소 :"
+        - generic [ref=e207]:
+          - text: Contact
+          - strong:
+            - link:
+              - /url: "mailto:"
+          - text: for more information.
+      - paragraph [ref=e208]:
+        - text: Copyright ©
+        - strong [ref=e209]: 쇼핑몰 이름
+        - text: . All rights reserved.

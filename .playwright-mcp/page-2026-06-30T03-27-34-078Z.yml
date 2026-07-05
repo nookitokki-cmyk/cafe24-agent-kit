@@ -1,0 +1,92 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - paragraph:
+      - link "전체상품목록 바로가기" [ref=e2] [cursor=pointer]:
+        - /url: "#contents"
+    - paragraph:
+      - link "본문 바로가기" [ref=e3] [cursor=pointer]:
+        - /url: "#contents"
+  - banner [ref=e4]:
+    - generic [ref=e7]:
+      - group "1 / 3" [ref=e8]: 특별한 순간은 디테일에서 시작됩니다 — MOMENT
+      - group "2 / 3": WELCOME · 신규 회원 가입 혜택을 확인하세요
+      - group "3 / 3": NEW ARRIVAL · 새로운 컬렉션을 만나보세요
+    - generic [ref=e9]:
+      - button "전체 메뉴 열기" [ref=e11] [cursor=pointer]:
+        - generic [ref=e12]: 
+        - generic [ref=e13]: MENU
+      - heading "쇼핑몰 이름" [level=1] [ref=e14]:
+        - link "쇼핑몰 이름" [ref=e15] [cursor=pointer]:
+          - /url: /index.html
+          - generic [ref=e16]: MOMENT
+          - generic [ref=e17]: 쇼핑몰 이름
+      - link "CART 2" [ref=e19] [cursor=pointer]:
+        - /url: /order/basket.html
+        - text: CART
+        - generic [ref=e20]: "2"
+  - generic [ref=e22]:
+    - generic [ref=e24]:
+      - generic [ref=e25]:
+        - paragraph [ref=e26]: Recent
+        - paragraph [ref=e27]: 최근 본 상품
+      - navigation "마이쇼핑 메뉴" [ref=e28]:
+        - generic [ref=e29]:
+          - link "마이페이지" [ref=e30] [cursor=pointer]:
+            - /url: /myshop/index.html
+          - link "주문" [ref=e31] [cursor=pointer]:
+            - /url: /myshop/order/list.html
+          - link "적립금" [ref=e32] [cursor=pointer]:
+            - /url: /myshop/mileage/historyList.html
+          - link "쿠폰" [ref=e33] [cursor=pointer]:
+            - /url: /myshop/coupon/coupon.html
+          - link "주소록" [ref=e34] [cursor=pointer]:
+            - /url: /myshop/addr/list.html
+          - link "최근 본 상품" [ref=e35] [cursor=pointer]:
+            - /url: /product/recent_view_product.html
+          - link "위시리스트" [ref=e36] [cursor=pointer]:
+            - /url: /myshop/wish_list.html
+          - link "나의 게시글" [ref=e37] [cursor=pointer]:
+            - /url: /myshop/board_list.html
+          - link "회원정보" [ref=e38] [cursor=pointer]:
+            - /url: /member/modify.html
+          - link "로그아웃" [ref=e40] [cursor=pointer]:
+            - /url: /exec/front/Member/logout/
+      - paragraph [ref=e43]: 최근본 상품 내역이 없습니다.
+    - text: ",,"
+  - contentinfo [ref=e44]:
+    - generic [ref=e45]:
+      - generic [ref=e46]:
+        - heading "Customer Center" [level=2] [ref=e48]:
+          - button "Customer Center" [ref=e49] [cursor=pointer]:
+            - generic [ref=e50]: Customer Center
+            - generic [ref=e51]: 
+        - heading "Support" [level=2] [ref=e53]:
+          - button "Support" [ref=e54] [cursor=pointer]:
+            - generic [ref=e55]: Support
+            - generic [ref=e56]: 
+        - heading "Legal" [level=2] [ref=e58]:
+          - button "Legal" [ref=e59] [cursor=pointer]:
+            - generic [ref=e60]: Legal
+            - generic [ref=e61]: 
+        - heading "Social" [level=2] [ref=e63]:
+          - button "Social" [ref=e64] [cursor=pointer]:
+            - generic [ref=e65]: Social
+            - generic [ref=e66]: 
+      - generic [ref=e67]:
+        - link "쇼핑몰 이름" [ref=e69] [cursor=pointer]:
+          - /url: /index.html
+          - generic [ref=e70]: MOMENT
+          - generic [ref=e71]: 쇼핑몰 이름
+        - generic [ref=e72]:
+          - paragraph [ref=e73]:
+            - generic [ref=e74]: 상호
+            - generic [ref=e75]: 대표 理
+            - generic [ref=e76]: 사업자등록번호 105-78-00513
+            - generic [ref=e77]: 통신판매업신고
+            - generic [ref=e78]: 주소
+            - generic [ref=e79]: 전화
+            - generic [ref=e80]:
+              - text: 이메일
+              - link:
+                - /url: "mailto:"
+          - paragraph [ref=e81]: Copyright © 쇼핑몰 이름. All rights reserved.

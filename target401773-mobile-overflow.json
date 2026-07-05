@@ -1,0 +1,57 @@
+[
+  {
+    "tag": "h1",
+    "id": "",
+    "className": "xans-element- xans-layout xans-layout-logotop ",
+    "width": 800,
+    "left": 0,
+    "right": 800,
+    "position": "static",
+    "display": "block",
+    "overflowX": "visible"
+  },
+  {
+    "tag": "a",
+    "id": "",
+    "className": "",
+    "width": 214,
+    "left": 293,
+    "right": 507,
+    "position": "static",
+    "display": "inline",
+    "overflowX": "visible"
+  },
+  {
+    "tag": "legend",
+    "id": "",
+    "className": "",
+    "width": 0,
+    "left": -9999,
+    "right": -9999,
+    "position": "absolute",
+    "display": "block",
+    "overflowX": "visible"
+  },
+  {
+    "tag": "legend",
+    "id": "",
+    "className": "",
+    "width": 0,
+    "left": -9999,
+    "right": -9999,
+    "position": "absolute",
+    "display": "block",
+    "overflowX": "visible"
+  },
+  {
+    "tag": "legend",
+    "id": "",
+    "className": "",
+    "width": 0,
+    "left": -9999,
+    "right": -9999,
+    "position": "absolute",
+    "display": "block",
+    "overflowX": "visible"
+  }
+]

@@ -1,0 +1,749 @@
+{
+  "url": "https://ecudemo392574.cafe24.com/",
+  "title": "",
+  "mobileWeb": false,
+  "bodyClass": "layout cc",
+  "links": [
+    {
+      "text": "매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션",
+      "href": "https://ecudemo392574.cafe24.com/",
+      "selector": "nav/footer"
+    },
+    {
+      "text": "SHOP",
+      "href": "https://ecudemo392574.cafe24.com/product/list.html?cate_no=23",
+      "selector": "nav/footer"
+    },
+    {
+      "text": "Outerwear",
+      "href": "https://ecudemo392574.cafe24.com/product/list.html?cate_no=42",
+      "selector": "nav/footer"
+    },
+    {
+      "text": "Tops",
+      "href": "https://ecudemo392574.cafe24.com/product/list.html?cate_no=43",
+      "selector": "nav/footer"
+    },
+    {
+      "text": "Blouses",
+      "href": "https://ecudemo392574.cafe24.com/product/list.html?cate_no=47",
+      "selector": "nav/footer"
+    },
+    {
+      "text": "Shirts",
+      "href": "https://ecudemo392574.cafe24.com/product/list.html?cate_no=48",
+      "selector": "nav/footer"
+    },
+    {
+      "text": "Knitwear",
+      "href": "https://ecudemo392574.cafe24.com/product/list.html?cate_no=49",
+      "selector": "nav/footer"
+    },
+    {
+      "text": "Bottoms",
+      "href": "https://ecudemo392574.cafe24.com/product/list.html?cate_no=44",
+      "selector": "nav/footer"
+    },
+    {
+      "text": "Dresses",
+      "href": "https://ecudemo392574.cafe24.com/product/list.html?cate_no=45",
+      "selector": "nav/footer"
+    },
+    {
+      "text": "Accessories",
+      "href": "https://ecudemo392574.cafe24.com/product/list.html?cate_no=46",
+      "selector": "nav/footer"
+    },
+    {
+      "text": "Sale",
+      "href": "https://ecudemo392574.cafe24.com/product/list.html?cate_no=52",
+      "selector": "nav/footer"
+    },
+    {
+      "text": "ESSENTIAL",
+      "href": "https://ecudemo392574.cafe24.com/product/list.html?cate_no=50",
+      "selector": "nav/footer"
+    },
+    {
+      "text": "COLLECTION",
+      "href": "https://ecudemo392574.cafe24.com/pages/collection/list.html?cate_no=24",
+      "selector": "nav/footer"
+    },
+    {
+      "text": "INFO",
+      "href": "https://ecudemo392574.cafe24.com/#none",
+      "selector": "nav/footer"
+    },
+    {
+      "text": "About",
+      "href": "https://ecudemo392574.cafe24.com/pages/about.html",
+      "selector": "nav/footer"
+    },
+    {
+      "text": "Contact",
+      "href": "https://ecudemo392574.cafe24.com/pages/contact.html",
+      "selector": "nav/footer"
+    },
+    {
+      "text": "Notice",
+      "href": "https://ecudemo392574.cafe24.com/board/free/list.html?board_no=1",
+      "selector": "nav/footer"
+    },
+    {
+      "text": "FAQ",
+      "href": "https://ecudemo392574.cafe24.com/board/free/faq.html?board_no=3",
+      "selector": "nav/footer"
+    },
+    {
+      "text": "Q&A",
+      "href": "https://ecudemo392574.cafe24.com/board/product/list.html?board_no=6",
+      "selector": "nav/footer"
+    },
+    {
+      "text": "Review",
+      "href": "https://ecudemo392574.cafe24.com/board/product/review.html?board_no=4",
+      "selector": "nav/footer"
+    },
+    {
+      "text": "ORDINARY .a-header .logo img { max-height:20px } @media (max-width:1023px) { .a-",
+      "href": "https://ecudemo392574.cafe24.com/",
+      "selector": "nav/footer"
+    },
+    {
+      "text": "LOGIN",
+      "href": "https://ecudemo392574.cafe24.com/member/login.html",
+      "selector": "nav/footer"
+    },
+    {
+      "text": "ACCOUNT",
+      "href": "https://ecudemo392574.cafe24.com/myshop/index.html",
+      "selector": "nav/footer"
+    },
+    {
+      "text": "SEARCH",
+      "href": "https://ecudemo392574.cafe24.com/#none",
+      "selector": "nav/footer"
+    },
+    {
+      "text": "CART0",
+      "href": "https://ecudemo392574.cafe24.com/order/basket.html",
+      "selector": "nav/footer"
+    },
+    {
+      "text": "RECENTLY VIEWED",
+      "href": "https://ecudemo392574.cafe24.com/product/recent_view_product.html",
+      "selector": "nav/footer"
+    },
+    {
+      "text": "Daily Dress",
+      "href": "https://ecudemo392574.cafe24.com/product/search.html?keyword=Daily%20Dress",
+      "selector": "nav/footer"
+    },
+    {
+      "text": "Basic Top",
+      "href": "https://ecudemo392574.cafe24.com/product/search.html?keyword=Basic%20Top",
+      "selector": "nav/footer"
+    },
+    {
+      "text": "Formal Blouse",
+      "href": "https://ecudemo392574.cafe24.com/product/search.html?keyword=Formal%20Blouse",
+      "selector": "nav/footer"
+    },
+    {
+      "text": "",
+      "href": "https://ecudemo392574.cafe24.com/",
+      "selector": "body"
+    },
+    {
+      "text": "SIGNATURE LINE 매일의 순간을 특별하게, 당신의 일상에 스며드는 오디너리 시그니처 라인",
+      "href": "https://ecudemo392574.cafe24.com/",
+      "selector": "body"
+    },
+    {
+      "text": "",
+      "href": "https://ecudemo392574.cafe24.com/product/sample-product-05/57/category/1/display/2/?icid=MAIN.product_listmain_1",
+      "selector": "body"
+    },
+    {
+      "text": "상품명 : Sample Product 05",
+      "href": "https://ecudemo392574.cafe24.com/product/sample-product-05/57/category/1/display/2/?icid=MAIN.product_listmain_1",
+      "selector": "body"
+    },
+    {
+      "text": "",
+      "href": "https://ecudemo392574.cafe24.com/product/sample-product-06/58/category/1/display/2/?icid=MAIN.product_listmain_1",
+      "selector": "body"
+    },
+    {
+      "text": "상품명 : Sample Product 06",
+      "href": "https://ecudemo392574.cafe24.com/product/sample-product-06/58/category/1/display/2/?icid=MAIN.product_listmain_1",
+      "selector": "body"
+    },
+    {
+      "text": "",
+      "href": "https://ecudemo392574.cafe24.com/product/sample-product-07/59/category/1/display/2/?icid=MAIN.product_listmain_1",
+      "selector": "body"
+    },
+    {
+      "text": "상품명 : Sample Product 07",
+      "href": "https://ecudemo392574.cafe24.com/product/sample-product-07/59/category/1/display/2/?icid=MAIN.product_listmain_1",
+      "selector": "body"
+    },
+    {
+      "text": "",
+      "href": "https://ecudemo392574.cafe24.com/product/sample-product-08/60/category/1/display/2/?icid=MAIN.product_listmain_1",
+      "selector": "body"
+    },
+    {
+      "text": "상품명 : Sample Product 08",
+      "href": "https://ecudemo392574.cafe24.com/product/sample-product-08/60/category/1/display/2/?icid=MAIN.product_listmain_1",
+      "selector": "body"
+    },
+    {
+      "text": "",
+      "href": "https://ecudemo392574.cafe24.com/product/sample-product-01/53/category/1/display/2/?icid=MAIN.product_listmain_1",
+      "selector": "body"
+    },
+    {
+      "text": "상품명 : Sample Product 01",
+      "href": "https://ecudemo392574.cafe24.com/product/sample-product-01/53/category/1/display/2/?icid=MAIN.product_listmain_1",
+      "selector": "body"
+    },
+    {
+      "text": "",
+      "href": "https://ecudemo392574.cafe24.com/product/sample-product-02/54/category/1/display/2/?icid=MAIN.product_listmain_1",
+      "selector": "body"
+    },
+    {
+      "text": "상품명 : Sample Product 02",
+      "href": "https://ecudemo392574.cafe24.com/product/sample-product-02/54/category/1/display/2/?icid=MAIN.product_listmain_1",
+      "selector": "body"
+    },
+    {
+      "text": "",
+      "href": "https://ecudemo392574.cafe24.com/product/sample-product-03/55/category/1/display/2/?icid=MAIN.product_listmain_1",
+      "selector": "body"
+    },
+    {
+      "text": "상품명 : Sample Product 03",
+      "href": "https://ecudemo392574.cafe24.com/product/sample-product-03/55/category/1/display/2/?icid=MAIN.product_listmain_1",
+      "selector": "body"
+    },
+    {
+      "text": "",
+      "href": "https://ecudemo392574.cafe24.com/product/sample-product-04/56/category/1/display/2/?icid=MAIN.product_listmain_1",
+      "selector": "body"
+    },
+    {
+      "text": "상품명 : Sample Product 04",
+      "href": "https://ecudemo392574.cafe24.com/product/sample-product-04/56/category/1/display/2/?icid=MAIN.product_listmain_1",
+      "selector": "body"
+    },
+    {
+      "text": "",
+      "href": "https://ecudemo392574.cafe24.com/product/sample-product-01/53/category/1/display/3/?icid=MAIN.product_listmain_2",
+      "selector": "body"
+    },
+    {
+      "text": "상품명 : Sample Product 01",
+      "href": "https://ecudemo392574.cafe24.com/product/sample-product-01/53/category/1/display/3/?icid=MAIN.product_listmain_2",
+      "selector": "body"
+    },
+    {
+      "text": "",
+      "href": "https://ecudemo392574.cafe24.com/product/sample-product-02/54/category/1/display/3/?icid=MAIN.product_listmain_2",
+      "selector": "body"
+    },
+    {
+      "text": "상품명 : Sample Product 02",
+      "href": "https://ecudemo392574.cafe24.com/product/sample-product-02/54/category/1/display/3/?icid=MAIN.product_listmain_2",
+      "selector": "body"
+    },
+    {
+      "text": "",
+      "href": "https://ecudemo392574.cafe24.com/product/sample-product-03/55/category/1/display/3/?icid=MAIN.product_listmain_2",
+      "selector": "body"
+    },
+    {
+      "text": "상품명 : Sample Product 03",
+      "href": "https://ecudemo392574.cafe24.com/product/sample-product-03/55/category/1/display/3/?icid=MAIN.product_listmain_2",
+      "selector": "body"
+    },
+    {
+      "text": "",
+      "href": "https://ecudemo392574.cafe24.com/product/sample-product-04/56/category/1/display/3/?icid=MAIN.product_listmain_2",
+      "selector": "body"
+    },
+    {
+      "text": "상품명 : Sample Product 04",
+      "href": "https://ecudemo392574.cafe24.com/product/sample-product-04/56/category/1/display/3/?icid=MAIN.product_listmain_2",
+      "selector": "body"
+    },
+    {
+      "text": "",
+      "href": "https://ecudemo392574.cafe24.com/product/sample-product-05/57/category/1/display/3/?icid=MAIN.product_listmain_2",
+      "selector": "body"
+    },
+    {
+      "text": "상품명 : Sample Product 05",
+      "href": "https://ecudemo392574.cafe24.com/product/sample-product-05/57/category/1/display/3/?icid=MAIN.product_listmain_2",
+      "selector": "body"
+    },
+    {
+      "text": "",
+      "href": "https://ecudemo392574.cafe24.com/product/sample-product-06/58/category/1/display/3/?icid=MAIN.product_listmain_2",
+      "selector": "body"
+    },
+    {
+      "text": "상품명 : Sample Product 06",
+      "href": "https://ecudemo392574.cafe24.com/product/sample-product-06/58/category/1/display/3/?icid=MAIN.product_listmain_2",
+      "selector": "body"
+    },
+    {
+      "text": "",
+      "href": "https://ecudemo392574.cafe24.com/product/sample-product-07/59/category/1/display/3/?icid=MAIN.product_listmain_2",
+      "selector": "body"
+    },
+    {
+      "text": "상품명 : Sample Product 07",
+      "href": "https://ecudemo392574.cafe24.com/product/sample-product-07/59/category/1/display/3/?icid=MAIN.product_listmain_2",
+      "selector": "body"
+    },
+    {
+      "text": "",
+      "href": "https://ecudemo392574.cafe24.com/product/sample-product-08/60/category/1/display/3/?icid=MAIN.product_listmain_2",
+      "selector": "body"
+    },
+    {
+      "text": "상품명 : Sample Product 08",
+      "href": "https://ecudemo392574.cafe24.com/product/sample-product-08/60/category/1/display/3/?icid=MAIN.product_listmain_2",
+      "selector": "body"
+    },
+    {
+      "text": "ORDINARY 비울수록 선명해지는 본연의 아름다움 자연에서 온 지속 가능한 소재 위에 미니멀한 실루엣을 그려냅니다. 일상에 불필요한 무게를 덜",
+      "href": "https://ecudemo392574.cafe24.com/",
+      "selector": "body"
+    },
+    {
+      "text": "Guide",
+      "href": "https://ecudemo392574.cafe24.com/pages/guide.html",
+      "selector": "nav/footer"
+    },
+    {
+      "text": "Terms of Use",
+      "href": "https://ecudemo392574.cafe24.com/member/agreement.html",
+      "selector": "nav/footer"
+    },
+    {
+      "text": "Privacy Policy",
+      "href": "https://ecudemo392574.cafe24.com/member/privacy.html",
+      "selector": "nav/footer"
+    },
+    {
+      "text": "Instagram",
+      "href": "https://ecudemo392574.cafe24.com/",
+      "selector": "nav/footer"
+    },
+    {
+      "text": "KakaoTalk",
+      "href": "https://ecudemo392574.cafe24.com/",
+      "selector": "nav/footer"
+    },
+    {
+      "text": "[사업자정보확인]",
+      "href": "https://ecudemo392574.cafe24.com/#none",
+      "selector": "nav/footer"
+    },
+    {
+      "text": "이수정",
+      "href": "mailto:info@adestudio.kr",
+      "selector": "nav/footer"
+    },
+    {
+      "text": "고객님은 안전거래를 위해 현금 등으로 결제 시 저희 쇼핑몰에서 가입한 OOO의 구매안전서비스를 이용하실 수 있습니다. [서비스가입사실확인]",
+      "href": "https://ecudemo392574.cafe24.com/#",
+      "selector": "nav/footer"
+    }
+  ],
+  "measures": [
+    {
+      "selector": "body",
+      "tag": "body",
+      "className": "layout cc",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "width": 1424.666748046875,
+        "height": 3960.34375
+      },
+      "style": {
+        "display": "block",
+        "position": "static",
+        "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+        "fontSize": "13px",
+        "fontWeight": "400",
+        "lineHeight": "20.8px",
+        "color": "rgb(34, 34, 34)",
+        "backgroundColor": "rgb(245, 245, 240)",
+        "padding": "0px",
+        "margin": "0px",
+        "maxWidth": "none"
+      }
+    },
+    {
+      "selector": "#header",
+      "tag": "div",
+      "className": "a-header",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "width": 1424.666748046875,
+        "height": 91
+      },
+      "style": {
+        "display": "block",
+        "position": "fixed",
+        "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+        "fontSize": "13px",
+        "fontWeight": "400",
+        "lineHeight": "20.8px",
+        "color": "rgb(34, 34, 34)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "padding": "0px",
+        "margin": "0px",
+        "maxWidth": "none"
+      }
+    },
+    {
+      "selector": ".header",
+      "tag": "div",
+      "className": "header",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "width": 1424.666748046875,
+        "height": 0
+      },
+      "style": {
+        "display": "block",
+        "position": "static",
+        "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+        "fontSize": "13px",
+        "fontWeight": "400",
+        "lineHeight": "20.8px",
+        "color": "rgb(34, 34, 34)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "padding": "0px",
+        "margin": "0px",
+        "maxWidth": "none"
+      }
+    },
+    {
+      "selector": ".xans-product-listmain",
+      "tag": "div",
+      "className": "xans-element- xans-product xans-product-listmain-1 xans-product-listmain xans-product-1 ec-base-product a-check active a-slide2",
+      "box": {
+        "x": 30,
+        "y": 1300,
+        "width": 1364.666748046875,
+        "height": 632.3229370117188
+      },
+      "style": {
+        "display": "block",
+        "position": "relative",
+        "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+        "fontSize": "13px",
+        "fontWeight": "400",
+        "lineHeight": "20.8px",
+        "color": "rgb(34, 34, 34)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "padding": "0px",
+        "margin": "100px 30px 30px",
+        "maxWidth": "none"
+      }
+    },
+    {
+      "selector": ".swiper",
+      "tag": "div",
+      "className": "swiper swiper-initialized swiper-horizontal swiper-pointer-events",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "width": 1424.666748046875,
+        "height": 28
+      },
+      "style": {
+        "display": "block",
+        "position": "relative",
+        "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+        "fontSize": "13px",
+        "fontWeight": "400",
+        "lineHeight": "20.8px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "padding": "0px",
+        "margin": "0px",
+        "maxWidth": "none"
+      }
+    },
+    {
+      "selector": ".xans-layout-footer",
+      "tag": "div",
+      "className": "xans-element- xans-layout xans-layout-footer a-footer",
+      "box": {
+        "x": 0,
+        "y": 3717.75,
+        "width": 1424.666748046875,
+        "height": 242.59375
+      },
+      "style": {
+        "display": "block",
+        "position": "static",
+        "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+        "fontSize": "13px",
+        "fontWeight": "400",
+        "lineHeight": "20.8px",
+        "color": "rgb(34, 34, 34)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "padding": "30px",
+        "margin": "0px",
+        "maxWidth": "none"
+      }
+    },
+    {
+      "selector": "#footer",
+      "tag": "div",
+      "className": "xans-element- xans-layout xans-layout-footer a-footer",
+      "box": {
+        "x": 0,
+        "y": 3717.75,
+        "width": 1424.666748046875,
+        "height": 242.59375
+      },
+      "style": {
+        "display": "block",
+        "position": "static",
+        "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+        "fontSize": "13px",
+        "fontWeight": "400",
+        "lineHeight": "20.8px",
+        "color": "rgb(34, 34, 34)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "padding": "30px",
+        "margin": "0px",
+        "maxWidth": "none"
+      }
+    }
+  ],
+  "roots": [
+    {
+      "tag": "div",
+      "id": "loading",
+      "className": "off",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "width": 1424.666748046875,
+        "height": 1200
+      }
+    },
+    {
+      "tag": "div",
+      "id": "wrap",
+      "className": "",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "width": 1424.666748046875,
+        "height": 3960.34375
+      }
+    },
+    {
+      "tag": "script",
+      "id": "",
+      "className": "",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      }
+    },
+    {
+      "tag": "script",
+      "id": "",
+      "className": "",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      }
+    },
+    {
+      "tag": "style",
+      "id": "",
+      "className": "",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      }
+    },
+    {
+      "tag": "style",
+      "id": "",
+      "className": "",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      }
+    },
+    {
+      "tag": "script",
+      "id": "",
+      "className": "",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      }
+    },
+    {
+      "tag": "script",
+      "id": "",
+      "className": "",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      }
+    },
+    {
+      "tag": "style",
+      "id": "",
+      "className": "",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      }
+    },
+    {
+      "tag": "span",
+      "id": "",
+      "className": "",
+      "box": {
+        "x": 0,
+        "y": 3960.34375,
+        "width": 0,
+        "height": 0
+      }
+    },
+    {
+      "tag": "script",
+      "id": "",
+      "className": "",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      }
+    },
+    {
+      "tag": "script",
+      "id": "",
+      "className": "",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      }
+    },
+    {
+      "tag": "script",
+      "id": "",
+      "className": "",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      }
+    },
+    {
+      "tag": "script",
+      "id": "",
+      "className": "",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      }
+    },
+    {
+      "tag": "script",
+      "id": "",
+      "className": "",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      }
+    },
+    {
+      "tag": "script",
+      "id": "",
+      "className": "",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      }
+    },
+    {
+      "tag": "iframe",
+      "id": "log_realtime",
+      "className": "",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      }
+    },
+    {
+      "tag": "iframe",
+      "id": "",
+      "className": "",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      }
+    },
+    {
+      "tag": "script",
+      "id": "",
+      "className": "",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      }
+    }
+  ]
+}

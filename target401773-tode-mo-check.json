@@ -1,0 +1,25 @@
+{
+  "url": "https://ecudemo401773.cafe24.com/?v=tode-20260626-1",
+  "mobileWeb": false,
+  "bodyId": "main",
+  "bodyClass": "",
+  "bodyMinWidth": "1480px",
+  "bodyMaxWidth": "none",
+  "overflowX": "visible",
+  "fontFamily": "Verdana, Dotum, AppleGothic, sans-serif",
+  "fontSize": "12px",
+  "lineHeight": "normal",
+  "bg": "rgb(255, 255, 255)",
+  "hasResetLink": false,
+  "hasMainLink": false,
+  "visualViewport": {
+    "width": 390,
+    "height": 844
+  },
+  "scrollWidth": 1480,
+  "clientWidth": 375,
+  "bodyBox": {
+    "width": 1480,
+    "height": 1463.791748046875
+  }
+}

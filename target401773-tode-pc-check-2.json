@@ -1,0 +1,25 @@
+{
+  "url": "https://ecudemo401773.cafe24.com/product/list.html?cate_no=26",
+  "mobileWeb": false,
+  "bodyId": "main",
+  "bodyClass": "nk-skin",
+  "bodyMinWidth": "0px",
+  "bodyMaxWidth": "none",
+  "overflowX": "clip",
+  "fontFamily": "Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", -apple-system, sans-serif",
+  "fontSize": "13px",
+  "lineHeight": "20.8px",
+  "bg": "rgb(245, 245, 240)",
+  "vars": {
+    "--nk-bg": "#f5f5f0",
+    "--nk-text": "#222222",
+    "--nk-point": "#008bcc",
+    "--nk-header-pc": "91px",
+    "--nk-fs-pc": "13px"
+  },
+  "nkLinks": [],
+  "hasResetLink": false,
+  "hasMainLink": false,
+  "scrollWidth": 1425,
+  "clientWidth": 1425
+}

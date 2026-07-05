@@ -1,0 +1,7 @@
+@charset "utf-8";
+/* [메인 7] 상품 그리드 + 더보기 — 그리드는 §3 .nk-prd-grid 공유. 더보기 버튼 중앙 정렬 */
+
+#nk-skin14 .nk-prdgrid__more {
+	margin-top: clamp(32px, 4vw, 56px);
+	text-align: center;
+}

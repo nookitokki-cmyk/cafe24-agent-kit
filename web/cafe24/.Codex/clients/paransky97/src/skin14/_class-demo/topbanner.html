@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>W5 데모 — 탑배너 (레퍼런스: ecudemo392574)</title>
+<style>
+/* W5 강의 데모 — 격차표 1회 지시로 일괄 수정한 100% 버전 (2026-06-12)
+   레퍼런스 실측치(ecudemo392574.cafe24.com):
+   높이 26px / 배경 #B0B5B9 / 글자 11px #fff / letter-spacing -0.25px */
+:root {
+  --nk-topbar-h: 26px;
+  --nk-topbar-bg: #B0B5B9;
+  --nk-topbar-fs: 11px;
+  --nk-topbar-color: #fff;
+}
+body { margin: 0; font-family: Pretendard, -apple-system, sans-serif; }
+.nk-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: var(--nk-topbar-h);
+  background: var(--nk-topbar-bg);
+  overflow: hidden;
+}
+.nk-topbar__text {
+  color: var(--nk-topbar-color);
+  font-size: var(--nk-topbar-fs);
+  font-weight: 400;
+  letter-spacing: -0.25px;
+  white-space: nowrap;
+  animation: nk-roll 12s linear infinite;
+}
+@keyframes nk-roll {
+  0%   { transform: translateX(60vw); }
+  100% { transform: translateX(-60vw); }
+}
+.nk-demo-note {
+  padding: 24px 16px;
+  font-size: 13px;
+  color: #666;
+}
+</style>
+</head>
+<body>
+<div class="nk-topbar">
+  <span class="nk-topbar__text">매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션</span>
+</div>
+<div class="nk-demo-note">
+  W5 강의 데모 페이지 — 레퍼런스 몰 탑배너 재현 (카페24 MCP 업로드 검증용 · 운영과 무관 · 삭제 가능)
+</div>
+</body>
+</html>

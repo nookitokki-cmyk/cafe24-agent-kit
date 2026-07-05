@@ -19,24 +19,13 @@
 
 ## 0-1. 초보자·인프라 질문 게이트
 
-**`/접속세팅`·`/도움말`·「카페24 처음」** 또는 환경 없이 본격 작업 요청 시, **한 번에 하나씩** 확인. 답 없으면 SFTP 읽기·쓰기 금지.
+**`/접속세팅`·`/도움말`·「카페24 처음」** 또는 환경 없이 본격 작업 요청 시, 아래 순서로 **한 번에 하나씩** 확인. 답 없으면 SFTP 읽기·쓰기 금지.
 
-| # | 확인 | 없으면 |
-|---|------|--------|
-| 0 | **파트너 샘플몰 vs 일반 운영 몰** | `00_시작하기/00` · `03` |
-| 1 | **몰 ID** (`https://{id}.cafe24.com`) | `00_시작하기/02` |
-| 2 | **접속** (웹 FTP 또는 디자인 SFTP 호스트·포트 — **발급값 그대로**) | `/접속세팅` |
-| 3 | **skin_no · skin_code · SFTP `/{skin_code}`** (`skin_no`≠폴더숫자 ⚠️) | `cafe24_list_themes` |
-| 4 | **★ 작업 방식 판별** — **A. HTML 네이티브** vs **B. EZ 엎기**(EZ-on-legacy). `ez/` 폴더·`body[data-ez-theme]`·`sub_theme.css`로 판별 후 분기 **선언**하고 시작 | `.claude/skills/cafe24/references/skin-method-detect.md` |
-| 5 | **editor_type=H** (HTML) 확인 — E/D/W/C면 HTML 워크플로 자동 금지 (Easy 타입 FTP 대량수정 = F35) | `brain/docs/OFFICIAL-AUDIT.md` §D |
-| 6 | **실측** (폰트·여백 px) — `/요소측정` | `01_작업하기/workflows/04-measure-first.md` |
-| 7 | **백업·업로드 OK** | MCP backup 또는 수동 |
+파트너샘플몰/일반몰 구분 → 몰ID → 접속(SFTP호스트·포트 **발급값 그대로**) → skin_no·skin_code·`/{skin_code}` → **★ 방식판별(HTML vs EZ)** → editor_type=H 확인 → 실측(`/요소측정`) → 백업OK
 
-> **★ 4번이 핵심:** 카페24 작업 지시를 받으면 **코드 만지기 전에 방식(A/B)부터 판별·선언**한다. 방식에 따라 base가 이기는 경로·후처리·함정이 다르다 — 빠른 룰: **`ez/` 폴더 있으면 EZ(B), 없으면 HTML(A)**. 운영 중인 몰은 `scripts/diagnose-overrides.js`가 상단에 방식을 자동 판정한다.
+> **★ 방식 판별이 핵심:** `ez/` 폴더·`body[data-ez-theme]`·`sub_theme.css` 확인 → **`ez/` 있으면 EZ(B), 없으면 HTML(A)**. 분기 **선언 후** 작업 시작. 상세 체크표: `.claude/skills/cafe24/references/skin-method-detect.md` · `brain/docs/OFFICIAL-AUDIT.md`
 
-명령 레지스트리: `commands/COMMANDS.md` · OAuth: `connect/MCP-OAUTH-GUIDE.md`
-
-초보 온보딩: `00_시작하기/00`~`05`. 막힘: `/도움말` + `04-자주-막히는-5가지.md`.
+명령 레지스트리: `commands/COMMANDS.md` · OAuth: `connect/MCP-OAUTH-GUIDE.md` · 온보딩: `00_시작하기/00`~`05` · 막힘: `04-자주-막히는-5가지.md`
 
 ---
 
@@ -101,26 +90,9 @@
 
 ## 5. 디렉토리 컨벤션 (이 키트 안)
 
-```
-cafe24-agent-kit/
-├── CLAUDE.md                      ← (이 파일) 에이전트 진입점·헌법
-├── README.md                      ← 사람용 사용법
-├── commands/COMMANDS.md           ← OMC 슬래시 명령 레지스트리
-├── 00_시작하기/                 ← 접속·MCP 온보딩 00~05
-├── brain/docs/
-│   ├── CAFE24-SMARTDESIGN-AGENT.md ← 자립형 시스템 프롬프트 (1차 기준)
-│   ├── OFFICIAL-AUDIT.md           ← 공식 대조표 (✅/⚠️/❌)
-│   ├── MCP-OAUTH-GUIDE.md          ← API 발급 튜토리얼
-│   └── WORK-GUIDE.md               ← skin10~14 상세 작업 로그·교훈
-├── 02_막혔을때/함정-INDEX.md                  ← F1~F26 인덱스
-├── clients/_template/            ← scaffold 원본
-│
-└── (워크스페이스 루트, agent-kit 밖) .claude/   ← ★ 슬래시 스킬·에이전트는 여기 (루트를 열어야 /명령 인식)
-    ├── skills/                   ← 스킬 16개 (/키트시작·/도움말·/디자인수정·/카페24-자동화 …) + cafe24·qa-loop
-    └── agents/                   ← 서브에이전트 (code-reviewer·qa-checker·카페24-워크플로우·카페24-도우미)
-```
+→ 폴더 트리 전체: `README.md`
 
-> ⚠️ v2.6.0부터 슬래시 명령은 모두 **스킬**로 통합되어 **워크스페이스 루트 `.claude/skills/`** 에 있습니다. 키트의 **최상위 폴더(`cafe24-agent-kit`)를 열어야** `/키트시작` 등이 인식됩니다(안쪽 `agent-kit` 폴더 X).
+> ⚠️ 슬래시 명령은 모두 **워크스페이스 루트 `.claude/skills/`** 에 있습니다. 키트의 **최상위 폴더(`cafe24-agent-kit`)를 열어야** `/키트시작` 등이 인식됩니다(안쪽 `agent-kit` 폴더 X).
 
 ### 신규 클라이언트 온보딩 (트리거: "새 클라이언트" · "새 몰" · "새 작업 들어왔어" · "클라이언트 추가")
 
@@ -155,31 +127,5 @@ cafe24-agent-kit/
 
 ## 8. v2.4.0+ 신규 자료 인덱스 (cafe24 skill 확장)
 
-`.claude/skills/cafe24/` 안에 다음 자료가 추가됨. 작업 도중 필요할 때 핀포인트 로드 (전체 로드 X).
-
-> ⚠️ **v2.7.0**: `recipes/`·`templates/`는 비-카페24 출처(APapeIsName)에서 가짜 변수가 유입돼 **제거**됨. 카페24 변수 기준은 `references/variables.md`(검증본). 화면 조합은 검증된 `references/` + `snippets/`로.
-
-### `snippets/` — 복사해서 쓰는 코드 조각
-- `components/` (6) — header-sticky / product-card / banner-slider / footer-standard / breadcrumb / quick-view
-- `css/` (8) — reset / typography / responsive-grid / ez-override / button-system / form-controls / modal-system / toast-notification
-- `js/` (6, vanilla) — sticky-header / product-hover / scroll-animation / modal-toggle / tab-switcher / form-validator
-
-### `design-tokens/` — Figma → CSS 토큰 자동 파이프라인 (4개)
-`README.md` (워크플로우) · `tokens.schema.json` (검증) · `example-tokens.json` (예시) · `builder-guide.md` (변환 규칙)
-
-### `brand-profile/` — 클라이언트 통합 프로필 (3개)
-`README.md` · `brand-profile.schema.json` · `example-brand-profile.json`. 클라이언트 메타·연락처·프로젝트·브랜드·페이지를 한 JSON에 통합.
-
-### `workflows/cafe24-automation.md` — `/카페24-자동화` 6단계 파이프라인 문서
-컨텍스트 로드 → 토큰 빌드 → HTML 생성 → 코드 리뷰 → qa-loop → SFTP 배포.
-
-### `module-browser.html` — 시각 모듈 카탈로그
-브라우저로 열면 19개 모듈을 그림으로 미리 볼 수 있는 단일 HTML. 검색·다크모드·복사 버튼.
-
-### `references/troubleshooting.md` — 비코더 에러 5가지 + 수정 템플릿
-모듈 미렌더링 / 변수 미치환 / EZ 오버라이드 / 모바일 깨짐 / 캐시 문제.
-
-### 부속 인프라
-- `.claude/agents/qa-checker.md` — Haiku 비주얼 검증 에이전트
-- `.claude/skills/qa-loop/` — 합격 점수 0.85 자동 수정 루프
-- `.claude/skills/카페24-자동화/SKILL.md` — 원클릭 파이프라인 슬래시 명령
+`.claude/skills/cafe24/` 안의 snippets(20개)·design-tokens(4개)·brand-profile(3개)·workflows·module-browser·references(troubleshooting/variables/modules) 및 부속 인프라(qa-checker·qa-loop·카페24-자동화):
+→ 상세 목록·v2.7.0 경고(recipes/templates 제거): `brain/docs/cafe24-skill-resources.md`

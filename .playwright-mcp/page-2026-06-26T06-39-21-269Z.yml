@@ -1,0 +1,111 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - paragraph:
+      - link "전체상품목록 바로가기" [ref=e2] [cursor=pointer]:
+        - /url: "#category"
+    - paragraph:
+      - link "본문 바로가기" [ref=e3] [cursor=pointer]:
+        - /url: "#contents"
+  - generic [ref=e5]:
+    - heading "쇼핑몰 이름" [level=1] [ref=e7]:
+      - link "쇼핑몰 이름" [ref=e8] [cursor=pointer]:
+        - /url: /index.html
+    - generic [ref=e9]:
+      - link "로그인" [ref=e10] [cursor=pointer]:
+        - /url: "#"
+      - link "회원가입" [ref=e11] [cursor=pointer]:
+        - /url: /member/join.html
+      - link "장바구니" [ref=e12] [cursor=pointer]:
+        - /url: /order/basket.html
+      - link "주문조회" [ref=e13] [cursor=pointer]:
+        - /url: /myshop/order/list.html
+      - link "마이쇼핑" [ref=e14] [cursor=pointer]:
+        - /url: /myshop/index.html
+      - link "게시판" [ref=e15] [cursor=pointer]:
+        - /url: /board/index.html
+    - list [ref=e16]:
+      - listitem [ref=e17]:
+        - link "신상품" [ref=e18] [cursor=pointer]:
+          - /url: /product/list.html?cate_no=24
+      - listitem [ref=e19]:
+        - link "프리미엄" [ref=e20] [cursor=pointer]:
+          - /url: /product/list.html?cate_no=25
+      - listitem [ref=e21]:
+        - link "스페셜상품" [ref=e22] [cursor=pointer]:
+          - /url: /product/list.html?cate_no=26
+  - generic [ref=e24]:
+    - generic [ref=e25]:
+      - generic [ref=e26]:
+        - generic [ref=e27]:
+          - generic: 현재 위치
+          - list [ref=e28]:
+            - listitem [ref=e29]:
+              - link "홈" [ref=e30] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=e31]:
+              - link "(대분류) Dresses" [ref=e32] [cursor=pointer]:
+                - /url: /category/대분류-dresses/26/
+        - generic [ref=e33]:
+          - paragraph
+          - heading "(대분류) Dresses" [level=2] [ref=e34]
+      - generic [ref=e37]:
+        - paragraph [ref=e38]:
+          - text: "등록 제품 :"
+          - strong [ref=e39]: "0"
+          - text: 개
+        - list [ref=e40]:
+          - listitem [ref=e41]:
+            - link "신상품" [ref=e42] [cursor=pointer]:
+              - /url: "?cate_no=26&sort_method=5#Product_ListMenu"
+          - listitem [ref=e43]:
+            - link "상품명" [ref=e44] [cursor=pointer]:
+              - /url: "?cate_no=26&sort_method=1#Product_ListMenu"
+          - listitem [ref=e45]:
+            - link "낮은가격" [ref=e46] [cursor=pointer]:
+              - /url: "?cate_no=26&sort_method=3#Product_ListMenu"
+          - listitem [ref=e47]:
+            - link "높은가격" [ref=e48] [cursor=pointer]:
+              - /url: "?cate_no=26&sort_method=4#Product_ListMenu"
+          - listitem [ref=e49]:
+            - link "제조사" [ref=e50] [cursor=pointer]:
+              - /url: "?cate_no=26&sort_method=2#Product_ListMenu"
+          - listitem [ref=e51]:
+            - link "사용후기" [ref=e52] [cursor=pointer]:
+              - /url: "?cate_no=26&sort_method=7#Product_ListMenu"
+    - text: ",,"
+  - generic [ref=e54]:
+    - link "쇼핑몰 이름" [ref=e56] [cursor=pointer]:
+      - /url: /index.html
+    - generic [ref=e57]:
+      - list [ref=e58]:
+        - listitem [ref=e59]:
+          - link "홈" [ref=e60] [cursor=pointer]:
+            - /url: /index.html
+        - listitem [ref=e61]:
+          - link "회사소개" [ref=e62] [cursor=pointer]:
+            - /url: /shopinfo/company.html
+        - listitem [ref=e63]:
+          - link "이용약관" [ref=e64] [cursor=pointer]:
+            - /url: /member/agreement.html
+        - listitem [ref=e65]:
+          - link "개인정보처리방침" [ref=e66] [cursor=pointer]:
+            - /url: /member/privacy.html
+            - strong [ref=e67]: 개인정보처리방침
+        - listitem [ref=e68]:
+          - link "이용안내" [ref=e69] [cursor=pointer]:
+            - /url: /shopinfo/guide.html
+      - paragraph [ref=e70]:
+        - text: "법인명(상호) : 대표자(성명) : 理 사업자 등록번호 안내 : [105-78-00513] 통신판매업 신고"
+        - text: "전화 : 팩스 : 주소 :"
+        - generic [ref=e72]:
+          - text: Contact
+          - strong:
+            - link:
+              - /url: "mailto:"
+          - text: for more information.
+      - paragraph [ref=e73]:
+        - text: Copyright ©
+        - strong [ref=e74]: 쇼핑몰 이름
+        - text: . All rights reserved.
+      - paragraph [ref=e75]:
+        - img "hosting by cafe24 카페24(주)" [ref=e76]

@@ -1,0 +1,36 @@
+{
+  "url": "https://ecudemo401773.cafe24.com/product/list.html?cate_no=26&v=202606261539mo",
+  "scroll": {
+    "clientWidth": 1707,
+    "scrollWidth": 1707
+  },
+  "header": {
+    "x": 0,
+    "y": 0,
+    "w": 1707.3,
+    "h": 91
+  },
+  "heading": {
+    "x": 0,
+    "y": 187,
+    "w": 1707.3,
+    "h": 30
+  },
+  "productPackage": {
+    "x": 0,
+    "y": 277,
+    "w": 1707.3,
+    "h": 76
+  },
+  "productList": {
+    "rect": null
+  },
+  "firstCard": {
+    "rect": null
+  },
+  "firstImg": {
+    "rect": null
+  },
+  "visibleFirstRowCards": 0,
+  "cards": []
+}

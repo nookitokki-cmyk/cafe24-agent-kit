@@ -1,0 +1,326 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - paragraph:
+      - link "본문 바로가기" [ref=e2] [cursor=pointer]:
+        - /url: "#contents"
+  - banner [ref=e3]:
+    - generic [ref=e6]:
+      - group "1 / 3" [ref=e7]: 특별한 순간은 디테일에서 시작됩니다 — MOMENT
+      - group "2 / 3": WELCOME · 신규 회원 가입 혜택을 확인하세요
+      - group "3 / 3": NEW ARRIVAL · 새로운 컬렉션을 만나보세요
+    - generic [ref=e8]:
+      - generic [ref=e9]:
+        - text: 
+        - navigation "주 메뉴" [ref=e10]:
+          - list [ref=e13]:
+            - listitem [ref=e14]:
+              - link "(대분류) Outerwear" [ref=e15] [cursor=pointer]:
+                - /url: /category/대분류-outerwear/24/
+          - list [ref=e18]:
+            - listitem [ref=e19]:
+              - link "(대분류) Tops" [ref=e20] [cursor=pointer]:
+                - /url: /category/대분류-tops/25/
+          - list [ref=e23]:
+            - listitem [ref=e24]:
+              - link "(대분류) Dresses" [ref=e25] [cursor=pointer]:
+                - /url: /category/대분류-dresses/26/
+      - heading "쇼핑몰 이름" [level=1] [ref=e26]:
+        - link "쇼핑몰 이름" [ref=e27] [cursor=pointer]:
+          - /url: /index.html
+          - generic [ref=e28]: MOMENT
+          - generic [ref=e29]: 쇼핑몰 이름
+      - generic [ref=e30]:
+        - generic [ref=e31]:
+          - link "테스트" [ref=e32] [cursor=pointer]:
+            - /url: /member/modify.html
+            - strong [ref=e33]: 테스트
+          - link "LOGOUT" [ref=e34] [cursor=pointer]:
+            - /url: /exec/front/Member/logout/
+          - link "ACCOUNT" [ref=e35] [cursor=pointer]:
+            - /url: /myshop/index.html
+        - button "검색 열기" [ref=e36] [cursor=pointer]: SEARCH
+        - link "CART 2" [ref=e37] [cursor=pointer]:
+          - /url: /order/basket.html
+          - text: CART
+          - generic [ref=e38]: "2"
+  - generic [ref=e42]:
+    - generic [ref=e43]:
+      - paragraph [ref=e44]: Edit
+      - paragraph [ref=e45]: 회원 정보 수정
+    - navigation "마이쇼핑 메뉴" [ref=e46]:
+      - generic [ref=e47]:
+        - link "마이페이지" [ref=e48] [cursor=pointer]:
+          - /url: /myshop/index.html
+        - link "주문" [ref=e49] [cursor=pointer]:
+          - /url: /myshop/order/list.html
+        - link "적립금" [ref=e50] [cursor=pointer]:
+          - /url: /myshop/mileage/historyList.html
+        - link "쿠폰" [ref=e51] [cursor=pointer]:
+          - /url: /myshop/coupon/coupon.html
+        - link "주소록" [ref=e52] [cursor=pointer]:
+          - /url: /myshop/addr/list.html
+        - link "최근 본 상품" [ref=e53] [cursor=pointer]:
+          - /url: /product/recent_view_product.html
+        - link "위시리스트" [ref=e54] [cursor=pointer]:
+          - /url: /myshop/wish_list.html
+        - link "나의 게시글" [ref=e55] [cursor=pointer]:
+          - /url: /myshop/board_list.html
+        - link "회원정보" [ref=e56] [cursor=pointer]:
+          - /url: /member/modify.html
+        - link "로그아웃" [ref=e58] [cursor=pointer]:
+          - /url: /exec/front/Member/logout/
+    - generic [ref=e60]:
+      - table "회원 기본정보" [ref=e62]:
+        - rowgroup [ref=e66]:
+          - row "필수아이디 test1111 (영문소문자/숫자, 4~16자)" [ref=e67]:
+            - rowheader "필수아이디" [ref=e68]:
+              - img "필수" [ref=e69]
+              - text: 아이디
+            - cell "test1111 (영문소문자/숫자, 4~16자)" [ref=e70]:
+              - textbox "아이디 (4~16자)" [ref=e71]: test1111
+              - text: (영문소문자/숫자, 4~16자)
+          - row "필수비밀번호 (영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 10자~16자)" [ref=e72]:
+            - rowheader "필수비밀번호" [ref=e73]:
+              - img "필수" [ref=e74]
+              - text: 비밀번호
+            - cell "(영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 10자~16자)" [ref=e75]:
+              - textbox "비밀번호" [ref=e77]
+              - text: (영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 10자~16자)
+          - row "필수비밀번호 확인" [ref=e78]:
+            - rowheader "필수비밀번호 확인" [ref=e79]:
+              - img "필수" [ref=e80]
+              - text: 비밀번호 확인
+            - cell [ref=e81]:
+              - textbox "비밀번호 확인" [ref=e82]
+              - paragraph
+          - row "필수이름 테스트" [ref=e83]:
+            - rowheader "필수이름" [ref=e84]:
+              - img "필수" [ref=e85]
+              - text: 이름
+            - cell "테스트" [ref=e86]:
+              - textbox "이름" [ref=e87]: 테스트
+          - row "주소 주소검색" [ref=e88]:
+            - rowheader "주소" [ref=e89]
+            - cell "주소검색" [ref=e90]:
+              - list [ref=e91]:
+                - listitem [ref=e92]:
+                  - textbox "우편번호" [ref=e93]
+                  - button "주소검색" [ref=e94] [cursor=pointer]
+                - listitem [ref=e95]:
+                  - textbox "기본주소" [ref=e96]
+                - listitem [ref=e97]:
+                  - textbox "나머지 주소(선택 입력 가능)" [ref=e98]
+          - row "필수일반전화 02 - -" [ref=e99]:
+            - rowheader "필수일반전화" [ref=e100]:
+              - img "필수" [ref=e101]
+              - text: 일반전화
+            - cell "02 - -" [ref=e102]:
+              - combobox [ref=e103]:
+                - option "02" [selected]
+                - option "031"
+                - option "032"
+                - option "033"
+                - option "041"
+                - option "042"
+                - option "043"
+                - option "044"
+                - option "051"
+                - option "052"
+                - option "053"
+                - option "054"
+                - option "055"
+                - option "061"
+                - option "062"
+                - option "063"
+                - option "064"
+                - option "0502"
+                - option "0503"
+                - option "0504"
+                - option "0505"
+                - option "0506"
+                - option "0507"
+                - option "070"
+                - option "010"
+                - option "011"
+                - option "016"
+                - option "017"
+                - option "018"
+                - option "019"
+                - option "0508"
+              - text: "-"
+              - textbox [ref=e104]
+              - text: "-"
+              - textbox [ref=e105]
+          - row "휴대전화 010 - 5922 - 0575 인증번호" [ref=e106]:
+            - rowheader "휴대전화" [ref=e107]
+            - cell "010 - 5922 - 0575 인증번호" [ref=e108]:
+              - combobox [ref=e109]:
+                - option "010" [selected]
+                - option "011"
+                - option "016"
+                - option "017"
+                - option "018"
+                - option "019"
+              - text: "-"
+              - textbox "0000" [ref=e110]: "5922"
+              - text: "-"
+              - textbox "0000" [ref=e111]: "0575"
+              - button "인증번호" [ref=e112] [cursor=pointer]
+          - row "필수SMS 수신여부 수신함 수신안함 쇼핑몰에서 제공하는 유익한 이벤트 소식을 SMS로 받으실 수 있습니다." [ref=e113]:
+            - rowheader "필수SMS 수신여부" [ref=e114]:
+              - img "필수" [ref=e115]
+              - text: SMS 수신여부
+            - cell "수신함 수신안함 쇼핑몰에서 제공하는 유익한 이벤트 소식을 SMS로 받으실 수 있습니다." [ref=e116]:
+              - radio "수신함" [checked] [ref=e117] [cursor=pointer]
+              - text: 수신함
+              - radio "수신안함" [ref=e118] [cursor=pointer]
+              - text: 수신안함
+              - paragraph [ref=e119]: 쇼핑몰에서 제공하는 유익한 이벤트 소식을 SMS로 받으실 수 있습니다.
+          - row "필수이메일 hanbi9292@kakao.com" [ref=e120]:
+            - rowheader "필수이메일" [ref=e121]:
+              - img "필수" [ref=e122]
+              - text: 이메일
+            - cell "hanbi9292@kakao.com" [ref=e123]:
+              - textbox "이메일" [ref=e124]: hanbi9292@kakao.com
+              - paragraph
+          - row "필수이메일 수신여부 수신함 수신안함 쇼핑몰에서 제공하는 유익한 이벤트 소식을 이메일로 받으실 수 있습니다." [ref=e125]:
+            - rowheader "필수이메일 수신여부" [ref=e126]:
+              - img "필수" [ref=e127]
+              - text: 이메일 수신여부
+            - cell "수신함 수신안함 쇼핑몰에서 제공하는 유익한 이벤트 소식을 이메일로 받으실 수 있습니다." [ref=e128]:
+              - radio "수신함" [checked] [ref=e129] [cursor=pointer]
+              - text: 수신함
+              - radio "수신안함" [ref=e130] [cursor=pointer]
+              - text: 수신안함
+              - paragraph [ref=e131]: 쇼핑몰에서 제공하는 유익한 이벤트 소식을 이메일로 받으실 수 있습니다.
+      - heading "추가정보 (선택)" [level=3] [ref=e133]
+      - table "회원 추가정보" [ref=e135]:
+        - rowgroup [ref=e139]:
+          - row "생년월일 년 월 일 양력 음력" [ref=e140]:
+            - rowheader "생년월일" [ref=e141]
+            - cell "년 월 일 양력 음력" [ref=e142]:
+              - textbox [ref=e143]
+              - text: 년
+              - textbox [ref=e144]
+              - text: 월
+              - textbox [ref=e145]
+              - text: 일
+              - generic [ref=e146]:
+                - radio "양력" [checked] [ref=e147] [cursor=pointer]
+                - text: 양력
+                - radio "음력" [ref=e148] [cursor=pointer]
+                - text: 음력
+          - row "결혼기념일 년 월 일" [ref=e149]:
+            - rowheader "결혼기념일" [ref=e150]
+            - cell "년 월 일" [ref=e151]:
+              - textbox [ref=e152]
+              - text: 년
+              - textbox [ref=e153]
+              - text: 월
+              - textbox [ref=e154]
+              - text: 일
+          - row "배우자생일 년 월 일" [ref=e155]:
+            - rowheader "배우자생일" [ref=e156]
+            - cell "년 월 일" [ref=e157]:
+              - textbox [ref=e158]
+              - text: 년
+              - textbox [ref=e159]
+              - text: 월
+              - textbox [ref=e160]
+              - text: 일
+          - row "지역 선택" [ref=e161]:
+            - rowheader "지역" [ref=e162]
+            - cell "선택" [ref=e163]:
+              - combobox [ref=e164]:
+                - option "선택" [selected]
+                - option "경기"
+                - option "서울"
+                - option "인천"
+                - option "강원"
+                - option "충남"
+                - option "충북"
+                - option "대전"
+                - option "경북"
+                - option "경남"
+                - option "대구"
+                - option "부산"
+                - option "울산"
+                - option "전북"
+                - option "전남"
+                - option "광주"
+                - option "세종"
+                - option "제주"
+                - option "해외"
+      - link "회원탈퇴" [ref=e167] [cursor=pointer]:
+        - /url: "#none"
+      - generic [ref=e168]:
+        - link "취소" [ref=e169] [cursor=pointer]:
+          - /url: /index.html
+        - link "회원정보수정" [ref=e170] [cursor=pointer]:
+          - /url: "#none"
+  - contentinfo [ref=e171]:
+    - generic [ref=e172]:
+      - generic [ref=e173]:
+        - generic [ref=e174]:
+          - heading "Customer Center" [level=2] [ref=e175]:
+            - button "Customer Center" [expanded] [ref=e176]:
+              - generic [ref=e177]: Customer Center
+              - text: 
+          - generic [ref=e178]:
+            - paragraph
+            - paragraph
+            - paragraph [ref=e179]: Sat·Sun·Holiday Closed
+        - generic [ref=e180]:
+          - heading "Support" [level=2] [ref=e181]:
+            - button "Support" [expanded] [ref=e182]:
+              - generic [ref=e183]: Support
+              - text: 
+          - list [ref=e185]:
+            - listitem [ref=e186]:
+              - link "Contact" [ref=e187] [cursor=pointer]:
+                - /url: /shopinfo/company.html
+            - listitem [ref=e188]:
+              - link "Guide" [ref=e189] [cursor=pointer]:
+                - /url: /shopinfo/guide.html
+        - generic [ref=e190]:
+          - heading "Legal" [level=2] [ref=e191]:
+            - button "Legal" [expanded] [ref=e192]:
+              - generic [ref=e193]: Legal
+              - text: 
+          - list [ref=e195]:
+            - listitem [ref=e196]:
+              - link "Terms of Use" [ref=e197] [cursor=pointer]:
+                - /url: /member/agreement.html
+            - listitem [ref=e198]:
+              - link "Privacy Policy" [ref=e199] [cursor=pointer]:
+                - /url: /member/privacy.html
+        - generic [ref=e200]:
+          - heading "Social" [level=2] [ref=e201]:
+            - button "Social" [expanded] [ref=e202]:
+              - generic [ref=e203]: Social
+              - text: 
+          - list [ref=e205]:
+            - listitem [ref=e206]:
+              - link "Instagram" [ref=e207] [cursor=pointer]:
+                - /url: "#none"
+            - listitem [ref=e208]:
+              - link "KakaoTalk" [ref=e209] [cursor=pointer]:
+                - /url: "#none"
+      - generic [ref=e210]:
+        - link "쇼핑몰 이름" [ref=e212] [cursor=pointer]:
+          - /url: /index.html
+          - generic [ref=e213]: MOMENT
+          - generic [ref=e214]: 쇼핑몰 이름
+        - generic [ref=e215]:
+          - paragraph [ref=e216]:
+            - generic [ref=e217]: 상호
+            - generic [ref=e218]: 대표 理
+            - generic [ref=e219]: 사업자등록번호 105-78-00513
+            - generic [ref=e220]: 통신판매업신고
+            - generic [ref=e221]: 주소
+            - generic [ref=e222]: 전화
+            - generic [ref=e223]:
+              - text: 이메일
+              - link:
+                - /url: "mailto:"
+          - paragraph [ref=e224]: Copyright © 쇼핑몰 이름. All rights reserved.

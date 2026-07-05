@@ -1,0 +1,259 @@
+{
+  "url": "https://ecudemo392574.cafe24.com/",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "body": {
+    "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+    "background": "rgb(245, 245, 240)",
+    "color": "rgb(34, 34, 34)"
+  },
+  "matches": [
+    {
+      "selector": "#header",
+      "tag": "DIV",
+      "id": "header",
+      "className": "a-header",
+      "text": "매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션 매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션 매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션 매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션 매일의 순간을 특별하게, 당신",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "w": 1425.1429443359375,
+        "h": 91.00000762939453,
+        "top": 0,
+        "bottom": 91.00000762939453,
+        "left": 0,
+        "right": 1425.1429443359375
+      },
+      "style": {
+        "display": "block",
+        "position": "fixed",
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(34, 34, 34)",
+        "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+        "fontSize": "13px",
+        "lineHeight": "20.8px",
+        "borderTop": "0px none rgb(34, 34, 34)",
+        "borderBottom": "0px none rgb(34, 34, 34)",
+        "padding": "0px",
+        "margin": "0px",
+        "gap": "normal"
+      },
+      "children": [
+        {
+          "tag": "DIV",
+          "id": "",
+          "className": "header-sec1 a-section check-use add a-slide0",
+          "text": "매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션 매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션 매일의 순간을 ",
+          "box": {
+            "x": 0,
+            "y": 0,
+            "w": 1425.1429443359375,
+            "h": 28.000001907348633
+          },
+          "display": "block",
+          "position": "relative"
+        },
+        {
+          "tag": "DIV",
+          "id": "",
+          "className": "visible",
+          "text": "SHOP ESSENTIAL COLLECTION INFO ORDINARY LOGIN ACCOUNT SEARCH CART0",
+          "box": {
+            "x": 0,
+            "y": 28.000001907348633,
+            "w": 1425.1429443359375,
+            "h": 63.000003814697266
+          },
+          "display": "flex",
+          "position": "static"
+        },
+        {
+          "tag": "DIV",
+          "id": "",
+          "className": "hidden",
+          "text": "SHOPOuterwearTopsBlousesShirtsKnitwearBottomsDressesAccessoriesSale ESSENTIAL CO",
+          "box": {
+            "x": 0,
+            "y": 91.00000762939453,
+            "w": 1425.1429443359375,
+            "h": 0
+          },
+          "display": "block",
+          "position": "static"
+        }
+      ]
+    },
+    {
+      "selector": "#header > div",
+      "tag": "DIV",
+      "id": "",
+      "className": "header-sec1 a-section check-use add a-slide0",
+      "text": "매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션 매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션 매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션 매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션 매일의 순간을 특별하게, 당신",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "w": 1425.1429443359375,
+        "h": 28.000001907348633,
+        "top": 0,
+        "bottom": 28.000001907348633,
+        "left": 0,
+        "right": 1425.1429443359375
+      },
+      "style": {
+        "display": "block",
+        "position": "relative",
+        "background": "rgb(176, 181, 185)",
+        "color": "rgb(255, 255, 255)",
+        "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+        "fontSize": "13px",
+        "lineHeight": "20.8px",
+        "borderTop": "0px none rgb(255, 255, 255)",
+        "borderBottom": "0px none rgb(255, 255, 255)",
+        "padding": "0px",
+        "margin": "0px",
+        "gap": "normal"
+      },
+      "children": [
+        {
+          "tag": "DIV",
+          "id": "",
+          "className": "s-wrap",
+          "text": "매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션 매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션 매일의 순간을 ",
+          "box": {
+            "x": 0,
+            "y": 0,
+            "w": 1425.1429443359375,
+            "h": 28.000001907348633
+          },
+          "display": "block",
+          "position": "static"
+        }
+      ]
+    },
+    {
+      "selector": "#header .inner",
+      "tag": "DIV",
+      "id": "",
+      "className": "inner",
+      "text": "SHOPOuterwearTopsBlousesShirtsKnitwearBottomsDressesAccessoriesSale ESSENTIAL COLLECTION INFO About Contact Notice FAQ Q&A Review LOGIN ACCOUNT SEARCH RECENTLY ",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0,
+        "top": 0,
+        "bottom": 0,
+        "left": 0,
+        "right": 0
+      },
+      "style": {
+        "display": "block",
+        "position": "static",
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(34, 34, 34)",
+        "fontFamily": "\"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+        "fontSize": "12.5px",
+        "lineHeight": "23.75px",
+        "borderTop": "0px none rgb(34, 34, 34)",
+        "borderBottom": "0px none rgb(34, 34, 34)",
+        "padding": "20px 15px",
+        "margin": "0px",
+        "gap": "normal"
+      },
+      "children": [
+        {
+          "tag": "DIV",
+          "id": "",
+          "className": "menu-main",
+          "text": "SHOPOuterwearTopsBlousesShirtsKnitwearBottomsDressesAccessoriesSale ESSENTIAL CO",
+          "box": {
+            "x": 0,
+            "y": 0,
+            "w": 0,
+            "h": 0
+          },
+          "display": "block",
+          "position": "static"
+        },
+        {
+          "tag": "DIV",
+          "id": "",
+          "className": "menu-etc",
+          "text": "LOGIN ACCOUNT SEARCH",
+          "box": {
+            "x": 0,
+            "y": 0,
+            "w": 0,
+            "h": 0
+          },
+          "display": "block",
+          "position": "static"
+        },
+        {
+          "tag": "DIV",
+          "id": "",
+          "className": "xans-element- xans-layout xans-layout-productrecent a-section",
+          "text": "RECENTLY VIEWED",
+          "box": {
+            "x": 0,
+            "y": 0,
+            "w": 0,
+            "h": 0
+          },
+          "display": "none",
+          "position": "relative"
+        }
+      ]
+    },
+    {
+      "selector": "#header .logo",
+      "tag": "DIV",
+      "id": "",
+      "className": "logo",
+      "text": "ORDINARY",
+      "box": {
+        "x": 576.0535888671875,
+        "y": 43.000003814697266,
+        "w": 273.0357360839844,
+        "h": 33,
+        "top": 43.000003814697266,
+        "bottom": 76.00000381469727,
+        "left": 576.0535888671875,
+        "right": 849.0893249511719
+      },
+      "style": {
+        "display": "block",
+        "position": "static",
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(255, 255, 255)",
+        "fontFamily": "Marcellus, \"Bricolage Grotesque\", Pretendard, \"Noto Sans KR\", \"Malgun Gothic\", \"맑은 고딕\", sans-serif",
+        "fontSize": "15px",
+        "lineHeight": "0px",
+        "borderTop": "0px none rgb(255, 255, 255)",
+        "borderBottom": "0px none rgb(255, 255, 255)",
+        "padding": "0px",
+        "margin": "15px 0px",
+        "gap": "normal"
+      },
+      "children": [
+        {
+          "tag": "DIV",
+          "id": "",
+          "className": "morenvy-banner-area init",
+          "text": "ORDINARY",
+          "box": {
+            "x": 576.0535888671875,
+            "y": 43.000003814697266,
+            "w": 273.0357360839844,
+            "h": 33
+          },
+          "display": "block",
+          "position": "static"
+        }
+      ]
+    }
+  ],
+  "headerHtmlStart": "<div id=\"header\" class=\"a-header\">\n    <!-- 상단배너 -->\n    <div class=\"header-sec1 a-section check-use add a-slide0\">\n\t<div class=\"s-wrap\"><div class=\"over\"><div class=\"swiper swiper-initialized swiper-horizontal swiper-pointer-events\"><ul class=\"a-wrap morenvy-banner-area init slide-on active working swiper-wrapper\" area_id=\"a3b4\" data-pc=\"col1\" data-tb=\"col1\" data-mo=\"col1\" data-set=\"loop width auto1 speed20000 notouch\" style=\"transition-duration: 20000ms; transform: translate3d(-3284.2px, 0px, 0px);\" id=\"swiper-wrapper-2410c2fae544f4589\" aria-live=\"off\"><li class=\"a-list morenvy-banner swiper-slide swiper-slide-duplicate\" data-swiper-slide-index=\"0\" role=\"group\" aria-label=\"1 / 4\">\n            <a href=\"/\" target=\"_self\">매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션</a>\n            <style> .a-header .header-sec1 { background:#b0b5b9;\ncolor:#fff; } </style>\n        </li><li class=\"a-list morenvy-banner swiper-slide swiper-slide-duplicate swiper-slide-duplicate-prev\" data-swiper-slide-index=\"1\" role=\"group\" aria-label=\"2 / 4\">\n            <a href=\"/\" target=\"_self\">매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션</a>\n            <style> .a-header .header-sec1 { background:#b0b5b9;\ncolor:#fff; } </style>\n        </li><li class=\"a-list morenvy-banner swiper-slide swiper-slide-duplicate swiper-slide-duplicate-active\" data-swiper-slide-index=\"2\" role=\"group\" aria-label=\"3 / 4\">\n            <a href=\"/\" target=\"_self\">매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션</a>\n            <style> .a-header .header-sec1 { background:#b0b5b9;\ncolor:#fff; } </style>\n        </li><li class=\"a-list morenvy-banner swiper-slide swiper-slide-duplicate swiper-slide-duplicate-next\" data-swiper-slide-index=\"3\" role=\"group\" aria-label=\"4 / 4\">\n            <a href=\"/\" target=\"_self\">매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션</a>\n            <style> .a-header .header-sec1 { background:#b0b5b9;\ncolor:#fff; } </style>\n        </li>\n\t\t<li class=\"a-list morenvy-banner swiper-slide\" data-swiper-slide-index=\"0\" role=\"group\" aria-label=\"1 / 4\">\n            <a href=\"/\" target=\"_self\">매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션</a>\n            <style> .a-header .header-sec1 { background:#b0b5b9;\ncolor:#fff; } </style>\n        </li>\n\t\n\t\t<li class=\"a-list morenvy-banner swiper-slide swiper-slide-prev\" data-swiper-slide-index=\"1\" role=\"group\" aria-label=\"2 / 4\">\n            <a href=\"/\" target=\"_self\">매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션</a>\n            <style> .a-header .header-sec1 { background:#b0b5b9;\ncolor:#fff; } </style>\n        </li>\n\t\n\t\t<l"
+}

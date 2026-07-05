@@ -1,0 +1,107 @@
+{
+  "href": "https://ecudemo401788.cafe24.com/myshop/addr/list.html",
+  "title": "쇼핑몰 이름",
+  "bodyClass": "nk-skin",
+  "bodyId": "",
+  "nodes": {
+    "body": {
+      "tag": "BODY",
+      "className": "nk-skin",
+      "id": "",
+      "text": "전체상품목록 바로가기\n\n본문 바로가기\n\n특별한 순간은 디테일에서 시작됩니다 — MOMENT\nWELCOME · 신규 회원 가입 혜택을 확인하세요\nNEW ARRIVAL · 새로운 컬렉션을 만나보세요\n(대분류) OUTER",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "w": 1265.1429443359375,
+        "h": 1068.794677734375
+      },
+      "display": "block",
+      "position": "static",
+      "paddingLeft": "0px",
+      "marginTop": "0px"
+    },
+    "#contents": {
+      "tag": "DIV",
+      "className": "",
+      "id": "contents",
+      "text": "Address\n\n배송 주소록 관리\n\n나의 쇼핑 정보\n주문내역 조회\n적립금 내역\n쿠폰 내역\n배송 주소록 관리\n활동 정보\n최근 본 상품\n나의 위시리스트\n나의 게시글\n나의 정보\n회원 정보 수정\n로그아웃\n\t주소록 고정\t배송",
+      "rect": {
+        "x": 0,
+        "y": 131,
+        "w": 1265.1429443359375,
+        "h": 611.9107666015625
+      },
+      "display": "block",
+      "position": "static",
+      "paddingLeft": "30px",
+      "marginTop": "0px"
+    },
+    ".nk-myshop-page": {
+      "tag": "DIV",
+      "className": "nk-myshop-page nk-myshop-addr-page",
+      "id": "",
+      "text": "Address\n\n배송 주소록 관리\n\n나의 쇼핑 정보\n주문내역 조회\n적립금 내역\n쿠폰 내역\n배송 주소록 관리\n활동 정보\n최근 본 상품\n나의 위시리스트\n나의 게시글\n나의 정보\n회원 정보 수정\n로그아웃\n\t주소록 고정\t배송",
+      "rect": {
+        "x": 30.000001907348633,
+        "y": 131,
+        "w": 1205.1429443359375,
+        "h": 611.9107666015625
+      },
+      "display": "block",
+      "position": "static",
+      "paddingLeft": "0px",
+      "marginTop": "0px"
+    },
+    ".nk-myshop-layout": {
+      "tag": "DIV",
+      "className": "nk-myshop-layout nk-myshop-layout--v3",
+      "id": "",
+      "text": "나의 쇼핑 정보\n주문내역 조회\n적립금 내역\n쿠폰 내역\n배송 주소록 관리\n활동 정보\n최근 본 상품\n나의 위시리스트\n나의 게시글\n나의 정보\n회원 정보 수정\n로그아웃\n\t주소록 고정\t배송지명\t수령인\t일반전화\t휴대전화\t주소\t",
+      "rect": {
+        "x": 30.000001907348633,
+        "y": 242.3928680419922,
+        "w": 1205.1429443359375,
+        "h": 452.51788330078125
+      },
+      "display": "flex",
+      "position": "static",
+      "paddingLeft": "0px",
+      "marginTop": "0px"
+    },
+    ".nk-myshop-sidebar": {
+      "tag": "ASIDE",
+      "className": "nk-myshop-sidebar nk-myshop-sidebar--v3",
+      "id": "",
+      "text": "나의 쇼핑 정보\n주문내역 조회\n적립금 내역\n쿠폰 내역\n배송 주소록 관리\n활동 정보\n최근 본 상품\n나의 위시리스트\n나의 게시글\n나의 정보\n회원 정보 수정\n로그아웃",
+      "rect": {
+        "x": 30.000001907348633,
+        "y": 242.3928680419922,
+        "w": 220.00001525878906,
+        "h": 385.3214416503906
+      },
+      "display": "block",
+      "position": "sticky",
+      "paddingLeft": "0px",
+      "marginTop": "0px"
+    },
+    ".nk-myshop-main": {
+      "tag": "DIV",
+      "className": "myshopArea nk-myshop-main",
+      "id": "",
+      "text": "\t주소록 고정\t배송지명\t수령인\t일반전화\t휴대전화\t주소\t수정\n등록된 주소가 없습니다.\n배송지등록\n배송주소록 유의사항\n배송 주소록은 최대 50개까지 등록할 수 있으며, 별도로 등록하지 않을 경우 최근 배송 주소록 기준으",
+      "rect": {
+        "x": 298,
+        "y": 242.3928680419922,
+        "w": 937.1428833007812,
+        "h": 452.51788330078125
+      },
+      "display": "block",
+      "position": "static",
+      "paddingLeft": "0px",
+      "marginTop": "0px"
+    },
+    ".xans-member-login": null,
+    ".nk-login-page": null
+  },
+  "stylesheets": []
+}

@@ -1,0 +1,343 @@
+<section class="section main_product_list" data-ez-module="product-list/1" data-ez-layout="grid4">
+	<ez-prop data-version="1.0.0">
+		<ez-var data-prop="layout" data-namespace="ez.module.product-list.layout" data-type="array">
+			<ez-item data-id="grid3" data-name="일반3단형(PC 3열/MOBILE 1열)"></ez-item>
+			<ez-item data-id="grid4" data-name="일반4단형(PC 4열/MOBILE 2열)"></ez-item>
+			<ez-item data-id="grid5" data-name="일반5단형(PC 5열/MOBILE 2열)"></ez-item>
+			<ez-item data-id="grid3 list_gallery" data-name="이미지강조3단형(PC 3열/MOBILE 1열)"></ez-item>
+			<ez-item data-id="grid4 list_gallery" data-name="이미지강조4단형(PC 4열/MOBILE 2열)"></ez-item>
+			<ez-item data-id="grid5 list_gallery" data-name="이미지강조5단형(PC 5열/MOBILE 2열)"></ez-item>
+		</ez-var>
+	</ez-prop>
+
+	<div class="main_title ez-align-left" data-ez-role="ez-align" data-ez-align="left"><!-- 이번주의 입고상품 타이틀 수정하는곳 -->
+		<div class="main_title_txt01" data-ez-role="title">New Product</div>
+		<div class="main_title_txt02" data-ez-role="subtitle">새롭게 입고된 신상품들을 만나보세요</div>
+	</div><!-- //main_title -->
+
+	<div data-ez-holder="product_listmain">
+		<div module="product_listmain_1" class="ec-base-product">
+			<!--
+				$count = 4
+				$basket_result = /product/add_basket.html
+				$basket_option = /product/basket_option.html
+				$moreview = yes
+				$cache = yes
+			-->
+			<ul class="prdList grid4" data-ez-role="layout ez-discount-tag">
+				<!--@import(/product/list_product.html)-->
+			</ul>
+		</div>
+		<div module="product_listmore_1" class="more">
+			<a href="#none" onclick="{$more_action}" class="btnMore">More +</a>
+		</div>
+	</div>
+</section><!-- //main_product_list -->
+
+<section class="section main_image_text_gallery" data-ez-module="image-gallery/2" data-ez-role="style.background" data-ez-item-length="3">
+	<ez-prop data-version="1.0.0">
+		<ez-var data-prop="image" data-namespace="ez.module.image-gallery.image">
+			<ez-item data-id="size" data-pc="480 480" data-mobile="480 480"></ez-item>
+		</ez-var>
+		<ez-var data-prop="display" data-namespace="ez.module.image-gallery.display">
+			<ez-item data-id="item" data-max="10"></ez-item>
+			<ez-item data-id="column" data-default="3" data-min="1" data-max="5"></ez-item>
+		</ez-var>
+		<ez-var data-prop="layout" data-namespace="ez.module.image-gallery.layout">
+			<ez-item data-id="mobile" data-default="slide">
+				<ez-item data-id="options" data-type="array">
+					<ez-item data-id="slide" data-name="슬라이드"></ez-item>
+					<ez-item data-id="more" data-name="더보기"></ez-item>
+					<ez-item data-id="none" data-name="사용안함"></ez-item>
+				</ez-item>
+			</ez-item>
+		</ez-var>
+	</ez-prop>
+	<div class="main_title ez-align-left" data-ez-role="ez-align" data-ez-align="left"><!-- 라이프스타일 타이틀 수정하는곳 -->
+		<div class="main_title_txt01" data-ez-role="title">Lifestyle</div>
+		<div class="main_title_txt02" data-ez-role="desc">아키 테이블 공간 속 새로운 삶의 모습</div>
+	</div><!-- //main_title -->
+
+    <div class="main_3dan_banner ez-mobile-layout-slide" data-ez-role="ez-mobile-layout" data-ez-mobile-layout="slide"><!-- 메인 3단배너 수정하는곳 -->
+         <ul data-ez-role="image-list ez-column" class="ez-column-3" data-ez-column="3">
+            <li data-ez-role="image-item ez-align">
+				<a data-ez-role="a" href="#" target="_self">
+					<picture>
+						<source srcset="/SkinImg/img/main_banner01_pc.jpg" media="(max-width: 1024px)" data-ez-role="img-pc">
+						<img src="/SkinImg/img/main_banner01_pc.jpg" data-ez-role="img-mobile" loading="lazy">
+					</picture>
+					<div class="main_3dan_banner_txt">
+						<div class="main_3dan_banner_txt01" data-ez-role="title">모던한 미니멀의 완벽한 조화</div>
+						<div class="main_banner_more" data-ez-role="desc">자세히 살펴보기</div>
+					</div><!-- //main_3dan_banner_txt -->
+				</a>
+            </li>
+            <li data-ez-role="image-item ez-align">
+				<a data-ez-role="a" href="#" target="_self">
+					<picture>
+						<source srcset="/SkinImg/img/main_banner02_pc.jpg" media="(max-width: 1024px)" data-ez-role="img-pc">
+						<img src="/SkinImg/img/main_banner02_pc.jpg" data-ez-role="img-mobile" loading="lazy">
+					</picture>
+					<div class="main_3dan_banner_txt">
+						<div class="main_3dan_banner_txt01" data-ez-role="title">나만의 감성을 더해주는 소품</div>
+						<div class="main_banner_more" data-ez-role="desc">자세히 살펴보기</div>
+					</div><!-- //main_3dan_banner_txt -->
+				</a>
+            </li>
+            <li data-ez-role="image-item ez-align">
+				<a data-ez-role="a" href="#" target="_self">
+					<picture>
+						<source srcset="/SkinImg/img/main_banner03_pc.jpg" media="(max-width: 1024px)" data-ez-role="img-pc">
+						<img src="/SkinImg/img/main_banner03_pc.jpg" data-ez-role="img-mobile" loading="lazy">
+					</picture>
+					<div class="main_3dan_banner_txt">
+						<div class="main_3dan_banner_txt01" data-ez-role="title">새로운 모습, 친숙한 느낌</div>
+						<div class="main_banner_more" data-ez-role="desc">자세히 살펴보기</div>
+					</div><!-- //main_3dan_banner_txt -->
+				</a>
+            </li>
+		</ul>
+		<div class="main_image_text_gallery_more"><a href="#none" class="main_image_text_gallery_more_btn">더보기</a></div>
+	</div><!-- //main_3dan_banner -->
+</section><!-- //main_image_text_gallery -->
+
+<section class="section main_video ez-align-center" data-ez-module="video/1" data-ez-role="style.background" data-ez-align="center">
+	<div class="background_video"></div>
+	<div class="margin_video_box">
+		<div class="wrap_video_box">
+			<div class="main_video_box"><iframe data-ez-role="video" id="ytplayer" type="text/html" src="https://m-img.cafe24.com/images/ec/sde/video/architable_1280x720.mp4" frameborder="0" allowfullscreen data-ez-rawsrc="https://m-img.cafe24.com/images/ec/sde/video/architable_1280x720.mp4" loading="lazy"></iframe></div>
+
+			<div class="main_video_title"><!-- 비디오 타이틀 수정하는곳 -->
+				<div class="main_title_txt01" data-ez-role="title">휴양지의 따뜻한 휴식 헤이즐 시리즈</div>
+				<div class="main_title_txt02" data-ez-role="desc">아늑하고 따스한 휴양지와 같은 분위기</div>
+			</div><!-- //main_video_title -->
+		</div>
+	</div>
+</section><!-- //main_video -->
+
+<section class="section main_product_slide" data-ez-module="product-list-slide/2" data-ez-layout="grid5_slide">
+	<ez-prop data-version="1.0.0">
+		<ez-var data-prop="layout" data-namespace="ez.module.product-list-slide.layout" data-type="array">
+			<ez-item data-id="grid3_slide" data-name="일반3단형(PC 3열/MOBILE 2열)"></ez-item>
+			<ez-item data-id="grid4_slide" data-name="일반4단형(PC 4열/MOBILE 2열)"></ez-item>
+			<ez-item data-id="grid5_slide" data-name="일반5단형(PC 5열/MOBILE 3열)"></ez-item>
+			<ez-item data-id="grid3_slide list_gallery" data-name="이미지강조3단형(PC 3열/MOBILE 2열)"></ez-item>
+			<ez-item data-id="grid4_slide list_gallery" data-name="이미지강조4단형(PC 4열/MOBILE 2열)"></ez-item>
+			<ez-item data-id="grid5_slide list_gallery" data-name="이미지강조5단형(PC 5열/MOBILE 3열)"></ez-item>
+		</ez-var>
+	</ez-prop>
+
+	<div class="main_title ez-align-left" data-ez-role="ez-align" data-ez-align="left"><!-- 위클리하이라이트 타이틀 수정하는곳 -->
+		<div class="main_title_txt01" data-ez-role="title">Weekly Highlight</div>
+		<div class="main_title_txt02" data-ez-role="subtitle">이번 주 핫하게 뜨고 있는 제품</div>
+	</div><!-- //main_title -->
+
+	<div data-ez-holder="product_listmain">
+		<div module="product_listmain_1" class="ec-base-product swiper-container highlight_slide">
+			<ul class="swiper-wrapper prdList grid5_slide" data-ez-role="layout ez-discount-tag">
+				<!--@import(/product/list_product_slide.html)-->
+			</ul>
+			<div class="swiper-pagination swiper-pagination-highlight_product"></div>
+		</div>
+	</div>
+	<div class="swiper-prev swiper-prev-highlight_product"></div>
+	<div class="swiper-next swiper-next-highlight_product"></div>
+</section>
+
+<section class="section main_text ez-align-center" data-ez-module="text/1" data-ez-role="style.background" data-ez-align="center" style="background-color: rgb(250, 247, 243);">
+	<div class="main_long_banner"><!-- 메인 롱배너 -->
+		<div class="main_long_banner_txt">
+			<div class="main_long_banner_txt01" data-ez-role="title">For nature, By nature.</div>
+			<div class="main_long_banner_txt02" data-ez-role="desc">품질은 그대로 가격은 아래로</div>
+			<div class="main_text_link"><a data-ez-role="a" href="#" target="_self">자세히 보기</a></div>
+		</div><!-- //main_long_banner_txt -->
+	</div><!-- //main_long_banner -->
+</section><!-- //main_text -->
+
+<section class="section main_product_category" data-ez-module="product-list-category/2" data-ez-layout="grid4_slide">
+	<ez-prop data-version="1.0.0">
+		<ez-var data-prop="layout" data-namespace="ez.module.product-list-category.layout" data-type="array">
+			<ez-item data-id="grid3_slide" data-name="일반3단형(PC 3열/MOBILE 2열)"></ez-item>
+			<ez-item data-id="grid4_slide" data-name="일반4단형(PC 4열/MOBILE 2열)"></ez-item>
+			<ez-item data-id="grid5_slide" data-name="일반5단형(PC 5열/MOBILE 3열)"></ez-item>
+    		<ez-item data-id="grid3_slide list_gallery" data-name="이미지강조3단형(PC 3열/MOBILE 2열)"></ez-item>
+			<ez-item data-id="grid4_slide list_gallery" data-name="이미지강조4단형(PC 4열/MOBILE 2열)"></ez-item>
+			<ez-item data-id="grid5_slide list_gallery" data-name="이미지강조5단형(PC 5열/MOBILE 3열)"></ez-item>
+		</ez-var>
+	</ez-prop>
+	<div class="main_product_inner">
+		<div class="main_title ez-align-left" data-ez-role="ez-align" data-ez-align="left"><!-- 에디터가 직접 선정한 트랜드픽 타이틀 수정하는곳 -->
+			<div class="main_title_txt01" data-ez-role="title">Best Select</div>
+			<div class="main_title_txt02" data-ez-role="subtitle">고객님들이 셀렉한 베스트 아이템</div>
+		</div><!-- //main_title -->
+
+		<ul class="main_product_tab" data-ez-role="tab-list">
+			<li data-ez-role="tab-item"><button type="button" class="button" data-id="tabContent1" data-ez-role="name">새로운 카테고리</button></li>
+			<li data-ez-role="tab-item"><button type="button" class="button" data-id="tabContent2" data-ez-role="name">새로운 카테고리</button></li>
+			<li data-ez-role="tab-item"><button type="button" class="button" data-id="tabContent3" data-ez-role="name">새로운 카테고리</button></li>
+			<li data-ez-role="tab-item"><button type="button" class="button" data-id="tabContent4" data-ez-role="name">새로운 카테고리</button></li>
+		</ul><!-- //main_product_tab -->
+	</div><!-- //main_product_inner -->
+
+	<div class="content_list" data-ez-role="content-list">
+		<div class="tabcontent" id="tabContent1" data-ez-role="content-item">
+			<div data-ez-holder="product_listmain">
+				<div module="product_listmain_1" class="ec-base-product swiper-container swiper03">
+					<!--
+						$count = 100
+						$basket_result = /product/add_basket.html
+						$basket_option = /product/basket_option.html
+						$moreview = no
+						$cache = no
+					-->
+					<ul class="prdList grid4_slide swiper-wrapper" data-ez-role="layout ez-discount-tag">
+						<!--@import(/product/list_product_slide.html)-->
+					</ul>
+					<div class="swiper-scrollbar swiper-scrollbar_swiper03"></div>
+				</div>
+			</div>
+		</div><!-- //tabContent1 -->
+
+		<div class="tabcontent" id="tabContent2" data-ez-role="content-item">
+			<div data-ez-holder="product_listmain">
+				<div module="product_listmain_2" class="ec-base-product swiper-container swiper03">
+					<!--
+						$count = 100
+						$basket_result = /product/add_basket.html
+						$basket_option = /product/basket_option.html
+						$moreview = no
+						$cache = no
+					-->
+					<ul class="prdList grid4_slide swiper-wrapper" data-ez-role="layout ez-discount-tag">
+						<!--@import(/product/list_product_slide.html)-->
+					</ul>
+					<div class="swiper-scrollbar swiper-scrollbar_swiper03"></div>
+				</div>
+			</div>
+		</div><!-- //tabContent2 -->
+
+		<div class="tabcontent" id="tabContent3" data-ez-role="content-item">
+			<div data-ez-holder="product_listmain">
+				<div module="product_listmain_3" class="ec-base-product swiper-container swiper03">
+					<!--
+						$count = 100
+						$basket_result = /product/add_basket.html
+						$basket_option = /product/basket_option.html
+						$moreview = no
+						$cache = no
+					-->
+					<ul class="prdList grid4_slide swiper-wrapper" data-ez-role="layout ez-discount-tag">
+						<!--@import(/product/list_product_slide.html)-->
+					</ul>
+					<div class="swiper-scrollbar swiper-scrollbar_swiper03"></div>
+				</div>
+			</div>
+		</div><!-- //tabContent3 -->
+
+		<div class="tabcontent" id="tabContent4" data-ez-role="content-item">
+			<div data-ez-holder="product_listmain">
+				<div module="product_listmain_4" class="ec-base-product swiper-container swiper03">
+					<!--
+						$count = 100
+						$basket_result = /product/add_basket.html
+						$basket_option = /product/basket_option.html
+						$moreview = no
+						$cache = no
+					-->
+					<ul class="prdList grid4_slide swiper-wrapper" data-ez-role="layout ez-discount-tag">
+						<!--@import(/product/list_product_slide.html)-->
+					</ul>
+					<div class="swiper-scrollbar swiper-scrollbar_swiper03"></div>
+				</div>
+			</div>
+		</div><!-- //tabContent4 -->
+	</div><!-- //content_list -->
+</section>
+
+<section class="section main_map ez-align-left" data-ez-module="map/1" data-ez-align="left">
+	<ez-prop data-version="1.0.0">
+		<ez-var data-prop="image" data-namespace="ez.module.map.image">
+			<ez-item data-id="size" data-pc="830 520" data-mobile="830 520"></ez-item>
+		</ez-var>
+	</ez-prop>
+	<div class="main_map_banner"><!-- 메인 지도 -->
+		<div class="wrap_banner_txt">
+			<div class="main_map_banner_txt01" data-ez-role="title">Archi Table<br>오프라인 스토어</div>
+		</div>
+		<picture>
+			<source srcset="/SkinImg/img/main_map_pc.png" media="(max-width: 1024px)" data-ez-role="img-pc">
+			<img src="/SkinImg/img/main_map_pc.png" data-ez-role="img-mobile" loading="lazy">
+		</picture>
+		<div class="main_map_banner_txt_box">
+			<div class="main_map_banner_txt">
+				<div class="map_txt" data-ez-role="desc">
+					<p><strong><span style="color: rgb(0, 0, 0);">주소</span></strong></p>
+					<p>서울특별시 동작구 보라매로0길 00</p>
+					<p><br></p>
+					<p><br></p>
+					<p><strong><span style="color: rgb(0, 0, 0);">운영시간</span></strong></p>
+					<p>운영시간 : 오전 10시 ~ 오후 06시</p>
+					<p>점심시간 : 오후 12시 ~ 오후 01시</p>
+				</div><!-- //map_txt -->
+				<div class="main_long_banner_link"><span class="displaynone" data-ez-role="address">서울특별시 동작구 보라매로0길 00</span><a data-ez-role="a" href="https://www.google.com/maps/dir/서울특별시%20동작구%20보라매로0길%2000" target="_blank">바로가기</a></div>
+			</div><!-- //main_map_banner_txt -->
+		</div><!-- //main_long_banner_txt -->
+	</div><!-- //main_map_banner -->
+</section><!-- //main_map -->
+
+
+<div class="section" data-ez-module="product-listrecommend/1" data-ez-layout="grid4">
+	<div data-ez-holder="product_list">
+		<div module="product_listrecommend" class="ec-base-product">
+			<!--@css(/css/module/product/listrecommend_swipe.css)-->
+			<!--
+				$count = 12
+			-->
+			<ez-prop data-version="1.0.0">
+				<ez-var data-prop="layout" data-namespace="ez.module.product-list.layout" data-type="array">
+					<ez-item data-id="grid3" data-name="일반3단형(PC 3열/MOBILE 1열)"></ez-item>
+					<ez-item data-id="grid4" data-name="일반4단형(PC 4열/MOBILE 2열)"></ez-item>
+					<ez-item data-id="grid5" data-name="일반5단형(PC 5열/MOBILE 2열)"></ez-item>
+					<ez-item data-id="grid3 list_gallery" data-name="이미지강조3단형(PC 3열/MOBILE 1열)"></ez-item>
+					<ez-item data-id="grid4 list_gallery" data-name="이미지강조4단형(PC 4열/MOBILE 2열)"></ez-item>
+					<ez-item data-id="grid5 list_gallery" data-name="이미지강조5단형(PC 5열/MOBILE 2열)"></ez-item>
+				</ez-var>
+			</ez-prop>
+			<div class="listpage_title ez-align-left" data-ez-role="ez-align" data-ez-align="left">
+				<div data-ez-role="title">Best Item</div>
+				<span data-ez-role="subtitle">카테고리별 베스트 아이템</span>
+			</div><!-- //listpage_title -->
+			<ul class="prdList grid4" data-ez-role="layout ez-discount-tag">
+				<!--@import(/product/list_product.html)-->
+			</ul>
+		</div>
+	</div><!-- //product_list -->
+</div><!-- //product-listrecommend -->
+
+<div class="section" data-ez-module="product-listnew/1" data-ez-layout="grid4 list_gallery">
+	<div data-ez-holder="product_list">
+		<div module="product_listnew" class="ec-base-product">
+			<!--@css(/css/module/product/listnew_swipe.css)-->
+			<!--
+				$count = 4
+			-->
+			<ez-prop data-version="1.0.0">
+				<ez-var data-prop="layout" data-namespace="ez.module.product-list.layout" data-type="array">
+					<ez-item data-id="grid3" data-name="일반3단형(PC 3열/MOBILE 1열)"></ez-item>
+					<ez-item data-id="grid4" data-name="일반4단형(PC 4열/MOBILE 2열)"></ez-item>
+					<ez-item data-id="grid5" data-name="일반5단형(PC 5열/MOBILE 2열)"></ez-item>
+					<ez-item data-id="grid3 list_gallery" data-name="이미지강조3단형(PC 3열/MOBILE 1열)"></ez-item>
+					<ez-item data-id="grid4 list_gallery" data-name="이미지강조4단형(PC 4열/MOBILE 2열)"></ez-item>
+					<ez-item data-id="grid5 list_gallery" data-name="이미지강조5단형(PC 5열/MOBILE 2열)"></ez-item>
+				</ez-var>
+			</ez-prop>
+			<div class="listpage_title ez-align-left" data-ez-role="ez-align" data-ez-align="left">
+				<div data-ez-role="title">New Arrival</div>
+				<span data-ez-role="subtitle">카테고리별 뉴 아이템</span>
+			</div><!-- //listpage_title -->
+			<ul class="prdList grid4 list_gallery" data-ez-role="layout ez-discount-tag">
+				<!--@import(/product/list_product.html)-->
+			</ul>
+		</div>
+	</div><!-- //product_list -->
+</div><!-- //product-listnew -->

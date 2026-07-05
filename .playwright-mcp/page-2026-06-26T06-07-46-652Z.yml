@@ -1,0 +1,136 @@
+- generic [ref=e3]:
+  - generic [ref=e4]:
+    - list [ref=e9]:
+      - group "1 / 4" [ref=e10]:
+        - link "매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션" [ref=e11] [cursor=pointer]:
+          - /url: /
+      - group "2 / 4" [ref=e12]:
+        - link "매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션" [ref=e13] [cursor=pointer]:
+          - /url: /
+      - group "3 / 4" [ref=e14]:
+        - link "매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션" [ref=e15] [cursor=pointer]:
+          - /url: /
+      - group "4 / 4" [ref=e16]:
+        - link "매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션" [ref=e17] [cursor=pointer]:
+          - /url: /
+      - group "1 / 4" [ref=e18]:
+        - link "매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션" [ref=e19] [cursor=pointer]:
+          - /url: /
+      - group "2 / 4" [ref=e20]:
+        - link "매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션" [ref=e21] [cursor=pointer]:
+          - /url: /
+      - group "3 / 4" [ref=e22]:
+        - link "매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션" [ref=e23] [cursor=pointer]:
+          - /url: /
+      - group "4 / 4" [ref=e24]:
+        - link "매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션" [ref=e25] [cursor=pointer]:
+          - /url: /
+      - group "1 / 4" [ref=e26]:
+        - link "매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션" [ref=e27] [cursor=pointer]:
+          - /url: /
+      - group "2 / 4" [ref=e28]:
+        - link "매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션" [ref=e29] [cursor=pointer]:
+          - /url: /
+      - group "3 / 4" [ref=e30]:
+        - link "매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션" [ref=e31] [cursor=pointer]:
+          - /url: /
+      - group "4 / 4" [ref=e32]:
+        - link "매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션" [ref=e33] [cursor=pointer]:
+          - /url: /
+    - generic [ref=e34]:
+      - list [ref=e36]:
+        - listitem [ref=e37]:
+          - link "SHOP" [ref=e38] [cursor=pointer]:
+            - /url: /product/list.html?cate_no=23
+        - listitem [ref=e39]:
+          - link "ESSENTIAL" [ref=e40] [cursor=pointer]:
+            - /url: /product/list.html?cate_no=50
+        - listitem [ref=e41]:
+          - link "COLLECTION" [ref=e42] [cursor=pointer]:
+            - /url: /pages/collection/list.html?cate_no=24
+        - listitem [ref=e43]:
+          - link "INFO" [ref=e44] [cursor=pointer]:
+            - /url: "#none"
+      - link "ORDINARY" [ref=e47] [cursor=pointer]:
+        - /url: /
+      - list [ref=e49]:
+        - listitem [ref=e50]:
+          - link "LOGIN" [ref=e51] [cursor=pointer]:
+            - /url: /member/login.html
+        - listitem [ref=e52]:
+          - link "ACCOUNT" [ref=e53] [cursor=pointer]:
+            - /url: /myshop/index.html
+        - listitem [ref=e54]:
+          - link "SEARCH" [ref=e55] [cursor=pointer]:
+            - /url: "#none"
+        - listitem [ref=e56]:
+          - link "CART 0" [ref=e57] [cursor=pointer]:
+            - /url: /order/basket.html
+            - text: CART
+            - generic [ref=e58]: "0"
+  - generic [ref=e59]:
+    - generic [ref=e60]:
+      - generic [ref=e61]:
+        - heading "Notice" [level=2] [ref=e63]
+        - paragraph
+      - generic [ref=e64]:
+        - table "게시판 목록"
+        - paragraph [ref=e65]: 검색결과가 없습니다.
+    - group "게시물 검색" [ref=e68]:
+      - paragraph [ref=e69]:
+        - combobox [ref=e70]:
+          - option "일주일" [selected]
+          - option "한달"
+          - option "세달"
+          - option "전체"
+        - combobox [ref=e71]:
+          - option "제목" [selected]
+          - option "내용"
+          - option "글쓴이"
+          - option "아이디"
+          - option "별명"
+        - textbox [ref=e72]
+        - link "찾기" [ref=e73] [cursor=pointer]:
+          - /url: "#none"
+  - generic [ref=e74]:
+    - generic [ref=e75]:
+      - generic [ref=e76]:
+        - heading "CUSTOMER CENTER" [level=3] [ref=e77]
+        - generic [ref=e78]:
+          - paragraph [ref=e79]: 070-1234-5678
+          - paragraph [ref=e80]: Monday-Friday 10:00-17:00
+          - paragraph [ref=e81]: Sat·Sun·Holiday Closed
+      - generic [ref=e82]:
+        - heading "SUPPORT" [level=3] [ref=e83]
+        - generic [ref=e84]:
+          - link "Contact" [ref=e85] [cursor=pointer]:
+            - /url: /pages/contact.html
+          - link "Guide" [ref=e86] [cursor=pointer]:
+            - /url: /pages/guide.html
+      - generic [ref=e87]:
+        - heading "LEGAL" [level=3] [ref=e88]
+        - generic [ref=e89]:
+          - link "Terms of Use" [ref=e90] [cursor=pointer]:
+            - /url: /member/agreement.html
+          - link "Privacy Policy" [ref=e91] [cursor=pointer]:
+            - /url: /member/privacy.html
+      - generic [ref=e92]:
+        - heading "SOCIAL" [level=3] [ref=e93]
+        - generic [ref=e94]:
+          - link "Instagram" [ref=e95] [cursor=pointer]:
+            - /url: /
+          - link "KakaoTalk" [ref=e96] [cursor=pointer]:
+            - /url: /
+    - generic [ref=e97]:
+      - text: 상호오디너리 주소
+      - generic [ref=e98]: 서울특별시 동작구 모모로 35
+      - text: 대표이수정 사업자등록번호
+      - generic [ref=e99]:
+        - text: 123-45-67890
+        - link "[사업자정보확인]" [ref=e100] [cursor=pointer]:
+          - /url: "#none"
+      - text: 통신판매업신고2035-서울동작-0175 전화070-1234-5678 이메일info@adestudio.kr 개인정보보호책임자
+      - link "이수정" [ref=e102] [cursor=pointer]:
+        - /url: mailto:info@adestudio.kr
+      - text: 호스팅서비스카페24(주)
+      - generic [ref=e103]: © ORDINARY

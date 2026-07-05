@@ -1,0 +1,19 @@
+<!-- 공유 상품카드 — product_listmain_N 모듈의 anchorBoxId 안에서 @import 됨.
+     ⚠️ 카페24 주의:
+       · {$product_name} 은 <span>…</span> 태그를 반환 → 절대 속성(alt 등)에 넣지 말 것. 요소 '내용'으로만.
+       · img alt 에는 plain 문자열 변수 {$seo_alt_tag} 사용.
+       · 가격은 {$product_price}(판매가). 카드 스타일은 _nk/css/custom.css §3(.nk-prd) -->
+<a href="{$link_product_detail}" class="nk-prd__link"></a>
+<div class="nk-prd__thumb">
+	<img src="{$image_medium}" id="{$image_medium_id}" alt="{$seo_alt_tag}" loading="lazy">
+	<div class="nk-prd__badge">{$soldout_icon}{$new_icon}</div>
+	<!-- hover 시 좋아요/장바구니 (서브목록 .icon__box 와 동일 기법: 카페24 아이콘 img 투명화로 클릭 보존 + Phosphor 오버레이) -->
+	<div class="nk-prd__actions">
+		<span class="nk-prd__act nk-prd__wish">{$list_wish_icon}</span>
+		<span class="nk-prd__act nk-prd__cart">{$basket_icon}</span>
+	</div>
+</div>
+<div class="nk-prd__info">
+	<div class="nk-prd__name"><a href="{$link_product_detail}">{$product_name}</a></div>
+	<p class="nk-prd__price">{$product_price|numberformat}원</p>
+</div>

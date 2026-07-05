@@ -1,0 +1,40 @@
+@charset "utf-8";
+/* [메인 3] 키워드 탭 상품 — 탭 버튼 + 패널 전환 (그리드는 custom.css §3 .nk-prd-grid) */
+
+/* 탭 네비: 가는 밑줄, 활성 탭만 차콜 */
+#nk-skin14 .nk-prdtab__nav {
+	display: flex;
+	justify-content: center;
+	gap: clamp(18px, 3vw, 40px);
+	margin-bottom: clamp(28px, 3vw, 48px);
+	border-bottom: 1px solid var(--nk-line);
+}
+#nk-skin14 .nk-prdtab__btn {
+	position: relative;
+	padding: 0 2px 16px;
+	background: none;
+	border: 0;
+	font-size: var(--nk-fs-body);
+	font-weight: 400;
+	letter-spacing: var(--nk-ls);
+	text-transform: uppercase;
+	color: var(--nk-sub);
+	cursor: pointer;
+	transition: color .25s;
+}
+#nk-skin14 .nk-prdtab__btn::after {
+	content: "";
+	position: absolute;
+	left: 0; right: 0; bottom: -1px;
+	height: 1px;
+	background: var(--nk-theme);
+	transform: scaleX(0);
+	transition: transform .25s ease;
+}
+#nk-skin14 .nk-prdtab__btn:hover { color: var(--nk-font); }
+#nk-skin14 .nk-prdtab__btn.is-active { color: var(--nk-font); font-weight: 500; }
+#nk-skin14 .nk-prdtab__btn.is-active::after { transform: scaleX(1); }
+
+/* 패널: 기본 숨김, 활성만 표시 */
+#nk-skin14 .nk-prdtab__panel { display: none; }
+#nk-skin14 .nk-prdtab__panel.is-active { display: block; }

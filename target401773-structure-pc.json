@@ -1,0 +1,899 @@
+{
+  "viewport": {
+    "width": 1440,
+    "height": 1200
+  },
+  "results": [
+    {
+      "label": "home",
+      "url": "https://ecudemo401773.cafe24.com/",
+      "title": "쇼핑몰 이름",
+      "mobileWeb": false,
+      "bodyClass": "",
+      "present": {
+        "wrap": true,
+        "container": true,
+        "contents": true,
+        "header": true,
+        "titleArea": false,
+        "path": false,
+        "sortby": false,
+        "selectSort": false,
+        "menupackage": false,
+        "normalpackage": false,
+        "detail": false,
+        "board": true,
+        "login": false,
+        "basket": false
+      },
+      "measures": {
+        "body": {
+          "tag": "body",
+          "id": "main",
+          "className": "",
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1480,
+            "height": 1463.8
+          },
+          "style": {
+            "fontSize": "12px",
+            "lineHeight": "normal",
+            "padding": "0px",
+            "margin": "0px",
+            "maxWidth": "none",
+            "display": "block",
+            "position": "static"
+          }
+        },
+        "wrap": {
+          "tag": "div",
+          "id": "wrap",
+          "className": "",
+          "box": {
+            "x": 10,
+            "y": 267.7,
+            "width": 1460,
+            "height": 921.8
+          },
+          "style": {
+            "fontSize": "12px",
+            "lineHeight": "normal",
+            "padding": "0px",
+            "margin": "27px 10px 0px",
+            "maxWidth": "none",
+            "display": "block",
+            "position": "relative"
+          }
+        },
+        "container": {
+          "tag": "div",
+          "id": "container",
+          "className": "",
+          "box": {
+            "x": 131,
+            "y": 267.7,
+            "width": 1218,
+            "height": 921.8
+          },
+          "style": {
+            "fontSize": "12px",
+            "lineHeight": "normal",
+            "padding": "0px",
+            "margin": "0px 121px",
+            "maxWidth": "none",
+            "display": "block",
+            "position": "static"
+          }
+        },
+        "contents": {
+          "tag": "div",
+          "id": "contents",
+          "className": "",
+          "box": {
+            "x": 335,
+            "y": 267.7,
+            "width": 1014,
+            "height": 882.4
+          },
+          "style": {
+            "fontSize": "12px",
+            "lineHeight": "normal",
+            "padding": "0px",
+            "margin": "0px",
+            "maxWidth": "none",
+            "display": "block",
+            "position": "static"
+          }
+        },
+        "header": {
+          "tag": "div",
+          "id": "header",
+          "className": "",
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1480,
+            "height": 240.7
+          },
+          "style": {
+            "fontSize": "12px",
+            "lineHeight": "normal",
+            "padding": "0px",
+            "margin": "0px",
+            "maxWidth": "none",
+            "display": "block",
+            "position": "relative"
+          }
+        },
+        "titleArea": null,
+        "normalpackage": {
+          "tag": "div",
+          "id": "",
+          "className": "xans-element- xans-product xans-product-listmain-1 xans-product-listmain xans-product-1 ec-base-product",
+          "box": {
+            "x": 335,
+            "y": 713.4,
+            "width": 1014,
+            "height": 318.7
+          },
+          "style": {
+            "fontSize": "12px",
+            "lineHeight": "normal",
+            "padding": "0px",
+            "margin": "22px 0px 0px",
+            "maxWidth": "none",
+            "display": "block",
+            "position": "static"
+          }
+        },
+        "board": {
+          "tag": "div",
+          "id": "",
+          "className": "xans-element- xans-board xans-board-listpackage-5 xans-board-listpackage xans-board-5 ",
+          "box": {
+            "x": 335,
+            "y": 1118.7,
+            "width": 496.9,
+            "height": 31.3
+          },
+          "style": {
+            "fontSize": "12px",
+            "lineHeight": "normal",
+            "padding": "0px",
+            "margin": "36px 0px 0px",
+            "maxWidth": "none",
+            "display": "block",
+            "position": "relative"
+          }
+        },
+        "login": null,
+        "basket": null
+      },
+      "headings": [
+        "쇼핑몰 이름",
+        "추천상품",
+        "자유게시판",
+        "상품 Q&A",
+        "전체게시판",
+        "상품검색",
+        "회원로그인",
+        "고객센터",
+        "최근 본 상품"
+      ]
+    },
+    {
+      "label": "plp-guess",
+      "url": "https://ecudemo401773.cafe24.com/product/list.html?cate_no=24",
+      "title": "(대분류) Outerwear - (대분류) Outerwear - 쇼핑몰 이름",
+      "mobileWeb": false,
+      "bodyClass": "",
+      "present": {
+        "wrap": true,
+        "container": true,
+        "contents": true,
+        "header": true,
+        "titleArea": false,
+        "path": true,
+        "sortby": false,
+        "selectSort": false,
+        "menupackage": true,
+        "normalpackage": true,
+        "detail": false,
+        "board": false,
+        "login": false,
+        "basket": false
+      },
+      "measures": {
+        "body": {
+          "tag": "body",
+          "id": "",
+          "className": "",
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1480,
+            "height": 1463.8
+          },
+          "style": {
+            "fontSize": "12px",
+            "lineHeight": "normal",
+            "padding": "0px",
+            "margin": "0px",
+            "maxWidth": "none",
+            "display": "block",
+            "position": "static"
+          }
+        },
+        "wrap": {
+          "tag": "div",
+          "id": "wrap",
+          "className": "",
+          "box": {
+            "x": 10,
+            "y": 267.7,
+            "width": 1460,
+            "height": 921.8
+          },
+          "style": {
+            "fontSize": "12px",
+            "lineHeight": "normal",
+            "padding": "0px",
+            "margin": "27px 10px 0px",
+            "maxWidth": "none",
+            "display": "block",
+            "position": "relative"
+          }
+        },
+        "container": {
+          "tag": "div",
+          "id": "container",
+          "className": "",
+          "box": {
+            "x": 131,
+            "y": 267.7,
+            "width": 1218,
+            "height": 921.8
+          },
+          "style": {
+            "fontSize": "12px",
+            "lineHeight": "normal",
+            "padding": "0px",
+            "margin": "0px 121px",
+            "maxWidth": "none",
+            "display": "block",
+            "position": "static"
+          }
+        },
+        "contents": {
+          "tag": "div",
+          "id": "contents",
+          "className": "",
+          "box": {
+            "x": 335,
+            "y": 267.7,
+            "width": 1014,
+            "height": 540
+          },
+          "style": {
+            "fontSize": "12px",
+            "lineHeight": "normal",
+            "padding": "0px",
+            "margin": "0px",
+            "maxWidth": "none",
+            "display": "block",
+            "position": "static"
+          }
+        },
+        "header": {
+          "tag": "div",
+          "id": "header",
+          "className": "",
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1480,
+            "height": 240.7
+          },
+          "style": {
+            "fontSize": "12px",
+            "lineHeight": "normal",
+            "padding": "0px",
+            "margin": "0px",
+            "maxWidth": "none",
+            "display": "block",
+            "position": "relative"
+          }
+        },
+        "titleArea": null,
+        "normalpackage": {
+          "tag": "div",
+          "id": "",
+          "className": "xans-element- xans-product xans-product-normalpackage ",
+          "box": {
+            "x": 335,
+            "y": 374.7,
+            "width": 1014,
+            "height": 339
+          },
+          "style": {
+            "fontSize": "12px",
+            "lineHeight": "normal",
+            "padding": "0px",
+            "margin": "0px",
+            "maxWidth": "none",
+            "display": "block",
+            "position": "static"
+          }
+        },
+        "board": null,
+        "login": null,
+        "basket": null
+      },
+      "headings": [
+        "쇼핑몰 이름",
+        "(대분류) Outerwear",
+        "전체게시판",
+        "상품검색",
+        "회원로그인",
+        "고객센터",
+        "최근 본 상품"
+      ]
+    },
+    {
+      "label": "login",
+      "url": "https://ecudemo401773.cafe24.com/member/login.html",
+      "title": "쇼핑몰 이름",
+      "mobileWeb": false,
+      "bodyClass": "",
+      "present": {
+        "wrap": true,
+        "container": true,
+        "contents": true,
+        "header": true,
+        "titleArea": true,
+        "path": true,
+        "sortby": false,
+        "selectSort": false,
+        "menupackage": false,
+        "normalpackage": false,
+        "detail": false,
+        "board": false,
+        "login": true,
+        "basket": false
+      },
+      "measures": {
+        "body": {
+          "tag": "body",
+          "id": "",
+          "className": "",
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1480,
+            "height": 1463.8
+          },
+          "style": {
+            "fontSize": "12px",
+            "lineHeight": "normal",
+            "padding": "0px",
+            "margin": "0px",
+            "maxWidth": "none",
+            "display": "block",
+            "position": "static"
+          }
+        },
+        "wrap": {
+          "tag": "div",
+          "id": "wrap",
+          "className": "",
+          "box": {
+            "x": 10,
+            "y": 267.7,
+            "width": 1460,
+            "height": 921.8
+          },
+          "style": {
+            "fontSize": "12px",
+            "lineHeight": "normal",
+            "padding": "0px",
+            "margin": "27px 10px 0px",
+            "maxWidth": "none",
+            "display": "block",
+            "position": "relative"
+          }
+        },
+        "container": {
+          "tag": "div",
+          "id": "container",
+          "className": "",
+          "box": {
+            "x": 131,
+            "y": 267.7,
+            "width": 1218,
+            "height": 921.8
+          },
+          "style": {
+            "fontSize": "12px",
+            "lineHeight": "normal",
+            "padding": "0px",
+            "margin": "0px 121px",
+            "maxWidth": "none",
+            "display": "block",
+            "position": "static"
+          }
+        },
+        "contents": {
+          "tag": "div",
+          "id": "contents",
+          "className": "",
+          "box": {
+            "x": 335,
+            "y": 267.7,
+            "width": 1014,
+            "height": 435
+          },
+          "style": {
+            "fontSize": "12px",
+            "lineHeight": "normal",
+            "padding": "0px",
+            "margin": "0px",
+            "maxWidth": "none",
+            "display": "block",
+            "position": "static"
+          }
+        },
+        "header": {
+          "tag": "div",
+          "id": "header",
+          "className": "",
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1480,
+            "height": 240.7
+          },
+          "style": {
+            "fontSize": "12px",
+            "lineHeight": "normal",
+            "padding": "0px",
+            "margin": "0px",
+            "maxWidth": "none",
+            "display": "block",
+            "position": "relative"
+          }
+        },
+        "titleArea": {
+          "tag": "div",
+          "id": "",
+          "className": "titleArea",
+          "box": {
+            "x": 335,
+            "y": 307.7,
+            "width": 1014,
+            "height": 30.7
+          },
+          "style": {
+            "fontSize": "12px",
+            "lineHeight": "normal",
+            "padding": "0px",
+            "margin": "10px 0px 20px",
+            "maxWidth": "none",
+            "display": "block",
+            "position": "static"
+          }
+        },
+        "normalpackage": null,
+        "board": null,
+        "login": {
+          "tag": "div",
+          "id": "",
+          "className": "xans-element- xans-member xans-member-login ec-base-box typeThin ",
+          "box": {
+            "x": 335,
+            "y": 358.3,
+            "width": 1014,
+            "height": 324.3
+          },
+          "style": {
+            "fontSize": "12px",
+            "lineHeight": "normal",
+            "padding": "0px",
+            "margin": "0px 0px 20px",
+            "maxWidth": "none",
+            "display": "block",
+            "position": "static"
+          }
+        },
+        "basket": null
+      },
+      "headings": [
+        "쇼핑몰 이름",
+        "로그인",
+        "회원로그인",
+        "전체게시판",
+        "상품검색",
+        "회원로그인",
+        "고객센터",
+        "최근 본 상품"
+      ]
+    },
+    {
+      "label": "basket",
+      "url": "https://ecudemo401773.cafe24.com/order/basket.html",
+      "title": "쇼핑몰 이름",
+      "mobileWeb": false,
+      "bodyClass": "",
+      "present": {
+        "wrap": true,
+        "container": true,
+        "contents": true,
+        "header": true,
+        "titleArea": true,
+        "path": true,
+        "sortby": false,
+        "selectSort": false,
+        "menupackage": false,
+        "normalpackage": false,
+        "detail": false,
+        "board": false,
+        "login": false,
+        "basket": true
+      },
+      "measures": {
+        "body": {
+          "tag": "body",
+          "id": "",
+          "className": "",
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1480,
+            "height": 1463.8
+          },
+          "style": {
+            "fontSize": "12px",
+            "lineHeight": "normal",
+            "padding": "0px",
+            "margin": "0px",
+            "maxWidth": "none",
+            "display": "block",
+            "position": "static"
+          }
+        },
+        "wrap": {
+          "tag": "div",
+          "id": "wrap",
+          "className": "",
+          "box": {
+            "x": 10,
+            "y": 267.7,
+            "width": 1460,
+            "height": 921.8
+          },
+          "style": {
+            "fontSize": "12px",
+            "lineHeight": "normal",
+            "padding": "0px",
+            "margin": "27px 0px 0px",
+            "maxWidth": "none",
+            "display": "block",
+            "position": "relative"
+          }
+        },
+        "container": {
+          "tag": "div",
+          "id": "container",
+          "className": "",
+          "box": {
+            "x": 131,
+            "y": 267.7,
+            "width": 1218,
+            "height": 921.8
+          },
+          "style": {
+            "fontSize": "12px",
+            "lineHeight": "normal",
+            "padding": "0px",
+            "margin": "0px 121px",
+            "maxWidth": "none",
+            "display": "block",
+            "position": "static"
+          }
+        },
+        "contents": {
+          "tag": "div",
+          "id": "contents",
+          "className": "",
+          "box": {
+            "x": 335,
+            "y": 267.7,
+            "width": 1014,
+            "height": 803
+          },
+          "style": {
+            "fontSize": "12px",
+            "lineHeight": "normal",
+            "padding": "0px",
+            "margin": "0px",
+            "maxWidth": "none",
+            "display": "block",
+            "position": "relative"
+          }
+        },
+        "header": {
+          "tag": "div",
+          "id": "header",
+          "className": "",
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1480,
+            "height": 240.7
+          },
+          "style": {
+            "fontSize": "12px",
+            "lineHeight": "normal",
+            "padding": "0px",
+            "margin": "0px",
+            "maxWidth": "none",
+            "display": "block",
+            "position": "relative"
+          }
+        },
+        "titleArea": {
+          "tag": "div",
+          "id": "",
+          "className": "titleArea",
+          "box": {
+            "x": 335,
+            "y": 307.7,
+            "width": 1014,
+            "height": 30.7
+          },
+          "style": {
+            "fontSize": "12px",
+            "lineHeight": "normal",
+            "padding": "0px",
+            "margin": "10px 0px 20px",
+            "maxWidth": "none",
+            "display": "block",
+            "position": "static"
+          }
+        },
+        "normalpackage": null,
+        "board": {
+          "tag": "div",
+          "id": "",
+          "className": "orderListArea ec-base-table typeList gBorder",
+          "box": {
+            "x": 335,
+            "y": 603.3,
+            "width": 1014,
+            "height": 0
+          },
+          "style": {
+            "fontSize": "12px",
+            "lineHeight": "normal",
+            "padding": "0px",
+            "margin": "0px",
+            "maxWidth": "none",
+            "display": "block",
+            "position": "static"
+          }
+        },
+        "login": null,
+        "basket": {
+          "tag": "div",
+          "id": "",
+          "className": "xans-element- xans-order xans-order-basketpackage ",
+          "box": {
+            "x": 335,
+            "y": 358.3,
+            "width": 1014,
+            "height": 314.3
+          },
+          "style": {
+            "fontSize": "12px",
+            "lineHeight": "normal",
+            "padding": "0px",
+            "margin": "0px",
+            "maxWidth": "none",
+            "display": "block",
+            "position": "static"
+          }
+        }
+      },
+      "headings": [
+        "쇼핑몰 이름",
+        "장바구니",
+        "관심상품",
+        "이용안내",
+        "옵션변경",
+        "전체게시판",
+        "상품검색",
+        "회원로그인",
+        "고객센터",
+        "최근 본 상품"
+      ]
+    },
+    {
+      "label": "notice",
+      "url": "https://ecudemo401773.cafe24.com/board/free/list.html?board_no=1",
+      "title": "공지사항 - 쇼핑몰 이름",
+      "mobileWeb": false,
+      "bodyClass": "",
+      "present": {
+        "wrap": true,
+        "container": true,
+        "contents": true,
+        "header": true,
+        "titleArea": true,
+        "path": true,
+        "sortby": false,
+        "selectSort": false,
+        "menupackage": false,
+        "normalpackage": false,
+        "detail": false,
+        "board": true,
+        "login": false,
+        "basket": false
+      },
+      "measures": {
+        "body": {
+          "tag": "body",
+          "id": "",
+          "className": "",
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1480,
+            "height": 1463.8
+          },
+          "style": {
+            "fontSize": "12px",
+            "lineHeight": "normal",
+            "padding": "0px",
+            "margin": "0px",
+            "maxWidth": "none",
+            "display": "block",
+            "position": "static"
+          }
+        },
+        "wrap": {
+          "tag": "div",
+          "id": "wrap",
+          "className": "",
+          "box": {
+            "x": 10,
+            "y": 267.7,
+            "width": 1460,
+            "height": 921.8
+          },
+          "style": {
+            "fontSize": "12px",
+            "lineHeight": "normal",
+            "padding": "0px",
+            "margin": "27px 10px 0px",
+            "maxWidth": "none",
+            "display": "block",
+            "position": "relative"
+          }
+        },
+        "container": {
+          "tag": "div",
+          "id": "container",
+          "className": "",
+          "box": {
+            "x": 131,
+            "y": 267.7,
+            "width": 1218,
+            "height": 921.8
+          },
+          "style": {
+            "fontSize": "12px",
+            "lineHeight": "normal",
+            "padding": "0px",
+            "margin": "0px 121px",
+            "maxWidth": "none",
+            "display": "block",
+            "position": "static"
+          }
+        },
+        "contents": {
+          "tag": "div",
+          "id": "contents",
+          "className": "",
+          "box": {
+            "x": 335,
+            "y": 267.7,
+            "width": 1014,
+            "height": 357.7
+          },
+          "style": {
+            "fontSize": "12px",
+            "lineHeight": "normal",
+            "padding": "0px",
+            "margin": "0px",
+            "maxWidth": "none",
+            "display": "block",
+            "position": "static"
+          }
+        },
+        "header": {
+          "tag": "div",
+          "id": "header",
+          "className": "",
+          "box": {
+            "x": 0,
+            "y": 0,
+            "width": 1480,
+            "height": 240.7
+          },
+          "style": {
+            "fontSize": "12px",
+            "lineHeight": "normal",
+            "padding": "0px",
+            "margin": "0px",
+            "maxWidth": "none",
+            "display": "block",
+            "position": "relative"
+          }
+        },
+        "titleArea": {
+          "tag": "div",
+          "id": "",
+          "className": "titleArea",
+          "box": {
+            "x": 335,
+            "y": 307.7,
+            "width": 1014,
+            "height": 30.7
+          },
+          "style": {
+            "fontSize": "12px",
+            "lineHeight": "normal",
+            "padding": "0px",
+            "margin": "10px 0px 20px",
+            "maxWidth": "none",
+            "display": "block",
+            "position": "static"
+          }
+        },
+        "normalpackage": null,
+        "board": {
+          "tag": "div",
+          "id": "",
+          "className": "xans-element- xans-board xans-board-listpackage-1002 xans-board-listpackage xans-board-1002 ",
+          "box": {
+            "x": 335,
+            "y": 267.7,
+            "width": 1014,
+            "height": 189.7
+          },
+          "style": {
+            "fontSize": "12px",
+            "lineHeight": "normal",
+            "padding": "0px",
+            "margin": "0px 0px 10px",
+            "maxWidth": "none",
+            "display": "block",
+            "position": "static"
+          }
+        },
+        "login": null,
+        "basket": null
+      },
+      "headings": [
+        "쇼핑몰 이름",
+        "공지사항",
+        "전체게시판",
+        "상품검색",
+        "회원로그인",
+        "고객센터",
+        "최근 본 상품"
+      ]
+    }
+  ]
+}

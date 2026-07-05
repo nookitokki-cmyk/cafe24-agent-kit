@@ -1,0 +1,55 @@
+<aside id="aside" module="layout_slidePackage" data-ez="module-0jqbb5o-1">
+    <!--@css(/layout/basic/css/slideMenu.css)-->
+	<!--@js(/layout/basic/js/slide_menu.js)-->
+    <nav class="navigation-menu" role="navigation">
+
+		<div class="top_logo" module="Layout_LogoTop"><a href="/"><img src="{$logo}" alt="{$mall_name}" loading="lazy" ez-prevent="img"></a></div>
+
+        <div class="navigation-menu__member">
+			<a module="Layout_statelogoff" href="/member/agreement.html">회원가입</a>
+			<a module="Layout_statelogoff" href="/member/login.html">로그인</a>
+			<a module="Layout_stateLogon" href="/member/modify.html">내정보수정</a>
+			<a module="Layout_stateLogon" href="{$action_logout}">로그아웃</a>
+			<a href="/myshop/order/list.html">주문조회</a>
+			<a module="Layout_stateLogon" href="/myshop/index.html">마이페이지</a>
+			<a href="/product/recent_view_product.html">최근본상품</a>
+        </div><!-- //navigation_state -->
+
+		<div>
+		    <div id="slideCateList" class="navigation-menu__category">
+				<ul module="layout_category" class="categoryList">
+					<li id="cate{$cate_no}" class="menu">
+						<a href="{$link_product_list}" class="view">{$name|cut 25}</a>
+						<a href="#none" class="cate" cate="{$param}">상품보기</a>
+					</li>
+					<li id="cate{$cate_no}" class="menu">
+						<a href="{$link_product_list}" class="view">{$name|cut 25}</a>
+						<a href="#none" class="cate" cate="{$param}">상품보기</a>
+					</li>
+				</ul>
+		    </div>
+		</div><!-- //menu-side/1 -->
+
+        <div module="Layout_BoardInfo" class="navigation-menu__board">
+            <div class="title">고객센터<button type="button" class="icoCategory">펼침</button></div>
+            <ul class="categoryList">
+                <li class="menu"><a href="{$link_board_list}">{$board_name}</a> {$board_adult_icon}</li>
+                <li class="menu"><a href="{$link_board_list}">{$board_name}</a> {$board_adult_icon}</li>
+            </ul>
+        </div><!-- //tab_community -->
+
+		<div module="Layout_multishopList">
+			<button type="button" class="toggle">{$current_language} <i aria-hidden="true" class="icon icoArrowBottom"></i></button>
+			<ul module="Layout_multishopListitem">
+				<li class="{$selected_class}">
+					<a href="//{$shop_domain}/">{$locale_language}</a>
+				</li>
+				<li class="{$selected_class}">
+					<a href="//{$shop_domain}/">{$locale_language}</a>
+				</li>
+			</ul>
+		</div>
+    </nav>
+    <button type="button" class="btnClose"><img src="/SkinImg/img/sldiebar_close.svg" alt="닫기" loading="lazy" ez-prevent="img"></button>
+</aside>
+<!--#ez="1/1"-->

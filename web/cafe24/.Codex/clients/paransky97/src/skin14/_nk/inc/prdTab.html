@@ -1,0 +1,95 @@
+<!-- [메인 3] 키워드 탭 상품 — 탭 버튼으로 메인진열 그룹(3~6) 전환.
+     상품 등록: 관리자 > 상품진열 > 메인 상품 진열 > 메인분류 3~6. anchorBoxId 2개 이상 규칙 준수 -->
+<!--@css(/_nk/css/prdTab.css)-->
+
+<section class="section nk-sec nk-prdtab">
+	<div class="inner">
+		<div class="nk-sec__head">
+			<span class="nk-eyebrow">Shop by Keyword</span>
+			<h2 class="nk-sec__title">Curated Edits</h2>
+		</div>
+
+		<!-- 탭 버튼 -->
+		<div class="nk-prdtab__nav" role="tablist">
+			<button type="button" class="nk-prdtab__btn is-active" data-tab="0">Best</button>
+			<button type="button" class="nk-prdtab__btn" data-tab="1">New</button>
+			<button type="button" class="nk-prdtab__btn" data-tab="2">Trending</button>
+			<button type="button" class="nk-prdtab__btn" data-tab="3">Gift</button>
+		</div>
+
+		<!-- 탭 패널 -->
+		<div class="nk-prdtab__panels">
+			<div class="nk-prdtab__panel is-active" data-panel="0">
+				<div module="product_listmain_3" class="ec-base-product">
+					<!--
+						$count = 8
+						$moreview = no
+						$cache = yes
+					-->
+					<ul class="nk-prd-grid grid4">
+						<li id="anchorBoxId_{$product_no}" class="nk-prd"><!--@import(/_nk/inc/prd.html)--></li>
+						<li id="anchorBoxId_{$product_no}" class="nk-prd"><!--@import(/_nk/inc/prd.html)--></li>
+					</ul>
+				</div>
+			</div>
+			<div class="nk-prdtab__panel" data-panel="1">
+				<div module="product_listmain_4" class="ec-base-product">
+					<!--
+						$count = 8
+						$moreview = no
+						$cache = yes
+					-->
+					<ul class="nk-prd-grid grid4">
+						<li id="anchorBoxId_{$product_no}" class="nk-prd"><!--@import(/_nk/inc/prd.html)--></li>
+						<li id="anchorBoxId_{$product_no}" class="nk-prd"><!--@import(/_nk/inc/prd.html)--></li>
+					</ul>
+				</div>
+			</div>
+			<div class="nk-prdtab__panel" data-panel="2">
+				<div module="product_listmain_5" class="ec-base-product">
+					<!--
+						$count = 8
+						$moreview = no
+						$cache = yes
+					-->
+					<ul class="nk-prd-grid grid4">
+						<li id="anchorBoxId_{$product_no}" class="nk-prd"><!--@import(/_nk/inc/prd.html)--></li>
+						<li id="anchorBoxId_{$product_no}" class="nk-prd"><!--@import(/_nk/inc/prd.html)--></li>
+					</ul>
+				</div>
+			</div>
+			<div class="nk-prdtab__panel" data-panel="3">
+				<div module="product_listmain_6" class="ec-base-product">
+					<!--
+						$count = 8
+						$moreview = no
+						$cache = yes
+					-->
+					<ul class="nk-prd-grid grid4">
+						<li id="anchorBoxId_{$product_no}" class="nk-prd"><!--@import(/_nk/inc/prd.html)--></li>
+						<li id="anchorBoxId_{$product_no}" class="nk-prd"><!--@import(/_nk/inc/prd.html)--></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+	(function(){
+		var root = document.currentScript.closest('.nk-prdtab');
+		if(!root) return;
+		var btns = root.querySelectorAll('.nk-prdtab__btn');
+		var panels = root.querySelectorAll('.nk-prdtab__panel');
+		btns.forEach(function(btn){
+			btn.addEventListener('click', function(){
+				var i = btn.getAttribute('data-tab');
+				btns.forEach(function(b){ b.classList.remove('is-active'); });
+				panels.forEach(function(p){ p.classList.remove('is-active'); });
+				btn.classList.add('is-active');
+				var target = root.querySelector('.nk-prdtab__panel[data-panel="'+i+'"]');
+				if(target) target.classList.add('is-active');
+			});
+		});
+	})();
+	</script>
+</section>

@@ -1,0 +1,50 @@
+@charset "utf-8";
+/* [메인 10] 저널 캐러셀 — 썸네일 + 제목 카드 슬라이드 */
+
+#nk-skin14 .nk-journal__wrap { position: relative; }
+#nk-skin14 .nk-journal__swiper { overflow: hidden; }
+
+/* slidesPerView:'auto' — CSS 슬라이드 폭(데스크탑 3 / 태블릿 2 / 모바일 1.2) */
+#nk-skin14 .nk-journal__swiper .swiper-slide { width: calc(33.333% - 19px); height: auto; }
+@media all and (max-width: 1024px) { #nk-skin14 .nk-journal__swiper .swiper-slide { width: calc(50% - 14px); } }
+@media all and (max-width: 767px)  { #nk-skin14 .nk-journal__swiper .swiper-slide { width: 82%; } }
+
+#nk-skin14 .nk-journal__img {
+	display: block;
+	aspect-ratio: 4 / 3;
+	overflow: hidden;
+	background: var(--nk-bg2);
+}
+#nk-skin14 .nk-journal__img img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+#nk-skin14 .nk-journal__card:hover .nk-journal__img img { transform: scale(1.04); }
+
+#nk-skin14 .nk-journal__body { padding-top: 18px; }
+#nk-skin14 .nk-journal__cat {
+	display: inline-block;
+	font-size: var(--nk-fs-sm);
+	letter-spacing: var(--nk-ls);
+	text-transform: uppercase;
+	color: var(--nk-accent);
+	margin-bottom: 10px;
+}
+#nk-skin14 .nk-journal__title {
+	font-size: var(--nk-fs-h3);
+	font-weight: 400;
+	line-height: 1.4;
+	color: var(--nk-font);
+	margin-bottom: 14px;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+#nk-skin14 .nk-journal__title a { color: inherit; }
+
+#nk-skin14 .nk-journal__prev { position: absolute; top: 30%; left: -10px; transform: translateY(-50%); z-index: 5; }
+#nk-skin14 .nk-journal__next { position: absolute; top: 30%; right: -10px; transform: translateY(-50%); z-index: 5; }
+
+#nk-skin14 .nk-journal__foot { margin-top: clamp(28px, 3vw, 48px); text-align: center; }
+
+@media all and (max-width: 767px) {
+	#nk-skin14 .nk-journal__prev, #nk-skin14 .nk-journal__next { display: none; }
+}

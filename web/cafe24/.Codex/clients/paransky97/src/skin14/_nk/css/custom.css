@@ -1,0 +1,1190 @@
+@charset "utf-8";
+
+/* ============================================================
+   NK Custom Override (skin14)
+   - 원칙: layout/basic/css/* 원본 직접 수정 금지
+   - 방식: #nk-skin14 ID 래퍼 + xans-/카페24 구조 셀렉터 오버라이드
+   - !important 금지 (불가피 시 주석으로 사유 명시)
+   ============================================================ */
+
+
+/* ── 0. 폰트 (Pretendard) ────────────────────────────────── */
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
+/* ⚠️ Phosphor Icons 는 여기서 @import 하지 말 것.
+   카페24 optimizer 가 @import 한 외부 CSS에서 @font-face 만 인라인하고 .ph 클래스 규칙을 누락시켜
+   아이콘이 렌더되지 않음(실측). → layout/basic/layout.html <head> 에 정식 <link> 로 로드.
+   (Pretendard 는 전부 @font-face 라 @import 로도 정상 동작) */
+
+/* 카페24 테마 원본이 `input,select,textarea,body { font-family:Jost }`로 body에 폰트를
+   강제(theme css, 나중 로드)하므로, body# 명시도 + !important 로 Pretendard 관철.
+   (!important 불가피 — 카페24 테마 폰트 규칙을 맞받음) */
+body#nk-skin14,
+body#nk-skin14 input,
+body#nk-skin14 select,
+body#nk-skin14 textarea,
+body#nk-skin14 button,
+body#nk-skin14 code {
+  font-family: "Bricolage Grotesque", "Pretendard", -apple-system, BlinkMacSystemFont, "Noto Sans KR", sans-serif !important;
+}
+
+/* ── 제목/GNB/영문 디스플레이 = Marcellus 세리프 (ORDINARY 디자인시스템). 한글은 Pretendard fallback. ──
+   ORDINARY(ecudemo392574) 실측: 본문=Bricolage Grotesque / 제목·내비·워드마크=Marcellus 400 / 팔레트 동일.
+   Marcellus 는 한글 글리프가 없어 한글 제목은 자동으로 다음 폰트(Pretendard)로 렌더 → ORDINARY 와 동일 동작. */
+#nk-skin14 h1, #nk-skin14 h2, #nk-skin14 h3,
+#nk-skin14 .nk-sec__title, #nk-skin14 .nk-sec__head,
+#nk-skin14 .nk-hero__title, #nk-skin14 .nk-journal__title,
+#nk-skin14 .nk-prdslide__head, #nk-skin14 .nk-insta__head,
+#nk-skin14 .nk-title, #nk-skin14 .nk-title-1, #nk-skin14 .nk-title-2, #nk-skin14 .nk-title-3,
+#nk-skin14 #header .top_category > ul > li > a {
+  font-family: var(--nk-font-display);
+}
+
+/* ── 타이포그래피: 럭셔리 = 본문 Regular + 제목 Light~Medium + 넓은 자간 ── */
+
+/* 본문 기본값: Regular(400), 본문 색, 살짝 좁은 자간, 넉넉한 행간 */
+body#nk-skin14 {
+  font-size: var(--nk-fs-body);
+  font-weight: 400;
+  color: var(--nk-font);
+  letter-spacing: var(--nk-ls);
+  line-height: 1.6;
+}
+
+/* 제목군: Light~Medium 위주 + 럭셔리 넓은 자간. .nk-title 류 커스텀 클래스 포함 */
+#nk-skin14 h1,
+#nk-skin14 .nk-title-1 {
+  font-size: var(--nk-fs-h1);
+  font-weight: 300;
+  letter-spacing: var(--nk-ls);
+  line-height: 1.25;
+  color: var(--nk-font);
+}
+#nk-skin14 h2,
+#nk-skin14 .nk-title-2 {
+  font-size: var(--nk-fs-h2);
+  font-weight: 400;
+  letter-spacing: var(--nk-ls);
+  line-height: 1.3;
+  color: var(--nk-font);
+}
+#nk-skin14 h3,
+#nk-skin14 .nk-title-3 {
+  font-size: var(--nk-fs-h3);
+  font-weight: 500;
+  letter-spacing: var(--nk-ls);
+  line-height: 1.4;
+  color: var(--nk-font);
+}
+
+/* 리드 문장(소개 단락 등) */
+#nk-skin14 .nk-lead {
+  font-size: var(--nk-fs-lead);
+  font-weight: 400;
+  color: var(--nk-font);
+  line-height: 1.6;
+}
+
+/* 보조/캡션 텍스트: 보조색 + 작은 사이즈 */
+#nk-skin14 .nk-sub-text {
+  font-size: var(--nk-fs-sm);
+  color: var(--nk-sub);
+  line-height: 1.5;
+}
+
+/* 골드 액센트 텍스트(미세 포인트용) */
+#nk-skin14 .nk-accent-text {
+  color: var(--nk-accent);
+  letter-spacing: var(--nk-ls);
+}
+
+
+/* ── 1. 리셋 & 레이아웃 최대폭 제어 (skin2/IDIO 방식 그대로) ── */
+* { margin: 0; padding: 0; box-sizing: border-box; word-break: keep-all; }
+html { -webkit-text-size-adjust: none; }
+body { width: 100%; min-width: 320px; }
+
+/* ⚠️ EZ테마가 body에 박은 max-width(1480/1920) 해제 — 안 풀면 body가 화면 좌측에 쏠린다.
+   (skin2/IDIO 베이스엔 body max-width 가 원래 없어 이 단계가 불필요했음 / EZ 특유 추가 단계) */
+body#nk-skin14 { max-width: none !important; margin-left: auto !important; margin-right: auto !important; background: var(--nk-bg); color: var(--nk-font); letter-spacing: var(--nk-ls); font-size: 13px; line-height: 1.6; }
+/* 본문 기준 글씨 = 레퍼런스(maeve)와 동일한 13px / line-height 1.6. 개별 요소 크기는 각 규칙이 제어. */
+/* 전역 자간 -1px 통일 — 폼 컨트롤·버튼까지 상속(개별 letter-spacing 지정 대신 이 한 줄) */
+body#nk-skin14 input, body#nk-skin14 select, body#nk-skin14 textarea, body#nk-skin14 button, body#nk-skin14 a { letter-spacing: var(--nk-ls); }
+
+/* 컨테이너 기준폭 변수 (skin2/IDIO 기준: max-width 1920 고정, 패딩만 반응형) */
+:root {
+  --nk-container: 1920px;
+  --nk-pad-pc: 50px;    /* ~1920 */
+  --nk-pad-1480: 35px;  /* ≤1480 */
+  --nk-pad-1024: 24px;  /* ≤1024 */
+  --nk-pad-540: 15px;   /* ≤540  */
+
+  /* ── 디자인 토큰: 그레이지 모노크롬(레퍼런스 ORDINARY 톤) ──
+     배경=따뜻한 그레이지, 텍스트=소프트 먹, 액센트=골드 제거(모노크롬 → 다크로 수렴).
+     ★ 클라이언트별 재판매: 아래 6개 색 토큰만 바꾸면 전 페이지 일괄 변경(변수 단일 제어). */
+  --nk-theme: #222222;          /* 1차 포인트(소프트 먹) — 주 버튼·강조 */
+  --nk-accent: #222222;         /* 액센트(모노크롬 — 골드 제거, 다크로 수렴). 컬러 재도입 시 이 값만 변경 */
+  --nk-font: #222222;           /* 본문 글씨 */
+  --nk-sub: #8a8a8a;            /* 보조 글씨 */
+  --nk-bg: #f5f5f0;             /* 기본 배경(그레이지) */
+  --nk-bg2: #ece9e1;            /* 면 채움(박스·th·소제목 — 페이지보다 살짝 깊은 그레이지) */
+  --nk-line: rgba(0,0,0,0.08);  /* 모든 테두리/구분선 표준 선색(skin2 e8 차용) */
+  --nk-line-strong: rgba(0,0,0,0.18);
+
+  /* 호버/상태용 파생값 */
+  --nk-theme-hover: #000000;    /* 주 버튼 호버(어둡게) */
+  --nk-accent-hover: #000000;   /* 액센트 호버 */
+
+  /* 헤더/상단띠 높이 — fixed 헤더 top/오프셋 계산에 공통 사용(skin2 토큰 차용) */
+  --nk-header-h: 80px;          /* PC 헤더 = 로고/GNB/아이콘 1행 80px (toparea 제거 — skin2·ORDINARY 동일) */
+  --nk-topbar-h: 36px;          /* 상단 띠배너(.nk-topbnr) 높이 */
+
+  /* ── 타이포 스케일 (clamp 반응형: 최소 → 가변 → 최대) ──
+     럭셔리 무드 = 큰 제목 + 넉넉한 여백. BP 1480/1024/767 흐름과 정합. */
+  /* ── ORDINARY(ecudemo392574) 실측 크기 그대로 매칭 (최대 33px, 섹션제목 23px, 가격/본문 13px) ── */
+  --nk-fs-h1: clamp(26px, 3vw, 33px);     /* 대제목/워드마크급 — ORDINARY 최대 33px */
+  --nk-fs-h2: clamp(20px, 2.2vw, 23px);   /* 섹션 제목 — ORDINARY 23px (기존 34px → 축소) */
+  --nk-fs-h3: clamp(17px, 1.8vw, 20px);   /* 서브 라벨 — ORDINARY 20px */
+  --nk-fs-lead: clamp(14px, 1.2vw, 16px); /* 중간 타이틀 — ORDINARY 16px */
+  --nk-fs-body: 14px;                     /* 상품명·리드 — ORDINARY 14px */
+  --nk-fs-sm: 13px;                       /* 가격·캡션·본문 — ORDINARY 13px */
+
+  /* ── 자간: 레퍼런스(maeve) -0.25px 단일 통일 — 개별 letter-spacing 지정 금지, 이 토큰 하나로 제어 ── */
+  --nk-ls: -0.25px;
+  --nk-ls-title: var(--nk-ls);  /* 구 참조 호환 — 모두 -0.25px 로 수렴 */
+  --nk-ls-body: var(--nk-ls);
+
+  /* 디스플레이/제목 폰트 = Marcellus 세리프(ORDINARY). 한글은 Pretendard fallback. 본문은 Bricolage(위 §0). */
+  --nk-font-display: "Marcellus", "Pretendard", -apple-system, "Noto Sans KR", serif;
+
+  /* 폼·버튼 공통 치수 */
+  --nk-control-h: 50px;         /* 인풋·버튼 기본 높이 */
+  --nk-radius: 2px;             /* 미세 라운드(럭셔리=직각에 가깝게) */
+  --nk-on-theme: #ffffff;       /* 차콜/골드 버튼 위 글씨색 (산재 #fff 토큰화) */
+  --nk-icon-btn: 46px;          /* 원형 아이콘 버튼 치수(.nk-arrow / #right_quick 공통) */
+}
+
+/* <section> 태그 자체는 풀폭 (배경·이미지가 화면 끝까지) */
+section { width: 100%; padding: 0; overflow: hidden; }
+
+/* ── 콘텐츠 영역 너비 통일 (skin2/IDIO 핵심 방식) ──
+   헤더(.inner)·푸터(.inner)·본문(#container.inner)을 한 규칙으로 묶어 동일 폭.
+   max-width 1920 고정 + 패딩만 반응형 → 모든 화면에서 좌우 끝선 일치.
+   ※ layout.html / main.html 의 <div id="container"> 에 class="inner" 필수 */
+#nk-skin14 #container.inner,
+body#nk-skin14 #header .inner,
+body#nk-skin14 #footer .inner,
+#nk-skin14 .inner {
+  max-width: var(--nk-container) !important;
+  width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: var(--nk-pad-pc) !important;
+  padding-right: var(--nk-pad-pc) !important;
+  box-sizing: border-box;
+}
+.inner.wide { max-width: unset !important; }
+
+/* 컨테이너가 폭을 책임지므로 내부 본문은 폭/마진 해제 (카페24 원본 1480/92% 풀기) */
+body#nk-skin14 #container.inner #contents,
+body#nk-skin14 #container.inner #contents > .section,
+body#nk-skin14 #container.inner #contents .main_product_list,
+body#nk-skin14 #container.inner #contents .main_image_text_gallery,
+body#nk-skin14 #container.inner #contents .main_product_slide,
+body#nk-skin14 #container.inner #contents .main_text,
+body#nk-skin14 #container.inner #contents .main_product_category,
+body#nk-skin14 #container.inner #contents .main_map {
+  max-width: 100% !important;
+  width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+/* 풀블리드 섹션: 컨테이너 패딩을 뚫고 화면 끝까지 (배너 등) */
+body#nk-skin14 #container.inner #contents > .section.nk-full {
+  margin-left: calc(50% - 50vw) !important;
+  margin-right: calc(50% - 50vw) !important;
+  max-width: 100vw !important;
+  width: 100vw !important;
+}
+
+/* 반응형 — max-width(1920)는 고정, 패딩만 단계적으로 줄임 (skin2 기준 50/35/24/15) */
+@media all and (max-width: 1480px) {
+  #nk-skin14 #container.inner,
+  body#nk-skin14 #header .inner,
+  body#nk-skin14 #footer .inner,
+  #nk-skin14 .inner { padding-left: var(--nk-pad-1480) !important; padding-right: var(--nk-pad-1480) !important; }
+}
+@media all and (max-width: 1024px) {
+  #nk-skin14 #container.inner,
+  body#nk-skin14 #header .inner,
+  body#nk-skin14 #footer .inner,
+  #nk-skin14 .inner { padding-left: var(--nk-pad-1024) !important; padding-right: var(--nk-pad-1024) !important; }
+}
+@media all and (max-width: 540px) {
+  #nk-skin14 #container.inner,
+  body#nk-skin14 #header .inner,
+  body#nk-skin14 #footer .inner,
+  #nk-skin14 .inner { padding-left: var(--nk-pad-540) !important; padding-right: var(--nk-pad-540) !important; }
+}
+
+/* ── .inner 이중 패딩 방지 (메인 섹션 한정) ──
+   #container.inner 가 이미 좌우 패딩을 책임지는데, 그 안의 섹션 조각이 또 .inner 를 쓰면
+   패딩이 두 번 들어가 콘텐츠가 헤더보다 한 단계 더 안쪽으로 밀린다(라이브 측정: 헤더 50 vs 섹션 100).
+   → #contents 안의 .inner 는 폭만 100% 로 두고 자체 패딩 0 → 헤더/푸터와 좌우 끝선 일치.
+   (헤더/푸터 .inner 는 #contents 밖이라 영향 없음) */
+#nk-skin14 #container.inner #contents .inner {
+  max-width: 100% !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+/* 예외: 도움말/안내 박스(.ec-base-help .inner)는 레이아웃 폭 래퍼가 아니라 콘텐츠 박스 →
+   위 이중패딩 방지 규칙이 좌우 패딩을 0으로 만들어버림. skin2식 면채움 박스라 좌우 여백 복원. */
+#nk-skin14 #container.inner #contents .ec-base-help .inner { padding-left: 50px !important; padding-right: 50px !important; }
+@media all and (max-width: 1024px) {
+  #nk-skin14 #container.inner #contents .ec-base-help .inner { padding-left: 30px !important; padding-right: 30px !important; }
+}
+/* 단, 풀블리드(.nk-full) 섹션은 컨테이너 패딩을 뚫고 100vw 로 빠져나갔으므로
+   그 안의 .inner 는 단일 패딩을 복구해 뷰포트 끝에서 안전 여백을 확보 (재판매 시 풀블리드 배너 대비) */
+#nk-skin14 #container.inner #contents .nk-full .inner {
+  max-width: var(--nk-container) !important;
+  padding-left: var(--nk-pad-pc) !important;
+  padding-right: var(--nk-pad-pc) !important;
+}
+@media all and (max-width: 1480px) {
+  #nk-skin14 #container.inner #contents .nk-full .inner { padding-left: var(--nk-pad-1480) !important; padding-right: var(--nk-pad-1480) !important; }
+}
+@media all and (max-width: 1024px) {
+  #nk-skin14 #container.inner #contents .nk-full .inner { padding-left: var(--nk-pad-1024) !important; padding-right: var(--nk-pad-1024) !important; }
+}
+@media all and (max-width: 540px) {
+  #nk-skin14 #container.inner #contents .nk-full .inner { padding-left: var(--nk-pad-540) !important; padding-right: var(--nk-pad-540) !important; }
+}
+
+
+/* ── 2. 헤더 ─────────────────────────────────────────────── */
+
+/* 헤더 우측 아이콘(.top_mypage)이 position:absolute; right:0 인데, 부모 .top_nav_box 가
+   static 이라 기준점(offsetParent)이 .inner(padding 50)가 되어 패딩 바깥으로 빠져나감.
+   부모 .top_nav_box 를 relative 로 만들어 콘텐츠 영역 기준으로 정렬 → 아이콘이 컨테이너 안으로 */
+body#nk-skin14 #header .top_nav_box { position: relative !important; }
+
+/* item4 — 상단 유틸바(toparea: 회원가입/로그인/주문조회/최근본상품/고객센터) 제거(skin2·ORDINARY 동일).
+   로그인/장바구니는 우측 아이콘으로 접근. 모듈은 보존(display:none)해 기능 안전. 헤더 = 로고/GNB/아이콘 1행. */
+#nk-skin14 #header .toparea { display: none !important; }
+
+/* 카페24 원본(layout.css:102)이 .top_mypage 에 top:70px 을 줘서 아이콘이 로고/GNB보다
+   한 줄 아래로 내려감(layout01 기본은 GNB 다단 가정). top_nav_box 수직 중앙으로 올려
+   로고/GNB와 같은 라인에 정렬 (top:50% + translateY(-50%)) */
+body#nk-skin14 #header .top_nav_box .top_mypage {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* ── 2-0. GNB 헤더 정중앙 고정 (IDIO 방식 차용 / PC 전용) ──
+   카페24 원본 .top_nav_box 는 flex row(align-items:flex-start)라
+   [로고 | GNB | 아이콘] 순서로 흐른다. 이 경우 GNB(.top_category)가 길어지면
+   로고가 좌로 밀리거나 GNB가 한쪽으로 치우친다.
+   → IDIO 방식: 로고는 좌측 고정, 아이콘은 우측 고정(이미 위에서 처리),
+      GNB만 헤더 정중앙(left:50% + translateX(-50%))에 절대 고정 →
+      로고/아이콘 너비와 무관하게 메뉴가 항상 중앙. 메뉴가 길어져도 안 치우침.
+   ⚠️ PC 전용: position:absolute 중앙 규칙이 모바일 드로어/햄버거로 누수되면
+      레이아웃이 깨지므로 반드시 @media(min-width:1025px) 안에만 둔다.
+      (모바일 1024px 이하는 카페24 원본 드로어/햄버거 그대로 유지) */
+@media all and (min-width: 1025px) {
+  /* 자식을 전부 absolute로 빼면 .top_nav_box 높이가 0으로 붕괴되므로
+     min-height로 헤더 행 높이(80px)를 확보한다 */
+  body#nk-skin14 #header .top_nav_box {
+    min-height: 80px;
+  }
+
+  /* .top_logo 좌측 고정 — 원본이 flex item(flex-shrink:0)이므로 absolute로
+     좌측·수직중앙에 못박아 GNB의 absolute 중앙과 충돌하지 않게 한다 */
+  body#nk-skin14 #header .top_nav_box .top_logo {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+  }
+
+  /* GNB(.top_category) 헤더 정중앙 절대 고정 (좌우 중앙 + 수직 중앙).
+     카페24 원본(layout.css:73)이 margin:0 165px 0 25px 를 줘서 중앙 정렬을
+     방해하므로 margin 0 으로 맞받는다.
+     (!important 불가피 — 원본 .top_category margin 규칙을 맞받음) */
+  body#nk-skin14 #header .top_nav_box .top_category {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);  /* 좌우+수직 동시 중앙 → 로고/아이콘과 같은 라인 */
+    margin: 0 !important; /* 원본 margin:0 165px 0 25px 무효화 — 정중앙 정렬 */
+    z-index: 1;
+  }
+}
+
+/* 카페24 EZ 기본 탑배너(.main_top_banner)는 EZ 걷어낸 잔재 — nk-topBnr 와 중복되므로 숨김 */
+body#nk-skin14 .main_top_banner { display: none; }
+
+/* ── 2-1. 공통 UI: 버튼 (카페24 ec-base-button → 럭셔리) ──
+   카페24 기본 버튼 클래스(.btnSubmit/.btnNormal/.btnEm/.btnMore)를 토큰 기반으로 재정의.
+   럭셔리 = 미세 라운드(--nk-radius) + 넉넉한 padding + 차분한 색 전환. */
+
+#nk-skin14 .btnNormal,
+#nk-skin14 .btnSubmit,
+#nk-skin14 .btnEm,
+#nk-skin14 .btnMore {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--nk-control-h);
+  padding: 0 28px;
+  border-radius: var(--nk-radius);
+  font-size: var(--nk-fs-body);
+  font-weight: 500;
+  letter-spacing: var(--nk-ls);
+  line-height: 1.4;
+  cursor: pointer;
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+/* 보조 버튼: 라인 스타일(테두리 + 흰 배경) */
+#nk-skin14 .btnNormal {
+  background-color: var(--nk-bg);
+  color: var(--nk-font);
+  border: 1px solid var(--nk-line-strong);
+}
+#nk-skin14 .btnNormal:hover,
+#nk-skin14 .btnNormal:focus {
+  border-color: var(--nk-theme);
+  color: var(--nk-theme);
+}
+
+/* 주 버튼(.btnSubmit/.btnEm/.btnMore): 딥 차콜 배경 + 흰 글씨 */
+#nk-skin14 .btnSubmit,
+#nk-skin14 .btnEm,
+#nk-skin14 .btnMore {
+  background-color: var(--nk-theme);
+  color: #ffffff;
+  border: 1px solid var(--nk-theme);
+}
+#nk-skin14 .btnSubmit:hover,
+#nk-skin14 .btnSubmit:focus,
+#nk-skin14 .btnEm:hover,
+#nk-skin14 .btnEm:focus,
+#nk-skin14 .btnMore:hover,
+#nk-skin14 .btnMore:focus {
+  background-color: var(--nk-theme-hover);
+  border-color: var(--nk-theme-hover);
+}
+
+/* ── 2-2. 공통 UI: 폼 / 인풋 (input·select·textarea) ──
+   라인 테두리 + 흰 배경 + 통일 높이. 포커스 시 차콜 테두리(접근성 위해 outline 유지). */
+
+#nk-skin14 input[type="text"],
+#nk-skin14 input[type="password"],
+#nk-skin14 input[type="email"],
+#nk-skin14 input[type="tel"],
+#nk-skin14 input[type="number"],
+#nk-skin14 input[type="search"],
+#nk-skin14 select,
+#nk-skin14 textarea {
+  height: var(--nk-control-h);
+  padding: 0 14px;
+  background-color: var(--nk-bg);
+  border: 1px solid var(--nk-line);
+  border-radius: var(--nk-radius);
+  color: var(--nk-font);
+  font-size: var(--nk-fs-body);
+  line-height: 1.5;
+  transition: border-color 0.2s ease;
+}
+
+/* textarea 는 높이 자동(여러 줄) + 상하 패딩 */
+#nk-skin14 textarea {
+  height: auto;
+  min-height: 120px;
+  padding: 12px 14px;
+}
+
+/* placeholder 는 보조색 */
+#nk-skin14 input::placeholder,
+#nk-skin14 textarea::placeholder {
+  color: var(--nk-sub);
+}
+
+/* 포커스: 차콜 테두리 + 은은한 외곽선(outline 단독 제거 금지 — 접근성) */
+#nk-skin14 input[type="text"]:focus,
+#nk-skin14 input[type="password"]:focus,
+#nk-skin14 input[type="email"]:focus,
+#nk-skin14 input[type="tel"]:focus,
+#nk-skin14 input[type="number"]:focus,
+#nk-skin14 input[type="search"]:focus,
+#nk-skin14 select:focus,
+#nk-skin14 textarea:focus {
+  border-color: var(--nk-theme);
+  outline: 1px solid var(--nk-line-strong);
+  outline-offset: 1px;
+}
+
+/* select 전용(전역) — 우측 caret 자리 확보(텍스트/화살표 겹침 방지) + 우리 톤 SVG caret 통일.
+   위 공통 input 규칙의 padding:0 14px 가 우측 caret 자리를 안 비워 base 카페24 caret 과 텍스트가 겹쳤음. */
+#nk-skin14 select {
+  padding: 0 36px 0 14px;
+  -webkit-appearance: none; -moz-appearance: none; appearance: none;
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5 6 6.5 11 1.5' fill='none' stroke='%23222222' stroke-width='1.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 11px 7px;
+}
+/* checkbox/radio = appearance:none 완전 커스텀(테두리+체크 직접 그리기). base 가 appearance:none 으로
+   커스텀 그래픽에 의존하는데 그게 깨져 0×0 으로 잘림 → 직접 그려 견고하게. flex 컨텍스트서 축소 방지. */
+#nk-skin14 input[type="checkbox"],
+#nk-skin14 input[type="radio"] {
+  -webkit-appearance: none; -moz-appearance: none; appearance: none;
+  width: 16px !important; height: 16px !important; flex: 0 0 auto;
+  margin: 0 6px 0 0; padding: 0; border: 1px solid var(--nk-line-strong);
+  background: var(--nk-bg); position: relative; vertical-align: middle; cursor: pointer; box-sizing: border-box;
+}
+#nk-skin14 input[type="radio"] { border-radius: 50%; }
+#nk-skin14 input[type="checkbox"]:checked,
+#nk-skin14 input[type="radio"]:checked { background: var(--nk-theme); border-color: var(--nk-theme); }
+#nk-skin14 input[type="radio"]:checked::after {
+  content: ''; position: absolute; inset: 0; margin: auto; width: 6px; height: 6px; border-radius: 50%; background: #fff;
+}
+#nk-skin14 input[type="checkbox"]:checked::after {
+  content: ''; position: absolute; left: 5px; top: 2px; width: 4px; height: 8px;
+  border: solid #fff; border-width: 0 1.5px 1.5px 0; transform: rotate(45deg);
+}
+
+/* ── 2-3. 버튼 패밀리 색 통일 (디자인 시스템 단일화) ──
+   실측(장바구니 라이브): .btnSubmitFix 가 카페24 테마01 기본 탄색(#d0ac88) + radius 0 으로
+   디자인시스템(차콜 #1a1a1a / 골드 #a68a64 / radius 2)에서 이탈해 있었다.
+   → 카페24 강조·액센트 계열(.btnStrong/.btnEmphasis/.btnSubmitFix)을 골드 액센트 토큰으로 통일,
+     라인·베이직 계열(.btnLine/.btnBasic/.btnNormalFix)을 라인 토큰으로 통일.
+   ※ 색·테두리·라운드만 맞추고 높이·패딩 등 치수는 건드리지 않음 → 장바구니/주문 등 기능 페이지
+     레이아웃을 깨지 않으면서 팔레트만 단일화. (SNS로그인·.btnClose·.btnDelete 는 의도적으로 제외) */
+#nk-skin14 .btnStrong,
+#nk-skin14 .btnEmphasis,
+#nk-skin14 .btnSubmitFix {
+  background-color: var(--nk-accent);
+  border: 1px solid var(--nk-accent);
+  color: var(--nk-on-theme);   /* 모노크롬: 액센트=다크(#222) → 흰 글씨(대비 17:1). (골드 팔레트로 재도입 시 차콜글씨로 되돌릴 것) */
+  border-radius: var(--nk-radius);
+}
+#nk-skin14 .btnStrong:hover,
+#nk-skin14 .btnStrong:focus,
+#nk-skin14 .btnEmphasis:hover,
+#nk-skin14 .btnEmphasis:focus,
+#nk-skin14 .btnSubmitFix:hover,
+#nk-skin14 .btnSubmitFix:focus {
+  background-color: var(--nk-accent-hover);
+  border-color: var(--nk-accent-hover);
+}
+
+#nk-skin14 .btnLine,
+#nk-skin14 .btnBasic,
+#nk-skin14 .btnNormalFix {
+  background-color: var(--nk-bg);
+  border: 1px solid var(--nk-line-strong);
+  color: var(--nk-font);
+  border-radius: var(--nk-radius);
+}
+#nk-skin14 .btnLine:hover,
+#nk-skin14 .btnLine:focus,
+#nk-skin14 .btnBasic:hover,
+#nk-skin14 .btnBasic:focus,
+#nk-skin14 .btnNormalFix:hover,
+#nk-skin14 .btnNormalFix:focus {
+  border-color: var(--nk-theme);
+  color: var(--nk-theme);
+}
+
+
+/* ── 3. 메인 (공유 프리미티브) ───────────────────────────────
+   메인 섹션 조각(_nk/inc/*)들이 공통으로 쓰는 디자인 시스템 1차 소스.
+   섹션 고유 스타일만 각 _nk/css/<섹션>.css 가 보강(자기완결형).
+   ─ 섹션 셸 / 섹션 헤드(eyebrow+title+desc) / 링크·솔리드 버튼 / 스와이퍼 화살표
+   ─ 상품 그리드(.nk-prd-grid) / 상품카드(.nk-prd) / 이미지·텍스트 스플릿(.nk-split) */
+
+/* 섹션 셸: 위아래 넉넉한 럭셔리 여백(clamp 반응형). 풀블리드 히어로는 .nk-full 별도. */
+#nk-skin14 .nk-sec { padding-top: clamp(64px, 8vw, 140px); padding-bottom: clamp(64px, 8vw, 140px); }
+#nk-skin14 .nk-sec--tight { padding-top: clamp(48px, 6vw, 96px); padding-bottom: clamp(48px, 6vw, 96px); }
+
+/* 섹션 헤드 */
+#nk-skin14 .nk-sec__head { text-align: center; margin-bottom: clamp(32px, 4vw, 64px); }
+#nk-skin14 .nk-eyebrow {
+	display: inline-block;
+	font-size: var(--nk-fs-sm);
+	font-weight: 500;
+	letter-spacing: var(--nk-ls);
+	text-transform: uppercase;
+	color: var(--nk-accent);
+	margin-bottom: 14px;
+}
+#nk-skin14 .nk-sec__title {
+	font-size: var(--nk-fs-h2);
+	font-weight: 300;
+	letter-spacing: var(--nk-ls);
+	line-height: 1.25;
+	color: var(--nk-font);
+}
+#nk-skin14 .nk-sec__desc {
+	margin-top: 16px;
+	font-size: var(--nk-fs-lead);
+	color: var(--nk-sub);
+	line-height: 1.7;
+}
+
+/* ── 박스 버튼 시스템 (전 CTA 박스형 통일) ───────────────────
+   위계: 1차 .nk-btn = 차콜 채움 / 2차 .nk-btn--line = 라인→hover 차콜채움 / .nk-btn--accent = 골드(결제·주문 확정 전용).
+   화살표(Phosphor ph-arrow-right)는 박스 안에 두고 hover 시 미세 이동(럭셔리 모션 계승).
+   하위호환 별칭: 구 .nk-btn-link → 라인형 / 구 .nk-btn-solid → 1차. (마크업 전환 끝나면 별칭 제거 가능) */
+#nk-skin14 .nk-btn,
+#nk-skin14 .nk-btn-solid,
+#nk-skin14 .nk-btn-link {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+	min-height: var(--nk-control-h);
+	padding: 13px 32px;
+	border: 1px solid var(--nk-theme);
+	border-radius: var(--nk-radius);
+	background: var(--nk-theme);
+	color: var(--nk-on-theme);
+	font-size: var(--nk-fs-body);
+	font-weight: 500;
+	letter-spacing: var(--nk-ls);
+	text-transform: uppercase;
+	line-height: 1.3;
+	cursor: pointer;
+	transition: background-color .25s ease, border-color .25s ease, color .25s ease;
+}
+#nk-skin14 .nk-btn i,
+#nk-skin14 .nk-btn-solid i,
+#nk-skin14 .nk-btn-link i { font-size: 1.05em; transition: transform .25s ease; }
+#nk-skin14 .nk-btn:hover i,
+#nk-skin14 .nk-btn-solid:hover i,
+#nk-skin14 .nk-btn-link:hover i { transform: translateX(4px); }
+#nk-skin14 .nk-btn:hover,
+#nk-skin14 .nk-btn:focus,
+#nk-skin14 .nk-btn-solid:hover,
+#nk-skin14 .nk-btn-solid:focus { background: var(--nk-theme-hover); border-color: var(--nk-theme-hover); color: var(--nk-on-theme); }
+
+/* 2차 라인형 (구 nk-btn-link 포함): 투명 + 차콜 라인 → hover 차콜 채움 */
+#nk-skin14 .nk-btn--line,
+#nk-skin14 .nk-btn-link {
+	background: transparent;
+	color: var(--nk-font);
+	border-color: var(--nk-line-strong);
+}
+#nk-skin14 .nk-btn--line:hover,
+#nk-skin14 .nk-btn--line:focus,
+#nk-skin14 .nk-btn-link:hover,
+#nk-skin14 .nk-btn-link:focus { background: var(--nk-theme); color: var(--nk-on-theme); border-color: var(--nk-theme); }
+
+/* 골드 강조 — 결제/주문 확정 등 최우선 전환 1종 전용 */
+#nk-skin14 .nk-btn--accent {
+	background: var(--nk-accent);
+	color: var(--nk-on-theme);   /* 모노크롬: 액센트=다크 → 흰 글씨 */
+	border-color: var(--nk-accent);
+}
+#nk-skin14 .nk-btn--accent:hover,
+#nk-skin14 .nk-btn--accent:focus { background: var(--nk-accent-hover); border-color: var(--nk-accent-hover); }
+
+/* 소형 변형 — 카드 내부(저널 등) 좁은 공간용 */
+#nk-skin14 .nk-btn--sm { min-height: 38px; padding: 9px 20px; font-size: var(--nk-fs-sm); }
+/* 풀폭 변형 — 모바일 CTA·기능페이지 하단 */
+#nk-skin14 .nk-btn--block { display: flex; width: 100%; }
+
+/* 섹션 텍스트 블록 내 CTA — 앞 문구와 일관 간격(행간 통일). split/vod 의 0px 붙음 교정(bnr1 은 이미 간격 보유) */
+#nk-skin14 .nk-split__txt .nk-btn,
+#nk-skin14 .nk-split__txt .nk-btn-link,
+#nk-skin14 .nk-vod__txt .nk-btn,
+#nk-skin14 .nk-vod__txt .nk-btn-link { margin-top: 28px; }
+
+/* 스와이퍼 화살표(원형 얇은 테두리 + Phosphor) — 캐러셀 공통 */
+#nk-skin14 .nk-arrow {
+	width: 46px; height: 46px;
+	display: flex; align-items: center; justify-content: center;
+	border: 1px solid var(--nk-line-strong);
+	border-radius: 50%;
+	background: rgba(255,255,255,.8);
+	color: var(--nk-font);
+	font-size: 18px;
+	cursor: pointer;
+	transition: background-color .25s ease, color .25s ease, border-color .25s ease;
+}
+#nk-skin14 .nk-arrow:hover { background: var(--nk-theme); color: #fff; border-color: var(--nk-theme); }
+#nk-skin14 .nk-arrow.swiper-button-disabled { opacity: .35; cursor: default; }
+
+/* 상품 그리드(메인) — 4열 기본, 반응형 단계 축소 */
+#nk-skin14 .nk-prd-grid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: clamp(16px, 1.8vw, 28px) clamp(12px, 1.4vw, 24px);
+	list-style: none;
+}
+#nk-skin14 .nk-prd-grid.grid4 { grid-template-columns: repeat(4, 1fr); }
+@media all and (max-width: 1024px) { #nk-skin14 .nk-prd-grid { grid-template-columns: repeat(3, 1fr); } }
+@media all and (max-width: 767px)  { #nk-skin14 .nk-prd-grid { grid-template-columns: repeat(2, 1fr); } }
+
+/* ⚠️ 카페24 상품모듈 기본 CSS가 상품 li 에 width:25%(자체 4단 float 레이아웃용)를 주입한다.
+   그리드 칸 안에서 이 25%가 살아남아 li 가 칸의 1/4(예: 340px→85px)로 줄어 썸네일이 작아지는 버그.
+   그리드를 쓰므로 칸을 꽉 채우도록 강제(#nk-skin14 ID 스코프라 카페24 클래스 룰보다 우선 → !important 불필요). */
+#nk-skin14 .nk-prd-grid > .nk-prd { width: 100%; min-width: 0; max-width: 100%; float: none; }
+
+/* 상품카드(공유 prd.html 마크업) — 썸네일 hover 확대 + 중앙 정렬 정보 */
+#nk-skin14 .nk-prd { position: relative; }
+#nk-skin14 .nk-prd__link { position: absolute; inset: 0; z-index: 2; }
+#nk-skin14 .nk-prd__thumb {
+	position: relative;
+	overflow: hidden;
+	aspect-ratio: 3 / 4;
+	background: var(--nk-bg2);
+}
+#nk-skin14 .nk-prd__thumb img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+#nk-skin14 .nk-prd:hover .nk-prd__thumb img { transform: scale(1.04); }
+#nk-skin14 .nk-prd__badge { position: absolute; top: 10px; left: 10px; z-index: 1; }
+
+/* 메인 카드 hover 좋아요/장바구니 — 서브목록 .icon__box 와 동일 기법.
+   카페24 아이콘 img(클릭 핸들러)는 opacity:0 로 보존, Phosphor 글리프 ::before 오버레이.
+   ★ .nk-prd__link(z:2) 위로 와야 클릭되므로 actions z-index:3 */
+#nk-skin14 .nk-prd__actions {
+	position: absolute; right: 12px; bottom: 12px; z-index: 3;
+	display: flex; gap: 8px;
+	opacity: 0; transform: translateY(6px);
+	transition: opacity .25s ease, transform .25s ease;
+}
+#nk-skin14 .nk-prd:hover .nk-prd__actions { opacity: 1; transform: none; }
+#nk-skin14 .nk-prd__act {
+	position: relative; width: 40px; height: 40px;
+	display: flex; align-items: center; justify-content: center;
+	background: var(--nk-theme); border-radius: 50%;
+	font-size: 0; cursor: pointer;
+	transition: background .2s ease;
+}
+#nk-skin14 .nk-prd__act:hover { background: var(--nk-accent-hover); }
+#nk-skin14 .nk-prd__act::before { font-family: "Phosphor"; font-size: 19px; color: var(--nk-on-theme); pointer-events: none; }
+#nk-skin14 .nk-prd__wish::before { content: "\e2a8"; } /* heart */
+#nk-skin14 .nk-prd__cart::before { content: "\e41e"; } /* shopping-cart */
+#nk-skin14 .nk-prd__act img { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 1; }
+/* 모바일(터치)에서는 hover 없음 → 숨김(오탭 방지) */
+@media all and (max-width: 1024px) { #nk-skin14 .nk-prd__actions { display: none; } }
+#nk-skin14 .nk-prd__info { padding: 16px 4px 0; text-align: center; }
+#nk-skin14 .nk-prd__name {
+	font-size: var(--nk-fs-body);
+	font-weight: 400;
+	color: var(--nk-font);
+	letter-spacing: var(--nk-ls);
+	line-height: 1.5;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+#nk-skin14 .nk-prd__price { margin-top: 6px; font-size: var(--nk-fs-sm); font-weight: 400; color: var(--nk-font); }   /* ORDINARY 가격 13px/400 */
+
+/* 이미지+텍스트 스플릿(bnrArea2/3 공유) — 2열, 텍스트 세로중앙. --rev 면 좌우 반전 */
+#nk-skin14 .nk-split__inner {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: clamp(28px, 4vw, 80px);
+	align-items: center;
+}
+#nk-skin14 .nk-split--rev .nk-split__img { order: 2; }
+#nk-skin14 .nk-split--rev .nk-split__txt { order: 1; }
+@media all and (max-width: 767px) {
+	#nk-skin14 .nk-split__inner { grid-template-columns: 1fr; gap: 28px; }
+	#nk-skin14 .nk-split--rev .nk-split__img { order: 1; }
+	#nk-skin14 .nk-split--rev .nk-split__txt { order: 2; }
+}
+
+/* ── 4. 상품 목록 / 상품카드 ─────────────────────────────── */
+
+/* 상품카드 타이포 럭셔리화 (카페24 .xans-product-listitem 구조).
+   module 구조는 건드리지 않고 스타일만 — 상품명은 본문색, 가격은 강조. */
+
+/* 상품명: 차분한 본문색 + 살짝 넓은 자간 */
+#nk-skin14 .xans-product-listitem .name,
+#nk-skin14 .ec-base-product .name {
+  color: var(--nk-font);
+  font-weight: 400;
+  font-size: var(--nk-fs-body);
+  letter-spacing: var(--nk-ls);
+  line-height: 1.5;
+}
+
+/* 가격: 강조(Medium) + 본문색. 정상가/할인가 구분은 카페24 기본 마크업 유지 */
+#nk-skin14 .xans-product-listitem .price,
+#nk-skin14 .ec-base-product .price {
+  color: var(--nk-font);
+  font-weight: 500;
+  font-size: var(--nk-fs-body);
+  letter-spacing: var(--nk-ls);
+}
+
+/* 상품 정보 영역 보조 텍스트(요약 설명 등)는 보조색으로 차분하게 */
+#nk-skin14 .xans-product-listitem .description,
+#nk-skin14 .ec-base-product .description {
+  color: var(--nk-sub);
+  font-size: var(--nk-fs-sm);
+}
+
+/* ── 5. 상품 상세 — 레퍼런스(ORDINARY) 방식 2단 sticky ──────────
+   레퍼런스 분석: .a-container(flex,align-items:flex-start) 안에 [구매정보(sticky) + 본문전체(이미지+설명,매우김)].
+   본문 컬럼이 길어 구매정보가 스크롤 내내 따라온다(JS 아닌 순수 CSS sticky).
+   ★ 우리 카페24 구조 문제: .infoArea 가 .detailArea(이미지+정보, 짧음) 안에 갇혀 설명까지 못 따라옴.
+     설명(product_additional)은 .xans-product-detail 밖 형제.
+   ★ 해결: detail.html 에서 [product_detail섹션 + 쿠폰 + product_additional]을 .nk-pdp 로 감싸고,
+     .nk-pdp 를 grid 로, 중간 래퍼(.xans-product-detail / .detailArea)를 display:contents 로 녹여
+     imgArea·infoArea 를 .nk-pdp 의 grid 아이템으로 끌어올린다 →
+     좌측 컬럼=이미지+설명(길다), 우측 컬럼=infoArea(sticky, 전체행 span). (모듈 이동 0)
+   ⚠️ PC 전용(min-width:1025px) — 모바일은 세로 스택 유지. */
+@media all and (min-width: 1025px) {
+  #nk-skin14 .nk-pdp {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(440px, 1fr);  /* 좌:이미지+설명 / 우:구매정보 — 비율로 폭 가득 채움(우측 ~42%) */
+    column-gap: 60px;
+    align-items: start;
+    max-width: none;              /* 콘텐츠 폭 가득 — 좌우 잔여공간 제거(기존 1400 캡이 넓은 화면서 양옆 빈 공간 유발) */
+    margin: 0;
+  }
+  /* base CSS 의 imgArea(좁음)·infoArea(width:600 넘침)·설명 폭을 grid 컬럼 폭에 맞게 리셋 */
+  #nk-skin14 .nk-pdp .imgArea,
+  #nk-skin14 .nk-pdp .infoArea { width: 100% !important; min-width: 0 !important; float: none !important; margin: 0 !important; padding-left: 0 !important; }
+  /* ↑ base 의 .infoArea margin-left:100px(구 2단 float용)이 grid 에서 컬럼을 우측으로 밀어 노트북서 우측 잘림 → 0 으로 제거. grid column-gap(60px)이 간격 담당. */
+  #nk-skin14 .nk-pdp .xans-product-additional,
+  #nk-skin14 .nk-pdp > .section { width: 100% !important; max-width: 100% !important; }
+  /* 중간 래퍼 녹여서 imgArea·infoArea 를 grid 아이템으로 노출 */
+  #nk-skin14 .nk-pdp > .xans-product-detail,
+  #nk-skin14 .nk-pdp .xans-product-detail .detailArea { display: contents; }
+  /* 좌측 컬럼(1열): 이미지 + 이벤트 + 쿠폰 + 설명(product_additional) */
+  #nk-skin14 .nk-pdp .imgArea { grid-column: 1; grid-row: 1; }
+  #nk-skin14 .nk-pdp .eventArea,
+  #nk-skin14 .nk-pdp > .xans-product-additional,
+  #nk-skin14 .nk-pdp > .section,
+  #nk-skin14 .nk-pdp > [class*="coupon"] { grid-column: 1; }
+  /* 우측 컬럼(2열): 구매정보 sticky — 전체 행에 걸쳐 좌측이 스크롤되는 내내 따라옴 */
+  #nk-skin14 .nk-pdp .infoArea {
+    grid-column: 2;
+    grid-row: 1 / -1;
+    align-self: start;
+    position: sticky;
+    top: calc(var(--nk-topbar-h) + var(--nk-header-h) + 20px); /* fixed 띠36+헤더150+여유20 = 206px */
+  }
+}
+
+/* ── 6. 게시판 ───────────────────────────────────────────── */
+
+/* ── 7. 마이페이지 ───────────────────────────────────────── */
+
+/* ── 8. 푸터 = ORDINARY 미니멀 재디자인 (투명 배경 + 컬럼 타이틀 Marcellus + 본문 Bricolage 보조색 + 클린 라인).
+   skin2/ORDINARY 방식(미니멀·세리프 타이틀·여백) 차용, 디자인은 우리 그레이지 톤으로. 구조(footer.html) 보존. */
+/* ⚠️ 구조(레이아웃)는 base 그대로 두고 색·폰트·여백만 ORDINARY 톤으로.
+   (이전에 .inner_t/.info_left/.info_right 에 display:flex 를 강제했다가 base 2단 구조와 충돌해 깨짐 → 레이아웃 오버라이드 전면 제거) */
+#nk-skin14 #footer { background: transparent; border-top: 1px solid var(--nk-line); color: var(--nk-font); }
+#nk-skin14 #footer .bt_logo img { max-height: 22px; width: auto; }
+#nk-skin14 #footer .bt_title { font-family: var(--nk-font-display); font-size: var(--nk-fs-lead); font-weight: 400; letter-spacing: var(--nk-ls); color: var(--nk-font); }
+#nk-skin14 #footer .bt_title_sub strong { font-weight: 400; color: var(--nk-font); }
+#nk-skin14 #footer .bt_info_list,
+#nk-skin14 #footer .wrap_cs,
+#nk-skin14 #footer .bank_txt,
+#nk-skin14 #footer .bt_util,
+#nk-skin14 #footer .sns_txt { font-size: var(--nk-fs-sm); color: var(--nk-sub); }
+#nk-skin14 #footer .bt_util a,
+#nk-skin14 #footer .sns_txt a { color: var(--nk-sub); }
+#nk-skin14 #footer .bt_util a:hover,
+#nk-skin14 #footer .sns_txt a:hover { color: var(--nk-font); }
+#nk-skin14 #footer .bt_copyright { font-size: 12px; color: var(--nk-sub); letter-spacing: var(--nk-ls); }
+
+
+/* 우측 플로팅 위젯(#right_quick: 최근본상품·맨위·맨아래) — base 기본 SVG+테마 탄색을
+   Phosphor + 우리 톤(흰 원 + 라인 → hover 차콜채움)으로 통일. 마크업은 footer.html 에서 Phosphor 교체.
+   (!important 불가피 — base layout.css / add_theme01.css 의 opacity·탄색·img width 를 맞받음) */
+#nk-skin14 #right_quick > div { margin: 0 0 10px !important; opacity: 1 !important; background: none !important; }
+#nk-skin14 #right_quick > div:hover { opacity: 1 !important; }
+#nk-skin14 #right_quick > div > a {
+  display: flex !important; align-items: center; justify-content: center;
+  width: 46px !important; height: 46px !important; padding: 0 !important;
+  background: #fff !important;
+  border: 1px solid var(--nk-line-strong) !important;
+  border-radius: 50% !important;
+  color: var(--nk-theme) !important;
+  transition: background .2s ease, color .2s ease, border-color .2s ease;
+}
+#nk-skin14 #right_quick > div > a:hover {
+  background: var(--nk-theme) !important; color: #fff !important; border-color: var(--nk-theme) !important;
+}
+#nk-skin14 #right_quick > div > a .ph { font-size: 20px; line-height: 1; }
+
+/* ── (QA) 카페24 기본 모바일 하단 탭바(.bottom-nav) 숨김 ──
+   커스텀 헤더(검색·계정·장바구니 아이콘)+드로어(전체 메뉴·로그인·주문조회 등)가 내비게이션을 모두 커버해
+   기본 탭바와 기능 중복 + 톤(검정 라인)이 그레이지 테마와 이질 + 상세 주문바(#orderFixArea)와 겹침.
+   (!important: base layout.css 가 media query 안에서 fixed 로 깔고 JS 가 inline display 토글할 수 있어 맞받음) */
+#nk-skin14 .bottom-nav { display: none !important; }
+
+/* ── (QA) 우측 퀵메뉴(#right_quick) 모바일 위치보정 ──
+   모바일에서 본문 폼 버튼(로그인/가입/찾기/검색) 우측을 가리던 것을, 하단 탭바를 숨겨 비워진
+   우하단 모서리로 내려 간섭 최소화. (!important: base layout.css 의 #right_quick bottom/right 맞받음) */
+@media all and (max-width: 1024px) {
+  #nk-skin14 #right_quick { bottom: 14px !important; right: 12px !important; }
+}
+
+
+/* ── 9. 상품목록(서브페이지) — EZ 상품카드 hover 인터랙션 우리화 ──
+   서브 상품목록은 EZ 기본 마크업(.prdList__item .thumbnail .icon__box). 메인 카드(.nk-prd)와 별개.
+   카드 hover 시 뜨는 찜/장바구니 아이콘이 카페24 기본 이미지였던 것을 Phosphor+차콜로 교체.
+   ★ 기능 보존 원칙: 카페24 아이콘 <img>(클릭 핸들러 보유)는 지우지 않고 opacity:0 로 투명화 +
+     원형 버튼 전체를 덮게 둬서 클릭은 그대로 동작, 그 위에 Phosphor 글리프를 ::before 로 깔아 비주얼만 교체.
+   글리프 코드는 로드된 Phosphor 폰트에서 실측: heart \e2a8 / shopping-cart \e41e / sliders-horizontal \e434 */
+
+/* 썸네일 hover 확대 (메인 카드와 동일 무드) + 아이콘 오버레이 기준점 */
+#nk-skin14 .prdList__item .thumbnail { position: relative; overflow: hidden; }
+#nk-skin14 .prdList__item .thumbnail > a img { transition: transform .6s ease; }
+#nk-skin14 .prdList__item:hover .thumbnail > a img { transform: scale(1.04); }
+
+/* 아이콘 줄: 썸네일 우하단, 평소 숨김 → hover 시 살짝 떠오르며 노출.
+   ★ base EZ 가 .icon__box 에 깔아둔 반투명 검정 바(background:rgba(1,1,1,.5) + 풀폭 + 패딩)를 제거하고
+     버튼만 남기도록 배경 해제 + 폭/높이 콘텐츠 맞춤 (!important — base EZ 스타일 맞받음) */
+#nk-skin14 .prdList__item .icon__box {
+  position: absolute; right: 12px; bottom: 12px; left: auto; top: auto;
+  display: flex; gap: 8px;
+  width: auto !important; height: auto !important;
+  margin: 0 !important; padding: 0 !important;
+  background: none !important;
+  opacity: 0; transform: translateY(6px);
+  transition: opacity .25s ease, transform .25s ease;
+  z-index: 2;
+}
+#nk-skin14 .prdList__item:hover .icon__box { opacity: 1; transform: translateY(0); }
+
+/* 개별 아이콘 = 원형 버튼(차콜 → hover 골드). 텍스트(WISH/ADD/OPTION)는 글리프로 대체하므로 숨김.
+   option 미리보기는 옵션상품일 때만(아이콘 img 존재 시) 노출 — :has 로 EZ 의 자동 숨김 존중 */
+#nk-skin14 .icon__box .option { display: none; }
+#nk-skin14 .icon__box .wish,
+#nk-skin14 .icon__box .cart,
+#nk-skin14 .icon__box .option:has(img) {
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+  width: 40px; height: 40px; padding: 0;
+  background: var(--nk-theme); border-radius: 50%;
+  font-size: 0; line-height: 0; cursor: pointer;
+  transition: background .2s ease;
+}
+#nk-skin14 .icon__box .wish:hover,
+#nk-skin14 .icon__box .cart:hover,
+#nk-skin14 .icon__box .option:hover { background: var(--nk-accent); }
+
+/* Phosphor 글리프 (실측 코드) — 클릭은 아래 img 로 통과 */
+#nk-skin14 .icon__box .wish::before,
+#nk-skin14 .icon__box .cart::before,
+#nk-skin14 .icon__box .option::before {
+  font-family: "Phosphor"; font-size: 19px; line-height: 1; color: #fff;
+  pointer-events: none;
+}
+#nk-skin14 .icon__box .wish::before   { content: "\e2a8"; } /* heart */
+#nk-skin14 .icon__box .cart::before   { content: "\e41e"; } /* shopping-cart */
+#nk-skin14 .icon__box .option::before { content: "\e434"; } /* sliders-horizontal */
+
+/* 카페24 기본 아이콘 img: 투명하게 원형 전체를 덮어 클릭 기능만 보존 */
+#nk-skin14 .icon__box .wish img,
+#nk-skin14 .icon__box .cart img,
+#nk-skin14 .icon__box .option img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; margin: 0;
+  opacity: 0; cursor: pointer; z-index: 1;
+}
+
+/* 모바일(터치)에서는 hover 자체가 없으므로 아이콘 줄을 완전히 숨김 — 카페24 base(sub_style.css)의
+   .icon__box{display:none} 의도 유지 + 투명 클릭막 오탭 방지. (PC 전용 인터랙션 격리) */
+@media all and (max-width: 1024px) {
+  #nk-skin14 .prdList__item .icon__box { display: none !important; }
+}
+
+
+/* ── 10. 잔존 EZ 기본 스타일 정리 (P1 버그 + 명백한 이탈) ──────────
+   ※ 원인: 우리 글로벌 #nk-skin14 h3 / input 룰(ID스코프)이 너무 세서 약관 라벨·수량칸까지 침범 →
+     더 구체적인 셀렉터로 좁혀 되돌린다(!important 불필요). 나머지는 base의 브라운/파랑/italic 이탈 교정. */
+
+/* (A) 회원가입 동의 라벨이 제목 크기로 커지던 버그 — h3 글로벌(최대 28px) 침범을 본문 크기로 복원 */
+#nk-skin14 .xans-member-agreement .agreeAll h3,
+#nk-skin14 .xans-member-agreement .title h3,
+#nk-skin14 .xans-member-join .agreeAll h3,
+#nk-skin14 .xans-member-join .title h3 {
+  font-size: var(--nk-fs-body);
+  font-weight: 400;
+  letter-spacing: var(--nk-ls);
+  line-height: 1.5;
+}
+
+/* (B) 상품상세 수량선택기 가운데 숫자칸이 세로로 솟던 버그.
+   실제 구조: span.quantity > input(우리 글로벌 50px 침범) + a.up/a.down(30px) → 숫자칸만 20px 솟음.
+   상세에만 스코프해 +/- 버튼과 같은 30px 로 맞춤(장바구니 .gCheck .quantity 40px 는 보존). */
+#nk-skin14 .xans-product-detail .quantity input[type="text"],
+#nk-skin14 .ec-base-qty input[type="text"] {
+  height: 30px;
+  line-height: 28px;
+  padding: 0;
+  text-align: center;
+}
+
+/* (C) 상품 배지 italic(우리 룰 위반) + 브라운 → 정상체 + 골드 */
+#nk-skin14 .ec-base-product .prdList .thumbnail .badge,
+#nk-skin14 .ec-base-product .badge {
+  font-style: normal;
+  color: var(--nk-accent);
+}
+
+/* (D) 세일박스 브라운(#d0ac88, base !important) → 골드. base 가 !important 라 맞받음(주석 명시) */
+#nk-skin14 .sale_box { background-color: var(--nk-accent) !important; }
+
+/* (E) 옵션 파일첨부 링크 파란색(#07a4fd) → 골드 액센트 */
+#nk-skin14 .ec-base-prdInfo .optionGroup .file a,
+#nk-skin14 .ec-base-table .file a { color: var(--nk-accent); }
+
+
+/* ── 11. 서브페이지 톤 통일 (skin2/IDIO 패턴 → 우리 토큰) ──────────
+   셀렉터(.ec-base-*, .xans-*, .totalSummary/.optionGroup 등)는 skin14 소스에 실재 확인됨.
+   IDIO 공식: 상단 강조선 2px 차콜 / 본문선 1px 라인토큰 / 박스는 테두리 대신 bg2 면 / 페이징 원형. */
+
+/* 테이블 — 상단 2px 차콜 강조선 + 라인토큰 셀구분, 헤더 아이보리 면 */
+#nk-skin14 .ec-base-table { border-top: 2px solid var(--nk-theme); }
+#nk-skin14 .ec-base-table th { background-color: var(--nk-bg2); border-bottom: 1px solid var(--nk-line); color: var(--nk-font); font-weight: 500; }
+#nk-skin14 .ec-base-table td { border-bottom: 1px solid var(--nk-line); }
+
+/* 도움말(.ec-base-help) — 보조색 + 상단선 차콜 */
+#nk-skin14 .ec-base-help { color: var(--nk-sub); border-top-color: var(--nk-theme); }
+#nk-skin14 .ec-base-help .title,
+#nk-skin14 .ec-base-help h3,
+#nk-skin14 .ec-base-help h4 { color: var(--nk-font); }
+
+/* (폼 포커스는 §2-2 차콜 단일 소스로 통일 — 중복 제거됨) */
+
+/* 상세 Return&Delivery 아코디언(.ec-base-fold) — base 의 검정 하드코딩선(#000)을 차콜 토큰으로 통일,
+   제목/내용 좌측 정렬·여백 일관화 (제목 텍스트와 내용 시작점 동일선). */
+/* 상세 안내 아코디언이 base 에서 flex-wrap 2열로 깔려 2번째 폴드가 margin-top:30px 만큼 내려가 상단이 어긋남.
+   → 세로 풀폭 스택(레퍼런스 아코디언 방식)으로 통일. 폴드 폭 100%. */
+#nk-skin14 #prdInfo .detail_guide { display: block; }
+#nk-skin14 #prdInfo .detail_guide > .ec-base-fold { width: 100%; }
+#nk-skin14 .ec-base-fold.theme1 > .title { border-top-color: var(--nk-theme); }
+#nk-skin14 .ec-base-fold.theme1 > .title h2 { font-size: var(--nk-fs-sm); letter-spacing: var(--nk-ls); }
+#nk-skin14 .ec-base-fold > .contents .info,
+#nk-skin14 .ec-base-fold > .contents .info.delivery { padding: 0 0 25px; }
+
+/* 장바구니/주문 — 상품행 구분선, 옵션/소제목 bg2 면, 최종합계 구분선 */
+#nk-skin14 .ec-base-prdInfo { border-bottom: 1px solid var(--nk-line); }
+#nk-skin14 .optionGroup { background-color: var(--nk-bg2); }
+/* (item 6) "일반상품(N)" 등 주문 소제목 — 베이지 채움 제거(잔존 원인=이 bg 규칙). 깔끔한 하단선으로 대체 */
+#nk-skin14 .title.subTitle { background: transparent !important; border-bottom: 1px solid var(--nk-line); }
+#nk-skin14 .title.subTitle h4 { background: transparent !important; }
+/* (item 12) 주문 합계박스 컨테이너 바깥 선색·내부 구분선 모두 토큰(var(--nk-line))으로 단일 제어
+   — base 가 #333/#ccc 하드코딩이므로 토큰으로 덮어 한 곳(--nk-line)에서 제어 가능하게 */
+#nk-skin14 .totalSummary { border-color: var(--nk-line) !important; }
+#nk-skin14 .totalSummary .total { border-top: 1px solid var(--nk-line); }
+#nk-skin14 .totalSummary__title,
+#nk-skin14 .totalSummary .summary,
+#nk-skin14 .totalSummary__item { border-color: var(--nk-line) !important; }
+#nk-skin14 .totalSummary__item .data strong { color: var(--nk-font); }
+
+/* 회원 — 박스 1px 라인, 약관 전체동의 하단 구분선 */
+#nk-skin14 .ec-base-box.typeMember { border: 1px solid var(--nk-line); }
+#nk-skin14 .xans-member-join .agreeAll { border-bottom: 1px solid var(--nk-line); }
+
+/* ── 회원 로그인/아이디·비번찾기/재설정 — skin2 방식(중앙 narrow 박스 + 카페24 기본 박스 벗기기 +
+   세로 폼 + 하단 버튼 균등분할), 디자인은 우리 톤(그레이지·차콜·클린 인풋)으로 살짝 다르게.
+   ※ 회원가입(.xans-member-join)은 복잡 구조라 스코프에서 제외(위 박스 라인 유지). */
+#nk-skin14 .xans-member-login { max-width: 460px; margin: 0 auto; }
+#nk-skin14 .xans-member-findid,
+#nk-skin14 .xans-member-findidresult,
+#nk-skin14 .xans-member-findpasswd,
+#nk-skin14 .xans-member-findpasswdmethod,
+#nk-skin14 .xans-member-findPasswdQuestion,
+#nk-skin14 .xans-member-passwordreset,
+#nk-skin14 .xans-member-findpasswdresult { max-width: 420px; margin: 0 auto; }
+/* 카페24 기본 박스 벗기기(skin2) — 찾기/재설정 한정 */
+#nk-skin14 .xans-member-findid .ec-base-box.typeMember,
+#nk-skin14 .xans-member-findidresult .ec-base-box.typeMember,
+#nk-skin14 .xans-member-findpasswd .ec-base-box.typeMember,
+#nk-skin14 .xans-member-findpasswdmethod .ec-base-box.typeMember,
+#nk-skin14 .xans-member-findPasswdQuestion .ec-base-box.typeMember,
+#nk-skin14 .xans-member-passwordreset .ec-base-box.typeMember,
+#nk-skin14 .xans-member-findpasswdresult .ec-base-box.typeMember { padding: 0 !important; border: 0 !important; }
+/* 표 같은 행 구분선 제거 → 깔끔한 세로 폼(라벨 위·입력 아래) */
+#nk-skin14 .memberArea .ec-base-desc.gVer > li { border: 0; padding: 0; }
+#nk-skin14 .memberArea .ec-base-desc.gVer .term { padding: 0 0 6px; color: var(--nk-sub); font-size: var(--nk-fs-sm); }
+#nk-skin14 .memberArea .ec-base-desc.gVer .desc { margin: 0 0 18px; }
+/* 입력칸 클린 — 명확한 라인 + 포커스 차콜(회원 폼·로그인 스코프) */
+#nk-skin14 .memberArea .ec-base-desc .desc input[type=text],
+#nk-skin14 .memberArea .ec-base-desc .desc input[type=password],
+#nk-skin14 .xans-member-login .login input[type=text],
+#nk-skin14 .xans-member-login .login input[type=password] {
+  height: 48px; padding: 0 16px; border: 1px solid var(--nk-line); background: var(--nk-bg); border-radius: var(--nk-radius); box-sizing: border-box;
+}
+#nk-skin14 .memberArea .ec-base-desc .desc input:focus,
+#nk-skin14 .xans-member-login .login input:focus { border-color: var(--nk-theme); }
+/* 하단 버튼 균등분할(skin2) */
+#nk-skin14 .memberArea .ec-base-button.gBottom { display: flex; gap: 8px; }
+#nk-skin14 .memberArea .ec-base-button.gBottom > a { flex: 1; }
+
+/* 게시판 페이징 — 원형 + 현재페이지 차콜 채움 */
+/* 페이징 = skin2식 깔끔한 원형 (base 의 박스 bg/border 제거 → 배경·테두리 없는 미니멀). 첫/이전/다음/끝 버튼도 동일. */
+#nk-skin14 .ec-base-paginate.typeList > a,
+#nk-skin14 .ec-base-paginate.typeList li a { background: transparent !important; border: 0 !important; }
+#nk-skin14 .ec-base-paginate.typeList li a { border-radius: 50%; color: var(--nk-sub); }
+#nk-skin14 .ec-base-paginate.typeList a.this { background-color: var(--nk-theme) !important; color: var(--nk-on-theme); }
+/* 첫/이전/다음/끝 화살표 — base 의 border-chevron 이 transform 풀려 안 보임 → 명확한 텍스트 글리프(« ‹ › »)로 교체.
+   자식 순서: [a.first, a이전, ol, a다음, a.last] → nth 로 각 글리프 지정. 텍스트는 font-size:0(부모) 유지. */
+#nk-skin14 .ec-base-paginate.typeList > a::before,
+#nk-skin14 .ec-base-paginate.typeList > a::after { border: 0 !important; width: auto !important; height: auto !important; margin: 0 !important; transform: none !important; }
+#nk-skin14 .ec-base-paginate.typeList > a::after { content: none !important; }
+#nk-skin14 .ec-base-paginate.typeList > a { color: var(--nk-sub); }
+#nk-skin14 .ec-base-paginate.typeList > a:hover { color: var(--nk-font); }
+#nk-skin14 .ec-base-paginate.typeList > a::before { font-size: 15px; line-height: 40px; vertical-align: middle; }
+#nk-skin14 .ec-base-paginate.typeList > a:first-child::before { content: '«' !important; }
+#nk-skin14 .ec-base-paginate.typeList > a:nth-child(2)::before { content: '‹' !important; }
+#nk-skin14 .ec-base-paginate.typeList > a:nth-last-child(2)::before { content: '›' !important; }
+#nk-skin14 .ec-base-paginate.typeList > a:last-child::before { content: '»' !important; }
+
+
+/* ── 12. 서브페이지 공통 정리 (잔존 브레드크럼 제거 + 콘텐츠 폭 꽉 채우기) ──────────
+   원칙(앞으로도 적용): 서브페이지 콘텐츠 래퍼는 인위적 max-width/auto마진으로 가운데 쪼그라들지 않고
+   컨테이너(#container.inner) 폭을 그대로 채운다 → 헤더/메인과 좌우 끝선 일치. */
+
+/* (A) 잔존 브레드크럼(.path: "홈 > ○○") 제거 — skin2/IDIO 처럼 숨김(상단 중앙 타이틀로 대체) */
+#nk-skin14 .path { display: none !important; }
+
+/* (B) 마이페이지 좌우 여백 제거 — EZ 기본 .myshopArea(max-width:1200 + margin:auto ~184px)가
+   콘텐츠를 가운데 729px로 쪼그라뜨려 양옆 빈 여백 발생 → max-width/마진 해제로 컨테이너 폭 꽉 채움.
+   (사이드메뉴 #myshopMain 은 absolute + .myshopArea padding-left 로 배치되므로 padding-left 는 유지) */
+#nk-skin14 .myshopArea { width: 100% !important; max-width: none !important; margin-left: 0 !important; margin-right: 0 !important; }
+
+/* (C) 글로벌 #nk-skin14 h3(20~28px)가 카페24 서브페이지 본문 소제목(base 13~16px 의도)까지 키우는 침범 차단.
+   우리 메인 타이틀(.nk-sec__title 등)은 자체 font-size 보유라 무관. 콘텐츠 h3 만 정제 소제목 크기로.
+   (약관 .agreeAll/.title h3 는 §10-A 가 더 구체적이라 16px 유지) */
+#nk-skin14 .myshopArea h3,
+#nk-skin14 .xans-myshop h3,
+#nk-skin14 .xans-order h3,
+#nk-skin14 .xans-member h3,
+#nk-skin14 .xans-board h3,
+#nk-skin14 .ec-base-box h3,
+#nk-skin14 .ec-base-prdInfo h3,
+#nk-skin14 .boardArea h3 {
+  font-size: var(--nk-fs-lead);
+  font-weight: 500;
+  letter-spacing: var(--nk-ls);
+  line-height: 1.4;
+}
+
+
+/* ── 13. 헤더/탭 hover 잔존 브라운(#d0ac88) → 우리 톤 ──────────────
+   base layout.css/sub_style.css 의 GNB hover 밑줄·서브메뉴·탑 링크 hover, 서브 탭 선택색이 브라운으로 남아 교정.
+   hover 미세 악센트 = 골드(텍스트 악센트 규칙) / 탭 선택(활성) = 차콜. (긴 base 셀렉터 맞받기 위해 body#nk-skin14 로 specificity 확보) */
+body#nk-skin14 #header .inner .top_nav_box .top_category > ul > li > a:after { background-color: var(--nk-accent); }
+body#nk-skin14 #header .inner .top_nav_box .top_category .sub-category li:hover > a { color: var(--nk-accent); }
+body#nk-skin14 #header .inner .toparea .toparea_state .toparea_state_board > ul li a:hover { color: var(--nk-accent); }
+body#nk-skin14 #header .inner .toparea .toparea_shoppinginfo .xans-layout-multishoplist > ul li a:hover { color: var(--nk-accent); }
+#nk-skin14 .ec-base-tab.typeMenu li.selected a.button { color: var(--nk-theme); }
+#nk-skin14 .ec-base-tab.typeMenu ul > li > ul > li a:hover { color: var(--nk-accent); }
+
+
+/* ── 14. 헤더: 테두리/그림자 제거 + 그레이지 + 스크롤 글래스모피즘 + GNB 밑줄 하단정렬 ──
+   (4) bottom border·box-shadow 제거 + 페이지와 동일 그레이지. (5) 스크롤 시 글래스(backdrop-blur).
+   (3) GNB hover 밑줄을 GNB행 최하단(헤더 가장 아래)에 위치. */
+
+/* 가로 넘침 차단(.nk-full 100vw) + 상세 .infoArea sticky 위해 #wrap overflow 해제 유지 */
+#nk-skin14 #wrap { overflow: visible !important; }
+/* ★ overflow-x:hidden 은 스크롤 컨테이너를 만들어 자식 position:sticky 를 무력화(상세 구매정보 sticky 실패 원인).
+   overflow-x:clip 은 가로 넘침은 동일하게 막으면서 스크롤 컨테이너를 만들지 않아 sticky 가 정상 작동한다. */
+html { overflow-x: clip; }
+body#nk-skin14 { overflow-x: clip; }
+
+/* (1·4·5) 헤더 확실히 고정 = position:fixed (레퍼런스 .a-header 동일). 띠(.nk-topbnr)+헤더 fixed 스택,
+   #container padding-top 으로 본문을 밀어 점프 없이 고정. 테두리/그림자 제거, 그레이지, 스크롤 시 글래스. */
+#nk-skin14 .nk-topbnr { position: fixed; top: 0; left: 0; width: 100%; z-index: 901; }
+#nk-skin14 #header {
+  position: fixed !important; top: var(--nk-topbar-h); left: 0; width: 100%; z-index: 900;
+  border-bottom: 0 !important; box-shadow: none !important;
+  background: var(--nk-bg);
+  transition: background .3s ease, backdrop-filter .3s ease;
+}
+/* 전 페이지 본문을 띠+헤더 높이만큼 내려 fixed 헤더에 안 가리게 */
+#nk-skin14 #container { padding-top: calc(var(--nk-topbar-h) + var(--nk-header-h)); }
+/* 카페24 base layout.js 가 .fixed(translateY) 붙여도 우리 fixed 유지(충돌 차단) */
+#nk-skin14 #header.fixed { transform: none !important; top: var(--nk-topbar-h) !important; }
+/* 모바일 띠배너 높이 동기화: topBnr.css 가 ≤1024px 에서 띠 높이를 30px(--nk-tb-m-height)로 줄이는데,
+   헤더 오프셋(--nk-topbar-h)이 36px 그대로면 띠 바닥(30px)과 헤더 상단(36px) 사이 6px 빈틈이 생겨
+   스크롤 시 본문이 그 틈으로 비친다. ≤1024px 에서 --nk-topbar-h 를 30px 로 맞춰 헤더 top·본문 padding·
+   드로어·sticky 계산을 일괄 정합시킨다(변수 한 곳만 동기화). */
+@media all and (max-width: 1024px) {
+  #nk-skin14 { --nk-topbar-h: 30px; }
+}
+
+/* (5) 스크롤 시 글래스모피즘 — footer JS 가 #header 에 .nk-scrolled 토글 */
+#nk-skin14 #header.nk-scrolled {
+  background: rgba(245, 245, 240, 0.82);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+}
+
+/* (3) GNB hover 밑줄을 GNB행 최하단으로 */
+body#nk-skin14 #header .inner .top_nav_box .top_category > ul > li > a { position: relative; }
+body#nk-skin14 #header .inner .top_nav_box .top_category > ul > li > a:after { position: absolute !important; bottom: 0 !important; left: 0; }
+
+
+/* ── 15. 그레이지 페이지: 카페24 기본 컨테이너 흰/회색 배경 일괄 초기화 ──────────
+   목적: 페이지 배경을 그레이지로 바꾸자 카페24 EZ 기본 컨테이너(페이징·fold·box·order/myshop 래퍼·
+   소제목 띠·합계·수량 등)의 흰/회색 배경이 "흰 박스"로 떠보임 → #contents 안 구조 컨테이너 배경을
+   일괄 transparent 로 초기화(그레이지가 비침). 하나하나 안 짚어도 신규 컨테이너까지 자동 중화.
+   ★ 의도적 배경은 유지됨: 버튼(.btn*/.nk-btn — 셀렉터 비매칭), 썸네일(.thumbnail/.nk-prd__thumb — 비매칭),
+     테이블헤더(th — 자체 규칙), current 페이지(아래 재지정), hover 아이콘(.icon__box/.nk-prd__act — 비매칭).
+   ★ 모달/툴팁(.ec-base-layer/.ec-base-tooltip)은 :not 제외(배경 필요). 모달 대부분은 #contents 밖이라 무영향. */
+/* (가)(가-2) 제거됨 — 2026-06-03.
+   기존엔 #contents * 에 background:transparent / border-color:--nk-line 를 !important 로 일괄 덮었으나,
+   이제 base CSS(layout/basic/css/*) + 모듈 CSS(css/module/*)의 하드코딩 흰배경(#fff)→var(--nk-bg),
+   회색테두리(#e5e5e5 등)→var(--nk-line), 골드(#d0ac88)→var(--nk-accent) 를 직접 토큰화함(skin2 방식).
+   → 오버라이드 해킹 없이 base 가 솔리드 그레이지/단일선색을 네이티브로 제공. 흰/회색/골드 잔존 0.
+   아래 (나)(다)(라)는 OUR 디자인 의도(버튼 차콜·썸네일 bg2·선택탭 강조) 보강용으로 유지. */
+
+/* (나) 의도적 배경만 #contents 스코프로 재지정 → 리셋 !important 를 동일 !important + 더 높은 특이도로 이김.
+   섹션 배경 띠(nk-bnr1 등)는 의도적으로 재지정 안 함 → 그레이지 균일(레퍼런스 톤). */
+#nk-skin14 #contents .btnSubmit,
+#nk-skin14 #contents .btnEm,
+#nk-skin14 #contents .btnMore,
+#nk-skin14 #contents .nk-btn,
+#nk-skin14 #contents .nk-btn-solid { background-color: var(--nk-theme) !important; }
+#nk-skin14 #contents .btnStrong,
+#nk-skin14 #contents .btnEmphasis,
+#nk-skin14 #contents .btnSubmitFix,
+#nk-skin14 #contents .nk-btn--accent,
+#nk-skin14 #contents .sale_box { background-color: var(--nk-accent) !important; }
+#nk-skin14 #contents .nk-hero .nk-btn-solid { background-color: #fff !important; }   /* 다크 히어로 위 흰 버튼 유지 */
+#nk-skin14 #contents .ec-base-table th,
+#nk-skin14 #contents .nk-prd__thumb { background-color: var(--nk-bg2) !important; }
+#nk-skin14 #contents .nk-prd__act,
+#nk-skin14 #contents .icon__box .wish,
+#nk-skin14 #contents .icon__box .cart,
+#nk-skin14 #contents .icon__box .option { background-color: var(--nk-theme) !important; }
+#nk-skin14 #contents .nk-arrow { background-color: rgba(255,255,255,.8) !important; }
+/* 페이징 현재페이지만 차콜 원형 */
+#nk-skin14 #contents .ec-base-paginate a.this { background-color: var(--nk-theme) !important; color: var(--nk-on-theme) !important; border-radius: 50%; }
+
+/* (다) 의도적 진한 테두리 재지정 (위 라인토큰 일괄 정규화를 이김) */
+#nk-skin14 #contents .btnSubmit,
+#nk-skin14 #contents .btnEm,
+#nk-skin14 #contents .btnMore,
+#nk-skin14 #contents .nk-btn,
+#nk-skin14 #contents .nk-btn-solid { border-color: var(--nk-theme) !important; }
+#nk-skin14 #contents .btnStrong,
+#nk-skin14 #contents .btnEmphasis,
+#nk-skin14 #contents .btnSubmitFix,
+#nk-skin14 #contents .nk-btn--accent,
+#nk-skin14 #contents .sale_box { border-color: var(--nk-accent) !important; }
+#nk-skin14 #contents .nk-hero .nk-btn-solid { border-color: #fff !important; }
+#nk-skin14 #contents .ec-base-table { border-top-color: var(--nk-theme) !important; }
+
+/* (라) 탭/메뉴 선택상태 → 비선택 보조색 / 선택 차콜+하단 강조선 (카페24 기본 선택 박스/색 제거) */
+#nk-skin14 #contents .menu > li > a,
+#nk-skin14 #contents .ec-base-tab li a,
+#nk-skin14 #contents .xans-order-tab li a { color: var(--nk-sub); }
+#nk-skin14 #contents .menu > li.selected > a,
+#nk-skin14 #contents .ec-base-tab li.selected a,
+#nk-skin14 #contents .ec-base-tab li.selected a.button,
+#nk-skin14 #contents .xans-order-tab li.selected a { color: var(--nk-theme) !important; border-bottom: 2px solid var(--nk-theme) !important; }

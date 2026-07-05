@@ -1,0 +1,121 @@
+<div class="bottom-nav RMB RTB" ez-module="bottom-navigation">
+    <ul class="bottom-nav__tabBar">
+        <li><button type="button" class="btnNav eNavFold"><i aria-hidden="true" class="icon icoNav"></i>네비게이션</button></li>
+        <li><button type="button" class="btnSearch eSearch"><!--@import(/svg/icon-search.html)-->검색</button></li>
+        <li><a href="/"><!--@import(/svg/icon-home.html)-->홈</a></li>
+        <li module="Layout_stateLogon"><a href="/order/basket.html"><!--@import(/svg/icon-cart.html)-->Cart <span class="count {$basket_count_display|display} {$basket_count_display_class}"><span class="{$basket_count_class}">{$basket_count}</span></span></a></li>
+        <li module="Layout_stateLogoff"><a href="/order/basket.html"><!--@import(/svg/icon-cart.html)-->Cart <span class="count {$basket_count_display|display} {$basket_count_display_class}"><span class="{$basket_count_class}">{$basket_count}</span></span></a></li>
+        <li><a href="/myshop/index.html"><!--@import(/svg/icon-user.html)-->마이쇼핑</a></li>
+    </ul>
+    <div class="bottom-nav__top">
+        <a href="#wrap" title="화면 최상단으로 이동하기"><!--@import(/svg/icon-quick-arrow.html)--></a>
+    </div>
+</div>
+<div class="footer_margin"></div>
+<footer id="footer" class="layout01">
+<div id="right_quick">
+		<div><a href="/product/recent_view_product.html" title="최근 본 상품"><i class="ph ph-clock-counter-clockwise" aria-hidden="true"></i></a></div>
+		<div><a href="#none" onclick="$('html,body').animate({scrollTop:0},'slow')" title="맨 위로"><i class="ph ph-caret-up" aria-hidden="true"></i></a></div>
+		<div><a href="#none" onclick="$('html,body').animate({scrollTop:$(document).height()},'slow');" title="맨 아래로"><i class="ph ph-caret-down" aria-hidden="true"></i></a></div>
+	</div><!-- //right_quick -->
+
+    <div class="inner" module="Layout_footer">
+		<div class="inner_t">
+			<div class="info_left">
+				<div class="bt_logo" module="Layout_LogoBottom"><a href="/"><img src="{$logo}" alt="{$mall_name}"></a></div><!-- //bt_logo -->
+
+				<div class="bt_info">
+					<div class="bt_title">쇼핑몰 기본정보</div>
+					<div class="bt_info_list">
+					  <div><span>상호명</span> <span>{$company_name}</span></div>
+					  <div><span>대표자명</span> <span>{$president_name}</span></div>
+					  <div><span>사업장 주소</span> <span>{$mall_zipcode} {$mall_addr1} {$mall_addr2}</span></div>
+					  <div><span>대표 전화</span> <span>{$phone}</span></div>
+					  <div><span>사업자 등록번호</span> <span>{$company_regno}</span></div>
+					  <div><span>통신판매업 신고번호</span> <span>{$network_regno} {$biz_no_link}</span></div>
+					  <div><span>개인정보보호책임자</span> <span>{$cpo_name}</span></div>
+				  </div><!-- //bt_info_list -->
+				</div><!-- //bt_info -->
+			</div>
+			<div class="info_right">
+				<div class="bt_util">
+					<div style="display:none;">바로가기</div>
+					<ul>
+						<li><a href="/shopinfo/company.html">회사소개</a></li>
+						<li><a href="/member/mall_agreement.html">이용약관</a></li>
+						<li><a href="/member/privacy.html"><strong>개인정보처리방침</strong></a></li>
+						<li><a href="/shopinfo/guide.html">이용안내</a></li>
+					</ul>
+				</div><!-- //bt_util -->
+				<div class="wrap_cs">
+					<div module="Layout_Info" class="cs_center_txt">
+						<div class="bt_title">고객센터 정보</div>
+						<div>
+							<div class="bt_tel"><strong>상담/주문전화</strong><span class="pdr10"></span><span>{$phone}</span></div>
+							<div class="bt_mail"><strong>상담/주문 이메일</strong><span>{$inquiry_email}</span></div>
+							<div class="bt_time"><strong>CS운영시간</strong><span>{$runtime}</span></div>
+						</div>
+					</div>
+					<div class="bank_txt">
+						<div class="bt_title">결제 정보</div>
+						<div class="bt_title_sub"><strong>무통장 계좌정보</strong></div>
+						<div>
+							<div>
+								<span>은행</span> <span class="pdr10"></span>
+								<span>0000-000-00000</span><span class="pdr10"></span>
+								<span>예금주</span>
+							</div>
+						</div>
+					</div>
+					<div class="sns_txt">
+						<div class="bt_title">SNS</div>
+						<a href="https://instagram.com/" target="_blank">instagram</a>
+						<a href="https://youtube.com/" target="_blank">youtube</a>
+						<a href="https://facebook.com/" target="_blank">facebook</a>
+						<a href="https://pf.kakao.com/" target="_blank" style>kakao</a>
+						<a href="https://twitter.com/" target="_blank">twitter</a>
+						<a href="https://blog.naver.com/" target="_blank">blog</a>
+					</div><!-- //bt_sns -->
+				</div>
+			</div>
+		</div>
+
+		<div class="inner_b">
+			<div class="bt_copyright">
+				Copyright © {$mall_name}. All Rights Reserved. Hosting by Cafe24 Corp.
+			</div><!-- //bt_copyright -->
+
+			<div class="bt_dummy">
+				<div class="bt_escrow" style="display:none;"><!-- 구매안전서비스 배너 -->
+					<a href="#">
+					<img src="/SkinImg/img/bt_ew_allat.png" class="bt_ew_allat" alt="올앳">
+					<img src="/SkinImg/img/bt_ew_iniapy.png" class="bt_ew_iniapy" alt="이니시스">
+					<img src="/SkinImg/img/bt_ew_kcp.png" class="bt_ew_kcp" alt="NHN한국사이버결제">
+					<img src="/SkinImg/img/bt_ew_kicc.png" class="bt_ew_kicc" alt="한국정보통신">
+					<img src="/SkinImg/img/bt_ew_ksnet.png" class="bt_ew_ksnet" alt="케이에스넷">
+					<img src="/SkinImg/img/bt_ew_nice.png" class="bt_ew_nice" alt="나이스페이먼츠">
+					<img src="/SkinImg/img/bt_ew_payments.png" class="bt_ew_payments" alt="토스페이먼츠">
+					<img src="/SkinImg/img/bt_ew_settle.png" class="bt_ew_settle" alt="세틀뱅크">
+					<img src="/SkinImg/img/bt_ew_smartro.png" class="bt_ew_smartro" alt="스마트로">
+						<span>고객님은 안전거래를 위해 결제시 저희 쇼핑몰에서 가입한 구매안전 서비스를 이용하실 수 있습니다. [서비스가입정보확인]</span>
+					</a>
+				</div><!-- //bt_escrow -->
+			</div><!-- //bt_dummy -->
+		</div>
+
+    </div><!-- //inner -->
+</footer>
+
+<!-- 헤더 스크롤 글래스모피즘 토글 — 60px 이상 스크롤 시 #header 에 .nk-scrolled 부여 -->
+<script>
+(function(){
+	var h = document.getElementById('header');
+	if(!h) return;
+	function onScroll(){
+		if(window.pageYOffset > 60) h.classList.add('nk-scrolled');
+		else h.classList.remove('nk-scrolled');
+	}
+	window.addEventListener('scroll', onScroll, {passive:true});
+	onScroll();
+})();
+</script>

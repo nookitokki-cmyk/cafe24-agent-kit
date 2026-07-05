@@ -1,0 +1,3 @@
+[     397ms] [ERROR] Failed to load resource: net::ERR_UNKNOWN_URL_SCHEME @ about:blank:0
+[     411ms] [ERROR] Failed to load resource: net::ERR_UNKNOWN_URL_SCHEME @ about:blank:0
+[     519ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ https://ecudemo401773.cafe24.com/member/login.html?noMemberOrder&returnUrl=%2Fmyshop%2Forder%2Flist.html%3Fv%3Dnkbar-20260626-5:0

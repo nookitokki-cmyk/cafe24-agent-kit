@@ -1,0 +1,141 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - paragraph:
+      - link "전체상품목록 바로가기" [ref=e2] [cursor=pointer]:
+        - /url: "#contents"
+    - paragraph:
+      - link "본문 바로가기" [ref=e3] [cursor=pointer]:
+        - /url: "#contents"
+  - banner [ref=e4]:
+    - generic [ref=e7]:
+      - group "1 / 3" [ref=e8]: 특별한 순간은 디테일에서 시작됩니다 — MOMENT
+      - group "2 / 3": WELCOME · 신규 회원 가입 혜택을 확인하세요
+      - group "3 / 3": NEW ARRIVAL · 새로운 컬렉션을 만나보세요
+    - generic [ref=e9]:
+      - generic [ref=e10]:
+        - text: 
+        - navigation "주 메뉴" [ref=e11]:
+          - list [ref=e14]:
+            - listitem [ref=e15]:
+              - link "(대분류) Outerwear" [ref=e16] [cursor=pointer]:
+                - /url: /category/대분류-outerwear/24/
+          - list [ref=e19]:
+            - listitem [ref=e20]:
+              - link "(대분류) Tops" [ref=e21] [cursor=pointer]:
+                - /url: /category/대분류-tops/25/
+          - list [ref=e24]:
+            - listitem [ref=e25]:
+              - link "(대분류) Dresses" [ref=e26] [cursor=pointer]:
+                - /url: /category/대분류-dresses/26/
+      - heading "쇼핑몰 이름" [level=1] [ref=e27]:
+        - link "쇼핑몰 이름" [ref=e28] [cursor=pointer]:
+          - /url: /index.html
+          - generic [ref=e29]: MOMENT
+          - generic [ref=e30]: 쇼핑몰 이름
+      - generic [ref=e31]:
+        - generic [ref=e32]:
+          - link "LOGIN" [ref=e33] [cursor=pointer]:
+            - /url: "#"
+          - link "JOIN" [ref=e34] [cursor=pointer]:
+            - /url: /member/join.html
+          - link "ACCOUNT" [ref=e35] [cursor=pointer]:
+            - /url: /myshop/index.html
+        - button "검색 열기" [ref=e36] [cursor=pointer]: SEARCH
+        - link "CART 0" [ref=e37] [cursor=pointer]:
+          - /url: /order/basket.html
+          - text: CART
+          - generic [ref=e38]: "0"
+  - generic [ref=e40]:
+    - generic [ref=e42]:
+      - generic [ref=e43]:
+        - paragraph [ref=e44]: Login
+        - paragraph [ref=e45]: 회원 로그인
+      - group "회원로그인" [ref=e48]:
+        - generic [ref=e49]:
+          - generic "아이디" [ref=e51]:
+            - textbox "아이디" [ref=e52]
+          - generic "비밀번호" [ref=e54]:
+            - textbox [ref=e55]:
+              - /placeholder: 비밀번호
+        - generic [ref=e57]:
+          - checkbox "보안접속" [checked] [disabled] [ref=e59] [cursor=pointer]
+          - generic [ref=e60]: 보안접속
+        - link "Login" [ref=e62] [cursor=pointer]:
+          - /url: "#none"
+        - generic [ref=e63]:
+          - link "아이디 찾기" [ref=e64] [cursor=pointer]:
+            - /url: /member/id/find_id.html
+          - link "비밀번호 찾기" [ref=e66] [cursor=pointer]:
+            - /url: /member/passwd/find_passwd_info.html
+        - generic [ref=e67]:
+          - paragraph [ref=e68]: 아직 회원이 아니신가요?
+          - link "Join Us" [ref=e69] [cursor=pointer]:
+            - /url: /member/agreement.html
+        - generic [ref=e72]: SNS 로그인
+    - text: ",,"
+  - contentinfo [ref=e73]:
+    - generic [ref=e74]:
+      - generic [ref=e75]:
+        - generic [ref=e76]:
+          - heading "Customer Center" [level=2] [ref=e77]:
+            - button "Customer Center" [expanded] [ref=e78]:
+              - generic [ref=e79]: Customer Center
+              - text: 
+          - generic [ref=e80]:
+            - paragraph
+            - paragraph
+            - paragraph [ref=e81]: Sat·Sun·Holiday Closed
+        - generic [ref=e82]:
+          - heading "Support" [level=2] [ref=e83]:
+            - button "Support" [expanded] [ref=e84]:
+              - generic [ref=e85]: Support
+              - text: 
+          - list [ref=e87]:
+            - listitem [ref=e88]:
+              - link "Contact" [ref=e89] [cursor=pointer]:
+                - /url: /shopinfo/company.html
+            - listitem [ref=e90]:
+              - link "Guide" [ref=e91] [cursor=pointer]:
+                - /url: /shopinfo/guide.html
+        - generic [ref=e92]:
+          - heading "Legal" [level=2] [ref=e93]:
+            - button "Legal" [expanded] [ref=e94]:
+              - generic [ref=e95]: Legal
+              - text: 
+          - list [ref=e97]:
+            - listitem [ref=e98]:
+              - link "Terms of Use" [ref=e99] [cursor=pointer]:
+                - /url: /member/agreement.html
+            - listitem [ref=e100]:
+              - link "Privacy Policy" [ref=e101] [cursor=pointer]:
+                - /url: /member/privacy.html
+        - generic [ref=e102]:
+          - heading "Social" [level=2] [ref=e103]:
+            - button "Social" [expanded] [ref=e104]:
+              - generic [ref=e105]: Social
+              - text: 
+          - list [ref=e107]:
+            - listitem [ref=e108]:
+              - link "Instagram" [ref=e109] [cursor=pointer]:
+                - /url: "#none"
+            - listitem [ref=e110]:
+              - link "KakaoTalk" [ref=e111] [cursor=pointer]:
+                - /url: "#none"
+      - generic [ref=e112]:
+        - link "쇼핑몰 이름" [ref=e114] [cursor=pointer]:
+          - /url: /index.html
+          - generic [ref=e115]: MOMENT
+          - generic [ref=e116]: 쇼핑몰 이름
+        - generic [ref=e117]:
+          - paragraph [ref=e118]:
+            - generic [ref=e119]: 상호
+            - generic [ref=e120]: 대표 理
+            - generic [ref=e121]: 사업자등록번호 105-78-00513
+            - generic [ref=e122]: 통신판매업신고
+            - generic [ref=e123]: 주소
+            - generic [ref=e124]: 전화
+            - generic [ref=e125]:
+              - text: 이메일
+              - link:
+                - /url: "mailto:"
+          - paragraph [ref=e126]: Copyright © 쇼핑몰 이름. All rights reserved.

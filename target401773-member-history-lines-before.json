@@ -1,0 +1,76 @@
+{
+  "url": "https://ecudemo401773.cafe24.com/member/login.html?v=nkbar-20260626-4",
+  "scroll": {
+    "scrollWidth": 390,
+    "clientWidth": 390
+  },
+  "selected": [
+    {
+      "selector": "form#member_form_1342785833 > div > div",
+      "exists": false
+    },
+    {
+      "selector": "form#member_form_1342785833 > div",
+      "exists": false
+    },
+    {
+      "selector": "form#historyNoLoginForm > div",
+      "exists": false
+    },
+    {
+      "selector": "form#historyNoLoginForm > div > div",
+      "exists": false
+    },
+    {
+      "selector": "#historyNoLoginForm",
+      "exists": false
+    },
+    {
+      "selector": ".xans-member-login .login",
+      "exists": true,
+      "tag": "DIV",
+      "id": "",
+      "className": "login",
+      "text": "회원로그인\n        \n            회원로그인\n            \n            \n            \n        ",
+      "display": "block",
+      "borderTopWidth": "0px",
+      "borderTopColor": "rgb(46, 46, 46)",
+      "borderBottomWidth": "0px",
+      "borderBottomColor": "rgb(46, 46, 46)",
+      "borderLeftWidth": "0px",
+      "borderRightWidth": "0px",
+      "backgroundImage": "none",
+      "boxShadow": "none",
+      "rect": {
+        "x": 1,
+        "y": 376,
+        "w": 389,
+        "h": 317,
+        "right": 389
+      },
+      "before": {
+        "content": "none",
+        "display": "inline",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px",
+        "borderRightWidth": "0px"
+      },
+      "after": {
+        "content": "none",
+        "display": "inline",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px",
+        "borderRightWidth": "0px"
+      }
+    },
+    {
+      "selector": ".xans-member-login .nonmember",
+      "exists": false
+    },
+    {
+      "selector": ".xans-member-login .history",
+      "exists": false
+    }
+  ],
+  "candidates": []
+}

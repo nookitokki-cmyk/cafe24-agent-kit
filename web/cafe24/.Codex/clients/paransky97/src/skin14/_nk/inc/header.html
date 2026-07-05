@@ -1,0 +1,126 @@
+<!--@css(/_nk/css/header.css)-->
+<!--@import(/_nk/inc/topBnr.html)-->
+<header id="header" class="nk-hd" data-ez="module-0egh4ol-1">
+	<div class="inner nk-hd__inner">
+
+		<!-- 로고 (좌측 고정) — Layout_LogoTop 모듈 + {$logo} -->
+		<div class="nk-hd__logo" module="Layout_LogoTop">
+			<a href="/"><img src="{$logo}" alt="{$mall_name}" loading="lazy" ez-prevent="img"></a>
+		</div>
+
+		<!-- GNB (헤더 정중앙 절대 고정) — 상품분류 모듈 자동 반복 -->
+		<nav class="nk-gnb" aria-label="주 메뉴">
+			<!--@import(/_nk/inc/menu.html)-->
+		</nav>
+
+		<!-- 우측 아이콘 (검색 / 마이 / 장바구니 / 햄버거) -->
+		<ul class="nk-hd__icons">
+			<li>
+				<button type="button" class="nk-hd__icon eSearch" aria-label="검색 열기">
+					<i class="ph ph-magnifying-glass" aria-hidden="true"></i>
+				</button>
+			</li>
+			<li module="Layout_statelogon">
+				<a href="/myshop/index.html" class="nk-hd__icon" aria-label="마이페이지">
+					<i class="ph ph-user" aria-hidden="true"></i>
+				</a>
+			</li>
+			<li module="Layout_statelogoff">
+				<a href="/member/login.html" class="nk-hd__icon" aria-label="로그인">
+					<i class="ph ph-user" aria-hidden="true"></i>
+				</a>
+			</li>
+			<li>
+				<a href="/order/basket.html" class="nk-hd__icon nk-hd__cart" module="Layout_orderBasketcount" aria-label="장바구니">
+					<i class="ph ph-bag" aria-hidden="true"></i>
+					<span class="nk-hd__count {$basket_count_display|display} {$basket_count_display_class}"><span class="{$basket_count_class}">{$basket_count}</span></span>
+				</a>
+			</li>
+			<li class="nk-hd__burger-wrap">
+				<button type="button" class="nk-hd__burger" aria-label="전체 메뉴" aria-expanded="false" aria-controls="nk-drawer">
+					<i class="ph ph-list nk-hd__burger-open" aria-hidden="true"></i>
+					<i class="ph ph-x nk-hd__burger-close" aria-hidden="true"></i>
+				</button>
+			</li>
+		</ul>
+
+		<!-- 검색창 (아이콘 클릭 시 펼침) — Layout_SearchHeader 모듈 -->
+		<div class="nk-hd__search" module="Layout_SearchHeader">
+			<!--
+				$product_page=/product/detail.html
+				$category_page=/product/list.html
+			-->
+			<fieldset class="nk-search__field">
+				<legend class="nk-blind">검색</legend>
+				<div class="nk-search__box">
+					{$form.keyword}
+					<button type="button" class="nk-search__submit" onclick="{$action_search_submit}" aria-label="검색">
+						<i class="ph ph-magnifying-glass" aria-hidden="true"></i>
+					</button>
+					<button type="button" class="nk-search__close" aria-label="검색 닫기">
+						<i class="ph ph-x" aria-hidden="true"></i>
+					</button>
+				</div>
+				<ul class="autoDrop nk-search__auto" id="{$search_auto_id}"></ul>
+			</fieldset>
+		</div>
+
+	</div><!-- //nk-hd__inner -->
+</header>
+<div id="nk-drawer" class="nk-drawer" aria-hidden="true" data-ez="module-00w8rpf-1">
+	<div class="nk-drawer__inner">
+		<nav class="nk-drawer__nav" aria-label="모바일 메뉴">
+			<!--@import(/_nk/inc/menu.html)-->
+		</nav>
+		<div class="nk-drawer__util">
+			<a module="Layout_statelogoff" href="/member/login.html" class="nk-drawer__link">로그인</a>
+			<a module="Layout_statelogoff" href="/member/agreement.html" class="nk-drawer__link">회원가입</a>
+			<a module="Layout_statelogon" href="/myshop/index.html" class="nk-drawer__link">마이페이지</a>
+			<a module="Layout_statelogon" href="{$action_logout}" class="nk-drawer__link">로그아웃</a>
+			<a href="/myshop/order/list.html" class="nk-drawer__link">주문조회</a>
+			<a href="/myshop/wish_list.html" class="nk-drawer__link">관심상품</a>
+		</div>
+	</div>
+</div>
+<div data-ez-module="user-defined/1" data-ez-name="USER DEFINED" data-ez-type="plain" data-ez="module-1potgqy-1"><script>
+/* NK 헤더 인터랙션: 검색 토글 / 모바일 드로어 토글
+   (base layout.js 의존 없이 자체 처리 — 새 마크업 .nk-* 클래스 기준) */
+(function () {
+	var header = document.getElementById('header');
+	if (!header) return;
+
+	/* 검색창 열고 닫기 */
+	var searchBox = header.querySelector('.nk-hd__search');
+	var searchOpen = header.querySelector('.eSearch');
+	var searchClose = header.querySelector('.nk-search__close');
+	function openSearch() {
+		if (!searchBox) return;
+		searchBox.classList.add('is-open');
+		var input = searchBox.querySelector('input[type="text"], input[type="search"], input.keyword');
+		if (input) setTimeout(function () { input.focus(); }, 50);
+	}
+	function closeSearch() { if (searchBox) searchBox.classList.remove('is-open'); }
+	if (searchOpen) searchOpen.addEventListener('click', function (e) { e.preventDefault(); openSearch(); });
+	if (searchClose) searchClose.addEventListener('click', function (e) { e.preventDefault(); closeSearch(); });
+
+	/* 모바일 드로어 (풀스크린 fade-in) */
+	var burger = header.querySelector('.nk-hd__burger');
+	var drawer = document.getElementById('nk-drawer');
+	function setDrawer(open) {
+		if (!drawer || !burger) return;
+		drawer.classList.toggle('is-open', open);
+		drawer.setAttribute('aria-hidden', open ? 'false' : 'true');
+		burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+		document.body.classList.toggle('nk-drawer-open', open);
+	}
+	if (burger) burger.addEventListener('click', function () {
+		setDrawer(!(drawer && drawer.classList.contains('is-open')));
+	});
+
+	/* ESC 로 검색·드로어 닫기 */
+	document.addEventListener('keydown', function (e) {
+		if (e.key === 'Escape') { closeSearch(); setDrawer(false); }
+	});
+})();
+</script></div>
+<!--#ez="1/1"-->

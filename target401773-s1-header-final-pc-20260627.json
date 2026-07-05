@@ -1,0 +1,167 @@
+{
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "stack": {
+    "x": 0,
+    "y": 0,
+    "w": 1425.1429443359375,
+    "h": 91.0000057220459,
+    "bottom": 91.0000057220459
+  },
+  "topBanner": {
+    "x": 0,
+    "y": 0,
+    "w": 1425.1429443359375,
+    "h": 28.000001907348633,
+    "top": 0,
+    "bottom": 28.000001907348633,
+    "left": 0,
+    "right": 1425.1429443359375,
+    "display": "block",
+    "position": "fixed",
+    "background": "rgb(176, 181, 185)",
+    "color": "rgb(255, 255, 255)",
+    "fontFamily": "Pretendard, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+    "fontSize": "13px",
+    "lineHeight": "normal",
+    "borderBottom": "0px none rgb(255, 255, 255)"
+  },
+  "header": {
+    "x": 0,
+    "y": 28.000001907348633,
+    "w": 1425.1429443359375,
+    "h": 63.000003814697266,
+    "top": 28.000001907348633,
+    "bottom": 91.0000057220459,
+    "left": 0,
+    "right": 1425.1429443359375,
+    "display": "block",
+    "position": "fixed",
+    "background": "rgba(0, 0, 0, 0)",
+    "color": "rgb(34, 34, 34)",
+    "fontFamily": "Pretendard, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+    "fontSize": "13px",
+    "lineHeight": "normal",
+    "borderBottom": "0px none rgb(34, 34, 34)"
+  },
+  "items": [
+    {
+      "sel": "#header .top_nav_box > div[data-ez-module=\"menu-main/1\"]",
+      "box": {
+        "x": 30.000001907348633,
+        "y": 31.500001907348633,
+        "w": 329.75,
+        "h": 63.000003814697266,
+        "top": 31.500001907348633,
+        "bottom": 94.5000057220459,
+        "left": 30.000001907348633,
+        "right": 359.75000190734863,
+        "display": "block",
+        "position": "static",
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(34, 34, 34)",
+        "fontFamily": "Pretendard, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "fontSize": "13px",
+        "lineHeight": "normal",
+        "borderBottom": "0px none rgb(34, 34, 34)"
+      },
+      "text": "NECKLACE EARRING RING BRACELET SALE"
+    },
+    {
+      "sel": "#header .top_category",
+      "box": {
+        "x": 30.000001907348633,
+        "y": 31.500001907348633,
+        "w": 329.75,
+        "h": 63.000003814697266,
+        "top": 31.500001907348633,
+        "bottom": 94.5000057220459,
+        "left": 30.000001907348633,
+        "right": 359.75000190734863,
+        "display": "block",
+        "position": "relative",
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(34, 34, 34)",
+        "fontFamily": "Pretendard, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "fontSize": "13px",
+        "lineHeight": "normal",
+        "borderBottom": "0px none rgb(34, 34, 34)"
+      },
+      "text": "NECKLACE EARRING RING BRACELET SALE"
+    },
+    {
+      "sel": "#header .top_logo",
+      "box": {
+        "x": 682.8482666015625,
+        "y": 31.500001907348633,
+        "w": 59.44643020629883,
+        "h": 63.000003814697266,
+        "top": 31.500001907348633,
+        "bottom": 94.5000057220459,
+        "left": 682.8482666015625,
+        "right": 742.2946968078613,
+        "display": "flex",
+        "position": "static",
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(34, 34, 34)",
+        "fontFamily": "Pretendard, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "fontSize": "13px",
+        "lineHeight": "normal",
+        "borderBottom": "0px none rgb(34, 34, 34)"
+      },
+      "text": "쇼핑몰 이름"
+    },
+    {
+      "sel": "#header .toparea",
+      "box": {
+        "x": 1160.482177734375,
+        "y": 28.000001907348633,
+        "w": 96.66072082519531,
+        "h": 63.000003814697266,
+        "top": 28.000001907348633,
+        "bottom": 91.0000057220459,
+        "left": 1160.482177734375,
+        "right": 1257.1428985595703,
+        "display": "flex",
+        "position": "relative",
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(34, 34, 34)",
+        "fontFamily": "Pretendard, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "fontSize": "13px",
+        "lineHeight": "normal",
+        "borderBottom": "0px none rgb(34, 34, 34)"
+      },
+      "text": "로그인 주문조회"
+    },
+    {
+      "sel": "#header .top_mypage",
+      "box": {
+        "x": 1276.1160888671875,
+        "y": 28.000001907348633,
+        "w": 119.02679443359375,
+        "h": 70,
+        "top": 28.000001907348633,
+        "bottom": 98.00000190734863,
+        "left": 1276.1160888671875,
+        "right": 1395.1428833007812,
+        "display": "flex",
+        "position": "static",
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(34, 34, 34)",
+        "fontFamily": "Pretendard, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "fontSize": "13px",
+        "lineHeight": "normal",
+        "borderBottom": "0px none rgb(34, 34, 34)"
+      },
+      "text": ""
+    }
+  ],
+  "checks": {
+    "overflow": 0,
+    "dataEzCount": 17,
+    "inlineStyleInHeader": 0,
+    "brokenImages": 0
+  }
+}

@@ -1,0 +1,143 @@
+- generic [ref=e3]:
+  - generic [ref=e4]:
+    - list [ref=e9]:
+      - group "1 / 4" [ref=e10]:
+        - link "매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션" [ref=e11] [cursor=pointer]:
+          - /url: /
+      - group "2 / 4" [ref=e12]:
+        - link "매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션" [ref=e13] [cursor=pointer]:
+          - /url: /
+      - group "3 / 4" [ref=e14]:
+        - link "매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션" [ref=e15] [cursor=pointer]:
+          - /url: /
+      - group "4 / 4" [ref=e16]:
+        - link "매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션" [ref=e17] [cursor=pointer]:
+          - /url: /
+      - group "1 / 4" [ref=e18]:
+        - link "매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션" [ref=e19] [cursor=pointer]:
+          - /url: /
+      - group "2 / 4" [ref=e20]:
+        - link "매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션" [ref=e21] [cursor=pointer]:
+          - /url: /
+      - group "3 / 4" [ref=e22]:
+        - link "매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션" [ref=e23] [cursor=pointer]:
+          - /url: /
+      - group "4 / 4" [ref=e24]:
+        - link "매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션" [ref=e25] [cursor=pointer]:
+          - /url: /
+      - group "1 / 4" [ref=e26]:
+        - link "매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션" [ref=e27] [cursor=pointer]:
+          - /url: /
+      - group "2 / 4" [ref=e28]:
+        - link "매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션" [ref=e29] [cursor=pointer]:
+          - /url: /
+      - group "3 / 4" [ref=e30]:
+        - link "매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션" [ref=e31] [cursor=pointer]:
+          - /url: /
+      - group "4 / 4" [ref=e32]:
+        - link "매일의 순간을 특별하게, 당신의 일상에 스며드는 프리미엄 컬렉션" [ref=e33] [cursor=pointer]:
+          - /url: /
+    - generic [ref=e34]:
+      - list [ref=e36]:
+        - listitem [ref=e37]:
+          - link "SHOP" [ref=e38] [cursor=pointer]:
+            - /url: /product/list.html?cate_no=23
+        - listitem [ref=e39]:
+          - link "ESSENTIAL" [ref=e40] [cursor=pointer]:
+            - /url: /product/list.html?cate_no=50
+        - listitem [ref=e41]:
+          - link "COLLECTION" [ref=e42] [cursor=pointer]:
+            - /url: /pages/collection/list.html?cate_no=24
+        - listitem [ref=e43]:
+          - link "INFO" [ref=e44] [cursor=pointer]:
+            - /url: "#none"
+      - link "ORDINARY" [ref=e47] [cursor=pointer]:
+        - /url: /
+      - list [ref=e49]:
+        - listitem [ref=e50]:
+          - link "LOGIN" [ref=e51] [cursor=pointer]:
+            - /url: /member/login.html
+        - listitem [ref=e52]:
+          - link "ACCOUNT" [ref=e53] [cursor=pointer]:
+            - /url: /myshop/index.html
+        - listitem [ref=e54]:
+          - link "SEARCH" [ref=e55] [cursor=pointer]:
+            - /url: "#none"
+        - listitem [ref=e56]:
+          - link "CART 0" [ref=e57] [cursor=pointer]:
+            - /url: /order/basket.html
+            - text: CART
+            - generic [ref=e58]: "0"
+  - generic [ref=e59]:
+    - heading "장바구니" [level=2] [ref=e61]
+    - generic [ref=e62]:
+      - list [ref=e64]:
+        - listitem [ref=e65]:
+          - link "국내배송상품 (0)" [ref=e66] [cursor=pointer]:
+            - /url: /order/basket.html
+        - listitem [ref=e67]:
+          - link "해외배송상품 (0)" [ref=e68] [cursor=pointer]:
+            - /url: /order/basket.html?delvtype=B
+      - paragraph [ref=e70]: 장바구니가 비어 있습니다.
+      - generic [ref=e71]:
+        - link "전체상품주문" [ref=e72] [cursor=pointer]:
+          - /url: "#none"
+        - link "선택상품주문" [ref=e73] [cursor=pointer]:
+          - /url: "#none"
+    - generic [ref=e74]:
+      - heading "이용안내" [level=3] [ref=e75]
+      - generic [ref=e76]:
+        - heading "장바구니 이용안내" [level=4] [ref=e77]
+        - list [ref=e78]:
+          - listitem [ref=e79]: 파일첨부 옵션은 동일상품을 장바구니에 추가할 경우 마지막에 업로드 한 파일로 교체됩니다.
+          - listitem [ref=e80]: 해외배송 상품과 국내배송 상품은 함께 결제하실 수 없으니 장바구니 별로 따로 결제해 주시기 바랍니다.
+          - listitem [ref=e81]: 해외배송 가능 상품의 경우 국내배송 장바구니에 담았다가 해외배송 장바구니로 이동하여 결제하실 수 있습니다.
+        - heading "무이자할부 이용안내" [level=4] [ref=e82]
+        - list [ref=e83]:
+          - listitem [ref=e84]: "[전체 상품 주문] 버튼을 누르시면 장바구니의 구분없이 선택된 모든 상품에 대한 주문/결제가 이루어집니다."
+          - listitem [ref=e85]: 단, 전체 상품을 주문/결제하실 경우, 상품별 무이자할부 혜택을 받으실 수 없습니다.
+          - listitem [ref=e86]:
+            - text: 무이자할부 상품은 장바구니에서 별도 무이자할부 상품 영역에 표시되어, 무이자할부 상품 기준으로 배송비가 표시됩니다.
+            - text: 실제 배송비는 함께 주문하는 상품에 따라 적용되오니 주문서 하단의 배송비 정보를 참고해주시기 바랍니다.
+  - generic [ref=e87]:
+    - generic [ref=e88]:
+      - generic [ref=e89]:
+        - heading "CUSTOMER CENTER" [level=3] [ref=e90]
+        - generic [ref=e91]:
+          - paragraph [ref=e92]: 070-1234-5678
+          - paragraph [ref=e93]: Monday-Friday 10:00-17:00
+          - paragraph [ref=e94]: Sat·Sun·Holiday Closed
+      - generic [ref=e95]:
+        - heading "SUPPORT" [level=3] [ref=e96]
+        - generic [ref=e97]:
+          - link "Contact" [ref=e98] [cursor=pointer]:
+            - /url: /pages/contact.html
+          - link "Guide" [ref=e99] [cursor=pointer]:
+            - /url: /pages/guide.html
+      - generic [ref=e100]:
+        - heading "LEGAL" [level=3] [ref=e101]
+        - generic [ref=e102]:
+          - link "Terms of Use" [ref=e103] [cursor=pointer]:
+            - /url: /member/agreement.html
+          - link "Privacy Policy" [ref=e104] [cursor=pointer]:
+            - /url: /member/privacy.html
+      - generic [ref=e105]:
+        - heading "SOCIAL" [level=3] [ref=e106]
+        - generic [ref=e107]:
+          - link "Instagram" [ref=e108] [cursor=pointer]:
+            - /url: /
+          - link "KakaoTalk" [ref=e109] [cursor=pointer]:
+            - /url: /
+    - generic [ref=e110]:
+      - text: 상호오디너리 주소
+      - generic [ref=e111]: 서울특별시 동작구 모모로 35
+      - text: 대표이수정 사업자등록번호
+      - generic [ref=e112]:
+        - text: 123-45-67890
+        - link "[사업자정보확인]" [ref=e113] [cursor=pointer]:
+          - /url: "#none"
+      - text: 통신판매업신고2035-서울동작-0175 전화070-1234-5678 이메일info@adestudio.kr 개인정보보호책임자
+      - link "이수정" [ref=e115] [cursor=pointer]:
+        - /url: mailto:info@adestudio.kr
+      - text: 호스팅서비스카페24(주)
+      - generic [ref=e116]: © ORDINARY

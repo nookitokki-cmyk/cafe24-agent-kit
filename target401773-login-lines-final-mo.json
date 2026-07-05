@@ -1,0 +1,171 @@
+{
+  "url": "https://ecudemo401773.cafe24.com/member/login.html?v=nkbar-20260626-4",
+  "viewport": {
+    "w": 390,
+    "h": 1100
+  },
+  "scroll": {
+    "scrollWidth": 390,
+    "clientWidth": 390
+  },
+  "loginBox": {
+    "selector": ".xans-member-login.ec-base-box",
+    "exists": true,
+    "display": "block",
+    "width": "388.667px",
+    "borderTopWidth": "0px",
+    "borderBottomWidth": "0px",
+    "rect": {
+      "x": 0,
+      "y": 376,
+      "w": 390,
+      "h": 317,
+      "right": 390
+    },
+    "after": {
+      "content": "none",
+      "display": "inline",
+      "borderRightWidth": "0px"
+    }
+  },
+  "loginDiv": {
+    "selector": ".xans-member-login .login",
+    "exists": true,
+    "display": "block",
+    "width": "388.667px",
+    "borderTopWidth": "0px",
+    "borderBottomWidth": "0px",
+    "rect": {
+      "x": 1,
+      "y": 376,
+      "w": 389,
+      "h": 317,
+      "right": 389
+    },
+    "after": {
+      "content": "none",
+      "display": "inline",
+      "borderRightWidth": "0px"
+    }
+  },
+  "loginFieldset": {
+    "selector": ".xans-member-login .login fieldset",
+    "exists": true,
+    "display": "block",
+    "width": "358.667px",
+    "borderTopWidth": "0px",
+    "borderBottomWidth": "0px",
+    "rect": {
+      "x": 16,
+      "y": 464,
+      "w": 359,
+      "h": 180,
+      "right": 374
+    },
+    "after": {
+      "content": "none",
+      "display": "inline",
+      "borderRightWidth": "0px"
+    }
+  },
+  "loginSnsArea": {
+    "selector": ".xans-member-login .login fieldset .snsArea",
+    "exists": true,
+    "display": "block",
+    "width": "358.667px",
+    "borderTopWidth": "0px",
+    "borderBottomWidth": "0px",
+    "rect": {
+      "x": 16,
+      "y": 570,
+      "w": 359,
+      "h": 30,
+      "right": 374
+    },
+    "after": {
+      "content": "none",
+      "display": "inline",
+      "borderRightWidth": "0px"
+    }
+  },
+  "loginFirstListItem": {
+    "selector": ".xans-member-login .login fieldset li:not(.displaynone)",
+    "exists": true,
+    "display": "list-item",
+    "width": "51.8646px",
+    "borderTopWidth": "0px",
+    "borderBottomWidth": "0px",
+    "rect": {
+      "x": 71,
+      "y": 620,
+      "w": 74,
+      "h": 19,
+      "right": 145
+    },
+    "after": {
+      "content": "none",
+      "display": "none",
+      "borderRightWidth": "0.666667px"
+    }
+  },
+  "header": {
+    "selector": "#header",
+    "exists": true,
+    "display": "block",
+    "width": "390px",
+    "borderTopWidth": "0px",
+    "borderBottomWidth": "0px",
+    "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 390,
+      "h": 285,
+      "right": 390
+    },
+    "after": {
+      "content": "none",
+      "display": "none",
+      "borderRightWidth": "0px"
+    }
+  },
+  "footer": {
+    "selector": "#footer",
+    "exists": true,
+    "display": "block",
+    "width": "390px",
+    "borderTopWidth": "0px",
+    "borderBottomWidth": "0px",
+    "rect": {
+      "x": 0,
+      "y": 733,
+      "w": 390,
+      "h": 254,
+      "right": 390
+    },
+    "after": {
+      "content": "none",
+      "display": "none",
+      "borderRightWidth": "0px"
+    }
+  },
+  "sidebar": {
+    "selector": "#sidebar",
+    "exists": true,
+    "display": "none",
+    "width": "180px",
+    "borderTopWidth": "0px",
+    "borderBottomWidth": "0px",
+    "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 0,
+      "h": 0,
+      "right": 0
+    },
+    "after": {
+      "content": "none",
+      "display": "inline",
+      "borderRightWidth": "0px"
+    }
+  }
+}

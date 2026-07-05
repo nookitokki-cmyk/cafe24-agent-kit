@@ -1,0 +1,52 @@
+<!-- [메인 1] 히어로 캐러셀 (풀블리드) — 이미지/문구는 재판매 시 교체. 슬라이드 background-image 만 바꾸면 됨 -->
+<!--@css(/_nk/css/mainBnr.css)-->
+
+<section class="section nk-full nk-hero">
+	<div class="swiper nk-hero__swiper">
+		<div class="swiper-wrapper">
+			<!-- 슬라이드 1 -->
+			<div class="swiper-slide nk-hero__slide" style="background-image:url('//ecimg.cafe24img.com/pg2983b21251329094/paransky97/web/upload/category/editor/2026/04/13/647d10f7ffc4f9bffd90328836acfb6e.jpg');">
+				<div class="nk-hero__inner inner">
+					<span class="nk-eyebrow nk-hero__eyebrow">New Collection</span>
+					<h2 class="nk-hero__title">Quiet Luxury,<br>Made for Every Day</h2>
+					<p class="nk-hero__desc">엄선된 소재와 절제된 디자인. 오래 곁에 두고 싶은 물건들.</p>
+					<a href="/product/list.html" class="nk-btn-solid">Shop the Collection <i class="ph ph-arrow-right"></i></a>
+				</div>
+			</div>
+			<!-- 슬라이드 2 -->
+			<div class="swiper-slide nk-hero__slide" style="background-image:url('//ecimg.cafe24img.com/pg2983b21251329094/paransky97/web/upload/category/editor/2026/04/13/647d10f7ffc4f9bffd90328836acfb6e.jpg');">
+				<div class="nk-hero__inner inner">
+					<span class="nk-eyebrow nk-hero__eyebrow">Seasonal Edit</span>
+					<h2 class="nk-hero__title">Crafted to Last,<br>Designed to Stay</h2>
+					<p class="nk-hero__desc">시간이 지나도 변하지 않는 가치를 담았습니다.</p>
+					<a href="/product/list.html" class="nk-btn-solid">Discover More <i class="ph ph-arrow-right"></i></a>
+				</div>
+			</div>
+			<!-- 슬라이드 3 -->
+			<div class="swiper-slide nk-hero__slide" style="background-image:url('//ecimg.cafe24img.com/pg2983b21251329094/paransky97/web/upload/category/editor/2026/04/13/647d10f7ffc4f9bffd90328836acfb6e.jpg');">
+				<div class="nk-hero__inner inner">
+					<span class="nk-eyebrow nk-hero__eyebrow">Membership</span>
+					<h2 class="nk-hero__title">Join Us,<br>Enjoy More</h2>
+					<p class="nk-hero__desc">신규 회원 가입 시 적립금을 즉시 드립니다.</p>
+					<a href="/member/join.html" class="nk-btn-solid">Sign Up <i class="ph ph-arrow-right"></i></a>
+				</div>
+			</div>
+		</div>
+		<div class="nk-hero__pagination swiper-pagination"></div>
+	</div>
+
+	<script>
+	(function(){
+		function init(){
+			new Swiper('.nk-hero__swiper', {
+				loop: true,
+				speed: 900,
+				autoplay: { delay: 5000, disableOnInteraction: false },
+				pagination: { el: '.nk-hero__pagination', clickable: true }
+			});
+		}
+		if (window.Swiper) init();
+		else window.addEventListener('load', init);
+	})();
+	</script>
+</section>

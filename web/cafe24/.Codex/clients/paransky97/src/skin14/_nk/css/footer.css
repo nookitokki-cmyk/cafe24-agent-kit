@@ -1,0 +1,134 @@
+@charset "utf-8";
+
+/* ============================================================
+   NK 푸터 전용 CSS (skin14) — _nk/inc/footer.html 클린 구조
+   · 토큰은 custom.css :root 사용 (--nk-bg / --nk-line / --nk-sub / --nk-font-display / --nk-fs-sm / --nk-fs-lead ...)
+   · 레이아웃은 여기서 grid/flex 로 명확히 정의 (base layout.css 의 .inner_t/.info_left 구조 안 씀)
+   · #right_quick 플로팅 위젯·모바일 bottom-nav 톤은 custom.css §8 가 담당 → 여기서 중복 금지
+   · .inner 좌우 패딩/최대폭은 custom.css 가 헤더·본문과 통일 정렬
+   · 스코프: body#nk-skin14 (base #footer 규칙 맞받기 위한 specificity)
+   ============================================================ */
+
+/* base layout.css #footer { background:var(--nk-bg2); } / .inner{padding:100px 0} 를 투명·여백 재정의 */
+body#nk-skin14 #footer.nk-ft {
+	background: transparent;
+	border-top: 1px solid var(--nk-line);
+	color: var(--nk-font);
+	overflow: visible;
+}
+body#nk-skin14 #footer.nk-ft .inner.nk-ft__inner {
+	padding-top: 70px;
+	padding-bottom: 50px;
+	color: var(--nk-font);
+}
+
+/* ── 상단: 4컬럼 grid ── */
+body#nk-skin14 .nk-ft__top {
+	display: grid;
+	grid-template-columns: 1.6fr 1fr 1.2fr 1fr;
+	gap: 40px;
+	align-items: start;
+}
+
+/* 컬럼 타이틀 (Marcellus) */
+body#nk-skin14 .nk-ft__title {
+	margin: 0 0 18px;
+	font-family: var(--nk-font-display);
+	font-size: var(--nk-fs-lead);
+	font-weight: 400;
+	letter-spacing: var(--nk-ls);
+	color: var(--nk-font);
+	line-height: 1.2;
+}
+
+/* [1] 회사정보 */
+body#nk-skin14 .nk-ft__logo { margin-bottom: 26px; }
+body#nk-skin14 .nk-ft__logo a { display: inline-flex; align-items: center; }
+body#nk-skin14 .nk-ft__logo img { max-height: 24px; width: auto; }
+
+body#nk-skin14 .nk-ft__info {
+	margin: 0;
+	font-size: var(--nk-fs-sm);
+	color: var(--nk-sub);
+	line-height: 1.9;
+	letter-spacing: var(--nk-ls);
+}
+body#nk-skin14 .nk-ft__info > div { display: flex; flex-wrap: wrap; gap: 4px 10px; }
+body#nk-skin14 .nk-ft__info dt {
+	min-width: 92px;
+	color: var(--nk-font);
+	font-weight: 500;
+}
+body#nk-skin14 .nk-ft__info dd { margin: 0; }
+
+/* [2] 바로가기 / [4] SNS — 공통 링크 리스트 */
+body#nk-skin14 .nk-ft__menu ul,
+body#nk-skin14 .nk-ft__sns ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+body#nk-skin14 .nk-ft__menu li,
+body#nk-skin14 .nk-ft__sns li { margin-bottom: 12px; }
+body#nk-skin14 .nk-ft__menu a,
+body#nk-skin14 .nk-ft__sns a {
+	font-size: var(--nk-fs-sm);
+	color: var(--nk-sub);
+	letter-spacing: var(--nk-ls);
+	transition: color .2s ease;
+}
+body#nk-skin14 .nk-ft__menu a strong { font-weight: 500; color: var(--nk-font); }
+body#nk-skin14 .nk-ft__menu a:hover,
+body#nk-skin14 .nk-ft__sns a:hover { color: var(--nk-font); }
+
+/* [3] 고객센터 */
+body#nk-skin14 .nk-ft__cs-list {
+	margin: 0;
+	font-size: var(--nk-fs-sm);
+	color: var(--nk-sub);
+	line-height: 1.9;
+	letter-spacing: var(--nk-ls);
+}
+body#nk-skin14 .nk-ft__cs-list > div { margin-bottom: 12px; }
+body#nk-skin14 .nk-ft__cs-list dt {
+	color: var(--nk-font);
+	font-weight: 500;
+	margin-bottom: 2px;
+}
+body#nk-skin14 .nk-ft__cs-list dd { margin: 0; }
+body#nk-skin14 .nk-ft__cs-list a { color: var(--nk-sub); transition: color .2s ease; }
+body#nk-skin14 .nk-ft__cs-list a:hover { color: var(--nk-font); }
+
+/* ── 하단: 카피라이트 ── */
+body#nk-skin14 .nk-ft__bottom {
+	margin-top: 50px;
+	padding-top: 24px;
+	border-top: 1px solid var(--nk-line);
+}
+body#nk-skin14 .nk-ft__copyright {
+	margin: 0;
+	font-size: 12px;
+	color: var(--nk-sub);
+	letter-spacing: var(--nk-ls);
+	line-height: 1.6;
+}
+
+/* ── 반응형: 1024 이하 세로 스택 (2컬럼 → 1컬럼) ── */
+@media all and (max-width: 1024px) {
+	body#nk-skin14 .nk-ft__top {
+		grid-template-columns: 1fr 1fr;
+		gap: 36px 30px;
+	}
+	body#nk-skin14 .nk-ft__company { grid-column: 1 / -1; }
+}
+@media all and (max-width: 540px) {
+	body#nk-skin14 #footer.nk-ft .inner.nk-ft__inner {
+		padding-top: 50px;
+		padding-bottom: 40px;
+	}
+	body#nk-skin14 .nk-ft__top {
+		grid-template-columns: 1fr;
+		gap: 32px;
+	}
+	body#nk-skin14 .nk-ft__bottom { margin-top: 36px; }
+}

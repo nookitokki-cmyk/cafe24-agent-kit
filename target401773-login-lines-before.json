@@ -1,0 +1,750 @@
+{
+  "url": "https://ecudemo401773.cafe24.com/member/login.html?v=nkbar-20260626-2",
+  "scroll": {
+    "scrollWidth": 1440,
+    "clientWidth": 1440
+  },
+  "count": 20,
+  "candidates": [
+    {
+      "tag": "DIV",
+      "id": "",
+      "className": "xans-element- xans-member xans-member-login ec-base-box typeThin ",
+      "text": "회원로그인\n        \n            회원로그인\n       ",
+      "display": "block",
+      "borderTopWidth": "0.666667px",
+      "borderTopColor": "rgb(215, 213, 213)",
+      "borderBottomWidth": "0.666667px",
+      "borderBottomColor": "rgb(215, 213, 213)",
+      "borderLeftWidth": "0.666667px",
+      "borderRightWidth": "0.666667px",
+      "backgroundImage": "none",
+      "boxShadow": "none",
+      "rect": {
+        "x": 0,
+        "y": 331,
+        "w": 1440,
+        "h": 324
+      },
+      "before": {
+        "content": "none",
+        "display": "inline",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0px"
+      },
+      "after": {
+        "content": "none",
+        "display": "inline",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0px"
+      }
+    },
+    {
+      "tag": "LABEL",
+      "id": "",
+      "className": "id ePlaceholder",
+      "text": "",
+      "display": "block",
+      "borderTopWidth": "0.666667px",
+      "borderTopColor": "rgb(217, 217, 217)",
+      "borderBottomWidth": "0.666667px",
+      "borderBottomColor": "rgb(217, 217, 217)",
+      "borderLeftWidth": "0.666667px",
+      "borderRightWidth": "0.666667px",
+      "backgroundImage": "none",
+      "boxShadow": "none",
+      "rect": {
+        "x": 540,
+        "y": 421,
+        "w": 252,
+        "h": 29
+      },
+      "before": {
+        "content": "none",
+        "display": "inline",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0px"
+      },
+      "after": {
+        "content": "none",
+        "display": "inline",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0px"
+      }
+    },
+    {
+      "tag": "LABEL",
+      "id": "",
+      "className": "password ePlaceholder",
+      "text": "",
+      "display": "block",
+      "borderTopWidth": "0.666667px",
+      "borderTopColor": "rgb(217, 217, 217)",
+      "borderBottomWidth": "0.666667px",
+      "borderBottomColor": "rgb(217, 217, 217)",
+      "borderLeftWidth": "0.666667px",
+      "borderRightWidth": "0.666667px",
+      "backgroundImage": "none",
+      "boxShadow": "none",
+      "rect": {
+        "x": 540,
+        "y": 458,
+        "w": 252,
+        "h": 29
+      },
+      "before": {
+        "content": "none",
+        "display": "inline",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0px"
+      },
+      "after": {
+        "content": "none",
+        "display": "inline",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0px"
+      }
+    },
+    {
+      "tag": "UL",
+      "id": "",
+      "className": "snsArea",
+      "text": "",
+      "display": "block",
+      "borderTopWidth": "0px",
+      "borderTopColor": "rgb(46, 46, 46)",
+      "borderBottomWidth": "0.666667px",
+      "borderBottomColor": "rgb(233, 233, 233)",
+      "borderLeftWidth": "0px",
+      "borderRightWidth": "0px",
+      "backgroundImage": "none",
+      "boxShadow": "none",
+      "rect": {
+        "x": 540,
+        "y": 529,
+        "w": 370,
+        "h": 31
+      },
+      "before": {
+        "content": "none",
+        "display": "inline",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0px"
+      },
+      "after": {
+        "content": "none",
+        "display": "inline",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0px"
+      }
+    },
+    {
+      "tag": "LI",
+      "id": "",
+      "className": "displaynone",
+      "text": "",
+      "display": "none",
+      "borderTopWidth": "0px",
+      "borderTopColor": "rgb(46, 46, 46)",
+      "borderBottomWidth": "0px",
+      "borderBottomColor": "rgb(46, 46, 46)",
+      "borderLeftWidth": "0px",
+      "borderRightWidth": "0px",
+      "backgroundImage": "none",
+      "boxShadow": "none",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "before": {
+        "content": "none",
+        "display": "inline",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0px"
+      },
+      "after": {
+        "content": "none",
+        "display": "inline-block",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0.666667px"
+      }
+    },
+    {
+      "tag": "LI",
+      "id": "",
+      "className": "displaynone",
+      "text": "",
+      "display": "none",
+      "borderTopWidth": "0px",
+      "borderTopColor": "rgb(46, 46, 46)",
+      "borderBottomWidth": "0px",
+      "borderBottomColor": "rgb(46, 46, 46)",
+      "borderLeftWidth": "0px",
+      "borderRightWidth": "0px",
+      "backgroundImage": "none",
+      "boxShadow": "none",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "before": {
+        "content": "none",
+        "display": "inline",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0px"
+      },
+      "after": {
+        "content": "none",
+        "display": "inline-block",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0.666667px"
+      }
+    },
+    {
+      "tag": "LI",
+      "id": "",
+      "className": "displaynone",
+      "text": "",
+      "display": "none",
+      "borderTopWidth": "0px",
+      "borderTopColor": "rgb(46, 46, 46)",
+      "borderBottomWidth": "0px",
+      "borderBottomColor": "rgb(46, 46, 46)",
+      "borderLeftWidth": "0px",
+      "borderRightWidth": "0px",
+      "backgroundImage": "none",
+      "boxShadow": "none",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "before": {
+        "content": "none",
+        "display": "inline",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0px"
+      },
+      "after": {
+        "content": "none",
+        "display": "inline-block",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0.666667px"
+      }
+    },
+    {
+      "tag": "LI",
+      "id": "",
+      "className": "displaynone",
+      "text": "",
+      "display": "none",
+      "borderTopWidth": "0px",
+      "borderTopColor": "rgb(46, 46, 46)",
+      "borderBottomWidth": "0px",
+      "borderBottomColor": "rgb(46, 46, 46)",
+      "borderLeftWidth": "0px",
+      "borderRightWidth": "0px",
+      "backgroundImage": "none",
+      "boxShadow": "none",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "before": {
+        "content": "none",
+        "display": "inline",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0px"
+      },
+      "after": {
+        "content": "none",
+        "display": "inline-block",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0.666667px"
+      }
+    },
+    {
+      "tag": "LI",
+      "id": "",
+      "className": "displaynone",
+      "text": "",
+      "display": "none",
+      "borderTopWidth": "0px",
+      "borderTopColor": "rgb(46, 46, 46)",
+      "borderBottomWidth": "0px",
+      "borderBottomColor": "rgb(46, 46, 46)",
+      "borderLeftWidth": "0px",
+      "borderRightWidth": "0px",
+      "backgroundImage": "none",
+      "boxShadow": "none",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "before": {
+        "content": "none",
+        "display": "inline",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0px"
+      },
+      "after": {
+        "content": "none",
+        "display": "inline-block",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0.666667px"
+      }
+    },
+    {
+      "tag": "LI",
+      "id": "",
+      "className": "displaynone",
+      "text": "",
+      "display": "none",
+      "borderTopWidth": "0px",
+      "borderTopColor": "rgb(46, 46, 46)",
+      "borderBottomWidth": "0px",
+      "borderBottomColor": "rgb(46, 46, 46)",
+      "borderLeftWidth": "0px",
+      "borderRightWidth": "0px",
+      "backgroundImage": "none",
+      "boxShadow": "none",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "before": {
+        "content": "none",
+        "display": "inline",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0px"
+      },
+      "after": {
+        "content": "none",
+        "display": "inline-block",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0.666667px"
+      }
+    },
+    {
+      "tag": "LI",
+      "id": "",
+      "className": "",
+      "text": "아이디찾기",
+      "display": "list-item",
+      "borderTopWidth": "0px",
+      "borderTopColor": "rgb(46, 46, 46)",
+      "borderBottomWidth": "0px",
+      "borderBottomColor": "rgb(46, 46, 46)",
+      "borderLeftWidth": "0px",
+      "borderRightWidth": "0px",
+      "backgroundImage": "none",
+      "boxShadow": "none",
+      "rect": {
+        "x": 595,
+        "y": 579,
+        "w": 80,
+        "h": 21
+      },
+      "before": {
+        "content": "none",
+        "display": "inline",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0px"
+      },
+      "after": {
+        "content": "\"\"",
+        "display": "inline-block",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0.666667px"
+      }
+    },
+    {
+      "tag": "LI",
+      "id": "",
+      "className": "",
+      "text": "비밀번호찾기",
+      "display": "list-item",
+      "borderTopWidth": "0px",
+      "borderTopColor": "rgb(46, 46, 46)",
+      "borderBottomWidth": "0px",
+      "borderBottomColor": "rgb(46, 46, 46)",
+      "borderLeftWidth": "0px",
+      "borderRightWidth": "0px",
+      "backgroundImage": "none",
+      "boxShadow": "none",
+      "rect": {
+        "x": 674,
+        "y": 579,
+        "w": 91,
+        "h": 21
+      },
+      "before": {
+        "content": "none",
+        "display": "inline",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0px"
+      },
+      "after": {
+        "content": "\"\"",
+        "display": "inline-block",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0.666667px"
+      }
+    },
+    {
+      "tag": "A",
+      "id": "",
+      "className": "btnEm",
+      "text": "비회원구매",
+      "display": "block",
+      "borderTopWidth": "0.666667px",
+      "borderTopColor": "rgba(0, 0, 0, 0)",
+      "borderBottomWidth": "0.666667px",
+      "borderBottomColor": "rgba(0, 0, 0, 0)",
+      "borderLeftWidth": "0.666667px",
+      "borderRightWidth": "0.666667px",
+      "backgroundImage": "none",
+      "boxShadow": "none",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "before": {
+        "content": "none",
+        "display": "inline",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0px"
+      },
+      "after": {
+        "content": "none",
+        "display": "inline",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0px"
+      }
+    },
+    {
+      "tag": "DIV",
+      "id": "",
+      "className": "xans-element- xans-layout xans-layout-login ",
+      "text": "회원로그인\n\n                    회원로그인\n       ",
+      "display": "block",
+      "borderTopWidth": "0px",
+      "borderTopColor": "rgb(34, 34, 34)",
+      "borderBottomWidth": "0.666667px",
+      "borderBottomColor": "rgb(232, 232, 232)",
+      "borderLeftWidth": "0px",
+      "borderRightWidth": "0px",
+      "backgroundImage": "none",
+      "boxShadow": "none",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "before": {
+        "content": "none",
+        "display": "inline",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0px"
+      },
+      "after": {
+        "content": "none",
+        "display": "inline",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0px"
+      }
+    },
+    {
+      "tag": "SPAN",
+      "id": "",
+      "className": "",
+      "text": "",
+      "display": "block",
+      "borderTopWidth": "0.666667px",
+      "borderTopColor": "rgb(217, 217, 217)",
+      "borderBottomWidth": "0.666667px",
+      "borderBottomColor": "rgb(217, 217, 217)",
+      "borderLeftWidth": "0.666667px",
+      "borderRightWidth": "0.666667px",
+      "backgroundImage": "none",
+      "boxShadow": "none",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "before": {
+        "content": "none",
+        "display": "inline",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0px"
+      },
+      "after": {
+        "content": "none",
+        "display": "inline",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0px"
+      }
+    },
+    {
+      "tag": "INPUT",
+      "id": "member_id",
+      "className": "inputTypeText",
+      "text": "",
+      "display": "inline-block",
+      "borderTopWidth": "0.666667px",
+      "borderTopColor": "rgb(216, 216, 210)",
+      "borderBottomWidth": "0.666667px",
+      "borderBottomColor": "rgb(216, 216, 210)",
+      "borderLeftWidth": "0.666667px",
+      "borderRightWidth": "0.666667px",
+      "backgroundImage": "none",
+      "boxShadow": "none",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "before": {
+        "content": "none",
+        "display": "inline",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0px"
+      },
+      "after": {
+        "content": "none",
+        "display": "inline",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0px"
+      }
+    },
+    {
+      "tag": "SPAN",
+      "id": "",
+      "className": "",
+      "text": "",
+      "display": "block",
+      "borderTopWidth": "0.666667px",
+      "borderTopColor": "rgb(217, 217, 217)",
+      "borderBottomWidth": "0.666667px",
+      "borderBottomColor": "rgb(217, 217, 217)",
+      "borderLeftWidth": "0.666667px",
+      "borderRightWidth": "0.666667px",
+      "backgroundImage": "none",
+      "boxShadow": "none",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "before": {
+        "content": "none",
+        "display": "inline",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0px"
+      },
+      "after": {
+        "content": "none",
+        "display": "inline",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0px"
+      }
+    },
+    {
+      "tag": "INPUT",
+      "id": "member_passwd",
+      "className": "",
+      "text": "",
+      "display": "inline-block",
+      "borderTopWidth": "0.666667px",
+      "borderTopColor": "rgb(216, 216, 210)",
+      "borderBottomWidth": "0.666667px",
+      "borderBottomColor": "rgb(216, 216, 210)",
+      "borderLeftWidth": "0.666667px",
+      "borderRightWidth": "0.666667px",
+      "backgroundImage": "none",
+      "boxShadow": "none",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "before": {
+        "content": "none",
+        "display": "inline",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0px"
+      },
+      "after": {
+        "content": "none",
+        "display": "inline",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0px"
+      }
+    },
+    {
+      "tag": "A",
+      "id": "",
+      "className": "btnSubmit sizeS",
+      "text": "로그인",
+      "display": "flex",
+      "borderTopWidth": "0.666667px",
+      "borderTopColor": "rgba(0, 0, 0, 0)",
+      "borderBottomWidth": "0.666667px",
+      "borderBottomColor": "rgba(0, 0, 0, 0)",
+      "borderLeftWidth": "0.666667px",
+      "borderRightWidth": "0.666667px",
+      "backgroundImage": "none",
+      "boxShadow": "none",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "before": {
+        "content": "none",
+        "display": "block",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0px"
+      },
+      "after": {
+        "content": "none",
+        "display": "block",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0px"
+      }
+    },
+    {
+      "tag": "A",
+      "id": "",
+      "className": "btnNormal sizeS",
+      "text": "회원가입",
+      "display": "flex",
+      "borderTopWidth": "0.666667px",
+      "borderTopColor": "rgb(216, 216, 210)",
+      "borderBottomWidth": "0.666667px",
+      "borderBottomColor": "rgb(216, 216, 210)",
+      "borderLeftWidth": "0.666667px",
+      "borderRightWidth": "0.666667px",
+      "backgroundImage": "none",
+      "boxShadow": "none",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "before": {
+        "content": "none",
+        "display": "block",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0px"
+      },
+      "after": {
+        "content": "none",
+        "display": "block",
+        "borderTopWidth": "0px",
+        "borderBottomWidth": "0px",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0px"
+      }
+    }
+  ]
+}
