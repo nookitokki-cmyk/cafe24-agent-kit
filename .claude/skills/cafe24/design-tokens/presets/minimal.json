@@ -1,5 +1,5 @@
 {
-  "client": "PRESET-minimal",
+  "client": "preset-minimal",
   "source": "preset",
   "version": "1.0.0",
   "colors": {

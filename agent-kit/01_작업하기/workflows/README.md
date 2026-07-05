@@ -9,7 +9,7 @@
 
 | 워크플로우 | 파일 | 사용 시점 | 단계 수 |
 |---|---|---|---|
-| **full-renewal (전체 개편)** | [09-full-renewal.md](09-full-renewal.md) | **★A-to-Z 전체 페이지** 디자인 시스템 개편 — 유형별 재마크업/재스타일/JS재구축 자동 배분 `[검증됨·프로토타입]` | 7단계 |
+| **full-renewal (전체 개편)** | [09-full-renewal.md](09-full-renewal.md) | **★A-to-Z 전체 페이지** 디자인 시스템 개편 — 유형별 재마크업/재스타일/JS재구축 자동 배분 `[검증됨·프로토타입]` | 8단계(0~7) |
 | ez-three-step-pingpong | [08-ez-three-step-pingpong.md](08-ez-three-step-pingpong.md) | **압축 핑퐁** HTML skin → EZ FTP overlay → strip 스킵/선별 (07 요약 실행) | Phase A/B/C |
 | ez-on-legacy-setup | [07-ez-on-legacy-setup.md](07-ez-on-legacy-setup.md) | **초기 세팅** 레거시 HTML 몰 + EZ base + `_ref*/` 레이어 | Phase 0~4 핑퐁 |
 | reference-intake | [05-reference-intake.md](05-reference-intake.md) | **구현 전** 레퍼런스 URL 또는 시안 인입 (`/레퍼런스인입`) | 5단계 |
