@@ -1,5 +1,5 @@
 {
-  "client": "PRESET-luxury",
+  "client": "preset-luxury",
   "source": "preset",
   "version": "1.0.0",
   "colors": {
@@ -11,7 +11,7 @@
     "text": "#f0ece4",
     "text-sub": "#a29c8d",
     "text-inverse": "#12100e",
-    "border": "rgba(255,255,255,0.12)",
+    "border": "#ffffff1f",
     "success": "#10B981",
     "warning": "#F59E0B",
     "error": "#EF4444",

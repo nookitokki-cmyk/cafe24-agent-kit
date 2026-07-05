@@ -787,7 +787,7 @@ Ctrl+U 브라우저 소스 보기
 
 - `references/modules.md` — 상품 상세·장바구니·주문서·회원·게시판 모듈 ID 전체
 - `references/variables.md` — **전 영역 250+ 변수 마스터 사전** (15개 섹션 + 비코더 가이드)
-- `references/modifiers.md` — 13개 모디파이어 (`|cut`, `|display`, `|number_format` 등) + Foreach·If 문법
+- `references/modifiers.md` — 모디파이어(`|cut`, `|display`, `|number_format` 등). ⚠️ 조건 노출은 `|display` 필터로 (`<!--[if]-->`·`foreach`는 미작동/부재 — [실측 2026-07-06])
 - `references/troubleshooting.md` — 비코더가 실제 마주치는 에러 5가지 + 수정 템플릿 (모듈 미렌더링 / 변수 미치환 / EZ 오버라이드 / 모바일 깨짐 / 캐시 문제)
 - `references/skin-method-detect.md` — **★ 작업 시작 전 필수**: HTML 네이티브 vs EZ 엎기 방식 판별·분기
 - `references/traps.json` — base 가 nk 스킨을 이기는 함정 47종 머신리더블 카탈로그 (`method` 축, detectJS 처방). `traps.schema.json` 스키마
