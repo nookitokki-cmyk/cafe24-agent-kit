@@ -7,7 +7,9 @@
 
 ---
 
-## 주 명령 9개 + 온보딩 3개 (v2.2+)
+## 주 명령 14개 = 온보딩 3개 + 작업 7개 + 검증·운영 4개 (v2.2+)
+
+> 분해 근거: [`commands/COMMANDS.md`](../commands/COMMANDS.md) 표 구조 그대로 (온보딩/작업/검증·운영 3분류).
 
 | 상황 | 명령어 | 다음 단계 |
 |------|--------|-----------|
@@ -15,28 +17,16 @@
 | 새 몰·클라이언트 폴더 | `/새클라이언트` | scaffold → `/API발급` |
 | MCP Cursor/Claude Code | `/MCP연결` | `05b-MCP-등록.md` |
 | 처음 왔거나 길을 잃음 | `/도움말` | 분기표 |
-| 몰 접속·FTP·skin | `/접속세팅` | Q1~Q6 |
 | 레퍼런스 URL·시안 | `/레퍼런스인입` | 「예」→ `/디자인수정` |
+| 몰 접속·FTP·skin | `/접속세팅` | Q1~Q6 |
 | OAuth·토큰 | `/API발급` | MCP-OAUTH-GUIDE |
 | 실측 | `/요소측정` | 「예」→ `/디자인수정` |
+| 섹션 제작 전 base 스캔·토큰 세팅 | `/토대정리` | 컴포넌트 갤러리 |
 | 코드 작업 | `/디자인수정` | verify-loop |
 | preflight·score | `/검증` | F34 해석 |
 | FTP 후 화면 동일 | `/캐시확인` | `?v=N` |
 | Phase C strip | `/EZ제거` | 사용자 「예」 |
 | 키트 버전·업데이트 | `/버전확인` | kit-update |
-
----
-
-## 주 명령 6개 (레거시 표 — 위 표 우선)
-
-| 상황 | 명령어 | 다음 단계 |
-|------|--------|-----------|
-| 처음 왔거나 길을 잃음 | `/도움말` | 처음 → `00-아무것도-모를-때.md` · 접속 → `/접속세팅` · API → `/API발급` |
-| 몰 접속·FTP·skin 확정 전 | `/접속세팅` | 파트너/일반 분기 → 몰 ID → 호스트·포트 → skin 표 → 작업 스킨 확정 |
-| 레퍼런스 URL 또는 시안 1:1 시작 | `/레퍼런스인입` | Q1~Q6 → 인벤토리·타입표·실측 → 사용자 **「예」** → `/디자인수정` |
-| 개발자센터 OAuth·MCP 토큰 | `/API발급` | `connect/MCP-OAUTH-GUIDE.md` 따라 핑퐁 |
-| 단일 페이지·부분 수정 전 숫자 수집 | `/요소측정` | 실측 시트 → **「예」** → `/디자인수정` |
-| 실측·인입 승인 후 코드 작업 | `/디자인수정` | SFTP 읽기 → `_nk/`·`custom.css` 우선 → 업로드 전 컨펌 |
 
 ---
 
@@ -99,7 +89,7 @@
 | 구분 | OMC (Oh My Claude) | agent-kit |
 |------|-------------------|-----------|
 | **위치** | Cursor 플러그인 `oh-my-claude` (wiki, notepad, trace 등) | `.claude/skills/*/SKILL.md` |
-| **슬래시 명령** | 플러그인 자체 명령 (프로젝트 무관) | **카페24 전용** 16개 스킬 (`.claude/skills/`) |
+| **슬래시 명령** | 플러그인 자체 명령 (프로젝트 무관) | **카페24 전용** 사용자 대면 명령 14개 (`.claude/skills/`, `cafe24`·`qa-loop` 등 내부/도메인 스킬 제외) |
 | **에이전트** | OMC 서브에이전트 (architect, executor 등) | `카페24-워크플로우` · `카페24-도우미` (`.claude/agents/`) |
 | **언제 OMC** | 멀티에이전트·메모리·위키·트레이스 | 카페24 스킨·FTP·verify-loop 작업 |
 | **언제 agent-kit** | `/레퍼런스인입`, `/디자인수정` 등 | 항상 카페24 작업 시 |
@@ -153,21 +143,28 @@ Cursor에서 agent-kit 폴더를 워크스페이스 루트로 열면 `.claude/sk
 
 ---
 
-## 명령어 주요 목록 (전체 16개는 `commands/COMMANDS.md` 정본)
+## 명령어 주요 목록 (전체 14개는 `commands/COMMANDS.md` 정본)
 
 > 명령은 모두 **스킬**로 통합돼 루트 `.claude/skills/` 에 있습니다. 폴더를 열면 `/명령` 으로 바로 호출됩니다. (구 별칭 `/카페24-시작·도와줘·새작업` 은 폐기 — 정규 명령 직접 사용)
 
 | # | 명령어 | 파일 | 유형 |
 |---|--------|------|------|
-| 1 | `/키트시작` | `.claude/skills/키트시작/SKILL.md` | 설치 |
-| 2 | `/도움말` | `.claude/skills/도움말/SKILL.md` | 주 |
-| 3 | `/레퍼런스인입` | `.claude/skills/레퍼런스인입/SKILL.md` | 주 |
-| 4 | `/접속세팅` | `.claude/skills/접속세팅/SKILL.md` | 주 |
-| 5 | `/API발급` | `.claude/skills/API발급/SKILL.md` | 주 |
-| 6 | `/요소측정` | `.claude/skills/요소측정/SKILL.md` | 주 |
-| 7 | `/디자인수정` | `.claude/skills/디자인수정/SKILL.md` | 주 |
-| 8 | `/카페24-워크플로우` | `.claude/skills/카페24-워크플로우/SKILL.md` | 워크플로 |
-| 9 | `/카페24-자동화` | `.claude/skills/카페24-자동화/SKILL.md` | 파이프라인 |
+| 1 | `/키트시작` | `.claude/skills/키트시작/SKILL.md` | 온보딩 |
+| 2 | `/새클라이언트` | `.claude/skills/새클라이언트/SKILL.md` | 온보딩 |
+| 3 | `/MCP연결` | `.claude/skills/MCP연결/SKILL.md` | 온보딩 |
+| 4 | `/도움말` | `.claude/skills/도움말/SKILL.md` | 작업 |
+| 5 | `/레퍼런스인입` | `.claude/skills/레퍼런스인입/SKILL.md` | 작업 |
+| 6 | `/접속세팅` | `.claude/skills/접속세팅/SKILL.md` | 작업 |
+| 7 | `/API발급` | `.claude/skills/API발급/SKILL.md` | 작업 |
+| 8 | `/요소측정` | `.claude/skills/요소측정/SKILL.md` | 작업 |
+| 9 | `/토대정리` | `.claude/skills/토대정리/SKILL.md` | 작업 |
+| 10 | `/디자인수정` | `.claude/skills/디자인수정/SKILL.md` | 작업 |
+| 11 | `/검증` | `.claude/skills/검증/SKILL.md` | 검증·운영 |
+| 12 | `/캐시확인` | `.claude/skills/캐시확인/SKILL.md` | 검증·운영 |
+| 13 | `/EZ제거` | `.claude/skills/EZ제거/SKILL.md` | 검증·운영 |
+| 14 | `/버전확인` | `.claude/skills/버전확인/SKILL.md` | 검증·운영 |
+
+> `/카페24-워크플로우`·`/카페24-자동화`·`/프롬프트참고`는 COMMANDS.md 표에 별도로 나열되지 않은 워크플로/파이프라인 보조 명령입니다 (COMMANDS.md 하단 비고 참고). 위 14개 카운트에는 포함하지 않습니다.
 
 ---
 
@@ -175,5 +172,5 @@ Cursor에서 agent-kit 폴더를 워크스페이스 루트로 열면 `.claude/sk
 
 - **키트 첫 열기:** [`키트-시작-가이드.md`](./키트-시작-가이드.md)
 - 복붙 프롬프트: [`프롬프트-템플릿.md`](./프롬프트-템플릿.md)
-- 슬래시 대본: [`.claude/skills/`](../.claude/skills/)
+- 슬래시 대본: [`.claude/skills/`](../../.claude/skills/)
 - 워크플로 정의: [`01_작업하기/workflows/README.md`](../01_작업하기/workflows/README.md)

@@ -18,6 +18,7 @@
 - **span 함정**: `{$product_name}`은 카페24가 `<span>`으로 감싸므로 `alt=`/`aria-label=`/`|cut`에 직접 쓰면 마크업 깨짐 → 회피 가이드.
 - `product_action`(구매 버튼) 재마크업 가능(onclick·link 1:1 이식) / 거래 표 de-table 금지 — 라이브 실증 반영.
 - (내부) stale `dist/` 추적 해제 — 릴리스는 `build-dist-kit.sh` 재빌드본만 사용.
+- **문서 정합**: 명령 개수 문서 간 불일치(9·6·16 혼재 → 14개로 통일, 정본 `commands/COMMANDS.md`), 죽은 stub `05b-MCP-Cursor-등록.md` 제거, 루트 README 진입 문서 안내(PURPOSE는 배포본 미포함 명시), 배포 대상 전체 **죽은 링크 0건**(v2.6.0 스킬 이동 후 `../.claude`→`../../.claude` 경로 잔존 교정).
 
 ## v2.7.1 (2026-07-04) — 준비물 3종 세트(컴포넌트 갤러리) + Claude Code MCP 지원
 
