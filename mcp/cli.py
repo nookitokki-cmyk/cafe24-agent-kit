@@ -22,6 +22,9 @@
   python cli.py page <skin_no> <path>        스킨 파일 1건 읽기 (정본)
   python cli.py auth-url                     (refresh 만료 시) 재동의 주소 출력
   python cli.py code "<URL 또는 code>"        동의 후 code 를 토큰으로 교환
+  python cli.py products [--limit N]         상품 목록
+  python cli.py product <product_no>         상품 1건 조회
+  python cli.py product-create --name ... --price ... [--json file]
 
   [SFTP 백엔드]
   python cli.py ls <원격경로> [깊이]           파일트리
@@ -42,12 +45,13 @@ from pathlib import Path
 try:
     from auth.oauth import AuthError, TokenManager
     from backends.cafe24_api import Cafe24API, Cafe24ApiError
-    from backends.cafe24_sftp import Cafe24SFTP, SftpWriteDenied
+    from backends.cafe24_ftp import open_remote
+    from backends.cafe24_sftp import SftpWriteDenied
 
     _BACKENDS_IMPORT_ERROR: Exception | None = None
 except ImportError as _e:
     _BACKENDS_IMPORT_ERROR = _e
-    TokenManager = Cafe24API = Cafe24SFTP = None  # type: ignore[assignment,misc]
+    TokenManager = Cafe24API = open_remote = None  # type: ignore[assignment,misc]
 
     class AuthError(Exception):  # type: ignore[no-redef]
         pass
@@ -91,6 +95,55 @@ def _pop_flag(args: list[str], name: str) -> bool:
     return False
 
 
+def _parse_kv_flags(args: list[str]) -> tuple[dict[str, str], list[str]]:
+    """--key value 쌍을 dict로, 나머지 positional args 반환."""
+    flags: dict[str, str] = {}
+    rest: list[str] = []
+    i = 0
+    while i < len(args):
+        if args[i].startswith("--"):
+            key = args[i][2:].replace("-", "_")
+            if i + 1 >= len(args) or args[i + 1].startswith("--"):
+                flags[key] = "true"
+                i += 1
+            else:
+                flags[key] = args[i + 1]
+                i += 2
+        else:
+            rest.append(args[i])
+            i += 1
+    return flags, rest
+
+
+def _load_product_payloads(flags: dict[str, str]) -> list[dict]:
+    json_path = flags.get("json") or flags.get("file")
+    if json_path:
+        data = json.loads(Path(json_path).read_text(encoding="utf-8"))
+        if isinstance(data, dict) and "products" in data:
+            return list(data["products"])
+        if isinstance(data, list):
+            return data
+        raise ValueError("JSON 은 배열 또는 {\"products\": [...]} 형식이어야 합니다.")
+    name = flags.get("name")
+    price = flags.get("price")
+    if not name or not price:
+        raise ValueError(
+            "단건 등록: --name 과 --price 필수. "
+            "일괄 등록: --json products.json"
+        )
+    payload: dict = {"product_name": name, "price": price}
+    for src, dst in (
+        ("supply_price", "supply_price"),
+        ("retail_price", "retail_price"),
+        ("display", "display"),
+        ("selling", "selling"),
+        ("description", "description"),
+    ):
+        if src in flags:
+            payload[dst] = flags[src]
+    return [payload]
+
+
 def _pop_opt(args: list[str], name: str) -> str | None:
     if name in args:
         i = args.index(name)
@@ -117,6 +170,7 @@ def main():
     # Backend commands need the optional deps; kit-* commands do not.
     backend_cmds = {
         "status", "themes", "page", "auth-url", "code",
+        "products", "product", "product-create",
         "ls", "cat", "get", "backup", "put",
     }
     if cmd in backend_cmds and _BACKENDS_IMPORT_ERROR is not None:
@@ -208,10 +262,49 @@ def main():
             tok = tm.exchange_code(args[1])
             print(f"토큰 발급 완료 (access 만료: {tok.get('expires_at')})")
 
+        elif cmd == "products":
+            flags, _ = _parse_kv_flags(args[1:])
+            limit = int(flags.get("limit", "20"))
+            offset = int(flags.get("offset", "0"))
+            api = Cafe24API(mall)
+            products = api.list_products(limit=limit, offset=offset)
+            print(f"총 {len(products)}건 (limit={limit}, offset={offset}):")
+            for p in products:
+                print(
+                    f"  - no={p.get('product_no')} code={p.get('product_code')} "
+                    f"name={p.get('product_name')!r} price={p.get('price')} "
+                    f"display={p.get('display')} selling={p.get('selling')}"
+                )
+
+        elif cmd == "product":
+            if len(args) < 2:
+                print("사용법: python cli.py product <product_no>", file=sys.stderr)
+                sys.exit(1)
+            api = Cafe24API(mall)
+            product = api.get_product(int(args[1]))
+            print(json.dumps(product, ensure_ascii=False, indent=2))
+
+        elif cmd == "product-create":
+            flags, _ = _parse_kv_flags(args[1:])
+            payloads = _load_product_payloads(flags)
+            api = Cafe24API(mall)
+            created = []
+            for payload in payloads:
+                product = api.create_product(payload)
+                created.append(
+                    {
+                        "product_no": product.get("product_no"),
+                        "product_code": product.get("product_code"),
+                        "product_name": product.get("product_name"),
+                        "price": product.get("price"),
+                    }
+                )
+            print(json.dumps({"created": created, "count": len(created)}, ensure_ascii=False, indent=2))
+
         elif cmd == "ls":
             path = args[1] if len(args) > 1 else "/"
             depth = int(args[2]) if len(args) > 2 else 1
-            with Cafe24SFTP(mall) as s:
+            with open_remote(mall) as s:
                 items = s.list(path, depth)
             for it in items:
                 indent = "  " * (it["path"].strip("/").count("/"))
@@ -224,7 +317,7 @@ def main():
             if len(args) < 2:
                 print("사용법: python cli.py cat <원격경로>", file=sys.stderr)
                 sys.exit(1)
-            with Cafe24SFTP(mall) as s:
+            with open_remote(mall) as s:
                 text = s.read(args[1])
             print(f"{args[1]} — {len(text):,}자 (앞 500자):\n")
             print(text[:500])
@@ -233,7 +326,7 @@ def main():
             if len(args) < 3:
                 print("사용법: python cli.py get <원격경로> <로컬경로>", file=sys.stderr)
                 sys.exit(1)
-            with Cafe24SFTP(mall) as s:
+            with open_remote(mall) as s:
                 r = s.download(args[1], args[2])
             print(f"다운로드: 받음 {r['files']}개 / 실패 {r['failed']}개 → {args[2]}")
 
@@ -241,7 +334,7 @@ def main():
             if len(args) < 2:
                 print("사용법: python cli.py backup <원격경로>", file=sys.stderr)
                 sys.exit(1)
-            with Cafe24SFTP(mall) as s:
+            with open_remote(mall) as s:
                 dest = s.backup(args[1])
             print(f"백업 완료: {dest}" if dest else "원격에 없는 경로 — 백업 생략(신규)")
 
@@ -249,7 +342,7 @@ def main():
             if len(args) < 3:
                 print("사용법: python cli.py put <로컬경로> <원격경로>", file=sys.stderr)
                 sys.exit(1)
-            with Cafe24SFTP(mall) as s:
+            with open_remote(mall) as s:
                 r = s.upload(local_path=args[1], remote_path=args[2])
             print(
                 f"업로드: {r['uploaded']}개 / 실패 {r['failed']}개"
@@ -260,7 +353,7 @@ def main():
             print(__doc__)
             sys.exit(1)
 
-    except (AuthError, Cafe24ApiError, SftpWriteDenied) as e:
+    except (AuthError, Cafe24ApiError, SftpWriteDenied, ValueError) as e:
         print(f"ERROR: {e}", file=sys.stderr)
         sys.exit(1)
     except FileNotFoundError as e:

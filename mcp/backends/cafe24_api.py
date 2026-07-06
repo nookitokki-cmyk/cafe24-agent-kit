@@ -1,9 +1,12 @@
 """
-카페24 Admin API 백엔드 (읽기 전용) — 설계서 §4-1.
+카페24 Admin API 백엔드 — 설계서 §4-1 + 상품 API.
 
 제공 기능:
   list_themes()            디자인(스킨) 목록 + 타입(H/E) 메타데이터
   read_page(skin_no, path) 스킨 파일 1건의 소스(카페24 보관 정본)
+  list_products()          상품 목록 (mall.read_product)
+  get_product(product_no)  상품 1건 조회
+  create_product(payload)  상품 등록 (mall.write_product)
   auth_status()            토큰 유효시간·scope 진단
 
 모든 호출 전에 TokenManager 가 토큰 만료를 검사해 자동 갱신한다.
@@ -54,17 +57,44 @@ class Cafe24API:
             )
         return resp.json()
 
+    def _headers(self, token: str) -> dict:
+        return {
+            "Authorization": f"Bearer {token}",
+            "Content-Type": "application/json",
+            "X-Cafe24-Api-Version": self.cfg.API_VERSION,
+        }
+
     def _raw_get(self, path: str, token: str, params: dict | None) -> requests.Response:
         return requests.get(
             f"{self.tm.base_url}{path}",
-            headers={
-                "Authorization": f"Bearer {token}",
-                "Content-Type": "application/json",
-                "X-Cafe24-Api-Version": self.cfg.API_VERSION,
-            },
+            headers=self._headers(token),
             params=params or {},
             timeout=20,
         )
+
+    def _post(self, path: str, body: dict, *, ok_status: tuple[int, ...] = (200, 201)) -> dict:
+        token = self.tm.get_access_token()
+        resp = requests.post(
+            f"{self.tm.base_url}{path}",
+            headers=self._headers(token),
+            json=body,
+            timeout=30,
+        )
+        if resp.status_code == 401:
+            tok = self.tm.load_token()
+            if tok and tok.get("refresh_token"):
+                token = self.tm.refresh(tok["refresh_token"])["access_token"]
+                resp = requests.post(
+                    f"{self.tm.base_url}{path}",
+                    headers=self._headers(token),
+                    json=body,
+                    timeout=30,
+                )
+        if resp.status_code not in ok_status:
+            raise Cafe24ApiError(
+                f"POST {path} 실패 {resp.status_code}: {resp.text[:400]}"
+            )
+        return resp.json()
 
     # ── 도구 1: 디자인 목록 ────────────────────────────────────
 
@@ -105,7 +135,50 @@ class Cafe24API:
             page = page[0] if page else {}
         return page
 
-    # ── 도구 3: 인증 상태 진단 ─────────────────────────────────
+    # ── 도구 3: 상품 ───────────────────────────────────────────
+
+    @staticmethod
+    def normalize_product_payload(payload: dict) -> dict:
+        """Admin API POST /products 용 request 필드 정규화."""
+        req = dict(payload)
+        name = req.get("product_name")
+        if not name:
+            raise Cafe24ApiError("product_name 은 필수입니다.")
+        price = req.get("price")
+        if price is None:
+            raise Cafe24ApiError("price 는 필수입니다.")
+        price_s = str(int(float(price)))
+        req["price"] = price_s
+        retail = req.get("retail_price", price_s)
+        req["retail_price"] = str(int(float(retail)))
+        if "supply_price" not in req:
+            req["supply_price"] = str(int(float(price_s) * 0.9))
+        else:
+            req["supply_price"] = str(int(float(req["supply_price"])))
+        req.setdefault("display", "T")
+        req.setdefault("selling", "T")
+        return req
+
+    def list_products(self, *, limit: int = 20, offset: int = 0) -> list[dict]:
+        data = self._get(
+            "/api/v2/admin/products",
+            params={"limit": limit, "offset": offset},
+        )
+        return data.get("products", [])
+
+    def get_product(self, product_no: int) -> dict:
+        data = self._get(f"/api/v2/admin/products/{product_no}")
+        return data.get("product") or data
+
+    def create_product(self, payload: dict, *, shop_no: int = 1) -> dict:
+        request = self.normalize_product_payload(payload)
+        data = self._post(
+            "/api/v2/admin/products",
+            {"shop_no": shop_no, "request": request},
+        )
+        return data.get("product") or data
+
+    # ── 도구 4: 인증 상태 진단 ─────────────────────────────────
 
     def auth_status(self) -> dict:
         """토큰 유효시간·scope 요약 (비밀값 미포함)."""

@@ -8,6 +8,17 @@ mcp/config/sftp_*.json
 mcp/backups/
 mcp/work/clients/
 work/deploy-*/
+# 루트 스크린샷·측정 JSON 스크래치 (몰ID 접두사) — 클라이언트 작업물은 키트 밖(C:\nookitokki\clients\)에 보관
+/ecudemo*-*.png
+/ecudemo*-*.json
+/ecudemo*-*.md
+/ref*-*.json
+/target*-*.json
+
+# Node deps / browser automation 산출물 — 절대 커밋 금지
+node_modules/
+.playwright-mcp/
+web/cafe24/.Codex/
 # 클라이언트 폴더: _template·demo000(예시)만 추적, 나머지 실/테스트 클라는 전부 제외
 agent-kit/clients/*
 !agent-kit/clients/_template/

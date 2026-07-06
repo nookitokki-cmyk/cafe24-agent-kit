@@ -1,0 +1,19 @@
+{
+  "products": [
+    {
+      "product_name": "샘플 상품 A",
+      "price": "29000",
+      "supply_price": "26100",
+      "retail_price": "29000",
+      "display": "T",
+      "selling": "T",
+      "description": "API 일괄 등록 예시"
+    },
+    {
+      "product_name": "샘플 상품 B",
+      "price": "15000",
+      "display": "T",
+      "selling": "T"
+    }
+  ]
+}
