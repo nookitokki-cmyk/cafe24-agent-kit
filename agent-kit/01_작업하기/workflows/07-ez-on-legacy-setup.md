@@ -45,7 +45,7 @@
 | `CAFE24.MOBILE_WEB` | 페이지 소스 검색 `MOBILE_WEB` | false 권장 |
 | 모바일 트리 | `/sde_design/mobile/` 존재·`layout.html`에 커스텀 CSS 링크 | |
 
-**파트너 몰 경로 규칙:** 일반몰 `/skin16` 루트 vs 파트너 `/sde_design/base` — [`brain/_evidence/partner-live-ecudemo400786-2026-06-19.txt`](../../brain/_evidence/partner-live-ecudemo400786-2026-06-19.txt)
+**파트너 몰 경로 규칙:** 일반몰 `/skin16` 루트 vs 파트너 `/sde_design/base` (근거: 내부 실측 자료 `brain/_evidence/partner-live-*.txt` — 개발 레포 전용, 배포본 미포함)
 
 ### 0-B. 사용자 핑퐁 (복붙)
 

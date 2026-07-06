@@ -1,5 +1,25 @@
 # Cafe24 Agent Kit — Changelog
 
+## v2.8.0 (2026-07-06) — 재마크업 방법론 표면화 + 카트 JS재구축 + A-to-Z 전체 개편 워크플로우
+
+> **호환성:** non-breaking(파일 삭제·이동·이름변경 **없음**, 순수 신규 추가 + 문서 내용 정합). 기존 v2.7.x 설치 위에 그대로 업데이트 가능.
+
+### Added
+- **재마크업 방법론 1급 문서화** — `references/module-remarkup.md`: "색·폰트·여백=CSS 오버라이드 / 레이아웃·구조=HTML 재작성" 결정트리, 되는·제약 모듈 등급표(✅완전재작성/🟡주의/🔴표 골격보존), 반복단위(`anchorBoxId_{$product_no}`) 보존 규칙, 반복단위 계층 규칙.
+- **카트 JS재구축 방법** — `references/cart-js-rebuild.md` + `snippets/_nk-cart-app/`: 거래 표를 완전 커스텀해야 할 때 카페24 카트를 화면 밖으로 숨기고 JS로 데이터를 읽어 커스텀 UI 렌더 + 숨긴 원본에 배선 연결. **프로토타입 단계(옵션·품절·배송그룹 하드닝 미완) — 실전 적용 전 검증 필수 경고 포함.**
+- **A-to-Z 전체 개편 워크플로우** — `01_작업하기/workflows/09-full-renewal.md`: 레퍼런스 인입 → 토대정리 → 페이지 유형별 재마크업/재스타일/JS재구축 자동 배분 → verify-loop/qa-loop.
+- **디자인 프리셋 3종** — `design-tokens/presets/`(minimal·luxury·soft).
+- **모듈 안전등급표·페이지맵 편입** — `references/module-safety.json` + P0 실측 맵. 근거 라벨(`[공식]`/`[실측]`/`[검증됨]`/`[검증필요]`) 정합.
+
+### Fixed — 카페24 문법 정합화 (2026-07-06 skin2 라이브 검증 반영, QA 3라운드)
+- **조건문**: `<!--[if]-->`는 미작동 → `|display` 필터로 정정.
+- **변수 스코프**: 모듈 밖/미지원 변수는 `{$var}` 글자 그대로가 아니라 **빈 값**으로 렌더됨(중괄호·`$` 누락 오타일 때만 글자 그대로). authoritative 문서 + 초보자 문서(용어집·실패복구·자주막히는5가지) + troubleshooting 전면 정합.
+- **지시어**: 실제 지시어는 `@layout`·`@contents`·`@css`·`@js`·`@import` **괄호 단일태그**뿐. 쌍태그(`<!--/@css-->`)·`@module`·`@section`·`@placeholder`는 실제 지시어 아님 → `troubleshooting.md` 예시 코드의 가짜 `<!--@module()-->` 표기를 실제 `<div module="...">` 속성 형태로 전면 교정.
+- **span 함정**: `{$product_name}`은 카페24가 `<span>`으로 감싸므로 `alt=`/`aria-label=`/`|cut`에 직접 쓰면 마크업 깨짐 → 회피 가이드.
+- `product_action`(구매 버튼) 재마크업 가능(onclick·link 1:1 이식) / 거래 표 de-table 금지 — 라이브 실증 반영.
+- (내부) stale `dist/` 추적 해제 — 릴리스는 `build-dist-kit.sh` 재빌드본만 사용.
+- **문서 정합**: 명령 개수 문서 간 불일치(9·6·16 혼재 → 14개로 통일, 정본 `commands/COMMANDS.md`), 죽은 stub `05b-MCP-Cursor-등록.md` 제거, 루트 README 진입 문서 안내(PURPOSE는 배포본 미포함 명시), 배포 대상 전체 **죽은 링크 0건**(v2.6.0 스킬 이동 후 `../.claude`→`../../.claude` 경로 잔존 교정).
+
 ## v2.7.1 (2026-07-04) — 준비물 3종 세트(컴포넌트 갤러리) + Claude Code MCP 지원
 
 ### Added

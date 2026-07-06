@@ -4,7 +4,13 @@
   "title": "카페24 Design Tokens",
   "description": "Figma → 카페24 스킨 자동 토큰 추출 결과물 스키마. design-tokens.json 파일의 검증 기준.",
   "type": "object",
-  "required": ["client", "source", "colors", "typography", "spacing"],
+  "required": [
+    "client",
+    "source",
+    "colors",
+    "typography",
+    "spacing"
+  ],
   "additionalProperties": false,
   "properties": {
     "client": {
@@ -14,8 +20,14 @@
     },
     "source": {
       "type": "string",
-      "enum": ["figma", "screenshot", "manual", "imported"],
-      "description": "토큰 추출 소스. figma=figma-explorer가 추출, screenshot=이미지 분석, manual=수동 입력, imported=다른 프로젝트에서 가져옴"
+      "enum": [
+        "figma",
+        "screenshot",
+        "manual",
+        "imported",
+        "preset"
+      ],
+      "description": "토큰 추출 소스. figma=figma-explorer가 추출, screenshot=이미지 분석, manual=수동 입력, imported=다른 프로젝트에서 가져옴, preset=검증된 디자인 시스템 프리셋"
     },
     "figma_url": {
       "type": "string",
@@ -33,33 +45,72 @@
       "default": "1.0.0",
       "description": "토큰 버전. 클라이언트 색상 변경 등 의미 있는 수정 시 증가"
     },
-
     "colors": {
       "type": "object",
       "description": "색상 토큰. CSS 변수 --nk-color-{key}로 변환됨",
-      "required": ["primary", "text", "background"],
+      "required": [
+        "primary",
+        "text",
+        "background"
+      ],
       "additionalProperties": false,
       "properties": {
-        "primary":     { "$ref": "#/$defs/hexColor", "description": "브랜드 메인 색상" },
-        "secondary":   { "$ref": "#/$defs/hexColor", "description": "보조 브랜드 색상 (선택)" },
-        "accent":      { "$ref": "#/$defs/hexColor", "description": "강조·CTA 색상" },
-        "background":  { "$ref": "#/$defs/hexColor", "description": "기본 배경" },
-        "surface":     { "$ref": "#/$defs/hexColor", "description": "카드·서피스 배경 (선택)" },
-        "text":        { "$ref": "#/$defs/hexColor", "description": "본문 텍스트" },
-        "text-sub":    { "$ref": "#/$defs/hexColor", "description": "보조 텍스트 (옅은 회색 등)" },
-        "text-inverse":{ "$ref": "#/$defs/hexColor", "description": "어두운 배경 위 흰 텍스트" },
-        "border":      { "$ref": "#/$defs/hexColor", "description": "구분선·테두리" },
-        "success":     { "$ref": "#/$defs/hexColor" },
-        "warning":     { "$ref": "#/$defs/hexColor" },
-        "error":       { "$ref": "#/$defs/hexColor" },
-        "info":        { "$ref": "#/$defs/hexColor" }
+        "primary": {
+          "$ref": "#/$defs/hexColor",
+          "description": "브랜드 메인 색상"
+        },
+        "secondary": {
+          "$ref": "#/$defs/hexColor",
+          "description": "보조 브랜드 색상 (선택)"
+        },
+        "accent": {
+          "$ref": "#/$defs/hexColor",
+          "description": "강조·CTA 색상"
+        },
+        "background": {
+          "$ref": "#/$defs/hexColor",
+          "description": "기본 배경"
+        },
+        "surface": {
+          "$ref": "#/$defs/hexColor",
+          "description": "카드·서피스 배경 (선택)"
+        },
+        "text": {
+          "$ref": "#/$defs/hexColor",
+          "description": "본문 텍스트"
+        },
+        "text-sub": {
+          "$ref": "#/$defs/hexColor",
+          "description": "보조 텍스트 (옅은 회색 등)"
+        },
+        "text-inverse": {
+          "$ref": "#/$defs/hexColor",
+          "description": "어두운 배경 위 흰 텍스트"
+        },
+        "border": {
+          "$ref": "#/$defs/hexColor",
+          "description": "구분선·테두리"
+        },
+        "success": {
+          "$ref": "#/$defs/hexColor"
+        },
+        "warning": {
+          "$ref": "#/$defs/hexColor"
+        },
+        "error": {
+          "$ref": "#/$defs/hexColor"
+        },
+        "info": {
+          "$ref": "#/$defs/hexColor"
+        }
       }
     },
-
     "typography": {
       "type": "object",
       "description": "타이포그래피 토큰. CSS 변수 --nk-font-*, --nk-{level}-* 로 변환",
-      "required": ["font-family"],
+      "required": [
+        "font-family"
+      ],
       "additionalProperties": false,
       "properties": {
         "font-family": {
@@ -67,56 +118,128 @@
           "default": "Pretendard",
           "description": "메인 폰트 패밀리. 누끼토끼 표준은 Pretendard 고정"
         },
-        "heading":  { "$ref": "#/$defs/typeLevel", "description": "제목 (h1/h2)" },
-        "subhead":  { "$ref": "#/$defs/typeLevel", "description": "부제 (h3/h4)" },
-        "body":     { "$ref": "#/$defs/typeLevel", "description": "본문" },
-        "caption":  { "$ref": "#/$defs/typeLevel", "description": "캡션·도움말" },
-        "button":   { "$ref": "#/$defs/typeLevel", "description": "버튼 라벨" }
+        "heading": {
+          "$ref": "#/$defs/typeLevel",
+          "description": "제목 (h1/h2)"
+        },
+        "subhead": {
+          "$ref": "#/$defs/typeLevel",
+          "description": "부제 (h3/h4)"
+        },
+        "body": {
+          "$ref": "#/$defs/typeLevel",
+          "description": "본문"
+        },
+        "caption": {
+          "$ref": "#/$defs/typeLevel",
+          "description": "캡션·도움말"
+        },
+        "button": {
+          "$ref": "#/$defs/typeLevel",
+          "description": "버튼 라벨"
+        }
       }
     },
-
     "spacing": {
       "type": "object",
       "description": "간격 토큰. CSS 변수 --nk-space-{key}로 변환",
-      "required": ["md"],
+      "required": [
+        "md"
+      ],
       "additionalProperties": false,
       "properties": {
-        "xs":  { "$ref": "#/$defs/pxValue", "description": "4px 권장" },
-        "sm":  { "$ref": "#/$defs/pxValue", "description": "8px 권장" },
-        "md":  { "$ref": "#/$defs/pxValue", "description": "16px 권장 (기본 단위)" },
-        "lg":  { "$ref": "#/$defs/pxValue", "description": "24px 권장" },
-        "xl":  { "$ref": "#/$defs/pxValue", "description": "40px 권장" },
-        "2xl": { "$ref": "#/$defs/pxValue", "description": "64px 권장" },
-        "3xl": { "$ref": "#/$defs/pxValue", "description": "선택" }
+        "xs": {
+          "$ref": "#/$defs/pxValue",
+          "description": "4px 권장"
+        },
+        "sm": {
+          "$ref": "#/$defs/pxValue",
+          "description": "8px 권장"
+        },
+        "md": {
+          "$ref": "#/$defs/pxValue",
+          "description": "16px 권장 (기본 단위)"
+        },
+        "lg": {
+          "$ref": "#/$defs/pxValue",
+          "description": "24px 권장"
+        },
+        "xl": {
+          "$ref": "#/$defs/pxValue",
+          "description": "40px 권장"
+        },
+        "2xl": {
+          "$ref": "#/$defs/pxValue",
+          "description": "64px 권장"
+        },
+        "3xl": {
+          "$ref": "#/$defs/pxValue",
+          "description": "선택"
+        }
       }
     },
-
     "radius": {
       "type": "object",
       "description": "테두리 반경 토큰. CSS 변수 --nk-radius-{key}로 변환",
       "additionalProperties": false,
       "properties": {
-        "none": { "$ref": "#/$defs/pxValue" },
-        "sm":   { "$ref": "#/$defs/pxValue", "description": "4px 권장" },
-        "md":   { "$ref": "#/$defs/pxValue", "description": "8px 권장" },
-        "lg":   { "$ref": "#/$defs/pxValue", "description": "16px 권장" },
-        "xl":   { "$ref": "#/$defs/pxValue", "description": "24px 권장" },
-        "full": { "type": "string", "default": "9999px", "description": "원형용" }
+        "none": {
+          "$ref": "#/$defs/pxValue"
+        },
+        "sm": {
+          "$ref": "#/$defs/pxValue",
+          "description": "4px 권장"
+        },
+        "md": {
+          "$ref": "#/$defs/pxValue",
+          "description": "8px 권장"
+        },
+        "lg": {
+          "$ref": "#/$defs/pxValue",
+          "description": "16px 권장"
+        },
+        "xl": {
+          "$ref": "#/$defs/pxValue",
+          "description": "24px 권장"
+        },
+        "full": {
+          "type": "string",
+          "default": "9999px",
+          "description": "원형용"
+        }
       }
     },
-
     "shadow": {
       "type": "object",
       "description": "그림자 토큰. CSS 변수 --nk-shadow-{key}로 변환. CSS box-shadow 문법 그대로 사용.",
       "additionalProperties": false,
       "properties": {
-        "sm": { "type": "string", "examples": ["0 1px 2px rgba(0,0,0,0.05)"] },
-        "md": { "type": "string", "examples": ["0 4px 8px rgba(0,0,0,0.08)"] },
-        "lg": { "type": "string", "examples": ["0 8px 24px rgba(0,0,0,0.12)"] },
-        "xl": { "type": "string", "examples": ["0 16px 40px rgba(0,0,0,0.16)"] }
+        "sm": {
+          "type": "string",
+          "examples": [
+            "0 1px 2px rgba(0,0,0,0.05)"
+          ]
+        },
+        "md": {
+          "type": "string",
+          "examples": [
+            "0 4px 8px rgba(0,0,0,0.08)"
+          ]
+        },
+        "lg": {
+          "type": "string",
+          "examples": [
+            "0 8px 24px rgba(0,0,0,0.12)"
+          ]
+        },
+        "xl": {
+          "type": "string",
+          "examples": [
+            "0 16px 40px rgba(0,0,0,0.16)"
+          ]
+        }
       }
     },
-
     "breakpoints": {
       "type": "object",
       "description": "미디어 쿼리용 브레이크포인트. CSS 변수로 못 쓰지만 빌더가 @media에 주입.",
@@ -128,41 +251,57 @@
       },
       "additionalProperties": false,
       "properties": {
-        "mobile":  { "$ref": "#/$defs/pxValue", "default": "375px" },
-        "tablet":  { "$ref": "#/$defs/pxValue", "default": "768px" },
-        "desktop": { "$ref": "#/$defs/pxValue", "default": "1280px" },
-        "wide":    { "$ref": "#/$defs/pxValue", "default": "1440px" }
+        "mobile": {
+          "$ref": "#/$defs/pxValue",
+          "default": "375px"
+        },
+        "tablet": {
+          "$ref": "#/$defs/pxValue",
+          "default": "768px"
+        },
+        "desktop": {
+          "$ref": "#/$defs/pxValue",
+          "default": "1280px"
+        },
+        "wide": {
+          "$ref": "#/$defs/pxValue",
+          "default": "1440px"
+        }
       }
     },
-
     "page_types": {
       "type": "array",
       "description": "이 클라이언트에서 사용할 페이지 타입 목록. /레퍼런스인입에서 결정됨.",
       "items": {
         "type": "string",
-        "enum": ["hero-main", "plp-full", "pdp-full", "narrow", "board"]
+        "enum": [
+          "hero-main",
+          "plp-full",
+          "pdp-full",
+          "narrow",
+          "board",
+          "cart",
+          "order",
+          "member"
+        ]
       },
       "uniqueItems": true
     },
-
     "tone": {
       "type": "string",
       "description": "브랜드 톤 한 줄 (예: '럭셔리 미니멀', '발랄한 친근감')"
     },
-
     "nk_prefix": {
       "type": "string",
       "default": "nk-",
       "description": "CSS 클래스 접두사. 누끼토끼 표준은 nk- 고정.",
       "pattern": "^[a-z]+-$"
     },
-
     "notes": {
       "type": "string",
       "description": "기타 메모. css-builder가 무시하지만 사람이 참고용"
     }
   },
-
   "$defs": {
     "hexColor": {
       "type": "string",
@@ -178,11 +317,33 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "family":      { "type": "string", "description": "오버라이드용 (보통 생략)" },
-        "weight":      { "type": "integer", "minimum": 100, "maximum": 900, "multipleOf": 100 },
-        "size":        { "$ref": "#/$defs/pxValue" },
-        "line-height": { "type": ["number", "string"], "description": "숫자(배수) 또는 px 문자열" },
-        "letter-spacing": { "type": "string", "examples": ["-0.02em", "0.5px"] }
+        "family": {
+          "type": "string",
+          "description": "오버라이드용 (보통 생략)"
+        },
+        "weight": {
+          "type": "integer",
+          "minimum": 100,
+          "maximum": 900,
+          "multipleOf": 100
+        },
+        "size": {
+          "$ref": "#/$defs/pxValue"
+        },
+        "line-height": {
+          "type": [
+            "number",
+            "string"
+          ],
+          "description": "숫자(배수) 또는 px 문자열"
+        },
+        "letter-spacing": {
+          "type": "string",
+          "examples": [
+            "-0.02em",
+            "0.5px"
+          ]
+        }
       }
     }
   }

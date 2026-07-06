@@ -15,10 +15,10 @@
  *   data-hover-src 로 "축소 이미지 변수"를 지정하세요.
  *
  *   카페24 변수 예시:
- *   <img src="{$image_medium}" data-hover-src="{$image_small}" alt="{$product_name}">
+ *   <img src="{$image_medium}" data-hover-src="{$image_small}" alt="{$seo_alt_tag}">
  *
  *   ※ 더 간단한 카페24 공식 방법(JS 없이 인라인):
- *   <img src="{$image_medium}" onmouseover="this.src='{$image_small}'" onmouseout="this.src='{$image_medium}'" alt="{$product_name}">
+ *   <img src="{$image_medium}" onmouseover="this.src='{$image_small}'" onmouseout="this.src='{$image_medium}'" alt="{$seo_alt_tag}">
  *
  * 주의: data-hover-src 속성이 없는 이미지는 hover 효과가 적용되지 않습니다.
  *       모바일/터치 환경에서는 동작하지 않습니다 (의도된 동작).

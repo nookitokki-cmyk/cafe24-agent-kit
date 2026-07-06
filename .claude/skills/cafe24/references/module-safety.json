@@ -1,0 +1,4801 @@
+{
+  "_meta": {
+    "title": "카페24 모듈 재마크업 안전등급표 (초안)",
+    "source": "ecudemo400125 /sde_design/base 실측 (1개 몰) — 2026-07-05",
+    "label": "[실측·초안] 이름패턴+바인딩밀도 휴리스틱. 몰마다 구성 다름. 개별 모듈은 재마크업 실증으로 검증 필요.",
+    "legend": {
+      "✅": "재마크업 쉬움(전시성)",
+      "🟡": "주의(반복단위/페이징 보존)",
+      "🔴": "고위험(거래/폼 바인딩 조밀 — 오버라이드 권장)"
+    },
+    "counts": {
+      "🟡": 161,
+      "🔴": 228,
+      "✅": 89
+    },
+    "families": 478,
+    "live_verified_2026_07_06": "product_list*·product_action 재마크업 성공, 거래 표 de-table 금지 — evidence-labels.md B-2"
+  },
+  "modules": [
+    {
+      "module_family": "board_title",
+      "pages": 36,
+      "grade": "🟡",
+      "max_input_names": 1,
+      "max_action_binds": 61,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 1·action 61)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_optionSet",
+      "pages": 9,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 124,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 124). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "board_ReadPackage",
+      "pages": 8,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 61,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 61)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "board_list",
+      "pages": 7,
+      "grade": "🟡",
+      "max_input_names": 1,
+      "max_action_binds": 20,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 1·action 20)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "board_listheader",
+      "pages": 7,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 20,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 20)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "board_paging",
+      "pages": 7,
+      "grade": "🟡",
+      "max_input_names": 1,
+      "max_action_binds": 40,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 1·action 40)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "board_ReplyPackage",
+      "pages": 7,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 4,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 4)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "board_reply",
+      "pages": 7,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 4,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 4)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "board_CommentPackage",
+      "pages": 7,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 61,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 61)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "board_commentwrite",
+      "pages": 7,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 61,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 61)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "board_function",
+      "pages": 7,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 61,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 61)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Board_ListPackage",
+      "pages": 6,
+      "grade": "🟡",
+      "max_input_names": 1,
+      "max_action_binds": 20,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 1·action 20)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "board_search",
+      "pages": 6,
+      "grade": "✅",
+      "max_input_names": 1,
+      "max_action_binds": 20,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "board_replyList",
+      "pages": 6,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 4,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 4)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "product_Imagestyle",
+      "pages": 6,
+      "grade": "✅",
+      "max_input_names": 2,
+      "max_action_binds": 19,
+      "why": "상품 전시 — anchorBoxId 반복단위+변수 유지 시 카드 마크업 자유 ★2026-07-06 라이브: 완전 재작성(카드·백지재구축·브랜드) 성공[검증됨].",
+      "confidence": "verified 2026-07-06",
+      "verify_needed": false
+    },
+    {
+      "module_family": "product_searchdata",
+      "pages": 6,
+      "grade": "✅",
+      "max_input_names": 1,
+      "max_action_binds": 13,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "board_ButtonList",
+      "pages": 5,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 20,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 20)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "board_category",
+      "pages": 5,
+      "grade": "✅",
+      "max_input_names": 0,
+      "max_action_binds": 20,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "board_empty",
+      "pages": 5,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 20,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 20)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Layout_LogoTop",
+      "pages": 5,
+      "grade": "✅",
+      "max_input_names": 2,
+      "max_action_binds": 13,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "Layout_footer",
+      "pages": 5,
+      "grade": "✅",
+      "max_input_names": 1,
+      "max_action_binds": 13,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "board_ModifyPackage",
+      "pages": 4,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 6,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 6)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "board_modify",
+      "pages": 4,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 6,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 6)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "board_writePackage",
+      "pages": 4,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 8,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 8)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "board_write",
+      "pages": 4,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 8,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 8)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "board_catemove",
+      "pages": 4,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 20,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 20)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "board_fixed",
+      "pages": 4,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 20,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 20)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "board_notice",
+      "pages": 4,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 20,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 20)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "board_commentpaging",
+      "pages": 4,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 61,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 61)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "board_commentreply",
+      "pages": 4,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 61,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 61)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Calendar_Category",
+      "pages": 4,
+      "grade": "✅",
+      "max_input_names": 0,
+      "max_action_binds": 64,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "product_ListItem",
+      "pages": 4,
+      "grade": "✅",
+      "max_input_names": 1,
+      "max_action_binds": 3,
+      "why": "상품 전시 — anchorBoxId 반복단위+변수 유지 시 카드 마크업 자유 ★2026-07-06 라이브: 완전 재작성(카드·백지재구축·브랜드) 성공[검증됨].",
+      "confidence": "verified 2026-07-06",
+      "verify_needed": false
+    },
+    {
+      "module_family": "Member_AdultHead",
+      "pages": 4,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 10,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 10). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Layout_conversionPc",
+      "pages": 4,
+      "grade": "✅",
+      "max_input_names": 1,
+      "max_action_binds": 13,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "Layout_multishopShipping",
+      "pages": 4,
+      "grade": "✅",
+      "max_input_names": 1,
+      "max_action_binds": 13,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "Layout_multishopShippingCountrylist",
+      "pages": 4,
+      "grade": "✅",
+      "max_input_names": 1,
+      "max_action_binds": 13,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "Layout_multishopShippingLanguagelist",
+      "pages": 4,
+      "grade": "✅",
+      "max_input_names": 1,
+      "max_action_binds": 13,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "product_detail",
+      "pages": 4,
+      "grade": "🟡",
+      "max_input_names": 2,
+      "max_action_binds": 19,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "product_setproduct",
+      "pages": 4,
+      "grade": "🟡",
+      "max_input_names": 2,
+      "max_action_binds": 19,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "product_SearchFilterList",
+      "pages": 4,
+      "grade": "✅",
+      "max_input_names": 1,
+      "max_action_binds": 13,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "product_filterform",
+      "pages": 4,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 13,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 13). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "product_searchConditionData",
+      "pages": 4,
+      "grade": "✅",
+      "max_input_names": 1,
+      "max_action_binds": 0,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "board_ReplySort",
+      "pages": 3,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 20,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 20)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Board_Read",
+      "pages": 3,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 18,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 18)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Board_CommentDel",
+      "pages": 3,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 0)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "board_CommentDeletePackage",
+      "pages": 3,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 0)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "board_commentform",
+      "pages": 3,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 61,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 61)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "board_commentformsecret",
+      "pages": 3,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 61,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 61)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "board_commentimagelist",
+      "pages": 3,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 61,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 61)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "board_commentlist",
+      "pages": 3,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 61,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 61)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "board_movement",
+      "pages": 3,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 61,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 61)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "board_read",
+      "pages": 3,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 61,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 61)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "board_SecurePackage",
+      "pages": 3,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 2,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 2)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "board_secure",
+      "pages": 3,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 2,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 2)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "board_InquiryHead",
+      "pages": 3,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 6,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 6)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Layout_orderBasketcount",
+      "pages": 3,
+      "grade": "✅",
+      "max_input_names": 2,
+      "max_action_binds": 13,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "Layout_statelogoff",
+      "pages": 3,
+      "grade": "✅",
+      "max_input_names": 2,
+      "max_action_binds": 13,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "myshop_asyncbenefit",
+      "pages": 3,
+      "grade": "🔴",
+      "max_input_names": 2,
+      "max_action_binds": 19,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 2·action 19). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "myshop_head",
+      "pages": 3,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 0). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "myshop_historyInfo",
+      "pages": 3,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 0). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "myshop_summary",
+      "pages": 3,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 0). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_Csadd",
+      "pages": 3,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 12,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 12). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_products",
+      "pages": 3,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 12,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 12). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "MyShop_OrderHistoryDetail",
+      "pages": 3,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 124,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 124). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_optionAll",
+      "pages": 3,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 184,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 184). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_OrderHistoryPaging",
+      "pages": 3,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 26,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 26). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_OrderHistoryTab",
+      "pages": 3,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 26,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 26). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "product_action",
+      "pages": 3,
+      "grade": "🔴",
+      "max_input_names": 2,
+      "max_action_binds": 19,
+      "why": "거래/폼 로직(action 19). ★재마크업 가능 — onclick=\"{$action_*}\"·link 속성 1:1 이식 시 장바구니·주문 작동(2026-07-06 skin2 라이브 검증). 단 장바구니 상품줄 표(Order_*)는 de-table 금지, 완전커스텀은 JS 재구축(cart-js-rebuild.md). 등급 🔴 유지 = 바인딩 필수 보존 강제용",
+      "confidence": "verified 2026-07-06",
+      "verify_needed": false
+    },
+    {
+      "module_family": "product_addoption",
+      "pages": 3,
+      "grade": "🔴",
+      "max_input_names": 2,
+      "max_action_binds": 19,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 2·action 19). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "product_fileoption",
+      "pages": 3,
+      "grade": "🔴",
+      "max_input_names": 2,
+      "max_action_binds": 19,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 2·action 19). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "product_noneoption",
+      "pages": 3,
+      "grade": "🔴",
+      "max_input_names": 2,
+      "max_action_binds": 19,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 2·action 19). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "product_option",
+      "pages": 3,
+      "grade": "🔴",
+      "max_input_names": 2,
+      "max_action_binds": 19,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 2·action 19). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "product_quantity",
+      "pages": 3,
+      "grade": "🟡",
+      "max_input_names": 2,
+      "max_action_binds": 19,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "product_Colorchip",
+      "pages": 3,
+      "grade": "🟡",
+      "max_input_names": 2,
+      "max_action_binds": 19,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "product_addimage",
+      "pages": 3,
+      "grade": "🟡",
+      "max_input_names": 2,
+      "max_action_binds": 19,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "product_detaildesign",
+      "pages": 3,
+      "grade": "🟡",
+      "max_input_names": 2,
+      "max_action_binds": 19,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "product_headcategory",
+      "pages": 3,
+      "grade": "✅",
+      "max_input_names": 2,
+      "max_action_binds": 19,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "attend_calendar",
+      "pages": 2,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 7,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 7). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "attend_calendarhead",
+      "pages": 2,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 7,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 7). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "attend_message",
+      "pages": 2,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 7,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 7). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Calendar_List",
+      "pages": 2,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 16,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Coupon_aPrd",
+      "pages": 2,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 5,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 5). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "product_listmain",
+      "pages": 2,
+      "grade": "✅",
+      "max_input_names": 1,
+      "max_action_binds": 2,
+      "why": "상품 전시 — anchorBoxId 반복단위+변수 유지 시 카드 마크업 자유 ★2026-07-06 라이브: 완전 재작성(카드·백지재구축·브랜드) 성공[검증됨].",
+      "confidence": "verified 2026-07-06",
+      "verify_needed": false
+    },
+    {
+      "module_family": "Member_Login",
+      "pages": 2,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 10,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 10). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Layout_LogoBottom",
+      "pages": 2,
+      "grade": "✅",
+      "max_input_names": 1,
+      "max_action_binds": 13,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "Layout_SearchHeader",
+      "pages": 2,
+      "grade": "✅",
+      "max_input_names": 1,
+      "max_action_binds": 13,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "Layout_bookmark",
+      "pages": 2,
+      "grade": "✅",
+      "max_input_names": 1,
+      "max_action_binds": 13,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "Layout_multishopList",
+      "pages": 2,
+      "grade": "✅",
+      "max_input_names": 1,
+      "max_action_binds": 13,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "Layout_multishopListitem",
+      "pages": 2,
+      "grade": "✅",
+      "max_input_names": 1,
+      "max_action_binds": 13,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "Layout_multishopListmultioption",
+      "pages": 2,
+      "grade": "✅",
+      "max_input_names": 1,
+      "max_action_binds": 13,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "Layout_multishopListmultioptionCountry",
+      "pages": 2,
+      "grade": "✅",
+      "max_input_names": 1,
+      "max_action_binds": 13,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "Layout_multishopListmultioptionLanguage",
+      "pages": 2,
+      "grade": "✅",
+      "max_input_names": 1,
+      "max_action_binds": 13,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "Layout_productRecent",
+      "pages": 2,
+      "grade": "✅",
+      "max_input_names": 1,
+      "max_action_binds": 13,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "Layout_shoppingInfo",
+      "pages": 2,
+      "grade": "✅",
+      "max_input_names": 1,
+      "max_action_binds": 13,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "Layout_shortcut",
+      "pages": 2,
+      "grade": "✅",
+      "max_input_names": 1,
+      "max_action_binds": 13,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "Layout_stateLogon",
+      "pages": 2,
+      "grade": "✅",
+      "max_input_names": 1,
+      "max_action_binds": 13,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "Layout_login",
+      "pages": 2,
+      "grade": "✅",
+      "max_input_names": 1,
+      "max_action_binds": 13,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "myshop_AddrList",
+      "pages": 2,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 6,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 6). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "myshop_AddrModify",
+      "pages": 2,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 4,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 4). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "myshop_AddrRegister",
+      "pages": 2,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 4,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 4). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_depositRefundPackage",
+      "pages": 2,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 0,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 0). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "myshop_LikeTab",
+      "pages": 2,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 2,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 2). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_OrderHistoryDetailBasic",
+      "pages": 2,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 124,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 124). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_OrderHistoryDetailGift",
+      "pages": 2,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 124,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 124). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_OrderHistoryDetailIndividual",
+      "pages": 2,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 124,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 124). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_OrderHistoryDetailOversea",
+      "pages": 2,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 124,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 124). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "MyShop_optionList",
+      "pages": 2,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 52,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 52). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_OrderHistoryHead",
+      "pages": 2,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 26,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 26). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_optionAddList",
+      "pages": 2,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 184,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 184). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_optionList",
+      "pages": 2,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 184,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 184). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "myshop_wishlist",
+      "pages": 2,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 184,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 184). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "myshop_wishlistitem",
+      "pages": 2,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 184,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 184). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "myshop_wishlistpaging",
+      "pages": 2,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 184,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 184). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Order_list",
+      "pages": 2,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 184,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 184). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "gift_point",
+      "pages": 2,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 18,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Order_optionSet",
+      "pages": 2,
+      "grade": "🔴",
+      "max_input_names": 2,
+      "max_action_binds": 9,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 2·action 9). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "product_image",
+      "pages": 2,
+      "grade": "✅",
+      "max_input_names": 2,
+      "max_action_binds": 19,
+      "why": "상품 전시 — anchorBoxId 반복단위+변수 유지 시 카드 마크업 자유",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "product_regularDiscount",
+      "pages": 2,
+      "grade": "🟡",
+      "max_input_names": 2,
+      "max_action_binds": 19,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "product_additional",
+      "pages": 2,
+      "grade": "🟡",
+      "max_input_names": 2,
+      "max_action_binds": 19,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Product_optionstock",
+      "pages": 2,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 3,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 3). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Product_ZoomPackage",
+      "pages": 2,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 12,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "product_zoom",
+      "pages": 2,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 12,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "product_FirstSelect",
+      "pages": 2,
+      "grade": "✅",
+      "max_input_names": 1,
+      "max_action_binds": 3,
+      "why": "상품 전시 — anchorBoxId 반복단위+변수 유지 시 카드 마크업 자유",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "product_SecondSelect",
+      "pages": 2,
+      "grade": "✅",
+      "max_input_names": 1,
+      "max_action_binds": 3,
+      "why": "상품 전시 — anchorBoxId 반복단위+변수 유지 시 카드 마크업 자유",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "product_listnew",
+      "pages": 2,
+      "grade": "✅",
+      "max_input_names": 1,
+      "max_action_binds": 3,
+      "why": "상품 전시 — anchorBoxId 반복단위+변수 유지 시 카드 마크업 자유 ★2026-07-06 라이브: 완전 재작성(카드·백지재구축·브랜드) 성공[검증됨].",
+      "confidence": "verified 2026-07-06",
+      "verify_needed": false
+    },
+    {
+      "module_family": "product_listnormal",
+      "pages": 2,
+      "grade": "✅",
+      "max_input_names": 1,
+      "max_action_binds": 3,
+      "why": "상품 전시 — anchorBoxId 반복단위+변수 유지 시 카드 마크업 자유 ★2026-07-06 라이브: 완전 재작성(카드·백지재구축·브랜드) 성공[검증됨].",
+      "confidence": "verified 2026-07-06",
+      "verify_needed": false
+    },
+    {
+      "module_family": "product_listrecommend",
+      "pages": 2,
+      "grade": "✅",
+      "max_input_names": 1,
+      "max_action_binds": 3,
+      "why": "상품 전시 — anchorBoxId 반복단위+변수 유지 시 카드 마크업 자유 ★2026-07-06 라이브: 완전 재작성(카드·백지재구축·브랜드) 성공[검증됨].",
+      "confidence": "verified 2026-07-06",
+      "verify_needed": false
+    },
+    {
+      "module_family": "product_normalmenu",
+      "pages": 2,
+      "grade": "🟡",
+      "max_input_names": 1,
+      "max_action_binds": 3,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "product_normalpackage",
+      "pages": 2,
+      "grade": "🟡",
+      "max_input_names": 1,
+      "max_action_binds": 3,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "product_normalpaging",
+      "pages": 2,
+      "grade": "🟡",
+      "max_input_names": 1,
+      "max_action_binds": 3,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "search_paging",
+      "pages": 2,
+      "grade": "✅",
+      "max_input_names": 0,
+      "max_action_binds": 2,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "product_categoryHashtag",
+      "pages": 2,
+      "grade": "✅",
+      "max_input_names": 1,
+      "max_action_binds": 0,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "product_HotKeyword",
+      "pages": 2,
+      "grade": "🟡",
+      "max_input_names": 1,
+      "max_action_binds": 0,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "product_RelateKeyword",
+      "pages": 2,
+      "grade": "🟡",
+      "max_input_names": 1,
+      "max_action_binds": 0,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "product_searchOrderby",
+      "pages": 2,
+      "grade": "✅",
+      "max_input_names": 1,
+      "max_action_binds": 0,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "Mall_SupplyInfo",
+      "pages": 2,
+      "grade": "🟡",
+      "max_input_names": 1,
+      "max_action_binds": 3,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Mall_SupplyMainimage",
+      "pages": 2,
+      "grade": "🟡",
+      "max_input_names": 1,
+      "max_action_binds": 3,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Mall_SupplySearch",
+      "pages": 2,
+      "grade": "✅",
+      "max_input_names": 1,
+      "max_action_binds": 3,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "Attend_commentPackage",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 2,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 2). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "attend_CommentTitle",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 2,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 2). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "attend_commentList",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 2,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 2). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "attend_commentpaging",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 2,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 2). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "attend_commentwrite",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 2,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 2). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Attend_calendarPackage",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 7,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 7). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "attend_button",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 7,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 7). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "board_MainHit",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 0)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "board_MainRecommend",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 0)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "board_listpackage",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 0)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "board_InquiryList",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 2,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 2)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "board_inquiryPaging",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 2,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 2)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "board_inquirySearch",
+      "pages": 1,
+      "grade": "✅",
+      "max_input_names": 0,
+      "max_action_binds": 2,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "board_inquiryModify",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 6,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 6)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "board_InquiryView",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 4,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 4)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "board_inquiryViewFile",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 4,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 4)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "myshop_inquiryButton",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 4,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 4). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "myshop_inquiryViewFile",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 4,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 4). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "board_InquiryForm",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 6,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 6)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "board_MemoPackage",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 40,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 40)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "board_memocmt",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 40,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 40)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "board_memoformcmtdelete",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 40,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 40)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "board_memoformcmtmodify",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 40,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 40)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "board_memoformcmtsecret",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 40,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 40)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "board_memoformcmtwrite",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 40,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 40)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "board_memoformdelete",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 40,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 40)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "board_memoformmodify",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 40,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 40)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "board_memoformsecret",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 40,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 40)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "board_memolist",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 40,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 40)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "board_memowrite",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 40,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 40)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Board_CommentList",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 18,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 18)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "board_Product",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 61,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 61)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "board_listsgroup",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 61,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 61)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Mall_Urgencycall",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 1,
+      "max_action_binds": 2,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Mall_UrgencycallOrdHeader",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 3,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Mall_UrgencycallOrdLogout",
+      "pages": 1,
+      "grade": "✅",
+      "max_input_names": 0,
+      "max_action_binds": 3,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "Mall_UrgencycallOrdPage",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 3,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Mall_UrgencycallOrdResult",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 3,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Mall_UrgencycallPrdPage",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Mall_UrgencycallPrdResult",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Mall_UrgencycallSearchoutline",
+      "pages": 1,
+      "grade": "✅",
+      "max_input_names": 3,
+      "max_action_binds": 0,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "Calendar_Daypackage",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 16,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Calendar_HeadDay",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 16,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Calendar_ListDay",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 16,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Calendar_ListDayhead",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 16,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Calendar_FieldHead",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 16,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Calendar_Fieldpackage",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 16,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Calendar_HeadField",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 16,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Calendar_ListCol",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 16,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Calendar_ListField",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 16,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Calendar_ListRow",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 16,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "calendar_Modify",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 5,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Calendar_Day",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 16,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Calendar_HeadMonth",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 16,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Calendar_ListMonth",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 16,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Calendar_Monthpackage",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 16,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Calendar_Week",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 16,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Calendar_View",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 10,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Calendar_HeadWeek",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 64,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Calendar_List1",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 64,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Calendar_List2",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 64,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Calendar_List3",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 64,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Calendar_List4",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 64,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Calendar_List5",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 64,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Calendar_List6",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 64,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Calendar_List7",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 64,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Calendar_ListWeek",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 64,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Calendar_ListWeekhead",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 64,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Calendar_Weekpackage",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 64,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "calendar_Write",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 2,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Coupon_Downlayer",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 1,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 1). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Coupon_CouponList",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 1,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 1). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "coupon_productdetailajax",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 0). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Coupon_SelectNew",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 5,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 5). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Coupon_Zone",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 6,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 6). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Coupon_Zonebest",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 6,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 6). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Coupon_Zonenew",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 6,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 6). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Coupon_aZonelist",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 6,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 6). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Coupon_zonePackage",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 6,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 6). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Estimate_EstimateInfo",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 4,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 4). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Estimate_Print",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 4,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 4). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Estimate_PurchaseList",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 4,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 4). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Estimate_TotalSummary",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 4,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 4). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Estimate_list",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 4,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 4). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Estimate_Userform",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 2,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 2). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Intro_memberPackage",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 8,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 8). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Layout_CategorySupplyList",
+      "pages": 1,
+      "grade": "✅",
+      "max_input_names": 0,
+      "max_action_binds": 5,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "Layout_Fifth",
+      "pages": 1,
+      "grade": "✅",
+      "max_input_names": 0,
+      "max_action_binds": 5,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "Layout_Fourth",
+      "pages": 1,
+      "grade": "✅",
+      "max_input_names": 0,
+      "max_action_binds": 5,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "Layout_Second",
+      "pages": 1,
+      "grade": "✅",
+      "max_input_names": 0,
+      "max_action_binds": 5,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "Layout_Third",
+      "pages": 1,
+      "grade": "✅",
+      "max_input_names": 0,
+      "max_action_binds": 5,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "link_bookmark",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 4,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "livelinkon_livelinkon",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "link_shortcut",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 4,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "mall_term",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "member_certification",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 2,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 2). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "member_changepasswd",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 2,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 2). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "member_checkpassword",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 1,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 1). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "member_checkunderfourteen",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 2,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 2). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "member_findid",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 6,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 6). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "member_findidresult",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 0). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "member_join",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 16,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 16). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "coupon_join",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 0). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "member_BenefitJoin",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 0). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "member_joinComplete",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 0). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "member_lifetimeevent",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 4,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 4). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "MyShop_OrderHistoryNologin",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 11,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 11). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "member_login",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 11,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 11). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "member_loginsns",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 0). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "member_joinMapping",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 7,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 7). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "member_loginMapping",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 3,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 3). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "member_edit",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 17,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 17). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "member_editConsignment",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 17,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 17). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "member_editInformation",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 17,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 17). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "member_updateeventlogon",
+      "pages": 1,
+      "grade": "✅",
+      "max_input_names": 0,
+      "max_action_binds": 17,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "member_findpasswd",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 4,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 4). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "member_findpasswdmethod",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 4,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 4). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "member_findPasswdQuestion",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 2,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 2). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "member_findpasswdresult",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 0). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "member_passwordreset",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 4,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 4). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "member_passwordverification",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 8,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 8). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "mall_privacy",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "member_updateeventpopup",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 2,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 2). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "myshop_BoardPackage",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 2,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 2)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "myshop_boardList",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 2,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 2)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "myshop_boardListHead",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 2,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 2)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "myshop_boardlistPaging",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 2,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 2)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "myshop_boardlistSearch",
+      "pages": 1,
+      "grade": "✅",
+      "max_input_names": 0,
+      "max_action_binds": 2,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "myshop_CouponGuide",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 3,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 3). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "myshop_CouponList",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 3,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 3). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "myshop_CouponListPaging",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 3,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 3). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "myshop_CouponSerial",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 3,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 3). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_couponProductPackage",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 2,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 2). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "myshop_CouponProductList",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 2,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 2). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "myshop_CouponProductPaging",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 2,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 2). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "myshop_CouponProductSearch",
+      "pages": 1,
+      "grade": "✅",
+      "max_input_names": 0,
+      "max_action_binds": 2,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "Myshop_DepositHead",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 0). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_DepositHistoryList",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 0). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_DepositSummary",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 0). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_depositHistoryPackage",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 0). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "myshop_DepositHistoryPaging",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 0). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_DepositRefundForm",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 0). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_DepositRefundList",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 0,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 0). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "myshop_DepositRefundPaging",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 0,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 0). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_InquiryDash",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 1,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 1). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "layout_logincheck",
+      "pages": 1,
+      "grade": "✅",
+      "max_input_names": 0,
+      "max_action_binds": 1,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "myshop_asyncbankbook",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 1,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 1). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "myshop_main",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 1,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 1). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "myshop_orderstate",
+      "pages": 1,
+      "grade": "✅",
+      "max_input_names": 0,
+      "max_action_binds": 1,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "myshop_LikeCategoryControl",
+      "pages": 1,
+      "grade": "✅",
+      "max_input_names": 0,
+      "max_action_binds": 2,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "myshop_LikeCategoryList",
+      "pages": 1,
+      "grade": "✅",
+      "max_input_names": 0,
+      "max_action_binds": 2,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "myshop_LikeCategoryPaging",
+      "pages": 1,
+      "grade": "✅",
+      "max_input_names": 0,
+      "max_action_binds": 2,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "myshop_likeitCatePackage",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 2,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 2). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "myshop_LikeProductControl",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 2,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 2). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "myshop_LikeProductList",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 2,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 2). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "myshop_LikeProductPaging",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 2,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 2). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "myshop_likeitPrdPackage",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 2,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 2). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_mileageCouponPackage",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 0). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "myshop_couponMemberList",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 0). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "myshop_couponMemberPaging",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 0). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_Head",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 0). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_mileageHistoryPackage",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 0). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "myshop_historyList",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 0). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "myshop_historyPaging",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 0). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_mileageUnavailPackage",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 0). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "myshop_unavailList",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 0). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "myshop_unavailPaging",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 0). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_AccBankList",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 3,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 3). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_OrderHistoryAccount",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 3,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 3). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_OrderHistoryApplyCancel",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 11,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 11). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_Csaddinfo",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 124,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 124). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_DeliveryList",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 124,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 124). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_OrderHistoryDetailCsInfo",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 124,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 124). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_OrderHistoryDetailPaymentAddPaid",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 124,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 124). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_OrderHistoryDetailPaymentAddUnpaid",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 124,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 124). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_OrderHistoryDetailPaymentFinal",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 124,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 124). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_OrderHistoryDetailPickup",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 124,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 124). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_OrderHistoryDetailRefundNew",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 124,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 124). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_cancelProduct",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 124,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 124). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_exchangeProduct",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 124,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 124). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_ordadd",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 124,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 124). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_OrderHistoryDetailRefund",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 30,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 30). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_OrderHistoryApplyExchange",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 12,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 12). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "MyShop_OrderHistoryExchangeproduct",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 26,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 26). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "MyShop_optionAddList",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 26,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 26). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_selectedProduct",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 26,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 26). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "MyShop_OrderIssueCash",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 1,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 1). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "MyShop_OrderIssueTax",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 1,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 1). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_OrderHistoryListitem",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 26,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 26). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_OrderOldHistoryList",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 0). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_OrderHistoryListPast",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 1,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 1). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "MyShop_OrderHistoryMultiinvoice",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 4,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 4). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_MultiInvoice",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 4,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 4). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_ReasonCancel",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 2,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 2). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_ReasonExchange",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 2,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 2). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_ReasonReject",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 2,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 2). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_ReasonReturn",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 2,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 2). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "MyShop_OrderPrintGuide",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 0). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "MyShop_OrderPrintSpecList",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 0). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "MyShop_productList",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 0). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "MyShop_rulesetGuide",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 0). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "MyShop_OrderPrintEtax",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 2,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 2). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "MyShop_OrderPrintTax",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 2,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 2). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "MyShop_OrderPrintTaxProduct",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 2,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 2). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_OrderPrintTaxAmount",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 2,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 2). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_OrderPrintTaxBuyer",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 2,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 2). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_OrderPrintTaxSupplier",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 2,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 2). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "myshop_OrderReceiverUpdate",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 0). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_OrderHistoryApplyReturn",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 11,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 11). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_OrderSearchproductForm",
+      "pages": 1,
+      "grade": "✅",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "Myshop_OrderSearchproductList",
+      "pages": 1,
+      "grade": "✅",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "Myshop_OrderSearchproductPaging",
+      "pages": 1,
+      "grade": "✅",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "MyShop_OrderHistoryStorepickup",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 0). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "myshop_OrderRegularManageDetailList",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 52,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 52). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "myshop_OrderRegularManageDetailReceiver",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 52,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 52). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "myshop_OrderRegularManageDetailRegister",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 52,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 52). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "myshop_SubscriptionShippingList",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 52,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 52). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "MyShop_OrderRegularPg",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 0). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_OrderRegularManageHead",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 0). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_OrderRegularManagePage",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 0). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "myshop_OrderRegularManageList",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 0). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "myshop_OrderRegularManageDetailReceiveredit",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 1,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 1). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Myshop_WishlistButton",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 41,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 41). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Order_AllotmentInfo",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 184,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 184). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Order_BasketGuide",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 184,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 184). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Order_BasketOption",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 184,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 184). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Order_BasketPackage",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 184,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 184). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Order_BasketPriceInfoGuide",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 184,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 184). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Order_DcInfo",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 184,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 184). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Order_Empty",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 184,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 184). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Order_NormIndividual",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 184,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 184). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Order_NormNormal",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 184,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 184). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Order_NormOversea",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 184,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 184). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Order_SelectOrder",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 184,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 184). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Order_SuppNormal",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 184,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 184). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Order_TabInfo",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 184,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 184). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Order_TotalOrder",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 184,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 184). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Order_TotalOversea",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 184,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 184). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Order_TotalSummary",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 184,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 184). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Order_Weight",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 184,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 184). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Order_optionAll",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 184,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 184). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Order_Customshiparea",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 2,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 2). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Order_CommissionList",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 1,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 1). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Order_deferedpaymentguide",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 1,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 1). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Gift_Listdetail",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Gift_detail",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Gift_layerOfferGift",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "gift_Third",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "gift_list",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "gift_listempty",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "gift_second",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "gift_select",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 18,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "gift_selectorderform",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 12,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 12). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Order_individuallist",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 4,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 4). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Order_normallist",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 4,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 4). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Order_oversealist",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 4,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 4). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Order_supplierlist",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 4,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 4). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Order_form",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 4,
+      "max_action_binds": 0,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 4·action 0). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Layout_MobileAction",
+      "pages": 1,
+      "grade": "✅",
+      "max_input_names": 2,
+      "max_action_binds": 9,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "Layout_statelogon",
+      "pages": 1,
+      "grade": "✅",
+      "max_input_names": 2,
+      "max_action_binds": 9,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "Order_deliverybindinglist",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 2,
+      "max_action_binds": 9,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 2·action 9). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Order_deliverylist",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 2,
+      "max_action_binds": 9,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 2·action 9). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Order_giftresultlist",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 2,
+      "max_action_binds": 9,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 2·action 9). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Order_individualresultlist",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 2,
+      "max_action_binds": 9,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 2·action 9). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Order_normalresultlist",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 2,
+      "max_action_binds": 9,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 2·action 9). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Order_ordadd",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 2,
+      "max_action_binds": 9,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 2·action 9). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Order_oversearesultlist",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 2,
+      "max_action_binds": 9,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 2·action 9). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Order_result",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 2,
+      "max_action_binds": 9,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 2·action 9). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Order_pgsuccess",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 0). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Order_BoardList",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 4,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 4)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Order_BoardListPackage",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 4,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 4)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Order_BoardListhead",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 4,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 4)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Order_BoardPaging",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 4,
+      "why": "게시판 — 반복단위·페이징 변수 유지 필요 (input 0·action 4)",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Order_StorePickupInfo",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 2,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 2). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Order_StorePickupShop",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 2,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 2). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Order_ThrottleWaiting",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 1,
+      "max_action_binds": 0,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 1·action 0). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "poll_result",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Order_LayerBasket",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 3,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 3). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Order_LayerBasketPackage",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 3,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 3). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Order_LayerBasketPaging",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 3,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 3). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Product_BasketAdd",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 2,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 2). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Product_OptionSelectLayer",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 5,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 5). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Product_CompareAddOption",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 0). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Product_CompareOption",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 0). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Product_ListCompare",
+      "pages": 1,
+      "grade": "✅",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "상품 전시 — anchorBoxId 반복단위+변수 유지 시 카드 마크업 자유",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "coupon_productpopup",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 0). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "product_addproduct",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 2,
+      "max_action_binds": 19,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "product_qna",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 2,
+      "max_action_binds": 19,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "product_qnapaging",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 2,
+      "max_action_binds": 19,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "product_relation",
+      "pages": 1,
+      "grade": "✅",
+      "max_input_names": 2,
+      "max_action_binds": 19,
+      "why": "상품 전시 — anchorBoxId 반복단위+변수 유지 시 카드 마크업 자유",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "product_relationlist",
+      "pages": 1,
+      "grade": "✅",
+      "max_input_names": 2,
+      "max_action_binds": 19,
+      "why": "상품 전시 — anchorBoxId 반복단위+변수 유지 시 카드 마크업 자유",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "product_rental",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 2,
+      "max_action_binds": 19,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "product_review",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 2,
+      "max_action_binds": 19,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "product_reviewpaging",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 2,
+      "max_action_binds": 19,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Product_RestockEmail",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 3,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "product_customsns",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 12,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "myshop_layerWish",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 2,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 2). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Product_menupackage",
+      "pages": 1,
+      "grade": "✅",
+      "max_input_names": 1,
+      "max_action_binds": 1,
+      "why": "상품 전시 — anchorBoxId 반복단위+변수 유지 시 카드 마크업 자유",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "product_Orderby",
+      "pages": 1,
+      "grade": "✅",
+      "max_input_names": 1,
+      "max_action_binds": 1,
+      "why": "상품 전시 — anchorBoxId 반복단위+변수 유지 시 카드 마크업 자유",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "product_children",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 1,
+      "max_action_binds": 1,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "product_displaycategory",
+      "pages": 1,
+      "grade": "✅",
+      "max_input_names": 1,
+      "max_action_binds": 1,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "Product_optionPreviewList",
+      "pages": 1,
+      "grade": "🔴",
+      "max_input_names": 0,
+      "max_action_binds": 1,
+      "why": "거래/폼 로직 — input name·{$action_*} 바인딩 조밀(input 0·action 1). 구조 재작성 시 결제·검증 깨질 위험 → 오버라이드+반복단위 보존 권장",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Project_Package",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 1,
+      "max_action_binds": 0,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "product_projectcategory",
+      "pages": 1,
+      "grade": "✅",
+      "max_input_names": 1,
+      "max_action_binds": 0,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "project_Imagestyle",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 1,
+      "max_action_binds": 0,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "project_ListItem",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 1,
+      "max_action_binds": 0,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "project_head",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 1,
+      "max_action_binds": 0,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "project_list",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 1,
+      "max_action_binds": 0,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "project_productlist",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 1,
+      "max_action_binds": 0,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "product_listitem",
+      "pages": 1,
+      "grade": "✅",
+      "max_input_names": 0,
+      "max_action_binds": 4,
+      "why": "상품 전시 — anchorBoxId 반복단위+변수 유지 시 카드 마크업 자유",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "product_recentlist",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 4,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "product_recentlistpaging",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 4,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Product_RecommMail",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 1,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "product_request",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 1,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Search_BoardForm",
+      "pages": 1,
+      "grade": "✅",
+      "max_input_names": 0,
+      "max_action_binds": 2,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "Search_BoardList",
+      "pages": 1,
+      "grade": "✅",
+      "max_input_names": 0,
+      "max_action_binds": 2,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "Search_FromPackage",
+      "pages": 1,
+      "grade": "✅",
+      "max_input_names": 0,
+      "max_action_binds": 2,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "Search_Imagestyle",
+      "pages": 1,
+      "grade": "✅",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "Search_Result",
+      "pages": 1,
+      "grade": "✅",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "search_ListItem",
+      "pages": 1,
+      "grade": "✅",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "product_hashtag",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Layout_BoardInfo",
+      "pages": 1,
+      "grade": "✅",
+      "max_input_names": 1,
+      "max_action_binds": 13,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "Layout_Info",
+      "pages": 1,
+      "grade": "✅",
+      "max_input_names": 1,
+      "max_action_binds": 13,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "Layout_Myshop",
+      "pages": 1,
+      "grade": "✅",
+      "max_input_names": 1,
+      "max_action_binds": 13,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "Layout_Poll",
+      "pages": 1,
+      "grade": "✅",
+      "max_input_names": 1,
+      "max_action_binds": 13,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "Layout_SearchSide",
+      "pages": 1,
+      "grade": "✅",
+      "max_input_names": 1,
+      "max_action_binds": 13,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "Layout_attendBanner",
+      "pages": 1,
+      "grade": "✅",
+      "max_input_names": 1,
+      "max_action_binds": 13,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "Layout_calendarBanner",
+      "pages": 1,
+      "grade": "✅",
+      "max_input_names": 1,
+      "max_action_binds": 13,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "Layout_category",
+      "pages": 1,
+      "grade": "✅",
+      "max_input_names": 1,
+      "max_action_binds": 13,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "Layout_couponzoneBanner",
+      "pages": 1,
+      "grade": "✅",
+      "max_input_names": 1,
+      "max_action_binds": 13,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "Layout_giftBanner",
+      "pages": 1,
+      "grade": "✅",
+      "max_input_names": 1,
+      "max_action_binds": 13,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "Layout_opdiaryBanner",
+      "pages": 1,
+      "grade": "✅",
+      "max_input_names": 1,
+      "max_action_binds": 13,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "Layout_project",
+      "pages": 1,
+      "grade": "✅",
+      "max_input_names": 1,
+      "max_action_binds": 13,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "Layout_sosBanner",
+      "pages": 1,
+      "grade": "✅",
+      "max_input_names": 1,
+      "max_action_binds": 13,
+      "why": "레이아웃/헤더푸터/배너 — 구조 재작성 안전(모듈 변수만 이식)",
+      "confidence": "draft",
+      "verify_needed": false
+    },
+    {
+      "module_family": "Product_SizeGuide",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 1,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "Product_RestockSms",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 3,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "product_stocklayer",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "mall_company",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "mall_faq",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 0,
+      "max_action_binds": 0,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    },
+    {
+      "module_family": "product_supplymainpaging",
+      "pages": 1,
+      "grade": "🟡",
+      "max_input_names": 1,
+      "max_action_binds": 2,
+      "why": "패턴 미분류 [검증필요]",
+      "confidence": "draft",
+      "verify_needed": true
+    }
+  ]
+}

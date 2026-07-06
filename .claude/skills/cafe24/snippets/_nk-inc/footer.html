@@ -1,0 +1,21 @@
+<!--
+  _nk/inc/footer.html — 푸터 재마크업 골격 (등급 ✅ 쉬움)
+  구조 자유. 사업자정보 모듈만 보존.
+-->
+<footer class="nk-footer" role="contentinfo">
+  <div class="nk-footer__inner">
+
+    <!-- 사업자정보: 모듈 유지(관리자 기본정보 자동 출력) -->
+    <div class="nk-footer__company" module="Layout_footer"><!-- ★보존 module -->
+      <!-- 안쪽 구조/클래스는 내 것. 상호·대표·사업자번호 등은 모듈이 제공하는 변수 사용 -->
+    </div>
+
+    <nav class="nk-footer__links">
+      <a href="/board/list.html?board_no=4">공지사항</a><!-- board_no는 몰마다 다름 [검증필요] -->
+      <a href="/member/agreement.html">이용약관</a>
+      <a href="/member/private.html">개인정보처리방침</a>
+    </nav>
+
+    <p class="nk-footer__copy">&copy; {$mall_name}</p><!-- ★보존 {$mall_name} -->
+  </div>
+</footer>

@@ -81,12 +81,14 @@ skin2/ ← 현재 작업 베이스
 카페24 엔진이 빌드 시 실제 태그로 치환하는 HTML 주석 형태 지시어.
 
 ```html
-<!--@layout(/layout/basic/layout.html)-->  <!-- 파일 첫 줄: 이 페이지의 레이아웃 -->
-<!--@contents-->                           <!-- layout.html 안: 페이지 본문 삽입 위치 -->
-<!--@import(/_nk/inc/header.html)-->       <!-- 외부 HTML 인클루드 -->
-<!--@css(/_nk/css/color.css)-->            <!-- CSS 로드 → <link> 태그로 치환 -->
-<!--@js(/_nk/js/nk.js)-->                  <!-- JS 로드 → <script> 태그로 치환 -->
+<!--@layout(/layout/basic/layout.html)-->  <!-- [공식] 파일 첫 줄: 이 페이지의 레이아웃 -->
+<!--@contents-->                           <!-- [공식] layout.html 안: 페이지 본문 삽입 위치 -->
+<!--@import(/_nk/inc/header.html)-->       <!-- [실측] 외부 HTML 인클루드 -->
+<!--@css(/_nk/css/color.css)-->            <!-- [실측] CSS 로드 → <link> 태그로 치환 -->
+<!--@js(/_nk/js/nk.js)-->                  <!-- [실측] JS 로드 → <script> 태그로 치환 -->
 ```
+
+> **근거 라벨** ([`references/evidence-labels.md`](references/evidence-labels.md)): 공식 developers 문서에 문장으로 확인된 건 **`@layout`·`@contents`뿐**. `@import`·`@css`·`@js`(및 `@css` ?쿼리 금지 F4, 파일없으면 base 폴백 F22, optimizer 번들·캐시지연 F3)는 **[실측] 관측**이다 — 단정투 금지, 실무 검증 기반으로 다룰 것.
 
 **주의**: LSP/linter가 이 경로를 파일 참조로 인식 못함. 경로 오타 = 육안 검증 필수.
 
@@ -426,6 +428,12 @@ Easy 스킨 전용. 관리자 패널 "디자인 편집"과 연동되는 속성.
 <div module="product_listnormal" class="nk-product-grid">
 ```
 
+> ### ★ 핵심 방법론 — 오버라이드 vs 재마크업
+> 위 "커스텀 클래스 추가"는 **색·톤만** 바꿀 때다. **구조·레이아웃·배치를 바꿀 땐 CSS로 base를 억지로 덮지 말고(충돌·깨짐), `_nk/inc/`에 마크업을 새로 짜고 모듈 기능만 이식**한다.
+> → **1급 방법론: [`references/module-remarkup.md`](references/module-remarkup.md)** (2질문 결정트리 · 보존대상 7종 · 반복단위 `anchorBoxId_{$...}` 규칙 · 되는/제약 모듈)
+> → **3트랙**: 색=오버라이드 / 구조(표시)=재마크업 / **거래 페이지(카트·주문서) 완전 커스텀 = JS 재구축 [`references/cart-js-rebuild.md`](references/cart-js-rebuild.md)** (표 안 뜯고 숨겨서 JS로 새 UI) `[검증됨·프로토타입 2026-07-06]`
+> → 실행 골격: [`snippets/_nk-inc/`](snippets/_nk-inc/) · [`snippets/_nk-cart-app/`](snippets/_nk-cart-app/) · 모듈 안전등급: [`references/module-safety.json`](references/module-safety.json) · 페이지맵(실측): [`references/page-module-map.md`](references/page-module-map.md) · 공식/실측 라벨: [`references/evidence-labels.md`](references/evidence-labels.md)
+
 ### 권장 마이그레이션 순서
 
 1. `color.css` 교체 (색상 토큰만 먼저)
@@ -539,9 +547,9 @@ skin2의 `layout/basic/header.html`, `footer.html`에는 `data-ez-*`, `<ez-prop>
 </header>
 ```
 
-### 변수가 그대로 노출될 때
+### 변수가 안 나올 때 (빈 값)
 
-브라우저 소스에 `{$변수}`가 그대로 보이면 → 모듈 scope 밖에서 변수 사용 중. 모듈 안으로 이동.
+화면에 값이 **비어 보이면** → 모듈 scope 밖에서 변수 사용 중일 수 있음. 모듈 안으로 이동. (모듈 밖 변수 = **빈 값** — [실측 2026-07-06], 문자 그대로 노출 아님). ※ 소스에 `{$변수}` 문자가 그대로 보이면 오타·중괄호 누락.
 
 ### CSS/JS 중복 로드 방지
 
@@ -615,7 +623,7 @@ div.xans-layout-logotop.nk-header__logo {
 
 ### 드로어 내 `{$mall_name}` 미렌더링
 
-카페24 변수 `{$변수명}`은 `module=""` 속성이 있는 요소 **안에서만** 치환됨. 드로어 헤더 브랜드명 등 module 바깥에 `{$mall_name}`을 쓰면 브라우저에 `{$mall_name}` 텍스트가 그대로 노출됨.
+카페24 변수 `{$변수명}`은 `module=""` 속성이 있는 요소 **안에서만** 치환됨. 드로어 헤더 브랜드명 등 module 바깥에 `{$mall_name}`을 쓰면 **빈 값**으로 렌더링됨(텍스트 노출 아님 — [실측 2026-07-06]).
 
 **해결책**: module 밖에서는 반드시 하드코딩
 ```html
@@ -779,7 +787,7 @@ Ctrl+U 브라우저 소스 보기
 
 - `references/modules.md` — 상품 상세·장바구니·주문서·회원·게시판 모듈 ID 전체
 - `references/variables.md` — **전 영역 250+ 변수 마스터 사전** (15개 섹션 + 비코더 가이드)
-- `references/modifiers.md` — 13개 모디파이어 (`|cut`, `|display`, `|number_format` 등) + Foreach·If 문법
+- `references/modifiers.md` — 모디파이어(`|cut`, `|display`, `|number_format` 등). ⚠️ 조건 노출은 `|display` 필터로 (`<!--[if]-->`·`foreach`는 미작동/부재 — [실측 2026-07-06])
 - `references/troubleshooting.md` — 비코더가 실제 마주치는 에러 5가지 + 수정 템플릿 (모듈 미렌더링 / 변수 미치환 / EZ 오버라이드 / 모바일 깨짐 / 캐시 문제)
 - `references/skin-method-detect.md` — **★ 작업 시작 전 필수**: HTML 네이티브 vs EZ 엎기 방식 판별·분기
 - `references/traps.json` — base 가 nk 스킨을 이기는 함정 47종 머신리더블 카탈로그 (`method` 축, detectJS 처방). `traps.schema.json` 스키마

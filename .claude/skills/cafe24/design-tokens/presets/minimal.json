@@ -1,0 +1,93 @@
+{
+  "client": "preset-minimal",
+  "source": "preset",
+  "version": "1.0.0",
+  "colors": {
+    "primary": "#111111",
+    "secondary": "#555555",
+    "accent": "#111111",
+    "background": "#ffffff",
+    "surface": "#ffffff",
+    "text": "#111111",
+    "text-sub": "#888888",
+    "text-inverse": "#ffffff",
+    "border": "#eeeeee",
+    "success": "#10B981",
+    "warning": "#F59E0B",
+    "error": "#EF4444",
+    "info": "#3B82F6"
+  },
+  "typography": {
+    "font-family": "Pretendard",
+    "heading": {
+      "weight": 800,
+      "size": "34px",
+      "line-height": 1.2,
+      "letter-spacing": "-0.02em"
+    },
+    "subhead": {
+      "weight": 600,
+      "size": "20px",
+      "line-height": 1.4,
+      "letter-spacing": "-0.01em"
+    },
+    "body": {
+      "weight": 400,
+      "size": "15px",
+      "line-height": 1.65,
+      "letter-spacing": "0"
+    },
+    "caption": {
+      "weight": 400,
+      "size": "13px",
+      "line-height": 1.5
+    },
+    "button": {
+      "weight": 600,
+      "size": "15px",
+      "line-height": 1.2
+    }
+  },
+  "spacing": {
+    "xs": "4px",
+    "sm": "8px",
+    "md": "16px",
+    "lg": "24px",
+    "xl": "40px",
+    "2xl": "64px",
+    "3xl": "96px"
+  },
+  "radius": {
+    "none": "0px",
+    "sm": "4px",
+    "md": "8px",
+    "lg": "14px",
+    "xl": "20px",
+    "full": "9999px"
+  },
+  "shadow": {
+    "sm": "0 1px 2px rgba(0,0,0,0.04)",
+    "md": "0 4px 10px rgba(0,0,0,0.06)",
+    "lg": "0 10px 30px rgba(0,0,0,0.08)",
+    "xl": "0 20px 48px rgba(0,0,0,0.10)"
+  },
+  "breakpoints": {
+    "mobile": "375px",
+    "tablet": "768px",
+    "desktop": "1280px",
+    "wide": "1440px"
+  },
+  "page_types": [
+    "hero-main",
+    "plp-full",
+    "pdp-full",
+    "narrow",
+    "cart",
+    "board",
+    "order",
+    "member"
+  ],
+  "tone": "미니멀 모노 — 흑백·넓은 여백·절제",
+  "nk_prefix": "nk-",
+  "notes": "흑백 모노톤. 포인트 색 없이 굵기·여백으로 위계. 버튼은 검정 채움/흰 테두리."
+}

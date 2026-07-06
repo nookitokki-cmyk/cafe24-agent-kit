@@ -12,15 +12,15 @@
  *
  * 카페24 변수 사용 시 주의:
  *   {$image_medium}, {$product_name}, {$product_price}, {$product_sale_price} 등은
- *   반드시 ModuleProductList 안에서만 작동. 모듈 바깥에서 쓰면 그대로 출력됨.
+ *   반드시 ModuleProductList 안에서만 작동. 모듈 바깥에서 쓰면 빈 값(문자 그대로 아님 — [실측 2026-07-06]).
 -->
 
 <article class="nk-product-card">
 
   <!-- 이미지 영역: aspect-ratio 고정으로 레이아웃 안정 -->
-  <a href="{$link_product_detail}" class="nk-product-img-link" aria-label="{$product_name}">
+  <a href="{$link_product_detail}" class="nk-product-img-link" aria-label="{$seo_alt_tag}">
     <div class="nk-product-img" data-nk-product-hover>
-      <img src="{$image_medium}" alt="{$product_name}" class="nk-product-img-main" loading="lazy">
+      <img src="{$image_medium}" alt="{$seo_alt_tag}" class="nk-product-img-main" loading="lazy">
       <!-- 2번째 이미지 (마우스오버 시 전환). 카페24는 '축소 이미지' 칸을 롤오버용으로 사용 → {$image_small}.
            관리자 [상품 수정 > 이미지 등록 > 개별 이미지 등록]에서 축소 이미지에 두 번째 사진 등록(목록 이미지와 사이즈 동일).
            롤오버 안 쓰면 이 줄 통째로 삭제해도 OK -->

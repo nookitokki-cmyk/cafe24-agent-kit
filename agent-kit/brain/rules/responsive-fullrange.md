@@ -90,5 +90,5 @@ node .claude/skills/cafe24/scripts/capture-pair.mjs <레퍼URL> <라이브URL>
 
 - [responsive-mobile.md](responsive-mobile.md) — 모바일(단일 base @media) + 관리자 설정
 - [ez-contents-width.md](ez-contents-width.md) — EZ `#contents` 92% 폭 (좁은 끝단)
-- [`references/accuracy-gate.md`](../../.claude/skills/cafe24/references/accuracy-gate.md) — 3축 합격 게이트(폭 전 구간)
+- [`references/accuracy-gate.md`](../../../.claude/skills/cafe24/references/accuracy-gate.md) — 3축 합격 게이트(폭 전 구간)
 - [`02_막혔을때/함정-INDEX.md`](../../02_막혔을때/함정-INDEX.md)
