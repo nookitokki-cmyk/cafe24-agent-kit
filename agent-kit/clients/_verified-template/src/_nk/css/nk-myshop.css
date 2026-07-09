@@ -1,0 +1,2969 @@
+/*
+ * nk-myshop.css — verified-template 마이페이지(myshop/**) 도메인 전용
+ * 로드: 각 myshop/**.html 첫머리 @css (tokens → reset → base → 이 파일 순서로 head 수집)
+ * 계약: 색·치수는 전부 var(--nk-*) 토큰만(하드코딩 hex 0건).
+ * 구성: §0 공통 프리미티브(컨테이너·헤드·테이블·버튼·탭·박스) + 페이지별 섹션(§A 대시보드·주문 / §B 혜택·위시·주소).
+ * 스코프 원칙: 공통은 body.nk-skin .nk-myshop, 페이지 특화는 body.nk-skin .nk-myshop--{slug} 체이닝.
+ *   (각 페이지 HTML 최상위에 <div class="nk-myshop nk-myshop--{slug}"> 래퍼 — module 밖 추가라 바인딩 무해)
+ * !important는 base/인라인 module 바인딩을 맞받는 자리만 + 사유 주석 필수(브리프 §2).
+ * 중복 선언 금지(nk-cafe24-reset.css가 이미 전역 처리): 페이징 박스(§6) · input/select 정규화(§8) ·
+ *   .ec-base-table 흰 글씨 상쇄(§8-b) · 링크 파랑(§1-c) · 체크박스 accent(§8). 이 파일은 myshop 특화만 추가.
+ */
+
+/* ================= §0-1) 페이지 컨테이너 + 내부 폭 변형 ================= */
+/* 전역 1920px 컨테이너(브리프 §1: 1200px 고정폭 없음 — 내부 요소만 좁힘) */
+body.nk-skin .nk-myshop {
+  max-width: var(--nk-content-max);
+  margin: 0 auto;
+  padding: 48px var(--nk-pad-x) 64px;
+  box-sizing: border-box;
+  font-family: var(--nk-font-body);
+}
+body.nk-skin .nk-myshop .nk-myshop__inner {
+  margin: 0 auto;
+}
+body.nk-skin .nk-myshop .nk-myshop__inner--720 {
+  max-width: var(--nk-modify-max); /* 폼형(주소 등록/수정 등) */
+}
+body.nk-skin .nk-myshop .nk-myshop__inner--960 {
+  max-width: var(--nk-order-max); /* 주문 상세/취소/교환/반품 등 주문 계열 */
+}
+
+/* ================= §0-2) 페이지 헤드 (정적 영문 타이틀 + stock .titleArea 서브화) ================= */
+body.nk-skin .nk-myshop .nk-myshop__head {
+  text-align: center;
+}
+body.nk-skin .nk-myshop .nk-myshop__title {
+  margin: 0;
+  font-family: var(--nk-font-display);
+  font-weight: 400;
+  font-size: var(--nk-fs-page-title);
+  letter-spacing: var(--nk-ls-page-title);
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-myshop .nk-myshop__sub {
+  margin: 8px 0 0;
+  font-size: 12px;
+  color: var(--nk-sub);
+}
+/* stock .path(브레드크럼) — 일부 페이지는 module(Myshop_Head 등)이라 마크업 보존, 시각만 숨김 */
+body.nk-skin .nk-myshop .path {
+  display: none;
+}
+/* stock .titleArea h2(한글 타이틀) — 중앙 서브 타이틀로 리스타일(동적 바인딩 유지) */
+body.nk-skin .nk-myshop .titleArea {
+  margin: 10px 0 0;
+  padding: 0;
+  text-align: center;
+  border: 0;
+  border-bottom: 0;
+  background: transparent;
+}
+body.nk-skin .nk-myshop .titleArea h2,
+body.nk-skin .nk-myshop .titleArea h3 {
+  margin: 0;
+  padding: 0;
+  font-family: var(--nk-font-body);
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--nk-sub);
+  text-align: center;
+}
+body.nk-skin .nk-myshop .titleArea h2 font {
+  color: inherit !important; /* 사유: stock h2 안 <font>(관리자 색 주입) color 속성 상쇄 — nk-board.css 동일 처방 */
+}
+
+/* ================= §0-3) 공용 테이블 (.nk-myshop__table 래퍼 — nk-board §4 관례) ================= */
+body.nk-skin .nk-myshop .nk-myshop__table {
+  margin: 32px 0 0;
+  overflow-x: auto; /* 브리프 §4: .ec-base-product 외에도 테이블 min-width 잔존 대비 모바일 가로 스크롤 허용 */
+  -webkit-overflow-scrolling: touch;
+  background: transparent;
+  border: none;
+}
+body.nk-skin .nk-myshop .nk-myshop__table table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 0;
+  border-top: 1px solid var(--nk-ink); /* 상단 진한 라인 — 미니멀 룰(검증 레퍼런스 계열) */
+  background: transparent;
+  font-family: var(--nk-font-body);
+}
+/* caption 시각적 숨김(sr-only — 접근성 텍스트 유지) */
+body.nk-skin .nk-myshop .nk-myshop__table caption {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+body.nk-skin .nk-myshop .nk-myshop__table thead th {
+  padding: 13px 10px;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  color: var(--nk-sub);
+  text-align: center;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--nk-border);
+}
+body.nk-skin .nk-myshop .nk-myshop__table tbody th,
+body.nk-skin .nk-myshop .nk-myshop__table tbody td {
+  padding: 14px 10px;
+  font-size: 13px;
+  color: var(--nk-font);
+  text-align: center;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--nk-line);
+  vertical-align: middle;
+}
+/* 세로 헤더(2단 정보표 — 주문상세 등) */
+body.nk-skin .nk-myshop .nk-myshop__table tbody th[scope="row"] {
+  font-size: 12px;
+  color: var(--nk-sub);
+  text-align: left;
+  background: transparent;
+}
+body.nk-skin .nk-myshop .nk-myshop__table td.left,
+body.nk-skin .nk-myshop .nk-myshop__table th.left {
+  text-align: left;
+}
+body.nk-skin .nk-myshop .nk-myshop__table td.right,
+body.nk-skin .nk-myshop .nk-myshop__table th.right {
+  text-align: right;
+}
+/* 빈 데이터 행/메시지 — 엣지 체크리스트(빈 데이터) 공통 처리 */
+body.nk-skin .nk-myshop .nk-myshop__table td.empty,
+body.nk-skin .nk-myshop .message {
+  margin: 0;
+  padding: 56px 10px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--nk-sub);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--nk-line);
+}
+
+/* ================= §0-4) 공용 버튼 — stock 클래스(.btnNormal 계열)를 스코프 안에서 리스타일 ================= */
+/* 위계: btnSubmit(주 CTA·포인트) > btnEm(잉크 보더 강조) > btnNormal/btnBasic(헤어라인 보더 기본) */
+body.nk-skin .nk-myshop a[class*="btnNormal"],
+body.nk-skin .nk-myshop span[class*="btnNormal"] > input,
+body.nk-skin .nk-myshop button[class*="btnNormal"],
+body.nk-skin .nk-myshop a[class*="btnBasic"],
+body.nk-skin .nk-myshop button[class*="btnBasic"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  padding: 0 16px;
+  font-family: var(--nk-font-body);
+  font-size: 12px;
+  color: var(--nk-font);
+  text-decoration: none;
+  background: transparent;
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+body.nk-skin .nk-myshop a[class*="btnNormal"]:hover,
+body.nk-skin .nk-myshop button[class*="btnNormal"]:hover,
+body.nk-skin .nk-myshop a[class*="btnBasic"]:hover,
+body.nk-skin .nk-myshop button[class*="btnBasic"]:hover {
+  background: var(--nk-bg2);
+  border-color: var(--nk-sub);
+}
+body.nk-skin .nk-myshop a[class*="btnEm"],
+body.nk-skin .nk-myshop button[class*="btnEm"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0 22px;
+  font-family: var(--nk-font-body);
+  font-size: 12px;
+  color: var(--nk-ink);
+  text-decoration: none;
+  background: transparent;
+  border: 1px solid var(--nk-ink);
+  border-radius: var(--nk-radius);
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+body.nk-skin .nk-myshop a[class*="btnEm"]:hover,
+body.nk-skin .nk-myshop button[class*="btnEm"]:hover {
+  background: var(--nk-ink);
+  color: var(--nk-on-dark);
+}
+body.nk-skin .nk-myshop a[class*="btnSubmit"],
+body.nk-skin .nk-myshop button[class*="btnSubmit"],
+body.nk-skin .nk-myshop input[type="submit"][class*="btnSubmit"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0 24px;
+  font-family: var(--nk-font-body);
+  font-size: 12.5px;
+  color: var(--nk-on-point);
+  text-decoration: none;
+  background: var(--nk-point); /* 포인트 CTA — 브리프 §1 */
+  border: 0;
+  border-radius: var(--nk-radius);
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+body.nk-skin .nk-myshop a[class*="btnSubmit"]:hover,
+body.nk-skin .nk-myshop button[class*="btnSubmit"]:hover {
+  background: var(--nk-point-active);
+  color: var(--nk-on-point);
+}
+/* 크기 변형 — base sizeS/M/L 대응 */
+body.nk-skin .nk-myshop .sizeS {
+  min-height: 30px;
+  padding-left: 12px;
+  padding-right: 12px;
+  font-size: 11px;
+}
+body.nk-skin .nk-myshop .sizeM {
+  min-height: var(--nk-input-h);
+  padding-left: 28px;
+  padding-right: 28px;
+}
+body.nk-skin .nk-myshop .sizeL {
+  min-height: 52px;
+  padding-left: 36px;
+  padding-right: 36px;
+  font-size: 13px;
+}
+/* 버튼 액션 바(.ec-base-button) — base typeBG 회색 띠 상쇄 */
+body.nk-skin .nk-myshop .ec-base-button {
+  margin: 28px 0 0;
+  padding: 0;
+  text-align: center;
+  background: transparent;
+  border: 0;
+}
+body.nk-skin .nk-myshop .ec-base-button.typeBG {
+  padding: 0;
+  background: transparent; /* base typeBG 회색 배경 상쇄 */
+  border: 0;
+}
+
+/* ================= §0-4a) 공용 액션 바(.nk-actions) — ec-base-button 대체 마크업 병행 ================= */
+body.nk-skin .nk-myshop .nk-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 28px 0 0;
+  padding: 0;
+  text-align: left;
+  background: transparent;
+  border: 0;
+}
+body.nk-skin .nk-myshop .nk-actions .gLeft,
+body.nk-skin .nk-myshop .nk-actions .gRight {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  float: none;
+}
+body.nk-skin .nk-myshop .nk-actions.justify {
+  justify-content: center;
+}
+/* 옵션변경 레이어 푸터 — 페이지 하단 바와 분리(컴팩트 가로 정렬) */
+body.nk-skin .nk-myshop .optionModify .nk-actions,
+body.nk-skin .nk-myshop .nk-layer .nk-actions {
+  justify-content: center;
+  margin: 0;
+  padding: 12px 16px;
+  border-top: 1px solid var(--nk-line);
+  background-color: var(--nk-bg2);
+}
+
+/* ================= §0-5) 공용 탭 (.ec-base-tab) — base 회색 박스탭 → 언더라인 탭 ================= */
+/* 브리프 §4 CP6: .ec-base-tab .menu{bg:#f2f2f2}(ec-base-tab.css:3-4,11) +
+   ultraqa ①: li a{min-width:187px}(ec-base-tab.css:9)가 flex 축소 별도 차단 — 둘 다 여기서 상쇄 */
+body.nk-skin .nk-myshop .ec-base-tab {
+  position: relative;
+  margin: 32px 0 28px;
+}
+body.nk-skin .nk-myshop .ec-base-tab .menu,
+body.nk-skin .nk-myshop .ec-base-tab > ul {
+  /* ultraqa ②: 같은 모듈이 .menu 래퍼 유무 두 형태로 출력될 수 있음 — 양쪽 병기 */
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-bottom: 1px solid var(--nk-line);
+  background: none;
+  list-style: none;
+}
+body.nk-skin .nk-myshop .ec-base-tab .menu li,
+body.nk-skin .nk-myshop .ec-base-tab > ul li {
+  float: none;
+  margin: 0;
+  border: 0;
+  background: none;
+}
+body.nk-skin .nk-myshop .ec-base-tab .menu li a,
+body.nk-skin .nk-myshop .ec-base-tab > ul li a {
+  display: block;
+  width: auto;
+  min-width: 0; /* ec-base-tab.css:9 li a{min-width:187px} 상쇄 (ultraqa ①) */
+  margin: 0 0 -1px;
+  padding: 12px 20px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: none;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--nk-sub);
+  text-align: center;
+  transition: color 0.2s, border-color 0.2s;
+}
+body.nk-skin .nk-myshop .ec-base-tab .menu li a:hover,
+body.nk-skin .nk-myshop .ec-base-tab > ul li a:hover {
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-myshop .ec-base-tab .menu li.selected a,
+body.nk-skin .nk-myshop .ec-base-tab > ul li.selected a {
+  border-bottom-color: var(--nk-ink);
+  color: var(--nk-ink);
+  font-weight: 500;
+  background: none;
+}
+
+/* §0-5a) NK 마크업 별칭 — .nk-tabs (ec-base-tab 병행, order/list·list_past 등) */
+body.nk-skin .nk-myshop .nk-tabs {
+  position: relative;
+  margin: 32px 0 28px;
+}
+body.nk-skin .nk-myshop .nk-tabs .menu,
+body.nk-skin .nk-myshop .nk-tabs > ul {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-bottom: 1px solid var(--nk-line);
+  background: none;
+  list-style: none;
+}
+body.nk-skin .nk-myshop .nk-tabs .menu li,
+body.nk-skin .nk-myshop .nk-tabs > ul li {
+  float: none;
+  margin: 0;
+  border: 0;
+  background: none;
+}
+body.nk-skin .nk-myshop .nk-tabs .menu li a,
+body.nk-skin .nk-myshop .nk-tabs > ul li a {
+  display: block;
+  width: auto;
+  min-width: 0;
+  margin: 0 0 -1px;
+  padding: 12px 20px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: none;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--nk-sub);
+  text-align: center;
+  transition: color 0.2s, border-color 0.2s;
+}
+body.nk-skin .nk-myshop .nk-tabs .menu li a:hover,
+body.nk-skin .nk-myshop .nk-tabs > ul li a:hover {
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-myshop .nk-tabs .menu li.selected a,
+body.nk-skin .nk-myshop .nk-tabs > ul li.selected a {
+  border-bottom-color: var(--nk-ink);
+  color: var(--nk-ink);
+  font-weight: 500;
+  background: none;
+}
+
+/* ================= §0-6) 공용 박스 (.ec-base-box) — base 5px #e8e8e8 보더 상쇄 (브리프 §4 CP6) ================= */
+body.nk-skin .nk-myshop .ec-base-box {
+  margin: 0;
+  padding: 20px 24px;
+  border: 1px solid var(--nk-line);
+  border-radius: var(--nk-radius);
+  background-color: var(--nk-bg);
+  color: var(--nk-font);
+  box-sizing: border-box;
+}
+body.nk-skin .nk-myshop .ec-base-box.typeBg,
+body.nk-skin .nk-myshop .ec-base-box.typeThinBg {
+  background-color: var(--nk-bg2);
+  border-color: var(--nk-line);
+}
+/* §0-6a) NK 마크업 별칭 — 기간검색 등 fieldset.nk-panel (ec-base-box 병행) */
+body.nk-skin .nk-myshop .nk-myshop__searchbox .nk-panel {
+  margin: 0;
+  padding: 20px 24px;
+  border: 1px solid var(--nk-line);
+  border-radius: var(--nk-radius);
+  background-color: var(--nk-bg);
+  color: var(--nk-font);
+  box-sizing: border-box;
+}
+
+/* §0-8) 공용 페이징 — .nk-paginate-wrap (ec-base-paginate 치환 페이지 myshop 전역 통일)
+   색/박스/현재페이지 포인트는 nk-cafe24-reset.css §6 · 가로배치·화살표 글리프는 nk-components.css §5-4b */
+body.nk-skin .nk-myshop .nk-paginate-wrap,
+body.nk-skin .nk-myshop .nk-myshop__paginate {
+  margin: 32px auto 0;
+  text-align: center;
+}
+/* xans 모듈이 stock ec-base-paginate 관례(font-size:0·block 스택)를 물려도 flex 유지 */
+body.nk-skin .nk-myshop [class*="orderhistorypaging"].nk-paginate-wrap,
+body.nk-skin .nk-myshop [class*="boardlistpaging"].nk-paginate-wrap,
+body.nk-skin .nk-myshop [class*="wishlistpaging"].nk-paginate-wrap,
+body.nk-skin .nk-myshop [class*="historypaging"].nk-paginate-wrap,
+body.nk-skin .nk-myshop [class*="CouponListPaging"].nk-paginate-wrap,
+body.nk-skin .nk-myshop [class*="DepositHistoryPaging"].nk-paginate-wrap,
+body.nk-skin .nk-myshop [class*="LikeProductPaging"].nk-paginate-wrap,
+body.nk-skin .nk-myshop [class*="LikeCategoryPaging"].nk-paginate-wrap,
+body.nk-skin .nk-myshop [class*="OrderRegularManagePage"].nk-paginate-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+  gap: 6px;
+  font-size: 12px;
+  line-height: 1;
+}
+
+/* ================= §0-7) 공통 반응형 ================= */
+@media (max-width: 1023px) {
+  body.nk-skin .nk-myshop {
+    padding-top: 28px;
+    padding-bottom: 40px;
+  }
+  body.nk-skin .nk-myshop .nk-myshop__table thead th,
+  body.nk-skin .nk-myshop .nk-myshop__table tbody th,
+  body.nk-skin .nk-myshop .nk-myshop__table tbody td {
+    padding: 11px 8px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 767px) {
+  body.nk-skin .nk-myshop .nk-myshop__title {
+    font-size: var(--nk-fs-page-title-mo);
+    letter-spacing: var(--nk-ls-page-title);
+  }
+}
+
+/* ================================================================
+   이하 페이지별 섹션 — §A(대시보드·주문 8페이지) / §B(혜택·위시·주소 13페이지)
+   ================================================================ */
+
+/*
+ * nk-myshop-part-A.css — Wave2 리드A partial (대시보드+주문 계열 8페이지)
+ * 병합 대상: src/_nk/css/nk-myshop.css (§0 공통 프리미티브 뒤에 이어붙임 — §0 셀렉터 재정의 없음)
+ * 담당 스코프: nk-myshop--index / --board-list / --order-list / --order-past /
+ *              --order-detail / --order-cancel / --order-exchange / --order-return
+ * 규칙: 모든 룰 body.nk-skin .nk-myshop--{slug} 체이닝(명시도 동점 회피 — 브리프 ultraqa ③,
+ *       base 모듈 CSS(@css(/css/module/myshop/*))는 기능 CSS라 유지하고 여기서 체인 명시도로 이긴다).
+ *       색·공통 치수는 var(--nk-*)만(hex 리터럴 0건). 컴포넌트 고유 여백·폰트 px는 패턴 CSS 관례대로 리터럴.
+ *       중복 선언 금지: 페이징(reset §6)·input/select(reset §8)·ec-base-table 글자색(reset §8-b)·
+ *       링크 파랑(reset §1-c)·테이블/버튼/탭/박스 프리미티브(nk-myshop.css §0)는 재선언하지 않음.
+ * 브레이크포인트: ≤1023 / ≤767 (각 섹션 말미).
+ */
+
+/* ===== §A-0) 리드A 공통 보강 — 8페이지 스코프 그룹 ===== */
+/* em 기울임 방지 — stock의 <em>(주문현황 "3개월" 등) 브라우저 기본 기울임 상쇄(누끼토끼 하드룰) */
+body.nk-skin .nk-myshop--index em,
+body.nk-skin .nk-myshop--board-list em,
+body.nk-skin .nk-myshop--order-list em,
+body.nk-skin .nk-myshop--order-past em,
+body.nk-skin .nk-myshop--order-detail em,
+body.nk-skin .nk-myshop--order-cancel em,
+body.nk-skin .nk-myshop--order-exchange em,
+body.nk-skin .nk-myshop--order-return em {
+  font-style: normal;
+}
+/* .txtEm 강조 — base 레거시 강조색을 브랜드 포인트로 통일 */
+body.nk-skin .nk-myshop--index .txtEm,
+body.nk-skin .nk-myshop--board-list .txtEm,
+body.nk-skin .nk-myshop--order-list .txtEm,
+body.nk-skin .nk-myshop--order-past .txtEm,
+body.nk-skin .nk-myshop--order-detail .txtEm,
+body.nk-skin .nk-myshop--order-cancel .txtEm,
+body.nk-skin .nk-myshop--order-exchange .txtEm,
+body.nk-skin .nk-myshop--order-return .txtEm {
+  color: var(--nk-point);
+}
+/* .txtWarn 경고 — 토큰 톤(포인트 액티브)으로 통일 */
+body.nk-skin .nk-myshop--order-list .txtWarn,
+body.nk-skin .nk-myshop--order-detail .txtWarn,
+body.nk-skin .nk-myshop--order-cancel .txtWarn,
+body.nk-skin .nk-myshop--order-exchange .txtWarn,
+body.nk-skin .nk-myshop--order-return .txtWarn {
+  color: var(--nk-point-active);
+}
+/* a.line(주문번호/송장 링크) — 본문색 + 언더라인(검증 텍스트 링크 관례) */
+body.nk-skin .nk-myshop--order-list a.line,
+body.nk-skin .nk-myshop--order-past a.line,
+body.nk-skin .nk-myshop--order-detail a.line,
+body.nk-skin .nk-myshop--order-cancel a.line,
+body.nk-skin .nk-myshop--order-exchange a.line,
+body.nk-skin .nk-myshop--order-return a.line {
+  color: var(--nk-ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+body.nk-skin .nk-myshop--order-list a.line:hover,
+body.nk-skin .nk-myshop--order-past a.line:hover,
+body.nk-skin .nk-myshop--order-detail a.line:hover,
+body.nk-skin .nk-myshop--order-cancel a.line:hover,
+body.nk-skin .nk-myshop--order-exchange a.line:hover,
+body.nk-skin .nk-myshop--order-return a.line:hover {
+  color: var(--nk-point);
+}
+/* 섹션 타이틀(.title>h3) — base 모듈 CSS의 배경 바/불릿 gif 제거 + 세리프 헤딩 통일 */
+body.nk-skin .nk-myshop--order-list .title,
+body.nk-skin .nk-myshop--order-past .title,
+body.nk-skin .nk-myshop--order-detail .title,
+body.nk-skin .nk-myshop--order-cancel .title,
+body.nk-skin .nk-myshop--order-exchange .title,
+body.nk-skin .nk-myshop--order-return .title {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  height: auto;
+  margin: 40px 0 0;
+  padding: 0 0 12px;
+  border: 0;
+  border-bottom: 1px solid var(--nk-line);
+  background: none;
+}
+body.nk-skin .nk-myshop--order-list .title h3,
+body.nk-skin .nk-myshop--order-past .title h3,
+body.nk-skin .nk-myshop--order-detail .title h3,
+body.nk-skin .nk-myshop--order-cancel .title h3,
+body.nk-skin .nk-myshop--order-exchange .title h3,
+body.nk-skin .nk-myshop--order-return .title h3 {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: var(--nk-font-display);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--nk-ink);
+}
+/* .title 바로 다음 테이블 래퍼는 간격 압축(§0 기본 32px → 섹션 헤딩과 밀착) */
+body.nk-skin .nk-myshop--order-list .title + .ec-base-table,
+body.nk-skin .nk-myshop--order-list .title + table,
+body.nk-skin .nk-myshop--order-list .nk-myshop__table .title + table,
+body.nk-skin .nk-myshop--order-past .title + .ec-base-table,
+body.nk-skin .nk-myshop--order-past .title + table,
+body.nk-skin .nk-myshop--order-past .nk-myshop__table .title + table,
+body.nk-skin .nk-myshop--order-detail .title + .ec-base-table,
+body.nk-skin .nk-myshop--order-cancel .title + .ec-base-table,
+body.nk-skin .nk-myshop--order-exchange .title + .ec-base-table,
+body.nk-skin .nk-myshop--order-return .title + .ec-base-table {
+  margin-top: 14px;
+}
+
+/* ===== §A-1) myshop/index.html — 대시보드 ===== */
+/* 1-a) 회원혜택 박스(myshop_asyncbenefit) — §0-6 박스 위에 레이아웃만 보강 */
+body.nk-skin .nk-myshop--index .nk-myshop__benefit {
+  margin: 40px 0 0;
+}
+body.nk-skin .nk-myshop--index .nk-myshop__benefit .ec-base-box.typeMember {
+  padding: 26px 30px;
+}
+body.nk-skin .nk-myshop--index .nk-myshop__benefit .information {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+body.nk-skin .nk-myshop--index .nk-myshop__benefit .information .thumbnail {
+  float: none; /* base benefit.css 구형 float 배치 상쇄 */
+  margin: 0;
+  padding: 0;
+}
+body.nk-skin .nk-myshop--index .nk-myshop__benefit .information .thumbnail img {
+  display: block;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: var(--nk-bg2);
+  object-fit: cover;
+}
+body.nk-skin .nk-myshop--index .nk-myshop__benefit .information .description {
+  overflow: visible;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--nk-font);
+}
+body.nk-skin .nk-myshop--index .nk-myshop__benefit .information .description > span {
+  display: block;
+  margin: 0 0 6px;
+  font-size: 13.5px;
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-myshop--index .nk-myshop__benefit .information .description p {
+  margin: 4px 0 0;
+  font-size: 12.5px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-myshop--index .nk-myshop__benefit .information .description .txtInfo {
+  font-size: 11px;
+}
+/* 1-b) 친구 초대 박스(.invite) — §0-6 typeThinBg 위에 복사 행만 정렬 */
+body.nk-skin .nk-myshop--index .nk-myshop__benefit .invite {
+  margin: 12px 0 0;
+}
+body.nk-skin .nk-myshop--index .nk-myshop__benefit .invite > strong.txtEm {
+  display: block;
+  margin: 0 0 10px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--nk-ink); /* 안내 문장은 잉크 톤 유지(포인트 남용 방지) — §A-0 .txtEm보다 체인 우위 */
+}
+body.nk-skin .nk-myshop--index .nk-myshop__benefit .invite .copy {
+  display: flex;
+  gap: 8px;
+  margin: 0;
+}
+body.nk-skin .nk-myshop--index .nk-myshop__benefit .invite .copy input[type="text"] {
+  flex: 1;
+  min-width: 0;
+  height: 42px;
+}
+body.nk-skin .nk-myshop--index .nk-myshop__benefit .invite ul {
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+}
+body.nk-skin .nk-myshop--index .nk-myshop__benefit .invite ul li {
+  padding: 1px 0;
+  font-size: 12px;
+  color: var(--nk-sub);
+  background: none;
+}
+/* 1-c) 적립금/쿠폰 요약(myshop_asyncbankbook) — blank-slate nk-myshop-bankbook__* 카드 그리드 */
+body.nk-skin .nk-myshop--index .nk-myshop__bankbook {
+  margin: 16px 0 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+body.nk-skin .nk-myshop--index .nk-myshop-bankbook__list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+body.nk-skin .nk-myshop--index .nk-myshop-bankbook__item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 18px 20px;
+  border: 1px solid var(--nk-line);
+  border-radius: var(--nk-radius);
+  background-color: var(--nk-bg);
+}
+body.nk-skin .nk-myshop--index .nk-myshop-bankbook__label {
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-myshop--index .nk-myshop-bankbook__value {
+  font-family: var(--nk-font-display);
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-myshop--index .nk-myshop-bankbook__value--accent {
+  color: var(--nk-point);
+}
+body.nk-skin .nk-myshop--index .nk-myshop-bankbook__unit {
+  font-size: 12px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-myshop--index .nk-myshop-bankbook__link {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  min-height: 26px;
+  padding: 0 10px;
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  font-size: 11px;
+  color: var(--nk-font);
+  text-decoration: none;
+  transition: border-color 0.2s, color 0.2s;
+}
+body.nk-skin .nk-myshop--index .nk-myshop-bankbook__link:hover,
+body.nk-skin .nk-myshop--index .nk-myshop-bankbook__link:focus {
+  border-color: var(--nk-ink);
+  color: var(--nk-ink);
+}
+/* 1-d) 주문처리 현황(myshop_orderstate) — blank-slate nk-myshop-orderstate__* 스텝 바 */
+body.nk-skin .nk-myshop--index .nk-myshop__orderstate {
+  margin: 56px 0 0;
+}
+body.nk-skin .nk-myshop--index .nk-myshop-orderstate__head {
+  margin: 0;
+  padding: 0 0 12px;
+  border: 0;
+  border-bottom: 1px solid var(--nk-ink);
+  background: none;
+}
+body.nk-skin .nk-myshop--index .nk-myshop-orderstate__title {
+  margin: 0;
+  padding: 0;
+  background: none;
+  font-family: var(--nk-font-display);
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-myshop--index .nk-myshop-orderstate__period {
+  margin-left: 6px;
+  font-family: var(--nk-font-body);
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-myshop--index .nk-myshop-orderstate__body {
+  margin: 14px 0 0;
+  padding: 24px 16px 18px;
+  border: 1px solid var(--nk-line);
+  border-radius: var(--nk-radius);
+  background-color: var(--nk-bg);
+}
+body.nk-skin .nk-myshop--index .nk-myshop-orderstate__steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+body.nk-skin .nk-myshop--index .nk-myshop-orderstate__step {
+  margin: 0;
+  padding: 6px 4px;
+  text-align: center;
+}
+body.nk-skin .nk-myshop--index .nk-myshop-orderstate__step + .nk-myshop-orderstate__step {
+  border-left: 1px solid var(--nk-line);
+}
+body.nk-skin .nk-myshop--index .nk-myshop-orderstate__step-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-myshop--index .nk-myshop-orderstate__steps .nk-myshop-orderstate__count {
+  display: block;
+  margin: 8px 0 0;
+  font-family: var(--nk-font-display);
+  font-size: 26px;
+  line-height: 1.2;
+  color: var(--nk-ink);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+body.nk-skin .nk-myshop--index .nk-myshop-orderstate__steps .nk-myshop-orderstate__count:hover,
+body.nk-skin .nk-myshop--index .nk-myshop-orderstate__steps .nk-myshop-orderstate__count:focus {
+  color: var(--nk-point);
+}
+body.nk-skin .nk-myshop--index .nk-myshop-orderstate__cs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px 28px;
+  margin: 18px 0 0;
+  padding: 14px 0 0;
+  border-top: 1px solid var(--nk-line);
+  list-style: none;
+}
+body.nk-skin .nk-myshop--index .nk-myshop-orderstate__cs-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+body.nk-skin .nk-myshop--index .nk-myshop-orderstate__cs-label {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-myshop--index .nk-myshop-orderstate__cs .nk-myshop-orderstate__count {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--nk-ink);
+  text-decoration: none;
+}
+body.nk-skin .nk-myshop--index .nk-myshop-orderstate__cs .nk-myshop-orderstate__count:hover,
+body.nk-skin .nk-myshop--index .nk-myshop-orderstate__cs .nk-myshop-orderstate__count:focus {
+  color: var(--nk-point);
+}
+/* 1-e) 마이쇼핑 메뉴(#myshopMain) — 카드 그리드. base main.css가 #myshopMain id 셀렉터를 쓰므로
+   여기도 id를 체인에 포함해 명시도 우위 확보(!important 회피 — 브리프 §2) */
+body.nk-skin .nk-myshop--index #myshopMain {
+  margin: 56px 0 0;
+}
+body.nk-skin .nk-myshop--index #myshopMain > ul {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+body.nk-skin .nk-myshop--index #myshopMain > ul > li.shopMain {
+  float: none; /* base main.css 구형 float 3열+아이콘 gif 배치 상쇄 */
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 22px 24px;
+  border: 1px solid var(--nk-line);
+  border-radius: var(--nk-radius);
+  background: var(--nk-bg) none;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+body.nk-skin .nk-myshop--index #myshopMain > ul > li.shopMain:hover,
+body.nk-skin .nk-myshop--index #myshopMain > ul > li.shopMain:focus-within {
+  border-color: var(--nk-sub);
+}
+body.nk-skin .nk-myshop--index #myshopMain li.shopMain h3 {
+  margin: 0;
+  padding: 0;
+  background: none;
+}
+body.nk-skin .nk-myshop--index #myshopMain li.shopMain h3 a {
+  display: block;
+  text-decoration: none;
+}
+body.nk-skin .nk-myshop--index #myshopMain li.shopMain h3 a strong {
+  display: block;
+  font-family: var(--nk-font-display);
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-myshop--index #myshopMain li.shopMain h3 a span {
+  display: block;
+  margin: 3px 0 0;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  color: var(--nk-point);
+}
+body.nk-skin .nk-myshop--index #myshopMain li.shopMain p {
+  margin: 10px 0 0;
+  padding: 0;
+  background: none;
+  font-size: 12px;
+  line-height: 1.65;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-myshop--index #myshopMain li.shopMain p a {
+  color: inherit;
+  text-decoration: none;
+}
+body.nk-skin .nk-myshop--index #myshopMain li.shopMain br {
+  display: none; /* 구형 강제 줄바꿈 해제 — 카드 폭에 맞춰 자연 줄바꿈(마크업 보존) */
+}
+/* 1-r) index 반응형 */
+@media (max-width: 1023px) {
+  body.nk-skin .nk-myshop--index #myshopMain > ul {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 767px) {
+  body.nk-skin .nk-myshop--index .nk-myshop__benefit .ec-base-box.typeMember {
+    padding: 20px 18px;
+  }
+  body.nk-skin .nk-myshop--index .nk-myshop__benefit .information {
+    gap: 14px;
+  }
+  body.nk-skin .nk-myshop--index .nk-myshop__benefit .information .thumbnail img {
+    width: 44px;
+    height: 44px;
+  }
+  body.nk-skin .nk-myshop--index .nk-myshop-bankbook__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+  body.nk-skin .nk-myshop--index .nk-myshop-bankbook__item {
+    padding: 14px 14px;
+  }
+  body.nk-skin .nk-myshop--index .nk-myshop-bankbook__value {
+    font-size: 15px;
+  }
+  body.nk-skin .nk-myshop--index .nk-myshop__orderstate,
+  body.nk-skin .nk-myshop--index #myshopMain {
+    margin-top: 40px;
+  }
+  body.nk-skin .nk-myshop--index .nk-myshop-orderstate__body {
+    padding: 18px 8px 14px;
+  }
+  body.nk-skin .nk-myshop--index .nk-myshop-orderstate__steps .nk-myshop-orderstate__count {
+    font-size: 20px;
+  }
+  body.nk-skin .nk-myshop--index #myshopMain > ul {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  body.nk-skin .nk-myshop--index #myshopMain > ul > li.shopMain {
+    padding: 16px 18px;
+  }
+}
+
+/* ===== §A-2) myshop/board_list.html — 게시물 관리(테이블형) ===== */
+body.nk-skin .nk-myshop--board-list .nk-myshop__sort {
+  margin: 36px 0 0;
+  font-size: 12px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-myshop--board-list .nk-myshop__sort p {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  margin: 0;
+}
+body.nk-skin .nk-myshop--board-list .nk-myshop__sort select {
+  height: 38px; /* 정렬 바 컨트롤만 컴팩트(reset §8 기본 48px 대비 페이지 미세조정) */
+  min-width: 140px;
+}
+/* 목록 테이블 — §0 .nk-myshop__table 프리미티브가 처리. 여기선 제목 칸 정렬만 보강 */
+body.nk-skin .nk-myshop--board-list .nk-myshop__table td.subject {
+  text-align: left;
+}
+body.nk-skin .nk-myshop--board-list .nk-myshop__table td.subject a {
+  color: var(--nk-font);
+}
+body.nk-skin .nk-myshop--board-list .nk-myshop__table td.subject a:hover {
+  color: var(--nk-ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+body.nk-skin .nk-myshop--board-list .nk-myshop__table a.txtEm {
+  font-size: 12px; /* 분류 링크 — §A-0 포인트 상속 */
+}
+/* 페이징 — §0-8 전역 통일 */
+/* 검색 — 중앙 정렬 한 줄 폼(base boardlistSearch.css 회색 박스 상쇄) */
+body.nk-skin .nk-myshop--board-list .nk-myshop__search {
+  margin: 36px 0 0;
+}
+body.nk-skin .nk-myshop--board-list .nk-myshop__search .boardSearch {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+}
+body.nk-skin .nk-myshop--board-list .nk-myshop__search .boardSearch legend {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+body.nk-skin .nk-myshop--board-list .nk-myshop__search .boardSearch p {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 0;
+}
+body.nk-skin .nk-myshop--board-list .nk-myshop__search .boardSearch select {
+  height: 42px;
+}
+body.nk-skin .nk-myshop--board-list .nk-myshop__search .boardSearch input[type="text"] {
+  height: 42px;
+  width: 220px;
+}
+body.nk-skin .nk-myshop--board-list .nk-myshop__search .boardSearch a[class*="btnEm"] {
+  min-height: 42px;
+  padding: 0 24px;
+}
+/* 2-r) board_list 반응형 */
+@media (max-width: 767px) {
+  body.nk-skin .nk-myshop--board-list .nk-myshop__sort p {
+    justify-content: center;
+  }
+  body.nk-skin .nk-myshop--board-list .nk-myshop__table table {
+    min-width: 560px; /* 6열 유지 + 래퍼(§0) overflow-x 스크롤 */
+  }
+  body.nk-skin .nk-myshop--board-list .nk-myshop__search .boardSearch input[type="text"] {
+    width: auto;
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+/* ===== §A-3) myshop/order/list.html — 주문내역 조회 (테이블형+기간검색)
+       — 목록/검색 공통 룰은 --order-past(§A-4)와 병기 ===== */
+/* 3-a) 기간검색 박스(Myshop_OrderHistoryHead) — §0-6 박스 위 정렬 */
+body.nk-skin .nk-myshop--order-list .nk-myshop__searchbox,
+body.nk-skin .nk-myshop--order-past .nk-myshop__searchbox {
+  margin: 4px 0 0;
+}
+body.nk-skin .nk-myshop--order-list .nk-myshop__searchbox .ec-base-box,
+body.nk-skin .nk-myshop--order-list .nk-myshop__searchbox .nk-panel,
+body.nk-skin .nk-myshop--order-past .nk-myshop__searchbox .ec-base-box,
+body.nk-skin .nk-myshop--order-past .nk-myshop__searchbox .nk-panel {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+  padding: 18px 22px;
+}
+body.nk-skin .nk-myshop--order-list .nk-myshop__searchbox legend,
+body.nk-skin .nk-myshop--order-past .nk-myshop__searchbox legend {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+body.nk-skin .nk-myshop--order-list .nk-myshop__searchbox .stateSelect,
+body.nk-skin .nk-myshop--order-past .nk-myshop__searchbox .periodSelect {
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: 0;
+}
+body.nk-skin .nk-myshop--order-list .nk-myshop__searchbox .ec-base-box select,
+body.nk-skin .nk-myshop--order-list .nk-myshop__searchbox .nk-panel select,
+body.nk-skin .nk-myshop--order-past .nk-myshop__searchbox .ec-base-box select,
+body.nk-skin .nk-myshop--order-past .nk-myshop__searchbox .nk-panel select {
+  height: 40px;
+  min-width: 120px;
+}
+body.nk-skin .nk-myshop--order-list .nk-myshop__searchbox .ec-base-box input[type="text"],
+body.nk-skin .nk-myshop--order-list .nk-myshop__searchbox .nk-panel input[type="text"],
+body.nk-skin .nk-myshop--order-past .nk-myshop__searchbox .ec-base-box input[type="text"],
+body.nk-skin .nk-myshop--order-past .nk-myshop__searchbox .nk-panel input[type="text"] {
+  height: 40px;
+  width: 120px;
+}
+/* 3-b) 기간 프리셋 gif 버튼(days=) — 마크업/JS(onImage·offImage 스왑) 보존, 이미지는 투명 클릭영역으로만
+   유지 + ::before 텍스트 라벨(AGENT.md §9-7 / nk-order §6 관례). 선택 상태는 JS가 src를 *_on.gif로
+   바꾸는 것을 :has() 속성 셀렉터로 감지해 잉크 반전 표시(상태 매트릭스: 선택됨 상태 커버). */
+body.nk-skin .nk-myshop--order-list .nk-myshop__searchbox .period {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+body.nk-skin .nk-myshop--order-list .nk-myshop__searchbox .period a[class*="btnNormal"],
+body.nk-skin .nk-myshop--order-list .nk-myshop__searchbox .period a.nk-btn {
+  position: relative;
+  min-width: 58px;
+  min-height: 40px;
+  overflow: hidden;
+}
+body.nk-skin .nk-myshop--order-list .nk-myshop__searchbox .period a[class*="btnNormal"] img,
+body.nk-skin .nk-myshop--order-list .nk-myshop__searchbox .period a.nk-btn img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.0001; /* 클릭 영역·JS 스왑 보존, 시각만 텍스트 라벨로 대체 */
+  cursor: pointer;
+}
+body.nk-skin .nk-myshop--order-list .nk-myshop__searchbox .period a[days="00"]::before { content: "오늘"; }
+body.nk-skin .nk-myshop--order-list .nk-myshop__searchbox .period a[days="07"]::before { content: "1주일"; }
+body.nk-skin .nk-myshop--order-list .nk-myshop__searchbox .period a[days="30"]::before { content: "1개월"; }
+body.nk-skin .nk-myshop--order-list .nk-myshop__searchbox .period a[days="90"]::before { content: "3개월"; }
+body.nk-skin .nk-myshop--order-list .nk-myshop__searchbox .period a[days="180"]::before { content: "6개월"; }
+body.nk-skin .nk-myshop--order-list .nk-myshop__searchbox .period a[class*="btnNormal"]:has(img[src$="_on.gif"]),
+body.nk-skin .nk-myshop--order-list .nk-myshop__searchbox .period a.nk-btn:has(img[src$="_on.gif"]) {
+  border-color: var(--nk-ink);
+  background: var(--nk-ink);
+  color: var(--nk-on-dark);
+}
+/* 3-c) 안내 문구 목록 */
+body.nk-skin .nk-myshop--order-list .nk-myshop__searchbox > ul,
+body.nk-skin .nk-myshop--order-past .nk-myshop__searchbox > ul {
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+}
+body.nk-skin .nk-myshop--order-list .nk-myshop__searchbox > ul > li,
+body.nk-skin .nk-myshop--order-past .nk-myshop__searchbox > ul > li {
+  position: relative;
+  margin: 0;
+  padding: 2px 0 2px 10px;
+  background: none;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-myshop--order-list .nk-myshop__searchbox > ul > li::before,
+body.nk-skin .nk-myshop--order-past .nk-myshop__searchbox > ul > li::before {
+  content: "\00B7"; /* 가운뎃점 불릿 — base gif 불릿 대체 */
+  position: absolute;
+  left: 0;
+  top: 2px;
+}
+body.nk-skin .nk-myshop--order-list .nk-myshop__searchbox > ul > li a,
+body.nk-skin .nk-myshop--order-past .nk-myshop__searchbox > ul > li a {
+  color: var(--nk-font);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+/* 3-d) 주문 목록 테이블 — §0 .nk-myshop__table 위 목록 특화(두 목록 페이지 병기) */
+body.nk-skin .nk-myshop--order-list .nk-myshop__table.typeList table,
+body.nk-skin .nk-myshop--order-past .nk-myshop__table.typeList table {
+  min-width: 760px; /* 7열 붕괴 방지 — 좁은 폭에선 §0 래퍼 overflow-x 스크롤 */
+}
+body.nk-skin .nk-myshop--order-list .nk-myshop__table td.thumb img,
+body.nk-skin .nk-myshop--order-past .nk-myshop__table td.thumb img {
+  display: inline-block;
+  width: 100%;
+  max-width: 72px;
+  height: auto;
+  border-radius: var(--nk-radius);
+  background-color: var(--nk-bg2);
+}
+body.nk-skin .nk-myshop--order-list .nk-myshop__table td.product,
+body.nk-skin .nk-myshop--order-past .nk-myshop__table td.product {
+  text-align: left;
+}
+body.nk-skin .nk-myshop--order-list .nk-myshop__table td.product strong.name,
+body.nk-skin .nk-myshop--order-past .nk-myshop__table td.product strong.name {
+  display: block;
+  margin: 0 0 4px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-myshop--order-list .nk-myshop__table td.product strong.name a,
+body.nk-skin .nk-myshop--order-past .nk-myshop__table td.product strong.name a {
+  color: inherit;
+}
+body.nk-skin .nk-myshop--order-list .nk-myshop__table td.product .option,
+body.nk-skin .nk-myshop--order-past .nk-myshop__table td.product .option {
+  margin: 2px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-myshop--order-list .nk-myshop__table td.product ul.option li,
+body.nk-skin .nk-myshop--order-past .nk-myshop__table td.product ul.option li {
+  margin: 2px 0 0;
+  background: none;
+}
+/* 주문번호 칸 — 날짜·번호·신청 버튼 세로 스택 */
+body.nk-skin .nk-myshop--order-list .nk-myshop__table td.number p,
+body.nk-skin .nk-myshop--order-past .nk-myshop__table td.number p {
+  margin: 2px 0;
+}
+body.nk-skin .nk-myshop--order-list .nk-myshop__table td.number .rentBadge {
+  display: inline-block;
+  margin: 0 0 4px;
+  padding: 2px 7px;
+  border: 1px solid var(--nk-point);
+  border-radius: var(--nk-radius);
+  font-size: 10px;
+  line-height: 1.4;
+  color: var(--nk-point);
+}
+/* 표 안 액션 버튼(주문취소/취소신청/구매후기/철회…) — §0-4 위 소형 미세조정 */
+body.nk-skin .nk-myshop--order-list .nk-myshop__table tbody a[class*="btnNormal"],
+body.nk-skin .nk-myshop--order-past .nk-myshop__table tbody a[class*="btnNormal"],
+body.nk-skin .nk-myshop--order-list .nk-myshop__table tbody a[class*="btnSubmit"],
+body.nk-skin .nk-myshop--order-list .nk-myshop__table tbody .nk-btn,
+body.nk-skin .nk-myshop--order-past .nk-myshop__table tbody .nk-btn {
+  min-height: 28px;
+  margin: 3px 1px 0;
+  padding: 0 10px;
+  font-size: 11px;
+}
+/* 주문처리상태 칸 */
+body.nk-skin .nk-myshop--order-list .nk-myshop__table td.state p,
+body.nk-skin .nk-myshop--order-past .nk-myshop__table td.state p {
+  margin: 2px 0;
+}
+body.nk-skin .nk-myshop--order-list .nk-myshop__table td.state .deliveryDate {
+  font-size: 11px;
+  color: var(--nk-sub);
+}
+/* 주문 소계 행(tr.payDetail) — 헤어라인 위 우측 정렬 소계 */
+body.nk-skin .nk-myshop--order-list .nk-myshop__table tr.payDetail td {
+  padding: 12px 14px;
+  background-color: var(--nk-bg2);
+  font-size: 12px;
+  color: var(--nk-sub);
+  text-align: right;
+}
+body.nk-skin .nk-myshop--order-list .nk-myshop__table tr.payDetail td strong {
+  color: var(--nk-ink);
+  font-weight: 500;
+}
+body.nk-skin .nk-myshop--order-list .nk-myshop__table tr.payDetail td strong.txtEm {
+  font-family: var(--nk-font-display);
+  font-size: 14px;
+  color: var(--nk-point);
+}
+/* 페이징 — §0-8 전역 통일 */
+/* 3-r) 주문 목록 반응형(두 페이지 병기) */
+@media (max-width: 767px) {
+  body.nk-skin .nk-myshop--order-list .nk-myshop__searchbox .ec-base-box,
+  body.nk-skin .nk-myshop--order-list .nk-myshop__searchbox .nk-panel,
+  body.nk-skin .nk-myshop--order-past .nk-myshop__searchbox .ec-base-box,
+  body.nk-skin .nk-myshop--order-past .nk-myshop__searchbox .nk-panel {
+    align-items: stretch;
+    flex-direction: column;
+    padding: 14px 14px;
+  }
+  body.nk-skin .nk-myshop--order-list .nk-myshop__searchbox .ec-base-box select,
+  body.nk-skin .nk-myshop--order-list .nk-myshop__searchbox .nk-panel select,
+  body.nk-skin .nk-myshop--order-past .nk-myshop__searchbox .ec-base-box select,
+  body.nk-skin .nk-myshop--order-past .nk-myshop__searchbox .nk-panel select {
+    width: 100%;
+  }
+  body.nk-skin .nk-myshop--order-list .nk-myshop__searchbox .period {
+    display: flex;
+  }
+  body.nk-skin .nk-myshop--order-list .nk-myshop__searchbox .period a[class*="btnNormal"],
+  body.nk-skin .nk-myshop--order-list .nk-myshop__searchbox .period a.nk-btn {
+    flex: 1 1 0;
+    min-width: 0; /* flex 축소 차단 해제 — 브리프 ultraqa ① 처방 */
+  }
+  body.nk-skin .nk-myshop--order-list .nk-myshop__searchbox .ec-base-box input[type="text"],
+  body.nk-skin .nk-myshop--order-list .nk-myshop__searchbox .nk-panel input[type="text"],
+  body.nk-skin .nk-myshop--order-past .nk-myshop__searchbox .ec-base-box input[type="text"],
+  body.nk-skin .nk-myshop--order-past .nk-myshop__searchbox .nk-panel input[type="text"] {
+    width: 100%;
+  }
+}
+
+/* ===== §A-4) myshop/order/list_past.html — 과거주문내역 특화 ===== */
+/* 연도 조회 gif 버튼(input[type=image] — replaced 요소라 ::before 라벨 불가, 기능 우선 원형 노출) */
+body.nk-skin .nk-myshop--order-past .nk-myshop__searchbox #order_search_btn {
+  display: inline-block;
+  vertical-align: middle;
+  cursor: pointer;
+}
+/* 최종 실결제금액 칸 강조 */
+body.nk-skin .nk-myshop--order-past .nk-myshop__table tbody td p strong {
+  font-family: var(--nk-font-display);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--nk-ink);
+}
+
+/* ===== §A-5) myshop/order/detail.html — 주문상세 (원본 마크업 보존 · base 클래스 리스타일) ===== */
+/* 5-a) 추가결제 알림(.alert) — 포인트 어텐션 카드 */
+body.nk-skin .nk-myshop--order-detail .alert {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 16px;
+  margin: 36px 0 0;
+  padding: 18px 22px;
+  border: 1px solid var(--nk-point);
+  border-radius: var(--nk-radius);
+  background-color: var(--nk-bg2);
+}
+body.nk-skin .nk-myshop--order-detail .alert .content strong {
+  display: block;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-myshop--order-detail .alert .content p {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-myshop--order-detail .alert .button .txtLink {
+  font-size: 12px;
+  color: var(--nk-point);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+/* 5-b) 섹션 래퍼(.orderArea) 리듬 */
+body.nk-skin .nk-myshop--order-detail .orderArea {
+  margin: 0;
+}
+/* 5-c) 정보/목록 테이블(.ec-base-table) — §0 테이블 문법을 detail 스코프에 이식
+   (detail은 내부 nk- 훅 0건 원칙이라 .nk-myshop__table 클래스 없이 base 클래스를 직접 리스타일) */
+body.nk-skin .nk-myshop--order-detail .ec-base-table {
+  margin: 14px 0 0;
+  border: 0;
+  background: transparent;
+  overflow-x: auto; /* 7열 상품 표 모바일 가로 스크롤(4폭 가로 오버플로 0 목표) */
+  -webkit-overflow-scrolling: touch;
+}
+body.nk-skin .nk-myshop--order-detail .ec-base-table table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 0;
+  border-top: 1px solid var(--nk-ink);
+  background: transparent;
+  font-family: var(--nk-font-body);
+}
+body.nk-skin .nk-myshop--order-detail .ec-base-table caption {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+body.nk-skin .nk-myshop--order-detail .ec-base-table thead th {
+  padding: 13px 10px;
+  border: 0;
+  border-bottom: 1px solid var(--nk-border);
+  background: transparent;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  color: var(--nk-sub);
+  text-align: center;
+}
+body.nk-skin .nk-myshop--order-detail .ec-base-table tbody th,
+body.nk-skin .nk-myshop--order-detail .ec-base-table tbody td {
+  padding: 14px 12px;
+  border: 0;
+  border-bottom: 1px solid var(--nk-line);
+  background: transparent;
+  font-size: 13px;
+  color: var(--nk-font);
+  text-align: left;
+  vertical-align: middle;
+}
+body.nk-skin .nk-myshop--order-detail .ec-base-table tbody th[scope="row"] {
+  width: 150px;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--nk-sub);
+}
+/* 목록형(typeList)은 셀 중앙 정렬 + .left/.right 예외 */
+body.nk-skin .nk-myshop--order-detail .ec-base-table.typeList tbody td {
+  text-align: center;
+}
+body.nk-skin .nk-myshop--order-detail .ec-base-table.typeList tbody td.left,
+body.nk-skin .nk-myshop--order-detail .ec-base-table tbody td.left {
+  text-align: left;
+}
+body.nk-skin .nk-myshop--order-detail .ec-base-table tbody td.right {
+  text-align: right;
+}
+/* 배송그룹 소계(tfoot) */
+body.nk-skin .nk-myshop--order-detail .ec-base-table tfoot td {
+  padding: 12px 14px;
+  border: 0;
+  border-bottom: 1px solid var(--nk-line);
+  background-color: var(--nk-bg2);
+  font-size: 12px;
+  color: var(--nk-sub);
+  text-align: right;
+}
+body.nk-skin .nk-myshop--order-detail .ec-base-table tfoot td .gLeft {
+  float: left;
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+body.nk-skin .nk-myshop--order-detail .ec-base-table tfoot td strong {
+  color: var(--nk-ink);
+  font-weight: 500;
+}
+body.nk-skin .nk-myshop--order-detail .ec-base-table tfoot td .txt18 {
+  font-family: var(--nk-font-display);
+  font-size: 15px;
+  color: var(--nk-point);
+}
+/* 상품 칸 요소 */
+body.nk-skin .nk-myshop--order-detail .ec-base-table td.thumb img {
+  display: inline-block;
+  width: 100%;
+  max-width: 72px;
+  height: auto;
+  border-radius: var(--nk-radius);
+  background-color: var(--nk-bg2);
+}
+body.nk-skin .nk-myshop--order-detail .ec-base-table strong.name {
+  display: inline-block;
+  margin: 0 0 4px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-myshop--order-detail .ec-base-table strong.name a {
+  color: inherit;
+}
+body.nk-skin .nk-myshop--order-detail .ec-base-table .option {
+  margin: 2px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-myshop--order-detail .ec-base-table ul.option li {
+  margin: 2px 0 0;
+  background: none;
+}
+body.nk-skin .nk-myshop--order-detail .ec-base-table td.state p {
+  margin: 2px 0;
+}
+body.nk-skin .nk-myshop--order-detail .ec-base-table td.state .deliveryDate {
+  font-size: 11px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-myshop--order-detail .ec-base-table .txtInfo {
+  font-size: 12px;
+  color: var(--nk-sub);
+}
+/* 표 안 소형 버튼(내역보기/철회/구매확정/배송지 변경 등) — §0-4 위 소형 미세조정 */
+body.nk-skin .nk-myshop--order-detail .ec-base-table a[class*="btnNormal"],
+body.nk-skin .nk-myshop--order-detail .ec-base-table button[class*="btnNormal"],
+body.nk-skin .nk-myshop--order-detail .ec-base-table a[class*="btnSubmit"],
+body.nk-skin .nk-myshop--order-detail .title a[class*="btnNormal"] {
+  min-height: 28px;
+  margin: 2px 1px;
+  padding: 0 10px;
+  font-size: 11px;
+}
+/* 5-d) 결제 요약(.ec-base-table.total) — nk-order §9 총합계 카드 관례 차용(2열 세로형이라 카드 톤만) */
+body.nk-skin .nk-myshop--order-detail .ec-base-table.total {
+  margin: 14px 0 0;
+  padding: 8px 24px;
+  border: 1px solid var(--nk-line);
+  border-radius: var(--nk-radius);
+  background-color: var(--nk-bg2);
+  overflow-x: visible;
+}
+body.nk-skin .nk-myshop--order-detail .ec-base-table.total table {
+  border-top: 0;
+}
+body.nk-skin .nk-myshop--order-detail .ec-base-table.total tbody th,
+body.nk-skin .nk-myshop--order-detail .ec-base-table.total tbody td {
+  padding: 13px 0;
+  border: 0;
+  border-bottom: 1px solid var(--nk-line);
+  background: none;
+}
+body.nk-skin .nk-myshop--order-detail .ec-base-table.total tbody:last-child tr:last-child th,
+body.nk-skin .nk-myshop--order-detail .ec-base-table.total tbody:last-child tr:last-child td {
+  border-bottom: 0;
+}
+body.nk-skin .nk-myshop--order-detail .ec-base-table.total .txt14 {
+  font-family: var(--nk-font-display);
+  font-size: 15px;
+  font-weight: 500;
+}
+body.nk-skin .nk-myshop--order-detail .ec-base-table.total .txt18,
+body.nk-skin .nk-myshop--order-detail .ec-base-table .txtEm .txt18 {
+  font-family: var(--nk-font-display);
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--nk-point);
+}
+/* 5-e) 하단 액션 바(.ec-base-button) — §0-4 배경 상쇄 위 좌우 배치 */
+body.nk-skin .nk-myshop--order-detail .ec-base-button {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 44px 0 0;
+  text-align: left;
+}
+body.nk-skin .nk-myshop--order-detail .ec-base-button .gLeft,
+body.nk-skin .nk-myshop--order-detail .ec-base-button .gRight {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  float: none;
+}
+/* 5-f) 레이어(.ec-base-layer/.totalDetail) — 골격(위치/사이즈)은 base 기능 CSS 유지, 톤만 토큰화 */
+body.nk-skin .nk-myshop--order-detail .ec-base-layer {
+  border: 1px solid var(--nk-border);
+  background-color: var(--nk-bg);
+  color: var(--nk-font);
+}
+body.nk-skin .nk-myshop--order-detail .ec-base-layer .header {
+  background-color: var(--nk-ink);
+  color: var(--nk-on-dark);
+}
+body.nk-skin .nk-myshop--order-detail .ec-base-layer .header h3 {
+  margin: 0;
+  font-family: var(--nk-font-display);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--nk-on-dark);
+}
+body.nk-skin .nk-myshop--order-detail .ec-base-layer .content {
+  font-size: 12px;
+  color: var(--nk-font);
+}
+body.nk-skin .nk-myshop--order-detail .totalDetail {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+body.nk-skin .nk-myshop--order-detail .ec-base-layer .ec-base-button {
+  margin: 0;
+  justify-content: center;
+}
+/* 5-g) 고객알림 문단 */
+body.nk-skin .nk-myshop--order-detail .customer {
+  margin: 14px 0 0;
+  padding: 18px 22px;
+  border: 1px solid var(--nk-line);
+  border-radius: var(--nk-radius);
+  background-color: var(--nk-bg);
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: var(--nk-font);
+}
+/* 5-h) 이용안내(.ec-base-help 대형 가이드) — nk-order §13 관례 */
+body.nk-skin .nk-myshop--order-detail .ec-base-help {
+  margin: 24px 0 0;
+}
+body.nk-skin .nk-myshop--order-detail .ec-base-help > h3 {
+  margin: 56px 0 12px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: var(--nk-font-display);
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-myshop--order-detail .ec-base-help .inner {
+  margin: 0;
+  padding: 24px;
+  border: 1px solid var(--nk-line);
+  border-radius: var(--nk-radius);
+  background-color: var(--nk-bg);
+}
+body.nk-skin .nk-myshop--order-detail .ec-base-help .inner h4 {
+  margin: 0 0 8px;
+  padding: 0;
+  background: none;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-myshop--order-detail .ec-base-help .inner ol {
+  margin: 0 0 20px;
+  padding: 0 0 0 18px;
+}
+body.nk-skin .nk-myshop--order-detail .ec-base-help .inner ol:last-child {
+  margin-bottom: 0;
+}
+body.nk-skin .nk-myshop--order-detail .ec-base-help .inner ol li {
+  margin: 0;
+  padding: 2px 0;
+  background: none;
+  list-style: decimal;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--nk-sub);
+}
+/* 5-r) detail 반응형 */
+@media (max-width: 1023px) {
+  body.nk-skin .nk-myshop--order-detail .ec-base-table tbody th,
+  body.nk-skin .nk-myshop--order-detail .ec-base-table tbody td {
+    padding: 11px 10px;
+    font-size: 12px;
+  }
+  body.nk-skin .nk-myshop--order-detail .ec-base-table tbody th[scope="row"] {
+    width: 120px;
+  }
+}
+@media (max-width: 767px) {
+  body.nk-skin .nk-myshop--order-detail .alert {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 14px 16px;
+  }
+  body.nk-skin .nk-myshop--order-detail .ec-base-table.typeList table {
+    min-width: 720px; /* 7열 상품 표 — 래퍼 overflow-x 스크롤로 소화 */
+  }
+  body.nk-skin .nk-myshop--order-detail .ec-base-button {
+    justify-content: center;
+  }
+  body.nk-skin .nk-myshop--order-detail .ec-base-button .gLeft,
+  body.nk-skin .nk-myshop--order-detail .ec-base-button .gRight {
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+/* ===== §A-6) myshop/order/{cancel,exchange,return}.html — 취소/교환/반품 신청 (inner 960) ===== */
+/* 6-a) 신청 상품 표 — §0 .nk-myshop__table 위 목록 특화 */
+body.nk-skin .nk-myshop--order-cancel .nk-myshop__table.typeList table,
+body.nk-skin .nk-myshop--order-exchange .nk-myshop__table.typeList table,
+body.nk-skin .nk-myshop--order-return .nk-myshop__table.typeList table {
+  min-width: 720px; /* 7열 붕괴 방지 — 좁은 폭에선 §0 래퍼 overflow-x 스크롤 */
+}
+body.nk-skin .nk-myshop--order-cancel .nk-myshop__table td.product,
+body.nk-skin .nk-myshop--order-exchange .nk-myshop__table td.product,
+body.nk-skin .nk-myshop--order-return .nk-myshop__table td.product {
+  text-align: left;
+}
+body.nk-skin .nk-myshop--order-cancel .nk-myshop__table td.product .thumbnail,
+body.nk-skin .nk-myshop--order-exchange .nk-myshop__table td.product .thumbnail,
+body.nk-skin .nk-myshop--order-return .nk-myshop__table td.product .thumbnail {
+  display: block;
+  float: left;
+  margin: 0 12px 4px 0;
+}
+body.nk-skin .nk-myshop--order-cancel .nk-myshop__table td.product .thumbnail img,
+body.nk-skin .nk-myshop--order-exchange .nk-myshop__table td.product .thumbnail img,
+body.nk-skin .nk-myshop--order-return .nk-myshop__table td.product .thumbnail img {
+  display: block;
+  width: 64px;
+  height: auto;
+  border-radius: var(--nk-radius);
+  background-color: var(--nk-bg2);
+}
+body.nk-skin .nk-myshop--order-cancel .nk-myshop__table td.product p,
+body.nk-skin .nk-myshop--order-exchange .nk-myshop__table td.product p,
+body.nk-skin .nk-myshop--order-return .nk-myshop__table td.product p {
+  margin: 0;
+  overflow: hidden; /* float 썸네일 옆 텍스트 컬럼 확보 */
+}
+body.nk-skin .nk-myshop--order-cancel .nk-myshop__table td.product strong.name,
+body.nk-skin .nk-myshop--order-exchange .nk-myshop__table td.product strong.name,
+body.nk-skin .nk-myshop--order-return .nk-myshop__table td.product strong.name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-myshop--order-cancel .nk-myshop__table td.product strong.name a,
+body.nk-skin .nk-myshop--order-exchange .nk-myshop__table td.product strong.name a,
+body.nk-skin .nk-myshop--order-return .nk-myshop__table td.product strong.name a {
+  color: inherit;
+}
+body.nk-skin .nk-myshop--order-cancel .nk-myshop__table td.product .option,
+body.nk-skin .nk-myshop--order-exchange .nk-myshop__table td.product .option,
+body.nk-skin .nk-myshop--order-return .nk-myshop__table td.product .option {
+  margin: 4px 0 0;
+  padding: 0;
+  list-style: none;
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-myshop--order-cancel .nk-myshop__table td.product ul.option li,
+body.nk-skin .nk-myshop--order-exchange .nk-myshop__table td.product ul.option li,
+body.nk-skin .nk-myshop--order-return .nk-myshop__table td.product ul.option li {
+  margin: 2px 0 0;
+  background: none;
+}
+body.nk-skin .nk-myshop--order-cancel .nk-myshop__table td.product .free,
+body.nk-skin .nk-myshop--order-exchange .nk-myshop__table td.product .free,
+body.nk-skin .nk-myshop--order-return .nk-myshop__table td.product .free {
+  clear: both;
+  font-size: 11px;
+  color: var(--nk-point);
+}
+/* 배송지 병합 행(.multiDelivery) */
+body.nk-skin .nk-myshop--order-cancel .nk-myshop__table td.multiDelivery .inner,
+body.nk-skin .nk-myshop--order-exchange .nk-myshop__table td.multiDelivery .inner,
+body.nk-skin .nk-myshop--order-return .nk-myshop__table td.multiDelivery .inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+  padding: 2px 0;
+  border: 0;
+  background: none;
+  font-size: 12px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-myshop--order-cancel .nk-myshop__table td.multiDelivery .inner .address ul,
+body.nk-skin .nk-myshop--order-exchange .nk-myshop__table td.multiDelivery .inner .address ul,
+body.nk-skin .nk-myshop--order-return .nk-myshop__table td.multiDelivery .inner .address ul {
+  margin: 2px 0 0;
+  padding: 0;
+  list-style: none;
+}
+body.nk-skin .nk-myshop--order-cancel .nk-myshop__table td.multiDelivery .inner .address strong,
+body.nk-skin .nk-myshop--order-exchange .nk-myshop__table td.multiDelivery .inner .address strong,
+body.nk-skin .nk-myshop--order-return .nk-myshop__table td.multiDelivery .inner .address strong {
+  color: var(--nk-ink);
+  font-weight: 500;
+}
+/* 6-b) 신청수량 컨트롤(.ec-base-qty) — gif 버튼 클릭 핸들러 보존 + 글리프 대체(nk-order §6 관례) */
+body.nk-skin .nk-myshop--order-cancel .ec-base-qty,
+body.nk-skin .nk-myshop--order-exchange .ec-base-qty,
+body.nk-skin .nk-myshop--order-return .ec-base-qty {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 92px;
+  height: 32px;
+  vertical-align: middle;
+}
+body.nk-skin .nk-myshop--order-cancel .ec-base-qty input[type="text"],
+body.nk-skin .nk-myshop--order-exchange .ec-base-qty input[type="text"],
+body.nk-skin .nk-myshop--order-return .ec-base-qty input[type="text"] {
+  width: 92px;
+  height: 32px;
+  padding: 0 26px;
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  background-color: transparent;
+  text-align: center;
+  font-size: 12px;
+}
+body.nk-skin .nk-myshop--order-cancel .ec-base-qty a,
+body.nk-skin .nk-myshop--order-exchange .ec-base-qty a,
+body.nk-skin .nk-myshop--order-return .ec-base-qty a {
+  position: absolute;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 32px;
+  font-size: 14px;
+  color: var(--nk-sub);
+  text-decoration: none;
+}
+/* 소스 순서 고정: 1번째 a=증가(우측 +), 2번째 a=감소(좌측 −) — stock 마크업 기준 */
+body.nk-skin .nk-myshop--order-cancel .ec-base-qty a:nth-of-type(1),
+body.nk-skin .nk-myshop--order-exchange .ec-base-qty a:nth-of-type(1),
+body.nk-skin .nk-myshop--order-return .ec-base-qty a:nth-of-type(1) {
+  right: 0;
+}
+body.nk-skin .nk-myshop--order-cancel .ec-base-qty a:nth-of-type(1)::before,
+body.nk-skin .nk-myshop--order-exchange .ec-base-qty a:nth-of-type(1)::before,
+body.nk-skin .nk-myshop--order-return .ec-base-qty a:nth-of-type(1)::before {
+  content: "+";
+}
+body.nk-skin .nk-myshop--order-cancel .ec-base-qty a:nth-of-type(2),
+body.nk-skin .nk-myshop--order-exchange .ec-base-qty a:nth-of-type(2),
+body.nk-skin .nk-myshop--order-return .ec-base-qty a:nth-of-type(2) {
+  left: 0;
+}
+body.nk-skin .nk-myshop--order-cancel .ec-base-qty a:nth-of-type(2)::before,
+body.nk-skin .nk-myshop--order-exchange .ec-base-qty a:nth-of-type(2)::before,
+body.nk-skin .nk-myshop--order-return .ec-base-qty a:nth-of-type(2)::before {
+  content: "\2212"; /* 수학 마이너스 글리프 */
+}
+body.nk-skin .nk-myshop--order-cancel .ec-base-qty a img,
+body.nk-skin .nk-myshop--order-exchange .ec-base-qty a img,
+body.nk-skin .nk-myshop--order-return .ec-base-qty a img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.0001; /* 카페24 gif 버튼 클릭 영역만 보존 */
+  cursor: pointer;
+}
+/* 표 안 소형 버튼(변경/환불계좌등록…) — §0-4 위 소형 미세조정 */
+body.nk-skin .nk-myshop--order-cancel .nk-myshop__table a[class*="btnNormal"],
+body.nk-skin .nk-myshop--order-exchange .nk-myshop__table a[class*="btnNormal"],
+body.nk-skin .nk-myshop--order-return .nk-myshop__table a[class*="btnNormal"] {
+  min-height: 28px;
+  margin: 2px 1px;
+  padding: 0 10px;
+  font-size: 11px;
+}
+/* 6-c) 사유/수거/배송비/환불 폼 표(typeWrite) — 좌 라벨/우 입력, 폼 컨트롤은 reset §8에 맡김 */
+body.nk-skin .nk-myshop--order-cancel .nk-myshop__table.typeWrite tbody td,
+body.nk-skin .nk-myshop--order-exchange .nk-myshop__table.typeWrite tbody td,
+body.nk-skin .nk-myshop--order-return .nk-myshop__table.typeWrite tbody td {
+  text-align: left;
+}
+body.nk-skin .nk-myshop--order-cancel .nk-myshop__table.typeWrite tbody th[scope="row"],
+body.nk-skin .nk-myshop--order-exchange .nk-myshop__table.typeWrite tbody th[scope="row"],
+body.nk-skin .nk-myshop--order-return .nk-myshop__table.typeWrite tbody th[scope="row"] {
+  width: 150px;
+}
+body.nk-skin .nk-myshop--order-cancel .nk-myshop__table.typeWrite select,
+body.nk-skin .nk-myshop--order-exchange .nk-myshop__table.typeWrite select,
+body.nk-skin .nk-myshop--order-return .nk-myshop__table.typeWrite select {
+  max-width: 100%;
+}
+body.nk-skin .nk-myshop--order-cancel .nk-myshop__table.typeWrite textarea,
+body.nk-skin .nk-myshop--order-exchange .nk-myshop__table.typeWrite textarea,
+body.nk-skin .nk-myshop--order-return .nk-myshop__table.typeWrite textarea {
+  width: 100%;
+}
+body.nk-skin .nk-myshop--order-cancel .nk-myshop__table.typeWrite td .gBlank5,
+body.nk-skin .nk-myshop--order-exchange .nk-myshop__table.typeWrite td .gBlank5,
+body.nk-skin .nk-myshop--order-return .nk-myshop__table.typeWrite td .gBlank5 {
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--nk-sub);
+}
+/* 라디오 나열(.ec-base-radio) — 줄 간격만 */
+body.nk-skin .nk-myshop--order-cancel .ec-base-radio,
+body.nk-skin .nk-myshop--order-exchange .ec-base-radio,
+body.nk-skin .nk-myshop--order-return .ec-base-radio {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  font-size: 12.5px;
+}
+/* 6-d) 소형 안내(.ec-base-help 노트) — gif 불릿 제거 + 토큰 톤 */
+body.nk-skin .nk-myshop--order-cancel ul.ec-base-help,
+body.nk-skin .nk-myshop--order-exchange ul.ec-base-help,
+body.nk-skin .nk-myshop--order-return ul.ec-base-help {
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+}
+body.nk-skin .nk-myshop--order-cancel ul.ec-base-help li,
+body.nk-skin .nk-myshop--order-exchange ul.ec-base-help li,
+body.nk-skin .nk-myshop--order-return ul.ec-base-help li {
+  margin: 0;
+  padding: 2px 0;
+  background: none;
+  font-size: 11.5px;
+  line-height: 1.7;
+}
+body.nk-skin .nk-myshop--order-cancel p.ec-base-help,
+body.nk-skin .nk-myshop--order-exchange p.ec-base-help,
+body.nk-skin .nk-myshop--order-return p.ec-base-help {
+  margin: 10px 0 0;
+  padding: 0;
+  background: none;
+  font-size: 11.5px;
+  line-height: 1.7;
+}
+/* 6-e) 선택상품 조작 바(exchange 상단 .ec-base-button) + 하단 신청 버튼 바 */
+body.nk-skin .nk-myshop--order-exchange .ec-base-button .gLeft {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  float: none;
+}
+body.nk-skin .nk-myshop--order-exchange .ec-base-button .gLeft strong.text {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-myshop--order-cancel .ec-base-button a[class*="btnSubmit"],
+body.nk-skin .nk-myshop--order-exchange .ec-base-button a[class*="btnSubmit"],
+body.nk-skin .nk-myshop--order-return .ec-base-button a[class*="btnSubmit"] {
+  min-width: 180px;
+}
+/* 빈 교환상품 메시지 행(exchange tbody.message) */
+body.nk-skin .nk-myshop--order-exchange .nk-myshop__table tbody.message td {
+  padding: 40px 10px;
+  font-size: 12.5px;
+  color: var(--nk-sub);
+  text-align: center;
+}
+/* 6-f) 하단 이용안내(exchange .nk-myshop__guide) — detail §5-h와 동일 관례 */
+body.nk-skin .nk-myshop--order-exchange .nk-myshop__guide {
+  margin: 56px 0 0;
+}
+body.nk-skin .nk-myshop--order-exchange .nk-myshop__guide > h3 {
+  margin: 0 0 12px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: var(--nk-font-display);
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-myshop--order-exchange .nk-myshop__guide .inner {
+  margin: 0;
+  padding: 24px;
+  border: 1px solid var(--nk-line);
+  border-radius: var(--nk-radius);
+  background-color: var(--nk-bg);
+}
+body.nk-skin .nk-myshop--order-exchange .nk-myshop__guide .inner h4 {
+  margin: 0 0 8px;
+  padding: 0;
+  background: none;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-myshop--order-exchange .nk-myshop__guide .inner ol {
+  margin: 0;
+  padding: 0 0 0 18px;
+}
+body.nk-skin .nk-myshop--order-exchange .nk-myshop__guide .inner ol li {
+  margin: 0;
+  padding: 2px 0;
+  background: none;
+  list-style: decimal;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--nk-sub);
+}
+/* 6-r) 취소/교환/반품 반응형 */
+@media (max-width: 767px) {
+  body.nk-skin .nk-myshop--order-cancel .nk-myshop__table.typeWrite tbody th[scope="row"],
+  body.nk-skin .nk-myshop--order-exchange .nk-myshop__table.typeWrite tbody th[scope="row"],
+  body.nk-skin .nk-myshop--order-return .nk-myshop__table.typeWrite tbody th[scope="row"] {
+    width: 104px;
+  }
+  body.nk-skin .nk-myshop--order-cancel .ec-base-button a[class*="btnSubmit"],
+  body.nk-skin .nk-myshop--order-exchange .ec-base-button a[class*="btnSubmit"],
+  body.nk-skin .nk-myshop--order-return .ec-base-button a[class*="btnSubmit"] {
+    width: 100%;
+    min-width: 0;
+  }
+  body.nk-skin .nk-myshop--order-cancel .ec-base-button a[class*="btnNormalFix"],
+  body.nk-skin .nk-myshop--order-exchange .ec-base-button a[class*="btnNormalFix"],
+  body.nk-skin .nk-myshop--order-return .ec-base-button a[class*="btnNormalFix"] {
+    width: 100%;
+  }
+}
+
+/*
+ * nk-myshop-part-B.css — Wave2 myshop 서브에이전트 B partial (혜택·위시·주소·정기배송 계열 13페이지)
+ * 납품 위치: nk-myshop.css 뒤(§0 공통 프리미티브 + 선행 페이지 섹션 다음)에 이어붙이는 partial.
+ * 스코프 원칙: 모든 룰은 body.nk-skin .nk-myshop.nk-myshop--{slug} "컴파운드" 체이닝 —
+ *   §0(body.nk-skin .nk-myshop …)과의 명시도 동점을 원천 회피(브리프 ultraqa ③: 동점은 로드순서
+ *   패배 위험 → 체인 한 단계 강화). §0 공통 셀렉터 자체는 재정의하지 않고 페이지 스코프 미세조정만.
+ * 색·공통 치수는 전부 var(--nk-*) — hex 리터럴 0건. 컴포넌트 고유 여백·폰트 px 리터럴은
+ *   패턴 CSS(nk-board/nk-plp/nk-member) 관례대로 허용. italic/oblique 0건. !important 0건
+ *   (이 파트 담당 stock엔 인라인 module 색 바인딩({$…} style)이 없어 맞받을 자리 자체가 없음).
+ * 대응 HTML: src/myshop/{addr/*,coupon/coupon,deposits/historyList,mileage/*,likeit/*,
+ *   regular_delivery,regular_delivery_detail,wish_list}.html — 각 파일 최상위
+ *   <div class="nk-myshop nk-myshop--{slug}"> 래퍼 기준.
+ */
+
+/* ===== §B-0) 파트 공통 마감 — 담당 13페이지 한정 병기 스코프 ===== */
+
+/* B-0-a) 안내 박스(.ec-base-help) — base 번호 스프라이트/회색 박스 제거, 라인 위주 미니멀
+   (addr 3형제 · coupon · deposits · mileage 3형제 — wish/regular-detail의 인라인 노트형
+    ec-base-help는 여기서 제외, 각 페이지 섹션에서 소형 노트로 별도 처리) */
+body.nk-skin .nk-myshop.nk-myshop--addr-list .ec-base-help,
+body.nk-skin .nk-myshop.nk-myshop--addr-modify .ec-base-help,
+body.nk-skin .nk-myshop.nk-myshop--addr-register .ec-base-help,
+body.nk-skin .nk-myshop.nk-myshop--coupon .ec-base-help,
+body.nk-skin .nk-myshop.nk-myshop--deposits .ec-base-help,
+body.nk-skin .nk-myshop.nk-myshop--mileage .ec-base-help,
+body.nk-skin .nk-myshop.nk-myshop--mileage-coupon .ec-base-help,
+body.nk-skin .nk-myshop.nk-myshop--mileage-unavail .ec-base-help {
+  margin: 48px 0 0;
+  padding: 24px 0 0;
+  border: 0;
+  border-top: 1px solid var(--nk-line);
+  background: transparent;
+}
+body.nk-skin .nk-myshop.nk-myshop--addr-list .ec-base-help h3,
+body.nk-skin .nk-myshop.nk-myshop--addr-modify .ec-base-help h3,
+body.nk-skin .nk-myshop.nk-myshop--addr-register .ec-base-help h3,
+body.nk-skin .nk-myshop.nk-myshop--coupon .ec-base-help h3,
+body.nk-skin .nk-myshop.nk-myshop--deposits .ec-base-help h3,
+body.nk-skin .nk-myshop.nk-myshop--mileage .ec-base-help h3,
+body.nk-skin .nk-myshop.nk-myshop--mileage-coupon .ec-base-help h3,
+body.nk-skin .nk-myshop.nk-myshop--mileage-unavail .ec-base-help h3 {
+  margin: 0 0 12px;
+  padding: 0;
+  background: none;
+  font-family: var(--nk-font-display);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-myshop.nk-myshop--addr-list .ec-base-help .inner,
+body.nk-skin .nk-myshop.nk-myshop--addr-modify .ec-base-help .inner,
+body.nk-skin .nk-myshop.nk-myshop--addr-register .ec-base-help .inner,
+body.nk-skin .nk-myshop.nk-myshop--coupon .ec-base-help .inner,
+body.nk-skin .nk-myshop.nk-myshop--deposits .ec-base-help .inner,
+body.nk-skin .nk-myshop.nk-myshop--mileage .ec-base-help .inner,
+body.nk-skin .nk-myshop.nk-myshop--mileage-coupon .ec-base-help .inner,
+body.nk-skin .nk-myshop.nk-myshop--mileage-unavail .ec-base-help .inner {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+body.nk-skin .nk-myshop.nk-myshop--addr-list .ec-base-help ol,
+body.nk-skin .nk-myshop.nk-myshop--addr-modify .ec-base-help ol,
+body.nk-skin .nk-myshop.nk-myshop--addr-register .ec-base-help ol,
+body.nk-skin .nk-myshop.nk-myshop--coupon .ec-base-help ol,
+body.nk-skin .nk-myshop.nk-myshop--deposits .ec-base-help ol,
+body.nk-skin .nk-myshop.nk-myshop--mileage .ec-base-help ol,
+body.nk-skin .nk-myshop.nk-myshop--mileage-coupon .ec-base-help ol,
+body.nk-skin .nk-myshop.nk-myshop--mileage-unavail .ec-base-help ol {
+  margin: 0;
+  padding: 0 0 0 18px;
+  list-style: decimal;
+}
+body.nk-skin .nk-myshop.nk-myshop--addr-list .ec-base-help li,
+body.nk-skin .nk-myshop.nk-myshop--addr-modify .ec-base-help li,
+body.nk-skin .nk-myshop.nk-myshop--addr-register .ec-base-help li,
+body.nk-skin .nk-myshop.nk-myshop--coupon .ec-base-help li,
+body.nk-skin .nk-myshop.nk-myshop--deposits .ec-base-help li,
+body.nk-skin .nk-myshop.nk-myshop--mileage .ec-base-help li,
+body.nk-skin .nk-myshop.nk-myshop--mileage-coupon .ec-base-help li,
+body.nk-skin .nk-myshop.nk-myshop--mileage-unavail .ec-base-help li {
+  margin: 0 0 6px;
+  padding: 0;
+  background: none; /* base item1~item6 번호 스프라이트 아이콘 제거 → decimal 마커로 대체 */
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--nk-sub);
+}
+
+/* B-0-b) 섹션 소제목 h3 — coupon(.title>h3) · regular/regular-detail(h3.title) 통일 */
+body.nk-skin .nk-myshop.nk-myshop--coupon .title h3,
+body.nk-skin .nk-myshop.nk-myshop--regular h3.title,
+body.nk-skin .nk-myshop.nk-myshop--regular-detail h3.title {
+  margin: 44px 0 14px;
+  padding: 0;
+  font-family: var(--nk-font-display);
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  color: var(--nk-ink);
+}
+
+/* B-0-c) 페이징 여백 — 색/박스 리셋은 nk-cafe24-reset.css §6 · 레이아웃은 nk-components §5-4b + §0-8 */
+body.nk-skin .nk-myshop .ec-base-paginate {
+  margin: 32px auto 0;
+  text-align: center;
+}
+
+/* B-0-d) <i> 아이콘 태그(icoDelete/icoDown) UA 이탤릭 방지 — 하드룰: 기울임 서체 금지 */
+body.nk-skin .nk-myshop.nk-myshop--likeit-cate i,
+body.nk-skin .nk-myshop.nk-myshop--likeit-prd i,
+body.nk-skin .nk-myshop.nk-myshop--wish i,
+body.nk-skin .nk-myshop.nk-myshop--regular-detail i {
+  font-style: normal;
+}
+
+/* B-0-e) base .txtWarn(토큰 밖 경고색) 재채색 — 경고 의미는 유지하되 팔레트 안으로 */
+body.nk-skin .nk-myshop.nk-myshop--wish .txtWarn,
+body.nk-skin .nk-myshop.nk-myshop--regular-detail .txtWarn {
+  color: var(--nk-point-active);
+}
+
+/* B-0-f) 선택 컨트롤 바 라벨("선택상품을") — likeit 2종 + wish 공통 */
+body.nk-skin .nk-myshop.nk-myshop--likeit-cate .ec-base-button .text,
+body.nk-skin .nk-myshop.nk-myshop--likeit-cate .nk-actions .text,
+body.nk-skin .nk-myshop.nk-myshop--likeit-prd .ec-base-button .text,
+body.nk-skin .nk-myshop.nk-myshop--likeit-prd .nk-actions .text,
+body.nk-skin .nk-myshop.nk-myshop--wish .ec-base-button .text,
+body.nk-skin .nk-myshop.nk-myshop--wish .nk-actions .text {
+  margin-right: 8px;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--nk-sub);
+}
+
+/* B-0-g) 모바일 버튼 바 스택 — gLeft/gRight float 해제로 390px 겹침/오버플로 방지 */
+@media (max-width: 767px) {
+  body.nk-skin .nk-myshop.nk-myshop--addr-list .ec-base-button .gLeft,
+  body.nk-skin .nk-myshop.nk-myshop--addr-list .ec-base-button .gRight,
+  body.nk-skin .nk-myshop.nk-myshop--addr-list .nk-actions .gLeft,
+  body.nk-skin .nk-myshop.nk-myshop--addr-list .nk-actions .gRight,
+  body.nk-skin .nk-myshop.nk-myshop--addr-modify .ec-base-button .gRight,
+  body.nk-skin .nk-myshop.nk-myshop--addr-modify .nk-actions .gRight,
+  body.nk-skin .nk-myshop.nk-myshop--addr-register .ec-base-button .gRight,
+  body.nk-skin .nk-myshop.nk-myshop--addr-register .nk-actions .gRight,
+  body.nk-skin .nk-myshop.nk-myshop--coupon .ec-base-button .gRight,
+  body.nk-skin .nk-myshop.nk-myshop--coupon .nk-actions .gRight,
+  body.nk-skin .nk-myshop.nk-myshop--deposits .ec-base-button .gRight,
+  body.nk-skin .nk-myshop.nk-myshop--deposits .nk-actions .gRight,
+  body.nk-skin .nk-myshop.nk-myshop--likeit-cate .ec-base-button .gLeft,
+  body.nk-skin .nk-myshop.nk-myshop--likeit-cate .nk-actions .gLeft,
+  body.nk-skin .nk-myshop.nk-myshop--likeit-prd .ec-base-button .gLeft,
+  body.nk-skin .nk-myshop.nk-myshop--likeit-prd .nk-actions .gLeft,
+  body.nk-skin .nk-myshop.nk-myshop--wish .ec-base-button .gLeft,
+  body.nk-skin .nk-myshop.nk-myshop--wish .ec-base-button .gRight,
+  body.nk-skin .nk-myshop.nk-myshop--wish .nk-actions .gLeft,
+  body.nk-skin .nk-myshop.nk-myshop--wish .nk-actions .gRight {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    float: none;
+    width: 100%;
+    margin: 8px 0 0;
+    text-align: center;
+  }
+}
+
+/* ===== §B-1) myshop/addr/list.html — 배송 주소록 (테이블형) ===== */
+/* 기본배송지 아이콘 gif — base 제공 파랑 계열 이미지라 CSS 색 선언 없이 흑백화로 시각 중화
+   (마크업·{$default_img_display} 바인딩 보존) */
+body.nk-skin .nk-myshop.nk-myshop--addr-list .nk-myshop__table img[src*="ico_addr_default"] {
+  filter: grayscale(1);
+  opacity: 0.75;
+  vertical-align: middle;
+}
+/* 고정/해제·수정 소형 버튼 — §0-4 리스타일 위에 셀 안 컴팩트 여백만 미세조정 */
+body.nk-skin .nk-myshop.nk-myshop--addr-list .nk-myshop__table td a[class*="btnNormal"],
+body.nk-skin .nk-myshop.nk-myshop--addr-list .nk-myshop__table td a[class*="btnEm"] {
+  min-height: 28px;
+  padding: 0 10px;
+  font-size: 11px;
+}
+body.nk-skin .nk-myshop.nk-myshop--addr-list .ec-base-button {
+  margin-top: 20px;
+}
+@media (max-width: 1023px) {
+  /* 8열 와이드 테이블 — §0-3 래퍼 overflow-x:auto 전제로 최소폭 확보(셀 뭉개짐 방지) */
+  body.nk-skin .nk-myshop.nk-myshop--addr-list .nk-myshop__table table {
+    min-width: 720px;
+  }
+}
+
+/* ===== §B-2) myshop/addr/modify.html + register.html — 주소 폼 (narrow 720 병기) ===== */
+/* 필수표시 gif(파랑 계열 base 이미지) — 흑백화로 시각 중화(마크업 보존, alt="필수" 접근성 유지) */
+body.nk-skin .nk-myshop.nk-myshop--addr-modify .nk-myshop__table img[src*="ico_required"],
+body.nk-skin .nk-myshop.nk-myshop--addr-register .nk-myshop__table img[src*="ico_required"] {
+  filter: grayscale(1);
+  opacity: 0.65;
+  vertical-align: middle;
+}
+/* typeWrite 2단 폼 — 라벨 열 좌측 정렬·상단 정렬, 필드 셀 좌측 */
+body.nk-skin .nk-myshop.nk-myshop--addr-modify .nk-myshop__table tbody th,
+body.nk-skin .nk-myshop.nk-myshop--addr-register .nk-myshop__table tbody th {
+  text-align: left;
+  vertical-align: top;
+  padding-top: 22px;
+}
+body.nk-skin .nk-myshop.nk-myshop--addr-modify .nk-myshop__table tbody td,
+body.nk-skin .nk-myshop.nk-myshop--addr-register .nk-myshop__table tbody td {
+  text-align: left;
+}
+/* 룰기반 주소폼({$form.address})이 뱉는 다중 인풋 세로 간격 — 폭은 module CSS(addrModify/
+   addrRegister.css)가 담당하므로 강제하지 않음(우편번호+검색버튼 인라인 그룹 보호) */
+body.nk-skin .nk-myshop.nk-myshop--addr-modify .nk-myshop__table td input,
+body.nk-skin .nk-myshop.nk-myshop--addr-register .nk-myshop__table td input {
+  margin: 2px 0;
+  max-width: 100%;
+}
+/* 주소검색 #postBtn — nk-member.css §16-postBtn 전역 규칙이 담당. 테이블 셀 내 zip 행만 보강 */
+body.nk-skin .nk-myshop.nk-myshop--addr-modify .ec-address-zipcode,
+body.nk-skin .nk-myshop.nk-myshop--addr-register .ec-address-zipcode {
+  margin: 2px 0 6px;
+}
+/* 기본 배송지 저장 체크 행(tr.right) — §0은 td.right만 처리하므로 행 단위 우측 정렬 보강 */
+body.nk-skin .nk-myshop.nk-myshop--addr-modify .nk-myshop__table tr.right td,
+body.nk-skin .nk-myshop.nk-myshop--addr-register .nk-myshop__table tr.right td {
+  text-align: right;
+  font-size: 12px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-myshop.nk-myshop--addr-modify .ec-base-button,
+body.nk-skin .nk-myshop.nk-myshop--addr-register .ec-base-button {
+  margin-top: 24px;
+  text-align: right;
+}
+
+/* ===== §B-3) myshop/coupon/coupon.html — 마이쿠폰 (테이블형) ===== */
+/* 목록 타이틀 옆 보유 수 카운트 */
+body.nk-skin .nk-myshop.nk-myshop--coupon .title {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  margin: 44px 0 0;
+}
+body.nk-skin .nk-myshop.nk-myshop--coupon .title h3 {
+  margin: 0; /* B-0-b 공통 마진을 플렉스 컨테이너 쪽으로 이관 */
+}
+body.nk-skin .nk-myshop.nk-myshop--coupon .title p {
+  margin: 0;
+  font-size: 12px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-myshop.nk-myshop--coupon .nk-myshop__table {
+  margin-top: 14px;
+}
+body.nk-skin .nk-myshop.nk-myshop--coupon .nk-myshop__table td.left strong {
+  font-weight: 500;
+  color: var(--nk-ink);
+}
+/* 쿠폰 혜택 부가설명(최대 할인금액) */
+body.nk-skin .nk-myshop.nk-myshop--coupon .nk-myshop__table td span {
+  font-size: 11px;
+  color: var(--nk-sub);
+}
+/* 쿠폰번호 인증 박스 — §0-6 1px 박스 위에 입력줄 플렉스 배치만 */
+body.nk-skin .nk-myshop.nk-myshop--coupon .couponSerial fieldset {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+body.nk-skin .nk-myshop.nk-myshop--coupon .couponSerial legend {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0); /* sr-only — 접근성 텍스트 유지 */
+}
+body.nk-skin .nk-myshop.nk-myshop--coupon .couponSerial input[type="text"] {
+  flex: 1 1 220px;
+  min-width: 0;
+}
+body.nk-skin .nk-myshop.nk-myshop--coupon .couponSerial fieldset > p {
+  flex-basis: 100%;
+  margin: 4px 0 0;
+  font-size: 11.5px;
+  color: var(--nk-sub);
+}
+@media (max-width: 1023px) {
+  /* 7열 와이드 테이블 — 래퍼 overflow-x:auto 전제 최소폭 */
+  body.nk-skin .nk-myshop.nk-myshop--coupon .nk-myshop__table table {
+    min-width: 760px;
+  }
+}
+
+/* ===== §B-4) deposits/historyList + mileage 3형제 — 요약 지표 카드 + 내역 테이블 (병기) ===== */
+/* 요약(ec-base-box gHalf) → 지표 카드 그리드. §0-6 박스 외형은 카드(li) 단위로 이관 —
+   컨테이너는 투명화(명시도: 클래스 5개 체인 > §0-6 3개 체인, 동점 아님) */
+body.nk-skin .nk-myshop.nk-myshop--deposits .nk-myshop__summary,
+body.nk-skin .nk-myshop.nk-myshop--mileage .nk-myshop__summary,
+body.nk-skin .nk-myshop.nk-myshop--mileage-coupon .nk-myshop__summary,
+body.nk-skin .nk-myshop.nk-myshop--mileage-unavail .nk-myshop__summary {
+  margin: 32px 0 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+body.nk-skin .nk-myshop.nk-myshop--deposits .nk-myshop__summary ul,
+body.nk-skin .nk-myshop.nk-myshop--mileage .nk-myshop__summary ul,
+body.nk-skin .nk-myshop.nk-myshop--mileage-coupon .nk-myshop__summary ul,
+body.nk-skin .nk-myshop.nk-myshop--mileage-unavail .nk-myshop__summary ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); /* deposits 4칸·mileage 5칸 공용 */
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+body.nk-skin .nk-myshop.nk-myshop--deposits .nk-myshop__summary li,
+body.nk-skin .nk-myshop.nk-myshop--mileage .nk-myshop__summary li,
+body.nk-skin .nk-myshop.nk-myshop--mileage-coupon .nk-myshop__summary li,
+body.nk-skin .nk-myshop.nk-myshop--mileage-unavail .nk-myshop__summary li {
+  display: flex;
+  float: none; /* base gHalf li 50% float 해제 */
+  width: auto;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 18px 16px;
+  border: 1px solid var(--nk-line);
+  border-radius: var(--nk-radius);
+  background-color: var(--nk-bg2);
+  text-align: center;
+  box-sizing: border-box;
+}
+body.nk-skin .nk-myshop.nk-myshop--deposits .nk-myshop__summary li .title,
+body.nk-skin .nk-myshop.nk-myshop--mileage .nk-myshop__summary li .title,
+body.nk-skin .nk-myshop.nk-myshop--mileage-coupon .nk-myshop__summary li .title,
+body.nk-skin .nk-myshop.nk-myshop--mileage-unavail .nk-myshop__summary li .title {
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-myshop.nk-myshop--deposits .nk-myshop__summary li .data,
+body.nk-skin .nk-myshop.nk-myshop--mileage .nk-myshop__summary li .data,
+body.nk-skin .nk-myshop.nk-myshop--mileage-coupon .nk-myshop__summary li .data,
+body.nk-skin .nk-myshop.nk-myshop--mileage-unavail .nk-myshop__summary li .data {
+  font-family: var(--nk-font-display);
+  font-size: 18px;
+  line-height: 1.3;
+  color: var(--nk-ink);
+}
+/* 현금환불 요청 버튼 바(deposits) */
+body.nk-skin .nk-myshop.nk-myshop--deposits .ec-base-button {
+  margin: 28px 0 0;
+  text-align: right;
+}
+body.nk-skin .nk-myshop.nk-myshop--deposits .nk-myshop__table {
+  margin-top: 14px;
+}
+/* 관련 주문 링크 — 본문색 상속(reset §1-c) 위에 hover 포인트 어포던스만 추가 */
+body.nk-skin .nk-myshop.nk-myshop--deposits .nk-myshop__table td a:hover,
+body.nk-skin .nk-myshop.nk-myshop--mileage .nk-myshop__table td a:hover,
+body.nk-skin .nk-myshop.nk-myshop--mileage-coupon .nk-myshop__table td a:hover,
+body.nk-skin .nk-myshop.nk-myshop--mileage-unavail .nk-myshop__table td a:hover {
+  color: var(--nk-point);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+@media (max-width: 1023px) {
+  body.nk-skin .nk-myshop.nk-myshop--deposits .nk-myshop__table table,
+  body.nk-skin .nk-myshop.nk-myshop--mileage .nk-myshop__table table,
+  body.nk-skin .nk-myshop.nk-myshop--mileage-coupon .nk-myshop__table table,
+  body.nk-skin .nk-myshop.nk-myshop--mileage-unavail .nk-myshop__table table {
+    min-width: 560px; /* %폭 colgroup 셀 뭉개짐 방지 — 래퍼 overflow-x:auto 스크롤 */
+  }
+}
+@media (max-width: 767px) {
+  body.nk-skin .nk-myshop.nk-myshop--deposits .nk-myshop__summary ul,
+  body.nk-skin .nk-myshop.nk-myshop--mileage .nk-myshop__summary ul,
+  body.nk-skin .nk-myshop.nk-myshop--mileage-coupon .nk-myshop__summary ul,
+  body.nk-skin .nk-myshop.nk-myshop--mileage-unavail .nk-myshop__summary ul {
+    grid-template-columns: repeat(2, 1fr); /* 390px: 2열 카드(5번째는 풀로우) */
+  }
+}
+
+/* ===== §B-5) myshop/likeit/category.html — 좋아요 상품분류 (narrow 720 리스트) ===== */
+body.nk-skin .nk-myshop.nk-myshop--likeit-cate .nk-myshop__table {
+  margin-top: 8px; /* 탭(§0-5)이 바로 위에 있어 기본 32px는 과함 */
+}
+body.nk-skin .nk-myshop.nk-myshop--likeit-cate .nk-myshop__table td.left a {
+  display: inline-block;
+  padding: 2px 0;
+  color: var(--nk-font);
+}
+body.nk-skin .nk-myshop.nk-myshop--likeit-cate .nk-myshop__table td.left a:hover {
+  color: var(--nk-point);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+body.nk-skin .nk-myshop.nk-myshop--likeit-cate .ec-base-button {
+  margin-top: 16px;
+  text-align: left;
+}
+
+/* ===== §B-6) myshop/likeit/product.html — 좋아요 상품 (그리드형 · CSS-only 카드화) =====
+   stock 테이블 구조는 그대로 두고 display 재선언만으로 nk-plp 그리드 관례
+   (PC 4열 gap 70/20 · ≤1023 2열 50/10)를 재현 — 구조 개편 0건, 기능(전체선택/개별선택/
+   삭제/품절아이콘/줌) 전부 보존. 이 페이지는 의도적으로 nk-myshop__table 클래스를 붙이지
+   않았다(§0-3 테이블 룰과의 충돌 자체를 회피, 스코프 셀렉터로만 처리). */
+body.nk-skin .nk-myshop.nk-myshop--likeit-prd .ec-base-table {
+  margin: 8px 0 0;
+  border: 0;
+  background: transparent;
+}
+body.nk-skin .nk-myshop.nk-myshop--likeit-prd .ec-base-table table {
+  display: block;
+  width: 100%;
+  border: 0;
+  background: transparent;
+}
+/* caption sr-only(§0-3과 동일 레시피 — 이 테이블은 nk-myshop__table 미적용이라 자체 처리) */
+body.nk-skin .nk-myshop.nk-myshop--likeit-prd .ec-base-table caption {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+body.nk-skin .nk-myshop.nk-myshop--likeit-prd .ec-base-table colgroup {
+  display: none; /* display:block 테이블에서 col 고정폭 무효화 */
+}
+/* thead → "전체 선택" 툴바 (기능 보존: onclick {$check_mylikeprd} 체크박스 노출 유지) */
+body.nk-skin .nk-myshop.nk-myshop--likeit-prd .ec-base-table thead {
+  display: block;
+  margin: 0 0 24px;
+}
+body.nk-skin .nk-myshop.nk-myshop--likeit-prd .ec-base-table thead tr {
+  display: flex;
+  align-items: center;
+  padding: 0 0 12px;
+  border-bottom: 1px solid var(--nk-line);
+  background: transparent;
+}
+body.nk-skin .nk-myshop.nk-myshop--likeit-prd .ec-base-table thead th {
+  display: none; /* "이미지"/"상품명" 텍스트 헤더는 카드 그리드에서 시각만 숨김 */
+}
+body.nk-skin .nk-myshop.nk-myshop--likeit-prd .ec-base-table thead th:first-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-myshop.nk-myshop--likeit-prd .ec-base-table thead th:first-child::after {
+  content: "전체 선택";
+  letter-spacing: 0.3px;
+}
+/* tbody → 카드 그리드 */
+body.nk-skin .nk-myshop.nk-myshop--likeit-prd .ec-base-table tbody {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 70px 20px; /* nk-plp §6 PC 그리드 관례 */
+}
+body.nk-skin .nk-myshop.nk-myshop--likeit-prd .ec-base-table tbody tr {
+  display: block;
+  position: relative;
+  border: 0;
+  background: transparent;
+}
+body.nk-skin .nk-myshop.nk-myshop--likeit-prd .ec-base-table tbody td {
+  display: block;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  font-size: 13px;
+  color: var(--nk-font);
+}
+/* 선택 체크박스 — 썸네일 좌상단 오버레이(기능 보존) */
+body.nk-skin .nk-myshop.nk-myshop--likeit-prd .ec-base-table tbody td:first-child {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 2;
+  line-height: 1;
+}
+/* 썸네일 — nk-plp .nk-prd__thumb 관례(4/5 비율·cover·보조 배경) */
+body.nk-skin .nk-myshop.nk-myshop--likeit-prd .ec-base-table tbody td.thumb {
+  margin: 0 0 14px;
+  background-color: var(--nk-bg2);
+}
+body.nk-skin .nk-myshop.nk-myshop--likeit-prd .ec-base-table tbody td.thumb a {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+}
+body.nk-skin .nk-myshop.nk-myshop--likeit-prd .ec-base-table tbody td.thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+/* 상품명·아이콘·줌 버튼 */
+body.nk-skin .nk-myshop.nk-myshop--likeit-prd .ec-base-table tbody td.left strong a {
+  display: block;
+  font-family: var(--nk-font-body);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--nk-font);
+}
+body.nk-skin .nk-myshop.nk-myshop--likeit-prd .ec-base-table tbody td.left strong a:hover {
+  color: var(--nk-point);
+}
+body.nk-skin .nk-myshop.nk-myshop--likeit-prd .ec-base-table tbody td.left .icon {
+  display: block;
+  margin: 6px 0 0;
+}
+body.nk-skin .nk-myshop.nk-myshop--likeit-prd .ec-base-table tbody td.left .icon img {
+  vertical-align: middle;
+}
+body.nk-skin .nk-myshop.nk-myshop--likeit-prd .ec-base-table tbody td.left .button {
+  display: inline-block;
+  margin: 8px 0 0;
+}
+/* 브리프 §4 함정 선제 상쇄: .ec-base-product .prdList{min-width:756px}(ec-base-product.css:8).
+   이 두 페이지 stock은 테이블 기반이라 prdList 마크업이 없지만, 모듈 CSS 잔존/향후 진열
+   전환 대비 지침에 따라 방어 선언(모바일 가로스크롤 유발 차단) */
+body.nk-skin .nk-myshop.nk-myshop--likeit-prd .ec-base-product .prdList,
+body.nk-skin .nk-myshop.nk-myshop--wish .ec-base-product .prdList {
+  min-width: 0;
+  width: auto;
+}
+@media (max-width: 1023px) {
+  body.nk-skin .nk-myshop.nk-myshop--likeit-prd .ec-base-table tbody {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 50px 10px; /* nk-plp §6 ≤1023 그리드 관례 */
+  }
+}
+
+/* ===== §B-7) myshop/regular_delivery.html — 정기배송 관리 (테이블형 + 결제수단 카드) ===== */
+/* 결제수단 안내 리스트(클래스 없는 ul — {$payInfo_display} 바인딩 클래스만) */
+body.nk-skin .nk-myshop.nk-myshop--regular .regularDeliveryPayInfo > ul {
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-myshop.nk-myshop--regular .regularDeliveryPayInfo .info {
+  margin: 10px 0 0;
+  font-size: 12px;
+  color: var(--nk-sub);
+}
+/* 박스 안 소제목 — B-0-b 공통 h3 마진을 박스 내부용으로 축소 */
+body.nk-skin .nk-myshop.nk-myshop--regular .ec-base-box h3.title {
+  margin: 0 0 14px;
+  font-size: 14px;
+}
+/* 카드 리스트 — 등록 전/후 상태 행 */
+body.nk-skin .nk-myshop.nk-myshop--regular .cardList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+body.nk-skin .nk-myshop.nk-myshop--regular .cardList li.status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--nk-line);
+}
+body.nk-skin .nk-myshop.nk-myshop--regular .cardList .cardInfo {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  margin: 0;
+  font-size: 13px;
+  color: var(--nk-font);
+}
+body.nk-skin .nk-myshop.nk-myshop--regular .cardList .cardInfo .type {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-myshop.nk-myshop--regular .cardList .cardInfo .payMethod {
+  font-size: 12px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-myshop.nk-myshop--regular .cardList .button {
+  display: inline-flex;
+  gap: 6px;
+}
+body.nk-skin .nk-myshop.nk-myshop--regular .content > .info {
+  margin: 10px 0 0;
+  font-size: 12px;
+  color: var(--nk-sub);
+}
+/* 목록 테이블 — 상품·옵션 셀 */
+body.nk-skin .nk-myshop.nk-myshop--regular .nk-myshop__table {
+  margin-top: 8px; /* 탭(§0-5) 바로 아래 */
+}
+body.nk-skin .nk-myshop.nk-myshop--regular .nk-myshop__table td.thumb img {
+  display: block;
+  width: 72px;
+  height: auto;
+  margin: 0 auto;
+}
+body.nk-skin .nk-myshop.nk-myshop--regular .nk-myshop__table td.product .name {
+  display: block;
+  margin: 0 0 4px;
+  font-weight: 400;
+}
+body.nk-skin .nk-myshop.nk-myshop--regular .nk-myshop__table td.product .name a {
+  color: var(--nk-font);
+}
+body.nk-skin .nk-myshop.nk-myshop--regular .nk-myshop__table td.product .name a:hover {
+  color: var(--nk-point);
+}
+body.nk-skin .nk-myshop.nk-myshop--regular .nk-myshop__table td.product .option {
+  margin: 4px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 12px;
+  color: var(--nk-sub);
+}
+/* 신청번호 링크(a.line) — 밑줄 어포던스 유지 */
+body.nk-skin .nk-myshop.nk-myshop--regular .nk-myshop__table td.number a.line {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  color: var(--nk-font);
+}
+body.nk-skin .nk-myshop.nk-myshop--regular .nk-myshop__table td.number a.line:hover {
+  color: var(--nk-point);
+}
+@media (max-width: 1023px) {
+  /* 9열 와이드 테이블 — 래퍼 overflow-x:auto 전제 최소폭 */
+  body.nk-skin .nk-myshop.nk-myshop--regular .nk-myshop__table table {
+    min-width: 880px;
+  }
+}
+
+/* ===== §B-8) myshop/regular_delivery_detail.html — 정기배송 상세 (inner 960 · 구조 보존) ===== */
+/* stock 특이: table "밖"에 놓인 caption 2개(· 기본정보 / · 배송 예정 정보)가 섹션 라벨 역할 —
+   §0-3 sr-only(테이블 내부 caption용)에 함께 숨지 않도록 직계 자식만 가시 라벨로 복원
+   (컴파운드 체인 5클래스 > §0 3클래스 — 동점 아님) */
+body.nk-skin .nk-myshop.nk-myshop--regular-detail .nk-myshop__table > caption {
+  position: static;
+  width: auto;
+  height: auto;
+  margin: 0 0 10px;
+  padding: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+  display: block;
+  text-align: left;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  color: var(--nk-ink);
+}
+/* 세로 정보표(신청 정보) 라벨 열 */
+body.nk-skin .nk-myshop.nk-myshop--regular-detail .nk-myshop__table tbody th[scope="row"] {
+  width: 170px;
+}
+/* 결제수단 변경 안내(p.ec-base-help — 소형 노트형이라 B-0-a 대상에서 제외) */
+body.nk-skin .nk-myshop.nk-myshop--regular-detail p.ec-base-help {
+  margin: 8px 0 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: 12px;
+  color: var(--nk-sub);
+}
+/* 수량 스피너(ec-base-qty) — reset §8 전역 input 높이(48px)를 셀 컴팩트로 재조정 */
+body.nk-skin .nk-myshop.nk-myshop--regular-detail .ec-base-qty {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+body.nk-skin .nk-myshop.nk-myshop--regular-detail .ec-base-qty input {
+  width: 44px;
+  height: 32px;
+  padding: 0 4px;
+  text-align: center;
+}
+/* 배송시작일 datepicker 인풋 */
+body.nk-skin .nk-myshop.nk-myshop--regular-detail .datepicker input {
+  width: 100%;
+  max-width: 120px;
+  height: 36px;
+  padding: 0 8px;
+}
+body.nk-skin .nk-myshop.nk-myshop--regular-detail .rotation {
+  margin: 6px 0 0;
+  font-size: 11.5px;
+  color: var(--nk-sub);
+}
+/* 옵션변경 레이어 — 위치/토글은 base ec-base-layer 기능 CSS 유지, 표피만 토큰화 */
+body.nk-skin .nk-myshop.nk-myshop--regular-detail .optionModify {
+  background-color: var(--nk-bg);
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+}
+body.nk-skin .nk-myshop.nk-myshop--regular-detail .optionModify .header h3 {
+  margin: 0;
+  font-family: var(--nk-font-display);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-myshop.nk-myshop--regular-detail .optionModify .prdModify h4 {
+  margin: 10px 0 6px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--nk-font);
+}
+/* td에 얹힌 stock 클래스 "ec-base-table message" — §0-3 빈상태 메시지(56px 패딩)가
+   일반 셀에 과적용되지 않게 셀 컴팩트로 재조정 */
+body.nk-skin .nk-myshop.nk-myshop--regular-detail .nk-myshop__table td.message {
+  padding: 14px 10px;
+  border-bottom: 1px solid var(--nk-line);
+  font-size: 12px;
+}
+/* 수령자 정보 셀 문단 */
+body.nk-skin .nk-myshop.nk-myshop--regular-detail .nk-myshop__table td p {
+  margin: 2px 0;
+  line-height: 1.6;
+}
+body.nk-skin .nk-myshop.nk-myshop--regular-detail .nk-myshop__table tbody td {
+  text-align: left;
+}
+/* 옵션변경 안내 리스트(ul.info) */
+body.nk-skin .nk-myshop.nk-myshop--regular-detail .nk-myshop__table .info {
+  margin: 14px 0 0;
+  padding: 0 0 0 16px;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--nk-sub);
+}
+/* 하단 목록/저장 버튼 바 */
+body.nk-skin .nk-myshop.nk-myshop--regular-detail .ec-base-button.justify {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 36px 0 0;
+}
+body.nk-skin .nk-myshop.nk-myshop--regular-detail .nk-myshop__table td.thumb img {
+  display: block;
+  width: 84px;
+  height: auto;
+  margin: 0 auto;
+}
+body.nk-skin .nk-myshop.nk-myshop--regular-detail .nk-myshop__table td.product .name {
+  display: block;
+  margin: 0 0 4px;
+  font-weight: 400;
+}
+body.nk-skin .nk-myshop.nk-myshop--regular-detail .nk-myshop__table td.product .option {
+  margin: 4px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 12px;
+  color: var(--nk-sub);
+}
+
+/* ===== §B-9) myshop/wish_list.html — 관심상품 (테이블형 + 썸네일 셀 확대) ===== */
+/* 썸네일 확대 — stock col 92px 대비 시각 비중 상향(구조 변경 없이 셀/이미지 치수만) */
+body.nk-skin .nk-myshop.nk-myshop--wish .nk-myshop__table td.thumb {
+  width: 116px;
+  padding: 14px 8px;
+}
+body.nk-skin .nk-myshop.nk-myshop--wish .nk-myshop__table td.thumb a {
+  display: block;
+}
+body.nk-skin .nk-myshop.nk-myshop--wish .nk-myshop__table td.thumb img {
+  display: block;
+  width: 100px;
+  height: auto;
+  margin: 0 auto;
+  background-color: var(--nk-bg2);
+}
+/* 상품 정보 셀 */
+body.nk-skin .nk-myshop.nk-myshop--wish .nk-myshop__table td.left .name {
+  display: block;
+  margin: 0 0 4px;
+  font-weight: 400;
+}
+body.nk-skin .nk-myshop.nk-myshop--wish .nk-myshop__table td.left .name a {
+  font-size: 13.5px;
+  color: var(--nk-font);
+}
+body.nk-skin .nk-myshop.nk-myshop--wish .nk-myshop__table td.left .name a:hover {
+  color: var(--nk-point);
+}
+/* 단독구매상품 노트(p.nk-help / stock p.ec-base-help — 소형 노트형) */
+body.nk-skin .nk-myshop.nk-myshop--wish .nk-myshop__table p.nk-help,
+body.nk-skin .nk-myshop.nk-myshop--wish .nk-myshop__table p.ec-base-help {
+  margin: 4px 0 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: 11px;
+}
+/* 옵션 목록 */
+body.nk-skin .nk-myshop.nk-myshop--wish .nk-myshop__table ul.option {
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 12px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-myshop.nk-myshop--wish .nk-myshop__table ul.option > li {
+  margin: 4px 0 0;
+}
+/* 옵션변경 레이어 — 기본 숨김(JS show 토글) + 표피 토큰화(§B-8·장바구니 동일 처방) */
+body.nk-skin .nk-myshop.nk-myshop--wish .optionModify {
+  display: none;
+  background-color: var(--nk-bg);
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  max-width: calc(100vw - (var(--nk-pad-x) * 2));
+  box-sizing: border-box;
+}
+body.nk-skin .nk-myshop.nk-myshop--wish .optionModify .header {
+  background-color: var(--nk-ink);
+  color: var(--nk-on-dark);
+}
+body.nk-skin .nk-myshop.nk-myshop--wish .optionModify .header h3 {
+  margin: 0;
+  font-family: var(--nk-font-display);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--nk-on-dark);
+}
+body.nk-skin .nk-myshop.nk-myshop--wish .optionModify .prdModify h4 {
+  margin: 10px 0 6px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--nk-font);
+}
+body.nk-skin .nk-myshop.nk-myshop--wish .optionModify .nk-layer__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  color: var(--nk-sub);
+  text-decoration: none;
+}
+body.nk-skin .nk-myshop.nk-myshop--wish .optionModify .nk-layer__close i {
+  font-size: 16px;
+}
+/* 판매가 셀 — 할인 전/후 2줄(할인 표기 클래스 {$discount}는 base 기능 CSS 유지) */
+body.nk-skin .nk-myshop.nk-myshop--wish .nk-myshop__table td.price strong {
+  font-weight: 500;
+  color: var(--nk-ink);
+}
+/* 선택 버튼 셀 — 주문/장바구니/삭제 세로 스택(기능 onclick 보존) */
+body.nk-skin .nk-myshop.nk-myshop--wish .nk-myshop__table td.button a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 0 0 6px;
+  box-sizing: border-box;
+}
+body.nk-skin .nk-myshop.nk-myshop--wish .nk-myshop__table td.button a:last-child {
+  margin-bottom: 0;
+}
+body.nk-skin .nk-myshop.nk-myshop--wish .nk-myshop__table td.button .ph-trash {
+  margin-right: 4px;
+  font-size: 14px;
+}
+body.nk-skin .nk-myshop.nk-myshop--wish .nk-actions {
+  margin-top: 20px;
+}
+@media (max-width: 1023px) {
+  /* 5열 + 옵션 레이어 내장 테이블 — 래퍼 overflow-x:auto 전제 최소폭 */
+  body.nk-skin .nk-myshop.nk-myshop--wish .nk-myshop__table table {
+    min-width: 720px;
+  }
+}
+
+/* ===== §W3-Y) Wave3 Team-Y — ec-base-table stock border purge (M1) ===== */
+/* base layout/basic/css/ec-base-table.css 잔존: table{border:#d7d5d5} · table:before{background:#d7d5d5}
+   · thead th{border-left:#dfdfdf;background:#fbfafa} · tbody th( typeWrite ){border:#dfdfdf}
+   · td{border-top:#dfdfdf} · .message{border:#d7d5d5}. §0-3 .nk-myshop__table가 대부분 상쇄하나
+   :before pseudo·HTML border attr·xans module 동점 시 base 회색 테두리 재노출 — compound chain으로 밀어냄.
+   member/modify.html 테이블은 nk-member.css §16 담당(이 섹션 범위 밖). */
+
+body.nk-skin .nk-myshop .ec-base-table table:before {
+  display: none !important; /* 사유: base table:before #d7d5d5 2중 상단선 — nk border-top 단일 hairline만 유지 */
+}
+
+body.nk-skin .nk-myshop .ec-base-table table[border] {
+  border: 0;
+  border-top: 1px solid var(--nk-ink);
+}
+
+body.nk-skin .nk-myshop .ec-base-table.typeList table[border],
+body.nk-skin .nk-myshop .ec-base-table.typeWrite table[border] {
+  border-top: 1px solid var(--nk-ink);
+}
+
+/* xans module class(자동 주입)까지 체인 — orderHistoryListItem·wishlist·couponList 등 */
+body.nk-skin .nk-myshop [class*="xans-myshop-"].ec-base-table table,
+body.nk-skin .nk-myshop .ec-base-table.nk-myshop__table table {
+  margin-top: 0;
+  border: 0;
+  border-top: 1px solid var(--nk-ink);
+  background: transparent;
+}
+
+body.nk-skin .nk-myshop [class*="xans-myshop-"].ec-base-table thead th,
+body.nk-skin .nk-myshop [class*="xans-myshop-"].ec-base-table tbody th,
+body.nk-skin .nk-myshop [class*="xans-myshop-"].ec-base-table tbody td,
+body.nk-skin .nk-myshop [class*="xans-myshop-"].ec-base-table td {
+  border: 0;
+  border-bottom: 1px solid var(--nk-line);
+  background: transparent;
+  color: var(--nk-font);
+}
+
+body.nk-skin .nk-myshop [class*="xans-myshop-"].ec-base-table thead th {
+  border-bottom-color: var(--nk-border);
+  color: var(--nk-sub);
+}
+
+body.nk-skin .nk-myshop .ec-base-table.typeWrite tbody th[scope="row"] {
+  border: 0;
+  border-bottom: 1px solid var(--nk-line);
+  background: transparent;
+  color: var(--nk-sub);
+}
+
+body.nk-skin .nk-myshop .ec-base-table .message,
+body.nk-skin .nk-myshop .ec-base-table td.message {
+  border: 0;
+  border-bottom: 1px solid var(--nk-line);
+  background: transparent;
+  color: var(--nk-sub);
+  font-weight: 400;
+}
+
+body.nk-skin .nk-myshop .ec-base-table tr.payDetail td {
+  background-color: var(--nk-bg2);
+}
+
+/* ===== §W4) Wave4 — myshop stock computed purge (US-003) ===== */
+body.nk-skin .nk-myshop__inner .titleArea {
+  border: 0;
+  border-bottom: 0;
+  background: transparent;
+}
+body.nk-skin .nk-myshop input[type="submit"],
+body.nk-skin .nk-myshop input[type="button"],
+body.nk-skin .nk-myshop input[type="text"],
+body.nk-skin .nk-myshop input[type="checkbox"],
+body.nk-skin .nk-myshop input[type="radio"],
+body.nk-skin .nk-myshop select,
+body.nk-skin .nk-myshop textarea,
+body.nk-skin .nk-myshop #order_search_btn {
+  font-size: 13px;
+}
+body.nk-skin .nk-myshop.nk-myshop--addr-modify li[id$="_wrap"],
+body.nk-skin .nk-myshop.nk-myshop--addr-register li[id$="_wrap"] {
+  border: 0;
+  border-top: 0;
+  border-bottom: 0;
+}
+/* index.css stock link blue on <em> — 대시보드 환영/강조 텍스트 */
+body.nk-skin .nk-myshop--index em {
+  color: var(--nk-ink);
+}
+/* boardListPackage.css stock #2e2e2e — xans 래퍼·boardSearch·라벨 p (nk-board §W4 동일 패턴) */
+body.nk-skin .nk-myshop--board-list [class*="xans-myshop"],
+body.nk-skin .nk-myshop--board-list .boardSearch,
+body.nk-skin .nk-myshop--board-list .boardSearch p {
+  color: var(--nk-font);
+}

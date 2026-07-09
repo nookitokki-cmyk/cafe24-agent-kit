@@ -1,0 +1,1231 @@
+/*
+ * nk-etc.css — verified-template 기타 도메인 7페이지 전용
+ * 소유 페이지(이 파일이 스타일을 책임지는 유일한 목록):
+ *   1) product/search.html              (상품검색 결과 — 그리드형, nk-plp.css 카드 패턴 재사용)
+ *   2) product/recent_view_product.html (최근 본 상품 — stock 테이블 마크업을 CSS만으로 카드 그리드화)
+ *   3) coupon/coupon_zone.html          (쿠폰존 — 탭 + 쿠폰 카드)
+ *   4) shopinfo/company.html            (회사소개 — narrow형)
+ *   5) shopinfo/guide.html              (이용안내 — narrow형 긴 문서)
+ *   6) attend/comment.html              (댓글 출석이벤트 — 달력 + 댓글)
+ *   7) attend/stamp.html                (출석도장 이벤트 — 달력 + 출석 버튼)
+ * 자기완결형 — 공유 파일(nk-tokens.css/nk-cafe24-reset.css/nk-base.css/nk-plp.css/nk-board.css/
+ * nk-member.css/layout/**)은 절대 수정하지 않는다 — 부족분은 전부 이 파일 오버라이드로만 해결.
+ * 로드 순서: nk-tokens.css → nk-cafe24-reset.css → nk-base.css → (search/recent 한정 nk-plp.css 선로드)
+ *            → nk-etc.css(이 파일, 항상 마지막). stock 모듈 @css(recentlist/zonePackage/company/faq/
+ *            calendarPackage/commentPackage 등)는 기능 CSS라 유지 — 이 파일이 명시도/로드순서로 이긴다.
+ * 스코프 원칙: 공통 요소는 body.nk-skin .nk-etc(+.nk-etc__*), 페이지 특화는 페이지 래퍼
+ *   body.nk-skin .nk-etc-search / .nk-etc-recent / .nk-etc-coupon / .nk-etc-shopinfo(-company/-guide) /
+ *   .nk-etc-attend(-comment/-stamp) 접두 체인으로만 선언(전역 누수 금지).
+ *   명시도 동점 우려 자리는 체인 한 단계 강화(브리프 교훈③), width 상쇄 시 min-width 동시 상쇄(교훈①),
+ *   !important는 base/stock 인라인을 맞받는 자리에만 + 각 건 사유 주석(하드룰).
+ * 값 규칙: 색·폰트·컨테이너 치수는 전부 var(--nk-*) 참조(신규 hex 하드코딩 0건) — 컴포넌트 고유
+ *   여백/크기(px)만 nk-plp.css/nk-board.css와 동일한 관례대로 리터럴 기술.
+ * 중복 선언 금지(reset가 이미 전역 처리): 페이징 박스 리셋(nk-cafe24-reset.css §6) ·
+ *   input/select 정규화(§8) · .ec-base-table 흰 글씨 상쇄(§8-b) · 링크 파랑 상쇄(§1-c).
+ */
+
+/* ================= 1) 공통 컨테이너 + 중앙 영문 헤드 ================= */
+body.nk-skin .nk-etc {
+  max-width: var(--nk-content-max);
+  margin: 0 auto;
+  padding: 48px var(--nk-pad-x) 64px;
+  box-sizing: border-box;
+  font-family: var(--nk-font-body);
+}
+/* 페이지 타입별 내부 폭 — 쿠폰존 960 / 회사소개·이용안내·출석 720 (브리프 §1 치수 토큰).
+   같은 요소의 .nk-etc 선언(위)과 명시도 동점 — 이 파일 안 후순위 선언으로 확정 승리. */
+body.nk-skin .nk-etc-coupon {
+  max-width: calc(var(--nk-order-max) + var(--nk-pad-x) * 2);
+}
+body.nk-skin .nk-etc-shopinfo,
+body.nk-skin .nk-etc-attend {
+  max-width: calc(var(--nk-modify-max) + var(--nk-pad-x) * 2);
+}
+
+body.nk-skin .nk-etc__head {
+  margin: 0 0 40px;
+  text-align: center;
+}
+body.nk-skin .nk-etc__title {
+  margin: 0;
+  font-family: var(--nk-font-display);
+  font-weight: 400;
+  font-style: normal;
+  font-size: var(--nk-fs-page-title);
+  letter-spacing: var(--nk-ls-page-title);
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-etc__sub {
+  margin: 8px 0 0;
+  font-size: 12px;
+  color: var(--nk-sub);
+}
+
+/* caption/legend 시각적 숨김(sr-only — 접근성 텍스트 유지, nk-board.css 컨벤션 동일) */
+body.nk-skin .nk-etc caption,
+body.nk-skin .nk-etc legend {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* 키보드 포커스 가시화 — 상태 매트릭스(브리프 §5) focus 상태 공통 처리 */
+body.nk-skin .nk-etc a:focus-visible,
+body.nk-skin .nk-etc button:focus-visible {
+  outline: 1px solid var(--nk-point);
+  outline-offset: 2px;
+}
+
+@media (max-width: 1023px) {
+  body.nk-skin .nk-etc {
+    padding-top: 28px;
+    padding-bottom: 40px;
+  }
+}
+@media (max-width: 767px) {
+  body.nk-skin .nk-etc__head {
+    margin: 0 0 28px;
+  }
+  body.nk-skin .nk-etc__title {
+    font-size: var(--nk-fs-page-title-mo);
+    letter-spacing: var(--nk-ls-page-title);
+  }
+}
+
+/* ================= 2) 공통 컴포넌트 리셋 (이 7페이지 스코프 한정) ================= */
+/* 페이징 여백 — 박스 리셋(테두리/배경/현재페이지 포인트)은 nk-cafe24-reset.css §6이 전역 처리, 여백만 */
+body.nk-skin .nk-etc .ec-base-paginate {
+  margin: 44px auto 0;
+  text-align: center;
+}
+
+/* .ec-base-box(출석 안내문 등) — base ec-base-box.css:2 border:5px solid #e8e8e8 함정(브리프 §4 CP6)
+   상쇄. 명시도 (0,3,0) > base (0,1,0) — !important 불필요. */
+body.nk-skin .nk-etc .ec-base-box {
+  border: 0;
+  background: var(--nk-bg2);
+  padding: 20px;
+  font-size: 13px;
+  color: var(--nk-font);
+}
+
+/* .ec-base-tab — base ec-base-tab.css:3-4,11 .menu 배경 #f2f2f2 + :9 li a{min-width:187px} 함정
+   (브리프 §4: width만 덮으면 안 됨, min-width 동시 상쇄 — 교훈①) → 라인 위주 언더라인 탭으로 재정의 */
+body.nk-skin .nk-etc .ec-base-tab {
+  margin: 0 0 32px;
+  border: 0;
+  background: transparent;
+}
+body.nk-skin .nk-etc .ec-base-tab .menu {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--nk-line);
+}
+body.nk-skin .nk-etc .ec-base-tab .menu li {
+  float: none;
+  width: auto;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: 0;
+}
+body.nk-skin .nk-etc .ec-base-tab .menu li a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  min-width: 0; /* ec-base-tab.css:9 li a{min-width:187px} 상쇄 — 교훈① width/min-width 동시 처리 */
+  margin: 0 0 -1px;
+  padding: 11px 18px;
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  font-family: var(--nk-font-body);
+  font-size: 13px;
+  color: var(--nk-sub);
+  text-decoration: none;
+  box-sizing: border-box;
+}
+body.nk-skin .nk-etc .ec-base-tab .menu li a:hover {
+  color: var(--nk-font);
+  background: transparent;
+}
+body.nk-skin .nk-etc .ec-base-tab .menu li.selected a {
+  color: var(--nk-ink);
+  border-bottom-color: var(--nk-ink);
+  background: transparent;
+}
+
+/* ================= 3) 상품검색 결과 (.nk-etc-search) — nk-plp 카드 패턴 재사용 + 보충 ================= */
+/* 페이지 좌우 패딩은 .nk-etc 래퍼가 담당 — nk-plp.css 컴포넌트 자체 좌우 패딩과 중복되는 부분만 해제
+   (nk-plp.css와 동일 명시도(0,3,1) — 이 파일이 뒤에 로드되어 승리) */
+body.nk-skin .nk-etc-search .nk-listmain,
+body.nk-skin .nk-etc-search .nk-etc-search__result {
+  padding-left: 0;
+  padding-right: 0;
+}
+/* 시각 스윕 #3 (2026-07-04) 방어 가드: base ec-base-product.css:8 min-width:756px(MO 가로 오버플로 원인)는
+   래퍼 .nk-plp 클래스로 nk-plp.css §6이 상쇄 — 추가로 shoppQ 검색폼 조각(서버측, 셀렉터 미확인) 등
+   외부 조각의 폭 초과 누수를 페이지 래퍼에서 클립(라이브 미검증 항목) */
+body.nk-skin .nk-etc-search {
+  overflow-x: clip;
+}
+
+/* 검색폼(@import /product/shoppQ/searchForm_typeTop.html — 서버측 조각, 내부 클래스 미확인이라
+   제네릭 정규화만: input/select 외형은 nk-cafe24-reset.css §8이 전역 처리) */
+body.nk-skin .nk-etc-search__form {
+  max-width: 640px;
+  margin: 0 auto 48px;
+}
+body.nk-skin .nk-etc-search__form fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+body.nk-skin .nk-etc-search__form img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ── sweep #3: stock searchdata.css 상쇄 — 검색 인풋·결과카운트·상세필터 MO 오버플로 ── */
+body.nk-skin .nk-search-page .xans-product-searchdata .searchField {
+  margin: 0;
+  padding: 0;
+  background: none;
+}
+body.nk-skin .nk-search-page .xans-product-searchdata .searchField fieldset {
+  display: block;
+  width: 100%;
+  margin: 0;
+  text-align: left;
+}
+body.nk-skin .nk-search-page .xans-product-searchdata .searchField fieldset .searchInput {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  border-bottom: 1px solid var(--nk-border);
+  border-radius: 0;
+  background: transparent;
+}
+body.nk-skin .nk-search-page .xans-product-searchdata .searchField .keyword {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+  height: var(--nk-input-h);
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  font-size: var(--nk-fs-body);
+  color: var(--nk-font);
+  line-height: var(--nk-input-h);
+}
+body.nk-skin .nk-search-page .xans-product-searchdata .searchField .keyword:focus {
+  border-bottom-color: var(--nk-point);
+  outline: none;
+}
+body.nk-skin .nk-search-page .xans-product-searchdata .searchField .btnSearch {
+  position: static;
+  flex: 0 0 auto;
+  width: auto;
+  height: var(--nk-input-h);
+  margin: 0 0 0 8px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  opacity: 0.55;
+}
+body.nk-skin .nk-search-page .xans-product-searchdata .searchField fieldset .btnSearchOption {
+  display: none; /* stock 검색옵션 토글 — 미니멀 검색 UI */
+}
+body.nk-skin .nk-search-page .xans-product-searchdata .searchResult {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  margin: 32px 0 0;
+  padding: 14px 0;
+  border: 0;
+  border-top: 1px solid var(--nk-line);
+  border-bottom: 1px solid var(--nk-line);
+  line-height: 1.5;
+  overflow: visible;
+  text-align: left;
+}
+body.nk-skin .nk-search-page .xans-product-searchdata .searchResult .record {
+  float: none;
+  margin: 0;
+  padding: 0;
+  font-size: var(--nk-fs-body);
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-search-page .xans-product-searchdata .searchResult .record strong {
+  font-weight: 400;
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-search-page .xans-product-searchdata .searchResult .xans-product-searchorderby {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  margin: 0;
+}
+body.nk-skin .nk-search-page .xans-product-searchdata .searchResult .xans-product-searchorderby li {
+  padding: 0;
+  background: none;
+  font-size: 12px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-search-page .xans-product-searchdata .searchResult .xans-product-searchorderby li:hover {
+  color: var(--nk-point);
+}
+body.nk-skin .nk-search-page .xans-product-searchdata .noData {
+  padding: 48px 0;
+  font-size: var(--nk-fs-body);
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-search-page .xans-product-searchdata .noData > strong {
+  color: var(--nk-ink);
+}
+/* #searchContent 상세필터 — base searchdata.css:154 .content{width:700px} MO 가로오버플로 원인 */
+body.nk-skin .nk-search-page #searchContent {
+  max-width: 100%;
+  min-width: 0;
+  margin: 24px 0 0;
+}
+body.nk-skin .nk-search-page #searchContent .searchArea {
+  max-width: 100%;
+  min-width: 0;
+  border: 1px solid var(--nk-line);
+  background: var(--nk-bg2);
+  box-sizing: border-box;
+}
+body.nk-skin .nk-search-page #searchContent table {
+  width: 100%;
+  min-width: 0;
+  table-layout: fixed;
+}
+body.nk-skin .nk-search-page #searchContent th {
+  padding: 10px 12px;
+  border-color: var(--nk-line);
+  background: transparent;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-search-page #searchContent tr td {
+  border-color: var(--nk-line);
+}
+body.nk-skin .nk-search-page #searchContent tr .content {
+  width: auto;
+  max-width: 100%;
+  min-width: 0;
+}
+body.nk-skin .nk-search-page #searchContent .btnAllExtend {
+  display: none;
+}
+body.nk-skin .nk-search-page .xans-product-searchdata .xans-product-searchconditiondata {
+  max-width: 100%;
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--nk-line);
+  font-size: 12px;
+  line-height: 1.5;
+  box-sizing: border-box;
+}
+body.nk-skin .nk-search-page .xans-product-searchdata .xans-product-searchconditiondata .btnRefresh {
+  position: static;
+  display: inline-block;
+  margin: 0 12px 0 0;
+  padding: 0;
+  background: none;
+  color: var(--nk-sub);
+  font-size: 12px;
+}
+body.nk-skin .nk-search-page .xans-product-searchdata .xans-product-searchconditiondata .list li {
+  color: var(--nk-font);
+  border-color: var(--nk-border);
+  background: var(--nk-bg);
+}
+
+/* 검색결과 카드 보충 — nk-prd-card(list.html 동일) + Search_Imagestyle 배지·액션 아이콘 */
+body.nk-skin .nk-etc-search .nk-prd-card__badge {
+  position: absolute;
+  inset: 0;
+  display: block;
+  pointer-events: none;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  background-size: auto;
+}
+body.nk-skin .nk-etc-search .nk-prd-card__note {
+  margin: 4px 0 0;
+  font-size: 11px;
+  color: var(--nk-point);
+}
+body.nk-skin .nk-etc-search .nk-prd-card__rental {
+  margin: 2px 0 0;
+  font-size: 12px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-etc-search .nk-prd-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  margin: 8px 0 0;
+  font-size: 12px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-search-page #ec-product-searchdata-submit_button,
+body.nk-skin .nk-search-page .xans-product-searchdata input[type="submit"],
+body.nk-skin .nk-search-page .xans-product-searchdata input[type="button"] {
+  font-size: 13px;
+}
+
+/* 검색결과 모바일 그리드 — 브리프 §1: ≤767 검색결과 2열 gap 28/12
+   (nk-plp.css ≤1023 2열 50/10 규칙과 동일 명시도 — 후로드 승리로 검색만 세분화) */
+@media (max-width: 767px) {
+  body.nk-skin .nk-etc-search .nk-prd-grid {
+    gap: 28px 12px;
+  }
+}
+
+/* ================= 4) 최근 본 상품 (.nk-etc-recent) — blank-slate nk-recent-card 그리드 ================= */
+body.nk-skin .nk-etc-recent .nk-etc-recent__list {
+  margin: 0;
+  padding: 0;
+}
+body.nk-skin .nk-etc-recent .nk-recent-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 70px 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+body.nk-skin .nk-etc-recent .nk-recent-card {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+}
+body.nk-skin .nk-etc-recent .nk-recent-card__thumb {
+  display: block;
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--nk-surface);
+}
+body.nk-skin .nk-etc-recent .nk-recent-card__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+body.nk-skin .nk-etc-recent .nk-recent-card__body {
+  margin: 12px 0 0;
+}
+body.nk-skin .nk-etc-recent .nk-recent-card__name {
+  display: block;
+  font-family: var(--nk-font-body);
+  font-size: var(--nk-fs-body);
+  line-height: 1.4;
+  color: var(--nk-font);
+  text-decoration: none;
+}
+body.nk-skin .nk-etc-recent .nk-recent-card__name:hover {
+  color: var(--nk-point);
+}
+body.nk-skin .nk-etc-recent .nk-recent-card__icons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 4px 0 0;
+  font-size: 11px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-etc-recent .nk-recent-card__set {
+  margin: 4px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 11px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-etc-recent .nk-recent-card__price {
+  margin: 8px 0 0;
+}
+body.nk-skin .nk-etc-recent .nk-recent-card__price p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--nk-font);
+}
+body.nk-skin .nk-etc-recent .nk-recent-card__sale {
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-etc-recent .nk-recent-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 12px 0 0;
+}
+body.nk-skin .nk-etc-recent .nk-etc-recent__empty {
+  margin: 0;
+  padding: 64px 0;
+  border: 0;
+  border-top: 1px solid var(--nk-ink);
+  border-bottom: 1px solid var(--nk-line);
+  text-align: center;
+  font-size: 13px;
+  color: var(--nk-sub);
+}
+@media (max-width: 1023px) {
+  body.nk-skin .nk-etc-recent .nk-recent-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 50px 10px;
+  }
+}
+@media (max-width: 767px) {
+  body.nk-skin .nk-etc-recent .nk-recent-grid {
+    gap: 28px 12px;
+  }
+}
+
+/* ================= 5) 쿠폰존 (.nk-etc-coupon) ================= */
+/* 쿠폰 카드 — stock 쿠폰스킨(배경이미지 + 갈색 계열 인라인)을 라인 카드로 재해석.
+   base css/module/coupon/zonePackage.css는 서버측이라 셀렉터 미확인 — 배치 속성(position/width/
+   height/padding/background)을 방어적으로 재선언(라이브 미검증 항목, 보고서에 명시). */
+body.nk-skin .nk-etc-coupon .couponSkinArea {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+body.nk-skin .nk-etc-coupon .couponSkinArea ul {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+body.nk-skin .nk-etc-coupon .couponSkinArea ul.grid2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+body.nk-skin .nk-etc-coupon .couponSkinArea ul li {
+  float: none;
+  width: auto;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+}
+body.nk-skin .nk-etc-coupon .coupon {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: auto;
+  height: auto;
+  min-height: 150px;
+  padding: 22px 22px 18px;
+  box-sizing: border-box;
+  background: var(--nk-bg) !important; /* !important 사유: stock 인라인 style="background-image:url('{$background_url}')"({$바인딩} — 마크업 보존 대상)의 쿠폰스킨 이미지를 shorthand로 상쇄(라인 카드 디자인) */
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+}
+body.nk-skin .nk-etc-coupon .coupon .detail {
+  position: static;
+  width: auto;
+  margin: 0;
+  padding: 0;
+  cursor: pointer; /* {$call_coupon_detail} 클릭 시 쿠폰 상세 레이어(기능 보존) */
+}
+body.nk-skin .nk-etc-coupon .coupon .detail .title {
+  display: block;
+  margin: 0 0 8px;
+  color: var(--nk-ink) !important; /* !important 사유: stock 인라인 color:#483b1b 하드코딩(module 내부 마크업 보존 대상) 상쇄 */
+  font-family: var(--nk-font-body) !important; /* !important 사유: stock 인라인 font-family:Arial 상쇄 */
+  font-size: 13px !important; /* !important 사유: stock 인라인 font-size:11px 상쇄 */
+  font-weight: 500;
+  line-height: 1.4;
+}
+body.nk-skin .nk-etc-coupon .coupon .detail .discount {
+  margin: 0 0 6px;
+  color: var(--nk-point) !important; /* !important 사유: stock 인라인 color:#d07b01 상쇄 — 포인트 액센트로 통일 */
+  font-family: var(--nk-font-display) !important; /* !important 사유: stock 인라인 font-family:Dotum 상쇄 */
+  font-size: 22px;
+  line-height: 1.2;
+}
+body.nk-skin .nk-etc-coupon .coupon .detail .discount span {
+  font-family: inherit !important; /* !important 사유: stock 인라인 font-family:Verdana 상쇄 */
+}
+body.nk-skin .nk-etc-coupon .coupon .detail .period {
+  margin: 0;
+  color: var(--nk-sub) !important; /* !important 사유: stock 인라인 color:#685219 상쇄 */
+  font-family: var(--nk-font-body) !important; /* !important 사유: stock 인라인 font-family:Dotum 상쇄 */
+  font-size: 11px;
+  letter-spacing: 0.3px;
+}
+/* 다운로드 버튼 — a href={$coupon_issue_url} + img({$download_url}, 관리자 설정 이미지) 원형 보존 */
+body.nk-skin .nk-etc-coupon .coupon .button {
+  position: static;
+  margin: auto 0 0;
+  padding: 12px 0 0;
+}
+body.nk-skin .nk-etc-coupon .coupon .button a {
+  display: inline-flex;
+}
+body.nk-skin .nk-etc-coupon .coupon .button img {
+  max-width: 100%;
+  height: auto;
+}
+body.nk-skin .nk-etc-coupon .coupon .chkBtn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  margin: 0;
+}
+
+/* 쿠폰 그룹(couponZone) — {$zone_title} + 전체선택/선택쿠폰 다운받기(onclick 보존) */
+body.nk-skin .nk-etc-coupon .couponZone {
+  margin: 56px 0 0;
+}
+body.nk-skin .nk-etc-coupon .couponZone .title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 0 0 18px;
+  padding: 0 0 12px;
+  border: 0;
+  border-bottom: 1px solid var(--nk-line);
+  background: transparent;
+}
+body.nk-skin .nk-etc-coupon .couponZone .title h3 {
+  margin: 0;
+  font-family: var(--nk-font-display);
+  font-size: 17px;
+  font-weight: 400;
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-etc-coupon .couponZone .title p {
+  display: flex;
+  gap: 6px;
+  margin: 0;
+}
+body.nk-skin .nk-etc-coupon .btnNormal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 34px;
+  padding: 0 14px;
+  box-sizing: border-box;
+  background: transparent;
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  font-size: 12px;
+  color: var(--nk-font);
+  text-decoration: none;
+}
+body.nk-skin .nk-etc-coupon .btnNormal:hover {
+  border-color: var(--nk-ink);
+  color: var(--nk-ink);
+}
+
+/* 쿠폰이용안내(.ec-base-help) — base 번호 아이콘(item1~5 스프라이트) 제거, 라인 리스트 */
+body.nk-skin .nk-etc-coupon .ec-base-help {
+  margin: 64px 0 0;
+  padding: 28px 0 0;
+  border: 0;
+  border-top: 1px solid var(--nk-ink);
+  background: transparent;
+}
+body.nk-skin .nk-etc-coupon .ec-base-help h3 {
+  margin: 0 0 14px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-family: var(--nk-font-display);
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-etc-coupon .ec-base-help .inner {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+body.nk-skin .nk-etc-coupon .ec-base-help ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+body.nk-skin .nk-etc-coupon .ec-base-help li {
+  position: relative;
+  padding: 3px 0 3px 14px;
+  background: none; /* base item1~5 번호 스프라이트 배경 제거 */
+  font-size: 12.5px;
+  line-height: 1.8;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-etc-coupon .ec-base-help li::before {
+  content: "-";
+  position: absolute;
+  left: 0;
+  color: var(--nk-border);
+}
+body.nk-skin .nk-etc-coupon .ec-base-help li strong {
+  color: var(--nk-font);
+  font-weight: 500;
+}
+
+@media (max-width: 1023px) {
+  body.nk-skin .nk-etc-coupon .couponSkinArea ul {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 767px) {
+  body.nk-skin .nk-etc-coupon .couponSkinArea ul,
+  body.nk-skin .nk-etc-coupon .couponSkinArea ul.grid2 {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
+
+/* ================= 6) 회사소개/이용안내 (.nk-etc-shopinfo) — narrow형 ================= */
+/* 6-a) 회사소개 — 2열 정보 테이블(라인 위주 미니멀, nk-board 테이블 계열) */
+body.nk-skin .nk-etc-company .ec-base-table,
+body.nk-skin .nk-etc-company [class*="xans-layout-footer"].ec-base-table {
+  margin: 0 0 40px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+body.nk-skin .nk-etc-company .ec-base-table table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 0;
+  border-top: 1px solid var(--nk-ink); /* 상단 진한 라인 — 미니멀 룰(nk-board.css 컨벤션 동일) */
+  background: transparent;
+}
+body.nk-skin .nk-etc-company .ec-base-table table[border] {
+  border: 0;
+  border-top: 1px solid var(--nk-ink);
+}
+body.nk-skin .nk-etc-company .ec-base-table table:before {
+  display: none !important; /* 사유: base ec-base-table.css table:before 회색 상단선 이중 노출 방지 */
+}
+body.nk-skin .nk-etc-company .ec-base-table caption {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+body.nk-skin .nk-etc-company .ec-base-table th {
+  padding: 15px 12px 15px 0;
+  border: 0;
+  border-bottom: 1px solid var(--nk-line);
+  background: transparent;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--nk-ink);
+  text-align: left;
+  vertical-align: top;
+}
+body.nk-skin .nk-etc-company .ec-base-table td {
+  padding: 15px 0;
+  border: 0;
+  border-bottom: 1px solid var(--nk-line);
+  background: transparent;
+  font-size: 13px;
+  color: var(--nk-font);
+  text-align: left;
+}
+body.nk-skin .nk-etc-company .ec-base-table td a {
+  color: var(--nk-font);
+  text-decoration: none;
+}
+body.nk-skin .nk-etc-company .ec-base-table td a:hover {
+  color: var(--nk-point);
+}
+/* 관리자 미입력 시 tel:/mailto: 빈 링크 — 프로토콜 문자열 노출 완화 */
+body.nk-skin .nk-etc-company .ec-base-table td a[href="tel:"],
+body.nk-skin .nk-etc-company .ec-base-table td a[href="mailto:"] {
+  pointer-events: none;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-etc-company__info {
+  margin: 0 0 40px;
+  font-size: 13px;
+  line-height: 1.9;
+  color: var(--nk-font);
+}
+body.nk-skin .nk-etc-company__info img {
+  max-width: 100%;
+  height: auto;
+}
+body.nk-skin .nk-etc-company__map h3 {
+  margin: 0 0 16px;
+  padding: 28px 0 0;
+  border-top: 1px solid var(--nk-ink);
+  font-family: var(--nk-font-display);
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-etc-company__map p {
+  margin: 0;
+}
+body.nk-skin .nk-etc-company__map img {
+  max-width: 100%;
+  height: auto;
+}
+/* 모바일 — 2열 테이블을 세로 스택으로(마크업 불변, display 재정의만) */
+@media (max-width: 767px) {
+  body.nk-skin .nk-etc-company .ec-base-table table,
+  body.nk-skin .nk-etc-company .ec-base-table tbody,
+  body.nk-skin .nk-etc-company .ec-base-table tr,
+  body.nk-skin .nk-etc-company .ec-base-table th,
+  body.nk-skin .nk-etc-company .ec-base-table td {
+    display: block;
+    width: auto;
+  }
+  body.nk-skin .nk-etc-company .ec-base-table tr {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--nk-line);
+  }
+  body.nk-skin .nk-etc-company .ec-base-table th {
+    padding: 0 0 4px;
+    border: 0;
+    font-size: 11px;
+    color: var(--nk-sub);
+  }
+  body.nk-skin .nk-etc-company .ec-base-table td {
+    padding: 0;
+    border: 0;
+  }
+}
+
+/* 6-b) 이용안내 — .nk-tabs 패턴(탭 1행 + 단일 패널 노출, nk-pdp 탭 계열 · 포인트 언더라인)
+   stock 7섹션 반복 .menu는 마크업 보존 + display:none(JS 탭이 기능 대체) */
+body.nk-skin .nk-etc-guide .nk-tabs {
+  margin: 0;
+}
+body.nk-skin .nk-etc-guide .nk-tabs__nav {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0;
+  margin: 0 0 32px;
+  padding: 0;
+  list-style: none;
+  border: 0;
+  border-bottom: 1px solid var(--nk-line);
+  background: transparent;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+body.nk-skin .nk-etc-guide .nk-tabs__nav::-webkit-scrollbar {
+  display: none;
+}
+body.nk-skin .nk-etc-guide .nk-tabs__nav li {
+  flex: 0 0 auto;
+  margin: 0;
+  padding: 0;
+}
+body.nk-skin .nk-etc-guide .nk-tabs__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0 -1px;
+  padding: 11px 16px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  font-family: var(--nk-font-body);
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--nk-sub);
+  white-space: nowrap;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+body.nk-skin .nk-etc-guide .nk-tabs__btn:hover {
+  color: var(--nk-font);
+}
+body.nk-skin .nk-etc-guide .nk-tabs__nav li.is-active .nk-tabs__btn {
+  color: var(--nk-ink);
+  box-shadow: inset 0 -2px 0 var(--nk-point);
+}
+body.nk-skin .nk-etc-guide .nk-tabs__btn:focus-visible {
+  outline: 2px solid var(--nk-point);
+  outline-offset: 2px;
+}
+body.nk-skin .nk-etc-guide .nk-tabs__panels {
+  margin: 0;
+}
+body.nk-skin .nk-etc-guide .nk-tabs__panel {
+  display: none;
+  margin: 0;
+  border: 0;
+  background: transparent;
+}
+body.nk-skin .nk-etc-guide .nk-tabs__panel.is-active {
+  display: block;
+}
+/* stock 7섹션 반복 앵커 메뉴(ul.menu) — 상단 nk-tabs__nav가 기능 대체, 패널 내부 메뉴는 시각만 숨김 */
+body.nk-skin .nk-etc-guide .nk-tabs__panel > ul.menu,
+body.nk-skin .nk-etc-guide .ec-base-tab .menu {
+  display: none;
+}
+body.nk-skin .nk-etc-guide .cont {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-size: 13px;
+  line-height: 1.9;
+  color: var(--nk-font);
+}
+body.nk-skin .nk-etc-guide .cont h3 {
+  margin: 0 0 16px;
+  padding: 0;
+  border: 0;
+  font-family: var(--nk-font-display);
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-etc-guide .cont ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+body.nk-skin .nk-etc-guide .cont li {
+  padding: 4px 0;
+}
+body.nk-skin .nk-etc-guide .cont img {
+  max-width: 100%;
+  height: auto;
+}
+body.nk-skin .nk-etc-guide .cont table {
+  width: 100%;
+  border-collapse: collapse;
+}
+@media (max-width: 767px) {
+  body.nk-skin .nk-etc-guide .nk-tabs__nav {
+    margin: 0 -15px 24px;
+    padding: 0 15px;
+  }
+  body.nk-skin .nk-etc-guide .nk-tabs__btn {
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+}
+
+/* ================= 7) 출석 이벤트 (.nk-etc-attend) — comment/stamp 공용 달력 ================= */
+/* 달력 헤드(module="attend_calendarhead" 내부 .date — 이전/다음 달 링크·gif 화살표 원형 보존) */
+body.nk-skin .nk-etc-attend .date {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin: 8px 0 24px;
+}
+body.nk-skin .nk-etc-attend .date .day {
+  font-family: var(--nk-font-display);
+  font-size: 20px;
+  letter-spacing: 1px;
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-etc-attend .date a {
+  display: inline-flex;
+  align-items: center;
+  opacity: 0.7;
+}
+body.nk-skin .nk-etc-attend .date a:hover {
+  opacity: 1;
+}
+
+/* 달력 테이블(module="attend_calendar" — colgroup %폭 등 stock 구조 원형 보존, 스타일만) */
+body.nk-skin .nk-etc-attend .nk-etc-attend__cal {
+  width: 100%;
+  margin: 0;
+  border-collapse: collapse;
+  border: 0;
+  border-top: 1px solid var(--nk-ink);
+  background: transparent;
+}
+body.nk-skin .nk-etc-attend .nk-etc-attend__cal th {
+  padding: 12px 0;
+  border: 0;
+  border-bottom: 1px solid var(--nk-border);
+  background: transparent;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  color: var(--nk-sub);
+  text-align: center;
+}
+body.nk-skin .nk-etc-attend .nk-etc-attend__cal th.sun {
+  color: var(--nk-point); /* 일요일 포인트 액센트 */
+}
+body.nk-skin .nk-etc-attend .nk-etc-attend__cal td {
+  height: 72px;
+  padding: 8px 6px;
+  border: 0;
+  border-bottom: 1px solid var(--nk-line);
+  background: transparent;
+  vertical-align: top;
+  text-align: center;
+  font-size: 13px;
+  color: var(--nk-font);
+}
+body.nk-skin .nk-etc-attend .nk-etc-attend__cal td p {
+  margin: 0;
+}
+
+/* 안내문 박스(attend_message .ec-base-box — 공통 §2 스타일 + 여백/정렬만 보충) */
+body.nk-skin .nk-etc-attend .ec-base-box {
+  margin: 28px 0 0;
+  text-align: center;
+}
+
+/* 출석/등록 버튼류 — 포인트 CTA(btnSubmit/btnSubmitFix) + 보더형(btnNormalFix). onclick 원형 보존 */
+body.nk-skin .nk-etc-attend .btnSubmit,
+body.nk-skin .nk-etc-attend .btnSubmitFix {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--nk-input-h);
+  padding: 0 26px;
+  box-sizing: border-box;
+  background: var(--nk-point);
+  border: 0;
+  border-radius: var(--nk-radius);
+  color: var(--nk-on-point);
+  font-size: 13px;
+  text-decoration: none;
+  cursor: pointer;
+}
+body.nk-skin .nk-etc-attend .btnSubmit:hover,
+body.nk-skin .nk-etc-attend .btnSubmitFix:hover {
+  background: var(--nk-point-active);
+  color: var(--nk-on-point);
+}
+body.nk-skin .nk-etc-attend .btnNormalFix {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--nk-input-h);
+  padding: 0 22px;
+  box-sizing: border-box;
+  background: transparent;
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  color: var(--nk-font);
+  font-size: 13px;
+  text-decoration: none;
+  cursor: pointer;
+}
+body.nk-skin .nk-etc-attend .btnNormalFix:hover {
+  border-color: var(--nk-ink);
+  color: var(--nk-ink);
+}
+
+/* 7-a) 댓글 출석(comment.html) — 이벤트 타이틀/댓글 작성/댓글 리스트 */
+body.nk-skin .nk-etc-attend__eventtitle {
+  margin: 40px 0 0;
+  text-align: center;
+}
+body.nk-skin .nk-etc-attend__eventtitle p {
+  margin: 0;
+  font-family: var(--nk-font-display);
+  font-size: 16px;
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-etc-attend__write {
+  margin: 24px 0 0;
+}
+body.nk-skin .nk-etc-attend__write fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+body.nk-skin .nk-etc-attend__write .form {
+  display: flex;
+  gap: 8px;
+  margin: 0;
+}
+body.nk-skin .nk-etc-attend__write #attendCommentInputWrap {
+  display: block;
+  flex: 1 1 auto;
+}
+body.nk-skin .nk-etc-attend__write #attendCommentInputWrap input,
+body.nk-skin .nk-etc-attend__write #attendCommentInputWrap textarea {
+  width: 100%;
+}
+body.nk-skin .nk-etc-attend__write #attendCommentBtnWrap {
+  display: block;
+  flex: 0 0 auto;
+}
+body.nk-skin .nk-etc-attend__write .security {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 12px 0 0;
+  font-size: 11px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-etc-attend__write .security .ec-base-help {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-size: 11px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-etc-attend__comments {
+  margin: 40px 0 0;
+  border-top: 1px solid var(--nk-ink);
+}
+body.nk-skin .nk-etc-attend__comments .memoArea {
+  margin: 0;
+  padding: 16px 4px;
+  border: 0;
+  border-bottom: 1px solid var(--nk-line);
+  background: transparent;
+}
+body.nk-skin .nk-etc-attend__comments .memoArea p {
+  margin: 0;
+}
+body.nk-skin .nk-etc-attend__comments .memoArea .name {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-etc-attend__comments .memoArea .date {
+  display: block; /* 상위 .nk-etc-attend .date(달력 헤드 flex 중앙 정렬) 규칙이 댓글 날짜 p.date에도 매치되는 것 상쇄 — 좌측 일반 흐름 복귀 */
+  margin: 2px 0 0;
+  font-size: 11px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-etc-attend__comments .memoArea .memo {
+  margin: 8px 0 0;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--nk-font);
+}
+
+/* 7-b) 출석도장(stamp.html) — 출석 버튼 영역 + 보안문자 레이어 */
+body.nk-skin .nk-etc-attend__actions .ec-base-button {
+  margin: 32px 0 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  text-align: center;
+}
+body.nk-skin .nk-etc-attend__actions .ec-base-button .gRight {
+  float: none;
+  display: inline-block;
+}
+/* 보안문자 레이어 — 클래스명은 {$attendSecurityLayer} 바인딩 출력(닫기 버튼 jQuery 셀렉터
+   '.attendSecurityLayer' 근거) 추정, 라이브 미검증. stock 인라인 display:none/left/top은
+   기능성(레이어 열림 전 숨김·위치)이라 원형 보존 — 외형만 재정의. */
+body.nk-skin .nk-etc-attend .attendSecurityLayer {
+  position: absolute;
+  z-index: 980;
+  width: 320px;
+  max-width: calc(100vw - 30px);
+  padding: 24px;
+  box-sizing: border-box;
+  background: var(--nk-bg);
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+}
+body.nk-skin .nk-etc-attend .attendSecurityLayer h3 {
+  margin: 0 0 14px;
+  font-family: var(--nk-font-display);
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-etc-attend .attendSecurityLayer .content fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+body.nk-skin .nk-etc-attend .attendSecurityLayer .form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+}
+body.nk-skin .nk-etc-attend .attendSecurityLayer .ec-base-help {
+  margin: 10px 0 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-size: 11px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-etc-attend .attendSecurityLayer .btnArea {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 16px 0 0;
+}
+body.nk-skin .nk-etc-attend .attendSecurityLayer .close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+/* 출석 모바일 */
+@media (max-width: 767px) {
+  body.nk-skin .nk-etc-attend .nk-etc-attend__cal th {
+    padding: 10px 0;
+  }
+  body.nk-skin .nk-etc-attend .nk-etc-attend__cal td {
+    height: 48px;
+    padding: 6px 4px;
+    font-size: 12px;
+  }
+  body.nk-skin .nk-etc-attend .date .day {
+    font-size: 16px;
+  }
+  body.nk-skin .nk-etc-attend__write .form {
+    flex-wrap: wrap;
+  }
+  body.nk-skin .nk-etc-attend__write #attendCommentBtnWrap {
+    flex: 1 1 100%;
+  }
+  body.nk-skin .nk-etc-attend__write #attendCommentBtnWrap .btnSubmit {
+    width: 100%;
+  }
+}

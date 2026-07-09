@@ -1,0 +1,279 @@
+/*
+ * nk-orderform.css — [미사용·보존] 결제 원본 보존 결정으로 orderform/order_result에서 로드 해제됨.
+ * nk-orderform.css — 주문서(원터치 v2)·주문완료 공용 오버라이드 (참고 보존본)
+ * 로드: (없음) — order/orderform.html · order/order_result.html 에서 @css 제거
+ *       nk-tokens.css → 본 파일 순서로 로드된다(나중 로드 + ID 스코프로 우위 확보).
+ * 스코프: 모든 셀렉터를 #userStyle(= body id) 아래로만 건다. 카페24 공식 가이드
+ *        ("신규 CSS 파일을 추가하여 #userStyle #mCafe24Order { } 셀렉터로 처리") 준수.
+ * 보수 원칙 — 기능 보존 > 시각 개선:
+ *   1) 색·타이포·보더색·radius·포커스 outline "톤"만 바꾼다. 레이아웃 계열 속성은 일절 쓰지 않는다
+ *      (원터치 시스템 CSS의 반응형 레이아웃을 그대로 신뢰).
+ *   2) 보더는 원칙적으로 border-color(재도색)만 — 시스템이 보더를 안 준 요소에 새 보더를 "추가"해
+ *      픽셀이 밀리는 일이 없게 한다(두께·유무 변경 금지).
+ *   3) 결제 진행 요소(progressPaybar)·iframe·hidden input은 셀렉터로도 건드리지 않는다.
+ *   4) 시스템 조각(/order/ec_orderform/*.html) 내부 전용 클래스는 백업에 없어 추측 금지 —
+ *      스킨 파일 3종에 실재하는 안정 훅(.btnSubmit/.btnEm/.btnNormal/.ec-base-* 등)과
+ *      요소 단위 셀렉터(a, input[type=...], select)만 사용한다.
+ *   5) 색은 전부 var(--nk-*) 토큰(+ transparent/inherit/currentColor)만. 하드코딩 금지.
+ *      구파랑(base 잔존 블루 액센트)은 링크·강조(.txtEm)·체크/라디오 accent-color를
+ *      포인트로 재지정하는 방식으로 상쇄한다.
+ *   6) 이 두 페이지는 standalone(@layout 미사용)이라 body에 nk-skin 클래스가 없음 →
+ *      토큰의 모바일 오버라이드(body.nk-skin 미디어쿼리)가 적용되지 않으므로
+ *      반응형 치수 토큰은 사용하지 않고 색·타이포·radius 토큰만 쓴다.
+ *   7) !important 불사용 — 본 파일이 시스템 CSS보다 나중 로드되고 #userStyle ID 스코프라 불필요.
+ */
+
+/* ── 1) 캔버스 + 폰트 전파 ─────────────────────────────────────────────
+ * body(#userStyle) 배경을 웜 크림으로, 폰트 스택을 토큰으로.
+ * 버튼·인풋은 UA 기본 폰트를 쓰므로 inherit로 본문 스택을 전파한다. */
+#userStyle {
+  background-color: var(--nk-bg);
+  color: var(--nk-font);
+  font-family: var(--nk-font-body);
+}
+#userStyle button,
+#userStyle select,
+#userStyle textarea,
+#userStyle input[type="text"],
+#userStyle input[type="password"],
+#userStyle input[type="tel"],
+#userStyle input[type="email"],
+#userStyle input[type="number"],
+#userStyle input[type="search"],
+#userStyle input[type="button"],
+#userStyle input[type="submit"] {
+  font-family: inherit;
+}
+/* 주문 본문 래퍼(공식 권장 스코프) — 본문 기본 톤 */
+#userStyle #mCafe24Order {
+  color: var(--nk-font);
+}
+
+/* ── 2) 제목·헤딩 톤 ─────────────────────────────────────────────── */
+#userStyle h1,
+#userStyle h2,
+#userStyle h3,
+#userStyle h4 {
+  color: var(--nk-ink);
+}
+#userStyle #mCafe24Order .heading {
+  color: var(--nk-ink);
+}
+
+/* ── 3) 링크·강조·체크/라디오 — 구파랑 상쇄 (원터치 CSS 내부 값은 오프라인 미확인이라
+ *       "액센트가 나올 수 있는 자리"를 포인트로 전면 재지정하는 방식) ───────────── */
+#userStyle #mCafe24Order a {
+  color: var(--nk-point);
+}
+#userStyle #mCafe24Order a:hover {
+  color: var(--nk-point-active);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+/* 강조 텍스트(결제금액·잔여 포인트 등 .txtEm)와 경고/차감 톤(.txtWarn) — 브랜드 포인트 */
+#userStyle #mCafe24Order .txtEm,
+#userStyle #mCafe24Order .txtWarn {
+  color: var(--nk-point);
+}
+/* 체크박스·라디오(약관동의·사은품 선택 등) 네이티브 액센트 → 포인트 */
+#userStyle input[type="checkbox"],
+#userStyle input[type="radio"] {
+  accent-color: var(--nk-point);
+}
+/* 키보드 포커스 표시(a11y) — 링크·버튼 공통 포인트 outline */
+#userStyle a:focus-visible,
+#userStyle button:focus-visible {
+  outline: 2px solid var(--nk-point);
+  outline-offset: 1px;
+}
+
+/* ── 4) 메인 CTA (.btnSubmit — 주문서 "결제하기" / 주문완료 "쇼핑 계속하기")
+ *       클릭 로직은 HTML(onclick·id 바인딩) 그대로 — 여기선 색·radius만 ─────── */
+#userStyle #mCafe24Order .btnSubmit {
+  border-color: var(--nk-point);
+  border-radius: var(--nk-radius);
+  background-color: var(--nk-point);
+  color: var(--nk-on-point);
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+#userStyle #mCafe24Order .btnSubmit:hover,
+#userStyle #mCafe24Order .btnSubmit:active {
+  border-color: var(--nk-point-active);
+  background-color: var(--nk-point-active);
+  color: var(--nk-on-point);
+}
+#userStyle #mCafe24Order a.btnSubmit,
+#userStyle #mCafe24Order a.btnSubmit:hover {
+  text-decoration: none; /* 앵커형 CTA는 밑줄 없이 버튼 외형 유지 */
+}
+#userStyle #mCafe24Order .btnSubmit:disabled {
+  border-color: var(--nk-sub);
+  background-color: var(--nk-sub);
+  color: var(--nk-on-point);
+}
+
+/* ── 5) 보조 버튼류 — 보더형 톤 (.btnEm 강조 보더 / .btnBasic·.btnNormal 헤어라인 보더) ── */
+#userStyle #mCafe24Order .btnEm {
+  border-color: var(--nk-ink);
+  border-radius: var(--nk-radius);
+  background-color: var(--nk-bg);
+  color: var(--nk-ink);
+}
+#userStyle #mCafe24Order .btnEm:hover,
+#userStyle #mCafe24Order .btnEm:active {
+  border-color: var(--nk-ink);
+  background-color: var(--nk-ink);
+  color: var(--nk-on-dark);
+}
+#userStyle #mCafe24Order a.btnEm,
+#userStyle #mCafe24Order a.btnEm:hover {
+  text-decoration: none;
+}
+#userStyle #mCafe24Order .btnBasic,
+#userStyle #mCafe24Order .btnNormal {
+  border-color: var(--nk-border);
+  border-radius: var(--nk-radius);
+  background-color: var(--nk-bg);
+  color: var(--nk-font);
+}
+#userStyle #mCafe24Order .btnBasic:hover,
+#userStyle #mCafe24Order .btnNormal:hover {
+  border-color: var(--nk-ink);
+  background-color: var(--nk-bg);
+  color: var(--nk-ink);
+  text-decoration: none;
+}
+#userStyle #mCafe24Order .btnEm:disabled,
+#userStyle #mCafe24Order .btnBasic:disabled,
+#userStyle #mCafe24Order .btnNormal:disabled {
+  border-color: var(--nk-line);
+  background-color: var(--nk-bg2);
+  color: var(--nk-sub);
+}
+
+/* ── 6) 인풋·셀렉트 — 보더 재도색 + 포커스 포인트 (요소 단위 셀렉터만, hidden 제외) ── */
+#userStyle #mCafe24Order select,
+#userStyle #mCafe24Order textarea,
+#userStyle #mCafe24Order input[type="text"],
+#userStyle #mCafe24Order input[type="password"],
+#userStyle #mCafe24Order input[type="tel"],
+#userStyle #mCafe24Order input[type="email"],
+#userStyle #mCafe24Order input[type="number"],
+#userStyle #mCafe24Order input[type="search"] {
+  border-color: var(--nk-border);
+  border-radius: var(--nk-radius);
+  background-color: var(--nk-bg);
+  color: var(--nk-font);
+}
+#userStyle #mCafe24Order select:focus,
+#userStyle #mCafe24Order textarea:focus,
+#userStyle #mCafe24Order input[type="text"]:focus,
+#userStyle #mCafe24Order input[type="password"]:focus,
+#userStyle #mCafe24Order input[type="tel"]:focus,
+#userStyle #mCafe24Order input[type="email"]:focus,
+#userStyle #mCafe24Order input[type="number"]:focus,
+#userStyle #mCafe24Order input[type="search"]:focus {
+  border-color: var(--nk-point);
+  outline: 1px solid var(--nk-point);
+}
+#userStyle #mCafe24Order select:disabled,
+#userStyle #mCafe24Order textarea:disabled,
+#userStyle #mCafe24Order input[type="text"]:disabled,
+#userStyle #mCafe24Order input[type="password"]:disabled,
+#userStyle #mCafe24Order input[type="tel"]:disabled,
+#userStyle #mCafe24Order input[type="email"]:disabled,
+#userStyle #mCafe24Order input[type="number"]:disabled,
+#userStyle #mCafe24Order input[type="search"]:disabled {
+  border-color: var(--nk-line);
+  background-color: var(--nk-bg2);
+  color: var(--nk-sub);
+}
+
+/* ── 7) 박스·표·접이(fold)·도움말 — 헤어라인·텍스트 톤 재도색 ──────────────── */
+#userStyle #mCafe24Order .ec-base-box {
+  border-color: var(--nk-line);
+  border-radius: var(--nk-radius);
+  background-color: var(--nk-bg);
+}
+#userStyle #mCafe24Order .ec-base-table table,
+#userStyle #mCafe24Order .ec-base-table th,
+#userStyle #mCafe24Order .ec-base-table td {
+  border-color: var(--nk-line);
+}
+#userStyle #mCafe24Order .ec-base-table th {
+  background-color: var(--nk-bg2);
+  color: var(--nk-font);
+  font-weight: 500;
+}
+#userStyle #mCafe24Order .ec-base-table td {
+  color: var(--nk-font);
+}
+/* 접이 블록(구매상품/배송지정보 등 .ec-base-fold) — 제목은 잉크, 토글 동작(JS) 무변경 */
+#userStyle #mCafe24Order .ec-base-fold .title h2 {
+  color: var(--nk-ink);
+}
+#userStyle #mCafe24Order .ec-base-help {
+  color: var(--nk-sub);
+}
+/* 상품 카드(.ec-base-prdInfo) — 상품명 잉크, 옵션·부가정보 보조 톤 */
+#userStyle #mCafe24Order .ec-base-prdInfo .prdName {
+  color: var(--nk-ink);
+}
+#userStyle #mCafe24Order .ec-base-prdInfo ul.info,
+#userStyle #mCafe24Order .ec-base-prdInfo .optionWrap {
+  color: var(--nk-sub);
+}
+/* 약관동의 하단 고지문(orderform 스킨 파일 실재 훅) */
+#userStyle #mCafe24Order .agree-msg {
+  color: var(--nk-sub);
+}
+
+/* ── 8) 주문완료 전용 — body.orderResult (#header·타이틀·결과 요약) ─────────── */
+#userStyle.orderResult #header {
+  border-color: var(--nk-line);
+  background-color: var(--nk-bg);
+}
+#userStyle.orderResult #header .header h1 a {
+  color: var(--nk-ink);
+  font-family: var(--nk-font-display);
+  letter-spacing: 2px;
+  text-decoration: none;
+}
+#userStyle.orderResult #header .headerMenu a {
+  color: var(--nk-font);
+  text-decoration: none;
+}
+#userStyle.orderResult #header .titleArea h1,
+#userStyle #titleArea h1 {
+  color: var(--nk-ink);
+  font-family: var(--nk-font-display);
+  font-weight: 400;
+  letter-spacing: 4px;
+}
+/* 결과 요약 — 완료 메시지 잉크 세리프, 주문번호 중간 강조, 총 결제금액 포인트(.txtEm 공통 §3) */
+#userStyle #mCafe24Order .resultArea .message {
+  color: var(--nk-ink);
+  font-family: var(--nk-font-display);
+}
+#userStyle #mCafe24Order .resultArea .orderNumber {
+  color: var(--nk-ink);
+  font-weight: 500;
+}
+#userStyle #mCafe24Order .resultArea .totalPrice {
+  color: var(--nk-font);
+}
+/* 적립 예정금액 합계 박스 값 — .txtEm 공통(§3) 포인트이 적용됨(별도 재지정 불필요) */
+
+/* ── 9) 사은품 조각(gift_selectorderform — 주문서 안에 렌더, 파일 자체는 무편집)
+ *       표 헤어라인·텍스트 톤은 §7 공통 규칙이 커버. 여기선 고유 훅만 보강.
+ *       수량 증감 gif 버튼(a>img)은 onclick 핸들러 보존 — 시각 포함 원본 그대로 둔다. ── */
+#userStyle #mCafe24Order .ec-base-table .name {
+  color: var(--nk-ink);
+}
+#userStyle #mCafe24Order .ec-base-table ul.option {
+  color: var(--nk-sub);
+}
+#userStyle #mCafe24Order .controlInfo {
+  color: var(--nk-sub);
+}

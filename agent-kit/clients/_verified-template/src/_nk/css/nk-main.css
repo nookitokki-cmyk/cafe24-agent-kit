@@ -1,0 +1,368 @@
+/*
+ * nk-main.css — verified-template 메인 페이지 전용(hero-main). 자기완결형 — 전부 body.nk-main 스코프.
+ * 공유 파일(nk-tokens.css/nk-cafe24-reset.css/nk-base.css/nk-header.html/nk-footer.html/layout.html)은
+ * 절대 수정하지 않는다 — 여기서 오버라이드로만 해결. 값은 전부 기존 nk-tokens.css의 var(--nk-*) 참조,
+ * 컴포넌트 고유 여백/크기(그리드 gap·카드 폭 등 이 파일에서 처음 쓰는 값)만 nk-base.css와 동일한
+ * 관례대로 리터럴로 기술(핵심 색·폰트·브레이크포인트 치수는 반드시 var()).
+ * 로드 순서: nk-tokens.css → nk-cafe24-reset.css → nk-base.css → nk-main.css(이 파일, main.html 전용).
+ * 명시도 원칙(AGENT.md §10): base(body.nk-skin ...)를 이기기 위해 이 파일의 셀렉터는 항상
+ * body.nk-main(추가 클래스 1개)을 접두해 명시도를 올린다 — !important는 base가 태그/ID 조합처럼
+ * 클래스 가산만으로 못 이기는 자리에만, 사유 주석 필수.
+ */
+
+/* ================= 1) 히어로 (풀블리드, 헤더 오버레이) =================
+   검증 레퍼런스 패턴: body.nk-skin#main .visual{height:100vh;background:url(hero) center/cover}
+   + #header.nk-hd가 히어로 위에 투명 오버레이. 차이점: 우리 히어로 이미지(hero-main.jpg)는 밝은
+   모노톤(레퍼런스는 어두운 톤) → 헤더/카피 글자는 계속 다크(var(--nk-font))로 유지, 레퍼런스처럼
+   스크롤에 따라 글자색을 흰↔검정으로 바꿀 필요가 없음(배경만 투명↔솔리드 전환).
+   공유 #container의 padding-top(calc(--nk-topbar-h + --nk-header-h), nk-base.css)을 히어로에서만
+   음수 margin-top으로 상쇄해 풀블리드를 만든다 — #container 자체는 건드리지 않음(공유 파일 불변). */
+body.nk-main .nk-hero {
+  position: relative;
+  margin-top: calc(-1 * (var(--nk-topbar-h) + var(--nk-header-h)));
+  margin-bottom: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100svh; /* 모바일 주소창 높이 변화 대응 — 미지원 브라우저는 위 100vh 값으로 자동 폴백 */
+  min-height: 560px;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 0 var(--nk-pad-x) 64px;
+  background-color: var(--nk-bg2);
+  background-image: linear-gradient(135deg, #e9e9e7 0%, #d2d2cf 55%, #c4c4c0 100%); /* 중립 플레이스홀더 — 설치: url("/_nk/img/hero-main.jpg") 형태로 히어로 이미지 교체 */
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+/* 밝은 히어로 이미지 위에서도 헤더(상단)·카피(하단) 다크 텍스트 대비를 보장하는 연한 스크림.
+   레퍼런스(.visual::after)는 어두운 이미지 + 흰 글자라 반대 방향(검정 그라디언트)을 썼음 —
+   우리는 이미지 톤이 밝아 흰 계열 스크림으로 대칭 적용(판단 근거: 태스크 지시의 톤 차이 메모). */
+body.nk-main .nk-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.55) 0%,
+    rgba(255, 255, 255, 0) 22%,
+    rgba(255, 255, 255, 0) 60%,
+    rgba(255, 255, 255, 0.65) 100%
+  );
+  pointer-events: none;
+}
+body.nk-main .nk-hero__copy {
+  position: relative;
+  z-index: 1;
+  max-width: 560px;
+}
+body.nk-main .nk-hero__wordmark {
+  margin: 0 0 10px;
+  font-family: var(--nk-font-display);
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--nk-font);
+}
+body.nk-main .nk-hero__tagline {
+  margin: 0;
+  font-family: var(--nk-font-body);
+  font-size: var(--nk-fs-body);
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  color: var(--nk-font);
+}
+@media (max-width: 767px) {
+  body.nk-main .nk-hero {
+    min-height: 480px;
+    padding: 0 var(--nk-pad-x) 40px;
+    /* 모노톤 여성 전신컷 — 중앙 크롭 시 얼굴이 잘릴 수 있어 상단 기준 크롭으로 전환 */
+    background-position: center top;
+  }
+  body.nk-main .nk-hero__wordmark {
+    letter-spacing: 2px;
+  }
+}
+
+/* ================= 2) 메인 한정 헤더 오버레이 =================
+   공유 nk-header.html/nk-base.css는 절대 수정하지 않는다. body.nk-main #header.nk-hd는
+   base body.nk-skin #header.nk-hd(클래스 1개 적음)보다 명시도가 항상 높아 !important 없이 이김
+   (AGENT.md §10: 두 클래스 동시 선택자로 명시도를 올리는 패턴과 동일 원리 — 여기선 body의 클래스
+   조합이 이미 그 역할을 한다). 히어로가 밝은 톤이라 텍스트 색은 그대로(다크) 유지 — 배경/보더만
+   투명↔솔리드 전환. */
+body.nk-main #header.nk-hd {
+  background: transparent;
+  border-bottom: 0;
+}
+body.nk-main #header.nk-hd.nk-scrolled {
+  background-color: var(--nk-bg);
+  border-bottom: 1px solid var(--nk-line);
+}
+/* .nk-scrolled 토글은 main.html 안 인라인 스크립트가 담당(공유 nk-header.html에는 스크롤
+   리스너가 없음 — 공유 파일 불변 원칙상 여기(main.html)에서만 추가). */
+
+/* ================= 3) 상품 진열 (product_listmain_1 — 3열 그리드 · 정사각형 썸네일 · 상품명 중앙정렬, 2026-07-09 커스텀) ================= */
+body.nk-main .nk-listmain {
+  margin: 100px auto;
+  max-width: var(--nk-content-max);
+  padding: 0 var(--nk-pad-x);
+  box-sizing: border-box;
+}
+body.nk-main .nk-listmain .nk-sec__head {
+  margin: 0 0 32px;
+  text-align: center;
+}
+body.nk-main .nk-listmain .nk-sec__head h2.nk-sec__title {
+  margin: 0;
+  font-weight: 400;
+  font-style: normal;
+  color: var(--nk-font);
+}
+body.nk-main .nk-sec__en {
+  display: block;
+  margin: 0 0 6px;
+  font-family: var(--nk-font-display);
+  font-size: 23px;
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--nk-font);
+}
+body.nk-main .nk-sec__kr {
+  display: block;
+  margin: 0;
+  font-family: var(--nk-font-body);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  color: var(--nk-sub);
+}
+body.nk-main .nk-prd-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 70px 20px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+@media (max-width: 1023px) {
+  body.nk-main .nk-prd-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 50px 10px;
+  }
+}
+body.nk-main .nk-prd-grid > .nk-prd-card {
+  width: 100%;
+  min-width: 0;
+}
+/* 추천상품 커스텀(2026-07-09): 정사각형 썸네일 + 상품명·가격(라벨/값) 중앙정렬 — nk-components.css 공유
+   4:5/좌측정렬 기본값을 body.nk-main 스코프로만 오버라이드(PLP/PDP의 nk-prd-card는 영향 없음). */
+body.nk-main .nk-listmain .nk-prd-card__thumb {
+  aspect-ratio: 1 / 1;
+}
+body.nk-main .nk-listmain .nk-prd-card__name {
+  text-align: center;
+}
+/* product_ListItem 가격 주입 — 카페24 {$item_content} 인라인(취소선/색)은 시스템 주입 허용 */
+body.nk-main .nk-prd-card__price-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+body.nk-main .nk-prd-card__price-item {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 6px;
+  font-family: var(--nk-font-display);
+  font-size: 14px;
+  color: var(--nk-ink);
+}
+body.nk-main .nk-prd-card__price-label {
+  font-family: var(--nk-font-body);
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--nk-sub);
+}
+body.nk-main .nk-prd-card__price-label.displaynone {
+  display: none;
+}
+body.nk-main .nk-prd-card__price-val {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+@media (max-width: 767px) {
+  body.nk-main .nk-listmain {
+    margin: 50px auto;
+  }
+  body.nk-main .nk-listmain .nk-sec__head {
+    margin: 0 0 20px;
+  }
+  body.nk-main .nk-sec__en {
+    font-size: 17px;
+  }
+  body.nk-main .nk-sec__kr {
+    font-size: 11px;
+  }
+}
+
+/* ================= 4) 스플릿 배너 2종 (Golden Hour / Essentials) =================
+   검증된 .nk-split-banner 패턴 재사용 — 배경은 중립 플레이스홀더(그라디언트),
+   설치 시 /_nk/img/ 배너 이미지 url()로 교체. */
+body.nk-main .nk-split-banner {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+body.nk-main .nk-split-banner__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+}
+body.nk-main .nk-split-banner__item {
+  display: flex;
+  align-items: flex-end;
+  position: relative;
+  aspect-ratio: 1 / 1;
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-color: var(--nk-bg2);
+  text-decoration: none;
+  overflow: hidden;
+}
+body.nk-main .nk-split-banner__item::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.12) 50%, rgba(0, 0, 0, 0) 100%);
+  pointer-events: none;
+}
+body.nk-main .nk-split-banner__item--left {
+  background-image: linear-gradient(160deg, #ddd8d1 0%, #c7c0b6 100%); /* 중립 플레이스홀더 — 설치: 배너 이미지 url()로 교체 */
+}
+body.nk-main .nk-split-banner__item--right {
+  background-image: linear-gradient(200deg, #d9dcdf 0%, #c0c6ca 100%); /* 중립 플레이스홀더 — 설치: 배너 이미지 url()로 교체 */
+}
+body.nk-main .nk-split-banner__caption {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 0 28px 28px;
+}
+body.nk-main .nk-split-banner__title {
+  font-family: var(--nk-font-display);
+  font-size: 22px;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1.2;
+  color: var(--nk-on-dark);
+}
+body.nk-main .nk-split-banner__desc {
+  font-family: var(--nk-font-body);
+  font-size: 13px;
+  font-weight: 400;
+  font-style: normal;
+  color: rgba(255, 255, 255, 0.82);
+}
+@media (max-width: 767px) {
+  body.nk-main .nk-split-banner__inner {
+    grid-template-columns: 1fr;
+  }
+  body.nk-main .nk-split-banner__caption {
+    padding: 0 20px 20px;
+  }
+  body.nk-main .nk-split-banner__title {
+    font-size: 18px;
+  }
+  body.nk-main .nk-split-banner__desc {
+    font-size: 12px;
+  }
+}
+
+/* ================= 5) 캠페인 풀폭 배너 (Held in the Quiet) =================
+   레퍼런스의 .nk-banner-slider(Swiper 캐러셀) 대신 단일 이미지 배너로 단순화 — 이 클라이언트는
+   아직 Swiper CDN을 로드하지 않고(main.html head 확인), 태스크 지시도 슬라이드가 아닌 단일 배너
+   1장 + 헤드라인이라 캐러셀 의존성 추가 없이 정적 섹션으로 충분. */
+body.nk-main .nk-campaign-banner {
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+body.nk-main .nk-campaign-banner__link {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  width: 100%;
+  height: min(92vh, 900px);
+  background-image: linear-gradient(180deg, #d6d3cd 0%, #b6b2aa 100%); /* 중립 플레이스홀더 — 설치: 배너 이미지 url()로 교체 */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: var(--nk-bg2);
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+}
+body.nk-main .nk-campaign-banner__link::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.14) 42%, rgba(0, 0, 0, 0) 100%);
+  pointer-events: none;
+}
+body.nk-main .nk-campaign-banner__caption {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 0 60px 48px;
+  max-width: 460px;
+  margin: 0 auto;
+  text-align: center;
+}
+body.nk-main .nk-campaign-banner__title {
+  font-family: var(--nk-font-display);
+  font-size: 44px;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1.12;
+  color: var(--nk-on-dark);
+}
+body.nk-main .nk-campaign-banner__desc {
+  font-family: var(--nk-font-display);
+  font-size: 15px;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 520px;
+  margin: 0 auto;
+}
+@media (max-width: 767px) {
+  body.nk-main .nk-campaign-banner__link {
+    height: min(70vh, 560px);
+  }
+  body.nk-main .nk-campaign-banner__caption {
+    padding: 0 24px 32px;
+  }
+  body.nk-main .nk-campaign-banner__title {
+    font-size: 28px;
+  }
+  body.nk-main .nk-campaign-banner__desc {
+    font-size: 13px;
+  }
+}

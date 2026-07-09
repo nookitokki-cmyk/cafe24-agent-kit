@@ -2,7 +2,7 @@
  * nk-header-sticky — 스크롤 시 고정되는 헤더 (로고·GNB·검색·장바구니 배지)
  * 사용처: 카페24 layout/basic/layout.html 또는 _nk/inc/header.html
  * 의존성:
- *   - CSS 변수: --nk-color-bg / --nk-color-text / --nk-color-border / --nk-space-md / --nk-shadow-sm
+ *   - CSS 변수: --nk-bg / --nk-font / --nk-border / (리터럴 16px) / (리터럴 0 2px 8px rgba(0,0,0,.08))
  *   - JS: snippets/js/nk-sticky-header.js (scroll shadow 효과)
  *   - Phosphor Icons CDN
  *
@@ -11,8 +11,8 @@
  *   2. "여기만 바꾸세요" 표시된 부분의 텍스트·링크를 본인 쇼핑몰 정보로 교체
  *   3. SFTP로 업로드
  *
- * 카페24 변수 사용 시 주의: {$basket_cnt} 는 전역 변수라 어디서나 작동.
- *   다른 변수(예: {$mall_name})는 main 모듈 또는 layout scope 안에서 작동.
+ * 카페24 변수 사용 시 주의: 모든 {$변수}는 해당 module scope 안에서만 치환된다(밖에서는 빈 값).
+ *   장바구니 수는 module="Layout_orderBasketcount" 안의 {$basket_count}로만 유효.
 -->
 
 <header class="nk-header" data-nk-sticky>
@@ -22,10 +22,10 @@
     <div class="nk-header-inner">
 
       <!-- 로고 — 여기만 바꾸세요 -->
-      <a href="/" class="nk-logo" aria-label="홈으로">
-        <span class="nk-logo-text">{$mall_name}</span>
-        <!-- 이미지 로고로 바꾸려면 위 span 대신 아래 주석 해제 후 src 경로 교체 -->
-        <!-- <img src="/web/upload/{스킨번호}/logo.png" alt="{$mall_name}"> -->
+      <a href="/" class="nk-logo" aria-label="홈으로" module="Layout_LogoTop">
+        <span class="nk-logo-text">SHOP</span><!-- 여기만 바꾸세요: 쇼핑몰 이름 텍스트 직접 입력(검증본 패턴) -->
+        <!-- 이미지 로고로 바꾸려면 위 span 대신 아래 주석 해제 후 src 경로·alt 텍스트 직접 교체 -->
+        <!-- <img src="/web/upload/{스킨번호}/logo.png" alt="쇼핑몰 이름 — 여기만 바꾸세요"> -->
       </a>
 
       <!-- 검색창 -->
@@ -50,7 +50,7 @@
           <i class="ph ph-shopping-cart" aria-hidden="true"></i>
           <span class="nk-action-label">장바구니</span>
           <!-- 장바구니 배지: 0개일 때 자동 숨김은 JS에서 처리 -->
-          <span class="nk-cart-badge" data-nk-cart-badge>{$basket_cnt}</span>
+          <span class="nk-cart-badge" data-nk-cart-badge module="Layout_orderBasketcount">{$basket_count}</span>
         </a>
       </nav>
 
@@ -74,36 +74,36 @@
 <style>
   .nk-header{
     position:sticky; top:0; z-index:100;
-    background:var(--nk-color-bg);
-    border-bottom:1px solid var(--nk-color-border);
+    background:var(--nk-bg, #ffffff);
+    border-bottom:1px solid var(--nk-border, #e5e7eb);
     transition:box-shadow .2s;
   }
-  .nk-header.is-scrolled{box-shadow:var(--nk-shadow-sm)}
+  .nk-header.is-scrolled{box-shadow:0 2px 8px rgba(0,0,0,.08)}
   .nk-header-inner{
     max-width:1440px; margin:0 auto;
-    padding:0 var(--nk-space-md);
+    padding:0 16px;
   }
-  .nk-header-top{padding:var(--nk-space-md) 0}
+  .nk-header-top{padding:16px 0}
   .nk-header-top .nk-header-inner{
-    display:flex; align-items:center; gap:var(--nk-space-lg);
+    display:flex; align-items:center; gap:24px;
   }
-  .nk-logo{display:flex; align-items:center; gap:8px; font-weight:700; font-size:18px; color:var(--nk-color-text)}
+  .nk-logo{display:flex; align-items:center; gap:8px; font-weight:700; font-size:18px; color:var(--nk-font, #1a1a1a)}
   .nk-logo img{height:32px; width:auto}
   .nk-search{
     flex:1; max-width:480px;
     display:flex; align-items:center; gap:8px;
-    background:var(--nk-color-surface, #f8f9fa);
-    border:1px solid var(--nk-color-border);
-    border-radius:var(--nk-radius-md, 12px);
+    background:var(--nk-bg2, #f8f9fa);
+    border:1px solid var(--nk-border, #e5e7eb);
+    border-radius:var(--nk-radius, 12px);
     padding:8px 14px;
   }
   .nk-search-input{
     flex:1; border:0; outline:0; background:transparent;
-    color:var(--nk-color-text); font-family:inherit; font-size:14px;
+    color:var(--nk-font, #1a1a1a); font-family:inherit; font-size:14px;
   }
   .nk-search-btn{
     background:transparent; border:0; cursor:pointer;
-    color:var(--nk-color-text-sub, #5f6368); font-size:18px;
+    color:var(--nk-sub, #5f6368); font-size:18px;
     width:44px; height:44px; display:inline-flex; align-items:center; justify-content:center;
   }
   .nk-header-actions{display:flex; gap:4px; margin-left:auto}
@@ -112,7 +112,7 @@
     min-width:44px; min-height:44px;
     display:inline-flex; flex-direction:column; align-items:center; justify-content:center;
     padding:6px 10px; gap:2px;
-    color:var(--nk-color-text); font-size:11px;
+    color:var(--nk-font, #1a1a1a); font-size:11px;
   }
   .nk-action-btn i{font-size:22px}
   .nk-action-label{display:none}
@@ -120,23 +120,23 @@
   .nk-cart-badge{
     position:absolute; top:2px; right:2px;
     min-width:18px; height:18px; padding:0 5px;
-    background:var(--nk-color-accent, #2b6cb0); color:#fff;
+    background:var(--nk-point, #222222); color:#fff;
     border-radius:9999px; font-size:11px; font-weight:700;
     display:inline-flex; align-items:center; justify-content:center;
   }
   .nk-cart-badge:empty,.nk-cart-badge[data-zero="true"]{display:none}
-  .nk-gnb{border-top:1px solid var(--nk-color-border)}
+  .nk-gnb{border-top:1px solid var(--nk-border, #e5e7eb)}
   .nk-gnb-list{
     list-style:none; margin:0; padding-top:12px; padding-bottom:12px;
-    display:flex; gap:var(--nk-space-lg); overflow-x:auto;
+    display:flex; gap:24px; overflow-x:auto;
   }
   .nk-gnb-list a{
-    color:var(--nk-color-text); font-weight:500; font-size:14px;
+    color:var(--nk-font, #1a1a1a); font-weight:500; font-size:14px;
     padding:8px 4px; display:inline-block;
   }
-  .nk-gnb-list a:hover{color:var(--nk-color-accent, #2b6cb0)}
+  .nk-gnb-list a:hover{color:var(--nk-point, #222222)}
   @media(max-width:767px){
     .nk-search{display:none}
-    .nk-header-top .nk-header-inner{gap:var(--nk-space-md)}
+    .nk-header-top .nk-header-inner{gap:16px}
   }
 </style>

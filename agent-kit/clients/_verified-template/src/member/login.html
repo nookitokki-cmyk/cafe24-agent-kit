@@ -1,0 +1,97 @@
+<!--@layout(/layout/basic/layout.html)-->
+<!--@css(/_nk/css/nk-member.css)-->
+
+<div class="nk-mbr-wrap nk-login-wrap">
+    <div class="nk-mbr-head">
+        <p class="nk-mbr-title">Login</p>
+        <p class="nk-mbr-sub">회원 로그인</p>
+    </div>
+
+    <div module="member_login" class="nk-login-box">
+        <!--
+            $defaultReturnUrl = /index.html
+            $forbidIpUrl = member/adminFail.html
+        -->
+        <fieldset class="nk-login-form">
+            <legend class="nk-mbrb-hidden">회원로그인</legend>
+            <div class="nk-login-fields">
+                <div class="nk-login-field">
+                    <label class="id ePlaceholder" title="{$login_id_type_text}">{$form.member_id}</label>
+                </div>
+                <div class="nk-login-field">
+                    <label class="password ePlaceholder" title="비밀번호">{$form.member_passwd}</label>
+                </div>
+            </div>
+            <p class="nk-login-meta">
+                <span class="nk-login-meta__item">{$form.member_check_save_id}</span>
+                <span class="nk-login-meta__item">{$form.member_check_secret_connect}</span>
+            </p>
+            <div class="nk-mbr-actions nk-login-actions">
+                <a href="#none" class="nk-btn nk-btn--primary nk-btn--block nk-btn-login" onclick="{$action_func_login}">Login</a>
+                <p class="nk-login-guest {$display_nomember|display}" id="noMemberWrap">
+                    <a href="{$returnUrl}" class="nk-btn nk-btn--line nk-btn--block nk-btn-guest" onclick="{$action_nomember_order}">비회원 구매</a>
+                    <span class="nk-btn-guest-desc">비회원님도 상품구매가 가능하나 다양한 회원혜택에서 제외됩니다.</span>
+                </p>
+            </div>
+            <ul class="nk-login-links">
+                <li><a href="/member/id/find_id.html">아이디 찾기</a></li>
+                <li><a href="/member/passwd/find_passwd_info.html">비밀번호 찾기</a></li>
+            </ul>
+            <div class="nk-login-join">
+                <p class="nk-login-join-text">아직 회원이 아니신가요?</p>
+                <a href="/member/join.html" class="nk-btn nk-btn--ink nk-btn--block nk-btn-join">Join Us</a>
+            </div>
+            <div class="nk-login-sns">
+                <p class="nk-login-sns-label"><span>SNS 로그인</span></p>
+                <ul class="snsArea nk-login-sns-btns">
+                    <li class="{$display_naver|display}">
+                        <a href="#none" class="nk-btn nk-btn--line nk-btn--block nk-sns-btn" onclick="{$naver_func_login}">네이버 로그인</a>
+                    </li>
+                    <li class="{$display_facebook|display}">
+                        <a href="#none" class="nk-btn nk-btn--line nk-btn--block nk-sns-btn" onclick="{$facebook_func_login}">페이스북 로그인</a>
+                    </li>
+                    <li class="{$display_google|display}">
+                        <a href="#none" class="nk-btn nk-btn--line nk-btn--block nk-sns-btn" onclick="{$google_func_login}">구글 로그인</a>
+                    </li>
+                    <li class="{$display_kakao|display}">
+                        <a href="#none" class="nk-btn nk-btn--line nk-btn--block nk-sns-btn" onclick="{$kakao_func_login}">카카오계정 로그인</a>
+                    </li>
+                    <li class="{$display_line|display}">
+                        <a href="#none" class="nk-btn nk-btn--line nk-btn--block nk-sns-btn" onclick="{$line_func_login}">LINE 로그인</a>
+                    </li>
+                    <li class="{$display_apple|display}">
+                        <a href="#none" class="nk-btn nk-btn--line nk-btn--block nk-sns-btn" onclick="{$apple_func_login}">Apple 로그인</a>
+                    </li>
+                    <li class="{$display_yahoojp|display}">
+                        <a href="#none" class="nk-btn nk-btn--line nk-btn--block nk-sns-btn" onclick="{$yahoojp_func_login}">Yahoo! JAPAN ID로 로그인</a>
+                    </li>
+                </ul>
+            </div>
+        </fieldset>
+    </div>
+</div>
+
+<div module="MyShop_OrderHistoryNologin" class="nk-nologin nk-mbr-wrap">
+    <!--
+        $orderDetailUrl = /myshop/order/list.html
+    -->
+    <h3 class="nk-nologin-title">비회원 주문조회</h3>
+    <p class="nk-nologin-desc">비회원의 경우, 주문시의 주문번호로 주문조회가 가능합니다.</p>
+    <div class="nk-nologin-fields">
+        <div class="nk-nologin-row">
+            <div class="nk-nologin-label">{$form_label.order_name}</div>
+            <div class="nk-nologin-field">{$form.order_name}</div>
+        </div>
+        <div class="nk-nologin-row">
+            <div class="nk-nologin-label">{$form_label.order_id}</div>
+            <div class="nk-nologin-field">{$form.order_id}</div>
+        </div>
+        <div class="nk-nologin-row">
+            <div class="nk-nologin-label">{$form_label.order_password}</div>
+            <div class="nk-nologin-field">{$form.order_password}</div>
+        </div>
+    </div>
+    <div class="nk-nologin-actions">
+        <button type="submit" class="nk-btn nk-btn--ink nk-btn--block">조회</button>
+    </div>
+</div>

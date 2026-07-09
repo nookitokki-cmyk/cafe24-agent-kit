@@ -1,0 +1,3658 @@
+/*
+ * nk-member.css — verified-template 회원(로그인) 페이지 전용 (narrow)
+ * 로드: member/login.html 첫머리 @css (tokens → reset → base 다음 순서로 head 수집)
+ * 계약: design.md — 로그인 폼 .nk-login-wrap max 420px 중앙(검증 실측),
+ *       주 버튼(Login)=포인트 CTA(--nk-point/--nk-on-point), 보조 버튼=보더형. 색은 전부 var(--nk-*)만.
+ * 참고: 언더라인 인풋 치수는 레퍼런스 라이브 실측(선분석 브리프 §3-2) — 색값은 이식하지 않음.
+ */
+
+/* ── 1) 페이지 래퍼 — 전역 1920px 컨테이너 유지 + 내부 요소만 좁힘(420px 중앙) ── */
+body.nk-skin .nk-login-wrap {
+  max-width: 420px;
+  margin: 40px auto 96px;
+}
+
+/* ── 2) 페이지 헤드 (기본 .titleArea 대체) ── */
+body.nk-skin .nk-login-head {
+  margin: 0 0 36px;
+  text-align: center;
+}
+body.nk-skin .nk-login-title {
+  margin: 0 0 6px;
+  font-family: var(--nk-font-display);
+  font-size: var(--nk-fs-page-title);
+  font-weight: 400;
+  letter-spacing: var(--nk-ls-page-title);
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-login-sub {
+  margin: 0;
+  font-size: 12px;
+  color: var(--nk-sub);
+}
+
+/* ── 3) member_login blank-slate — stock .login 래퍼·login.css import 제거 ── */
+body.nk-skin .nk-login-box {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+}
+body.nk-skin .nk-login-form {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+/* base css/module/member/login.css:3 .xans-member-login .login fieldset{width:370px;padding:0 0 0 9px} 잔존 상쇄
+   (ultraqa C1 실측: 390px에서 370+9=379px 고정폭이 +4px 가로 오버플로 유발).
+   기존 규칙(0,2,1)과 명시도 동점이라 로드순서에서 패배 — 체인 강화(0,3,1)로 확실히 이김. */
+body.nk-skin .xans-member-login .login fieldset {
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+  box-sizing: border-box;
+}
+body.nk-skin .nk-login-form legend {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+/* ── 4) 언더라인형 인풋 — reset §8 전역 박스형(1px 보더+패딩)을 로그인 스코프에서 재정의
+       명시도 (0,3,1) > reset (0,2,1) — !important 불필요 ── */
+body.nk-skin .nk-login-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+body.nk-skin .nk-login-field {
+  padding-bottom: 4px;
+}
+body.nk-skin .nk-login-field label {
+  display: block;
+}
+body.nk-skin .nk-login-field input[type="text"],
+body.nk-skin .nk-login-field input[type="password"] {
+  width: 100%;
+  height: var(--nk-input-h);
+  padding: 0;
+  border: 0;
+  border-bottom: 1px solid var(--nk-border);
+  border-radius: 0;
+  background-color: transparent;
+}
+body.nk-skin .nk-login-field input[type="text"]:focus,
+body.nk-skin .nk-login-field input[type="password"]:focus {
+  border-bottom-color: var(--nk-point); /* 포인트 포커스 — design.md §1 */
+}
+
+/* ── 5) 메타 행 (아이디저장 ↔ 보안접속) ── */
+body.nk-skin .nk-login-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 14px 0 0;
+  font-size: 12px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-login-meta__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+body.nk-skin .nk-login-meta input[type="checkbox"] {
+  width: 15px;
+  height: 15px;
+  margin: 0;
+}
+
+/* ── 6) 액션 — Login 포인트 CTA + 비회원구매 보더형 ── */
+body.nk-skin .nk-login-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 24px 0 0;
+}
+body.nk-skin .nk-login-actions .nk-btn-login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: var(--nk-input-h);
+  border: 0;
+  border-radius: var(--nk-radius);
+  background-color: var(--nk-point);
+  color: var(--nk-on-point);
+  font-family: var(--nk-font-display);
+  font-size: 13px;
+  letter-spacing: 2px;
+  transition: background-color 0.2s;
+}
+body.nk-skin .nk-login-actions .nk-btn-login:hover {
+  background-color: var(--nk-point-active);
+  color: var(--nk-on-point);
+}
+body.nk-skin .nk-login-guest {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+}
+body.nk-skin .nk-login-guest .nk-btn-guest {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: var(--nk-input-h);
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  background-color: transparent;
+  color: var(--nk-font);
+  font-size: 13px;
+  transition: border-color 0.2s, color 0.2s;
+}
+body.nk-skin .nk-login-guest .nk-btn-guest:hover {
+  border-color: var(--nk-ink);
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-btn-guest-desc {
+  font-size: 11px;
+  color: var(--nk-sub);
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* ── 7) 아이디/비밀번호 찾기 링크 ── */
+body.nk-skin .nk-login-links {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+}
+body.nk-skin .nk-login-links li {
+  position: relative;
+  padding: 0 14px;
+}
+body.nk-skin .nk-login-links li + li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 10px;
+  background-color: var(--nk-border);
+}
+body.nk-skin .nk-login-links a {
+  font-size: 12px;
+  color: var(--nk-sub);
+  transition: color 0.2s;
+}
+body.nk-skin .nk-login-links a:hover {
+  color: var(--nk-font);
+}
+
+/* ── 8) Join Us 블록 ── */
+body.nk-skin .nk-login-join {
+  margin: 28px 0 0;
+  padding: 28px 0 0;
+  border-top: 1px solid var(--nk-line);
+  text-align: center;
+}
+body.nk-skin .nk-login-join-text {
+  margin: 0 0 16px;
+  font-size: 12px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-login-join .nk-btn-join {
+  display: inline-flex;
+  width: auto;
+  height: 42px;
+  padding: 0 36px;
+  font-family: var(--nk-font-display);
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+
+/* ── 9) SNS 로그인 — 가운데 라벨(양쪽 가로선) + 풀폭 세로 버튼 스택 ── */
+body.nk-skin .nk-login-sns {
+  margin: 32px 0 0;
+}
+body.nk-skin .nk-login-sns-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 16px;
+  font-size: 11px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-login-sns-label::before,
+body.nk-skin .nk-login-sns-label::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background-color: var(--nk-line);
+}
+body.nk-skin .nk-login-sns-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+body.nk-skin .nk-login-sns-btns .nk-sns-btn {
+  height: 44px;
+  font-size: 13px;
+}
+body.nk-skin .nk-login-sns-btns li {
+  list-style: none;
+}
+
+/* ── 10) 비회원 주문조회 (MyShop_OrderHistoryNologin) — blank-slate nk-nologin-* ── */
+body.nk-skin .nk-nologin {
+  margin: 0 auto 96px;
+  padding: 32px 0 0;
+  border-top: 1px solid var(--nk-line);
+}
+body.nk-skin .nk-nologin-title {
+  margin: 0 0 8px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: var(--nk-font-display);
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-nologin-desc {
+  margin: 0 0 20px;
+  font-size: 12px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-nologin-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+}
+body.nk-skin .nk-nologin-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+}
+body.nk-skin .nk-nologin-label {
+  font-size: 12px;
+  color: var(--nk-font);
+}
+body.nk-skin .nk-nologin-field {
+  width: 100%;
+  min-width: 0;
+}
+body.nk-skin .nk-nologin-field input[type="text"],
+body.nk-skin .nk-nologin-field input[type="password"] {
+  width: 100%;
+}
+body.nk-skin .nk-nologin.nk-mbr-wrap {
+  margin-top: 0;
+}
+body.nk-skin .nk-nologin.nk-mbr-wrap input[type="text"],
+body.nk-skin .nk-nologin.nk-mbr-wrap input[type="password"] {
+  width: 100%;
+}
+
+/* ── 11) 모바일 (≤767px — 표준 브레이크포인트 컨벤션) ── */
+@media (max-width: 767px) {
+  body.nk-skin .nk-login-wrap {
+    max-width: 100%;
+    margin: 24px auto 64px;
+    padding: 0 var(--nk-pad-x);
+  }
+  body.nk-skin .nk-login-title {
+    font-size: var(--nk-fs-page-title-mo);
+    letter-spacing: var(--nk-ls-page-title);
+  }
+}
+
+/* ══ 12) member 공통 프리미티브 (Wave2 리드M — 가입/찾기/수정 등 member 전 페이지 공용)
+       login(§1~11) 검증 패턴 상속: 언더라인 인풋 + 포인트 CTA + 보더 보조버튼.
+       색·치수는 전부 var(--nk-*)만. 페이지 전용 규칙은 §13+ 페이지별 섹션에. ══ */
+
+/* 래퍼 — 전역 1920px 컨테이너 유지 + 내부만 좁힘. 기본 420px(login 실측), 대형 폼은 --wide(720px) */
+body.nk-skin .nk-mbr-wrap {
+  max-width: 420px;
+  margin: 40px auto 96px;
+}
+body.nk-skin .nk-mbr-wrap--wide {
+  max-width: var(--nk-modify-max); /* 720px — 가입 폼·정보수정·약관 장문 */
+}
+
+/* 페이지 헤드 (base .path 브레드크럼·.titleArea 대체 — login §2와 동일 레시피) */
+body.nk-skin .nk-mbr-head {
+  margin: 0 0 36px;
+  text-align: center;
+}
+body.nk-skin .nk-mbr-title {
+  margin: 0 0 6px;
+  font-family: var(--nk-font-display);
+  font-size: var(--nk-fs-page-title);
+  font-weight: 400;
+  letter-spacing: var(--nk-ls-page-title);
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-mbr-sub {
+  margin: 0;
+  font-size: 12px;
+  color: var(--nk-sub);
+}
+
+/* 언더라인 인풋 — module 출력 인풋엔 클래스 부여 불가 → 래퍼 스코프 일괄(login §4 레시피).
+   width는 여기서 강제하지 않음(생년월일 3분할 등 인라인 그룹 보호) — 폭은 페이지 섹션에서. */
+body.nk-skin .nk-mbr-wrap input[type="text"],
+body.nk-skin .nk-mbr-wrap input[type="password"],
+body.nk-skin .nk-mbr-wrap input[type="email"],
+body.nk-skin .nk-mbr-wrap input[type="tel"],
+body.nk-skin .nk-mbr-wrap input[type="number"] {
+  height: var(--nk-input-h);
+  padding: 0;
+  border: 0;
+  border-bottom: 1px solid var(--nk-border);
+  border-radius: 0;
+  background-color: transparent;
+}
+body.nk-skin .nk-mbr-wrap input[type="text"]:focus,
+body.nk-skin .nk-mbr-wrap input[type="password"]:focus,
+body.nk-skin .nk-mbr-wrap input[type="email"]:focus,
+body.nk-skin .nk-mbr-wrap input[type="tel"]:focus,
+body.nk-skin .nk-mbr-wrap input[type="number"]:focus {
+  border-bottom-color: var(--nk-point); /* 포인트 포커스 */
+}
+body.nk-skin .nk-mbr-wrap select {
+  height: var(--nk-input-h);
+  padding: 0 4px;
+  border: 0;
+  border-bottom: 1px solid var(--nk-border);
+  border-radius: 0;
+  background-color: transparent;
+  color: var(--nk-font);
+}
+body.nk-skin .nk-mbr-wrap select:focus {
+  border-bottom-color: var(--nk-point);
+}
+body.nk-skin .nk-mbr-wrap textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  background-color: transparent;
+}
+body.nk-skin .nk-mbr-wrap textarea:focus {
+  border-color: var(--nk-point);
+}
+
+/* 버튼 3형 — 주(포인트 CTA)/보조(보더)/강조 아웃라인(잉크). a·button 겸용 */
+body.nk-skin .nk-mbr-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: var(--nk-input-h);
+  border: 0;
+  border-radius: var(--nk-radius);
+  background-color: var(--nk-point);
+  color: var(--nk-on-point);
+  font-size: 13px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+body.nk-skin .nk-mbr-btn:hover {
+  background-color: var(--nk-point-active);
+  color: var(--nk-on-point);
+}
+body.nk-skin .nk-mbr-btn--line {
+  background-color: transparent;
+  border: 1px solid var(--nk-border);
+  color: var(--nk-font);
+}
+body.nk-skin .nk-mbr-btn--line:hover {
+  background-color: transparent;
+  border-color: var(--nk-ink);
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-mbr-btn--ink {
+  background-color: transparent;
+  border: 1px solid var(--nk-ink);
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-mbr-btn--ink:hover {
+  background-color: var(--nk-ink);
+  color: var(--nk-on-dark);
+}
+
+/* 액션 스택 (login §6 레시피) */
+body.nk-skin .nk-mbr-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 24px 0 0;
+}
+
+/* 안내문·에러 텍스트 */
+body.nk-skin .nk-mbr-desc,
+body.nk-skin p.nk-mbr-desc {
+  margin: 0 0 20px;
+  font-size: 12px;
+  color: var(--nk-sub);
+  line-height: 1.6;
+  text-align: center;
+}
+
+/* 모바일 공통 */
+@media (max-width: 767px) {
+  body.nk-skin .nk-mbr-wrap {
+    max-width: 100%;
+    margin: 24px auto 64px;
+    padding: 0 var(--nk-pad-x);
+  }
+  body.nk-skin .nk-mbr-title {
+    font-size: var(--nk-fs-page-title-mo);
+    letter-spacing: var(--nk-ls-page-title);
+  }
+}
+
+/*
+ * frag-member-A-join.css — Wave2 하위작업 A기: 가입 플로우 + 대형 폼 4페이지
+ * 담당: agreement.html(§13) · join.html(§14) · join_result.html(§15) · modify.html(§16)
+ * 계약: nk-member.css §12 member 공통 프리미티브 재사용(nk-mbr-wrap/--wide, nk-mbr-head/title/sub,
+ *       래퍼 스코프 언더라인 인풋, nk-mbr-btn류, nk-mbr-actions, nk-mbr-desc) — 여기서 재정의하지 않음.
+ * 색은 전부 var(--nk-*)만. 셀렉터는 body.nk-skin 스코프 체이닝. !important는 base 상쇄 불가피할 때만+사유주석.
+ */
+
+/* ── 13) member/agreement.html — 가입 1단계 약관동의 (module="mall_term") ── */
+
+/* base ec-base-box(5px 보더 함정)를 마크업에서 제거한 자리 — 720px 카드로 재구현 */
+body.nk-skin .nk-agreement-box {
+  padding: 32px;
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+}
+body.nk-skin .nk-agreement-box .agree {
+  max-height: 520px;
+  overflow-y: auto;
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--nk-font);
+}
+body.nk-skin .nk-agreement-box .agree a {
+  color: var(--nk-point);
+  text-decoration: underline;
+}
+body.nk-skin .nk-agreement-box .agree a:hover {
+  color: var(--nk-point-active);
+}
+body.nk-skin .nk-agreement-box .agree::-webkit-scrollbar {
+  width: 6px;
+}
+body.nk-skin .nk-agreement-box .agree::-webkit-scrollbar-thumb {
+  background-color: var(--nk-border);
+  border-radius: var(--nk-radius);
+}
+
+@media (max-width: 767px) {
+  body.nk-skin .nk-agreement-box { padding: 20px; }
+  body.nk-skin .nk-agreement-box .agree { max-height: 400px; font-size: 12px; }
+}
+
+
+/* ── 14) member/join.html — blank-slate 가입 폼 (module="member_join") ── */
+
+/* 필수 표시 — GIF 대신 nk-join-req (modify 등 레거시 GIF는 아래 필터 유지) */
+body.nk-skin .nk-join-wrap .nk-join-req {
+  margin-left: 2px;
+  font-size: 11px;
+  color: var(--nk-point);
+  font-weight: 500;
+}
+body.nk-skin .nk-join-wrap .nk-join-section-note,
+body.nk-skin .nk-modify-wrap .nk-join-section-note {
+  margin: 6px 0 0;
+  font-size: 11px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-join-wrap .nk-join-sep {
+  flex: 0 0 auto;
+  color: var(--nk-sub);
+  user-select: none;
+}
+body.nk-skin .nk-join-wrap .nk-join-msg--warn {
+  margin: 6px 0 0;
+  font-size: var(--nk-font-sm);
+  line-height: 1.6;
+  color: var(--nk-point);
+}
+body.nk-skin .nk-join-wrap .nk-join-notes {
+  margin: 6px 0 0;
+  padding: 0;
+  font-size: var(--nk-font-sm);
+  line-height: 1.6;
+  color: var(--nk-sub);
+  list-style: none;
+}
+body.nk-skin .nk-join-wrap .nk-join-notes li + li {
+  margin-top: 4px;
+}
+body.nk-skin .nk-join-wrap .nk-join-notes strong {
+  color: var(--nk-ink);
+  font-weight: 500;
+}
+
+/* 회원인증 서브블록 */
+body.nk-skin .nk-join-wrap .nk-join-auth,
+body.nk-skin .nk-modify-wrap .nk-join-auth {
+  margin-top: 12px;
+  padding: 14px;
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+}
+body.nk-skin .nk-join-wrap .nk-join-auth--info,
+body.nk-skin .nk-modify-wrap .nk-join-auth--info {
+  padding: 0;
+  border: 0;
+}
+body.nk-skin .nk-join-wrap .nk-join-auth-type {
+  margin-bottom: 8px;
+}
+body.nk-skin .nk-join-wrap .nk-join-auth-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+body.nk-skin .nk-join-wrap .nk-join-row--nested {
+  grid-template-columns: 100px minmax(0, 1fr);
+  gap: 8px 16px;
+  padding: 0;
+  border: 0;
+}
+body.nk-skin .nk-join-wrap .nk-join-row--nested .nk-join-label {
+  padding-top: calc((var(--nk-input-h) - 1.5em) / 2);
+  font-size: 11px;
+}
+body.nk-skin .nk-join-wrap .nk-join-consent {
+  margin: 0 0 8px;
+  font-size: 11px;
+  line-height: 1.7;
+  color: var(--nk-sub);
+}
+
+/* 휴대전화 인증번호 */
+body.nk-skin .nk-join-wrap .nk-join-verify {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+body.nk-skin .nk-join-wrap .nk-join-verify__time {
+  font-size: 12px;
+  color: var(--nk-point);
+  white-space: nowrap;
+}
+
+/* 환불계좌 */
+body.nk-skin .nk-join-wrap .nk-join-bank {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+/* 관심분야 체크박스 그룹 */
+body.nk-skin .nk-join-wrap .nk-join-check-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  font-size: 13px;
+}
+
+/* 제출 CTA — 폼 전폭(720px)로 늘어지지 않게 중앙 420px 컬럼으로 수렴(레퍼런스 버튼 폭).
+   부모 .nk-join-box가 flex column(비-stretch)이라 컨테이너는 stretch로 폭 확보 후 버튼만 중앙 캡. */
+body.nk-skin .nk-join-actions {
+  align-self: stretch;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 56px 0 0;
+}
+body.nk-skin .nk-join-actions .nk-mbr-btn {
+  width: 100%;
+  max-width: 420px;
+}
+
+/* 레거시 GIF 필수 아이콘 (modify 등) */
+body.nk-skin .nk-join-wrap .nk-join-label img[src*="ico_required"],
+body.nk-skin .nk-join-wrap th img[src*="ico_required"],
+body.nk-skin .nk-join-wrap .required img[src*="ico_required"] {
+  filter: grayscale(1) brightness(0.35);
+  width: 6px;
+  height: 6px;
+  vertical-align: middle;
+}
+
+/* Wave3: join + find-id/passwd — table/ec-base-desc→nk-join-form div grid (module 기능 보존) */
+body.nk-skin .nk-join-wrap .nk-is-hidden { display: none !important; }
+
+body.nk-skin .nk-join-wrap .nk-join-section,
+body.nk-skin .nk-fid-wrap .nk-join-section,
+body.nk-skin .nk-fpi-wrap .nk-join-section,
+body.nk-skin .nk-fpm-wrap .nk-join-section,
+body.nk-skin .nk-fpq-wrap .nk-join-section,
+body.nk-skin .nk-modify-wrap .nk-join-section {
+  margin: 0 0 32px;
+  padding-top: 0;
+  border-top: 0;
+}
+body.nk-skin .nk-join-wrap .nk-join-section + .nk-join-section,
+body.nk-skin .nk-modify-wrap .nk-join-section + .nk-join-section,
+body.nk-skin form#joinForm .nk-join-section + .nk-join-section,
+body.nk-skin form#editForm .nk-join-section + .nk-join-section {
+  margin-top: 56px; /* visual-verdict: 섹션 간 여백 확대 */
+  padding-top: 44px;
+  border-top: 1px solid var(--nk-line);
+}
+body.nk-skin .nk-join-section-head {
+  margin: 0 0 24px; /* 제목 블록↔필드 사이 호흡 확보 */
+}
+body.nk-skin .nk-join-section-head h3 {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-family: var(--nk-font-display);
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-join-section-head .required {
+  margin: 0 0 16px;
+  font-size: 11px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-join-section--agree {
+  margin-bottom: 24px;
+}
+body.nk-skin .nk-join-wrap .nk-join-form,
+body.nk-skin .nk-fid-wrap .nk-join-form,
+body.nk-skin .nk-fpi-wrap .nk-join-form,
+body.nk-skin .nk-fpm-wrap .nk-join-form,
+body.nk-skin .nk-fpq-wrap .nk-join-form,
+body.nk-skin .nk-modify-wrap .nk-join-form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px; /* visual-verdict: 12→22 더 여유로운 세로 리듬 */
+}
+body.nk-skin .nk-join-wrap .nk-join-row,
+body.nk-skin .nk-fid-wrap .nk-join-row,
+body.nk-skin .nk-fpi-wrap .nk-join-row,
+body.nk-skin .nk-fpm-wrap .nk-join-row,
+body.nk-skin .nk-fpq-wrap .nk-join-row,
+body.nk-skin .nk-modify-wrap .nk-join-row {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  gap: 10px 20px;
+  align-items: start;
+  padding: 0;
+  border: 0;
+  border-bottom: 0;
+  background: none;
+  font-size: 13px;
+  color: var(--nk-font);
+}
+body.nk-skin .nk-join-wrap .nk-join-label,
+body.nk-skin .nk-fid-wrap .nk-join-label,
+body.nk-skin .nk-fpi-wrap .nk-join-label,
+body.nk-skin .nk-fpm-wrap .nk-join-label,
+body.nk-skin .nk-fpq-wrap .nk-join-label,
+body.nk-skin .nk-modify-wrap .nk-join-label {
+  font-size: 12px;
+  color: var(--nk-sub); /* visual-verdict: 레퍼런스처럼 라벨은 뮤트 그레이(제목이 위계를 잡음) */
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+  padding-top: calc((var(--nk-input-h) - 1.5em) / 2);
+}
+body.nk-skin .nk-join-wrap .nk-join-field,
+body.nk-skin .nk-fid-wrap .nk-join-field,
+body.nk-skin .nk-fpi-wrap .nk-join-field,
+body.nk-skin .nk-fpm-wrap .nk-join-field,
+body.nk-skin .nk-fpq-wrap .nk-join-field,
+body.nk-skin .nk-modify-wrap .nk-join-field,
+body.nk-skin form#joinForm .nk-join-field,
+body.nk-skin form#editForm .nk-join-field {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  width: 100%;
+  min-width: 0;
+  line-height: 1.7;
+}
+/* 입력 행 — 복합 필드(이메일·전화·@도메인) 가로 flex + gap */
+body.nk-skin .nk-join-wrap .nk-join-field-inner,
+body.nk-skin .nk-fid-wrap .nk-join-field-inner,
+body.nk-skin .nk-fpi-wrap .nk-join-field-inner,
+body.nk-skin .nk-fpm-wrap .nk-join-field-inner,
+body.nk-skin .nk-fpq-wrap .nk-join-field-inner,
+body.nk-skin .nk-modify-wrap .nk-join-field-inner,
+body.nk-skin form#joinForm .nk-join-field-inner,
+body.nk-skin form#editForm .nk-join-field-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
+}
+body.nk-skin .nk-join-wrap .nk-join-field-inner input[type="text"],
+body.nk-skin .nk-join-wrap .nk-join-field-inner input[type="password"],
+body.nk-skin .nk-join-wrap .nk-join-field-inner input[type="email"],
+body.nk-skin .nk-join-wrap .nk-join-field-inner input[type="tel"],
+body.nk-skin .nk-join-wrap .nk-join-field-inner input[type="number"],
+body.nk-skin .nk-join-wrap .nk-join-field-inner select,
+body.nk-skin .nk-fid-wrap .nk-join-field-inner input[type="text"],
+body.nk-skin .nk-fid-wrap .nk-join-field-inner select,
+body.nk-skin .nk-fpi-wrap .nk-join-field-inner input[type="text"],
+body.nk-skin .nk-fpi-wrap .nk-join-field-inner select,
+body.nk-skin .nk-fpm-wrap .nk-join-field-inner input[type="text"],
+body.nk-skin .nk-fpm-wrap .nk-join-field-inner select,
+body.nk-skin .nk-fpq-wrap .nk-join-field-inner input[type="text"],
+body.nk-skin .nk-modify-wrap .nk-join-field-inner input[type="text"],
+body.nk-skin .nk-modify-wrap .nk-join-field-inner input[type="password"],
+body.nk-skin .nk-modify-wrap .nk-join-field-inner select,
+body.nk-skin form#joinForm .nk-join-field-inner input[type="text"],
+body.nk-skin form#joinForm .nk-join-field-inner input[type="password"],
+body.nk-skin form#joinForm .nk-join-field-inner input[type="email"],
+body.nk-skin form#joinForm .nk-join-field-inner input[type="tel"],
+body.nk-skin form#joinForm .nk-join-field-inner input[type="number"],
+body.nk-skin form#joinForm .nk-join-field-inner select,
+body.nk-skin form#editForm .nk-join-field-inner input[type="text"],
+body.nk-skin form#editForm .nk-join-field-inner input[type="password"],
+body.nk-skin form#editForm .nk-join-field-inner input[type="email"],
+body.nk-skin form#editForm .nk-join-field-inner input[type="tel"],
+body.nk-skin form#editForm .nk-join-field-inner input[type="number"],
+body.nk-skin form#editForm .nk-join-field-inner select {
+  flex: 1 1 0;
+  min-width: 0;
+  width: auto;
+  max-width: 100%;
+  margin: 0;
+}
+/* 단일 입력(field-inner, multi/date 제외) — 컬럼 100% */
+body.nk-skin .nk-join-wrap .nk-join-field-inner:not(.nk-join-field--multi):not(.nk-join-field--date-group) > input[type="text"],
+body.nk-skin .nk-join-wrap .nk-join-field-inner:not(.nk-join-field--multi):not(.nk-join-field--date-group) > input[type="password"],
+body.nk-skin .nk-join-wrap .nk-join-field-inner:not(.nk-join-field--multi):not(.nk-join-field--date-group) > input[type="email"],
+body.nk-skin .nk-join-wrap .nk-join-field-inner:not(.nk-join-field--multi):not(.nk-join-field--date-group) > input[type="tel"],
+body.nk-skin .nk-join-wrap .nk-join-field-inner:not(.nk-join-field--multi):not(.nk-join-field--date-group) > input[type="number"],
+body.nk-skin .nk-join-wrap .nk-join-field-inner:not(.nk-join-field--multi):not(.nk-join-field--date-group) > select,
+body.nk-skin .nk-fid-wrap .nk-join-field-inner:not(.nk-join-field--multi):not(.nk-join-field--date-group) > input[type="text"],
+body.nk-skin .nk-fid-wrap .nk-join-field-inner:not(.nk-join-field--multi):not(.nk-join-field--date-group) > select,
+body.nk-skin .nk-fpi-wrap .nk-join-field-inner:not(.nk-join-field--multi):not(.nk-join-field--date-group) > input[type="text"],
+body.nk-skin .nk-fpi-wrap .nk-join-field-inner:not(.nk-join-field--multi):not(.nk-join-field--date-group) > select,
+body.nk-skin .nk-fpm-wrap .nk-join-field-inner:not(.nk-join-field--multi):not(.nk-join-field--date-group) > input[type="text"],
+body.nk-skin .nk-fpm-wrap .nk-join-field-inner:not(.nk-join-field--multi):not(.nk-join-field--date-group) > select,
+body.nk-skin .nk-fpq-wrap .nk-join-field-inner:not(.nk-join-field--multi):not(.nk-join-field--date-group) > input[type="text"],
+body.nk-skin .nk-modify-wrap .nk-join-field-inner:not(.nk-join-field--multi):not(.nk-join-field--date-group) > input[type="text"],
+body.nk-skin .nk-modify-wrap .nk-join-field-inner:not(.nk-join-field--multi):not(.nk-join-field--date-group) > input[type="password"],
+body.nk-skin .nk-modify-wrap .nk-join-field-inner:not(.nk-join-field--multi):not(.nk-join-field--date-group) > select,
+body.nk-skin form#joinForm .nk-join-field-inner:not(.nk-join-field--multi):not(.nk-join-field--date-group) > input[type="text"],
+body.nk-skin form#joinForm .nk-join-field-inner:not(.nk-join-field--multi):not(.nk-join-field--date-group) > input[type="password"],
+body.nk-skin form#joinForm .nk-join-field-inner:not(.nk-join-field--multi):not(.nk-join-field--date-group) > input[type="email"],
+body.nk-skin form#joinForm .nk-join-field-inner:not(.nk-join-field--multi):not(.nk-join-field--date-group) > input[type="tel"],
+body.nk-skin form#joinForm .nk-join-field-inner:not(.nk-join-field--multi):not(.nk-join-field--date-group) > input[type="number"],
+body.nk-skin form#joinForm .nk-join-field-inner:not(.nk-join-field--multi):not(.nk-join-field--date-group) > select,
+body.nk-skin form#editForm .nk-join-field-inner:not(.nk-join-field--multi):not(.nk-join-field--date-group) > input[type="text"],
+body.nk-skin form#editForm .nk-join-field-inner:not(.nk-join-field--multi):not(.nk-join-field--date-group) > input[type="password"],
+body.nk-skin form#editForm .nk-join-field-inner:not(.nk-join-field--multi):not(.nk-join-field--date-group) > input[type="email"],
+body.nk-skin form#editForm .nk-join-field-inner:not(.nk-join-field--multi):not(.nk-join-field--date-group) > input[type="tel"],
+body.nk-skin form#editForm .nk-join-field-inner:not(.nk-join-field--multi):not(.nk-join-field--date-group) > input[type="number"],
+body.nk-skin form#editForm .nk-join-field-inner:not(.nk-join-field--multi):not(.nk-join-field--date-group) > select {
+  flex: 1 1 100%;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  margin: 0;
+}
+body.nk-skin .nk-join-wrap .nk-join-field-inner .eTooltip,
+body.nk-skin .nk-modify-wrap .nk-join-field-inner .eTooltip,
+body.nk-skin form#joinForm .nk-join-field-inner .eTooltip,
+body.nk-skin form#editForm .nk-join-field-inner .eTooltip {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 100%;
+}
+body.nk-skin .nk-join-wrap .nk-join-field-inner .eTooltip input,
+body.nk-skin .nk-modify-wrap .nk-join-field-inner .eTooltip input,
+body.nk-skin form#joinForm .nk-join-field-inner .eTooltip input,
+body.nk-skin form#editForm .nk-join-field-inner .eTooltip input {
+  width: 100%;
+  margin: 0;
+}
+body.nk-skin .nk-join-wrap .nk-join-field-inner button,
+body.nk-skin .nk-join-wrap .nk-join-field-inner a.btnNormal,
+body.nk-skin .nk-join-wrap .nk-join-field-inner a.btnBasic,
+body.nk-skin .nk-modify-wrap .nk-join-field-inner button,
+body.nk-skin .nk-modify-wrap .nk-join-field-inner a.btnNormal,
+body.nk-skin form#joinForm .nk-join-field-inner button,
+body.nk-skin form#joinForm .nk-join-field-inner a.btnNormal,
+body.nk-skin form#editForm .nk-join-field-inner button,
+body.nk-skin form#editForm .nk-join-field-inner a.btnNormal {
+  flex: 0 0 auto;
+  margin: 0;
+}
+body.nk-skin .nk-join-wrap .nk-join-hint,
+body.nk-skin .nk-fid-wrap .nk-join-hint,
+body.nk-skin .nk-fpi-wrap .nk-join-hint,
+body.nk-skin .nk-fpm-wrap .nk-join-hint,
+body.nk-skin .nk-fpq-wrap .nk-join-hint,
+body.nk-skin .nk-modify-wrap .nk-join-hint,
+body.nk-skin form#joinForm .nk-join-hint,
+body.nk-skin form#editForm .nk-join-hint {
+  display: block;
+  width: 100%;
+  margin: 6px 0 0;
+  padding: 0;
+  font-size: var(--nk-font-sm);
+  line-height: 1.6;
+  color: var(--nk-sub);
+}
+/* W4-FIELD-HINT-BELOW: 안내문은 입력 아래 줄 (입력은 field-inner에서 flex 유동폭) */
+body.nk-skin .nk-join-wrap .nk-join-field > .nk-join-hint,
+body.nk-skin .nk-join-wrap .nk-join-field > .nk-join-msg--warn,
+body.nk-skin .nk-join-wrap .nk-join-field > .nk-join-notes,
+body.nk-skin .nk-join-wrap .nk-join-field > p,
+body.nk-skin .nk-join-wrap .nk-join-field > ul,
+body.nk-skin .nk-fid-wrap .nk-join-field > .txtInfo,
+body.nk-skin .nk-fid-wrap .nk-join-field > .nk-join-hint,
+body.nk-skin .nk-fid-wrap .nk-join-field > p,
+body.nk-skin .nk-fpi-wrap .nk-join-field > .txtInfo,
+body.nk-skin .nk-fpi-wrap .nk-join-field > .nk-join-hint,
+body.nk-skin .nk-fpi-wrap .nk-join-field > p,
+body.nk-skin .nk-modify-wrap .nk-join-field > .txtInfo,
+body.nk-skin .nk-modify-wrap .nk-join-field > .txtDesc,
+body.nk-skin .nk-modify-wrap .nk-join-field > .ec-base-help,
+body.nk-skin .nk-modify-wrap .nk-join-field > .nk-join-hint,
+body.nk-skin .nk-modify-wrap .nk-join-field > p,
+body.nk-skin .nk-modify-wrap .nk-join-field > ul,
+body.nk-skin form#joinForm .nk-join-field > .txtInfo,
+body.nk-skin form#joinForm .nk-join-field > .txtDesc,
+body.nk-skin form#joinForm .nk-join-field > .ec-base-help,
+body.nk-skin form#joinForm .nk-join-field > .nk-join-hint,
+body.nk-skin form#joinForm .nk-join-field > p,
+body.nk-skin form#joinForm .nk-join-field > ul,
+body.nk-skin form#editForm .nk-join-field > .txtInfo,
+body.nk-skin form#editForm .nk-join-field > .txtDesc,
+body.nk-skin form#editForm .nk-join-field > .ec-base-help,
+body.nk-skin form#editForm .nk-join-field > .nk-join-hint,
+body.nk-skin form#editForm .nk-join-field > p,
+body.nk-skin form#editForm .nk-join-field > ul {
+  display: block;
+  width: 100%;
+  margin: 6px 0 0;
+  padding: 0;
+  font-size: var(--nk-font-sm);
+  line-height: 1.6;
+  color: var(--nk-sub);
+}
+/* field-inner 안 cafe24 잔존 안내문 — flex-wrap 다음 줄로 */
+body.nk-skin .nk-join-wrap .nk-join-field-inner > .txtInfo,
+body.nk-skin .nk-join-wrap .nk-join-field-inner > .txtDesc,
+body.nk-skin .nk-join-wrap .nk-join-field-inner > .ec-base-help,
+body.nk-skin .nk-join-wrap .nk-join-field-inner > span.gBlank5,
+body.nk-skin .nk-modify-wrap .nk-join-field-inner > .txtInfo,
+body.nk-skin .nk-modify-wrap .nk-join-field-inner > .txtDesc,
+body.nk-skin .nk-modify-wrap .nk-join-field-inner > .ec-base-help,
+body.nk-skin .nk-modify-wrap .nk-join-field-inner > span.gBlank5,
+body.nk-skin form#joinForm .nk-join-field-inner > .txtInfo,
+body.nk-skin form#joinForm .nk-join-field-inner > .txtDesc,
+body.nk-skin form#joinForm .nk-join-field-inner > .ec-base-help,
+body.nk-skin form#joinForm .nk-join-field-inner > span.gBlank5,
+body.nk-skin form#editForm .nk-join-field-inner > .txtInfo,
+body.nk-skin form#editForm .nk-join-field-inner > .txtDesc,
+body.nk-skin form#editForm .nk-join-field-inner > .ec-base-help,
+body.nk-skin form#editForm .nk-join-field-inner > span.gBlank5 {
+  flex: 0 0 100%;
+  width: 100%;
+  margin: 6px 0 0;
+  font-size: var(--nk-font-sm);
+  line-height: 1.6;
+  color: var(--nk-sub);
+}
+/* W4-DATE-ROW: 추가정보 날짜 3행(.nk-join-row--date) — 양력/안내는 아래줄, 3-select 가로는 §W4-FIELD-DATE */
+body.nk-skin .nk-join-wrap .nk-join-row--date .nk-join-field-inner,
+body.nk-skin .nk-modify-wrap .nk-join-row--date .nk-join-field-inner,
+body.nk-skin form#joinForm .nk-join-row--date .nk-join-field-inner,
+body.nk-skin form#editForm .nk-join-row--date .nk-join-field-inner {
+  flex-wrap: wrap;
+  width: 100%;
+}
+body.nk-skin .nk-join-wrap .nk-join-row--date .nk-join-field-inner .nk-join-date-solar,
+body.nk-skin .nk-modify-wrap .nk-join-row--date .nk-join-field-inner .nk-join-date-solar,
+body.nk-skin form#joinForm .nk-join-row--date .nk-join-field-inner .nk-join-date-solar,
+body.nk-skin form#editForm .nk-join-row--date .nk-join-field-inner .nk-join-date-solar {
+  flex: 0 0 100%;
+  width: 100%;
+  margin: 4px 0 0;
+}
+body.nk-skin .nk-join-wrap .nk-join-row--date .nk-join-field-inner > .txtInfo,
+body.nk-skin .nk-join-wrap .nk-join-row--date .nk-join-field-inner > .txtDesc,
+body.nk-skin .nk-join-wrap .nk-join-row--date .nk-join-field-inner > .ec-base-help,
+body.nk-skin .nk-join-wrap .nk-join-row--date .nk-join-field-inner > span.gBlank5,
+body.nk-skin .nk-join-wrap .nk-join-row--date .nk-join-field-inner > .nk-join-hint,
+body.nk-skin .nk-modify-wrap .nk-join-row--date .nk-join-field-inner > .txtInfo,
+body.nk-skin .nk-modify-wrap .nk-join-row--date .nk-join-field-inner > .txtDesc,
+body.nk-skin .nk-modify-wrap .nk-join-row--date .nk-join-field-inner > .ec-base-help,
+body.nk-skin .nk-modify-wrap .nk-join-row--date .nk-join-field-inner > span.gBlank5,
+body.nk-skin .nk-modify-wrap .nk-join-row--date .nk-join-field-inner > .nk-join-hint,
+body.nk-skin form#joinForm .nk-join-row--date .nk-join-field-inner > .txtInfo,
+body.nk-skin form#joinForm .nk-join-row--date .nk-join-field-inner > .txtDesc,
+body.nk-skin form#joinForm .nk-join-row--date .nk-join-field-inner > .ec-base-help,
+body.nk-skin form#joinForm .nk-join-row--date .nk-join-field-inner > span.gBlank5,
+body.nk-skin form#joinForm .nk-join-row--date .nk-join-field-inner > .nk-join-hint,
+body.nk-skin form#editForm .nk-join-row--date .nk-join-field-inner > .txtInfo,
+body.nk-skin form#editForm .nk-join-row--date .nk-join-field-inner > .txtDesc,
+body.nk-skin form#editForm .nk-join-row--date .nk-join-field-inner > .ec-base-help,
+body.nk-skin form#editForm .nk-join-row--date .nk-join-field-inner > span.gBlank5,
+body.nk-skin form#editForm .nk-join-row--date .nk-join-field-inner > .nk-join-hint {
+  flex: 0 0 100%;
+  width: 100%;
+  margin: 6px 0 0;
+}
+/* 단일입력 스택(비밀번호+eTooltip) — inner 래퍼 없이 field 직속 */
+body.nk-skin .nk-join-wrap .nk-join-field-stack,
+body.nk-skin .nk-modify-wrap .nk-join-field-stack,
+body.nk-skin form#joinForm .nk-join-field-stack,
+body.nk-skin form#editForm .nk-join-field-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+}
+body.nk-skin .nk-join-wrap .nk-join-field-stack > .eTooltip,
+body.nk-skin .nk-modify-wrap .nk-join-field-stack > .eTooltip,
+body.nk-skin form#joinForm .nk-join-field-stack > .eTooltip,
+body.nk-skin form#editForm .nk-join-field-stack > .eTooltip {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+}
+body.nk-skin .nk-join-wrap .nk-join-field-inner span[id$="Msg_id"],
+body.nk-skin .nk-join-wrap .nk-join-field-inner p[id$="_msg"],
+body.nk-skin .nk-modify-wrap .nk-join-field-inner span[id$="Msg_id"],
+body.nk-skin .nk-modify-wrap .nk-join-field-inner p[id$="_msg"],
+body.nk-skin form#joinForm .nk-join-field-inner span[id$="Msg_id"],
+body.nk-skin form#joinForm .nk-join-field-inner p[id$="_msg"],
+body.nk-skin form#editForm .nk-join-field-inner span[id$="Msg_id"],
+body.nk-skin form#editForm .nk-join-field-inner p[id$="_msg"] {
+  flex: 0 0 100%;
+  width: 100%;
+  font-size: var(--nk-font-sm);
+}
+body.nk-skin .nk-join-wrap .nk-join-field input[type="text"],
+body.nk-skin .nk-join-wrap .nk-join-field input[type="password"],
+body.nk-skin .nk-join-wrap .nk-join-field select,
+body.nk-skin .nk-fid-wrap .nk-join-field input[type="text"],
+body.nk-skin .nk-fid-wrap .nk-join-field input[type="password"],
+body.nk-skin .nk-fid-wrap .nk-join-field select,
+body.nk-skin .nk-fpi-wrap .nk-join-field input[type="text"],
+body.nk-skin .nk-fpi-wrap .nk-join-field input[type="password"],
+body.nk-skin .nk-fpi-wrap .nk-join-field select,
+body.nk-skin .nk-fpm-wrap .nk-join-field input[type="text"],
+body.nk-skin .nk-fpm-wrap .nk-join-field select,
+body.nk-skin .nk-fpq-wrap .nk-join-field input[type="text"],
+body.nk-skin .nk-modify-wrap .nk-join-field input[type="text"],
+body.nk-skin .nk-modify-wrap .nk-join-field input[type="password"],
+body.nk-skin .nk-modify-wrap .nk-join-field select {
+  max-width: 100%;
+}
+body.nk-skin .nk-join-wrap .nk-btn.nk-btn--ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 16px;
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  background: transparent;
+  color: var(--nk-font);
+  font-size: 12px;
+  text-decoration: none;
+  transition: border-color 0.2s, color 0.2s;
+}
+body.nk-skin .nk-join-wrap .nk-btn.nk-btn--ghost:hover {
+  border-color: var(--nk-ink);
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-join-wrap > h3 {
+  margin: 40px 0 16px;
+  padding-top: 32px;
+  border-top: 1px solid var(--nk-border);
+  font-family: var(--nk-font-display);
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-join-wrap > h3:first-child {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+}
+body.nk-skin .nk-join-wrap .agreeArea h3 {
+  margin: 0;
+  padding-top: 0;
+  border-top: 0;
+}
+body.nk-skin .nk-join-wrap > h3:empty,
+body.nk-skin .nk-modify-wrap > h3:empty {
+  display: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+body.nk-skin .nk-join-wrap p.required {
+  margin: 0 0 12px;
+  font-size: 11px;
+  color: var(--nk-sub);
+}
+
+/* 회원인증 서브블록(personAuth/businessAuth/foreignerAuth) — id/구조·style="display:none" 원본 그대로, 내부 시각만 */
+body.nk-skin .nk-join-wrap #authWrap .btnNormal {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 16px;
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  background: transparent;
+  color: var(--nk-font);
+  font-size: 12px;
+  transition: border-color 0.2s, color 0.2s;
+}
+body.nk-skin .nk-join-wrap #authWrap .btnNormal:hover {
+  border-color: var(--nk-ink);
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-join-wrap #authWrap p,
+body.nk-skin .nk-join-wrap #authWrap ul {
+  margin: 8px 0 0;
+  font-size: 11px;
+  line-height: 1.7;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-join-wrap #businessAuth ul.grid,
+body.nk-skin .nk-join-wrap #foreignerAuth ul.grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 12px;
+}
+
+/* §14 툴팁 → §W4-FORM-TOOLTIP 패턴 블록(파일 하단 form#joinForm 인근)으로 통합 */
+
+/* 휴대전화 인증번호 발송/확인 */
+body.nk-skin .nk-join-wrap .verify {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+body.nk-skin .nk-join-wrap .verify .time {
+  font-size: 12px;
+  color: var(--nk-point);
+}
+body.nk-skin .nk-join-wrap button.btnNormal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  padding: 0 14px;
+  margin-left: 8px;
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  background: transparent;
+  color: var(--nk-font);
+  font-size: 12px;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+body.nk-skin .nk-join-wrap button.btnNormal:hover {
+  border-color: var(--nk-ink);
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-join-wrap button.btnNormal:disabled {
+  border-color: var(--nk-line);
+  color: var(--nk-sub);
+  cursor: not-allowed;
+}
+
+/* AJAX 중복확인/검증 메시지(#idMsg_id·#emailMsg_id·#cssnMsg_id·#pwConfirmMsg_id·#nick_msg 등, id값은 {$...}로 서버 치환되므로
+   정적 CSS에서 예측 불가 — id 접미사 패턴(attribute selector)으로 일괄 대응. 성공/실패 세부 색상 분기는 JS 주입 클래스명 불명이라 통일 스타일(미검증) */
+body.nk-skin .nk-join-wrap .nk-join-field span[id$="Msg_id"],
+body.nk-skin .nk-join-wrap .nk-join-field p[id$="_msg"],
+body.nk-skin .nk-join-wrap td span[id$="Msg_id"],
+body.nk-skin .nk-join-wrap td p[id$="_msg"],
+body.nk-skin .nk-join-wrap .txtWarn {
+  font-size: 11px;
+  color: var(--nk-point);
+}
+body.nk-skin .nk-join-wrap .txtInfo,
+body.nk-skin .nk-join-wrap .txtDesc,
+body.nk-skin .nk-join-wrap .certifInfo {
+  margin: 6px 0 0;
+  padding: 0;
+  font-size: var(--nk-font-sm);
+  line-height: 1.6;
+  color: var(--nk-sub);
+  list-style: none;
+}
+body.nk-skin .nk-join-wrap .txtEm { color: var(--nk-ink); font-weight: 500; }
+
+/* 전체 동의 (nk-join-agree-all) */
+body.nk-skin .nk-join-agree-all {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 0 0 16px;
+  padding: 20px;
+  border: 0;
+  border-radius: var(--nk-radius);
+  font-size: 13px;
+}
+body.nk-skin .nk-join-agree-all label strong {
+  font-weight: 500;
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-join-agree-all .desc,
+body.nk-skin .nk-join-agree-all .nk-join-agree-all__desc {
+  margin: 4px 0 0;
+  font-size: 11px;
+  color: var(--nk-sub);
+}
+
+/* ── §W4-AGREE — join 약관 아코디언 + module 체크 행 (패턴 전용, nth-child 금지)
+   module 마크업: h3 > input.ec-base-chk + label(동의함) + label.check + .btnToggle
+                 > .check > span > input + label(동의함) + label.check (쇼핑정보 수신)
+   JS: join.js — .btnToggle click → .agreeArea.on 토글 (slideToggle 아님)
+   버그: .content{display:none}만 재구현하고 .on 열림 규칙 누락 → base join.css .on 규칙보다 NK specificity 높아 본문 영구 숨김
+   버그: stock label.check margin-left:6px + span gap:6px + input margin-right:2px 중복 → 하위 체크 14px 간격 ── */
+body.nk-skin .nk-join-agree.agreeArea {
+  padding: 14px 0;
+  border-top: 0;
+  font-size: 12px;
+}
+body.nk-skin .nk-join-agree.agreeArea h3 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  margin: 0;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--nk-font);
+  cursor: pointer;
+}
+body.nk-skin .nk-join-agree.agreeArea h3 .check {
+  flex: 1;
+  margin: 0;
+}
+body.nk-skin .nk-join-agree.agreeArea h3 input[type="checkbox"] {
+  margin: 0;
+  flex-shrink: 0;
+}
+body.nk-skin .nk-join-agree.agreeArea .icoArrowBottom {
+  font-size: 11px;
+  color: var(--nk-sub);
+  transition: transform 0.2s;
+  flex-shrink: 0;
+  border: 0;
+}
+body.nk-skin .nk-join-agree.agreeArea.on h3 .icoArrowBottom {
+  transform: rotate(180deg);
+}
+body.nk-skin .nk-join-agree.agreeArea .content {
+  display: none;
+  padding: 12px 0 4px;
+  font-size: 11px;
+  line-height: 1.7;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-join-agree.agreeArea.on .content {
+  display: block;
+  overflow: visible;
+  visibility: visible;
+  height: auto;
+  max-height: none;
+}
+body.nk-skin .nk-join-agree.agreeArea label:not(.check) {
+  display: none;
+}
+body.nk-skin .nk-join-agree.agreeArea h3 label.check {
+  margin: 0 0 0 4px;
+  padding: 0;
+}
+body.nk-skin .nk-join-agree.agreeArea .check label.check {
+  margin: 0;
+  padding: 0;
+}
+body.nk-skin .nk-join-agree.agreeArea .ec-base-chk {
+  margin: 0;
+}
+body.nk-skin .nk-join-agree.agreeArea > .check {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+  padding: 8px 0 0;
+}
+body.nk-skin .nk-join-agree.agreeArea > .check span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  font-size: 11px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-join-agree.agreeArea .check input[type="checkbox"] {
+  margin: 0;
+  flex-shrink: 0;
+  accent-color: var(--nk-point);
+}
+body.nk-skin .nk-join-agree.agreeArea > .check span label:not(.check) {
+  display: none;
+}
+body.nk-skin .nk-join-agree.agreeArea > .check span label.check {
+  margin: 0;
+  padding: 0;
+}
+
+/* 회원가입 제출 버튼 — 레거시 .nk-join-submit .btnSubmitFix (modify 잔존) */
+body.nk-skin .nk-join-submit {
+  margin: 40px 0 0;
+}
+body.nk-skin .nk-join-submit .btnSubmitFix {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: var(--nk-input-h);
+  border: 0;
+  border-radius: var(--nk-radius);
+  background-color: var(--nk-point);
+  color: var(--nk-on-point);
+  font-family: var(--nk-font-display);
+  font-size: 13px;
+  letter-spacing: 2px;
+  transition: background-color 0.2s;
+}
+body.nk-skin .nk-join-submit .btnSubmitFix:hover {
+  background-color: var(--nk-point-active);
+}
+
+/* 체크박스 공통(전체동의/개별 필드) — accent-color만 부여, 구조 변경 없음 */
+body.nk-skin .nk-join-wrap input[type="checkbox"] {
+  accent-color: var(--nk-point);
+}
+
+@media (max-width: 767px) {
+  body.nk-skin .nk-join-wrap .nk-join-row,
+  body.nk-skin .nk-fid-wrap .nk-join-row,
+  body.nk-skin .nk-fpi-wrap .nk-join-row,
+  body.nk-skin .nk-fpm-wrap .nk-join-row,
+  body.nk-skin .nk-fpq-wrap .nk-join-row,
+  body.nk-skin .nk-modify-wrap .nk-join-row,
+  body.nk-skin form#joinForm .nk-join-row,
+  body.nk-skin form#editForm .nk-join-row {
+    grid-template-columns: 1fr;
+    gap: 6px 0;
+    padding: 0;
+  }
+  body.nk-skin .nk-join-wrap .nk-join-label,
+  body.nk-skin .nk-fid-wrap .nk-join-label,
+  body.nk-skin .nk-fpi-wrap .nk-join-label,
+  body.nk-skin .nk-fpm-wrap .nk-join-label,
+  body.nk-skin .nk-fpq-wrap .nk-join-label,
+  body.nk-skin .nk-modify-wrap .nk-join-label,
+  body.nk-skin form#joinForm .nk-join-label,
+  body.nk-skin form#editForm .nk-join-label {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  body.nk-skin .nk-join-agree-all { flex-direction: column; gap: 4px; }
+}
+
+
+/* ── 15) member/join_result.html — 가입완료 (module="member_joinComplete" + coupon_join + member_BenefitJoin) ── */
+
+/* base gif 타이틀(h3>img) — 상단 nk-mbr-head 타이틀과 중복되어 시각 숨김만(콘텐츠·module 변경 아님) */
+body.nk-skin .nk-join-result-box .joinComplete { text-align: center; }
+body.nk-skin .nk-join-result-box .joinComplete > h3 { display: none; }
+body.nk-skin .nk-join-result-box .joinComplete > .desc {
+  margin: 0 0 32px;
+  font-size: 14px;
+  color: var(--nk-font);
+}
+
+body.nk-skin .nk-join-result-message {
+  padding: 28px;
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  text-align: left;
+}
+body.nk-skin .nk-join-result-message .message {
+  display: block;
+  margin: 0 0 16px;
+  font-family: var(--nk-font-display);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-join-result-message .information {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+body.nk-skin .nk-join-result-message .thumbnail img {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 1px solid var(--nk-border);
+}
+body.nk-skin .nk-join-result-message .ec-base-desc {
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* dt/dd float 클리어 */
+}
+body.nk-skin .nk-join-result-message .ec-base-desc dt {
+  float: left;
+  clear: left;
+  width: 60px;
+  margin: 0 0 6px;
+  font-size: 12px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-join-result-message .ec-base-desc dd {
+  margin: 0 0 6px 70px;
+  font-size: 12px;
+  color: var(--nk-font);
+}
+
+body.nk-skin .nk-join-result-box .memberSpecial {
+  margin: 20px 0 0;
+  padding: 20px 0 0;
+  border-top: 1px solid var(--nk-line);
+  font-size: 12px;
+  line-height: 1.8;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-join-result-box .memberSpecial strong { color: var(--nk-ink); font-weight: 500; }
+body.nk-skin .nk-join-result-box .memberEmail,
+body.nk-skin .nk-join-result-box .memberAge {
+  margin: 16px 0 0;
+  font-size: 12px;
+  color: var(--nk-point); /* 안내/경고 톤 — 토큰 내 강조색 재사용, a11y 대비 미검증 */
+  text-align: center;
+}
+
+body.nk-skin .nk-join-result-actions {
+  display: flex;
+  gap: 10px;
+  margin: 32px 0 0;
+}
+body.nk-skin .nk-join-result-actions a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  height: var(--nk-input-h);
+  border-radius: var(--nk-radius);
+  font-size: 13px;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+body.nk-skin .nk-join-result-actions .btnSubmitFix {
+  border: 0;
+  background-color: var(--nk-point);
+  color: var(--nk-on-point);
+}
+body.nk-skin .nk-join-result-actions .btnSubmitFix:hover { background-color: var(--nk-point-active); }
+body.nk-skin .nk-join-result-actions .btnEmFix {
+  border: 1px solid var(--nk-border);
+  background-color: transparent;
+  color: var(--nk-font);
+}
+body.nk-skin .nk-join-result-actions .btnEmFix:hover { border-color: var(--nk-ink); color: var(--nk-ink); }
+
+/* coupon_join — 쿠폰 카드 내부 인라인 style(색·폰트)은 원본 그대로 보존(건드리지 않음), 바깥 그리드만 재정렬 */
+body.nk-skin .nk-join-result-wrap .couponSkinArea {
+  margin: 40px 0 0;
+  padding: 32px 0 0;
+  border-top: 1px solid var(--nk-line);
+}
+body.nk-skin .nk-join-result-wrap .couponSkinArea ul.grid3 {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+body.nk-skin .nk-join-result-wrap .couponSkinArea ul.grid3 li {
+  flex: 1 1 calc(50% - 8px);
+  min-width: 220px;
+}
+body.nk-skin .nk-join-result-wrap .couponSkinArea .coupon {
+  border-radius: var(--nk-radius);
+  overflow: hidden;
+}
+
+@media (max-width: 767px) {
+  body.nk-skin .nk-join-result-message .information { flex-direction: column; align-items: flex-start; gap: 12px; }
+  body.nk-skin .nk-join-result-actions { flex-direction: column; }
+  body.nk-skin .nk-join-result-wrap .couponSkinArea ul.grid3 li { flex: 1 1 100%; }
+}
+
+
+/* ── 16) member/modify.html — 회원정보수정 초대형 폼 (module="member_edit" + member_editConsignment + member_editInformation + member_updateeventlogon + myshop_asyncbenefit) ── */
+
+/* 상단 등급 혜택 배너 (myshop_asyncbenefit) — base ec-base-box 제거분 재구현 */
+body.nk-skin .nk-modify-benefit {
+  margin: 0 0 24px;
+  padding: 24px;
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+}
+body.nk-skin .nk-modify-benefit .information {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+body.nk-skin .nk-modify-benefit .thumbnail img {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 1px solid var(--nk-border);
+}
+body.nk-skin .nk-modify-benefit .description p {
+  margin: 0 0 6px;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-modify-benefit .description strong { color: var(--nk-ink); font-weight: 500; }
+
+/* 회원정보 수정 이벤트 배너 (member_updateeventlogon) — base ec-base-box 제거분 재구현 */
+body.nk-skin .nk-modify-updateevent {
+  margin: 0 0 24px;
+  padding: 16px 20px;
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  font-size: 12px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-modify-updateevent .title {
+  display: block;
+  margin: 0 0 8px;
+  font-size: 13px;
+  color: var(--nk-ink);
+  font-weight: 500;
+}
+body.nk-skin .nk-modify-updateevent ul { margin: 0; padding: 0 0 0 14px; }
+body.nk-skin .nk-modify-updateevent li { margin: 0 0 4px; line-height: 1.6; }
+
+/* 필수 표시 아이콘 — base 파란 점(CP6 잔존) 무채색 중화 (join §14와 동일 레시피) */
+body.nk-skin .nk-modify-wrap th img[src*="ico_required"],
+body.nk-skin .nk-modify-wrap .nk-join-label img[src*="ico_required"],
+body.nk-skin .nk-modify-wrap .required img[src*="ico_required"] {
+  filter: grayscale(1) brightness(0.35);
+  width: 6px;
+  height: 6px;
+  vertical-align: middle;
+}
+
+/* 회원인증/기본정보/추가정보 typeWrite 3개 테이블 — join §14와 동일 골격 레시피 */
+body.nk-skin .nk-modify-wrap .ec-base-table.typeWrite {
+  margin: 0 0 40px;
+  border: 0;
+  border-top: 0;
+}
+body.nk-skin .nk-modify-wrap .ec-base-table.typeWrite table {
+  width: 100%;
+  border: 0;
+  border-collapse: collapse;
+}
+/* W3-Y: base ec-base-table.css table:before #d7d5d5 상단 회색선 제거 */
+body.nk-skin .nk-modify-wrap .ec-base-table.typeWrite table::before {
+  display: none !important;
+  content: none !important;
+}
+body.nk-skin .nk-modify-wrap .ec-base-table.typeWrite caption {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+body.nk-skin .nk-modify-wrap .ec-base-table.typeWrite th,
+body.nk-skin .nk-modify-wrap .ec-base-table.typeWrite td {
+  padding: 14px 12px;
+  border: 0;
+  border-bottom: 0;
+  background: none;
+  text-align: left;
+  vertical-align: middle;
+  font-size: 13px;
+  color: var(--nk-font);
+}
+body.nk-skin .nk-modify-wrap .ec-base-table.typeWrite th {
+  width: 150px;
+  font-size: 12px;
+  color: var(--nk-sub);
+  font-weight: 400;
+}
+body.nk-skin .nk-modify-wrap > h3 {
+  margin: 40px 0 16px;
+  padding-top: 32px;
+  border-top: 1px solid var(--nk-border);
+  font-family: var(--nk-font-display);
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-modify-wrap > h3:first-child {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+}
+body.nk-skin .nk-modify-wrap .agreeArea h3,
+body.nk-skin .nk-modify-wrap .nk-modify-leave h3 {
+  margin: 0;
+  padding-top: 0;
+  border-top: 0;
+}
+body.nk-skin .nk-modify-wrap .nk-modify-auth-status {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--nk-point);
+}
+body.nk-skin .nk-modify-wrap .nk-modify-cert-list {
+  margin-top: 8px;
+}
+body.nk-skin .nk-modify-wrap .nk-join-auth-type {
+  margin: 0 0 10px;
+}
+body.nk-skin .nk-modify-wrap p.required {
+  margin: 0 0 12px;
+  font-size: 11px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-modify-wrap .certifForm { margin: 0 0 10px; }
+body.nk-skin .nk-modify-wrap .certifForm .btnNormal {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 16px;
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  background: transparent;
+  color: var(--nk-font);
+  font-size: 12px;
+  transition: border-color 0.2s, color 0.2s;
+}
+body.nk-skin .nk-modify-wrap .certifForm .btnNormal:hover {
+  border-color: var(--nk-ink);
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-modify-wrap .certifInfo {
+  margin: 6px 0 0;
+  padding: 0;
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--nk-sub);
+  list-style: none;
+}
+body.nk-skin .nk-modify-wrap .txtWarn { font-size: 11px; color: var(--nk-point); }
+body.nk-skin .nk-modify-wrap .txtInfo,
+body.nk-skin .nk-modify-wrap .txtDesc { margin: 6px 0 0; font-size: 11px; line-height: 1.6; color: var(--nk-sub); }
+body.nk-skin .nk-modify-wrap .txtEm { color: var(--nk-ink); font-weight: 500; }
+
+/* modify 기본정보 — join §14 nk-join-form grid 패턴 확장 (Msg_id·필드 간격·체크박스) */
+body.nk-skin .nk-modify-wrap .nk-join-field span[id$="Msg_id"],
+body.nk-skin .nk-modify-wrap .nk-join-field p[id$="_msg"] {
+  font-size: 11px;
+  color: var(--nk-point);
+}
+body.nk-skin .nk-modify-wrap .nk-join-field input[type="text"],
+body.nk-skin .nk-modify-wrap .nk-join-field input[type="password"] {
+  vertical-align: middle;
+  margin: 0;
+}
+body.nk-skin .nk-modify-wrap .nk-join-field input[type="checkbox"],
+body.nk-skin .nk-modify-wrap .nk-join-field input[type="radio"] {
+  accent-color: var(--nk-point);
+}
+
+/* 휴대전화 인증 — modify blank-slate (join §14 nk-join-verify 동일) */
+body.nk-skin .nk-modify-wrap .nk-join-verify {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+body.nk-skin .nk-modify-wrap .nk-join-verify__time {
+  font-size: 12px;
+  color: var(--nk-point);
+}
+
+/* §16 modify 툴팁 → §W4-FORM-TOOLTIP 패턴 블록으로 통합 */
+/* §16-postBtn) 카페24 {$form.address} 주소검색 — #postBtn 전용 (join/modify/addr 등 공통 ID)
+   stock btnBasic 36px·list-item 스택 → 인풋(var(--nk-input-h)) 옆 nk-btn--line 톤 */
+body.nk-skin .ec-address-zipcode {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+body.nk-skin .ec-address-zipcode #postcode1,
+body.nk-skin .ec-address-zipcode input[id^="postcode"] {
+  flex: 0 1 160px;
+  min-width: 120px;
+  width: auto;
+  max-width: 100%;
+  margin: 0;
+}
+body.nk-skin #postBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  height: var(--nk-input-h);
+  min-height: var(--nk-input-h);
+  padding: 0 16px;
+  margin: 0;
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  background: transparent;
+  color: var(--nk-font);
+  font-family: var(--nk-font-body);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: border-color 0.2s, color 0.2s;
+}
+body.nk-skin #postBtn:hover {
+  border-color: var(--nk-ink);
+  color: var(--nk-ink);
+  background: transparent;
+}
+/* 주소 {$form.address} 내 기타 btnBasic — stock #d1d1d1 박스보더 상쇄 (#postBtn 제외) */
+body.nk-skin .nk-modify-wrap .nk-join-field button.btnBasic:not(#postBtn),
+body.nk-skin .nk-join-wrap .nk-join-field button.btnBasic:not(#postBtn) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  padding: 0 14px;
+  margin-left: 8px;
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  background: transparent;
+  color: var(--nk-font);
+  font-size: 12px;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+body.nk-skin .nk-modify-wrap .nk-join-field button.btnBasic:not(#postBtn):hover,
+body.nk-skin .nk-join-wrap .nk-join-field button.btnBasic:not(#postBtn):hover {
+  border-color: var(--nk-ink);
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-modify-wrap a.btnNormal.gIndent10 {
+  display: inline-flex;
+  align-items: center;
+  height: 32px;
+  padding: 0 12px;
+  margin-left: 10px;
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  font-size: 11px;
+  color: var(--nk-font);
+}
+body.nk-skin .nk-modify-wrap a.btnNormal.gIndent10:hover { border-color: var(--nk-ink); color: var(--nk-ink); }
+
+/* 제3자 정보제공/처리위탁 동의현황 — typeList → nk-modify-consent-list 카드형 (join grid 톤) */
+body.nk-skin .nk-modify-consent-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0 0 16px;
+}
+body.nk-skin .nk-modify-consent-card {
+  padding: 16px 18px;
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  background: none;
+}
+body.nk-skin .nk-modify-consent-head {
+  margin: 0 0 12px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--nk-ink);
+  font-weight: 500;
+}
+body.nk-skin .nk-modify-consent-head .line {
+  display: block;
+  margin-top: 2px;
+  font-size: 10px;
+  color: var(--nk-sub);
+  font-weight: 400;
+}
+body.nk-skin .nk-modify-consent-grid {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr);
+  gap: 8px 12px;
+  margin: 0;
+  padding: 0;
+}
+body.nk-skin .nk-modify-consent-grid dt {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--nk-sub);
+  font-weight: 400;
+}
+body.nk-skin .nk-modify-consent-grid dd {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--nk-font);
+}
+body.nk-skin .nk-modify-consent-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  margin-top: 12px;
+  padding-top: 12px;
+  font-size: 11px;
+}
+body.nk-skin .nk-modify-consent-status {
+  color: var(--nk-font);
+}
+body.nk-skin .nk-modify-consent-action a,
+body.nk-skin .nk-modify-consent-action button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  padding: 0 14px;
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  background: transparent;
+  color: var(--nk-font);
+  font-size: 11px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+body.nk-skin .nk-modify-consent-action a:hover,
+body.nk-skin .nk-modify-consent-action button:hover {
+  border-color: var(--nk-ink);
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-modify-wrap p.info {
+  margin: 0 0 32px;
+  font-size: 11px;
+  color: var(--nk-sub);
+}
+
+/* §W4-AGREE — modify (join §W4-AGREE와 동일 패턴) */
+body.nk-skin .nk-modify-agree.agreeArea {
+  padding: 14px 0;
+  border-top: 0;
+  font-size: 12px;
+}
+body.nk-skin .nk-modify-agree.agreeArea h3 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  margin: 0;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--nk-font);
+  cursor: pointer;
+}
+body.nk-skin .nk-modify-agree.agreeArea h3 .check { flex: 1; margin: 0; }
+body.nk-skin .nk-modify-agree.agreeArea h3 input[type="checkbox"] { margin: 0; flex-shrink: 0; }
+body.nk-skin .nk-modify-agree.agreeArea .icoArrowBottom { font-size: 11px; color: var(--nk-sub); transition: transform 0.2s; flex-shrink: 0; border: 0; }
+body.nk-skin .nk-modify-agree.agreeArea.on h3 .icoArrowBottom { transform: rotate(180deg); }
+body.nk-skin .nk-modify-agree.agreeArea .content {
+  display: none;
+  padding: 12px 0 4px;
+  font-size: 11px;
+  line-height: 1.7;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-modify-agree.agreeArea.on .content {
+  display: block;
+  overflow: visible;
+  visibility: visible;
+  height: auto;
+  max-height: none;
+}
+body.nk-skin .nk-modify-agree.agreeArea label:not(.check) { display: none; }
+body.nk-skin .nk-modify-agree.agreeArea h3 label.check { margin: 0 0 0 4px; padding: 0; }
+body.nk-skin .nk-modify-agree.agreeArea .check label.check { margin: 0; padding: 0; }
+body.nk-skin .nk-modify-agree.agreeArea .ec-base-chk { margin: 0; }
+body.nk-skin .nk-modify-agree.agreeArea > .check {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+  padding: 8px 0 0;
+}
+body.nk-skin .nk-modify-agree.agreeArea > .check span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  font-size: 11px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-modify-agree.agreeArea .check input[type="checkbox"] { margin: 0; flex-shrink: 0; }
+body.nk-skin .nk-modify-agree.agreeArea > .check span label:not(.check) { display: none; }
+body.nk-skin .nk-modify-agree.agreeArea > .check span label.check { margin: 0; padding: 0; }
+body.nk-skin .nk-modify-wrap input[type="checkbox"] { accent-color: var(--nk-point); }
+
+/* 수정/취소/탈퇴 액션 — visual-verdict 개정: 폼 좌측 정렬·부유하던 탈퇴링크 → 중앙 420px 컬럼 수렴.
+   주(포인트)+취소(보더) 나란히, 회원탈퇴는 아래 뮤트 텍스트링크로 분리. */
+body.nk-skin .nk-modify-actions {
+  align-self: stretch;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  margin: 56px 0 0;
+  padding: 0;
+  border-top: 0;
+}
+body.nk-skin .nk-modify-actions__primary {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  max-width: 420px;
+}
+body.nk-skin .nk-modify-actions__primary .nk-mbr-btn {
+  flex: 1 1 0; /* 수정/취소 동일 폭 */
+}
+body.nk-skin .nk-modify-actions__leave {
+  align-self: center;
+  margin: 6px 0 0;
+  border: 0;
+  background: none;
+  font-size: 11px;
+  color: var(--nk-sub);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+body.nk-skin .nk-modify-actions__leave:hover { color: var(--nk-ink); }
+body.nk-skin .nk-modify-consent-section {
+  margin-top: 0;
+}
+body.nk-skin .nk-modify-consent-note {
+  margin: 12px 0 0;
+}
+
+/* 회원탈퇴 확인 레이어 — blank-slate nk-modify-leave (id·layerLeave·jQuery hide/show 원형 보존) */
+body.nk-skin .nk-modify-wrap .nk-modify-leave.layerLeave {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 200;
+  display: none;
+  width: 90%;
+  max-width: 420px;
+  max-height: 84vh;
+  overflow-y: auto;
+  padding: 28px;
+  border-radius: var(--nk-radius);
+  background-color: var(--nk-bg);
+  box-shadow: 0 8px 32px rgba(20, 20, 19, 0.16);
+}
+body.nk-skin .nk-modify-wrap .nk-modify-leave__header h3 {
+  margin: 0 0 16px;
+  font-size: 16px;
+}
+body.nk-skin .nk-modify-leave-box {
+  margin: 0 0 20px;
+  padding: 16px;
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+}
+body.nk-skin .nk-modify-leave-box .title {
+  display: block;
+  margin: 0 0 8px;
+  font-size: 12px;
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-modify-leave-box ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 11px;
+  color: var(--nk-sub);
+  line-height: 1.8;
+}
+body.nk-skin .nk-modify-wrap .nk-modify-leave__subtitle {
+  margin: 0 0 10px;
+  font-size: 13px;
+  color: var(--nk-ink);
+  font-weight: 400;
+}
+body.nk-skin .nk-modify-wrap .nk-modify-leave .nk-modify-leave-form {
+  margin: 0 0 16px;
+}
+body.nk-skin .nk-modify-wrap .nk-modify-leave .nk-modify-leave-form .nk-join-row {
+  grid-template-columns: 72px minmax(0, 1fr);
+  padding: 10px 0;
+}
+body.nk-skin .nk-modify-wrap .nk-modify-leave .nk-modify-leave-form .nk-join-label {
+  font-size: 11px;
+}
+body.nk-skin .nk-modify-wrap .nk-modify-leave .nk-modify-leave-form .nk-join-field select,
+body.nk-skin .nk-modify-wrap .nk-modify-leave .nk-modify-leave-form .nk-join-field input[type="text"] {
+  width: 100%;
+  max-width: 100%;
+}
+body.nk-skin .nk-modify-wrap .nk-modify-leave-notes {
+  margin: 16px 0 0;
+}
+body.nk-skin .nk-modify-leave-actions {
+  display: flex;
+  gap: 10px;
+  margin: 20px 0 0;
+}
+body.nk-skin .nk-modify-leave-actions .nk-mbr-btn {
+  flex: 1;
+  justify-content: center;
+}
+body.nk-skin .nk-modify-wrap .nk-modify-leave__close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+body.nk-skin .nk-modify-wrap .nk-modify-leave__close::before {
+  content: "×";
+  font-size: 20px;
+  line-height: 1;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-modify-wrap .nk-modify-leave__close:hover::before {
+  color: var(--nk-ink);
+}
+
+@media (max-width: 767px) {
+  body.nk-skin .nk-modify-wrap .ec-base-table.typeWrite th,
+  body.nk-skin .nk-modify-wrap .ec-base-table.typeWrite td,
+  body.nk-skin .nk-modify-wrap .ec-base-table.typeWrite tr {
+    display: block;
+    width: 100%;
+  }
+  body.nk-skin .nk-modify-wrap .ec-base-table.typeWrite th {
+    padding-bottom: 4px;
+    border-bottom: 0;
+  }
+  body.nk-skin .nk-modify-wrap .ec-base-table.typeWrite td {
+    padding-top: 0;
+  }
+  body.nk-skin .nk-modify-consent-grid {
+    grid-template-columns: 1fr;
+    gap: 2px 0;
+  }
+  body.nk-skin .nk-modify-wrap .nk-modify-leave .nk-modify-leave-form .nk-join-row {
+    grid-template-columns: 1fr;
+    gap: 4px;
+    padding: 8px 0;
+  }
+  body.nk-skin .nk-modify-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  body.nk-skin .nk-modify-actions__primary {
+    flex-direction: column;
+    width: 100%;
+  }
+  body.nk-skin .nk-modify-actions__primary .nk-mbr-btn {
+    width: 100%;
+  }
+  body.nk-skin .nk-modify-actions__leave {
+    margin-left: 0;
+    text-align: center;
+  }
+}
+
+/*
+ * frag-member-B-find.css — Wave2 하위작업 B기 (member 부속 13페이지: 아이디/비번찾기+SNS연동+본인확인+약관)
+ * 대상: change_passwd·check_password·id/find_id(+result)·mapping_join·mapping_login·
+ *       passwd/find_passwd_info·find_passwd_method·find_passwd_question·find_passwd_result·
+ *       passwd_reset·user_verification·privacy
+ * 로드: 각 페이지 2행 @css(/_nk/css/nk-member.css) 뒤에 이어 붙임(리드 통합 단계에서 조립).
+ * §12(공통 프리미티브) 재사용 원칙 — nk-mbr-wrap(+--wide)·head/title/sub·언더라인 인풋·
+ *   nk-mbr-btn(+--line/--ink)·nk-mbr-actions·nk-mbr-desc는 여기서 재정의하지 않고 그대로 사용.
+ * 색은 전부 var(--nk-*) 토큰만. !important는 base 상쇄 불가피 지점만 + 사유주석.
+ */
+
+/* ── 19) B그룹 공통 헬퍼 (§12에 없는 것만 최소 추가 — 다른 리드 충돌 방지 위해 nk-mbrb- 접두로 분리)
+   nk-mbrb-hidden : module 내부에 중복 출력되는 boxTitle/legend를 시각적으로만 숨김
+                    (SR 텍스트 보존, login.html §3 legend 레시피와 동일 처방).
+   nk-mbrb-inline-btn : 설명문 안에 끼는 소형 보조 액션(아이핀/휴대폰인증·인증번호 받기 등) —
+                    풀폭 nk-mbr-btn과 별도로 인라인 소형 버튼만 담당. ── */
+body.nk-skin .nk-mbrb-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+body.nk-skin .nk-mbrb-inline-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 6px;
+  padding: 0 10px;
+  height: 28px;
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  background-color: transparent;
+  color: var(--nk-font);
+  font-size: 11px;
+  vertical-align: middle;
+  transition: border-color 0.2s, color 0.2s;
+}
+body.nk-skin .nk-mbrb-inline-btn:hover {
+  border-color: var(--nk-ink);
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-mbrb-inline-btn img {
+  width: 14px;
+  height: 14px;
+}
+
+/* ── 20) member/change_passwd.html — 비밀번호 변경 ── */
+body.nk-skin .nk-cpw-box .change_pw {
+  /* base change_passwd.css 골격(margin/padding/bg) 잔존 가드 — login §3 레시피 동일 적용 */
+  margin: 0;
+  padding: 0;
+  background: none;
+}
+body.nk-skin .nk-cpw-event {
+  margin: 0 0 20px;
+  padding: 12px 14px;
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  font-size: 12px;
+  color: var(--nk-point-active);
+}
+body.nk-skin .nk-cpw-form {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+body.nk-skin .nk-cpw-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin: 0 0 8px;
+  padding: 0;
+}
+body.nk-skin .nk-cpw-fields dt {
+  float: none;
+  width: auto;
+  margin: 0 0 6px;
+  padding: 0;
+  font-size: 12px;
+  color: var(--nk-font);
+}
+body.nk-skin .nk-cpw-fields dd {
+  float: none;
+  width: auto;
+  margin: 0;
+  padding: 0;
+}
+body.nk-skin .nk-cpw-fields dd input[type="password"],
+body.nk-skin .nk-cpw-fields dd input[type="text"] {
+  width: 100%;
+}
+body.nk-skin .nk-cpw-fields .nk-cpw-id {
+  font-size: 13px;
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-cpw-fields .txtInfo {
+  display: block;
+  margin: 6px 0 0;
+  font-size: 11px;
+  color: var(--nk-sub);
+}
+@media (max-width: 767px) {
+  body.nk-skin .nk-cpw-event {
+    font-size: 11px;
+  }
+}
+
+/* ── 21) member/check_password.html — 비밀번호 확인 ── */
+body.nk-skin .nk-ckpw-box .confirm {
+  margin: 0;
+  padding: 0;
+  background: none;
+}
+body.nk-skin .nk-ckpw-form {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+body.nk-skin .nk-ckpw-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 20px 0 0;
+}
+body.nk-skin .nk-ckpw-label {
+  font-size: 12px;
+  color: var(--nk-font);
+}
+body.nk-skin .nk-ckpw-field input[type="password"] {
+  width: 100%;
+}
+
+/* ── 22) member/id/find_id.html — 아이디 찾기 (blank-slate · .nk-fid-box 스코프) ── */
+body.nk-skin .nk-fid-box {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+body.nk-skin .nk-fid-form {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+body.nk-skin .nk-fid-box .nk-fid-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+body.nk-skin .nk-fid-box .nk-fid-row {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  gap: 10px 20px;
+  align-items: start;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+}
+body.nk-skin .nk-fid-box .nk-fid-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--nk-ink);
+  line-height: 1.5;
+  padding-top: calc((var(--nk-input-h) - 1.5em) / 2);
+}
+body.nk-skin .nk-fid-box .nk-fid-label--empty {
+  padding: 0;
+}
+body.nk-skin .nk-fid-box .nk-fid-field {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  width: 100%;
+  min-width: 0;
+  line-height: 1.7;
+}
+body.nk-skin .nk-fid-box .nk-fid-field input[type="text"],
+body.nk-skin .nk-fid-box .nk-fid-field select {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+}
+body.nk-skin .nk-fid-box .nk-fid-field--multi {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+body.nk-skin .nk-fid-box .nk-fid-field--multi input[type="text"],
+body.nk-skin .nk-fid-box .nk-fid-field--multi select {
+  flex: 1 1 0;
+  min-width: 0;
+  width: auto;
+}
+body.nk-skin .nk-fid-box .nk-fid-sep {
+  flex: 0 0 auto;
+  color: var(--nk-sub);
+  font-size: 12px;
+}
+body.nk-skin .nk-fid-box .nk-fid-field--radio {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  align-items: center;
+  font-size: 13px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-fid-box .nk-fid-field--radio label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: auto;
+  margin: 0;
+}
+body.nk-skin .nk-fid-box input[type="radio"],
+body.nk-skin .nk-fid-box #check_method1,
+body.nk-skin .nk-fid-box #check_method2 {
+  accent-color: var(--nk-point);
+}
+body.nk-skin .nk-fid-box #email_view,
+body.nk-skin .nk-fid-box #mobile_view,
+body.nk-skin .nk-fid-box #ipin_view,
+body.nk-skin .nk-fid-box #mobile_auth_view {
+  display: none;
+}
+body.nk-skin .nk-fid-box .nk-fid-field--auth {
+  padding: 14px;
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+}
+body.nk-skin .nk-fid-box .nk-fid-auth__desc {
+  margin: 0 0 10px;
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-fid-box .nk-fid-auth__btn {
+  align-self: flex-start;
+}
+body.nk-skin .nk-fid-box .nk-fid-actions {
+  margin: 24px 0 0;
+  padding: 0;
+}
+body.nk-skin .nk-fid-box .nk-fid-row--member select {
+  width: 100%;
+}
+body.nk-skin .nk-fid-box #name,
+body.nk-skin .nk-fid-box #email {
+  width: 100%;
+}
+@media (max-width: 767px) {
+  body.nk-skin .nk-fid-box .nk-fid-row {
+    grid-template-columns: 1fr;
+    gap: 6px 0;
+  }
+  body.nk-skin .nk-fid-box .nk-fid-label {
+    padding-top: 0;
+  }
+}
+
+/* ── 23) member/id/find_id_result.html — 아이디 찾기 결과 ── */
+body.nk-skin .nk-fidr-box .findId {
+  margin: 0;
+  padding: 0;
+  background: none;
+}
+body.nk-skin .nk-fidr-card {
+  margin: 20px 0 0;
+  padding: 24px;
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  background-color: var(--nk-bg2);
+}
+body.nk-skin .nk-fidr-message {
+  margin: 0 0 16px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--nk-font);
+}
+body.nk-skin .nk-fidr-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+body.nk-skin .nk-fidr-thumb img {
+  display: block;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+body.nk-skin .nk-fidr-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 12px;
+  color: var(--nk-font);
+}
+body.nk-skin .nk-fidr-list .term {
+  color: var(--nk-sub);
+}
+@media (max-width: 767px) {
+  body.nk-skin .nk-fidr-card {
+    padding: 18px;
+  }
+}
+
+/* ── 24) member/mapping_join.html — SNS 계정 연동 (Layout_login + member_joinMapping) ── */
+body.nk-skin .nk-mpj-lead {
+  margin: 0 0 24px;
+  font-family: var(--nk-font-display);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.6;
+  text-align: center;
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-mpj-lead em {
+  font-style: normal; /* NK: italic 절대금지 — em 강조는 색으로만 처리 */
+  color: var(--nk-point);
+}
+body.nk-skin .nk-mpj-list {
+  margin: 0 0 24px;
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  overflow: hidden;
+}
+body.nk-skin .nk-mpj-account {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+body.nk-skin .nk-mpj-account__head {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background-color: var(--nk-bg2);
+  font-size: 11px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-mpj-account__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-top: 1px solid var(--nk-line);
+  font-size: 13px;
+  color: var(--nk-font);
+}
+body.nk-skin .nk-mpj-account__row label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+body.nk-skin .nk-mpj-account__row input[type="radio"] {
+  accent-color: var(--nk-point);
+}
+body.nk-skin .nk-mpj-account__row .center {
+  color: var(--nk-sub);
+  font-size: 12px;
+}
+body.nk-skin .nk-mpj-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+/* Layout_login 팝업 레이어 — JS 토글(.xans-layout-login) 기본 표시상태는 base 유지, 카드 내부만 리스킨 */
+body.nk-skin .nk-mpj-layer__wrapper {
+  max-width: 360px;
+  margin: 0 auto;
+}
+body.nk-skin .nk-mpj-layer__card {
+  padding: 28px;
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  background-color: var(--nk-bg);
+}
+body.nk-skin .nk-mpj-layer__header h3 {
+  margin: 0 0 20px;
+  font-family: var(--nk-font-display);
+  font-size: 16px;
+  font-weight: 400;
+  text-align: center;
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-mpj-layer__form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+body.nk-skin .nk-mpj-layer__form input[type="text"],
+body.nk-skin .nk-mpj-layer__form input[type="password"] {
+  width: 100%;
+}
+body.nk-skin .nk-mpj-layer__submit {
+  margin: 4px 0 0;
+}
+body.nk-skin .nk-mpj-layer__info {
+  margin: 14px 0 0;
+  font-size: 11px;
+  text-align: center;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-mpj-layer__links {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 6px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 11px;
+}
+body.nk-skin .nk-mpj-layer__links a {
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-mpj-layer__cancel {
+  margin: 16px 0 0;
+}
+@media (max-width: 767px) {
+  body.nk-skin .nk-mpj-account__row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+}
+
+/* ── 25) member/mapping_login.html — 카카오싱크 로그인 연동 ── */
+body.nk-skin .nk-mpl-box .kakao_login {
+  margin: 0;
+  padding: 0;
+  background: none;
+}
+body.nk-skin .nk-mpl-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+body.nk-skin .nk-mpl-item {
+  padding: 24px 0 0;
+  border-top: 1px solid var(--nk-line);
+}
+body.nk-skin .nk-mpl-item:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+body.nk-skin .nk-mpl-summary {
+  margin: 0 0 16px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--nk-font);
+}
+body.nk-skin .nk-mpl-select {
+  margin: 0 0 16px;
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  overflow: hidden;
+}
+body.nk-skin .nk-mpl-select__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+body.nk-skin .nk-mpl-select__row {
+  border-top: 1px solid var(--nk-line);
+}
+body.nk-skin .nk-mpl-select__row:first-child {
+  border-top: 0;
+}
+body.nk-skin .nk-mpl-select__label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  font-size: 13px;
+  color: var(--nk-font);
+  cursor: pointer;
+}
+body.nk-skin .nk-mpl-select__label .radio {
+  accent-color: var(--nk-point);
+}
+@media (max-width: 767px) {
+  body.nk-skin .nk-mpl-inner {
+    gap: 24px;
+  }
+}
+
+/* ── 26) member/passwd/find_passwd_info.html — 비밀번호 찾기 1단계 (Wave3: nk-join-form grid) ── */
+body.nk-skin .nk-fpi-box .findPw {
+  margin: 0;
+  padding: 0;
+  background: none;
+}
+body.nk-skin .nk-fpi-form {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+body.nk-skin .nk-fpi-wrap .nk-join-field .check {
+  margin-left: 8px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-fpi-wrap .nk-join-field .txtInfo {
+  display: block;
+  margin: 6px 0 0;
+  font-size: 11px;
+  color: var(--nk-sub);
+}
+
+/* ── 27) member/passwd/find_passwd_method.html — 임시 비밀번호 전송 (Wave3: nk-join-form grid) ── */
+body.nk-skin .nk-fpm-box .inner {
+  margin: 0;
+  padding: 0;
+  background: none;
+}
+body.nk-skin .nk-fpm-form {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* ── 28) member/passwd/find_passwd_question.html — 비밀번호 찾기 2단계(힌트답변, Wave3: nk-join-form grid) ── */
+body.nk-skin .nk-fpq-box .findPw {
+  margin: 0;
+  padding: 0;
+  background: none;
+}
+body.nk-skin .nk-fpq-form {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+body.nk-skin .nk-fpq-wrap .nk-fpq-check .nk-join-field {
+  font-size: 12px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-fpq-wrap .nk-join-field input[type="text"] {
+  width: 100%;
+}
+body.nk-skin .nk-fpq-wrap .nk-join-label label {
+  color: inherit;
+}
+
+/* ── 29) member/passwd/find_passwd_result.html — 비밀번호 찾기 결과 ── */
+body.nk-skin .nk-fpr-box .findPw {
+  margin: 0;
+  padding: 0;
+  background: none;
+}
+body.nk-skin .nk-fpr-desc {
+  margin: 0 0 4px;
+}
+body.nk-skin .nk-fpr-card {
+  margin: 16px 0 24px;
+  padding: 24px;
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  background-color: var(--nk-bg2);
+}
+body.nk-skin .nk-fpr-message {
+  display: block;
+  margin: 0 0 16px;
+  font-family: var(--nk-font-display);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-fpr-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+body.nk-skin .nk-fpr-thumb img {
+  display: block;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+body.nk-skin .nk-fpr-descbody {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--nk-font);
+}
+@media (max-width: 767px) {
+  body.nk-skin .nk-fpr-card {
+    padding: 18px;
+  }
+}
+
+/* ── 30) member/passwd/passwd_reset.html — 비밀번호 재설정 ── */
+body.nk-skin .nk-pwr-box .inner {
+  margin: 0;
+  padding: 0;
+  background: none;
+}
+body.nk-skin .nk-pwr-form {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* ── 31) member/passwd/user_verification.html — 본인확인 인증 ── */
+body.nk-skin .nk-uv-box .inner {
+  margin: 0;
+  padding: 0;
+  background: none;
+}
+body.nk-skin .nk-uv-form {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+body.nk-skin .nk-uv-fields .txtEm.number {
+  letter-spacing: 0.5px;
+}
+body.nk-skin .nk-uv-hint {
+  margin: 6px 0 0;
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--nk-sub);
+}
+
+/* Group A 공유 (30·31) — passwd_reset·user_verification ul.ec-base-desc 동일 구조 */
+body.nk-skin .nk-pwr-fields,
+body.nk-skin .nk-uv-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin: 0 0 8px;
+  padding: 0;
+  list-style: none;
+}
+body.nk-skin .nk-pwr-fields > li,
+body.nk-skin .nk-uv-fields > li {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+body.nk-skin .nk-pwr-fields .term,
+body.nk-skin .nk-uv-fields .term {
+  font-size: 12px;
+  color: var(--nk-font);
+}
+body.nk-skin .nk-pwr-fields .desc,
+body.nk-skin .nk-uv-fields .desc {
+  font-size: 13px;
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-pwr-fields .desc input[type="text"],
+body.nk-skin .nk-pwr-fields .desc input[type="password"],
+body.nk-skin .nk-uv-fields .desc input[type="text"] {
+  width: 100%;
+}
+body.nk-skin .nk-pwr-fields .txtInfo,
+body.nk-skin .nk-uv-fields .txtInfo {
+  display: block;
+  margin: 6px 0 0;
+  font-size: 11px;
+  color: var(--nk-sub);
+}
+
+/* ── 32) member/privacy.html — 개인정보처리방침 ── */
+body.nk-skin .nk-priv-card {
+  padding: 32px;
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  background-color: var(--nk-bg2);
+}
+body.nk-skin .nk-priv-date {
+  display: block;
+  margin: 0 0 16px;
+  font-size: 12px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-priv-agree {
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--nk-font);
+  word-break: keep-all;
+}
+/* base privacy.css 내부 표/타이포 잔존 상쇄 — 표는 컨테이너 안에서만 가로스크롤(390px 오버플로 방지) */
+body.nk-skin .nk-priv-agree table {
+  width: 100%;
+  max-width: 100%;
+  margin: 16px 0;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+body.nk-skin .nk-priv-agree th,
+body.nk-skin .nk-priv-agree td {
+  padding: 8px 10px;
+  border: 1px solid var(--nk-border);
+}
+body.nk-skin .nk-priv-agree img {
+  max-width: 100%;
+  height: auto;
+}
+body.nk-skin .nk-priv-before {
+  margin: 20px 0 0;
+  text-align: right;
+}
+@media (max-width: 767px) {
+  body.nk-skin .nk-priv-card {
+    padding: 20px;
+  }
+  body.nk-skin .nk-priv-agree {
+    overflow-x: auto;
+  }
+}
+
+/* ── W2 검증라운드 픽스: 390px +2px 가로 오버플로 (find_id·find_passwd_info 실측) ──
+   원인: base 고정폭 잔존 — .btnSubmit.sizeM 375px(ec-base-button 계열) 및
+   비번찾기 폼 블록(.nk-fpi-form/.nk-join-form) 375px가 모바일 패딩 안에서 +2px 초과.
+   로그인 fieldset 370px(ultraqa C1)과 동일 계열 처방 — 모바일에서 유동폭+border-box로 상쇄. */
+@media (max-width: 767px) {
+  body.nk-skin .btnSubmit.sizeM {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  body.nk-skin .nk-fid-form,
+  body.nk-skin .nk-fid-form .nk-join-form,
+  body.nk-skin .nk-fpi-form,
+  body.nk-skin .nk-fpi-form .nk-join-form {
+    width: auto;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+/* ══ 33) Wave2.5 시각 스윕 결함 수정 — sweep-defects.md #2·#8·#9·#10·#13 (리드M)
+       원칙: 라이브 실측 원인(파일:셀렉터) 기준으로 base 골격을 명시도 우위로 상쇄. !important 미사용. ══ */
+
+/* ── #2(상) login 인풋 238px + 박스보더 잔존.
+   원인: cafe24 ePlaceholder 스크립트가 input을 label.id/.password(ePlaceholder)로 감싸고,
+   base css/module/member/login.css:5가 그 label에 width:251px + 1px 박스보더(0,3,1)를 부여
+   → §4 input width:100%의 기준 폭이 420→253px로 차단. input 자체도 base :8 width:95%·h28과
+   동점 시 로드순서 패배 위험 → 전부 .nk-login-form 한 단계 체인 강화(0,4,1~2), 브리프 §4 교훈③. ── */
+body.nk-skin .nk-login-form .nk-login-field label.ePlaceholder,
+body.nk-skin .nk-login-form .nk-login-field label {
+  display: block;
+  float: none;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  overflow: visible;
+  color: inherit;
+}
+body.nk-skin .nk-login-form .nk-login-field label span {
+  height: var(--nk-input-h);
+  line-height: var(--nk-input-h);
+  padding: 0;
+  color: var(--nk-sub); /* base placeholder #c9c9c9 상쇄 */
+}
+body.nk-skin .nk-login-form .nk-login-field input[type="text"],
+body.nk-skin .nk-login-form .nk-login-field input[type="password"] {
+  box-sizing: border-box;
+  width: 100%;
+  height: var(--nk-input-h);
+  line-height: normal;
+  padding: 0;
+  border: 0;
+  border-bottom: 1px solid var(--nk-border); /* §4 언더라인 — ePlaceholder 상쇄 후 필드 affordance 유지 */
+  border-radius: 0;
+  background-color: transparent;
+  color: var(--nk-font); /* base #8F8F91 상쇄 */
+}
+body.nk-skin .nk-login-form .nk-login-field input[type="text"]:focus,
+body.nk-skin .nk-login-form .nk-login-field input[type="password"]:focus {
+  border-bottom-color: var(--nk-point);
+}
+body.nk-skin .nk-login-wrap,
+body.nk-skin .nk-login-form,
+body.nk-skin .nk-login-form fieldset,
+body.nk-skin .nk-login-form label {
+  color: var(--nk-font);
+}
+
+/* W4-FIELD-RADIO: 라디오/체크 그룹 — flex-column+width100% 줄바꿈 방지 */
+body.nk-skin .nk-join-field--radio,
+body.nk-skin .nk-fpi-wrap .nk-join-row .nk-join-field:has(input[type="radio"]),
+body.nk-skin .nk-fpm-wrap .nk-join-row .nk-join-field:has(input[type="radio"]) {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  align-items: center;
+}
+body.nk-skin .nk-join-field--radio label,
+body.nk-skin .nk-fpi-wrap .nk-join-field:has(input[type="radio"]) label,
+body.nk-skin .nk-fpm-wrap .nk-join-field:has(input[type="radio"]) label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: auto;
+  margin: 0;
+}
+
+/* ── #9(중) find_id — base find_id.css 잔존 상쇄 (blank-slate .nk-fid-box) ── */
+body.nk-skin .nk-fid-box .findId {
+  width: auto;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── #8(중) find_passwd_info — base css/module/member/find_passwd.css 골격 잔존.
+   Wave3 nk-join-form grid — input 226px·select 236px·ipin absolute 버튼 상쇄. ── */
+body.nk-skin .nk-fpi-body .nk-join-row { margin: 0; }
+body.nk-skin .nk-fpi-body input[type="text"],
+body.nk-skin .nk-fpi-body input[type="password"] {
+  width: 100%;
+}
+body.nk-skin .nk-fpi-body select { width: 100%; }
+body.nk-skin .nk-fpi-body #ipin_view { height: auto; }
+body.nk-skin .nk-fpi-body .nk-join-row.ipin a,
+body.nk-skin .nk-fpi-body .nk-join-row.mobileauth a {
+  position: static;
+  display: inline-flex;
+  margin: 8px 0 0;
+}
+body.nk-skin .nk-fpi-body .ec-base-button {
+  margin: 24px 0 0;
+  padding: 0;
+}
+
+/* ── #10(중) join — ① 상단 빈 2행 헤어라인: 내용이 숨겨진 행이 th+빈 td로 남음 →
+   :has() 상태연동 접기. JS가 #authWrap을 펼치면(인라인 style 변경) 선택자가 풀려 자동 복원 — 기능 무손상.
+   ② 아이디/비밀번호 안내문 부유: .eTooltip(inline-block) 옆으로 흐르던 {$passwd_type_desc}를 아랫줄로. ── */
+body.nk-skin .nk-join-wrap .nk-join-row#authMember:has(> .nk-join-field #authWrap.nk-is-hidden),
+body.nk-skin .nk-join-wrap tr#authMember:has(> td #authWrap[style*="none"]) { display: none; }
+body.nk-skin .nk-join-wrap .nk-join-row#companyWrap:not(:has(input, select, a, label)),
+body.nk-skin .nk-join-wrap tr#companyWrap:not(:has(input, select, a, label)) { display: none; }
+body.nk-skin .nk-join-wrap .nk-join-field { line-height: 1.7; }
+body.nk-skin .nk-join-wrap .nk-join-field input[type="text"],
+body.nk-skin .nk-join-wrap .nk-join-field input[type="password"] {
+  vertical-align: middle;
+  margin: 0;
+}
+
+/* ── #13(하) join 체크박스 — stock 회색 UA 렌더(§14 accent-color는 checked 채움색만 관여, 미체크 회색 잔존)
+   → appearance:none 커스텀 포인트 체크. input 원본 그대로(이벤트·바인딩 무손상), 시각만 교체.
+   base join.css .agreeArea .ec-base-chk 13px(0,3,0)도 (0,3,2)로 함께 상쇄. ── */
+body.nk-skin .nk-join-wrap input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  margin: 0 2px 0 0;
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  background-color: transparent;
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  cursor: pointer;
+  transition: border-color 0.2s, background-color 0.2s;
+}
+body.nk-skin .nk-join-wrap input[type="checkbox"]:hover { border-color: var(--nk-point); }
+body.nk-skin .nk-join-wrap input[type="checkbox"]:checked {
+  border-color: var(--nk-point);
+  background-color: var(--nk-point);
+}
+body.nk-skin .nk-join-wrap input[type="checkbox"]:checked::after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 2px;
+  width: 4px;
+  height: 8px;
+  border: solid var(--nk-on-point);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+body.nk-skin .nk-join-wrap input[type="checkbox"]:focus-visible {
+  outline: 2px solid var(--nk-point);
+  outline-offset: 2px;
+}
+body.nk-skin .nk-join-wrap input[type="radio"] { accent-color: var(--nk-point); } /* 회원구분 라디오 동일 톤 */
+
+/* W4 join — label/field 모두 비어 있는 placeholder 행(테이블→div migration 잔재) 구분선만 노출 */
+body.nk-skin .nk-join-wrap .nk-join-row:not(:has(input, select, textarea, a, button, label, img, p, ul, ol, dl, span:not(:empty), strong, div:not(:empty))),
+body.nk-skin form#joinForm .nk-join-row:not(:has(input, select, textarea, a, button, label, img, p, ul, ol, dl, span:not(:empty), strong, div:not(:empty))) {
+  display: none;
+}
+/* 회원인증·사업자구분 행이 모두 접힌 첫 섹션 — border-top orphan 제거 */
+body.nk-skin .nk-join-wrap .nk-join-section:has(.nk-join-row#authMember:has(> .nk-join-field #authWrap.nk-is-hidden)):not(:has(.nk-join-row:not(.displaynone):not(#authMember):not(#companyWrap))) {
+  display: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* ── W4-FORM-TOOLTIP: join/modify 폼 툴팁 패턴 (패턴 우선 — nth-child·고정폭 금지)
+   스코프: #joinForm · #editForm(Cafe24 JS 래퍼) · .nk-join-wrap · .nk-mbr-wrap
+   상쇄: join.css .ec-base-tooltip.typeUpper{width:390px} · §14 260px/320px 잔존 ── */
+body.nk-skin #joinForm .eTooltip,
+body.nk-skin #editForm .eTooltip,
+body.nk-skin .nk-join-wrap .eTooltip,
+body.nk-skin .nk-mbr-wrap .eTooltip {
+  position: relative;
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  margin: 0 0 6px;
+  overflow: visible;
+}
+body.nk-skin #joinForm .eTooltip .nk-join-tooltip,
+body.nk-skin #editForm .eTooltip .nk-join-tooltip,
+body.nk-skin .nk-join-wrap .eTooltip .nk-join-tooltip,
+body.nk-skin .nk-mbr-wrap .eTooltip .nk-join-tooltip {
+  display: none;
+}
+body.nk-skin #joinForm .eTooltip:focus-within .nk-join-tooltip,
+body.nk-skin #editForm .eTooltip:focus-within .nk-join-tooltip,
+body.nk-skin .nk-join-wrap .eTooltip:focus-within .nk-join-tooltip,
+body.nk-skin .nk-mbr-wrap .eTooltip:focus-within .nk-join-tooltip {
+  display: block;
+}
+body.nk-skin #joinForm .nk-join-tooltip,
+body.nk-skin #editForm .nk-join-tooltip,
+body.nk-skin .nk-join-wrap .nk-join-tooltip,
+body.nk-skin .nk-mbr-wrap .nk-join-tooltip {
+  position: absolute;
+  z-index: 100;
+  top: calc(100% + 8px);
+  left: 0;
+  right: auto;
+  bottom: auto;
+  width: max-content;
+  min-width: 0;
+  max-width: min(420px, calc(100vw - 48px));
+  padding: 14px;
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  background-color: var(--nk-bg);
+  white-space: normal;
+  overflow: visible;
+  overflow-wrap: break-word;
+  word-break: keep-all;
+  box-sizing: border-box;
+}
+body.nk-skin #joinForm .nk-join-tooltip__body,
+body.nk-skin #editForm .nk-join-tooltip__body,
+body.nk-skin .nk-join-wrap .nk-join-tooltip__body,
+body.nk-skin .nk-mbr-wrap .nk-join-tooltip__body {
+  overflow: visible;
+  white-space: normal;
+}
+body.nk-skin #joinForm .nk-join-tooltip .nk-join-msg--warn,
+body.nk-skin #editForm .nk-join-tooltip .nk-join-msg--warn,
+body.nk-skin .nk-join-wrap .nk-join-tooltip .nk-join-msg--warn,
+body.nk-skin .nk-mbr-wrap .nk-join-tooltip .nk-join-msg--warn {
+  display: block;
+  margin: 0;
+  font-size: 11px;
+  color: var(--nk-point);
+}
+body.nk-skin #joinForm .nk-join-tooltip__list,
+body.nk-skin #editForm .nk-join-tooltip__list,
+body.nk-skin .nk-join-wrap .nk-join-tooltip__list,
+body.nk-skin .nk-mbr-wrap .nk-join-tooltip__list {
+  margin: 6px 0 0;
+  padding: 0 0 0 14px;
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--nk-sub);
+  white-space: normal;
+}
+body.nk-skin #joinForm .nk-join-tooltip__close,
+body.nk-skin #editForm .nk-join-tooltip__close,
+body.nk-skin .nk-join-wrap .nk-join-tooltip__close,
+body.nk-skin .nk-mbr-wrap .nk-join-tooltip__close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--nk-radius);
+  background: transparent;
+  color: var(--nk-sub);
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+}
+body.nk-skin #joinForm .nk-join-tooltip__close::before,
+body.nk-skin #editForm .nk-join-tooltip__close::before,
+body.nk-skin .nk-join-wrap .nk-join-tooltip__close::before,
+body.nk-skin .nk-mbr-wrap .nk-join-tooltip__close::before {
+  content: "×";
+}
+body.nk-skin #joinForm .eTooltip .ec-base-tooltip,
+body.nk-skin #editForm .eTooltip .ec-base-tooltip,
+body.nk-skin .nk-join-wrap .eTooltip .ec-base-tooltip,
+body.nk-skin .nk-mbr-wrap .eTooltip .ec-base-tooltip {
+  display: none; /* 기본 숨김 — 포커스 시 join.js/modify.js 인라인 show() 우선(기능 유지) */
+}
+body.nk-skin #joinForm .ec-base-tooltip,
+body.nk-skin #editForm .ec-base-tooltip,
+body.nk-skin .nk-join-wrap .ec-base-tooltip,
+body.nk-skin .nk-mbr-wrap .ec-base-tooltip {
+  position: absolute;
+  z-index: 100;
+  top: calc(100% + 8px);
+  left: 0;
+  right: auto;
+  bottom: auto; /* stock typeUpper bottom:28px 상쇄 */
+  width: max-content;
+  min-width: 0;
+  max-width: min(420px, calc(100vw - 48px)); /* 입력폭(좁은 eTooltip)에 갇히지 않게 viewport cap */
+  padding: 14px;
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  background-color: var(--nk-bg);
+  white-space: normal;
+  overflow: visible;
+  overflow-wrap: break-word;
+  word-break: keep-all;
+  box-sizing: border-box;
+}
+body.nk-skin #joinForm .ec-base-tooltip .content,
+body.nk-skin #editForm .ec-base-tooltip .content,
+body.nk-skin .nk-join-wrap .ec-base-tooltip .content,
+body.nk-skin .nk-mbr-wrap .ec-base-tooltip .content {
+  overflow: visible;
+  white-space: normal;
+}
+body.nk-skin #joinForm .ec-base-tooltip .txtWarn,
+body.nk-skin #editForm .ec-base-tooltip .txtWarn,
+body.nk-skin .nk-join-wrap .ec-base-tooltip .txtWarn,
+body.nk-skin .nk-mbr-wrap .ec-base-tooltip .txtWarn {
+  display: block;
+  font-size: 11px;
+  color: var(--nk-point);
+}
+body.nk-skin #joinForm .ec-base-tooltip .ec-base-help,
+body.nk-skin #editForm .ec-base-tooltip .ec-base-help,
+body.nk-skin .nk-join-wrap .ec-base-tooltip .ec-base-help,
+body.nk-skin .nk-mbr-wrap .ec-base-tooltip .ec-base-help {
+  margin: 6px 0 0;
+  padding: 0 0 0 14px;
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--nk-sub);
+  white-space: normal;
+  overflow: visible;
+  width: auto;
+  max-width: none;
+}
+body.nk-skin #joinForm .ec-base-tooltip .btnClose,
+body.nk-skin #editForm .ec-base-tooltip .btnClose,
+body.nk-skin .nk-join-wrap .ec-base-tooltip .btnClose,
+body.nk-skin .nk-mbr-wrap .ec-base-tooltip .btnClose {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+body.nk-skin #joinForm .ec-base-tooltip .edge,
+body.nk-skin #editForm .ec-base-tooltip .edge,
+body.nk-skin .nk-join-wrap .ec-base-tooltip .edge,
+body.nk-skin .nk-mbr-wrap .ec-base-tooltip .edge {
+  display: none; /* base 삼각 화살표 — 카드형에선 불필요 */
+}
+/* 조상 클리핑 방지 — 툴팁이 td/필드 셀 밖으로 펼쳐질 수 있게 */
+body.nk-skin #joinForm .nk-join-field,
+body.nk-skin #editForm .nk-join-field,
+body.nk-skin #editForm td,
+body.nk-skin .nk-join-wrap .nk-join-field,
+body.nk-skin .nk-mbr-wrap .ec-base-table.typeWrite td {
+  overflow: visible;
+  position: relative;
+}
+@media (max-width: 767px) {
+  body.nk-skin #joinForm .ec-base-tooltip,
+  body.nk-skin #editForm .ec-base-tooltip,
+  body.nk-skin .nk-join-wrap .ec-base-tooltip,
+  body.nk-skin .nk-mbr-wrap .ec-base-tooltip {
+    left: 0;
+    right: 0;
+    width: auto;
+    max-width: calc(100vw - 32px);
+  }
+}
+
+/* ── W4: form#joinForm / form#editForm (join.js 래퍼) — 그리드·stock border 무력화 ── */
+body.nk-skin form#joinForm,
+body.nk-skin form#editForm {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+body.nk-skin form#joinForm > div,
+body.nk-skin form#editForm > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  border-bottom: 0;
+  background: none;
+  box-shadow: none;
+}
+body.nk-skin form#joinForm .nk-join-form,
+body.nk-skin form#editForm .nk-join-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+body.nk-skin form#joinForm .nk-join-row,
+body.nk-skin form#editForm .nk-join-row {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  gap: 10px 20px;
+  align-items: start;
+  padding: 0;
+  border: 0;
+  border-bottom: 0;
+}
+body.nk-skin form#joinForm .nk-join-label,
+body.nk-skin form#editForm .nk-join-label {
+  padding-top: calc((var(--nk-input-h) - 1.5em) / 2);
+}
+body.nk-skin form#joinForm table,
+body.nk-skin form#joinForm th,
+body.nk-skin form#joinForm td,
+body.nk-skin form#joinForm tr {
+  border: 0 !important; /* ec-base-table·join.css 잔존 */
+  background: none !important;
+}
+body.nk-skin form#joinForm table::before,
+body.nk-skin form#joinForm tr::before,
+body.nk-skin form#joinForm td::before,
+body.nk-skin form#joinForm th::before {
+  display: none !important;
+  content: none !important;
+}
+body.nk-skin form#joinForm div:not(.nk-join-row):not(.nk-join-label):not(.nk-join-field):not(.nk-join-section):not(.nk-join-form):not(.agreeArea):not(.content):not(.check):not(.nk-join-agree):not(.nk-join-agree-all) {
+  border-width: 0;
+  border-color: transparent;
+  background: transparent;
+  box-shadow: none;
+}
+body.nk-skin form#joinForm .ec-base-help,
+body.nk-skin form#joinForm .ec-base-desc {
+  border: 0;
+  background: transparent;
+}
+body.nk-skin form#joinForm input[type="checkbox"] {
+  font-size: 13px;
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  margin: 0 2px 0 0;
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  background-color: transparent;
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+body.nk-skin form#joinForm input[type="checkbox"]:hover { border-color: var(--nk-point); }
+body.nk-skin form#joinForm input[type="checkbox"]:checked {
+  background-color: var(--nk-point);
+  border-color: var(--nk-point);
+}
+body.nk-skin form#joinForm input[type="checkbox"]:checked::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 5px;
+  height: 9px;
+  border: solid var(--nk-on-point);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+/* ── W4-FORM-BORDER: member form 행/섹션 nk-line 구분선 제거 + Cafe24 stock table border 상쇄 ──
+   스코프: #joinForm · #editForm · .nk-join-wrap · .nk-fid/fpi/fpm/fpq-wrap · .nk-mbr-wrap · .xans-member
+   상쇄: join.css agreeArea #d5d5d5 · ec-base-table.css table:before #d7d5d5 · typeWrite th/td border ── */
+body.nk-skin form#editForm table,
+body.nk-skin form#editForm th,
+body.nk-skin form#editForm td,
+body.nk-skin form#editForm tr {
+  border: 0 !important;
+  background: none !important;
+}
+body.nk-skin form#editForm table::before,
+body.nk-skin form#editForm tr::before,
+body.nk-skin form#editForm td::before,
+body.nk-skin form#editForm th::before {
+  display: none !important;
+  content: none !important;
+}
+body.nk-skin form#editForm li[id^="fmodify_"][id$="_wrap"],
+body.nk-skin form#joinForm li[id^="fjoin_"][id$="_wrap"],
+body.nk-skin .nk-modify-wrap li[id$="_wrap"],
+body.nk-skin .nk-join-wrap li[id$="_wrap"] {
+  border: 0 !important;
+  border-top: 0 !important;
+  border-bottom: 0 !important;
+}
+body.nk-skin .nk-mbr-wrap .agreeArea,
+body.nk-skin .nk-join-wrap .agreeArea,
+body.nk-skin form#joinForm .agreeArea,
+body.nk-skin form#editForm .agreeArea {
+  border: 0;
+  border-top: 0;
+  border-bottom: 0;
+}
+body.nk-skin .xans-member .ec-base-table.typeWrite,
+body.nk-skin .xans-member .ec-base-table.typeWrite table {
+  border: 0;
+}
+body.nk-skin .xans-member .ec-base-table.typeWrite table::before {
+  display: none !important;
+  content: none !important;
+}
+body.nk-skin .xans-member .ec-base-table.typeWrite th,
+body.nk-skin .xans-member .ec-base-table.typeWrite td,
+body.nk-skin .xans-member .ec-base-table.typeList th,
+body.nk-skin .xans-member .ec-base-table.typeList td {
+  border: 0 !important;
+  border-bottom: 0 !important;
+}
+
+/* ── W4-FIELD-AFFORDANCE (2026-07-04 visual-verdict 개정): join/edit/modify 언더라인 인풋
+   근거: 검증 레퍼런스 회원폼 = 라벨 위 언더라인 인풋.
+   기존 bg2 박스형이 login(§4 언더라인)과 불일치·탁한 인상 → 전 회원폼 언더라인으로 통일.
+   transparent + border-bottom 1px, radius 0, 좌우 패딩 0(언더라인 시작점=텍스트 정렬). ── */
+body.nk-skin .nk-mbr-wrap .nk-join-field input[type="text"],
+body.nk-skin .nk-mbr-wrap .nk-join-field input[type="password"],
+body.nk-skin .nk-mbr-wrap .nk-join-field input[type="email"],
+body.nk-skin .nk-mbr-wrap .nk-join-field input[type="tel"],
+body.nk-skin .nk-mbr-wrap .nk-join-field input[type="number"],
+body.nk-skin .nk-mbr-wrap .nk-join-field select,
+body.nk-skin form#joinForm .nk-join-field input[type="text"],
+body.nk-skin form#joinForm .nk-join-field input[type="password"],
+body.nk-skin form#joinForm .nk-join-field input[type="email"],
+body.nk-skin form#joinForm .nk-join-field input[type="tel"],
+body.nk-skin form#joinForm .nk-join-field input[type="number"],
+body.nk-skin form#joinForm .nk-join-field select,
+body.nk-skin form#editForm .nk-join-field input[type="text"],
+body.nk-skin form#editForm .nk-join-field input[type="password"],
+body.nk-skin form#editForm .nk-join-field input[type="email"],
+body.nk-skin form#editForm .nk-join-field input[type="tel"],
+body.nk-skin form#editForm .nk-join-field input[type="number"],
+body.nk-skin form#editForm .nk-join-field select {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  height: var(--nk-input-h);
+  padding: 0;
+  border: 0;
+  border-bottom: 1px solid var(--nk-border);
+  border-radius: 0;
+  background-color: transparent;
+  color: var(--nk-font);
+  vertical-align: middle;
+  margin: 0;
+}
+body.nk-skin form#joinForm .nk-join-field-inner.nk-join-field--multi input,
+body.nk-skin form#joinForm .nk-join-field-inner.nk-join-field--multi select,
+body.nk-skin form#joinForm .nk-join-field-inner.nk-join-field--date-group select,
+body.nk-skin form#editForm .nk-join-field-inner.nk-join-field--multi input,
+body.nk-skin form#editForm .nk-join-field-inner.nk-join-field--multi select,
+body.nk-skin form#editForm .nk-join-field-inner.nk-join-field--date-group select {
+  width: auto;
+  flex: 1 1 0;
+  min-width: 0;
+  margin: 0;
+}
+body.nk-skin .nk-mbr-wrap .nk-join-field select,
+body.nk-skin form#joinForm .nk-join-field select,
+body.nk-skin form#editForm .nk-join-field select {
+  padding: 0 26px 0 0;
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 11 7'%3E%3Cpath fill='none' stroke='%236c6a64' stroke-width='1.4' d='M1 1l4.5 4.5L10 1'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 4px center;
+  background-size: 11px 7px;
+}
+/* textarea만 언더라인 대신 얇은 박스 유지(다행 입력 가독) — bg 투명·radius로 정돈 */
+body.nk-skin .nk-mbr-wrap .nk-join-field textarea,
+body.nk-skin form#joinForm .nk-join-field textarea,
+body.nk-skin form#editForm .nk-join-field textarea {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 96px;
+  padding: 12px 14px;
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  background-color: transparent;
+  color: var(--nk-font);
+  line-height: 1.6;
+}
+body.nk-skin .nk-mbr-wrap .nk-join-field input[type="text"]:focus,
+body.nk-skin .nk-mbr-wrap .nk-join-field input[type="password"]:focus,
+body.nk-skin .nk-mbr-wrap .nk-join-field input[type="email"]:focus,
+body.nk-skin .nk-mbr-wrap .nk-join-field input[type="tel"]:focus,
+body.nk-skin .nk-mbr-wrap .nk-join-field input[type="number"]:focus,
+body.nk-skin .nk-mbr-wrap .nk-join-field select:focus,
+body.nk-skin .nk-mbr-wrap .nk-join-field textarea:focus,
+body.nk-skin form#joinForm .nk-join-field input:focus,
+body.nk-skin form#joinForm .nk-join-field select:focus,
+body.nk-skin form#joinForm .nk-join-field textarea:focus,
+body.nk-skin form#editForm .nk-join-field input:focus,
+body.nk-skin form#editForm .nk-join-field select:focus,
+body.nk-skin form#editForm .nk-join-field textarea:focus {
+  border-color: var(--nk-point);
+  border-bottom-color: var(--nk-point); /* 언더라인 인풋 포커스 = 포인트 */
+  outline: none;
+}
+/* login — join 박스형과 분리, §4 언더라인 유지 */
+body.nk-skin .nk-login-form .nk-login-field input[type="text"],
+body.nk-skin .nk-login-form .nk-login-field input[type="password"] {
+  padding: 0;
+  border: 0;
+  border-bottom: 1px solid var(--nk-border);
+  border-radius: 0;
+  background-color: transparent;
+  margin: 0;
+}
+body.nk-skin .nk-login-form .nk-login-field input[type="text"]:focus,
+body.nk-skin .nk-login-form .nk-login-field input[type="password"]:focus {
+  border-color: transparent;
+  border-bottom-color: var(--nk-point);
+}
+
+/* ── W4-FIELD-DATE/MULTI: 날짜 3분할·전화·이메일 복합 필드 (nth-child 금지 — HTML 시맨틱 클래스)
+   .nk-join-row--date 행 식별 / .nk-join-field--date-group 3-select 가로 / .nk-join-field--multi 분할 입력
+   W4-FIELD-AFFORDANCE width:100% 단일필드 규칙을 그룹 내부에서만 flex:1로 재정의. ── */
+body.nk-skin .nk-join-field--date-group,
+body.nk-skin form#joinForm .nk-join-field--date-group,
+body.nk-skin form#editForm .nk-join-field--date-group {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
+}
+body.nk-skin .nk-join-field--date-group select,
+body.nk-skin form#joinForm .nk-join-field--date-group select,
+body.nk-skin form#editForm .nk-join-field--date-group select {
+  flex: 1 1 0;
+  min-width: 0;
+  width: auto;
+  max-width: none;
+  margin: 0;
+}
+body.nk-skin .nk-join-field--multi,
+body.nk-skin form#joinForm .nk-join-field--multi,
+body.nk-skin form#editForm .nk-join-field--multi,
+body.nk-skin .nk-join-wrap .nk-join-field > .nk-join-field--multi,
+body.nk-skin form#joinForm .nk-join-field > .nk-join-field--multi,
+body.nk-skin form#editForm .nk-join-field > .nk-join-field--multi {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
+}
+body.nk-skin .nk-join-field--multi input[type="text"],
+body.nk-skin .nk-join-field--multi input[type="email"],
+body.nk-skin .nk-join-field--multi input[type="tel"],
+body.nk-skin .nk-join-field--multi input[type="number"],
+body.nk-skin .nk-join-field--multi select,
+body.nk-skin form#joinForm .nk-join-field--multi input[type="text"],
+body.nk-skin form#joinForm .nk-join-field--multi input[type="email"],
+body.nk-skin form#joinForm .nk-join-field--multi input[type="tel"],
+body.nk-skin form#joinForm .nk-join-field--multi select,
+body.nk-skin form#editForm .nk-join-field--multi input[type="text"],
+body.nk-skin form#editForm .nk-join-field--multi input[type="email"],
+body.nk-skin form#editForm .nk-join-field--multi input[type="tel"],
+body.nk-skin form#editForm .nk-join-field--multi select {
+  flex: 1 1 0;
+  min-width: 0;
+  width: auto;
+  max-width: none;
+  margin: 0;
+}
+body.nk-skin .nk-join-field--multi button,
+body.nk-skin .nk-join-field--multi a.btnNormal,
+body.nk-skin form#joinForm .nk-join-field--multi button,
+body.nk-skin form#joinForm .nk-join-field--multi a.btnNormal,
+body.nk-skin form#editForm .nk-join-field--multi button,
+body.nk-skin form#editForm .nk-join-field--multi a.btnNormal {
+  flex: 0 0 auto;
+  margin: 0;
+}
+body.nk-skin .nk-join-field--multi span[id$="Msg_id"],
+body.nk-skin form#joinForm .nk-join-field--multi span[id$="Msg_id"],
+body.nk-skin form#editForm .nk-join-field--multi span[id$="Msg_id"] {
+  flex: 1 1 100%;
+  margin: 0;
+}
+@media (max-width: 767px) {
+  body.nk-skin .nk-join-field--date-group,
+  body.nk-skin form#joinForm .nk-join-field--date-group,
+  body.nk-skin form#editForm .nk-join-field--date-group {
+    flex-wrap: wrap;
+  }
+}
+
+/* ── W2.5 재스윕 픽스: 390px 잔존 오버플로 2건 (조상 체인 실측 확정) ──
+   find_id(+2px): base .findId{width:375px} 고정폭 컨테이너(부모 360px 초과) + 버튼 margin-left 2px 합산.
+   join(+9px): typeWrite 테이블이 table-layout:auto로 내용 고유폭 384px까지 확장(컨테이너 360px 초과). */
+@media (max-width: 767px) {
+  body.nk-skin .findId,
+  body.nk-skin .findPasswd {
+    width: auto;
+    max-width: 100%;
+  }
+  body.nk-skin .findId .ec-base-button [class^="btn"],
+  body.nk-skin .findPasswd .ec-base-button [class^="btn"] {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  body.nk-skin .xans-member .ec-base-table table {
+    width: 100%;
+    table-layout: fixed;
+  }
+  body.nk-skin .xans-member .ec-base-table input,
+  body.nk-skin .xans-member .ec-base-table select {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  /* form#joinForm 블록(§W4)이 상단 @media보다 뒤에 있어 MO 1열 스택 재적용 */
+  body.nk-skin form#joinForm .nk-join-row,
+  body.nk-skin form#editForm .nk-join-row {
+    grid-template-columns: 1fr;
+    gap: 6px 0;
+  }
+  body.nk-skin form#joinForm .nk-join-label,
+  body.nk-skin form#editForm .nk-join-label {
+    padding-top: 0;
+  }
+}
+
+/* ── W4-FIELD-FULLWIDTH: join/edit/modify 필드 열 가로 100% 통일
+   원인: §14 field-inner input width:auto + base join.css #member_id 등 226px·236px 고정폭 잔존
+   → grid 2열 minmax(0,1fr) 셀은 100%인데 입력만 내용폭으로 줄어 필드마다 폭 불일치.
+   multi/date/button 옆 입력은 아래 패턴만 flex:1, 단일·직속 input/select는 width:100%. ── */
+body.nk-skin .nk-join-wrap .nk-join-field > input[type="text"],
+body.nk-skin .nk-join-wrap .nk-join-field > input[type="password"],
+body.nk-skin .nk-join-wrap .nk-join-field > input[type="email"],
+body.nk-skin .nk-join-wrap .nk-join-field > input[type="tel"],
+body.nk-skin .nk-join-wrap .nk-join-field > select,
+body.nk-skin .nk-modify-wrap .nk-join-field > input[type="text"],
+body.nk-skin .nk-modify-wrap .nk-join-field > input[type="password"],
+body.nk-skin .nk-modify-wrap .nk-join-field > select,
+body.nk-skin form#joinForm .nk-join-field > input[type="text"],
+body.nk-skin form#joinForm .nk-join-field > input[type="password"],
+body.nk-skin form#joinForm .nk-join-field > input[type="email"],
+body.nk-skin form#joinForm .nk-join-field > input[type="tel"],
+body.nk-skin form#joinForm .nk-join-field > select,
+body.nk-skin form#editForm .nk-join-field > input[type="text"],
+body.nk-skin form#editForm .nk-join-field > input[type="password"],
+body.nk-skin form#editForm .nk-join-field > input[type="email"],
+body.nk-skin form#editForm .nk-join-field > input[type="tel"],
+body.nk-skin form#editForm .nk-join-field > select,
+body.nk-skin form#joinForm .nk-join-field > span > input,
+body.nk-skin form#joinForm .nk-join-field > span > select,
+body.nk-skin form#editForm .nk-join-field > span > input,
+body.nk-skin form#editForm .nk-join-field > span > select {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+}
+body.nk-skin .nk-join-field-inner:has(> button, > a.btnNormal, > a.btnBasic):not(.nk-join-field--multi),
+body.nk-skin form#joinForm .nk-join-field-inner:has(> button, > a.btnNormal, > a.btnBasic):not(.nk-join-field--multi),
+body.nk-skin form#editForm .nk-join-field-inner:has(> button, > a.btnNormal, > a.btnBasic):not(.nk-join-field--multi) {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
+}
+body.nk-skin .nk-join-field-inner:has(> button, > a.btnNormal, > a.btnBasic):not(.nk-join-field--multi) > input,
+body.nk-skin .nk-join-field-inner:has(> button, > a.btnNormal, > a.btnBasic):not(.nk-join-field--multi) > select,
+body.nk-skin form#joinForm .nk-join-field-inner:has(> button, > a.btnNormal, > a.btnBasic):not(.nk-join-field--multi) > input,
+body.nk-skin form#joinForm .nk-join-field-inner:has(> button, > a.btnNormal, > a.btnBasic):not(.nk-join-field--multi) > select,
+body.nk-skin form#editForm .nk-join-field-inner:has(> button, > a.btnNormal, > a.btnBasic):not(.nk-join-field--multi) > input,
+body.nk-skin form#editForm .nk-join-field-inner:has(> button, > a.btnNormal, > a.btnBasic):not(.nk-join-field--multi) > select {
+  flex: 1 1 0;
+  min-width: 0;
+  width: auto;
+  max-width: 100%;
+}
+body.nk-skin .nk-join-field-inner:has(> button, > a.btnNormal, > a.btnBasic):not(.nk-join-field--multi) > button,
+body.nk-skin .nk-join-field-inner:has(> button, > a.btnNormal, > a.btnBasic):not(.nk-join-field--multi) > a.btnNormal,
+body.nk-skin .nk-join-field-inner:has(> button, > a.btnNormal, > a.btnBasic):not(.nk-join-field--multi) > a.btnBasic,
+body.nk-skin form#joinForm .nk-join-field-inner:has(> button, > a.btnNormal, > a.btnBasic):not(.nk-join-field--multi) > button,
+body.nk-skin form#joinForm .nk-join-field-inner:has(> button, > a.btnNormal, > a.btnBasic):not(.nk-join-field--multi) > a.btnNormal,
+body.nk-skin form#editForm .nk-join-field-inner:has(> button, > a.btnNormal, > a.btnBasic):not(.nk-join-field--multi) > button,
+body.nk-skin form#editForm .nk-join-field-inner:has(> button, > a.btnNormal, > a.btnBasic):not(.nk-join-field--multi) > a.btnNormal {
+  flex: 0 0 auto;
+  flex-shrink: 0;
+  margin: 0;
+}
+body.nk-skin .nk-join-field-inner .verify,
+body.nk-skin form#joinForm .nk-join-field-inner .verify,
+body.nk-skin form#editForm .nk-join-field-inner .verify {
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  width: auto;
+}
+body.nk-skin .nk-join-field-inner .verify input,
+body.nk-skin form#joinForm .nk-join-field-inner .verify input,
+body.nk-skin form#editForm .nk-join-field-inner .verify input {
+  flex: 1 1 0;
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
+}
+body.nk-skin form#joinForm .nk-join-field input,
+body.nk-skin form#joinForm .nk-join-field select,
+body.nk-skin form#editForm .nk-join-field input,
+body.nk-skin form#editForm .nk-join-field select,
+body.nk-skin .nk-join-wrap .nk-join-field input,
+body.nk-skin .nk-join-wrap .nk-join-field select,
+body.nk-skin .nk-modify-wrap .nk-join-field input,
+body.nk-skin .nk-modify-wrap .nk-join-field select {
+  max-width: 100%;
+}
+@media (max-width: 767px) {
+  body.nk-skin form#joinForm .nk-join-field,
+  body.nk-skin form#editForm .nk-join-field,
+  body.nk-skin .nk-join-wrap .nk-join-field,
+  body.nk-skin .nk-modify-wrap .nk-join-field {
+    width: 100%;
+    min-width: 0;
+  }
+  body.nk-skin form#joinForm .nk-join-field-inner,
+  body.nk-skin form#editForm .nk-join-field-inner,
+  body.nk-skin .nk-join-wrap .nk-join-field-inner,
+  body.nk-skin .nk-modify-wrap .nk-join-field-inner,
+  body.nk-skin .nk-join-field--multi,
+  body.nk-skin .nk-join-field--date-group {
+    width: 100%;
+    min-width: 0;
+  }
+  body.nk-skin .nk-login-form .nk-login-field label,
+  body.nk-skin .nk-login-form .nk-login-field input[type="text"],
+  body.nk-skin .nk-login-form .nk-login-field input[type="password"] {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+}

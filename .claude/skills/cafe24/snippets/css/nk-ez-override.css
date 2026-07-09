@@ -191,7 +191,7 @@
    감싸 출력(관리자 상품진열 설정). 인라인이라 클래스로 못 이김 → !important.
    (근본 해결: 관리자 > 상품 > 진열 설정에서 상품명 글꼴/색 '사용 안 함') */
 .nk-product-card__name span {
-  color: var(--nk-color-text, #222) !important; /* 카페24 인라인 색 오버라이드 */
+  color: var(--nk-font, #222) !important; /* 카페24 인라인 색 오버라이드 */
   font-family: inherit;
 }
 
@@ -200,7 +200,7 @@
 .nk-product-card__price-sale:empty { display: none; }
 .nk-product-card__price-sale:empty + .nk-product-card__price-origin {
   text-decoration: none;
-  color: var(--nk-color-text, #222);
+  color: var(--nk-font, #222);
   margin-left: 0;
 }
 

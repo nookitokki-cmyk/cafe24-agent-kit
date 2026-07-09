@@ -2,7 +2,7 @@
  * nk-banner-slider — 메인 배너 슬라이더 (자동 재생 + 인디케이터 + 이전/다음 버튼)
  * 사용처: 메인 페이지 (index.html) 의 ModuleMain 안 또는 layout 의 hero 영역
  * 의존성:
- *   - CSS 변수: --nk-color-bg / --nk-color-text / --nk-color-accent / --nk-radius-md
+ *   - CSS 변수: --nk-bg / --nk-font / --nk-point / --nk-radius
  *   - JS: 인라인 (Vanilla, jQuery 의존성 없음)
  *   - Phosphor Icons (이전/다음 버튼)
  *
@@ -79,8 +79,8 @@
 <style>
   .nk-slider{
     position:relative; overflow:hidden;
-    background:var(--nk-color-surface, #f8f9fa);
-    border-radius:var(--nk-radius-md, 12px);
+    background:var(--nk-bg2, #f8f9fa);
+    border-radius:var(--nk-radius, 12px);
     aspect-ratio:16/9;
   }
   @media(max-width:767px){.nk-slider{aspect-ratio:4/3}}
@@ -112,13 +112,13 @@
   @media(max-width:767px){.nk-slide-title{font-size:22px}}
   .nk-slide-cta{
     display:inline-block; padding:10px 20px;
-    background:rgba(255,255,255,0.95); color:var(--nk-color-text, #1a1a1a);
+    background:rgba(255,255,255,0.95); color:var(--nk-font, #1a1a1a);
     border-radius:9999px; font-size:13px; font-weight:600;
   }
   .nk-slider-arrow{
     position:absolute; top:50%; transform:translateY(-50%);
     width:44px; height:44px; border:0;
-    background:rgba(255,255,255,0.9); color:var(--nk-color-text, #1a1a1a);
+    background:rgba(255,255,255,0.9); color:var(--nk-font, #1a1a1a);
     border-radius:9999px; cursor:pointer; font-size:20px;
     display:inline-flex; align-items:center; justify-content:center;
     transition:background .2s;

@@ -33,7 +33,7 @@
 
 새 작업을 받으면 아래 순서로 컨텍스트를 로드한다.
 
-1. **`brain/docs/CAFE24-SMARTDESIGN-AGENT.md`** — 자립형 에이전트 시스템 프롬프트. 워크플로우(분석→클리닝→세팅→생성→검증→출력), 디자인 토큰 시스템, SmartDesign 문법 핵심, 절대 제약(F1~F26 함정), 모바일 스태킹·드로어, sticky 구현법, 검증 방법론까지 **이 한 문서로 자립 동작**한다. → **모든 작업의 1차 기준.**
+1. **`brain/docs/CAFE24-SMARTDESIGN-AGENT.md`** — 자립형 에이전트 시스템 프롬프트. 워크플로우(분석→클리닝→세팅→생성→검증→출력), 디자인 토큰 시스템, SmartDesign 문법 핵심, 절대 제약(F1~F26·F35 — 전체 인덱스 F1~F36은 02_막혔을때), 모바일 스태킹·드로어, sticky 구현법, 검증 방법론까지 **이 한 문서로 자립 동작**한다. → **모든 작업의 1차 기준.**
 2. **`brain/docs/WORK-GUIDE.md`** — skin10~14 단계별 상세 작업 로그·교훈. AGENT.md가 요약한 내용의 "원본 근거"가 필요할 때 참조.
 3. **`.claude/skills/cafe24/SKILL.md`** — 카페24 변수/모듈/지시어 문법, 구매템플릿→NK 구조, EZ 시스템, SFTP 배포 레퍼런스. (참조: `references/modules.md`, `references/variables.md`, `references/modifiers.md`)
 
@@ -67,7 +67,7 @@
 - **`<section>` 120px margin 함정**: `_nk/css/common.css` 전역 `section{margin:120px !important}` 때문에 풀블리드 히어로/배너는 `margin:0 !important` 오버라이드 필요.
 - **PC·모바일 동시 설계**: 새 CSS를 쓰는 그 순간 모바일 레이아웃·드로어·고정요소 z-index 스태킹까지 함께 작성. 한쪽만 정상이면 "미완료". 검증도 PC + 모바일(360/768px) 스크린샷을 항상 함께 본다.
 
-> 위 규칙의 **정확한 코드·수치·함정 20종(F1~F20)·z-index 레이어 표·드로어 버그 처방**은 모두 `brain/docs/CAFE24-SMARTDESIGN-AGENT.md` 에 인라인으로 들어있다.
+> 위 규칙의 **정확한 코드·수치·함정(F1~F26·F35)·z-index 레이어 표·드로어 버그 처방**은 모두 `brain/docs/CAFE24-SMARTDESIGN-AGENT.md` 에 인라인으로 들어있다. 전체 F1~F36 인덱스는 02_막혔을때.
 
 ---
 

@@ -1,0 +1,273 @@
+<!--@layout(/layout/basic/layout.html)-->
+<!--@css(/_nk/css/nk-plp.css)-->
+<div class="nk-plp">
+<!-- ============================================================
+     product/list.html (CP6-PLP) — 카테고리/전체상품 목록. 전부 body.nk-skin .nk-plp
+     스코프(/_nk/css/nk-plp.css)로 스타일. 공유 헤더/푸터/토큰/리셋/베이스 CSS·HTML은
+     이 파일에서 절대 수정하지 않음(단일 writer 원칙).
+     stock 원본 대비 보존 요소:
+     module="Product_menupackage"(브레드크럼+타이틀+서브카테고리, product_headcategory 2회
+     재사용) · module="product_listrecommend"/"product_listnew"/"product_normalpackage"
+     (product_normalmenu 정렬+조건검색 + product_listnormal 본목록) · module="product_normalpaging".
+     대표 검증 URL: /product/list.html?cate_no=24 (Outerwear).
+     상품 카드는 main.html의 검증된 nk-prd 패턴(썸네일+상품명+product_ListItem 가격 spec)을
+     그대로 재사용해 일관성 유지 — 각 그리드 li 는 anchorBoxId 2블록 이상(카페24 반복 인식
+     최소 요건, B5). -->
+
+<div module="Product_menupackage" class="nk-plp__category">
+    <!--@js(/js/module/product/menucategory.js)-->
+    <div class="path nk-plp__breadcrumb" module="product_headcategory">
+        <span class="nk-blind">현재 위치</span>
+        <ol>
+            <li><a href="/">홈</a></li>
+            <li class="{$disp_cate_1|display}"><a href="{$link_product_list_1}">{$name_1}</a></li>
+            <li class="{$disp_cate_2|display}"><a href="{$link_product_list_2}">{$name_2}</a></li>
+            <li class="{$disp_cate_3|display}"><a href="{$link_product_list_3}">{$name_3}</a></li>
+            <li class="{$disp_cate_4|display}"><strong><a href="{$link_product_list_4}">{$name_4}</a></strong></li>
+        </ol>
+    </div>
+
+    <!-- 타이틀 영역 — 검증 레퍼런스처럼 카테고리명 h1 중앙(plp-full 패턴).
+         원본 stock은 h2였으나 module 데이터 바인딩과 무관한 헤딩 레벨 조정이라 h1로 변경(모듈 구조 불변). -->
+    <div class="title nk-plp__titlearea" module="product_headcategory">
+        <p class="banner">{$top_image1_tag}{$top_image2_tag}{$top_image3_tag}</p>
+        <h1 class="nk-plp__title"><span>{$title_text_or_image}</span></h1>
+        <span class="likeButton {$disp_likecate_class} nk-plp__like"><button type="button">{$disp_likecate_icon}<strong>{$disp_likecate_count}</strong></button></span>
+    </div>
+
+    <!--@import(/product/shoppQ/searchContent.html)-->
+
+    <ul class="menuCategory nk-plp__subcat">
+        <li module="product_displaycategory" style="display:{$display};" class="{$selected}">
+            <a href="{$link_product_list_sub}" class="nk-plp__subcat-link">{$category_name} <span class="count {$product_count_display|display}">({$product_count})</span></a>
+            <ul module="product_children" class="nk-plp__subcat-children">
+                <li class="{$selected}">
+                    <a href="{$link_product_list_sub}" class="nk-plp__subcat-link">{$category_name} <span class="{$product_count_display|display}">({$product_count})</span></a>
+                    <div class="button">
+                        {$children_icon}
+                        <ul module="product_children" class="subCategory nk-plp__subcat-grandchildren">
+                            <li class="{$selected}"><a href="{$link_product_list_sub}" class="nk-plp__subcat-link">{$category_name} <span class="{$product_count_display|display}">({$product_count})</span></a></li>
+                            <li class="{$selected}"><a href="{$link_product_list_sub}" class="nk-plp__subcat-link">{$category_name} <span class="{$product_count_display|display}">({$product_count})</span></a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="{$selected}">
+                    <a href="{$link_product_list_sub}" class="nk-plp__subcat-link">{$category_name} <span class="{$product_count_display|display}">({$product_count})</span></a>
+                    <div class="button">
+                        {$children_icon}
+                        <ul module="product_children" class="subCategory nk-plp__subcat-grandchildren">
+                            <li class="{$selected}"><a href="{$link_product_list_sub}" class="nk-plp__subcat-link">{$category_name} <span class="{$product_count_display|display}">({$product_count})</span></a></li>
+                            <li class="{$selected}"><a href="{$link_product_list_sub}" class="nk-plp__subcat-link">{$category_name} <span class="{$product_count_display|display}">({$product_count})</span></a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+<!-- 추천상품 — module="product_listrecommend" 보존(stock 원본 $count=4 그대로), anchorBoxId 2블록,
+     main.html의 검증된 nk-prd 카드 패턴 재사용 -->
+<section aria-labelledby="nkPlpRecommendTitle">
+    <div module="product_listrecommend" class="nk-listmain nk-plp__listmain"><!--
+        $count = 4
+            ※ 상품진열갯수를 설정하는 변수입니다. 설정하지 않을 경우, 최대 200개의 상품이 진열 됩니다.
+            ※ 진열된 상품이 많으면, 쇼핑몰에 부하가 발생할 수 있습니다.
+        $basket_result = /product/add_basket.html
+        $basket_option = /product/basket_option.html
+    -->
+        <div class="nk-sec__head">
+            <h3 id="nkPlpRecommendTitle"><span>추천상품</span></h3>
+        </div>
+        <ul class="nk-prd-grid">
+            <li id="anchorBoxId_{$product_no}" class="nk-prd-card">
+                <a href="{$link_product_detail}" name="anchorBoxName_{$product_no}" class="nk-prd-card__link">
+                    <span class="nk-prd-card__thumb">
+                        <img src="{$image_medium}" alt="{$seo_alt_tag}" class="nk-prd-card__img" loading="lazy" />
+                    </span>
+                    <span class="nk-prd-card__name">{$product_name}</span>
+                </a>
+                <ul module="product_ListItem" class="nk-prd-card__price-list">
+                    <li class="nk-prd-card__price-item {$item_display|display}">
+                        <span class="nk-prd-card__price-label {$item_title_display|display}">{$item_title}</span>
+                        <span class="nk-prd-card__price-val">{$item_content}</span>
+                    </li>
+                    <li class="nk-prd-card__price-item {$item_display|display}">
+                        <span class="nk-prd-card__price-label {$item_title_display|display}">{$item_title}</span>
+                        <span class="nk-prd-card__price-val">{$item_content}</span>
+                    </li>
+                </ul>
+            </li>
+            <li id="anchorBoxId_{$product_no}" class="nk-prd-card">
+                <a href="{$link_product_detail}" name="anchorBoxName_{$product_no}" class="nk-prd-card__link">
+                    <span class="nk-prd-card__thumb">
+                        <img src="{$image_medium}" alt="{$seo_alt_tag}" class="nk-prd-card__img" loading="lazy" />
+                    </span>
+                    <span class="nk-prd-card__name">{$product_name}</span>
+                </a>
+                <ul module="product_ListItem" class="nk-prd-card__price-list">
+                    <li class="nk-prd-card__price-item {$item_display|display}">
+                        <span class="nk-prd-card__price-label {$item_title_display|display}">{$item_title}</span>
+                        <span class="nk-prd-card__price-val">{$item_content}</span>
+                    </li>
+                    <li class="nk-prd-card__price-item {$item_display|display}">
+                        <span class="nk-prd-card__price-label {$item_title_display|display}">{$item_title}</span>
+                        <span class="nk-prd-card__price-val">{$item_content}</span>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</section>
+
+<!-- 신상품 — module="product_listnew" 보존(stock 원본 $count=5 그대로), anchorBoxId 2블록 -->
+<section aria-labelledby="nkPlpNewTitle">
+    <div module="product_listnew" class="nk-listmain nk-plp__listmain"><!--
+        $count = 5
+            ※ 상품진열갯수를 설정하는 변수입니다. 설정하지 않을 경우, 최대 200개의 상품이 진열 됩니다.
+            ※ 진열된 상품이 많으면, 쇼핑몰에 부하가 발생할 수 있습니다.
+        $basket_result = /product/add_basket.html
+        $basket_option = /product/basket_option.html
+    -->
+        <div class="nk-sec__head">
+            <h3 id="nkPlpNewTitle"><span>신상품</span></h3>
+        </div>
+        <ul class="nk-prd-grid">
+            <li id="anchorBoxId_{$product_no}" class="nk-prd-card">
+                <a href="{$link_product_detail}" name="anchorBoxName_{$product_no}" class="nk-prd-card__link">
+                    <span class="nk-prd-card__thumb">
+                        <img src="{$image_medium}" alt="{$seo_alt_tag}" class="nk-prd-card__img" loading="lazy" />
+                    </span>
+                    <span class="nk-prd-card__name">{$product_name}</span>
+                </a>
+                <ul module="product_ListItem" class="nk-prd-card__price-list">
+                    <li class="nk-prd-card__price-item {$item_display|display}">
+                        <span class="nk-prd-card__price-label {$item_title_display|display}">{$item_title}</span>
+                        <span class="nk-prd-card__price-val">{$item_content}</span>
+                    </li>
+                    <li class="nk-prd-card__price-item {$item_display|display}">
+                        <span class="nk-prd-card__price-label {$item_title_display|display}">{$item_title}</span>
+                        <span class="nk-prd-card__price-val">{$item_content}</span>
+                    </li>
+                </ul>
+            </li>
+            <li id="anchorBoxId_{$product_no}" class="nk-prd-card">
+                <a href="{$link_product_detail}" name="anchorBoxName_{$product_no}" class="nk-prd-card__link">
+                    <span class="nk-prd-card__thumb">
+                        <img src="{$image_medium}" alt="{$seo_alt_tag}" class="nk-prd-card__img" loading="lazy" />
+                    </span>
+                    <span class="nk-prd-card__name">{$product_name}</span>
+                </a>
+                <ul module="product_ListItem" class="nk-prd-card__price-list">
+                    <li class="nk-prd-card__price-item {$item_display|display}">
+                        <span class="nk-prd-card__price-label {$item_title_display|display}">{$item_title}</span>
+                        <span class="nk-prd-card__price-val">{$item_content}</span>
+                    </li>
+                    <li class="nk-prd-card__price-item {$item_display|display}">
+                        <span class="nk-prd-card__price-label {$item_title_display|display}">{$item_title}</span>
+                        <span class="nk-prd-card__price-val">{$item_content}</span>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</section>
+
+<!-- 메인 상품 목록 — module="product_normalpackage"(정렬+조건검색) + module="product_listnormal"
+     (본 카테고리 그리드, stock 원본 $count=12 그대로). 정렬 UI는 select가 아니라 sortby 링크
+     리스트(sortby 방식), "등록 제품 : N개" 카운트 표기 보존. -->
+<div module="product_normalpackage">
+    <div module="product_normalmenu" class="nk-plp__toolbar"><!--
+        $compare_page = /product/compare.html
+    -->
+        <div class="function nk-plp__sortbar" id="{$listmenu_position}">
+            <p class="prdCount nk-plp__count">등록 제품 : <strong>{$total_count}</strong>개</p>
+            <ul id="type" module="product_Orderby" class="nk-plp__sortby">
+                <li><a href="{$param}" {$style}>{$sort_name}</a></li>
+                <li><a href="{$param}" {$style}>{$sort_name}</a></li>
+            </ul>
+            <span class="compare {$product_compare_display|display} nk-plp__compare"><a href="#none" class="btnCompare nk-btn nk-btn--line nk-btn--sm" onclick="{$product_compare_action}">상품비교</a></span>
+        </div>
+
+        <fieldset class="condition {$select_search_display|display} nk-plp__condition">
+            <legend class="nk-blind">조건별 검색</legend>
+            <p>
+                <!--@js(/js/module/product/product_selectsearch.js)-->
+                <select class="FirstSelect nk-field" module="product_FirstSelect">
+                    <option value="">-조건선택-</option>
+                    <option value="{$value}" {$selected}>{$title}</option>
+                    <option value="{$value}" {$selected}>{$title}</option>
+                </select>
+                <select class="SecondSelect nk-field" module="product_SecondSelect">
+                    <option value="">-조건선택-</option>
+                    <option value="{$value}" {$selected}>{$title}</option>
+                    <option value="{$value}" {$selected}>{$title}</option>
+                </select>
+                <a href="#SelectSearch" class="nk-btn nk-btn--primary nk-btn--sm nk-plp__search-btn">검색</a>
+            </p>
+        </fieldset>
+    </div>
+
+    <div module="product_listnormal" class="nk-listmain nk-plp__listmain"><!--
+        $count = 12
+            ※ 상품진열갯수를 설정하는 변수입니다. 설정하지 않을 경우, 최대 200개의 상품이 진열 됩니다.
+            ※ 진열된 상품이 많으면, 쇼핑몰에 부하가 발생할 수 있습니다.
+        $basket_result = /product/add_basket.html
+        $basket_option = /product/basket_option.html
+    -->
+        <ul class="nk-prd-grid">
+            <li id="anchorBoxId_{$product_no}" class="nk-prd-card">
+                <a href="{$link_product_detail}" name="anchorBoxName_{$product_no}" class="nk-prd-card__link">
+                    <span class="nk-prd-card__thumb">
+                        <img src="{$image_medium}" alt="{$seo_alt_tag}" class="nk-prd-card__img" loading="lazy" />
+                    </span>
+                    <span class="nk-prd-card__name">{$product_name}</span>
+                </a>
+                <ul module="product_ListItem" class="nk-prd-card__price-list">
+                    <li class="nk-prd-card__price-item {$item_display|display}">
+                        <span class="nk-prd-card__price-label {$item_title_display|display}">{$item_title}</span>
+                        <span class="nk-prd-card__price-val">{$item_content}</span>
+                    </li>
+                    <li class="nk-prd-card__price-item {$item_display|display}">
+                        <span class="nk-prd-card__price-label {$item_title_display|display}">{$item_title}</span>
+                        <span class="nk-prd-card__price-val">{$item_content}</span>
+                    </li>
+                </ul>
+            </li>
+            <li id="anchorBoxId_{$product_no}" class="nk-prd-card">
+                <a href="{$link_product_detail}" name="anchorBoxName_{$product_no}" class="nk-prd-card__link">
+                    <span class="nk-prd-card__thumb">
+                        <img src="{$image_medium}" alt="{$seo_alt_tag}" class="nk-prd-card__img" loading="lazy" />
+                    </span>
+                    <span class="nk-prd-card__name">{$product_name}</span>
+                </a>
+                <ul module="product_ListItem" class="nk-prd-card__price-list">
+                    <li class="nk-prd-card__price-item {$item_display|display}">
+                        <span class="nk-prd-card__price-label {$item_title_display|display}">{$item_title}</span>
+                        <span class="nk-prd-card__price-val">{$item_content}</span>
+                    </li>
+                    <li class="nk-prd-card__price-item {$item_display|display}">
+                        <span class="nk-prd-card__price-label {$item_title_display|display}">{$item_title}</span>
+                        <span class="nk-prd-card__price-val">{$item_content}</span>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div module="product_normalpaging" class="nk-plp__paginate">
+    <ul class="nk-pagination">
+        <li><a href="{$param_first}" class="nk-pagination__item" aria-label="첫 페이지"><i class="ph ph-caret-double-left"></i></a></li>
+        <li><a href="{$param_before}" class="nk-pagination__item" aria-label="이전 페이지"><i class="ph ph-caret-left"></i></a></li>
+        <li><a href="{$param}" class="nk-pagination__item {$param_class}">{$no}</a></li>
+        <li><a href="{$param}" class="nk-pagination__item {$param_class}">{$no}</a></li>
+        <li><a href="{$param}" class="nk-pagination__item {$param_class}">{$no}</a></li>
+        <li><a href="{$param}" class="nk-pagination__item {$param_class}">{$no}</a></li>
+        <li><a href="{$param}" class="nk-pagination__item {$param_class}">{$no}</a></li>
+        <li><a href="{$param_next}" class="nk-pagination__item" aria-label="다음 페이지"><i class="ph ph-caret-right"></i></a></li>
+        <li><a href="{$param_last}" class="nk-pagination__item" aria-label="마지막 페이지"><i class="ph ph-caret-double-right"></i></a></li>
+    </ul>
+</div>
+
+</div><!-- /.nk-plp -->

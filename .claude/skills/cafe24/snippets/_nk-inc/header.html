@@ -8,14 +8,14 @@
 
     <!-- 로고: 이미지 로고 모듈 유지, 없으면 텍스트 로고. -->
     <h1 class="nk-header__logo" module="Layout_LogoTop"><!-- ★보존 module -->
-      <a href="/">{$mall_name}</a><!-- ★보존 {$mall_name} -->
+      <a href="/">SHOP</a><!-- 여기만 바꾸세요: 쇼핑몰 이름 텍스트 또는 로고 <img>로 교체(검증본 패턴 — Layout_LogoTop 안 직접 입력) -->
     </h1>
 
     <!-- GNB: 카테고리 모듈 유지, 안쪽 li 구조·클래스는 내 것 -->
     <nav class="nk-gnb">
       <ul class="nk-gnb__list" module="Layout_category"><!-- ★보존 module -->
         <li class="nk-gnb__item xans-record-"><!-- ★보존 반복단위(렌더타임 xans-record 주입) -->
-          <a href="{$link}">{$name}</a><!-- ★보존 {$link}{$name} -->
+          <a href="{$link_product_list}">{$name_or_img_tag}</a><!-- ★보존 {$link_product_list}{$name_or_img_tag} -->
         </li>
       </ul>
     </nav>
@@ -23,10 +23,10 @@
     <!-- 유틸: 로그인 분기·검색·장바구니수 모듈 유지 -->
     <div class="nk-header__util">
       <div module="Layout_statelogoff"><a href="/member/login.html">LOGIN</a></div><!-- ★보존 분기 -->
-      <div module="Layout_statelogon"><a href="/myshop/">MYPAGE</a></div><!-- ★보존 분기 -->
+      <div module="Layout_stateLogon"><a href="/myshop/">MYPAGE</a></div><!-- ★보존 분기 -->
       <div module="Layout_SearchHeader"><!-- ★보존 검색 모듈 --></div>
       <a href="/order/basket.html" class="nk-header__cart">
-        CART <span module="Layout_orderBasketcount">{$count}</span><!-- ★보존 {$count} -->
+        CART <span module="Layout_orderBasketcount">{$basket_count}</span><!-- ★보존 {$basket_count} -->
       </a>
     </div>
 

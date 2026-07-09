@@ -1,0 +1,1458 @@
+/*
+ * nk-board.css — verified-template 게시판 목록(board/free/list.html) 전용
+ * 자기완결형 — 전부 body.nk-skin .nk-board 스코프(list.html 최상위 <div class="nk-board"> 래퍼 기준).
+ * 공유 파일(nk-tokens.css/nk-cafe24-reset.css/nk-base.css/nk-header.html/nk-footer.html/layout.html)은
+ * 절대 수정하지 않는다 — 여기서 오버라이드로만 해결.
+ * 값은 전부 nk-tokens.css의 var(--nk-*) 참조(하드코딩 hex 0건), 컴포넌트 고유 여백/크기(패딩·
+ * letter-spacing·폰트 px)만 nk-plp.css와 동일한 관례대로 리터럴로 기술
+ * (근거: design.md §2 페이지 타이틀 28px/모바일 21px + 검증 라이브 실측 —
+ *  라인 위주 미니멀 테이블, 두꺼운 박스 제거).
+ * 로드 순서: nk-tokens.css → nk-cafe24-reset.css → nk-base.css → nk-board.css(이 파일, 목록 전용).
+ *            stock의 모듈 CSS(listPackage.css/search.css/catemove.css/function.css)는 기능 CSS라
+ *            유지 — 이 파일이 명시도로 이긴다.
+ * 명시도 원칙: 항상 body.nk-skin .nk-board(타입1+클래스2) 접두로 base 클래스 체인을 이긴다.
+ * !important는 stock 행/헤더의 인라인 style({$list_bg_color}/{$list_char_color}/{$link_color})과
+ * h2 안 <font> 태그(관리자 색 주입)를 맞받는 자리에만 — 각 자리 사유 주석 필수.
+ * 중복 선언 금지(reset가 이미 전역 처리): 페이징 박스 리셋(nk-cafe24-reset.css §6 — li 테두리/배경/
+ * 현재페이지 포인트) · .ec-base-table 글자색(§8-b) · input/select 정규화(§8 — 높이·테두리·포커스).
+ * 이 파일은 게시판 특화 스타일만 추가한다.
+ */
+
+/* ================= 1) 페이지 컨테이너 ================= */
+body.nk-skin .nk-board {
+  max-width: var(--nk-content-max);
+  margin: 0 auto;
+  padding: 48px var(--nk-pad-x) 64px; /* 상하 여백 — 검증 실측 계열 */
+  box-sizing: border-box;
+  font-family: var(--nk-font-body);
+}
+
+/* ================= 2) 헤드 (정적 영문 타이틀 + 동적 한글 서브) ================= */
+body.nk-skin .nk-board .nk-board__head {
+  text-align: center;
+}
+body.nk-skin .nk-board .nk-board__title {
+  margin: 0;
+  font-family: var(--nk-font-display);
+  font-weight: 400;
+  font-size: var(--nk-fs-page-title);
+  letter-spacing: var(--nk-ls-page-title);
+  color: var(--nk-ink);
+}
+
+/* board_title_1002 — 브레드크럼(.path)/{$board_info}(p)/상단이미지(.imgArea)는 시각만 숨김
+   (마크업은 module 바인딩 보존을 위해 유지) */
+body.nk-skin .nk-board .path,
+body.nk-skin .nk-board .titleArea p,
+body.nk-skin .nk-board .imgArea {
+  display: none;
+}
+
+/* titleArea h2({$board_title}) — 동적 바인딩을 살린 중앙 서브 타이틀로 리스타일 */
+body.nk-skin .nk-board .titleArea {
+  margin: 10px 0 0;
+  padding: 0;
+  text-align: center;
+  border: 0;
+  border-bottom: 0;
+  background: transparent;
+}
+body.nk-skin .nk-board .titleArea h2 {
+  margin: 0;
+  padding: 0;
+  font-family: var(--nk-font-body);
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--nk-sub);
+  text-align: center;
+}
+body.nk-skin .nk-board .titleArea h2 font {
+  color: inherit !important; /* 사유: stock h2 안 <font> 태그(관리자 색 주입)의 color 속성 상쇄 */
+}
+
+/* ================= 3) 정렬/카테고리 바 (board_category/board_ReplySort) ================= */
+body.nk-skin .nk-board .nk-board__sort {
+  margin: 24px 0 0;
+  text-align: center;
+  font-size: 12px;
+  color: var(--nk-sub);
+}
+
+/* ================= 4) 목록 테이블 (.ec-base-table 재사용) ================= */
+/* 바깥 래퍼 — base gBorder 두꺼운 박스 제거 + 모바일 가로 스크롤 허용 */
+body.nk-skin .nk-board .nk-board__table {
+  margin: 32px 0 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  background: transparent;
+  border: none;
+}
+body.nk-skin .nk-board .nk-board__table table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 0;
+  border-top: 1px solid var(--nk-ink); /* 상단 진한 라인 — 미니멀 룰(검증 실측) */
+  background: transparent;
+  font-family: var(--nk-font-body);
+}
+/* caption/legend 시각적 숨김(sr-only 패턴 — 접근성 텍스트는 유지) */
+body.nk-skin .nk-board .nk-board__table caption,
+body.nk-skin .nk-board .boardSearch legend {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* thead — 투명 헤더 행. !important 사유: stock thead tr 인라인
+   style="{$list_bg_color} {$list_char_color}"(module 바인딩이라 마크업 보존) 상쇄 */
+body.nk-skin .nk-board .nk-board__table thead tr {
+  background-color: transparent !important;
+  color: var(--nk-font) !important;
+}
+body.nk-skin .nk-board .nk-board__table th {
+  padding: 13px 10px;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  color: var(--nk-sub);
+  text-align: center;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--nk-border);
+}
+
+/* tbody 행 — !important 사유: stock 행 인라인 {$list_bg_color}/{$list_char_color}
+   (module 색상 바인딩, 마크업 보존 대상) 상쇄 */
+body.nk-skin .nk-board .nk-board__table tbody tr {
+  background-color: var(--nk-bg) !important;
+  color: var(--nk-font) !important;
+  border-bottom: 1px solid var(--nk-line);
+}
+body.nk-skin .nk-board .nk-board__table tbody tr:hover {
+  background-color: var(--nk-bg2) !important; /* 사유: 동일 — 인라인 {$list_bg_color} 상쇄 */
+}
+/* 공지/고정 행(board_notice_1002/board_fixed_1002 tbody) — 보조 배경으로 구분.
+   !important 사유: 동일 — 인라인 {$list_bg_color} 상쇄 */
+body.nk-skin .nk-board .nk-board__tbody-notice tr,
+body.nk-skin .nk-board .nk-board__tbody-fixed tr {
+  background-color: var(--nk-bg2) !important;
+}
+
+body.nk-skin .nk-board .nk-board__table td {
+  padding: 14px 10px;
+  font-size: 13px;
+  color: var(--nk-font);
+  text-align: center;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--nk-line);
+}
+
+/* 제목 셀 — 좌측 정렬 + 본문색 링크 */
+body.nk-skin .nk-board .nk-board__table td.subject {
+  text-align: left;
+}
+body.nk-skin .nk-board .nk-board__table td.subject a {
+  color: var(--nk-font) !important; /* 사유: stock a 인라인 style="{$link_color}"(module 바인딩) 상쇄 */
+  text-decoration: none;
+}
+body.nk-skin .nk-board .nk-board__table td.subject a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+/* 댓글 수 강조 — base .txtEm 잔존 파랑(#008bcc 계열, design.md §1 금지색) 상쇄 겸 포인트 액센트 */
+body.nk-skin .nk-board .nk-board__table td.subject .txtEm {
+  color: var(--nk-point);
+}
+
+/* 빈 목록 메시지(board_empty_1002) */
+body.nk-skin .nk-board .nk-board__table .message {
+  margin: 0;
+  padding: 56px 0;
+  text-align: center;
+  font-size: 13px;
+  color: var(--nk-sub);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--nk-line);
+}
+
+/* ================= 5) 글쓰기 버튼리스트 (board_ButtonList_1002) ================= */
+body.nk-skin .nk-board .nk-board__buttons {
+  margin: 20px 0 0;
+  padding: 0;
+  text-align: right;
+  background: transparent;
+  border: 0;
+}
+body.nk-skin .nk-board .nk-board__buttons .btnSubmitFix {
+  display: inline-block;
+  padding: 10px 22px;
+  font-family: var(--nk-font-body);
+  font-size: 12px;
+  color: var(--nk-font);
+  text-decoration: none;
+  background: transparent;
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  box-sizing: border-box;
+}
+body.nk-skin .nk-board .nk-board__buttons .btnSubmitFix:hover {
+  background: var(--nk-bg2);
+}
+
+/* ================= 6) 페이징 (board_paging_1002) =================
+   박스 리셋(li 테두리/현재페이지 포인트)은 nk-cafe24-reset.css §6 · 가로 배치는 nk-components.css §5-4b */
+body.nk-skin .nk-board .nk-board__paginate {
+  margin: 32px auto 0;
+}
+
+/* ================= 7) 검색폼 (board_search_1002) =================
+   input/select 정규화(높이 var(--nk-input-h)·테두리·포커스)는 nk-cafe24-reset.css §8이
+   전역 처리 — 여기서는 배치와 찾기 버튼만. */
+body.nk-skin .nk-board .nk-board__search {
+  margin: 40px 0 0;
+}
+body.nk-skin .nk-board .boardSearch {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 0;
+  padding: 24px 0 0;
+  border: 0;
+  border-top: 1px solid var(--nk-line); /* 상단 구분선 — 라인 위주 미니멀 */
+}
+body.nk-skin .nk-board .boardSearch > p {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin: 0;
+}
+/* 찾기 버튼 — 포인트 CTA (design.md §1: --nk-point CTA 적극 사용) */
+body.nk-skin .nk-board .boardSearch .btnEmFix {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--nk-input-h);
+  padding: 0 22px;
+  font-family: var(--nk-font-body);
+  font-size: 12px;
+  color: var(--nk-on-point);
+  text-decoration: none;
+  background: var(--nk-point);
+  border: 0;
+  border-radius: var(--nk-radius);
+  box-sizing: border-box;
+  cursor: pointer;
+}
+body.nk-skin .nk-board .boardSearch .btnEmFix:hover {
+  color: var(--nk-on-point);
+  background: var(--nk-point-active);
+}
+
+/* ================= 8) 반응형 — 테이블 유지+축약(카드화 아님, 레퍼런스 방식 확정) ================= */
+@media (max-width: 1023px) {
+  body.nk-skin .nk-board {
+    padding-top: 28px;
+    padding-bottom: 40px;
+  }
+  body.nk-skin .nk-board .nk-board__table table {
+    min-width: 480px; /* 래퍼 overflow-x:auto로 가로 스크롤 허용 */
+  }
+  body.nk-skin .nk-board .nk-board__table th,
+  body.nk-skin .nk-board .nk-board__table td {
+    padding: 11px 8px;
+  }
+  body.nk-skin .nk-board .nk-board__table td {
+    font-size: 12px;
+  }
+  body.nk-skin .nk-board .nk-board__paginate {
+    margin-top: 24px;
+  }
+  /* 검색폼 — 한 줄 유지형 축약: select/input이 남는 폭을 나눠 갖는다 */
+  body.nk-skin .nk-board .boardSearch select {
+    flex: 1;
+    min-width: 68px;
+  }
+  body.nk-skin .nk-board .boardSearch input[type="text"],
+  body.nk-skin .nk-board .boardSearch input[type="search"] {
+    flex: 2;
+    min-width: 100px;
+  }
+  body.nk-skin .nk-board .boardSearch .btnEmFix {
+    padding: 0 16px;
+  }
+}
+
+@media (max-width: 767px) {
+  body.nk-skin .nk-board .nk-board__title {
+    font-size: var(--nk-fs-page-title-mo);
+    letter-spacing: var(--nk-ls-page-title);
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════
+   Wave2 추가 섹션 (§9~) — board 도메인 31페이지 리스킨
+   §1~8(free/list 목록 공통)은 수정하지 않고 아래에 append만(단일 writer 원칙).
+   스코프 규칙 동일: 항상 body.nk-skin .nk-board(--모디파이어) 접두.
+   래퍼 모디파이어: --list(목록) --read(읽기) --write(쓰기/수정, urgency 포함)
+   --reply(답변/일괄답변) --gallery(갤러리) --hub(허브) --memo(쪽지)
+   --opdiary(운영일지) + 게시판 식별 보조(--consult/--free/--inquiry/--product/--urgency).
+   값은 전부 var(--nk-*) — 신규 hex 하드코딩 0건. italic/oblique 0건.
+   ════════════════════════════════════════════════════════════════ */
+
+/* ================= 9) 목록 보강 (Wave2 목록 페이지 공통) ================= */
+/* 제목 외 셀 링크(inquiry 상품명 등) — base 잔존 파랑 링크색 방지, §4 subject와 동일 톤 */
+body.nk-skin .nk-board .nk-board__table td a {
+  color: var(--nk-font);
+  text-decoration: none;
+}
+body.nk-skin .nk-board .nk-board__table td a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+/* 갤러리 이미지형/리스트형 전환 토글(board_listheader ul) — 보더형 미니 버튼 */
+body.nk-skin .nk-board .nk-board__viewtoggle {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+}
+body.nk-skin .nk-board .nk-board__viewtoggle li a {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 14px;
+  font-family: var(--nk-font-body);
+  font-size: 11px;
+  color: var(--nk-sub);
+  text-decoration: none;
+  background: transparent;
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+}
+body.nk-skin .nk-board .nk-board__viewtoggle li a:hover {
+  color: var(--nk-font);
+  background: var(--nk-bg2);
+}
+body.nk-skin .nk-board .nk-board__viewtoggle li a img {
+  display: none; /* base gif 아이콘 — 시각만 숨김(레거시 아이콘 제거, 마크업 보존) */
+}
+
+/* ================= 10) 문서형 공통 — read / write(수정·urgency 포함) / reply ================= */
+/* 내부 폭 960px 중앙 — 전역 1920px 컨테이너 유지, 내부 요소만 좁힘(narrow 컨벤션, nk-member 방식) */
+body.nk-skin .nk-board--read > div,
+body.nk-skin .nk-board--write > div,
+body.nk-skin .nk-board--reply > div,
+body.nk-skin .nk-board--memo > div {
+  max-width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* §10-0) NK 마크업 별칭 — HTML이 nk-tabsle/nk-panel/nk-actions 사용 시 ec-base-* 동일 스타일
+   (wish_list·company와 동일 패턴: CSS는 stock 클래스만 타깃 → NK 클래스 병행) */
+body.nk-skin .nk-board--read .nk-tabsle,
+body.nk-skin .nk-board--write .nk-tabsle,
+body.nk-skin .nk-board--reply .nk-tabsle {
+  margin: 28px 0 0;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+body.nk-skin .nk-board--read .nk-tabsle table,
+body.nk-skin .nk-board--write .nk-tabsle table,
+body.nk-skin .nk-board--reply .nk-tabsle table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 0;
+  border-top: 1px solid var(--nk-ink);
+  background: transparent;
+  font-family: var(--nk-font-body);
+}
+body.nk-skin .nk-board--read .nk-tabsle th,
+body.nk-skin .nk-board--write .nk-tabsle th,
+body.nk-skin .nk-board--reply .nk-tabsle th {
+  padding: 15px 12px;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+  color: var(--nk-sub);
+  text-align: left;
+  vertical-align: top;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--nk-line);
+}
+body.nk-skin .nk-board--read .nk-tabsle td,
+body.nk-skin .nk-board--write .nk-tabsle td,
+body.nk-skin .nk-board--reply .nk-tabsle td {
+  padding: 13px 12px;
+  font-size: 13px;
+  color: var(--nk-font);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--nk-line);
+}
+/* 상품 헤드 — .nk-panel.typeProduct (ec-base-box.typeProduct 병행) */
+body.nk-skin .nk-board--read .nk-panel.typeProduct,
+body.nk-skin .nk-board--write .nk-panel.typeProduct {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin: 28px 0 0;
+  padding: 20px 24px;
+  background: transparent;
+  border: 1px solid var(--nk-line);
+  border-radius: var(--nk-radius);
+}
+body.nk-skin .nk-board--read .nk-panel.typeProduct .thumbnail,
+body.nk-skin .nk-board--write .nk-panel.typeProduct .thumbnail {
+  margin: 0;
+  flex: 0 0 auto;
+}
+body.nk-skin .nk-board--read .nk-panel.typeProduct .thumbnail img,
+body.nk-skin .nk-board--write .nk-panel.typeProduct .thumbnail img {
+  display: block;
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  background: var(--nk-bg2);
+}
+body.nk-skin .nk-board--read .nk-panel.typeProduct .information,
+body.nk-skin .nk-board--write .nk-panel.typeProduct .information {
+  min-width: 0;
+}
+body.nk-skin .nk-board--read .nk-panel.typeProduct h3,
+body.nk-skin .nk-board--write .nk-panel.typeProduct h3 {
+  margin: 0 0 4px;
+  font-family: var(--nk-font-body);
+  font-size: 14px;
+  font-weight: 400;
+  border: 0;
+  padding: 0;
+}
+body.nk-skin .nk-board--read .nk-panel.typeProduct h3 a,
+body.nk-skin .nk-board--write .nk-panel.typeProduct h3 a {
+  color: var(--nk-ink);
+  text-decoration: none;
+}
+body.nk-skin .nk-board--read .nk-panel.typeProduct .price,
+body.nk-skin .nk-board--write .nk-panel.typeProduct .price {
+  margin: 0 0 8px;
+  font-size: 13px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-board--read .nk-panel.typeProduct .button a,
+body.nk-skin .nk-board--write .nk-panel.typeProduct .button a {
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+  padding: 7px 12px;
+  font-size: 11px;
+  color: var(--nk-font);
+  text-decoration: none;
+  background: transparent;
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+}
+body.nk-skin .nk-board--read .nk-panel.typeProduct .button a:hover,
+body.nk-skin .nk-board--write .nk-panel.typeProduct .button a:hover {
+  background: var(--nk-bg2);
+}
+/* 액션 바 — .nk-actions (ec-base-button 병행) */
+body.nk-skin .nk-board--read .nk-actions,
+body.nk-skin .nk-board--write .nk-actions,
+body.nk-skin .nk-board--reply .nk-actions,
+body.nk-skin .nk-board--memo .nk-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 24px 0 0;
+  padding: 0;
+  background: transparent;
+  border: 0;
+}
+body.nk-skin .nk-board--read .nk-actions .gLeft,
+body.nk-skin .nk-board--read .nk-actions .gRight,
+body.nk-skin .nk-board--write .nk-actions .gLeft,
+body.nk-skin .nk-board--write .nk-actions .gRight,
+body.nk-skin .nk-board--reply .nk-actions .gLeft,
+body.nk-skin .nk-board--reply .nk-actions .gRight,
+body.nk-skin .nk-board--memo .nk-actions .gLeft,
+body.nk-skin .nk-board--memo .nk-actions .gRight {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  float: none;
+}
+
+/* 표 골격 — 라인 위주 미니멀(§4와 동일 문법: 상단 ink 라인 + soft 구분선, 두꺼운 박스 제거) */
+body.nk-skin .nk-board--read .ec-base-table,
+body.nk-skin .nk-board--write .ec-base-table,
+body.nk-skin .nk-board--reply .ec-base-table {
+  margin: 28px 0 0;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+body.nk-skin .nk-board--read .ec-base-table table,
+body.nk-skin .nk-board--write .ec-base-table table,
+body.nk-skin .nk-board--reply .ec-base-table table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 0;
+  border-top: 1px solid var(--nk-ink);
+  background: transparent;
+  font-family: var(--nk-font-body);
+}
+/* caption/legend 시각적 숨김(sr-only — 접근성 텍스트 유지) */
+body.nk-skin .nk-board--read table caption,
+body.nk-skin .nk-board--write table caption,
+body.nk-skin .nk-board--reply table caption,
+body.nk-skin .nk-board--read fieldset legend,
+body.nk-skin .nk-board--write fieldset legend,
+body.nk-skin .nk-board--reply fieldset legend,
+body.nk-skin .nk-board--memo fieldset legend {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+body.nk-skin .nk-board--read .ec-base-table th,
+body.nk-skin .nk-board--write .ec-base-table th,
+body.nk-skin .nk-board--reply .ec-base-table th {
+  padding: 15px 12px;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+  color: var(--nk-sub);
+  text-align: left;
+  vertical-align: top;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--nk-line);
+}
+body.nk-skin .nk-board--read .ec-base-table td,
+body.nk-skin .nk-board--write .ec-base-table td,
+body.nk-skin .nk-board--reply .ec-base-table td {
+  padding: 13px 12px;
+  font-size: 13px;
+  color: var(--nk-font);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--nk-line);
+}
+/* 본문(detail) — 읽기 여백 넉넉히 */
+body.nk-skin .nk-board--read .detail,
+body.nk-skin .nk-board--write .detail,
+body.nk-skin .nk-board--reply .detail {
+  min-height: 160px;
+  padding: 36px 6px;
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--nk-font);
+}
+/* 평점/작성일/추천/조회수 메타 바(etcArea) */
+body.nk-skin .nk-board--read .etcArea {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 24px;
+  margin: 0;
+  padding: 12px 6px;
+  list-style: none;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--nk-line);
+  font-size: 12px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-board--read .etcArea li strong {
+  margin-right: 4px;
+  font-weight: 400;
+  color: var(--nk-sub);
+}
+/* 도움말 텍스트 */
+body.nk-skin .nk-board--read .ec-base-help,
+body.nk-skin .nk-board--write .ec-base-help,
+body.nk-skin .nk-board--reply .ec-base-help {
+  font-size: 11px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-board--read .txtInfo,
+body.nk-skin .nk-board--write .txtInfo,
+body.nk-skin .nk-board--reply .txtInfo {
+  color: var(--nk-sub);
+}
+
+/* 박스(ec-base-box) — base 5px 회색 보더 함정(CP6-B, ec-base-box.css:2)을 명시도로 상쇄 */
+body.nk-skin .nk-board--read .ec-base-box,
+body.nk-skin .nk-board--write .ec-base-box,
+body.nk-skin .nk-board--reply .ec-base-box {
+  padding: 20px 24px;
+  background: transparent;
+  border: 1px solid var(--nk-line);
+  border-radius: var(--nk-radius);
+}
+body.nk-skin .nk-board--read .ec-base-box.typeThinBg {
+  margin: 20px 0 0;
+  padding: 22px 24px;
+  background: var(--nk-bg2);
+  border: 0;
+  font-size: 13px;
+  color: var(--nk-font);
+  text-align: center;
+}
+body.nk-skin .nk-board--read .ec-base-box.typeThinBg p {
+  margin: 0;
+}
+/* 상품 헤드 박스(typeProduct — product read/write, inquiry) */
+body.nk-skin .nk-board--read .ec-base-box.typeProduct,
+body.nk-skin .nk-board--write .ec-base-box.typeProduct {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin: 28px 0 0;
+}
+body.nk-skin .nk-board--read .ec-base-box.typeProduct .thumbnail,
+body.nk-skin .nk-board--write .ec-base-box.typeProduct .thumbnail {
+  margin: 0;
+  flex: 0 0 auto;
+}
+body.nk-skin .nk-board--read .ec-base-box.typeProduct .thumbnail img,
+body.nk-skin .nk-board--write .ec-base-box.typeProduct .thumbnail img {
+  display: block;
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  background: var(--nk-bg2);
+}
+body.nk-skin .nk-board--read .ec-base-box.typeProduct .information,
+body.nk-skin .nk-board--write .ec-base-box.typeProduct .information {
+  min-width: 0;
+}
+body.nk-skin .nk-board--read .ec-base-box.typeProduct h3,
+body.nk-skin .nk-board--write .ec-base-box.typeProduct h3 {
+  margin: 0 0 4px;
+  font-family: var(--nk-font-body);
+  font-size: 14px;
+  font-weight: 400;
+  border: 0;
+  padding: 0;
+}
+body.nk-skin .nk-board--read .ec-base-box.typeProduct h3 a,
+body.nk-skin .nk-board--write .ec-base-box.typeProduct h3 a {
+  color: var(--nk-ink);
+  text-decoration: none;
+}
+body.nk-skin .nk-board--read .ec-base-box.typeProduct .price,
+body.nk-skin .nk-board--write .ec-base-box.typeProduct .price {
+  margin: 0 0 8px;
+  font-size: 13px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-board--read .ec-base-box.typeProduct .button a,
+body.nk-skin .nk-board--write .ec-base-box.typeProduct .button a {
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+  padding: 7px 12px;
+  font-size: 11px;
+  color: var(--nk-font);
+  text-decoration: none;
+  background: transparent;
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+}
+body.nk-skin .nk-board--read .ec-base-box.typeProduct .button a:hover,
+body.nk-skin .nk-board--write .ec-base-box.typeProduct .button a:hover {
+  background: var(--nk-bg2);
+}
+
+/* 버튼 영역 — base typeBG 회색 배경 제거 + 여백만 */
+body.nk-skin .nk-board--read .ec-base-button,
+body.nk-skin .nk-board--write .ec-base-button,
+body.nk-skin .nk-board--reply .ec-base-button,
+body.nk-skin .nk-board--memo .ec-base-button {
+  margin: 24px 0 0;
+  padding: 0;
+  background: transparent;
+  border: 0;
+}
+/* 주 버튼(등록/수정/답변 — btnSubmit·btnEm 계열) = 포인트 CTA (design.md §1) */
+body.nk-skin .nk-board--read a.btnSubmitFix,
+body.nk-skin .nk-board--read a.btnSubmit,
+body.nk-skin .nk-board--read a.btnEmFix,
+body.nk-skin .nk-board--read a.btnEm,
+body.nk-skin .nk-board--write a.btnSubmitFix,
+body.nk-skin .nk-board--write a.btnSubmit,
+body.nk-skin .nk-board--write a.btnEmFix,
+body.nk-skin .nk-board--write a.btnEm,
+body.nk-skin .nk-board--reply a.btnSubmitFix,
+body.nk-skin .nk-board--reply a.btnSubmit,
+body.nk-skin .nk-board--reply a.btnEmFix,
+body.nk-skin .nk-board--reply a.btnEm,
+body.nk-skin .nk-board--memo a.btnSubmitFix,
+body.nk-skin .nk-board--memo a.btnSubmit,
+body.nk-skin .nk-board--memo a.btnEmFix,
+body.nk-skin .nk-board--memo a.btnEm {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 88px;
+  padding: 11px 20px;
+  font-family: var(--nk-font-body);
+  font-size: 12px;
+  color: var(--nk-on-point);
+  text-decoration: none;
+  background: var(--nk-point);
+  border: 1px solid var(--nk-point);
+  border-radius: var(--nk-radius);
+  box-sizing: border-box;
+  cursor: pointer;
+}
+body.nk-skin .nk-board--read a.btnSubmitFix:hover,
+body.nk-skin .nk-board--read a.btnSubmit:hover,
+body.nk-skin .nk-board--read a.btnEmFix:hover,
+body.nk-skin .nk-board--read a.btnEm:hover,
+body.nk-skin .nk-board--write a.btnSubmitFix:hover,
+body.nk-skin .nk-board--write a.btnSubmit:hover,
+body.nk-skin .nk-board--write a.btnEmFix:hover,
+body.nk-skin .nk-board--write a.btnEm:hover,
+body.nk-skin .nk-board--reply a.btnSubmitFix:hover,
+body.nk-skin .nk-board--reply a.btnSubmit:hover,
+body.nk-skin .nk-board--reply a.btnEmFix:hover,
+body.nk-skin .nk-board--reply a.btnEm:hover,
+body.nk-skin .nk-board--memo a.btnSubmitFix:hover,
+body.nk-skin .nk-board--memo a.btnSubmit:hover,
+body.nk-skin .nk-board--memo a.btnEmFix:hover,
+body.nk-skin .nk-board--memo a.btnEm:hover {
+  color: var(--nk-on-point);
+  background: var(--nk-point-active);
+  border-color: var(--nk-point-active);
+}
+/* 보조 버튼(목록/취소/삭제/관리자 — btnNormal·btnBasic 계열) = 보더형 */
+body.nk-skin .nk-board--read a.btnNormalFix,
+body.nk-skin .nk-board--read a.btnNormal,
+body.nk-skin .nk-board--read a.btnBasicFix,
+body.nk-skin .nk-board--write a.btnNormalFix,
+body.nk-skin .nk-board--write a.btnNormal,
+body.nk-skin .nk-board--write a.btnBasicFix,
+body.nk-skin .nk-board--reply a.btnNormalFix,
+body.nk-skin .nk-board--reply a.btnNormal,
+body.nk-skin .nk-board--reply a.btnBasicFix,
+body.nk-skin .nk-board--memo a.btnNormalFix,
+body.nk-skin .nk-board--memo a.btnNormal,
+body.nk-skin .nk-board--memo a.btnBasicFix {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  padding: 11px 20px;
+  font-family: var(--nk-font-body);
+  font-size: 12px;
+  color: var(--nk-font);
+  text-decoration: none;
+  background: transparent;
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  box-sizing: border-box;
+  cursor: pointer;
+}
+body.nk-skin .nk-board--read a.btnNormalFix:hover,
+body.nk-skin .nk-board--read a.btnNormal:hover,
+body.nk-skin .nk-board--read a.btnBasicFix:hover,
+body.nk-skin .nk-board--write a.btnNormalFix:hover,
+body.nk-skin .nk-board--write a.btnNormal:hover,
+body.nk-skin .nk-board--write a.btnBasicFix:hover,
+body.nk-skin .nk-board--reply a.btnNormalFix:hover,
+body.nk-skin .nk-board--reply a.btnNormal:hover,
+body.nk-skin .nk-board--reply a.btnBasicFix:hover,
+body.nk-skin .nk-board--memo a.btnNormalFix:hover,
+body.nk-skin .nk-board--memo a.btnNormal:hover,
+body.nk-skin .nk-board--memo a.btnBasicFix:hover {
+  background: var(--nk-bg2);
+}
+/* 인라인 소형 버튼(메타 바 추천하기·etcArea·본문 내 버튼) — 축약형 */
+body.nk-skin .nk-board--read .etcArea a.btnNormal,
+body.nk-skin .nk-board--read .report-button a {
+  padding: 5px 10px;
+  font-size: 11px;
+}
+body.nk-skin .nk-board--read .report-button {
+  margin: 12px 0 0;
+}
+
+/* 에디터 폴백 textarea + 폼 미세 정돈 (input/select 정규화는 reset §8 전역 — 중복 선언 금지) */
+body.nk-skin .nk-board--read textarea,
+body.nk-skin .nk-board--write textarea,
+body.nk-skin .nk-board--reply textarea,
+body.nk-skin .nk-board--memo textarea {
+  width: 100%;
+  max-width: 100%;
+  min-height: 150px;
+  padding: 12px;
+  font-family: var(--nk-font-body);
+  font-size: 13px;
+  color: var(--nk-font);
+  background: var(--nk-bg);
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  box-sizing: border-box;
+  resize: vertical;
+}
+body.nk-skin .nk-board--read textarea:focus,
+body.nk-skin .nk-board--write textarea:focus,
+body.nk-skin .nk-board--reply textarea:focus,
+body.nk-skin .nk-board--memo textarea:focus {
+  outline: none;
+  border-color: var(--nk-point); /* 포인트 포커스 — design.md §1 */
+}
+/* 안내 리스트(ul.info)·필수입력 표기 */
+body.nk-skin .nk-board--write ul.info {
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 11px;
+  line-height: 1.7;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-board--write ul.info li::before {
+  content: "·";
+  margin-right: 6px;
+}
+body.nk-skin .nk-board--write .required {
+  margin: 24px 0 0;
+  font-size: 11px;
+  color: var(--nk-sub);
+  text-align: right;
+}
+/* 서브 섹션 타이틀(inquiry "고객 정보"·product read "관련 글 보기") */
+body.nk-skin .nk-board--write .title h3,
+body.nk-skin .nk-board--read > div > h3 {
+  margin: 48px 0 0;
+  padding: 0 0 12px;
+  border-bottom: 0;
+  font-family: var(--nk-font-body);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  color: var(--nk-ink);
+}
+/* 일괄답변 대상 게시물 목록(board_replyList) */
+body.nk-skin .nk-board--reply td ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+body.nk-skin .nk-board--reply td ul li {
+  padding: 4px 0;
+  font-size: 12px;
+}
+body.nk-skin .nk-board--reply td ul li a {
+  color: var(--nk-font);
+  text-decoration: none;
+}
+
+/* 댓글(commentPackage) — 라인 리스트 */
+body.nk-skin .nk-board--read .boardComment {
+  margin: 48px 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--nk-ink);
+}
+body.nk-skin .nk-board--read .boardComment > li {
+  padding: 16px 6px;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--nk-line);
+}
+body.nk-skin .nk-board--read .boardComment .commentTop {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px;
+}
+body.nk-skin .nk-board--read .boardComment .commentTop .name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-board--read .boardComment .commentTop .date {
+  font-size: 11px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-board--read .boardComment .button {
+  display: inline-flex;
+  gap: 6px;
+  margin: 8px 0 0;
+}
+body.nk-skin .nk-board--read .boardComment .button a {
+  padding: 5px 10px;
+  font-size: 11px;
+}
+body.nk-skin .nk-board--read .boardComment .comment {
+  margin: 8px 0 0;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--nk-font);
+}
+body.nk-skin .nk-board--read .boardComment .thumbnail {
+  display: flex;
+  gap: 8px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+/* 댓글 입력/수정 폼(fieldset) */
+body.nk-skin .nk-board--read fieldset {
+  margin: 24px 0 0;
+  padding: 0;
+  border: 0;
+}
+body.nk-skin .nk-board--read fieldset .input {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+  margin: 0 0 10px;
+  font-size: 12px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-board--read fieldset .input strong {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-board--read fieldset .view .submit {
+  display: inline-flex;
+  gap: 6px;
+  margin: 10px 0 0;
+}
+body.nk-skin .nk-board--read .captcha {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 12px 0 0;
+  font-size: 12px;
+  color: var(--nk-sub);
+}
+
+/* 이전글/다음글(movement) */
+body.nk-skin .nk-board--read li.prev,
+body.nk-skin .nk-board--read li.next {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  padding: 13px 6px;
+  list-style: none;
+  font-size: 13px;
+  border-bottom: 1px solid var(--nk-line);
+}
+body.nk-skin .nk-board--read li.prev {
+  margin-top: 40px;
+  border-top: 1px solid var(--nk-ink);
+}
+body.nk-skin .nk-board--read li.prev strong,
+body.nk-skin .nk-board--read li.next strong {
+  flex: 0 0 56px;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-board--read li.prev a,
+body.nk-skin .nk-board--read li.next a {
+  color: var(--nk-font);
+  text-decoration: none;
+}
+body.nk-skin .nk-board--read li.prev a:hover,
+body.nk-skin .nk-board--read li.next a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ================= 11) 갤러리 그리드 (gallery/list.html 이미지형) =================
+   nk-plp 카드 그리드 감성 차용 — PC 4열 gap 70/20 · ≤1023 2열 gap 50/10 (브리프 §1 그리드). */
+body.nk-skin .nk-board--gallery .nk-board__gal {
+  margin: 32px 0 0;
+}
+body.nk-skin .nk-board--gallery .nk-board__gal ul {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 70px 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+body.nk-skin .nk-board--gallery .nk-board__gal ul li {
+  float: none;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-align: left;
+}
+body.nk-skin .nk-board--gallery .nk-board__gal li a.imgLink:first-child {
+  display: block;
+  overflow: hidden;
+  background: var(--nk-bg2);
+}
+body.nk-skin .nk-board--gallery .nk-board__gal li a.imgLink:first-child img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: center;
+}
+body.nk-skin .nk-board--gallery .nk-board__gal li a.imgLink:not(:first-child) {
+  display: block;
+  margin: 12px 0 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--nk-font);
+  text-decoration: none;
+}
+body.nk-skin .nk-board--gallery .nk-board__gal li a.imgLink:not(:first-child):hover {
+  color: var(--nk-point);
+}
+body.nk-skin .nk-board--gallery .nk-board__gal li > span {
+  display: block;
+  margin: 6px 0 0;
+  font-size: 12px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-board--gallery .nk-board__gal li > span strong {
+  font-weight: 400;
+}
+body.nk-skin .nk-board--gallery .nk-board__gal li > span em {
+  font-style: normal; /* em 기본 기울임꼴 상쇄 — 기울임꼴 금지 규칙(브리프 §2) */
+}
+/* 공지/고정(이미지형) — 상단 가로형 행 리스트 */
+body.nk-skin .nk-board--gallery .nk-board__gal-notice {
+  margin: 24px 0 0;
+  border-top: 1px solid var(--nk-ink);
+}
+body.nk-skin .nk-board--gallery .nk-board__gal-notice ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+body.nk-skin .nk-board--gallery .nk-board__gal-notice li {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 6px;
+  border-bottom: 1px solid var(--nk-line);
+}
+body.nk-skin .nk-board--gallery .nk-board__gal-notice .imgLink img {
+  display: block;
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  background: var(--nk-bg2);
+}
+body.nk-skin .nk-board--gallery .nk-board__gal-notice .description {
+  min-width: 0;
+}
+body.nk-skin .nk-board--gallery .nk-board__gal-notice .subject {
+  margin: 0;
+  font-size: 13px;
+  color: var(--nk-font);
+}
+body.nk-skin .nk-board--gallery .nk-board__gal-notice .subject a {
+  color: var(--nk-font);
+  text-decoration: none;
+}
+body.nk-skin .nk-board--gallery .nk-board__gal-notice .subject a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+body.nk-skin .nk-board--gallery .nk-board__gal-notice .description strong,
+body.nk-skin .nk-board--gallery .nk-board__gal-notice .description em {
+  display: inline-block;
+  margin: 6px 12px 0 0;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-board--gallery .nk-board__gal-notice .description em {
+  font-style: normal; /* em 기본 기울임꼴 상쇄 — 기울임꼴 금지 규칙(브리프 §2) */
+}
+/* 빈 목록 */
+body.nk-skin .nk-board--gallery .nk-board__gal-empty {
+  margin: 32px 0 0;
+  padding: 56px 0;
+  text-align: center;
+  font-size: 13px;
+  color: var(--nk-sub);
+  border-top: 1px solid var(--nk-ink);
+  border-bottom: 1px solid var(--nk-line);
+}
+body.nk-skin .nk-board--gallery .nk-board__gal-empty p {
+  margin: 0;
+}
+
+/* ================= 12) 게시판 허브 (board/index.html) ================= */
+body.nk-skin .nk-board--hub .boardMain {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px 60px;
+  margin: 40px 0 0;
+}
+/* leftArea/rightArea 없는 단독 board(자유게시판 블록)는 풀폭 */
+body.nk-skin .nk-board--hub .boardMain > .board {
+  grid-column: 1 / -1;
+}
+body.nk-skin .nk-board--hub .boardMain .leftArea,
+body.nk-skin .nk-board--hub .boardMain .rightArea {
+  float: none;
+  width: auto;
+  min-width: 0;
+}
+body.nk-skin .nk-board--hub .board h3 {
+  margin: 0 0 4px;
+  padding: 0 0 12px;
+  border-bottom: 1px solid var(--nk-ink);
+  font-family: var(--nk-font-body);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-board--hub .board .ec-base-table,
+body.nk-skin .nk-board--hub .board .nk-tabsle {
+  margin: 0;
+  border: 0;
+  background: transparent;
+}
+body.nk-skin .nk-board--hub .board table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 0;
+  background: transparent;
+  font-family: var(--nk-font-body);
+}
+body.nk-skin .nk-board--hub .board td {
+  padding: 11px 4px;
+  font-size: 13px;
+  color: var(--nk-font);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--nk-line);
+}
+body.nk-skin .nk-board--hub .board td.title a {
+  color: var(--nk-font);
+  text-decoration: none;
+}
+body.nk-skin .nk-board--hub .board td.title a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+body.nk-skin .nk-board--hub .board td.right {
+  text-align: right;
+  font-size: 12px;
+  color: var(--nk-sub);
+  white-space: nowrap;
+}
+body.nk-skin .nk-board--hub .board .btnLink {
+  display: inline-block;
+  margin: 12px 0 0;
+  padding: 0 0 2px;
+  font-size: 12px;
+  color: var(--nk-sub);
+  text-decoration: none;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--nk-border);
+}
+body.nk-skin .nk-board--hub .board .btnLink:hover {
+  color: var(--nk-point);
+  border-bottom-color: var(--nk-point);
+}
+/* 허브 갤러리 미니 목록(galleryList) */
+body.nk-skin .nk-board--hub .galleryList ul {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+body.nk-skin .nk-board--hub .galleryList li {
+  min-width: 0;
+  font-size: 12px;
+  color: var(--nk-font);
+}
+body.nk-skin .nk-board--hub .galleryList li a {
+  display: block;
+  color: var(--nk-font);
+  text-decoration: none;
+  overflow: hidden;
+}
+body.nk-skin .nk-board--hub .galleryList li img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  background: var(--nk-bg2);
+  margin: 0 0 6px;
+}
+body.nk-skin .nk-board--hub .galleryList li span {
+  display: block;
+  margin: 4px 0 0;
+  font-size: 11px;
+  color: var(--nk-sub);
+}
+
+/* ================= 13) 쪽지함 (board/memo/list.html) ================= */
+body.nk-skin .nk-board--memo fieldset {
+  margin: 28px 0 0;
+  padding: 20px;
+  border: 1px solid var(--nk-line);
+  border-radius: var(--nk-radius);
+  background: transparent;
+}
+body.nk-skin .nk-board--memo fieldset .input,
+body.nk-skin .nk-board--memo fieldset > p:first-of-type {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+  margin: 0 0 10px;
+  font-size: 12px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-board--memo fieldset p {
+  margin: 8px 0 0;
+  font-size: 12px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-board--memo .memoList {
+  margin: 36px 0 0;
+  border-top: 1px solid var(--nk-ink);
+}
+body.nk-skin .nk-board--memo .memoArea {
+  padding: 16px 6px;
+  border: 0;
+  border-bottom: 1px solid var(--nk-line);
+}
+body.nk-skin .nk-board--memo .memoArea .name {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-board--memo .memoArea .name .ip,
+body.nk-skin .nk-board--memo .memoArea .name .date {
+  margin-left: 8px;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-board--memo .memoArea .memo {
+  margin: 8px 0 0;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--nk-font);
+}
+body.nk-skin .nk-board--memo .memoArea .ec-base-button {
+  margin: 10px 0 0;
+}
+body.nk-skin .nk-board--memo .memoArea .ec-base-button a {
+  padding: 5px 10px;
+  font-size: 11px;
+}
+body.nk-skin .nk-board--memo .replyWrap .reply {
+  margin: 10px 0 0;
+  padding: 12px 0 0 24px;
+  border-top: 1px solid var(--nk-line);
+}
+body.nk-skin .nk-board--memo .commentView p,
+body.nk-skin .nk-board--memo .replyModify p {
+  font-size: 12px;
+  color: var(--nk-sub);
+}
+
+/* ================= 14) 운영일지 (board/opdiary/list.html) ================= */
+body.nk-skin .nk-board--opdiary iframe {
+  display: block;
+  width: 100%;
+  min-height: 560px;
+  margin: 32px 0 0;
+  border: 0;
+  background: transparent;
+}
+
+/* ================= 15) 긴급문의 (board/urgency/urgency.html — --write 공통 위에 추가) ================= */
+body.nk-skin .nk-board--urgency .info {
+  margin: 16px 0 0;
+  text-align: center;
+  font-size: 12px;
+  color: var(--nk-sub);
+}
+
+/* ================= 16) 상품후기/QA 목록 — 상품정보(썸네일) 열 ================= */
+body.nk-skin .nk-board--product .nk-board__table td.thumb {
+  text-align: left;
+}
+body.nk-skin .nk-board--product .nk-board__table td.thumb a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--nk-font);
+  text-decoration: none;
+}
+body.nk-skin .nk-board--product .nk-board__table td.thumb img {
+  display: block;
+  flex: 0 0 auto;
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  background: var(--nk-bg2);
+}
+body.nk-skin .nk-board--product .nk-board__table td.thumb span {
+  font-size: 12px;
+  color: var(--nk-sub);
+}
+
+/* ================= 17) 반응형 — Wave2 신규 페이지 ================= */
+@media (max-width: 1023px) {
+  /* 문서형 표 축약 */
+  body.nk-skin .nk-board--read .ec-base-table th,
+  body.nk-skin .nk-board--write .ec-base-table th,
+  body.nk-skin .nk-board--reply .ec-base-table th {
+    padding: 12px 8px;
+    font-size: 11px;
+  }
+  body.nk-skin .nk-board--read .ec-base-table td,
+  body.nk-skin .nk-board--write .ec-base-table td,
+  body.nk-skin .nk-board--reply .ec-base-table td {
+    padding: 11px 8px;
+    font-size: 12px;
+  }
+  body.nk-skin .nk-board--read .detail,
+  body.nk-skin .nk-board--write .detail,
+  body.nk-skin .nk-board--reply .detail {
+    padding: 24px 2px;
+  }
+  /* 갤러리 그리드 2열 (브리프 §1: ≤1023 2열 gap 50/10) */
+  body.nk-skin .nk-board--gallery .nk-board__gal ul {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 50px 10px;
+  }
+  /* 허브 1열 + 갤러리 미니 3열 */
+  body.nk-skin .nk-board--hub .boardMain {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  body.nk-skin .nk-board--hub .galleryList ul {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  /* 상품후기 목록 — 열 9개: 래퍼 overflow-x 스크롤 유지 폭 확대(§8 480px로는 썸네일 열 붕괴) */
+  body.nk-skin .nk-board--product .nk-board__table table {
+    min-width: 720px;
+  }
+}
+
+@media (max-width: 767px) {
+  /* stock colgroup 인라인 width(130px 계열) 상쇄 — 마크업 보존 대상이라 CSS로 맞받는다.
+     !important 사유: <col style="width:130px;"> 인라인 선언이 CSS 일반 선언보다 우선하므로 불가피. */
+  body.nk-skin .nk-board--read .ec-base-table col,
+  body.nk-skin .nk-board--write .ec-base-table col,
+  body.nk-skin .nk-board--reply .ec-base-table col {
+    width: auto !important;
+  }
+  body.nk-skin .nk-board--read .ec-base-table table,
+  body.nk-skin .nk-board--write .ec-base-table table,
+  body.nk-skin .nk-board--reply .ec-base-table table {
+    table-layout: auto; /* base gLayoutFixed(고정 레이아웃) 상쇄 — 390px 협폭 대응 */
+  }
+  body.nk-skin .nk-board--read .ec-base-table th,
+  body.nk-skin .nk-board--write .ec-base-table th,
+  body.nk-skin .nk-board--reply .ec-base-table th {
+    width: 88px;
+    box-sizing: border-box;
+  }
+  /* 상품 헤드 박스 축약 */
+  body.nk-skin .nk-board--read .ec-base-box.typeProduct .thumbnail img,
+  body.nk-skin .nk-board--write .ec-base-box.typeProduct .thumbnail img {
+    width: 56px;
+    height: 56px;
+  }
+  /* 허브 갤러리 미니 2열 */
+  body.nk-skin .nk-board--hub .galleryList ul {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ================= 18) 시각 스윕 결함 수정 (2026-07-04 sweep-defects #15·#16) ================= */
+/* #15-a: 검색어 라벨 옆 잔재 기호 — base css/module/board/search.css:3
+   `.xans-board-search p{padding-left:7px; background:url(ico_triangle3.gif)}` 삼각형 gif 불릿 상쇄.
+   (라벨 텍스트 "검색어"는 base p:before content — 유지) */
+body.nk-skin .nk-board .boardSearch p {
+  padding: 0;
+  background: none;
+}
+/* base search.css select/input 개별 margin(#search_date 22px 등) — flex gap 체계와 중복이라 정규화 */
+body.nk-skin .nk-board .boardSearch select,
+body.nk-skin .nk-board .boardSearch input {
+  margin: 0;
+}
+
+/* #15-b: PC 작성일 "YYYY-MM-DD HH:MM:SS" 2줄 랩 — 숫자 셀(.txtNum: 작성일/조회/추천) 줄바꿈 금지.
+   stock colgroup 인라인 width(77px)는 module 마크업 보존 대상 — table-layout auto라 nowrap이 열을 자연 확장 */
+body.nk-skin .nk-board .nk-board__table td .txtNum {
+  white-space: nowrap;
+}
+
+/* #16: 갤러리 상단 빈 이중 다크 라인 — 공지/고정 게시물이 없으면 board_notice_8/board_fixed_8이
+   빈 ul만 출력 → 래퍼(.nk-board__gal-notice)의 다크 border-top만 남아 본목록 라인과 중복.
+   내용(li) 없을 때 래퍼 자체 숨김(순수 시각 래퍼 — 마크업/바인딩 무관) */
+body.nk-skin .nk-board--gallery .nk-board__gal-notice:not(:has(li)) {
+  display: none;
+}
+
+/* ===== §W4) Wave4 — board stock computed purge (G5 US-014) ===== */
+/* listPackage/search.css stock #2e2e2e(46,46,46) — xans 래퍼·검색 fieldset·라벨 p */
+body.nk-skin .nk-board [class*="xans-board"],
+body.nk-skin .nk-board .boardSearch,
+body.nk-skin .nk-board .boardSearch p {
+  color: var(--nk-font);
+}
+body.nk-skin .nk-board--memo > div[class*="xans-board"],
+body.nk-skin .nk-board--memo [class*="xans-board"] {
+  border: 0 !important; /* memoPackage.css 5px rgb(232,232,232) wrapper */
+}
+body.nk-skin .nk-board--memo input[type="checkbox"],
+body.nk-skin .nk-board--memo #secure0 {
+  font-size: 13px;
+}
+/* memoPackage.css memoArea 좌우 stock border rgb(215,213,213) — 하단 라인만 유지 */
+body.nk-skin .nk-board--memo .memoArea {
+  border-left: 0;
+  border-right: 0;
+}

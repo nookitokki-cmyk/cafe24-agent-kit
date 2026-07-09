@@ -1,0 +1,1019 @@
+﻿/*
+ * nk-pdp.css — verified-template 상품상세(PDP) 전용. 자기완결 파일.
+ * 로드: product/detail.html 상단 @css — 이 파일은 PDP에서만 로드된다(전역 영향 없음).
+ * 스코프: body.nk-skin + .nk-pdp (breadcrumb만 .nk-pdp__breadcrumb 별도).
+ * 근거 문서:
+ *   - brain/docs/CAFE24-SMARTDESIGN-AGENT.md §8 (960px 2단 grid + display:contents + sticky infoArea)
+ *   - design.md (토큰 계약: 포인트 CTA --nk-point/--nk-on-point, hover --nk-point-active)
+ *   - css-conflict-map.md CP6-A/C/D/F 처방 + 선분석(2026-07-04) base detail/additional/relation.css 실측
+ *   - 검증 실측 (외곽 1920/30 + 내부 960, 상품명 22px 디스플레이,
+ *     sticky min-width:1025px, 탭 언더라인형 — 수치 참고, 복사 아님)
+ * 규칙: 색·브랜드 크기는 var(--nk-*)만(하드코딩 0) / italic 0 / !important는 base를 맞받는 자리만 + 사유 주석.
+ * 중복 금지: 전역 인풋 48px·select caret·radio accent·링크색·페이징·.nk-tabs.nk-pdp__tabsle 글자색·굴림 상쇄는
+ *   nk-cafe24-reset.css가 이미 처리 — 여기서는 PDP 고유 예외만 재지정한다.
+ */
+
+/* ── 0) 페이지 국소 변수 ─────────────────────────────────────────────────
+   전역 토큰(nk-tokens.css)에 없는 PDP 전용 실측값. nk-tokens.css는 공유 파일(이 팀 소유권 밖)이라
+   여기 국소 선언 — 승격 여부는 최종 보고 "공유 파일 요청" 항목 참조. */
+body.nk-skin .nk-pdp {
+  --nk-pdp-title-fs: 22px; /* 검증 실측: PDP 상품명 h1 22px / lh 1.35 / 디스플레이 400 */
+  --nk-pdp-cta-h: 54px; /* 레퍼런스 CTA 버튼 min-height 54px */
+  --nk-pdp-cta-fs: 14px; /* 레퍼런스 CTA 버튼 font-size 14px */
+}
+
+/* ── 1) 페이지 골격 — 외곽은 전역 컨테이너, 내부 .nk-pdp만 960px 캡 ───────
+   외곽 1920px/30px는 전역 규칙 그대로, PDP는 내부 폭만 --nk-pdp-max로 좁힌다. */
+body.nk-skin .nk-pdp {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: calc(var(--nk-pdp-max) + (var(--nk-pad-x) * 2));
+  margin: 0 auto;
+  padding: 40px var(--nk-pad-x) 80px;
+}
+
+/* 브레드크럼: module(product_headcategory)·변수 바인딩은 보존, 표시만 숨김 — 레퍼런스 PDP 동일(숨김) */
+body.nk-skin .nk-pdp__breadcrumb {
+  display: none;
+}
+
+/* sticky 보장(F2 계열): 조상 어느 하나라도 overflow가 스크롤 컨테이너를 만들면 sticky 무력화.
+   이 파일은 PDP에서만 로드되므로 전역 부작용 없음. body는 reset §1의 overflow-x:clip(스크롤 컨테이너 안 만듦) 유지. */
+body.nk-skin #container,
+body.nk-skin #contents {
+  overflow: visible;
+}
+
+/* ── 2) PC 2단 grid (AGENT.md §8 검증 패턴) ──────────────────────────────
+   .nk-pdp(grid) + 중간 래퍼 display:contents + 우측 .infoArea sticky. */
+@media (min-width: 1025px) {
+  body.nk-skin .nk-pdp {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.85fr); /* 좌 이미지+상세 / 우 구매정보(레퍼런스 비율 참고) */
+    column-gap: 40px;
+    align-items: start;
+  }
+  /* 중간 래퍼를 녹여 imgArea/infoArea/공급사/이벤트를 grid 아이템으로 */
+  body.nk-skin .nk-pdp .nk-pdp__detail,
+  body.nk-skin .nk-pdp .detailArea {
+    display: contents;
+  }
+  /* 기본 배치: 모든 아이템 좌측 컬럼(쿠폰 @import 산출물·상세탭·관련상품 포함) */
+  body.nk-skin .nk-pdp > *,
+  body.nk-skin .nk-pdp .nk-pdp__detail > *,
+  body.nk-skin .nk-pdp .detailArea > * {
+    grid-column: 1;
+    min-width: 0;
+  }
+  body.nk-skin .nk-pdp .imgArea {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  /* 우측 구매정보 — 스크롤 내내 sticky */
+  body.nk-skin .nk-pdp .infoArea {
+    grid-column: 2;
+    grid-row: 1 / -1;
+    align-self: start;
+    position: sticky;
+    top: calc(var(--nk-topbar-h) + var(--nk-header-h) + 20px); /* 고정 헤더 스택(nk-base.css #container padding-top와 동일 산식) 아래로 */
+    margin: 0 !important; /* !important 사유: F18 방어 — base 구 2단 float 잔재 margin이 grid에서 우측 컬럼을 밀어 잘림 유발(AGENT.md F18) */
+    padding-left: 0 !important; /* !important 사유: 위와 동일(F18 세트 처방) */
+  }
+}
+
+/* ── 3) detailArea/imgArea 구 float 골격 해체 (선분석 A-1) ──────────────── */
+body.nk-skin .nk-pdp .detailArea {
+  padding: 0 !important; /* !important 사유: base detail.css:2 .xans-product-detail .detailArea{padding:0 0 0 540px} 구 float 2단 — grid 미적용 폭(모바일)까지 전 뷰포트에서 확실 해체 */
+  position: relative;
+}
+body.nk-skin .nk-pdp .imgArea {
+  float: none !important; /* !important 사유: base detail.css:14 .imgArea{float:left;width:546px;margin:0 0 0 -546px} 고정폭·float·음수마진 뒤집기(reset §2와 동일 사유) */
+  width: 100% !important; /* !important 사유: 상동(고정폭 546px 해제) */
+  margin: 0 !important; /* !important 사유: 상동(음수마진 -546px 해제) */
+  min-width: 0;
+}
+
+/* 대표 이미지 — 346px 캡 해제, 유동 폭 */
+body.nk-skin .nk-pdp .imgArea .keyImg {
+  width: 100%; /* base detail.css: .keyImg{width:346px} 상쇄 */
+  margin: 0;
+}
+body.nk-skin .nk-pdp .imgArea .keyImg .thumbnail {
+  position: relative;
+  background: var(--nk-bg2);
+  border-radius: var(--nk-radius);
+  overflow: hidden;
+}
+body.nk-skin .nk-pdp .imgArea .keyImg .thumbnail > a {
+  display: block;
+}
+body.nk-skin .nk-pdp .imgArea .keyImg img {
+  display: block;
+  width: 100%;
+  max-width: 100%; /* base detail.css: .keyImg img{max-width:344px;border:1px solid #ececec} 상쇄 */
+  height: auto;
+  border: 0;
+}
+
+/* CP6-F 위시 아이콘 (base detail.css:34) — width:auto!important/border:0!important는 무해라 그대로 두고,
+   non-important인 position(top:10px,left:10px)·z-index만 재지정: 우상단 재배치 + z-index 1000→10
+   (고정 헤더 스택 관통 방지 — 스크롤 시 아이콘이 헤더 위로 떠오르는 실측 결함 예방). */
+body.nk-skin .nk-pdp .imgArea .thumbnail .wish {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  left: auto;
+  z-index: 10;
+}
+
+/* 추가 이미지 썸네일 리스트 — min-width:400px 가로스크롤 트랩 해체 */
+body.nk-skin .nk-pdp .imgArea .listImg {
+  width: 100%; /* base detail.css: .listImg{width:346px} 상쇄 */
+  margin: 12px 0 0;
+}
+body.nk-skin .nk-pdp .imgArea .listImg ul {
+  min-width: 0; /* base detail.css: .listImg ul{min-width:400px} — 모바일 가로 오버플로 차단 */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+body.nk-skin .nk-pdp .imgArea .listImg li {
+  float: none;
+  margin: 0;
+}
+body.nk-skin .nk-pdp .imgArea .listImg img {
+  display: block;
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border: 1px solid var(--nk-line);
+  border-radius: var(--nk-radius);
+}
+
+/* 확대보기 — base 박스(background:#fbfafa;border:#d7d5d5) 해체 → 미니멀 텍스트 링크 */
+body.nk-skin .nk-pdp .imgArea .control {
+  background: transparent; /* base detail.css:27 상쇄 */
+  border: 0;
+  padding: 8px 0 0;
+  margin: 0;
+  text-align: right;
+}
+body.nk-skin .nk-pdp .imgArea .control img {
+  display: none; /* echosting gif 아이콘 숨김 — 기능(window.open 링크)은 텍스트로 유지 */
+}
+body.nk-skin .nk-pdp .imgArea .control .btnZoom {
+  font-size: var(--nk-fs-util); /* base detail.css .control a 12px 상쇄 */
+  letter-spacing: 0.5px;
+  color: var(--nk-sub);
+  text-decoration: none;
+}
+body.nk-skin .nk-pdp .imgArea .control .btnZoom:hover {
+  color: var(--nk-point);
+}
+
+/* 컬러칩 */
+body.nk-skin .nk-pdp .imgArea .color {
+  margin: 12px 0 0;
+}
+body.nk-skin .nk-pdp .imgArea .color .chips {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin: 0 4px 0 0;
+  border: 1px solid var(--nk-line);
+  border-radius: 50%;
+}
+
+/* 이미지 하단 보조 액션(추천메일/상품조르기/대량구매문의) — module 기능 보존, 미니멀 텍스트 행으로 */
+body.nk-skin .nk-pdp .nk-pdp__imgactions {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 16px 0 0;
+}
+body.nk-skin .nk-pdp .nk-pdp__imgactions .nk-btn.nk-btn--line {
+  height: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-size: var(--nk-fs-util);
+  letter-spacing: 0.25px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-pdp .nk-pdp__imgactions .nk-btn.nk-btn--line:hover {
+  color: var(--nk-point);
+}
+
+/* 좋아요 버튼 */
+body.nk-skin .nk-pdp .likeButton {
+  margin: 12px 0 0;
+}
+body.nk-skin .nk-pdp .likeButton button {
+  padding: 6px 12px;
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  background: transparent;
+  cursor: pointer;
+}
+body.nk-skin .nk-pdp .likeButton button span {
+  font-family: var(--nk-font-body); /* base detail.css .likeButton button span{font-family:Gulim} 상쇄 — reset §1은 button 태그까지만, 내부 span은 못 잡음 */
+  font-size: var(--nk-fs-util);
+  color: var(--nk-sub);
+}
+
+/* ── 4) infoArea — 미니멀 정보 위계 ──────────────────────────────────────
+   상품명(h1) → 기본정보 표 → 옵션/수량 → 합계 → 포인트 CTA 순. */
+
+/* 상품명 헤딩 (headingArea를 infoArea 최상단으로 이동한 상태) */
+body.nk-skin .nk-pdp .nk-pdp__heading {
+  margin: 0 0 20px;
+  padding: 0 0 16px;
+  border-bottom: 1px solid var(--nk-line); /* base detail.css:6 .headingArea{border-bottom:#e8e8e8} 대체 */
+}
+body.nk-skin .nk-pdp .nk-pdp__name {
+  margin: 0;
+  font-family: var(--nk-font-display);
+  font-size: var(--nk-pdp-title-fs);
+  font-weight: 400;
+  line-height: 1.35;
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-pdp .nk-pdp__heading .delivery {
+  display: inline-block;
+  margin: 6px 0 0;
+  font-size: var(--nk-fs-util);
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-pdp .nk-pdp__heading .icon {
+  display: block;
+  margin: 6px 0 0;
+}
+
+/* infoArea 공통 표(기본정보/렌탈/정기결제/옵션) — 12px·회색 격자 해체, 행 간결화 */
+body.nk-skin .nk-pdp .infoArea table {
+  width: 100%;
+  font-size: var(--nk-fs-body); /* base detail.css:52 .infoArea table{font-size:12px} 상쇄 */
+  border: 0;
+  border-collapse: collapse;
+}
+body.nk-skin .nk-pdp .infoArea th {
+  width: 96px;
+  padding: 7px 0;
+  border: 0;
+  background: transparent;
+  font-weight: 400;
+  text-align: left;
+  vertical-align: top;
+  color: var(--nk-sub); /* base detail.css:53 th{color:#353535;background:#fbfafa} 톤 대체 */
+}
+body.nk-skin .nk-pdp .infoArea td {
+  padding: 7px 0;
+  border: 0;
+  color: var(--nk-font);
+}
+
+/* 옵션 select — base detail.css:57 .infoArea select{height:24px;font-size:12px}가
+   전역 reset §8(0,1,2)을 명시도(0,2,1)로 되이기는 지점 — 여기서 재확정(선분석 A-6). */
+body.nk-skin .nk-pdp .infoArea select {
+  width: 100%;
+  max-width: 100%;
+  height: var(--nk-input-h);
+  font-size: var(--nk-fs-body);
+}
+body.nk-skin .nk-pdp .infoArea .value {
+  margin: 6px 0 0;
+  color: var(--nk-sub);
+  font-size: var(--nk-fs-util);
+}
+
+/* 수량 위젯 컴팩트 — 전역 reset §8 48px가 base 22×23px 수량칸을 비대화(선분석 A-6).
+   .xans-product-detail 스코프 필수: 장바구니 등 타 페이지의 .nk-qty 보존(AGENT.md ★ 글로벌 input 침범 전수 점검). */
+body.nk-skin .xans-product-detail .nk-qty {
+  position: relative;
+  display: inline-flex;
+  align-items: stretch;
+  gap: 4px;
+}
+body.nk-skin .xans-product-detail .nk-qty input[type="text"] {
+  width: 44px;
+  height: 34px;
+  padding: 0;
+  text-align: center;
+  font-size: var(--nk-fs-body);
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  background: var(--nk-bg);
+}
+/* base ec-base-ui.css의 절대배치(up left:27px 등) 해제 → 인라인 흐름 버튼화 */
+body.nk-skin .xans-product-detail .nk-qty a.qtyUp,
+body.nk-skin .xans-product-detail .nk-qty a.qtyDown {
+  position: static;
+  left: auto;
+  top: auto;
+  bottom: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 34px;
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  background: var(--nk-bg);
+}
+
+/* 주문수량 안내/사이즈 가이드 */
+body.nk-skin .nk-pdp .guideArea {
+  margin: 8px 0 0;
+}
+body.nk-skin .nk-pdp .guideArea .info {
+  font-size: var(--nk-fs-util);
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-pdp .guideArea .sizeGuide a {
+  font-size: var(--nk-fs-util);
+  color: var(--nk-sub);
+  text-decoration: underline;
+}
+body.nk-skin .nk-pdp .guideArea .sizeGuide a:hover {
+  color: var(--nk-point);
+}
+
+/* 세트상품/추가구성상품 박스 — 회색 격자(#d7d5d5/#fbfafa) 톤 대체 (선분석 A-8) */
+body.nk-skin .nk-pdp .productSet {
+  margin: 16px 0 0;
+  border: 1px solid var(--nk-line); /* base detail.css:155 .productSet{border:#d7d5d5} 대체 */
+  border-radius: var(--nk-radius);
+}
+body.nk-skin .nk-pdp .productSet .title {
+  background: var(--nk-bg2); /* base detail.css:156 .title{background:#fbfafa} 대체 */
+}
+body.nk-skin .nk-pdp .productSet .title h3 {
+  font-family: var(--nk-font-display);
+  font-size: var(--nk-fs-body);
+  font-weight: 400;
+  color: var(--nk-ink);
+}
+
+/* 선택 상품 목록(#totalProducts) — id는 {$total.total_id} 런타임 값. base가 id 명시도로 지정한
+   격자색만 토큰으로 교정(선분석 A-6: 수량칸 22px 원형은 base id 규칙이 유지 — 의도적 보존). */
+body.nk-skin #totalProducts table {
+  width: 100%;
+  table-layout: fixed;
+}
+body.nk-skin #totalProducts table th,
+body.nk-skin #totalProducts table td {
+  border: 0;
+  border-color: transparent;
+  font-size: var(--nk-fs-body);
+}
+body.nk-skin #totalProducts table thead th {
+  background: var(--nk-bg2);
+  color: var(--nk-sub);
+  font-weight: 400;
+}
+/* W4: stock thead(상품명/상품수/가격) — 옵션 행 자체가 라벨 역할, 중복 헤더는 CSS로 숨김(마크업·module 바인딩 보존) */
+body.nk-skin #totalProducts table thead {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+body.nk-skin #totalProducts tbody tr:first-child td {
+  border-top-color: var(--nk-line); /* base detail.css:217 tr:first-child td{border-top:#9a9ba0} 대체 */
+}
+body.nk-skin #totalProducts table .right {
+  color: var(--nk-font); /* CP6-D: base detail.css:197 #totalProducts .right{color:#008bcc} 상쇄 */
+}
+
+/* #totalProducts 수량열(td:nth-child(2)) — detail.css .quantity{position:relative;width:50px}
+   + .up/.down{position:absolute;left:28px;세로스택} 해제 → 좌[-]·중[input]·우[+] (검증 패턴 + Phosphor) */
+body.nk-skin #totalProducts tbody td:nth-child(2) {
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+body.nk-skin #totalProducts .quantity,
+body.nk-skin #totalProducts .quantity.nk-qty {
+  position: relative;
+  display: inline-block;
+  width: 96px;
+  padding: 0 32px;
+  margin: 0;
+  box-sizing: border-box;
+  vertical-align: middle;
+}
+body.nk-skin #totalProducts .quantity input,
+body.nk-skin #totalProducts .quantity input[type="text"],
+body.nk-skin #totalProducts .quantity .quantity_opt {
+  width: 100%;
+  height: 34px;
+  margin: 0;
+  padding: 0;
+  line-height: 34px;
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  background: var(--nk-bg);
+  color: var(--nk-font);
+  font-size: var(--nk-fs-body);
+  text-align: center;
+  box-sizing: border-box;
+}
+body.nk-skin #totalProducts .quantity a.up,
+body.nk-skin #totalProducts .quantity a.down,
+body.nk-skin #totalProducts .quantity a.qtyUp,
+body.nk-skin #totalProducts .quantity a.qtyDown {
+  position: absolute;
+  top: 0;
+  width: 32px;
+  height: 34px;
+  margin: 0;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  background: var(--nk-bg);
+  color: var(--nk-font);
+  text-decoration: none;
+}
+body.nk-skin #totalProducts .quantity a.down,
+body.nk-skin #totalProducts .quantity a.qtyDown {
+  left: 0;
+  right: auto;
+}
+body.nk-skin #totalProducts .quantity a.up,
+body.nk-skin #totalProducts .quantity a.qtyUp {
+  right: 0;
+  left: auto;
+}
+body.nk-skin #totalProducts .quantity a i {
+  font-size: 14px;
+  line-height: 1;
+}
+body.nk-skin #totalProducts .quantity img {
+  display: none;
+}
+/* base detail.css: 옵션추가 행은 input 19px·down bottom:0 — 동일 높이·좌우 배치로 통일 */
+body.nk-skin #totalProducts tbody.option_products tr td .quantity input,
+body.nk-skin #totalProducts tbody.add_products tr td .quantity input {
+  height: 34px;
+  line-height: 34px;
+}
+body.nk-skin #totalProducts tbody.option_products tr td .quantity .down,
+body.nk-skin #totalProducts tbody.add_products tr td .quantity .down {
+  top: 0;
+  bottom: auto;
+}
+
+/* 총 상품금액(TOTAL) — 박스(#fff/#9a9ba0) 해체 → ink 강조선 1줄 (선분석 A-8) */
+body.nk-skin .nk-pdp .totalPrice {
+  margin: 24px 0 0;
+  padding: 18px 0;
+  border-top: 1px solid var(--nk-ink); /* base detail.css:232 border-top:#9a9ba0 대체 */
+  border-bottom: 0;
+  background: transparent; /* base detail.css:232 background:#fff 대체 */
+  text-align: right;
+  font-family: var(--nk-font-display);
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-pdp .totalPrice > strong {
+  font-size: var(--nk-fs-body);
+  font-weight: 400;
+  letter-spacing: 0.5px;
+}
+body.nk-skin .nk-pdp .totalPrice .total {
+  color: var(--nk-ink); /* CP6-D: base detail.css:234 .totalPrice .total{color:#008bcc} 상쇄 */
+}
+body.nk-skin .nk-pdp .totalPrice .total em {
+  font-size: var(--nk-pdp-title-fs);
+  font-style: normal; /* 브라우저 기본 em italic 차단 — italic 금지 하드룰 */
+}
+
+/* ── 5) CTA — 포인트 (design.md 계약: --nk-point + --nk-on-point, hover --nk-point-active) ── */
+body.nk-skin .nk-pdp .nk-pdp__cta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 20px 0 0;
+}
+body.nk-skin .nk-pdp .nk-pdp__cta .nk-btn.nk-btn--primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--nk-pdp-cta-h);
+  padding: 0 20px;
+  border: 1px solid var(--nk-point);
+  border-radius: var(--nk-radius);
+  background: var(--nk-point);
+  color: var(--nk-on-point);
+  font-family: var(--nk-font-display);
+  font-size: var(--nk-pdp-cta-fs);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+body.nk-skin .nk-pdp .nk-pdp__cta .nk-btn.nk-btn--primary:hover {
+  background: var(--nk-point-active);
+  border-color: var(--nk-point-active);
+  color: var(--nk-on-point);
+}
+body.nk-skin .nk-pdp .nk-pdp__cta .nk-btn.nk-btn--line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--nk-pdp-cta-h);
+  padding: 0 20px;
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  background: transparent;
+  color: var(--nk-font);
+  font-family: var(--nk-font-display);
+  font-size: var(--nk-pdp-cta-fs);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+body.nk-skin .nk-pdp .nk-pdp__cta .nk-btn.nk-btn--line:hover {
+  border-color: var(--nk-point);
+  color: var(--nk-point);
+}
+body.nk-skin .nk-pdp .nk-pdp__cta .btnEm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--nk-pdp-cta-h);
+  border: 1px solid var(--nk-line);
+  border-radius: var(--nk-radius);
+  background: var(--nk-bg2);
+  color: var(--nk-sub);
+  font-family: var(--nk-font-display);
+  font-size: var(--nk-pdp-cta-fs);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* 회원 혜택 박스(myshop_asyncbenefit) — base .nk-panel 5px 회색 테두리(CP6-B 계열) 톤 대체 */
+body.nk-skin .nk-pdp .nk-pdp__actions .nk-panel.typeMember {
+  margin: 16px 0 0;
+  padding: 16px;
+  border: 1px solid var(--nk-line);
+  border-radius: var(--nk-radius);
+  background: var(--nk-bg2);
+  color: var(--nk-sub);
+  font-size: var(--nk-fs-util);
+}
+/* G3 asyncbenefit: 비회원·혜택 없음 — 외곽 {$display_benefit|display}→displaynone (stock 패턴) + 자식 이중 숨김 폴백 */
+body.nk-skin .nk-pdp .nk-pdp__actions .xans-myshop-asyncbenefit.displaynone,
+body.nk-skin .nk-pdp .nk-pdp__actions [module="myshop_asyncbenefit"].displaynone,
+body.nk-skin .nk-pdp .nk-pdp__actions [module="myshop_asyncbenefit"]:has(.message.displaynone):has(.information.displaynone),
+body.nk-skin .nk-pdp .nk-pdp__actions .nk-panel.typeMember.gMessage:not(:has(.message:not(.displaynone), .information:not(.displaynone))) {
+  display: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+body.nk-skin .nk-pdp .nk-pdp__actions [module="myshop_asyncbenefit"] .information {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+body.nk-skin .nk-pdp .nk-pdp__actions [module="myshop_asyncbenefit"] .thumbnail img {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 1px solid var(--nk-border);
+}
+body.nk-skin .nk-pdp .nk-pdp__actions [module="myshop_asyncbenefit"] .description p {
+  margin: 0 0 4px;
+  line-height: 1.6;
+}
+
+/* CP6-D 잔여 레거시 색 일괄 치환 (css-conflict-map §3 목록) */
+body.nk-skin .nk-pdp .ec-product-button .ec-product-selected {
+  border-color: var(--nk-point); /* base detail.css: 옵션버튼 선택 강조 #495164 → 포인트 */
+}
+body.nk-skin .nk-pdp .txtByte strong {
+  color: var(--nk-point); /* base detail.css: .txtByte strong #008bcc 상쇄 */
+}
+body.nk-skin .nk-pdp .mileage_tooltip .mileage_layer p strong {
+  color: var(--nk-point); /* base detail.css:124 #008BCC 상쇄 */
+}
+body.nk-skin .nk-pdp .eventArea h3 {
+  color: var(--nk-font); /* base detail.css:132 .eventArea h3{color:#008bcc} 상쇄 */
+  font-family: var(--nk-font-display);
+  font-weight: 400;
+}
+body.nk-skin .nk-pdp .regularDelivery .badge {
+  background: var(--nk-point); /* base detail.css:293 .badge{background:#009ffa;font-family:돋움} 상쇄 */
+  color: var(--nk-on-point);
+  font-family: var(--nk-font-body);
+}
+body.nk-skin .nk-pdp .differentialShipping h3.title {
+  background: var(--nk-ink); /* base detail.css:239 h3.title{background:#495164} 상쇄 */
+  color: var(--nk-on-dark);
+}
+
+/* CP6-A(참고): ec-base-ui.css:62-63 tr.radioType/span.noBorder input{...!important}는 커스텀 스킨
+   라디오를 만들지 않는 한 무해(보호 규칙) — reset §8 accent-color만 신뢰, 추가 스타일 없음(처방 완료). */
+
+/* ── 6) 상세정보 탭 (CP6-C) — 앵커 점프 → JS 단일 패널 전환(nk-pdp-tabs.js) ─────────────
+   탭 바: .nk-pdp__tabs-bar 1개 · 패널: .nk-pdp__panel(#prdDetail~#prdRelated) */
+body.nk-skin .nk-pdp .nk-tabs.nk-pdp__tabs,
+body.nk-skin .nk-pdp .nk-pdp__tabs-bar {
+  margin: 64px 0 0;
+  position: relative;
+}
+body.nk-skin .nk-pdp .nk-tabs.nk-pdp__tabs .nk-tabs__nav,
+body.nk-skin .nk-pdp .nk-pdp__tabs-bar .nk-tabs__nav {
+  display: flex;
+  margin: 0 0 24px;
+  border: 0;
+  border-bottom: 1px solid var(--nk-line);
+  background: transparent;
+  overflow-x: auto; /* 모바일: 탭 가로 스크롤 */
+}
+body.nk-skin .nk-pdp .nk-tabs.nk-pdp__tabs .nk-tabs__nav li,
+body.nk-skin .nk-pdp .nk-pdp__tabs-bar .nk-tabs__nav li {
+  float: none;
+  flex: 0 0 auto;
+  border: 0;
+  background: transparent;
+}
+body.nk-skin .nk-pdp .nk-tabs.nk-pdp__tabs.gFlex .nk-tabs__nav li:last-child {
+  border-right: 0; /* base: gFlex li:last-child{border-right:1px} 상쇄 */
+}
+body.nk-skin .nk-pdp .nk-tabs.nk-pdp__tabs .nk-tabs__nav li a,
+body.nk-skin .nk-pdp .nk-tabs.nk-pdp__tabs .nk-tabs__nav li .nk-tabs__btn,
+body.nk-skin .nk-pdp .nk-pdp__tabs-bar .nk-tabs__nav li a,
+body.nk-skin .nk-pdp .nk-pdp__tabs-bar .nk-tabs__nav li .nk-tabs__btn {
+  display: block;
+  min-width: 0; /* base: li a{min-width:187px} 상쇄 */
+  margin: 0;
+  padding: 12px 16px;
+  border: 0;
+  background: transparent;
+  font-family: var(--nk-font-display);
+  font-size: var(--nk-fs-body);
+  letter-spacing: 0.5px;
+  color: var(--nk-sub);
+  white-space: nowrap;
+  cursor: pointer;
+}
+body.nk-skin .nk-pdp .nk-tabs.nk-pdp__tabs.gFlex .nk-tabs__nav li a::after {
+  content: none; /* base gFlex의 전면 커버 가상요소 제거 — li 재배치 시 클릭영역 오염 방지 */
+}
+body.nk-skin .nk-pdp .nk-tabs.nk-pdp__tabs .nk-tabs__nav li a:hover,
+body.nk-skin .nk-pdp .nk-tabs.nk-pdp__tabs .nk-tabs__nav li .nk-tabs__btn:hover,
+body.nk-skin .nk-pdp .nk-pdp__tabs-bar .nk-tabs__nav li a:hover,
+body.nk-skin .nk-pdp .nk-pdp__tabs-bar .nk-tabs__nav li .nk-tabs__btn:hover {
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-pdp .nk-tabs.nk-pdp__tabs .nk-tabs__nav li.is-active,
+body.nk-skin .nk-pdp .nk-pdp__tabs-bar .nk-tabs__nav li.is-active {
+  border: 0;
+  background: transparent; /* base: li.is-active{border:#292929;background:#4a5164} 상쇄 */
+}
+body.nk-skin .nk-pdp .nk-tabs.nk-pdp__tabs .nk-tabs__nav li.is-active a,
+body.nk-skin .nk-pdp .nk-tabs.nk-pdp__tabs .nk-tabs__nav li.is-active .nk-tabs__btn,
+body.nk-skin .nk-pdp .nk-tabs.nk-pdp__tabs.gFlex .nk-tabs__nav li.is-active a,
+body.nk-skin .nk-pdp .nk-pdp__tabs-bar .nk-tabs__nav li.is-active a,
+body.nk-skin .nk-pdp .nk-pdp__tabs-bar .nk-tabs__nav li.is-active .nk-tabs__btn {
+  position: static;
+  top: auto;
+  left: auto;
+  margin: 0;
+  border: 0;
+  background: transparent;
+  color: var(--nk-ink);
+  font-weight: 400;
+  box-shadow: inset 0 -2px 0 var(--nk-point); /* 선택 탭 = 포인트 언더라인(레이아웃 시프트 없는 밑줄) */
+}
+
+/* 탭 패널 — JS가 .is-active 단일 노출(nk-pdp-tabs.js) */
+body.nk-skin .nk-pdp .nk-pdp__panel {
+  display: none;
+  margin: 0;
+}
+body.nk-skin .nk-pdp .nk-pdp__panel.is-active {
+  display: block;
+}
+body.nk-skin .nk-pdp .nk-pdp__panel[hidden] {
+  display: none !important; /* 사유: base/브라우저 hidden과 .is-active 토글 동기화 */
+}
+
+/* 탭 콘텐츠 */
+body.nk-skin .nk-pdp .nk-tabs.nk-pdp__tabs .cont,
+body.nk-skin .nk-pdp .nk-pdp__panel .cont {
+  padding: 8px 0 40px;
+  font-size: var(--nk-fs-body);
+  color: var(--nk-font);
+}
+body.nk-skin .nk-pdp .nk-tabs.nk-pdp__tabs .cont h3,
+body.nk-skin .nk-pdp .nk-pdp__panel .cont h3,
+body.nk-skin .nk-pdp .nk-tabs.nk-pdp__tabs .board h3,
+body.nk-skin .nk-pdp .nk-pdp__panel .board h3,
+body.nk-skin .nk-pdp .relation h3 {
+  margin: 0 0 16px;
+  font-family: var(--nk-font-display);
+  font-size: var(--nk-fs-gnb);
+  font-weight: 400;
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-pdp #prdDetail img {
+  max-width: 100%;
+  height: auto; /* additional.css:1과 동치(무해 기본값) — 관리자 상세이미지 반응형 명시 */
+}
+body.nk-skin .nk-pdp .cont .delivery li {
+  padding: 2px 0;
+}
+body.nk-skin .nk-pdp .board .desc {
+  margin: 0 0 12px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-pdp .board .nodata,
+body.nk-skin .nk-pdp .board .noAccess {
+  padding: 40px 0;
+  text-align: center;
+  color: var(--nk-sub); /* additional.css 레거시 블루(#008bcc 계열) 상쇄 — CP6-D */
+  border: 0;
+  border-top: 0;
+  border-bottom: 0;
+}
+body.nk-skin .nk-pdp .minor strong {
+  color: var(--nk-point); /* additional.css 미성년 경고 강조 블루 상쇄 — CP6-D */
+}
+
+/* 리뷰/Q&A 표 — 격자·헤더 톤(글자색 자체는 reset §8-b가 전역 처리) */
+body.nk-skin .nk-pdp .nk-tabs.nk-pdp__tabsle table {
+  border-color: var(--nk-line);
+}
+body.nk-skin .nk-pdp .nk-tabs.nk-pdp__tabsle table::before {
+  background: var(--nk-line); /* base ec-base-table.css table:before 상단선 #d7d5d5 대체 */
+}
+body.nk-skin .nk-pdp .nk-tabs.nk-pdp__tabsle thead th {
+  background: transparent;
+  border-color: var(--nk-line);
+  color: var(--nk-sub);
+  font-weight: 400;
+}
+body.nk-skin .nk-pdp .nk-tabs.nk-pdp__tabsle td,
+body.nk-skin .nk-pdp .nk-tabs.nk-pdp__tabsle tbody th {
+  border-color: var(--nk-line);
+}
+
+/* 리뷰/Q&A 하단 버튼(후기쓰기/문의하기/모두 보기) — 라인 버튼 소형 */
+body.nk-skin .nk-pdp .board .nk-pdp__btnrow {
+  border: 0;
+  padding: 12px 0;
+}
+body.nk-skin .nk-pdp .board .nk-pdp__btnrow .nk-btn.nk-btn--line {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  padding: 0 16px;
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  background: transparent;
+  color: var(--nk-font);
+  font-size: var(--nk-fs-util);
+}
+body.nk-skin .nk-pdp .board .nk-pdp__btnrow .nk-btn.nk-btn--line:hover {
+  border-color: var(--nk-point);
+  color: var(--nk-point);
+}
+/* 페이징(reviewpaging/qnapaging)은 reset §6 전역 처방이 그대로 적용 — 여기선 여백만 */
+body.nk-skin .nk-pdp .nk-pdp__paginate.typeSub {
+  margin: 16px 0 0;
+}
+
+/* ── 7) 관련상품 (relation) — display:table/min-width:756px 트랩 해체 → 반응형 grid ──
+   카드 시각은 main.html/list.html의 검증된 nk-prd 패턴과 통일(자기완결 정의 — nk-main/plp.css는 PDP에서 미로드). */
+body.nk-skin .nk-pdp .relation .prdList {
+  display: grid; /* base relation.css: prdList{display:table;min-width:756px} — 모바일 가로스크롤 트랩 해체(선분석 A-8) */
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px 16px;
+  width: 100%;
+  min-width: 0;
+}
+body.nk-skin .nk-pdp .relation .prdList li.item {
+  display: block; /* base: li{display:table-cell;width:20%} 상쇄 */
+  width: 100%;
+  min-width: 0;
+  float: none;
+}
+body.nk-skin .nk-pdp .relation .box {
+  width: 100%; /* base relation.css: .box 고정폭(189px) 상쇄 */
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+body.nk-skin .nk-pdp .relation .nk-prd__thumb {
+  display: block;
+  overflow: hidden;
+  background: var(--nk-bg2);
+  border-radius: var(--nk-radius);
+}
+body.nk-skin .nk-pdp .relation .nk-prd__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%; /* base relation.css: .thumb 고정 치수(187×255) 상쇄 */
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border: 0;
+}
+body.nk-skin .nk-pdp .relation .nk-prd__name {
+  margin: 10px 0 4px;
+}
+body.nk-skin .nk-pdp .relation .nk-prd__name a {
+  font-size: var(--nk-fs-body);
+  color: var(--nk-font);
+}
+body.nk-skin .nk-pdp .relation .nk-prd__spec {
+  margin: 0;
+}
+body.nk-skin .nk-pdp .relation .nk-prd__spec li {
+  font-family: var(--nk-font-display);
+  font-size: var(--nk-fs-body);
+  color: var(--nk-font);
+}
+body.nk-skin .nk-pdp .relation .nk-prd__spec .salePrice {
+  color: var(--nk-point);
+}
+
+/* ── 8) 반응형 — 태블릿 이하 1단 스택(이미지 → 구매정보 → 상세탭) ───────── */
+@media (max-width: 1023px) {
+  body.nk-skin .nk-pdp {
+    padding-top: 20px;
+    padding-bottom: 56px;
+  }
+  body.nk-skin .nk-pdp .imgArea {
+    margin: 0 0 28px !important; /* !important 사유: 위 §3 imgArea margin:0!important(base float 상쇄)와 동일 명시도 재정의 — 같은 플래그+후행 선언으로 모바일 하단 간격 확보 */
+  }
+  body.nk-skin .nk-pdp .imgArea .listImg {
+    display: none; /* 레퍼런스 동일: 모바일에서 추가썸네일 리스트 숨김(대표이미지 중심) */
+  }
+  body.nk-skin .nk-pdp .nk-tabs.nk-pdp__tabs,
+  body.nk-skin .nk-pdp .nk-pdp__tabs-bar {
+    margin: 40px 0 0;
+  }
+  body.nk-skin .nk-pdp .relation .prdList {
+    grid-template-columns: repeat(2, 1fr); /* design.md §4: ≤1023px 2열 */
+    gap: 28px 12px;
+  }
+}
+
+@media (max-width: 767px) {
+  body.nk-skin .nk-pdp .nk-tabs.nk-pdp__tabs .nk-tabs__nav li a,
+  body.nk-skin .nk-pdp .nk-tabs.nk-pdp__tabs .nk-tabs__nav li .nk-tabs__btn,
+  body.nk-skin .nk-pdp .nk-pdp__tabs-bar .nk-tabs__nav li a,
+  body.nk-skin .nk-pdp .nk-pdp__tabs-bar .nk-tabs__nav li .nk-tabs__btn {
+    padding: 10px 12px;
+  }
+  body.nk-skin .nk-pdp .totalPrice {
+    padding: 14px 0;
+  }
+  body.nk-skin .nk-pdp .infoArea th {
+    width: 84px;
+  }
+}
+
+/* ── 9) Wave 2.5 시각 스윕 결함 처방 (sweep-defects.md #5·#6·#7) ──
+   전부 라이브 DOM 실측(2026-07-04, /product/샘플상품-1/9/)으로 원인 확정 후 처방. */
+
+/* #5: 대표이미지 검은 힌트 배지 "🔍 마우스를 올려보세요" — 카페24 플랫폼 줌 스크립트가
+   .keyImg .thumbnail > a 안에 주입하는 span#zoomMouseGiude(> img#zoomGuideImage, 오타 id는
+   카페24 원문 그대로). 스킨 파일에는 없고 런타임 주입 — 터치 기기에도 떠서 제거. */
+body.nk-skin .nk-pdp #zoomMouseGiude {
+  display: none !important; /* !important 사유: 플랫폼 JS가 inline style(display:block)을 직접 박음 — 인라인 스타일은 !important로만 이김(실측: style에 display/position/width/margin* 선언) */
+}
+
+/* #6: 수량 행 빨간 stock 경고문("수량을 선택해주세요." 등) 상시 노출 — 실측: #totalProducts
+   직계 p.nk-help.txtWarn 이 visible 상태로 항상 렌더. 기능(옵션 선택→합계 갱신)과 무관한
+   안내 문구라 표시만 숨김 — 마크업·분기 클래스({$single/several_item_display})는 보존. */
+body.nk-skin #totalProducts > .nk-help.txtWarn {
+  display: none;
+}
+
+/* #7: PDP 탭 — nk-pdp-tabs.js 단일 패널 전환(구 앵커 점프·중복 ul 제거 완료) */
+
+/* BS-003 popup layers — image_zoom2 · recommend_mail */
+body.nk-skin .nk-popup {
+  font-family: var(--nk-font-body);
+  color: var(--nk-font);
+  background: var(--nk-bg);
+}
+body.nk-skin .nk-popup__head {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--nk-line);
+}
+body.nk-skin .nk-popup__title {
+  margin: 0;
+  font-family: var(--nk-font-display);
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+body.nk-skin .nk-popup__body {
+  padding: 20px;
+}
+body.nk-skin .nk-popup__foot {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px 20px;
+  border-top: 1px solid var(--nk-line);
+}
+body.nk-skin .nk-pdp__zoom-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--nk-sub);
+  text-decoration: none;
+}
+body.nk-skin .nk-pdp-recommend__captcha {
+  margin: 8px 0 0;
+}
+
+/* BS-003 popup layers — image_zoom · basket_option (Wave 2) */
+body.nk-skin .nk-pdp-zoom .infoArea,
+body.nk-skin .nk-pdp-basket-opt .inner {
+  font-size: var(--nk-fs-body);
+  color: var(--nk-font);
+}
+body.nk-skin .nk-pdp-zoom .infoArea table,
+body.nk-skin .nk-pdp-basket-opt .inner table {
+  width: 100%;
+  border: 0;
+  border-collapse: collapse;
+}
+body.nk-skin .nk-pdp-zoom .infoArea th,
+body.nk-skin .nk-pdp-basket-opt .inner th {
+  width: 96px;
+  padding: 7px 0;
+  border: 0;
+  background: transparent;
+  font-weight: 400;
+  text-align: left;
+  vertical-align: top;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-pdp-zoom .infoArea td,
+body.nk-skin .nk-pdp-basket-opt .inner td {
+  padding: 7px 0;
+  border: 0;
+  color: var(--nk-font);
+}
+body.nk-skin .nk-pdp-zoom .xans-product-detail .nk-qty,
+body.nk-skin .nk-pdp-basket-opt .xans-product-detail .nk-qty {
+  position: relative;
+  display: inline-flex;
+  align-items: stretch;
+  gap: 4px;
+}
+body.nk-skin .nk-popup__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  padding: 4px;
+  color: var(--nk-sub);
+  text-decoration: none;
+}
+body.nk-skin .nk-popup__head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+body.nk-skin .nk-pdp-basket-opt .productNormal {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+body.nk-skin .nk-pdp-basket-opt .productNormal .imgArea img {
+  width: 80px;
+  height: auto;
+  border-radius: var(--nk-radius);
+}
+body.nk-skin .nk-pdp-basket-opt .name {
+  margin: 0 0 12px;
+  font-family: var(--nk-font-display);
+  font-size: var(--nk-fs-body);
+}
+body.nk-skin .nk-pdp-zoom .productSet .toggle i,
+body.nk-skin .nk-pdp .productSet.additional .toggle i {
+  font-size: 16px;
+  color: var(--nk-sub);
+}

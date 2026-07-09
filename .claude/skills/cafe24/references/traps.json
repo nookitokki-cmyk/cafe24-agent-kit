@@ -278,7 +278,7 @@
       "symptom": "업로드했는데 화면에 즉시 반영 안 됨 → '미적용' 오판 위험",
       "rootCause": "서버 번들·페이지 캐시가 2~5분 지연. <link> custom.css 는 브라우저 캐시 재사용",
       "detectable": "runtime",
-      "detectJS": "var rs=getComputedStyle(document.documentElement); var v=['--nk-theme','--nk-color-primary','--nk-color-text','--nk-color-background','--nk-font-display'].map(function(n){return (rs.getPropertyValue(n)||'').trim();}).filter(Boolean); if(!v.length) return {hit:true, detail:'nk 토큰(:root --nk-*) 빈값 → 번들 미반영(optimizer 지연) 또는 토큰 미정의'};",
+      "detectJS": "var rs=getComputedStyle(document.documentElement); var v=['--nk-theme','--nk-point','--nk-bg','--nk-color-primary','--nk-color-text','--nk-color-background','--nk-font-display'].map(function(n){return (rs.getPropertyValue(n)||'').trim();}).filter(Boolean); if(!v.length) return {hit:true, detail:'nk 토큰(:root --nk-*) 빈값 → 번들 미반영(optimizer 지연) 또는 토큰 미정의'};",
       "fixCSS": "/* 코드 문제 아님 */ 하드리로드(Cmd/Ctrl+Shift+R) 후 5~10분 대기 재확인. 페이지는 ?v=N, CSS 는 하드리로드",
       "source": "AGENT.md §6-3"
     },

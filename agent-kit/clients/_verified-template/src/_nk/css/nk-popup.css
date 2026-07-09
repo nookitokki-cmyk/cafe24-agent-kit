@@ -1,0 +1,492 @@
+/*
+ * nk-popup.css — verified-template 공유 팝업/레이어 스타일
+ * 스코프: #layer · #popup(standalone body id) · .ec-base-layer · .ec-base-layer-area
+ * 원칙: 시스템 layer/popup CSS의 레이아웃·포지션(display/position/width/height)은 신뢰·무변경 —
+ *       색·타이포·보더·radius·버튼 톤만 재정의. var(--nk-*)만(하드코딩·기울임체 금지).
+ * 로드: standalone 팝업은 nk-tokens.css 뒤·시스템 module CSS 뒤(body 끝 권장).
+ *       @layout(popup.html) 팝업은 layout/basic/popup.html head에서 tokens+nk-popup 로드.
+ *       layout.html(실페이지)에는 포함하지 않음 — 팝업은 레이아웃 미사용.
+ */
+
+/* ── 1) 문서·레이어 기본 톤 — 크림 배경 · 본문 폰트 ── */
+#layer,
+#popup,
+.ec-base-layer-area {
+  background-color: var(--nk-bg);
+  font-family: var(--nk-font-body);
+  color: var(--nk-font);
+}
+#layer button, #layer input, #layer select, #layer textarea,
+#popup button, #popup input, #popup select, #popup textarea,
+.ec-base-layer button, .ec-base-layer input, .ec-base-layer select, .ec-base-layer textarea {
+  font-family: inherit;
+}
+#layer .ec-base-layer,
+#popup .ec-base-layer,
+.ec-base-layer.typeModal,
+.ec-base-layer.typeSide {
+  border-color: var(--nk-border);
+  background-color: var(--nk-bg);
+  color: var(--nk-font);
+}
+
+/* ── 2) 헤더 타이틀 — 디스플레이 톤 ── */
+#layer .ec-base-layer .header,
+#popup .ec-base-layer .header,
+.ec-base-layer .header {
+  background-color: var(--nk-bg);
+  border-bottom: 1px solid var(--nk-line);
+}
+#layer .ec-base-layer .header h1,
+#layer .ec-base-layer .header h2,
+#layer .ec-base-layer .header h3,
+#popup .ec-base-layer .header h1,
+#popup .ec-base-layer .header h2,
+#popup .ec-base-layer .header h3,
+.ec-base-layer .header h1,
+.ec-base-layer .header h2,
+.ec-base-layer .header h3 {
+  font-family: var(--nk-font-display);
+  font-weight: 400;
+  letter-spacing: 1px;
+  color: var(--nk-ink);
+}
+
+/* ── 3) 콘텐츠·안내박스 — 헤어라인 + 소프트 배경 ── */
+#layer .infoBox,
+#popup .infoBox,
+.ec-base-layer .infoBox,
+.ec-base-box.typeThin {
+  border: 1px solid var(--nk-line);
+  border-radius: var(--nk-radius);
+  background-color: var(--nk-bg2);
+  color: var(--nk-sub);
+}
+#layer .pointDetail,
+#popup .pointDetail,
+.ec-base-layer .pointDetail {
+  border: 1px solid var(--nk-line);
+  border-radius: var(--nk-radius);
+  background-color: var(--nk-bg);
+  color: var(--nk-font);
+}
+#layer .pointDetail dt,
+#popup .pointDetail dt,
+.ec-base-layer .pointDetail dt {
+  color: var(--nk-sub);
+}
+#layer .pointDetail dd,
+#popup .pointDetail dd,
+.ec-base-layer .pointDetail dd {
+  color: var(--nk-font);
+}
+
+/* ── 4) 강조 텍스트 — 포인트 통일 ── */
+#layer .txtEm,
+#popup .txtEm,
+.ec-base-layer .txtEm {
+  color: var(--nk-point);
+}
+
+/* ── 5) 상품·카드·테이블 — 헤어라인 톤 ── */
+#layer .ec-base-prdInfo,
+#popup .ec-base-prdInfo,
+.ec-base-layer .ec-base-prdInfo {
+  border-color: var(--nk-line);
+}
+#layer .ec-base-prdInfo .prdName,
+#popup .ec-base-prdInfo .prdName,
+.ec-base-layer .ec-base-prdInfo .prdName {
+  font-weight: 500;
+  color: var(--nk-ink);
+}
+#layer .ec-base-prdInfo .info li,
+#popup .ec-base-prdInfo .info li,
+.ec-base-layer .ec-base-prdInfo .info li {
+  color: var(--nk-sub);
+}
+#layer .ec-base-qty input,
+#popup .ec-base-qty input,
+.ec-base-layer .ec-base-qty input {
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  background-color: var(--nk-bg);
+  color: var(--nk-font);
+}
+#layer .ec-base-qty input:focus,
+#popup .ec-base-qty input:focus,
+.ec-base-layer .ec-base-qty input:focus {
+  border-color: var(--nk-point);
+  outline: none;
+}
+#popup .ec-base-card,
+.ec-base-layer .ec-base-card {
+  border-color: var(--nk-border);
+  border-radius: var(--nk-radius);
+}
+#popup .ec-base-card .card-head,
+.ec-base-layer .ec-base-card .card-head {
+  background-color: var(--nk-bg2);
+  border-color: var(--nk-line);
+}
+#popup .ec-base-card .card-head .name,
+.ec-base-layer .ec-base-card .card-head .name {
+  color: var(--nk-ink);
+}
+#popup .ec-base-card .card-head .desc,
+.ec-base-layer .ec-base-card .card-head .desc {
+  color: var(--nk-sub);
+}
+.ec-base-layer .ec-base-table th {
+  background-color: var(--nk-bg2);
+  font-weight: 500;
+  color: var(--nk-ink);
+  border-color: var(--nk-line);
+}
+.ec-base-layer .ec-base-table td {
+  color: var(--nk-font);
+  border-color: var(--nk-line);
+}
+#layer .footer,
+#popup .footer,
+.ec-base-layer .footer {
+  background-color: var(--nk-bg);
+  border-top: 1px solid var(--nk-line);
+}
+
+/* ── 6) 버튼 — CTA 포인트 / 보더형 / 닫기 ── */
+#layer .btnSubmit,
+#popup .btnSubmit,
+.ec-base-layer .btnSubmit {
+  border: 1px solid var(--nk-point);
+  border-radius: var(--nk-radius);
+  background: none;
+  background-color: var(--nk-point);
+  color: var(--nk-on-point);
+}
+#layer .btnSubmit:hover,
+#layer .btnSubmit:focus,
+#popup .btnSubmit:hover,
+#popup .btnSubmit:focus,
+.ec-base-layer .btnSubmit:hover,
+.ec-base-layer .btnSubmit:focus {
+  border-color: var(--nk-point-active);
+  background-color: var(--nk-point-active);
+  color: var(--nk-on-point);
+}
+#layer .btnSubmit:active,
+#popup .btnSubmit:active,
+.ec-base-layer .btnSubmit:active {
+  border-color: var(--nk-point-active);
+  background-color: var(--nk-point-active);
+  color: var(--nk-on-point);
+}
+#layer .btnEm, #layer .btnNormal, #layer .btnBasic,
+#popup .btnEm, #popup .btnNormal, #popup .btnBasic,
+.ec-base-layer .btnEm, .ec-base-layer .btnNormal, .ec-base-layer .btnBasic {
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  background: none;
+  background-color: var(--nk-bg);
+  color: var(--nk-font);
+}
+#layer .btnEm:hover, #layer .btnEm:focus,
+#layer .btnNormal:hover, #layer .btnNormal:focus,
+#layer .btnBasic:hover, #layer .btnBasic:focus,
+#popup .btnEm:hover, #popup .btnEm:focus,
+#popup .btnNormal:hover, #popup .btnNormal:focus,
+#popup .btnBasic:hover, #popup .btnBasic:focus,
+.ec-base-layer .btnEm:hover, .ec-base-layer .btnEm:focus,
+.ec-base-layer .btnNormal:hover, .ec-base-layer .btnNormal:focus,
+.ec-base-layer .btnBasic:hover, .ec-base-layer .btnBasic:focus {
+  border-color: var(--nk-point);
+  color: var(--nk-point);
+}
+#layer .btnEm:active, #layer .btnNormal:active, #layer .btnBasic:active,
+#popup .btnEm:active, #popup .btnNormal:active, #popup .btnBasic:active,
+.ec-base-layer .btnEm:active, .ec-base-layer .btnNormal:active, .ec-base-layer .btnBasic:active {
+  border-color: var(--nk-point-active);
+  color: var(--nk-point-active);
+}
+#layer .btnSubmit.disabled, #layer .btnSubmit[disabled],
+#layer .btnEm.disabled, #layer .btnEm[disabled],
+#layer .btnNormal.disabled, #layer .btnNormal[disabled],
+#popup .btnSubmit.disabled, #popup .btnSubmit[disabled],
+#popup .btnEm.disabled, #popup .btnEm[disabled],
+#popup .btnNormal.disabled, #popup .btnNormal[disabled],
+.ec-base-layer .btnSubmit.disabled, .ec-base-layer .btnSubmit[disabled],
+.ec-base-layer .btnEm.disabled, .ec-base-layer .btnEm[disabled],
+.ec-base-layer .btnNormal.disabled, .ec-base-layer .btnNormal[disabled] {
+  border-color: var(--nk-line);
+  background-color: var(--nk-bg2);
+  color: var(--nk-sub);
+}
+#layer .btnClose,
+#popup .btnClose,
+.ec-base-layer .btnClose {
+  color: var(--nk-sub);
+}
+#layer .btnClose:hover,
+#layer .btnClose:focus,
+#popup .btnClose:hover,
+#popup .btnClose:focus,
+.ec-base-layer .btnClose:hover,
+.ec-base-layer .btnClose:focus {
+  color: var(--nk-ink);
+}
+
+/* ── 7) 폼·인풋 — 헤어라인 ── */
+#layer input[type="text"], #layer input[type="password"], #layer input[type="number"],
+#layer select, #layer textarea,
+#popup input[type="text"], #popup input[type="password"], #popup input[type="number"],
+#popup select, #popup textarea,
+.ec-base-layer input[type="text"], .ec-base-layer input[type="password"],
+.ec-base-layer input[type="number"], .ec-base-layer select, .ec-base-layer textarea {
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  background-color: var(--nk-bg);
+  color: var(--nk-font);
+}
+#layer input:focus, #layer select:focus, #layer textarea:focus,
+#popup input:focus, #popup select:focus, #popup textarea:focus,
+.ec-base-layer input:focus, .ec-base-layer select:focus, .ec-base-layer textarea:focus {
+  border-color: var(--nk-point);
+  outline: none;
+}
+
+/* ── 8) 도움말 — 보조 톤 ── */
+#layer .ec-base-help li,
+#popup .ec-base-help li,
+.ec-base-layer .ec-base-help li {
+  color: var(--nk-sub);
+}
+
+/* ===== §W4) Wave4 — popup/layer stock computed purge (US-005) ===== */
+#layer .ec-base-table,
+#popup .ec-base-table,
+.ec-base-layer .ec-base-table {
+  border: 0;
+}
+#layer table,
+#popup table,
+.ec-base-layer table {
+  border: 0 !important;
+  border-collapse: collapse;
+}
+#layer table th,
+#layer table td,
+#popup table th,
+#popup table td,
+.ec-base-layer table th,
+.ec-base-layer table td {
+  border: 1px solid var(--nk-line) !important;
+  border-color: var(--nk-line) !important;
+}
+#layer .ec-base-table table::before,
+#popup .ec-base-table table::before,
+.ec-base-layer .ec-base-table table::before {
+  display: none !important;
+  content: none !important;
+}
+#layer .ec-base-table.typeWrite th,
+#layer .ec-base-table.typeWrite td,
+#layer .ec-base-table.typeList th,
+#layer .ec-base-table.typeList td,
+#popup .ec-base-table.typeWrite th,
+#popup .ec-base-table.typeWrite td,
+#popup .ec-base-table.typeList th,
+#popup .ec-base-table.typeList td,
+.ec-base-layer .ec-base-table.typeWrite th,
+.ec-base-layer .ec-base-table.typeWrite td,
+.ec-base-layer .ec-base-table.typeList th,
+.ec-base-layer .ec-base-table.typeList td {
+  border-color: var(--nk-line) !important;
+}
+#layer .ec-base-table thead th,
+#popup .ec-base-table thead th,
+.ec-base-layer .ec-base-table thead th {
+  background-color: var(--nk-bg2);
+  border-color: var(--nk-line);
+  font-weight: 500;
+  color: var(--nk-ink);
+}
+#layer .titleArea,
+#popup .titleArea,
+.ec-base-layer .titleArea {
+  border: 0;
+  border-bottom: 0;
+  background: transparent;
+}
+#layer input[type="text"],
+#layer input[type="password"],
+#layer input[type="number"],
+#layer select,
+#layer textarea,
+#popup input[type="text"],
+#popup input[type="password"],
+#popup input[type="number"],
+#popup select,
+#popup textarea,
+.ec-base-layer input[type="text"],
+.ec-base-layer input[type="password"],
+.ec-base-layer input[type="number"],
+.ec-base-layer select,
+.ec-base-layer textarea {
+  font-size: 13px;
+}
+#layer .ec-base-button,
+#popup .ec-base-button,
+.ec-base-layer .ec-base-button {
+  border: 0 !important;
+  border-top: 0 !important;
+  background: transparent;
+}
+#layer .btnSubmitFix,
+#layer .btnNormalFix,
+#layer .btnBasicFix,
+#popup .btnSubmitFix,
+#popup .btnNormalFix,
+#popup .btnBasicFix,
+.ec-base-layer .btnSubmitFix,
+.ec-base-layer .btnNormalFix,
+.ec-base-layer .btnBasicFix {
+  border: 1px solid var(--nk-border) !important;
+  border-radius: var(--nk-radius);
+  background-color: var(--nk-bg);
+  color: var(--nk-font);
+  font-size: 13px;
+}
+#layer .btnSubmitFix,
+#popup .btnSubmitFix,
+.ec-base-layer .btnSubmitFix {
+  border-color: var(--nk-point) !important;
+  background-color: var(--nk-point) !important;
+  color: var(--nk-on-point) !important;
+}
+#layer .btnNormalFix:hover,
+#layer .btnSubmitFix:hover,
+#popup .btnNormalFix:hover,
+#popup .btnSubmitFix:hover,
+.ec-base-layer .btnNormalFix:hover,
+.ec-base-layer .btnSubmitFix:hover {
+  border-color: var(--nk-point) !important;
+  color: var(--nk-point);
+}
+
+/* ── §W4-ZOOM) Product_ZoomPackage — listImg thumb stock border ── */
+#popup [module="Product_ZoomPackage"] .imgArea .listImg li,
+#popup [module="product_zoom"] .imgArea .listImg li,
+.ec-base-layer [module="Product_ZoomPackage"] .imgArea .listImg li {
+  border-color: var(--nk-line);
+}
+#popup [module="Product_ZoomPackage"] .imgArea .listImg img,
+#popup [module="product_zoom"] .imgArea .listImg img,
+.ec-base-layer [module="Product_ZoomPackage"] .imgArea .listImg img {
+  border: 1px solid var(--nk-line);
+  border-radius: var(--nk-radius);
+}
+
+/* ── §W4-REC) Product_RecommMail — typeProduct 카드 ── */
+#popup [module="Product_RecommMail"] .ec-base-box.typeProduct,
+.ec-base-layer [module="Product_RecommMail"] .ec-base-box.typeProduct {
+  border: 1px solid var(--nk-line);
+  border-radius: var(--nk-radius);
+  background-color: var(--nk-bg2);
+}
+#popup [module="Product_RecommMail"] .ec-base-box.typeProduct h2,
+.ec-base-layer [module="Product_RecommMail"] .ec-base-box.typeProduct h2 {
+  font-family: var(--nk-font-body);
+  font-weight: 500;
+  color: var(--nk-ink);
+}
+
+/* ── §W4-POPUP-STOCK) 잔존 stock color/border 패턴 일괄 상쇄 ── */
+#layer .ec-base-box.typeProduct,
+#popup .ec-base-box.typeProduct,
+#layer .ec-base-box.typeThinBg,
+#popup .ec-base-box.typeThinBg,
+.ec-base-layer .ec-base-box.typeProduct,
+.ec-base-layer .ec-base-box.typeThinBg {
+  border: 1px solid var(--nk-border) !important;
+  border-radius: var(--nk-radius);
+  background-color: var(--nk-bg2);
+}
+#layer .scroll,
+#popup .scroll,
+.ec-base-layer .scroll {
+  border: 1px solid var(--nk-border) !important;
+}
+#layer .ec-base-box img,
+#popup .ec-base-box img,
+.ec-base-layer .ec-base-box img,
+#layer .content img,
+#popup .content img,
+.ec-base-layer .content img {
+  border: 1px solid var(--nk-border) !important;
+}
+#layer .content p,
+#popup .content p,
+.ec-base-layer .content p {
+  color: var(--nk-font);
+}
+#layer .content span,
+#popup .content span,
+#layer .price1,
+#popup .price1,
+#layer .content strong,
+#popup .content strong,
+.ec-base-layer .content span,
+.ec-base-layer .price1,
+.ec-base-layer .content strong {
+  color: var(--nk-font);
+}
+#layer input[type="checkbox"],
+#layer input[type="radio"],
+#popup input[type="checkbox"],
+#popup input[type="radio"],
+.ec-base-layer input[type="checkbox"],
+.ec-base-layer input[type="radio"] {
+  font-size: 13px;
+}
+#layer h2,
+#popup h2,
+.ec-base-layer h2 {
+  color: var(--nk-ink);
+  font-weight: 500;
+}
+#layer strong,
+#popup strong,
+.ec-base-layer strong,
+.ec-base-layer .content strong {
+  color: var(--nk-ink) !important;
+}
+#layer a,
+#popup a,
+.ec-base-layer a {
+  color: var(--nk-font);
+}
+#layer a:hover,
+#layer a:focus,
+#popup a:hover,
+#popup a:focus,
+.ec-base-layer a:hover,
+.ec-base-layer a:focus {
+  color: var(--nk-point);
+}
+#layer .message,
+#popup .message,
+#layer p.message,
+#popup p.message,
+.ec-base-layer .message,
+.ec-base-layer p.message {
+  border: 1px solid var(--nk-border) !important;
+}
+#layer .ec-base-box,
+#popup .ec-base-box,
+#layer fieldset.ec-base-box,
+#popup fieldset.ec-base-box,
+.ec-base-layer .ec-base-box,
+.ec-base-layer fieldset.ec-base-box {
+  border: 1px solid var(--nk-border) !important;
+  border-radius: var(--nk-radius);
+}

@@ -18,26 +18,43 @@ copy_tree() {
   fi
 }
 
-# agent-kit (docs, workflows, demo000; exclude personal scaffold and real client data)
+# agent-kit (docs, workflows) — clients는 아래 allowlist 직접 복사: 실클라 트리는 스테이징 진입 자체 금지 (P1)
 mkdir -p "$BUILD_ROOT/agent-kit"
 if command -v rsync >/dev/null 2>&1; then
   rsync -a --exclude '.git' --exclude '__pycache__' --exclude '*.pyc' \
-    --exclude 'clients/nookitokki002' \
-    --exclude 'clients/paransky97' \
+    --exclude '/clients/' \
     --exclude 'brain/_evidence' \
+    --exclude '_핸드오프_*' \
     "$ROOT/agent-kit/" "$BUILD_ROOT/agent-kit/"
 else
-  copy_tree "$ROOT/agent-kit" "$BUILD_ROOT/agent-kit"
-  rm -rf "$BUILD_ROOT/agent-kit/clients/nookitokki002"
-  rm -rf "$BUILD_ROOT/agent-kit/clients/paransky97"
+  for entry in "$ROOT/agent-kit"/* "$ROOT/agent-kit"/.[!.]*; do
+    [[ -e "$entry" ]] || continue
+    base="$(basename "$entry")"
+    [[ "$base" == "clients" || "$base" == ".git" ]] && continue
+    [[ "$base" == _핸드오프_* ]] && continue
+    if [[ -d "$entry" ]]; then
+      copy_tree "$entry" "$BUILD_ROOT/agent-kit/$base"
+    else
+      cp "$entry" "$BUILD_ROOT/agent-kit/$base"
+    fi
+  done
+  # 세션 스크래치(_핸드오프_*) 잔존 제거 — rsync 경로에서도 이중 방어
+  find "$BUILD_ROOT/agent-kit" -maxdepth 1 -name '_핸드오프_*' -type f -delete 2>/dev/null || true
   rm -rf "$BUILD_ROOT/agent-kit/brain/_evidence"
 fi
 
-# clients: allowlist — ship ONLY _template + demo000 (drop real/test client folders e.g. ecudemo*,
-# and stray runtime dirs like .omc). find (mindepth 1) catches hidden entries too; rsync/cp ignore .gitignore.
+# clients: allowlist 직접 복사 — 여기 나열된 폴더만 dist에 존재할 수 있다
+# (allowlist 4-site 동기: .gitignore / 아래 find / :249-257 사후 하드페일 / mcp/kit_tools.py refresh — 이슈 g)
+CLIENT_ALLOWLIST=(_template demo000 _verified-template)
+mkdir -p "$BUILD_ROOT/agent-kit/clients"
+for c in "${CLIENT_ALLOWLIST[@]}"; do
+  [[ -d "$ROOT/agent-kit/clients/$c" ]] && copy_tree "$ROOT/agent-kit/clients/$c" "$BUILD_ROOT/agent-kit/clients/$c"
+done
+
+# belt-and-suspenders: 허용 외 잔존 즉시 제거 (위 직접 복사가 어긋나도 비허용은 dist에 못 남는다)
 if [[ -d "$BUILD_ROOT/agent-kit/clients" ]]; then
   find "$BUILD_ROOT/agent-kit/clients" -mindepth 1 -maxdepth 1 \
-    ! -name '_template' ! -name 'demo000' -exec rm -rf {} +
+    ! -name '_template' ! -name 'demo000' ! -name '_verified-template' -exec rm -rf {} +
 fi
 
 # strip OMC runtime state anywhere under agent-kit (never distributable; e.g. clients/demo000/.omc)
@@ -203,6 +220,10 @@ REQUIRED=(
   "$OUT/agent-kit/connect/DISTRIBUTION-KIT.md"
   "$OUT/agent-kit/00_시작하기/05b-MCP-등록.md"
   "$OUT/agent-kit/clients/demo000/.workflow.md"
+  "$OUT/agent-kit/clients/_verified-template/README.md"
+  "$OUT/agent-kit/clients/_verified-template/src/_nk/css/nk-tokens.css"
+  "$OUT/agent-kit/clients/_verified-template/src/_nk/inc/nk-header.html"
+  "$OUT/agent-kit/clients/_verified-template/src/layout/basic/layout.html"
   "$OUT/.claude/skills/키트시작/SKILL.md"
   "$OUT/.claude/skills/새클라이언트/SKILL.md"
   "$OUT/.claude/skills/MCP연결/SKILL.md"
@@ -246,11 +267,11 @@ if find "$OUT/mcp/config" -name 'cafe24_config_*.py' ! -name 'cafe24_config.exam
   echo "FAIL: real cafe24_config_*.py leaked into dist" >&2
   exit 1
 fi
-# clients allowlist — only _template + demo000 may ship (catches ecudemo* and any future stray)
+# clients allowlist — only _template + demo000 + _verified-template may ship (catches ecudemo* and any future stray)
 if [[ -d "$OUT/agent-kit/clients" ]]; then
-  STRAY_CLIENTS=$(find "$OUT/agent-kit/clients" -mindepth 1 -maxdepth 1 ! -name '_template' ! -name 'demo000' 2>/dev/null)
+  STRAY_CLIENTS=$(find "$OUT/agent-kit/clients" -mindepth 1 -maxdepth 1 ! -name '_template' ! -name 'demo000' ! -name '_verified-template' 2>/dev/null)
   if [[ -n "$STRAY_CLIENTS" ]]; then
-    echo "FAIL: unexpected client folder(s) in dist (only _template, demo000 allowed):" >&2
+    echo "FAIL: unexpected client folder(s) in dist (only _template, demo000, _verified-template allowed):" >&2
     echo "$STRAY_CLIENTS" >&2
     exit 1
   fi

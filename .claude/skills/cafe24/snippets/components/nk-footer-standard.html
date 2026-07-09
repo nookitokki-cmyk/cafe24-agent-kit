@@ -2,7 +2,7 @@
  * nk-footer-standard — 표준 푸터 (사업자 정보 + 고객센터 + SNS + 카피라이트)
  * 사용처: 카페24 layout/basic/layout.html 또는 _nk/inc/footer.html
  * 의존성:
- *   - CSS 변수: --nk-color-text / --nk-color-text-sub / --nk-color-border / --nk-space-md
+ *   - CSS 변수: --nk-font / --nk-sub / --nk-border / (리터럴 16px)
  *   - Phosphor Icons (SNS 아이콘)
  *
  * 비코더 사용법:
@@ -86,14 +86,14 @@
 
 <style>
   .nk-footer{
-    background:var(--nk-color-surface, #f8f9fa);
-    border-top:1px solid var(--nk-color-border);
-    color:var(--nk-color-text-sub, #5f6368);
+    background:var(--nk-bg2, #f8f9fa);
+    border-top:1px solid var(--nk-border, #e5e7eb);
+    color:var(--nk-sub, #5f6368);
     font-size:13px; line-height:1.6;
   }
-  .nk-footer-inner{max-width:1440px; margin:0 auto; padding:var(--nk-space-lg, 24px) var(--nk-space-md, 16px)}
+  .nk-footer-inner{max-width:1440px; margin:0 auto; padding:24px 16px}
   .nk-footer-top .nk-footer-inner{
-    display:grid; grid-template-columns:1fr; gap:var(--nk-space-lg, 24px);
+    display:grid; grid-template-columns:1fr; gap:24px;
   }
   @media(min-width:768px){
     .nk-footer-top .nk-footer-inner{grid-template-columns:1fr 1fr 1fr}
@@ -101,32 +101,32 @@
   .nk-footer-col{margin:0}
   .nk-footer-title{
     margin:0 0 12px; font-size:14px; font-weight:700;
-    color:var(--nk-color-text);
+    color:var(--nk-font, #1a1a1a);
   }
-  .nk-footer-tel{margin:0 0 8px; font-size:20px; font-weight:700; color:var(--nk-color-text)}
+  .nk-footer-tel{margin:0 0 8px; font-size:20px; font-weight:700; color:var(--nk-font, #1a1a1a)}
   .nk-footer-hours,.nk-footer-email,.nk-footer-bank,.nk-footer-bank-holder{margin:0 0 4px}
   .nk-footer-sns{list-style:none; margin:0; padding:0; display:flex; gap:8px}
   .nk-footer-sns a{
     width:40px; height:40px;
     display:inline-flex; align-items:center; justify-content:center;
-    background:var(--nk-color-bg, #fff); color:var(--nk-color-text);
+    background:var(--nk-bg, #fff); color:var(--nk-font, #1a1a1a);
     border-radius:9999px; font-size:20px;
     transition:background .2s, color .2s;
   }
-  .nk-footer-sns a:hover{background:var(--nk-color-accent, #2b6cb0); color:#fff}
-  .nk-footer-bottom{border-top:1px solid var(--nk-color-border)}
+  .nk-footer-sns a:hover{background:var(--nk-point, #222222); color:#fff}
+  .nk-footer-bottom{border-top:1px solid var(--nk-border, #e5e7eb)}
   .nk-footer-policy{
     display:flex; flex-wrap:wrap; gap:16px;
-    margin-bottom:var(--nk-space-md, 16px);
+    margin-bottom:16px;
   }
-  .nk-footer-policy a{color:var(--nk-color-text)}
-  .nk-footer-policy a:hover{color:var(--nk-color-accent, #2b6cb0)}
+  .nk-footer-policy a{color:var(--nk-font, #1a1a1a)}
+  .nk-footer-policy a:hover{color:var(--nk-point, #222222)}
   .nk-footer-business{
     font-style:normal;
     display:flex; flex-wrap:wrap; gap:4px 16px;
-    margin-bottom:var(--nk-space-md, 16px);
+    margin-bottom:16px;
   }
-  .nk-footer-business a{color:var(--nk-color-text-sub, #5f6368); text-decoration:underline}
+  .nk-footer-business a{color:var(--nk-sub, #5f6368); text-decoration:underline}
   .nk-footer-copyright{margin:0; font-size:12px}
 </style>
 

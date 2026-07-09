@@ -89,11 +89,11 @@ const CACHE_BUST = process.env.MAIN_INTERACTION_V || 'w4-main-interaction';
   {
     const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
     await page.goto(`${BASE}/?v=${CACHE_BUST}`, { waitUntil: 'domcontentloaded', timeout: 60000 });
-    await page.waitForSelector('.nk-prd__link', { timeout: 15000 });
-    const href = await page.locator('.nk-prd__link').first().getAttribute('href');
+    await page.waitForSelector('.nk-prd-card__link, .nk-prd__link', { timeout: 15000 });
+    const href = await page.locator('.nk-prd-card__link, .nk-prd__link').first().getAttribute('href');
     await Promise.all([
       page.waitForNavigation({ waitUntil: 'domcontentloaded', timeout: 30000 }),
-      page.locator('.nk-prd__link').first().click(),
+      page.locator('.nk-prd-card__link, .nk-prd__link').first().click(),
     ]);
     await page.waitForTimeout(800);
     const pdp = await page.evaluate(() => ({

@@ -828,7 +828,7 @@ Ctrl+U 브라우저 소스 보기
 
 ### 🎯 `design-tokens/` — Figma → CSS 토큰 자동 파이프라인
 
-Figma URL만 넣으면 색상·폰트·간격이 `:root { --nk-color-* }` CSS로 자동 변환되는 시스템.
+Figma URL만 넣으면 색상·폰트가 `:root { --nk-point / --nk-bg / --nk-font … }` flat 토큰 CSS로 자동 변환되는 시스템(간격·그림자는 리터럴 승격).
 
 - `design-tokens/README.md` — 워크플로우·사용법·통합 시나리오
 - `design-tokens/tokens.schema.json` — `design-tokens.json`의 JSON 스키마 (검증용)

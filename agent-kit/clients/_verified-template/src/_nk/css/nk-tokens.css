@@ -1,0 +1,69 @@
+/*
+ * nk-tokens.css — verified-template 디자인 토큰
+ * 스코프: :root + body.nk-skin (여기에 :root를 추가한 이유는
+ *         키트 진단 도구(diagnose-overrides.js F3)가 documentElement에서 토큰을 읽기 때문. 값은 동일 단일 선언.)
+ * 규칙: 값은 여기서만 선언. 다른 CSS 파일은 반드시 var(--nk-*)로만 참조(하드코딩 금지).
+ */
+
+:root,
+body.nk-skin {
+  /* 색 — DESIGN-claude.md(웜 크림+포인트) 차용, 2026-07-04 사용자 승인 (포인트 적극 사용 + 다크 공지바).
+     이전 모노톤(레퍼런스 실측값)은 design.md §1 이력 참조. 매핑 근거: design.md §1 */
+  --nk-bg: #faf9f5; /* canvas */
+  --nk-bg2: #f5f0e8; /* surface-soft */
+  --nk-font: #3d3d3a; /* body — 본문 */
+  --nk-ink: #141413; /* ink — 제목·강조 */
+  --nk-point: #222222; /* primary — CTA·포커스·액센트. 설치: 클라 브랜드색으로 덮어쓸 것. base #008bcc 상쇄값으로도 사용 */
+  --nk-point-active: #000000; /* primary-active — hover/pressed (point 한 단계 어둡게) */
+  --nk-on-point: #ffffff; /* on-primary — 포인트 버튼 위 글자 */
+  --nk-on-dark: #faf9f5; /* on-dark — 다크 topbar 등 어두운 배경 위 글자 */
+  --nk-sub: #6c6a64; /* muted — 보조 텍스트 */
+  --nk-border: #e6dfd8; /* hairline — 인풋·카드 테두리 */
+  --nk-line: #ebe6df; /* hairline-soft — 얇은 구분선 */
+  --nk-topbar-bg: #b0b5b9; /* surface-dark — 공지바 배경. 설치: 브랜드 톤으로 덮어쓸 것 */
+
+  /* 타이포 */
+  --nk-font-display: "Pretendard", "Noto Sans KR", "Malgun Gothic", sans-serif; /* 선택 디스플레이 폰트 — 세리프 옵트인 자리(폰트명을 맨 앞에 추가) */
+  --nk-font-body: "Pretendard", "Noto Sans KR", "Malgun Gothic", sans-serif; /* 본문 — 항상 Pretendard (display 상속 절단) */
+  --nk-fs-body: 13px;
+  --nk-fs-gnb: 15px;
+  --nk-fs-logo: 22px;
+  --nk-fs-topbar: 12.5px;
+  --nk-fs-util: 12.5px; /* 헤더 우측 유틸(LOGIN/JOIN/ACCOUNT 등) 라벨 */
+  --nk-font-sm: 11px; /* 폼 힌트·보조 안내 */
+  --nk-fs-page-title: 28px; /* 페이지 헤드 디스플레이 타이틀 PC */
+  --nk-fs-page-title-mo: 21px; /* 페이지 헤드 타이틀 모바일 */
+  --nk-ls-page-title: -1px; /* 페이지 타이틀 자간 통일 (mbr/myshop/order/board 등) */
+
+  /* 치수 — 컨테이너 */
+  --nk-content-max: 1920px;
+  --nk-pad-x: 30px;
+
+  /* 치수 — 고정요소(fixed) 스택 높이 */
+  --nk-header-h: 91px;
+  --nk-topbar-h: 28px;
+  --nk-gnb-h: 63px;
+  --nk-logo-h: 33px;
+
+  /* 치수 — 페이지 타입별 내부 폭 */
+  --nk-pdp-max: 960px;
+  --nk-order-max: 960px;
+  --nk-modify-max: 720px;
+
+  /* 치수 — 공통 컨트롤 */
+  --nk-radius: 2px;
+  --nk-input-h: 48px;
+}
+
+/* 브레이크포인트(스킨 기준): 모바일 max-width:767px / 태블릿 max-width:1023px / 데스크톱 min-width:1025px */
+@media (max-width: 1023px) {
+  body.nk-skin {
+    --nk-pad-x: 15px;
+    --nk-header-h: 70px;
+    --nk-topbar-h: 26px;
+    --nk-gnb-h: 44px;
+    --nk-logo-h: 23px;
+    --nk-fs-topbar: 11px;
+    --nk-fs-logo: 17px;
+  }
+}

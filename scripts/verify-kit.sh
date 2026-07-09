@@ -45,7 +45,10 @@ echo "[2] MCP 서버 import 테스트"
 echo ""
 echo "[3] Cursor MCP 예시 파일 JSON 파싱"
 if [[ -f "$OUT/.cursor/mcp.json.example" ]]; then
-  "$PY" -c "import json; json.load(open('$OUT/.cursor/mcp.json.example'))" 2>&1 \
+  # Windows Python은 MSYS 경로(/c/...)를 못 열므로 cygpath로 변환 (없으면 원경로)
+  MCP_EX="$OUT/.cursor/mcp.json.example"
+  command -v cygpath >/dev/null 2>&1 && MCP_EX="$(cygpath -m "$MCP_EX")"
+  "$PY" -c "import json,sys; json.load(open(sys.argv[1], encoding='utf-8'))" "$MCP_EX" 2>&1 \
     && ok "mcp.json.example 유효한 JSON" \
     || fail "mcp.json.example JSON 파싱 오류"
 else

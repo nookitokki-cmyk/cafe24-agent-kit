@@ -1,0 +1,66 @@
+<!-- nk-footer.html — verified-template 공통 푸터. layout.html/main.html에서 @import.
+     4열: CUSTOMER CENTER / SUPPORT / LEGAL / SOCIAL → 모바일 스택(nk-base.css @media).
+     보존 모듈: Layout_Info({$phone}/{$runtime}), Layout_footer({$company_name}/{$president_name}/
+     {$mall_addr1}/{$company_regno}/{$network_regno}/{$cpo_name}/{$mall_name}), Layout_LogoBottom.
+     Layout_footer는 LEGAL 칼럼(사업자정보)과 하단 base 행(카피라이트) 두 곳에서 사용 — 같은 페이지
+     동일 module 반복 렌더는 원본 stock 코드의 Layout_multishopList 2회 사용 패턴과 동일한 정상 방식.
+     참조화폐(Layout_ReferenceCurrencyList)는 이번 미니멀 푸터 설계에서 비핵심 위젯으로 판단해 제외(§ CP4
+     스코프) — SUPPORT의 "이용안내/주문조회/게시판", 이용약관·개인정보처리방침 href는 원본 base 그대로 재사용. -->
+<div id="footer" class="nk-ft">
+    <div class="nk-ft__inner">
+        <div class="nk-ft__cols">
+            <div class="nk-ft__col">
+                <p class="nk-ft__col-title">Customer Center</p>
+                <div module="Layout_Info">
+                    <p class="nk-ft__tel">{$phone}</p>
+                    <p class="nk-ft__line">운영시간 {$runtime}</p>
+                </div>
+                <ul class="nk-ft__list">
+                    <li><a href="/contact/index.html" class="nk-ft__link">1:1 문의하기</a></li>
+                </ul>
+            </div>
+
+            <div class="nk-ft__col">
+                <p class="nk-ft__col-title">Support</p>
+                <ul class="nk-ft__list">
+                    <li><a href="/shopinfo/guide.html" class="nk-ft__link">이용안내</a></li>
+                    <li><a href="/myshop/order/list.html" class="nk-ft__link">주문조회</a></li>
+                    <li><a href="/board/index.html" class="nk-ft__link">게시판</a></li>
+                </ul>
+            </div>
+
+            <div class="nk-ft__col nk-ft__col--legal">
+                <p class="nk-ft__col-title">Legal</p>
+                <div module="Layout_footer">
+                    <ul class="nk-ft__list">
+                        <li><a href="/shopinfo/company.html" class="nk-ft__link">회사소개</a></li>
+                        <li><a href="/member/agreement.html" class="nk-ft__link">이용약관</a></li>
+                        <li><a href="/member/privacy.html" class="nk-ft__link">개인정보처리방침</a></li>
+                    </ul>
+                    <p class="nk-ft__biz">
+                        <span>{$company_name}</span><span>대표 {$president_name}</span><span>사업자등록번호 {$company_regno}</span><span>통신판매업 {$network_regno}</span><br />
+                        <span>{$mall_addr1} {$mall_addr2}</span><br />
+                        <span class="{$cpo_email|display}">개인정보보호책임자 {$cpo_name}</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="nk-ft__col">
+                <p class="nk-ft__col-title">Social</p>
+                <div class="nk-ft__social">
+                    <a href="#" class="nk-ft__social-link" aria-label="Instagram"><i class="ph ph-instagram-logo" aria-hidden="true"></i></a>
+                    <a href="#" class="nk-ft__social-link" aria-label="Facebook"><i class="ph ph-facebook-logo" aria-hidden="true"></i></a>
+                    <a href="#" class="nk-ft__social-link" aria-label="YouTube"><i class="ph ph-youtube-logo" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="nk-ft__base" module="Layout_footer">
+            <span module="Layout_LogoBottom" class="nk-ft__logo">
+                <a href="/index.html" class="nk-ft__logo-link"><span class="nk-ft__wordmark">{$mall_name}</span></a>
+            </span>
+            <p class="nk-ft__copy">Copyright &copy; <strong>{$mall_name}</strong>. All rights reserved.</p>
+            <p class="nk-ft__hosting"><span class="nk-ft__hosting-txt">Hosting by cafe24</span></p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,412 @@
+/*
+ * nk-cafe24-reset.css — verified-template 카페24 base 함정 상쇄
+ * 원본 카페24 CSS(/layout/basic/css/*, /css/module/**)는 절대 수정하지 않는다 — 전부 오버라이드로만 상쇄.
+ * 근거: brain/docs/CAFE24-SMARTDESIGN-AGENT.md F7/F10변형/F14/F19.
+ * !important는 "base를 맞받는 자리"에만 사용 — 블록마다 사유 주석 필수(하드룰).
+ * 로드 순서: nk-tokens.css → nk-cafe24-reset.css(이 파일) → nk-base.css.
+ */
+
+/* ── 1) 강제 최소폭 해제 + 강제 레거시 폰트 해제 ──────────────────────────
+   근거: layout/basic/css/common.css:9  body,code{font:0.75em Verdana,Dotum,AppleGothic,sans-serif}
+         layout/basic/css/common.css:10 body{min-width:1480px}
+         layout/basic/css/ec-base-ui.css:49 input,select,textarea{font-family:"돋움",Dotum}
+   !important 사유: base가 태그 셀렉터(body/input 등)에 직접 선언 — 로드순서에 기대지 않고 확실히 이기기 위함. */
+body.nk-skin {
+  min-width: 0 !important;
+  max-width: none !important;
+  overflow-x: clip; /* F2: overflow-x:hidden 잔존 시 향후 sticky 컴포넌트가 무력화됨 — clip은 가로넘침만 차단 */
+  font-family: var(--nk-font-body) !important;
+  background-color: var(--nk-bg); /* base body{background:#fff} 상쇄 (CP4 라이브 실측: bodyBg가 #fff로 남음) — 토큰 배경 적용 */
+  color: var(--nk-font);
+}
+body.nk-skin,
+body.nk-skin input,
+body.nk-skin select,
+body.nk-skin textarea,
+body.nk-skin button,
+body.nk-skin code {
+  font-family: var(--nk-font-body) !important; /* common.css:9 + ec-base-ui.css:49 강제 폰트 동시 상쇄 */
+}
+
+/* ── 1-b) base 버튼 클래스 굴림 강제 해제 (preflight BASEFONT 실측: a.btnNormal font=굴림) ──
+   근거: layout/basic/css/ec-base-button.css — .btnNormal/.btnSubmit/.btnEm 등은 button이 아니라
+         a/span 태그에도 붙는 클래스라 위 1) 태그 셀렉터로는 안 잡힘.
+   !important 사유: base가 클래스에 굴림 스택을 직접 선언 — 동일 명시도 경쟁을 피하기 위함. */
+body.nk-skin [class^="btn"],
+body.nk-skin [class*=" btn"] {
+  font-family: var(--nk-font-body) !important;
+}
+
+/* ── 1-c) base 전역 링크 파랑 상쇄 (preflight LINK-BLUE 실측: .nk-hd__logo-link color=#008bcc) ──
+   근거: base 전역 a 색 규칙(#008bcc 계열)이 우리 링크에 그대로 스며듦 — 링크는 본문색 상속이 기본.
+   !important 불필요: body.nk-skin a(0-1-2)가 base a:link(0-1-1)보다 명시도 우위. */
+body.nk-skin a {
+  color: inherit;
+  text-decoration: none;
+}
+body.nk-skin a:hover {
+  text-decoration: none; /* common.css:21 a:hover{underline} 명시 상쇄 (css-conflict-map CP4-1) — hover 밑줄은 CP6에서 의도한 곳에만 개별 부여 */
+}
+
+/* ── 2) #wrap / #contents / #sidebar 고정폭·float 해제 ───────────────────
+   근거: layout/basic/css/layout.css:22 #wrap{width:1460px}
+         layout/basic/css/layout.css:36 #contents{float:right;width:1014px}
+         layout/basic/css/layout.css:25 #sidebar{float:left;width:180px}
+   !important 사유: 전부 px 고정폭·float를 유동 레이아웃으로 뒤집는 자리 — base와 동일 명시도(ID)라
+                    !important 없이는 로드순서(캐시)에 따라 되돌아갈 위험. */
+body.nk-skin #wrap {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+}
+body.nk-skin #container {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+}
+body.nk-skin #contents {
+  float: none !important;
+  width: 100% !important;
+}
+body.nk-skin #sidebar {
+  display: none !important; /* CP4: 카테고리(Layout_category)는 nk-header.html의 GNB/드로어로 이전 완료 — 사이드바 자체 미사용 */
+}
+
+/* ── 3) 헤더/푸터 .inner 폭 통일 ──────────────────────────────────────────
+   근거: layout/basic/css/layout.css:7  #header .inner{width:1218px}
+         layout/basic/css/layout.css:44 #footer .inner{width:1218px;margin:0 auto -45px}
+   !important 사유: 위와 동일(px 고정폭 base 규칙 상쇄). margin의 음수값(-45px, 구형 float clearing 잔재)도
+                    함께 제거하지 않으면 새 푸터 레이아웃 하단이 잘려 보임. */
+body.nk-skin #header .inner,
+body.nk-skin #footer .inner {
+  width: auto !important;
+  max-width: var(--nk-content-max);
+  margin: 0 auto !important;
+  padding: 0 var(--nk-pad-x);
+  box-sizing: border-box;
+}
+body.nk-skin #header,
+body.nk-skin #footer {
+  position: static;
+  margin: 0; /* layout.css:42 #footer{margin:40px 0 0 0} 상쇄 */
+  border-top: 0 !important; /* layout.css #footer{border-top:1px solid #dfdfdf} — §W4-S1 section/page defect */
+  border-bottom: 0; /* layout.css:42 #footer{border-bottom:45px solid #e8e8e8} 상쇄 */
+  background: transparent;
+}
+body.nk-skin #header::before,
+body.nk-skin #header::after,
+body.nk-skin #footer::before,
+body.nk-skin #footer::after {
+  display: none !important; /* common.css의 #header/#footer 가상선(:before/:after 회색 구분선) 잔존 제거 */
+  content: none !important;
+  border: 0 !important;
+}
+
+/* ── 4) 로고 800px 중앙강제 해제 (F7) ─────────────────────────────────────
+   근거: css/module/layout/logotop.css:1 .xans-layout-logotop{width:800px;margin:0 auto;text-align:center}
+         css/module/layout/logotop.css:2 font-family:verdana,...;color:#008bcc
+   !important 사유: base가 module 자동주입 클래스에 직접 지정한 값 — nk-header.html의 새 로고 배치
+                    (absolute 중앙)가 이기려면 이 잔재부터 제거해야 함. */
+body.nk-skin .xans-layout-logotop {
+  width: auto !important;
+  margin: 0 !important;
+  text-align: left !important;
+  font-family: var(--nk-font-display) !important;
+  color: inherit !important;
+}
+
+/* ── 5) #008bcc 파랑 액센트 상쇄 (헤더/푸터 범위) ─────────────────────────
+   근거: analysis.md §3-3 "카페24 기본 블루 #008bcc 83건 전역 산재".
+   이번 CP4는 헤더/GNB/드로어/푸터/페이징 범위만 처리 — 나머지(게시판·상품 등 미구축 섹션)의 개별
+   #008bcc 잔존은 analysis.md "CP3 클리닝 대상" 5번 항목 방침대로 CP6에서 해당 섹션을 지을 때 순차 치환. */
+body.nk-skin #header a:hover,
+body.nk-skin #footer a:hover:not(.nk-ft__social-link) {
+  color: var(--nk-point);
+}
+
+/* ── 6) 박스형 페이징 리셋 (F19) ──────────────────────────────────────────
+   근거(이 base 실제 셀렉터 — ec-base-paginate.css 실측, AGENT.md 일반 예시(.typeList>a)와 마크업이
+   달라 li/li a 중첩 구조로 재확인해 작성):
+     :3  .ec-base-paginate li{border:1px solid #d7d5d5}
+     :6  .ec-base-paginate li a{background:#fff}
+     :8  .ec-base-paginate li a.this{border-bottom:3px solid #495164;color:#495164}
+     :16 .ec-base-paginate.typeSub li a.this{color:#008bcc;text-decoration:underline}
+   !important 사유: base가 태그+클래스 조합으로 박스 배경/테두리/현재페이지 강조를 직접 지정. */
+body.nk-skin .ec-base-paginate li {
+  border: 0 !important;
+}
+body.nk-skin .ec-base-paginate li a {
+  background: transparent !important;
+  border-radius: 50%;
+  color: var(--nk-font);
+}
+body.nk-skin .ec-base-paginate li a:hover {
+  background: var(--nk-bg2) !important;
+}
+body.nk-skin .ec-base-paginate li a.this {
+  border-bottom: 0 !important;
+  background: var(--nk-point) !important;
+  color: var(--nk-on-dark);
+}
+body.nk-skin .ec-base-paginate.typeSub li a.this {
+  color: var(--nk-point) !important; /* #008bcc 상쇄 */
+  text-decoration: none !important;
+}
+/* blank-slate: ec-base-paginate → nk-paginate-wrap 치환 페이지 동일 리셋 */
+body.nk-skin .nk-paginate-wrap li {
+  border: 0 !important;
+}
+body.nk-skin .nk-paginate-wrap li a {
+  background: transparent !important;
+  border-radius: var(--nk-radius);
+  color: var(--nk-font);
+}
+body.nk-skin .nk-paginate-wrap li a:hover {
+  background: var(--nk-bg2) !important;
+}
+body.nk-skin .nk-paginate-wrap li a.this {
+  border-bottom: 0 !important;
+  background: var(--nk-point) !important;
+  color: var(--nk-on-dark);
+}
+body.nk-skin .nk-paginate-wrap.typeSub li a.this {
+  color: var(--nk-point) !important;
+  text-decoration: none !important;
+}
+
+/* ── 7) .xans-layout-category margin 리셋 (F14) ───────────────────────────
+   근거: css/module/layout/category.css:1 .xans-layout-category{margin:0 0 30px}
+   헤더 GNB·드로어 두 곳으로 이전된 카테고리(module="Layout_category" 반복 — 원본 stock의
+   Layout_multishopList 2회 사용과 동일한 정상 패턴)에 사이드바 전용 하단 여백이 남지 않도록 리셋.
+   !important 사유: base module 자동주입 클래스 직접 지정값 상쇄. */
+body.nk-skin .xans-layout-category {
+  margin: 0 !important;
+}
+
+/* ── 8) 폼 컨트롤 전역 정규화 (select caret 겹침 방지, F20) ───────────────
+   근거: base select에 echosting caret 이미지가 padding-right:30px 전제로 깔려있어, 공통 input 규칙과
+   충돌 시 텍스트-caret 겹침 발생. 여기서 select만 우측 여백을 별도 확보. */
+body.nk-skin input[type="text"],
+body.nk-skin input[type="password"],
+body.nk-skin input[type="email"],
+body.nk-skin input[type="tel"],
+body.nk-skin input[type="search"],
+body.nk-skin input[type="number"],
+body.nk-skin select,
+body.nk-skin textarea {
+  height: var(--nk-input-h);
+  line-height: normal;
+  font-size: var(--nk-fs-body); /* ec-base-ui.css:52-53 input 12px 잔존 상쇄 (css-conflict-map CP4-2) */
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  background-color: var(--nk-bg);
+  color: var(--nk-font);
+  box-sizing: border-box;
+  padding: 0 14px;
+}
+body.nk-skin textarea {
+  height: auto;
+  min-height: 96px;
+  padding: 10px 14px;
+  line-height: 1.6;
+}
+body.nk-skin select {
+  padding: 0 36px 0 14px;
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 11 7'%3E%3Cpath fill='none' stroke='%236c6a64' stroke-width='1.4' d='M1 1l4.5 4.5L10 1'/%3E%3C/svg%3E"); /* caret 색 = --nk-sub(#6c6a64) — data URI는 var() 불가라 리터럴 중복(기술 예외), 토큰 변경 시 함께 갱신 */
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 11px 7px;
+}
+body.nk-skin input[type="text"]:focus,
+body.nk-skin input[type="password"]:focus,
+body.nk-skin input[type="email"]:focus,
+body.nk-skin input[type="tel"]:focus,
+body.nk-skin input[type="search"]:focus,
+body.nk-skin input[type="number"]:focus,
+body.nk-skin select:focus,
+body.nk-skin textarea:focus {
+  border-color: var(--nk-point);
+  outline: none;
+}
+body.nk-skin input[type="checkbox"],
+body.nk-skin input[type="radio"] {
+  accent-color: var(--nk-point);
+}
+
+/* ── 8-b) .ec-base-table 흰 글씨 함정 상쇄 (css-conflict-map CP4-3) ─────────
+   근거: layout/basic/css/ec-base-table.css:1 .ec-base-table table{color:#fff} —
+   td/th는 base가 #353535로 재지정하지만 그 밖의 요소(caption·빈 상태 메시지·커스텀 wrapper)에
+   텍스트를 넣으면 흰 글씨로 사라짐. board/basket/PDP 3개 타입이 전부 이 클래스를 재사용.
+   명시도 (0,2,2) > base (0,1,1) — !important 불필요. */
+body.nk-skin .ec-base-table table {
+  color: var(--nk-font);
+}
+body.nk-skin [style*="italic"] {
+  font-style: normal !important; /* 누끼토끼 하드룰: italic/oblique 절대 금지 — base 잔존 인라인까지 상쇄 */
+}
+
+/* ── 9) 모듈 자동주입 클래스(.xans-layout-*) 잔존 상쇄 — 헤더/드로어/푸터 범위 ───────────
+   근거: module="Layout_X"가 렌더링되면 카페24가 그 태그에 .xans-layout-x 클래스를 자동 주입하고,
+   그 클래스에 걸린 stock 모듈 CSS(css/module/layout/*.css)가 새 마크업에도 그대로 얹힌다.
+   nk-header.html/nk-footer.html이 실제로 쓰는 모듈(category/statelogoff/statelogon/searchHeader/
+   footer/info/logobottom)만 확인해 leak을 상쇄 — 전수 아님(새 섹션을 지을 때마다 같은 방식으로 확인).
+   !important 사유: float·고정폭/높이·id 선택자처럼 값 자체가 base에 명시적으로 박혀 있어 specificity
+   조정만으로는 못 이기거나, 레이아웃 파괴적 속성이라 확실히 눌러야 하는 자리에만. */
+
+/* statelogoff.css/statelogon.css: 컨테이너 height:45px;line-height:45px 잔존
+   (> a 배경·패딩은 .nk-hd__util-link/.nk-drawer__utillink 클래스 자체 명시도가 이미 이김) */
+body.nk-skin .xans-layout-statelogoff,
+body.nk-skin .xans-layout-statelogon {
+  height: auto;
+  line-height: normal;
+}
+
+/* category.css: .position>ul>li>a 가 태그 3개(ul,li,a) 조합이라 .nk-gnb__link/.nk-drawer__link
+   클래스 단독 선언보다 명시도가 높음(0,2,3 vs 0,2,1) — 동일 구조 + 상위 클래스까지 얹어 재선언해서
+   확실히 상쇄(font-size:14px;font-weight:bold;color:#2e2e2e/#008bcc hover 포함). */
+body.nk-skin .nk-gnb .position > ul > li > a,
+body.nk-skin .nk-drawer__cat .position > ul > li > a {
+  display: block;
+  padding: 0;
+  font-family: var(--nk-font-display);
+  font-size: var(--nk-fs-gnb);
+  font-weight: 400;
+  word-spacing: normal;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--nk-font);
+  text-decoration: none;
+}
+body.nk-skin .nk-gnb .position > ul > li > a {
+  line-height: var(--nk-gnb-h);
+  white-space: nowrap;
+}
+body.nk-skin .nk-gnb .position > ul > li > a:hover,
+body.nk-skin .nk-drawer__cat .position > ul > li > a:hover,
+body.nk-skin .nk-gnb .position > ul > li.selected > a,
+body.nk-skin .nk-drawer__cat .position > ul > li.selected > a,
+body.nk-skin .nk-gnb .position > ul > li.on > a,
+body.nk-skin .nk-drawer__cat .position > ul > li.on > a {
+  color: var(--nk-point); /* #008bcc 상쇄 */
+}
+
+/* footer.css: .xans-layout-footer{float:right;width:1000px;height:234px;position:relative}가
+   LEGAL 칼럼(module 1회차)과 하단 base 행(module 2회차) 두 인스턴스 모두를 깨뜨림. */
+body.nk-skin .xans-layout-footer {
+  float: none !important;
+  width: auto !important;
+  height: auto !important;
+  position: static !important;
+}
+
+/* footer.css 자식 규칙 상쇄 — #footer.nk-ft 스코프(W4-F1: Legal p.nk-ft__biz 좌측 gap leak)
+   근거: footer.css:3 .utilMenu li{float:left;padding:0 10px;background:ico_bar2.gif}
+         footer.css:6 .address{padding:24px 0}
+         footer.css:9 .copyright{position:absolute;left:0;bottom:0;height:45px}
+   !important 불필요: #footer.nk-ft .xans-layout-footer(0,3,1) > base (0,2,0). */
+body.nk-skin #footer.nk-ft .xans-layout-footer .copyright,
+body.nk-skin #footer.nk-ft .xans-layout-footer .pageTop,
+body.nk-skin #footer.nk-ft .xans-layout-footer .hosting {
+  position: static;
+  left: auto;
+  right: auto;
+  bottom: auto;
+  height: auto;
+  line-height: inherit;
+}
+body.nk-skin #footer.nk-ft .xans-layout-footer .utilMenu li {
+  float: none;
+  padding: 0;
+  background: none;
+}
+body.nk-skin #footer.nk-ft .xans-layout-footer .address {
+  padding: 0;
+}
+
+/* info.css: .xans-layout-info{margin:0 0 20px;padding:0 0 17px;border-bottom:1px solid #e8e8e8} */
+body.nk-skin .xans-layout-info {
+  margin: 0;
+  padding: 0;
+  border-bottom: 0;
+}
+
+/* logobottom.css: .xans-layout-logobottom{float:left;width:189px;padding:64px 0 0 15px} */
+body.nk-skin .xans-layout-logobottom {
+  float: none !important;
+  width: auto;
+  padding: 0;
+}
+
+/* searchHeader.css: .xans-layout-searchheader{float:right;margin:-50px 0 0} — 검색 오버레이 안에서
+   음수 마진이 그대로 얹히면 필드가 위로 붕 뜬다. fieldset에도 1px 박스 테두리가 잔존.
+   #keyword는 id 선택자(width:143px;height:32px;padding:0 0 0 9px;border:0;background:#fff)라
+   클래스 조합으로는 못 이겨 !important로 확정. */
+body.nk-skin .xans-layout-searchheader {
+  float: none !important;
+  margin: 0 !important;
+}
+body.nk-skin .nk-search__field {
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+body.nk-skin .nk-search__row #keyword {
+  width: 100% !important;
+  height: 52px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  line-height: normal !important;
+  background: transparent !important;
+  font-family: var(--nk-font-display) !important;
+  font-size: 26px !important;
+  color: var(--nk-font) !important;
+}
+
+/* ── 10) #quick 위젯(맨위로/장바구니/최근본상품) 전역 숨김 ─────────────────
+   근거: visual-verdict 실측 — 우상단 고정 위젯이 topbar 공지 슬라이드를 가리고, 검증 레퍼런스에는
+   이 위젯 자체가 없음. 마크업(main.html의 #quick, module 바인딩)은
+   결제/기능과 무관해 그대로 보존하고 CSS 숨김만으로 충분 — 마크업 삭제 불필요. */
+body.nk-skin #quick {
+  display: none;
+}
+
+/* ── 11) member domain ec-base-table 행 border 상쇄 (join.css·ec-base-table.css #d5d5d5/#d7d5d5) ──
+   !important 사유: base가 th/td·table:before에 태그+class 조합으로 border 직접 지정 — nk-member.css와 이중 방어. */
+body.nk-skin .xans-member .ec-base-table table::before {
+  display: none !important;
+  content: none !important;
+  border: 0 !important;
+}
+body.nk-skin .xans-member .ec-base-table.typeWrite th,
+body.nk-skin .xans-member .ec-base-table.typeWrite td,
+body.nk-skin .xans-member .ec-base-table.typeList th,
+body.nk-skin .xans-member .ec-base-table.typeList td {
+  border-color: transparent !important;
+  border-width: 0 !important;
+}
+body.nk-skin .xans-member .agreeArea {
+  border-color: transparent !important;
+  border-width: 0 !important;
+}
+
+/* ── 12) §W4-S1 member section tier — login/agreement visible-border purge ───────────────
+   !important 사유: nk-member.css(페이지 @css)가 reset/base 뒤 로드되어 동명시도 border·#2e2e2e 재선언.
+   4-tier strict: border-width > 0 = defect — 구분은 padding/spacing으로만. */
+body.nk-skin .nk-login-wrap a:not(.nk-btn-login):not(.nk-btn-guest):not(.nk-btn-join):not(.nk-sns-btn) {
+  color: var(--nk-sub) !important; /* login.css a{color:#2e2e2e} stock color */
+}
+body.nk-skin .nk-login-wrap .nk-login-join {
+  border-top: 0 !important;
+}
+body.nk-skin .nk-login-wrap .nk-login-join .nk-btn-join {
+  border: 0 !important;
+}
+body.nk-skin .nk-login-wrap .snsArea.nk-login-sns-btns,
+body.nk-skin .nk-login-wrap .nk-login-sns-btns {
+  border: 0 !important; /* login.css .snsArea{border-bottom:1px solid #dfdfdf} */
+}
+body.nk-skin .nk-mbr-wrap .xans-mall {
+  border: 0 !important; /* mall.css agreement 약관 박스 border */
+}

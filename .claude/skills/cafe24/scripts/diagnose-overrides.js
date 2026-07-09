@@ -75,7 +75,7 @@
   // F3) 토큰 미로드 (번들 지연) — 다른 진단의 신뢰도에 영향
   (function () {
     var rs = gcs(document.documentElement);
-    var v = ['--nk-theme', '--nk-color-primary', '--nk-color-text', '--nk-color-background', '--nk-font-display']
+    var v = ['--nk-theme', '--nk-point', '--nk-bg', '--nk-color-primary', '--nk-color-text', '--nk-color-background', '--nk-font-display'] /* flat(신) + namespace(구 스킨 감지용 열거 — 어휘 사용 아님) */
       .map(function (n) { return (rs.getPropertyValue(n) || '').trim(); }).filter(Boolean);
     if (!v.length) add('🟡', 'F3', '배포', 'nk 디자인 토큰(:root --nk-*)이 비어 있음 — 번들 미반영(optimizer 지연)이거나 토큰 미정의',
                 '--nk-* 토큰 전부 빈값',

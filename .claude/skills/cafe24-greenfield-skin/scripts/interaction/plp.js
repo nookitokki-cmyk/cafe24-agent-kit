@@ -13,11 +13,11 @@ const V = process.env.PLP_INTERACTION_V || 'w4-plp-interaction';
   {
     const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
     await page.goto(`${BASE}/product/list.html?cate_no=24&v=${V}`, { waitUntil: 'domcontentloaded', timeout: 60000 });
-    await page.waitForSelector('.nk-prd__link', { timeout: 15000 });
-    const href = await page.locator('.nk-prd__link').first().getAttribute('href');
+    await page.waitForSelector('.nk-prd-card__link, .nk-prd__link', { timeout: 15000 });
+    const href = await page.locator('.nk-prd-card__link, .nk-prd__link').first().getAttribute('href');
     await Promise.all([
       page.waitForNavigation({ waitUntil: 'domcontentloaded', timeout: 30000 }),
-      page.locator('.nk-prd__link').first().click(),
+      page.locator('.nk-prd-card__link, .nk-prd__link').first().click(),
     ]);
     await page.waitForTimeout(800);
     const pdp = await page.evaluate(() => ({
@@ -49,7 +49,7 @@ const V = process.env.PLP_INTERACTION_V || 'w4-plp-interaction';
       const after = await page.evaluate(() => ({
         url: location.href,
         sortLinks: document.querySelectorAll('.nk-plp__sortby a').length,
-        productCards: document.querySelectorAll('.nk-prd__link').length,
+        productCards: document.querySelectorAll('.nk-prd-card__link, .nk-prd__link').length,
       }));
       sortPass = after.sortLinks >= 1 && after.productCards >= 1;
       report.tests.sortClick = { pass: sortPass, beforeUrl, ...after };
@@ -63,12 +63,12 @@ const V = process.env.PLP_INTERACTION_V || 'w4-plp-interaction';
   {
     const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
     await page.goto(`${BASE}/product/list.html?cate_no=24&v=${V}`, { waitUntil: 'domcontentloaded', timeout: 60000 });
-    await page.waitForSelector('.nk-plp__paginate ol a', { timeout: 15000 });
-    const pageLinks = await page.locator('.nk-plp__paginate ol a').count();
+    await page.waitForSelector('.nk-plp__paginate ol a, .nk-plp__paginate .nk-pagination a', { timeout: 15000 });
+    const pageLinks = await page.locator('.nk-plp__paginate ol a, .nk-plp__paginate .nk-pagination a').count();
     if (pageLinks < 2) {
       report.tests.paginationClick = { pass: true, skipped: true, reason: 'single page only', pageLinks };
     } else {
-      const page2 = page.locator('.nk-plp__paginate ol a').nth(1);
+      const page2 = page.locator('.nk-plp__paginate ol a, .nk-plp__paginate .nk-pagination a').nth(1);
       const page2Text = await page2.textContent();
       await Promise.all([
         page.waitForNavigation({ waitUntil: 'domcontentloaded', timeout: 30000 }).catch(() => null),
@@ -77,7 +77,7 @@ const V = process.env.PLP_INTERACTION_V || 'w4-plp-interaction';
       await page.waitForTimeout(800);
       const after = await page.evaluate(() => ({
         url: location.href,
-        cards: document.querySelectorAll('.nk-prd__link').length,
+        cards: document.querySelectorAll('.nk-prd-card__link, .nk-prd__link').length,
         paginate: !!document.querySelector('.nk-plp__paginate'),
       }));
       report.tests.paginationClick = {
@@ -94,7 +94,7 @@ const V = process.env.PLP_INTERACTION_V || 'w4-plp-interaction';
     const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
     await page.goto(`${BASE}/product/search.html?keyword=${encodeURIComponent('샘플')}&v=${V}`, { waitUntil: 'domcontentloaded', timeout: 60000 });
     const searchState = await page.evaluate(() => ({
-      cards: document.querySelectorAll('.nk-prd__link').length,
+      cards: document.querySelectorAll('.nk-prd-card__link, .nk-prd__link').length,
       hasGrid: !!document.querySelector('.nk-prd-grid'),
       hasSearchModule: !!document.querySelector('.xans-search-result, [module="Search_Result"]'),
       hasHead: !!document.querySelector('.nk-etc__head'),

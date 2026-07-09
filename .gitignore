@@ -19,10 +19,11 @@ work/deploy-*/
 node_modules/
 .playwright-mcp/
 web/cafe24/.Codex/
-# 클라이언트 폴더: _template·demo000(예시)만 추적, 나머지 실/테스트 클라는 전부 제외
+# 클라이언트 폴더: _template·demo000(예시)·_verified-template(검증 템플릿)만 추적, 나머지 실/테스트 클라는 전부 제외
 agent-kit/clients/*
 !agent-kit/clients/_template/
 !agent-kit/clients/demo000/
+!agent-kit/clients/_verified-template/
 **/.vscode/sftp.json
 
 # api-poc 보존 자산은 설계서·PoC만 (실제 비밀 설정/토큰은 추적 금지)

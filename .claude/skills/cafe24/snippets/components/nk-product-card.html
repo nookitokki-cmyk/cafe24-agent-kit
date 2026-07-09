@@ -2,7 +2,7 @@
  * nk-product-card — 상품 카드 (이미지 + hover 2번째 이미지 + 가격 + 신상품 배지)
  * 사용처: 상품 목록 페이지 (product/list.html). ModuleProductList 안의 each 반복 단위.
  * 의존성:
- *   - CSS 변수: --nk-color-text / --nk-color-text-sub / --nk-color-border / --nk-radius-md / --nk-space-sm
+ *   - CSS 변수: --nk-font / --nk-sub / --nk-border / --nk-radius / (리터럴 8px)
  *   - JS: snippets/js/nk-product-hover.js (마우스오버 이미지 전환, 선택)
  *
  * 비코더 사용법:
@@ -57,18 +57,18 @@
 
 <style>
   .nk-product-card{
-    background:var(--nk-color-bg, #fff);
+    background:var(--nk-bg, #fff);
     border:1px solid transparent;
-    border-radius:var(--nk-radius-md, 12px);
+    border-radius:var(--nk-radius, 12px);
     overflow:hidden;
     transition:border-color .2s, transform .2s;
   }
-  .nk-product-card:hover{border-color:var(--nk-color-border); transform:translateY(-2px)}
+  .nk-product-card:hover{border-color:var(--nk-border, #e5e7eb); transform:translateY(-2px)}
   .nk-product-img-link{position:relative; display:block; color:inherit}
   .nk-product-img{
     position:relative;
     aspect-ratio:1/1;
-    background:var(--nk-color-surface, #f8f9fa);
+    background:var(--nk-bg2, #f8f9fa);
     overflow:hidden;
   }
   .nk-product-img img{
@@ -80,10 +80,10 @@
   .nk-product-img:hover .nk-product-img-main{opacity:0}
   .nk-product-img:hover .nk-product-img-hover{opacity:1}
   .nk-product-badges{
-    position:absolute; top:var(--nk-space-sm, 8px); left:var(--nk-space-sm, 8px);
+    position:absolute; top:8px; left:8px;
     display:flex; flex-direction:column; gap:4px;
   }
-  .nk-product-info{padding:var(--nk-space-md, 16px) var(--nk-space-sm, 8px)}
+  .nk-product-info{padding:16px 8px}
   .nk-product-name{
     margin:0 0 8px; font-size:14px; font-weight:500;
     line-height:1.4;
@@ -91,17 +91,17 @@
     display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical;
     overflow:hidden;
   }
-  .nk-product-name a{color:var(--nk-color-text)}
+  .nk-product-name a{color:var(--nk-font, #1a1a1a)}
   .nk-product-prices{
     display:flex; align-items:baseline; gap:8px; flex-wrap:wrap;
   }
   .nk-product-price-original{
-    color:var(--nk-color-text-sub, #5f6368);
+    color:var(--nk-sub, #5f6368);
     font-size:13px; text-decoration:line-through;
   }
   .nk-product-price-original:empty{display:none}
   .nk-product-price-sale{
-    color:var(--nk-color-text); font-size:15px; font-weight:700;
+    color:var(--nk-font, #1a1a1a); font-size:15px; font-weight:700;
   }
   .nk-product-meta{margin-top:8px; min-height:1em}
   .nk-product-meta:empty{display:none}

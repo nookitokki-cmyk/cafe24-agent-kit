@@ -19,11 +19,11 @@
  *      </div>
  *
  *   4. CSS도 함께 (간단 버전):
- *      .nk-tab-list { display:flex; border-bottom:1px solid var(--nk-color-border); }
+ *      .nk-tab-list { display:flex; border-bottom:1px solid var(--nk-border, #e5e7eb); }
  *      .nk-tab { padding:12px 20px; background:transparent; border:0; cursor:pointer;
- *                color:var(--nk-color-text-sub); font-family:inherit; font-size:14px; }
- *      .nk-tab.is-active { color:var(--nk-color-text); font-weight:700;
- *                          border-bottom:2px solid var(--nk-color-accent); }
+ *                color:var(--nk-sub, #5f6368); font-family:inherit; font-size:14px; }
+ *      .nk-tab.is-active { color:var(--nk-font, #1a1a1a); font-weight:700;
+ *                          border-bottom:2px solid var(--nk-point, #222222); }
  *
  * 키보드 단축키:
  *   - ←/→ : 이전/다음 탭

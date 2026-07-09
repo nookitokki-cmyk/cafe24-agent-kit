@@ -1,0 +1,403 @@
+/*
+ * nk-plp.css — verified-template 상품목록(PLP: 카테고리/전체상품 목록) 전용
+ * 자기완결형 — 전부 body.nk-skin .nk-plp 스코프(list.html 최상위 <div class="nk-plp"> 래퍼 기준).
+ * 공유 파일(nk-tokens.css/nk-cafe24-reset.css/nk-base.css/nk-header.html/nk-footer.html/
+ * layout.html/main.html/nk-main.css)은 절대 수정하지 않는다 — 여기서 오버라이드로만 해결.
+ * 값은 전부 nk-tokens.css의 var(--nk-*) 참조, 컴포넌트 고유 여백/크기(그리드 gap·카드 폭 등)만
+ * nk-main.css와 동일한 관례대로 리터럴로 기술(핵심 색·폰트·브레이크포인트 치수는 반드시 var()).
+ * 참고: design.md §4(그리드) + css-conflict-map §2-C(CP6-D/CP6-E 처방).
+ * 로드 순서: nk-tokens.css → nk-cafe24-reset.css → nk-base.css → nk-plp.css(이 파일, list.html 전용).
+ * 명시도 원칙: 이 파일의 셀렉터는 항상 body.nk-skin .nk-plp(타입1+클래스2)를 접두해 base 클래스
+ * 체인을 명시도로 이긴다 — !important는 base가 id 선택자를 포함할 가능성이 있는 자리(§10 CP6-D
+ * #type 항목)에만 예외적으로 사용, 사유 주석 필수. 페이지 배경은 이미 전역(nk-cafe24-reset.css)
+ * 처리 — 이 파일에서 중복 선언하지 않는다.
+ */
+
+/* ================= 1) 페이지 컨테이너 ================= */
+body.nk-skin .nk-plp {
+  display: block;
+}
+body.nk-skin .nk-plp__category,
+body.nk-skin .nk-plp__toolbar {
+  max-width: var(--nk-content-max);
+  margin: 0 auto;
+  padding: 0 var(--nk-pad-x);
+  box-sizing: border-box;
+}
+
+/* ================= 2) 카테고리 브레드크럼 (module="product_headcategory" #1) ================= */
+body.nk-skin .nk-plp__breadcrumb ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  padding: 20px 0 0;
+  list-style: none;
+  font-family: var(--nk-font-body);
+  font-size: 12px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-plp__breadcrumb li {
+  display: inline-flex;
+  align-items: center;
+}
+body.nk-skin .nk-plp__breadcrumb li:not(:last-child)::after {
+  content: "/";
+  margin-left: 4px;
+  color: var(--nk-line);
+}
+body.nk-skin .nk-plp__breadcrumb a {
+  color: var(--nk-sub);
+  text-decoration: none;
+}
+body.nk-skin .nk-plp__breadcrumb a:hover {
+  color: var(--nk-point);
+}
+body.nk-skin .nk-plp__breadcrumb strong a {
+  color: var(--nk-font);
+  font-weight: 400;
+}
+
+/* ================= 3) 타이틀 영역 (module="product_headcategory" #2) — 카테고리명 h1 중앙 =================
+   검증된 plp-full 패턴: titleArea에 카테고리명 h1 중앙 노출. */
+body.nk-skin .nk-plp__titlearea {
+  padding: 40px 0 32px;
+  text-align: center;
+}
+body.nk-skin .nk-plp__titlearea .banner {
+  margin: 0 0 16px;
+}
+body.nk-skin .nk-plp__titlearea .banner:empty {
+  display: none;
+}
+body.nk-skin .nk-plp__title {
+  margin: 0;
+  font-family: var(--nk-font-display);
+  font-weight: 400;
+  font-style: normal;
+  font-size: 28px; /* design.md §2 페이지 타이틀 PC 28px */
+  letter-spacing: 0.5px;
+  color: var(--nk-font);
+}
+body.nk-skin .nk-plp__like {
+  display: inline-flex;
+  margin-top: 12px;
+}
+body.nk-skin .nk-plp__like button {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  font-family: var(--nk-font-body);
+  font-size: 12px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-plp__like:hover button {
+  color: var(--nk-point);
+}
+@media (max-width: 1023px) {
+  body.nk-skin .nk-plp__title {
+    font-size: 21px; /* design.md §2 페이지 타이틀 모바일 21px */
+  }
+}
+
+/* ================= 4) 서브카테고리 (module="product_displaycategory"/"product_children") ================= */
+body.nk-skin .nk-plp__subcat {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 8px 20px;
+  margin: 0 0 32px;
+  padding: 16px 0 0;
+  border-top: 1px solid var(--nk-line);
+  list-style: none;
+}
+body.nk-skin .nk-plp__subcat-link {
+  font-family: var(--nk-font-body);
+  font-size: 13px;
+  color: var(--nk-sub);
+  text-decoration: none;
+}
+body.nk-skin .nk-plp__subcat-link:hover {
+  color: var(--nk-point);
+}
+body.nk-skin .nk-plp__subcat > li.selected > .nk-plp__subcat-link {
+  color: var(--nk-font);
+  font-weight: 500;
+}
+body.nk-skin .nk-plp__subcat .count {
+  font-size: 11px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-plp__subcat-children {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px 14px;
+  width: 100%;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+body.nk-skin .nk-plp__subcat-grandchildren {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  margin: 4px 0 0 0;
+  padding: 0;
+  list-style: none;
+}
+body.nk-skin .nk-plp__subcat .button {
+  display: inline-block;
+}
+
+/* ================= 5) 추천/신상/본목록 — blank-slate nk-listmain + nk-prd-card (components) ================= */
+body.nk-skin .nk-plp .nk-listmain {
+  max-width: var(--nk-content-max);
+  margin: 0 auto 80px;
+  padding: 0 var(--nk-pad-x);
+  box-sizing: border-box;
+}
+body.nk-skin .nk-plp .nk-listmain .nk-sec__head {
+  margin: 0 0 28px;
+  text-align: center;
+}
+body.nk-skin .nk-plp .nk-listmain .nk-sec__head h3 {
+  margin: 0;
+  font-family: var(--nk-font-display);
+  font-size: 17px;
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: 0.5px;
+  color: var(--nk-font);
+}
+@media (max-width: 767px) {
+  body.nk-skin .nk-plp .nk-listmain {
+    margin: 0 auto 48px;
+  }
+  body.nk-skin .nk-plp .nk-listmain .nk-sec__head {
+    margin: 0 0 20px;
+  }
+}
+
+/* ================= 6) 상품 그리드 + ListItem 가격 (nk-components 카드 연동) ================= */
+body.nk-skin .nk-plp .nk-prd-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 70px 20px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+@media (max-width: 1023px) {
+  body.nk-skin .nk-plp .nk-prd-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 50px 10px;
+  }
+}
+body.nk-skin .nk-plp .nk-prd-grid > .nk-prd-card {
+  width: 100%;
+  min-width: 0;
+}
+body.nk-skin .nk-plp .nk-prd-card__price-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+body.nk-skin .nk-plp .nk-prd-card__price-item {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-family: var(--nk-font-display);
+  font-size: 14px;
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-plp .nk-prd-card__price-label {
+  font-family: var(--nk-font-body);
+  font-size: 11px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-plp .nk-prd-card__price-label.displaynone {
+  display: none;
+}
+
+body.nk-skin .nk-plp .nk-listmain .nk-prd-grid:empty {
+  display: block;
+  min-height: 120px;
+  padding: 60px 0;
+  text-align: center;
+}
+body.nk-skin .nk-plp .nk-listmain .nk-prd-grid:empty::after {
+  content: "등록된 상품이 없습니다.";
+  display: block;
+  font-family: var(--nk-font-body);
+  font-size: 13px;
+  color: var(--nk-sub);
+}
+
+/* ================= 7) 정렬바(module="product_normalmenu") — 등록제품 카운트 + sortby 링크 리스트 =================
+   정렬 UI는 select가 아니라 링크 리스트(sortby 방식) —
+   좌측 카운트 / 우측 정렬+비교 그룹, 구분선. */
+body.nk-skin .nk-plp__sortbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+  margin: 0 0 32px;
+  padding: 16px 0;
+  border-top: 1px solid var(--nk-line);
+  border-bottom: 1px solid var(--nk-line);
+}
+body.nk-skin .nk-plp__count {
+  margin: 0 auto 0 0;
+  font-family: var(--nk-font-body);
+  font-size: 12px;
+  letter-spacing: 0.3px;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-plp__count strong {
+  color: var(--nk-font);
+  font-weight: 500;
+}
+body.nk-skin .nk-plp__sortby {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+body.nk-skin .nk-plp__sortby li {
+  line-height: 1;
+}
+body.nk-skin .nk-plp__sortby li a {
+  display: inline-block;
+  padding: 0 12px;
+  font-family: var(--nk-font-body);
+  font-size: 12px;
+  letter-spacing: 0.3px;
+  color: var(--nk-sub);
+  text-decoration: none;
+  border-left: 1px solid var(--nk-line);
+}
+body.nk-skin .nk-plp__sortby li:first-child a {
+  border-left: 0;
+  padding-left: 0;
+}
+body.nk-skin .nk-plp__sortby li a:hover {
+  color: var(--nk-point);
+}
+body.nk-skin .nk-plp__compare {
+  margin-left: 4px;
+}
+body.nk-skin .nk-plp__compare a {
+  font-family: var(--nk-font-body);
+  font-size: 12px;
+  color: var(--nk-sub);
+  text-decoration: none;
+}
+body.nk-skin .nk-plp__compare a:hover {
+  color: var(--nk-point);
+}
+
+/* ================= 8) 조건별 검색(module="product_FirstSelect"/"product_SecondSelect") =================
+   select 외형(높이/캐럿/보더)은 nk-cafe24-reset.css §8 전역 정규화가 이미 처리 — 여기서는
+   배치(gap)와 검색 버튼만 추가. */
+body.nk-skin .nk-plp__condition {
+  margin: 0 0 32px;
+  border: 0;
+  padding: 0;
+}
+body.nk-skin .nk-plp__condition p {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+}
+body.nk-skin .nk-plp__condition select {
+  max-width: 200px;
+}
+body.nk-skin .nk-plp__search-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--nk-input-h);
+  padding: 0 22px;
+  background-color: var(--nk-font);
+  color: var(--nk-bg);
+  font-family: var(--nk-font-body);
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  border-radius: var(--nk-radius);
+}
+body.nk-skin .nk-plp__search-btn:hover {
+  background-color: var(--nk-point);
+  color: var(--nk-on-point);
+}
+
+/* ================= 9) 페이지네이션(module="product_normalpaging") =================
+   박스형 배경/테두리/현재페이지 강조는 nk-cafe24-reset.css §6이 이미 전역 상쇄 — 여기서는
+   페이지 여백만 추가. */
+body.nk-skin .nk-plp__paginate {
+  max-width: var(--nk-content-max);
+  margin: 0 auto 80px;
+  padding: 24px var(--nk-pad-x) 0;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+/* ================= 10) CP6-D — 레거시 #008bcc 파랑 상쇄 (css-conflict-map.md §2-C) =================
+   menupackage.css:13,14,19-20,27 서브카테고리 hover/selected + listnormal.css:6-7,12 비교버튼
+   hover/prdCount/정렬 링크 hover. 클래스 체인 명시도 우위로 대부분 !important 없이 승리 —
+   #type li a:hover만 base에 id 선택자(#type) 포함 가능성이 있어(원문 미확인) !important로 확정. */
+body.nk-skin .nk-plp .xans-product-menupackage .menuCategory > li > a:hover,
+body.nk-skin .nk-plp .xans-product-menupackage .menuCategory > li.selected > a {
+  color: var(--nk-point);
+}
+body.nk-skin .nk-plp .xans-product-normalmenu .function .btnCompare:hover {
+  color: var(--nk-point);
+}
+body.nk-skin .nk-plp .xans-product-normalmenu .function .prdCount {
+  color: var(--nk-font);
+}
+body.nk-skin .nk-plp #type li a:hover {
+  color: var(--nk-point) !important; /* !important 사유: base listnormal.css ul#type li a:hover{color:#008bcc} — id(#type) 포함 명시도(1,1,3), 2026-07-04 원문 실측으로 확정 */
+}
+
+/* ================= 11) Wave 2.5 시각 스윕 결함 처방 (sweep-defects.md #14) =================
+   라이브 실측(2026-07-04, /product/list.html?cate_no=24, PC)으로 원인 확정:
+   우상단 y≈148 "정체불명 마크 2개" = base layout.css:55-56 브레드크럼(.path) 잔재 —
+   ① .path ol{float:right}가 크럼을 우상단으로 밀고 ② .path li 배경 ico_path.gif 구분자가 마크로 노출.
+   기존 §2는 display/색만 덮고 float·gif 배경·들여쓰기 padding을 안 덮었음. */
+body.nk-skin .nk-plp__breadcrumb ol {
+  float: none; /* layout.css:55 .path ol{float:right} 상쇄 — 마크가 우상단에 뜬 1차 원인 */
+}
+body.nk-skin .nk-plp__breadcrumb li {
+  float: none; /* layout.css:56 .path li{float:left} 상쇄 */
+  padding: 0; /* layout.css:56 .path li{padding:0 0 0 12px} 상쇄 */
+  margin: 0; /* layout.css:56 .path li{margin:0 0 0 8px} 상쇄 */
+  background: none; /* layout.css:56 ico_path.gif 구분자 = sweep #14의 마크 본체 — 제거(구분자는 §2 ::after "/"가 담당) */
+}
+
+/* 동계열 보너스(같은 실측에서 확인된 stock 잔재 — sortby 행): base listnormal.css의 ul#type 규칙이
+   id 명시도(1,1,1)로 기존 §7 클래스 처방(0,2,1)을 되이겨 잔존하던 것들. */
+body.nk-skin .nk-plp ul#type li {
+  padding: 0; /* listnormal.css ul#type li{padding:0 6px 0 10px} 상쇄 — 간격은 §7 li a padding(0 12px)이 담당 */
+  background: none; /* listnormal.css bg_result_type.gif 구분자 gif 제거 (실측: li 배경에 잔존 확인) */
+}
+body.nk-skin .nk-plp ul#type li a {
+  color: var(--nk-sub); /* listnormal.css ul#type li a{color:#2e2e2e} id 명시도 상쇄 — §7 톤과 통일 */
+}
+body.nk-skin .nk-plp .xans-product-normalmenu .function {
+  border-left: 0; /* listnormal.css .function{border:1px solid #d7d5d5} 좌우변 잔존 상쇄 (실측: left/right #d7d5d5) — §7 .nk-plp__sortbar는 top/bottom만 재선언했었음 */
+  border-right: 0;
+}

@@ -1,5 +1,24 @@
 # Cafe24 Agent Kit — Changelog
 
+## v2.9.0 (2026-07-09) — 검증 템플릿(_verified-template) 동봉 + 토큰 어휘 통일 + 공개 위생 정리
+
+> **호환성:** non-breaking(기존 파일 삭제 없음 — 스니펫 토큰명 개정은 값 위치만, 신규 폴더 추가). ralplan 합의 실행분(`ecudemo402307-verified-template` 계획).
+
+### Added
+- **검증 템플릿 동봉** — `agent-kit/clients/_verified-template/`: ecudemo402307(실제 완성 스킨, Wave1~4+ultraqa 8/8 PASS)에서 브랜드 중립화 추출한 31파일(`src/_nk/css` 15 + `_nk/inc` 4 + `_nk/js` 1 + 5타입·거래척추 셸 11) + 비코더 설치 안내 `README.md` + `CASE-STUDY.md`(별도 몰 ecudemo399293 설치 재현성 증명: 8URL 정상·module 바인딩·e2e 5/5·오버플로 0·`{$` 노출 0).
+- 시작 가이드·kit README에 "검증 템플릿 사용법" 안내. `kit-update` 자동 갱신 경로에 `_verified-template` 추가(`kit_tools.py`).
+
+### Changed
+- **토큰 어휘 flat 통일(M1 codemod)** — 스니펫 12파일의 `--nk-color-*`/`--nk-space-*`/`--nk-radius-*` → flat(`--nk-point` 계열) 통일, 기본값 3종(#008bcc/#cc785c/#2b6cb0) → 중립 `#222222` 수렴. design-tokens 생성 규칙·module-browser(`--mb-*` 내부 어휘 분리) 정합.
+- **빌드 allowlist 전환(이슈 d·g)** — `build-dist-kit.sh`가 clients 전체를 복사 후 삭제하던 방식을 폐지: 실클라 트리는 스테이징 진입 자체 금지, `_template`·`demo000`·`_verified-template`만 직접 복사(Windows에서 빌드 실패·174MB 경유 문제 해소, 12초 빌드). 세션 스크래치(`_핸드오프_*`)·MSYS 경로 검증기 버그도 함께 수정.
+
+### Fixed
+- **스니펫 변수 교정(이슈 a·b)** — `_nk-inc/header.html`: `{$link}`→`{$link_product_list}`, `{$name}`→`{$name_or_img_tag}`, `{$count}`→`{$basket_count}`, `Layout_statelogon`→`Layout_stateLogon`. `nk-header-sticky.html`: "`{$basket_cnt}`는 전역 변수" 오설명 삭제 — 장바구니 수는 `Layout_orderBasketcount` module 안에서만 유효(로고·뱃지를 module 기반으로 정정). `references/{variables,modifiers}.md`의 동일 오설명 교정.
+- **F코드 표기 통일(이슈 e)** — 허브·온보딩 문서 F1~F34 표기 27곳 → F1~F36(함정-INDEX에 F35·F36 행 신설).
+- **폐기 명령 잔존(이슈 f)** — examples 등 6곳의 `/카페24-도와줘` 제거(정규 안내로 교체).
+- **공개 위생(이슈 c)** — 실클라(ecudemo401788) 요청서 docx git 추적 제거 + 이력 정화.
+- greenfield interaction 스캐너 4종의 구 클래스 어휘를 현행 템플릿 어휘와 병기(`nk-prd-card__link`·`nk-pagination`·`nk-tabs`·`a.nk-btn`) — 위양성 FAIL 해소(D1).
+
 ## v2.8.0 (2026-07-06) — 재마크업 방법론 표면화 + 카트 JS재구축 + A-to-Z 전체 개편 워크플로우
 
 > **호환성:** non-breaking(파일 삭제·이동·이름변경 **없음**, 순수 신규 추가 + 문서 내용 정합). 기존 v2.7.x 설치 위에 그대로 업데이트 가능.

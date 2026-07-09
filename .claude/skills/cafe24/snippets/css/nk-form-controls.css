@@ -1,7 +1,7 @@
 /*!
  * nk-form-controls — 입력 폼 컨트롤 (input / textarea / select / checkbox / radio + 포커스 / 에러)
  * 사용처: 로그인·회원가입·주문서·문의 등 모든 폼
- * 의존성: CSS 변수 (--nk-color-bg / --nk-color-text / --nk-color-border / --nk-color-accent / --nk-radius-md)
+ * 의존성: CSS 변수 (--nk-bg / --nk-font / --nk-border / --nk-point / --nk-radius)
  *
  * 비코더 사용법:
  *   1. SFTP로 _nk/css/ 폴더에 업로드
@@ -23,7 +23,7 @@
 /* ───── 필드 컨테이너 ───── */
 
 .nk-field {
-  margin-bottom: var(--nk-space-md, 16px);
+  margin-bottom: 16px;
 }
 
 .nk-label {
@@ -31,23 +31,23 @@
   margin-bottom: 6px;
   font-size: 13px;
   font-weight: 600;
-  color: var(--nk-color-text, #1a1a1a);
+  color: var(--nk-font, #1a1a1a);
 }
 .nk-label .nk-required {
-  color: var(--nk-color-error, #ef4444);
+  color: var(--nk-error, #ef4444);
   margin-left: 2px;
 }
 
 .nk-field-help {
   margin: 6px 0 0;
   font-size: 12px;
-  color: var(--nk-color-text-sub, #5f6368);
+  color: var(--nk-sub, #5f6368);
 }
 
 .nk-field-error {
   margin: 6px 0 0;
   font-size: 12px;
-  color: var(--nk-color-error, #ef4444);
+  color: var(--nk-error, #ef4444);
   display: none;
 }
 .nk-field.is-error .nk-field-error { display: block; }
@@ -63,10 +63,10 @@
   min-height: 44px;
   padding: 10px 14px;
 
-  background: var(--nk-color-bg, #ffffff);
-  color: var(--nk-color-text, #1a1a1a);
-  border: 1px solid var(--nk-color-border, #e5e7eb);
-  border-radius: var(--nk-radius-md, 12px);
+  background: var(--nk-bg, #ffffff);
+  color: var(--nk-font, #1a1a1a);
+  border: 1px solid var(--nk-border, #e5e7eb);
+  border-radius: var(--nk-radius, 12px);
 
   font-family: inherit;
   font-size: 14px;
@@ -79,29 +79,29 @@
 
 .nk-input::placeholder,
 .nk-textarea::placeholder {
-  color: var(--nk-color-text-sub, #5f6368);
+  color: var(--nk-sub, #5f6368);
   opacity: 0.7;
 }
 
 .nk-input:hover,
 .nk-textarea:hover,
 .nk-select:hover {
-  border-color: var(--nk-color-text-sub, #5f6368);
+  border-color: var(--nk-sub, #5f6368);
 }
 
 .nk-input:focus,
 .nk-textarea:focus,
 .nk-select:focus {
   outline: 0;
-  border-color: var(--nk-color-accent, #2b6cb0);
-  box-shadow: 0 0 0 3px rgba(43, 108, 176, 0.15);
+  border-color: var(--nk-point, #222222);
+  box-shadow: 0 0 0 3px rgba(34, 34, 34, 0.15);
 }
 
 .nk-input:disabled,
 .nk-textarea:disabled,
 .nk-select:disabled {
-  background: var(--nk-color-surface, #f8f9fa);
-  color: var(--nk-color-text-sub, #5f6368);
+  background: var(--nk-bg2, #f8f9fa);
+  color: var(--nk-sub, #5f6368);
   cursor: not-allowed;
 }
 
@@ -112,7 +112,7 @@
 .nk-input[aria-invalid="true"],
 .nk-textarea[aria-invalid="true"],
 .nk-select[aria-invalid="true"] {
-  border-color: var(--nk-color-error, #ef4444);
+  border-color: var(--nk-error, #ef4444);
 }
 .nk-field.is-error .nk-input:focus,
 .nk-input[aria-invalid="true"]:focus {
@@ -157,8 +157,8 @@
   width: 20px;
   height: 20px;
   margin: 0;
-  background: var(--nk-color-bg, #ffffff);
-  border: 1px solid var(--nk-color-border, #e5e7eb);
+  background: var(--nk-bg, #ffffff);
+  border: 1px solid var(--nk-border, #e5e7eb);
   cursor: pointer;
   -webkit-appearance: none;
   appearance: none;
@@ -169,18 +169,18 @@
 .nk-radio { border-radius: 9999px; }
 
 .nk-checkbox:hover,
-.nk-radio:hover { border-color: var(--nk-color-accent, #2b6cb0); }
+.nk-radio:hover { border-color: var(--nk-point, #222222); }
 
 .nk-checkbox:focus-visible,
 .nk-radio:focus-visible {
-  outline: 2px solid var(--nk-color-accent, #2b6cb0);
+  outline: 2px solid var(--nk-point, #222222);
   outline-offset: 2px;
 }
 
 .nk-checkbox:checked,
 .nk-radio:checked {
-  background: var(--nk-color-accent, #2b6cb0);
-  border-color: var(--nk-color-accent, #2b6cb0);
+  background: var(--nk-point, #222222);
+  border-color: var(--nk-point, #222222);
 }
 
 .nk-checkbox:checked::after {
@@ -205,14 +205,14 @@
 
 .nk-checkbox:disabled,
 .nk-radio:disabled {
-  background: var(--nk-color-surface, #f8f9fa);
+  background: var(--nk-bg2, #f8f9fa);
   cursor: not-allowed;
 }
 
 .nk-checkbox-text,
 .nk-radio-text {
   font-size: 14px;
-  color: var(--nk-color-text, #1a1a1a);
+  color: var(--nk-font, #1a1a1a);
 }
 
 /* ───── 그룹 (가로/세로) ───── */
@@ -232,7 +232,7 @@
   display: flex;
   gap: 8px;
   justify-content: flex-end;
-  margin-top: var(--nk-space-lg, 24px);
+  margin-top: 24px;
 }
 .nk-form-actions.is-stacked { flex-direction: column-reverse; }
 @media (max-width: 480px) {
@@ -251,7 +251,7 @@
 .nk-input-suffix-label {
   position: absolute;
   right: 14px;
-  color: var(--nk-color-text-sub, #5f6368);
+  color: var(--nk-sub, #5f6368);
   font-size: 13px;
   pointer-events: none;
 }

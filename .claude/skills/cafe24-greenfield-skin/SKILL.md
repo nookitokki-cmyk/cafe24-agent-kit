@@ -9,7 +9,7 @@ disable-model-invocation: true
 
 # Cafe24 Greenfield Skin (오케스트레이터)
 
-> **이 스킬은 지식 백과가 아닙니다.** F1–F26·module 문법·6단계 YAML은 **링크만** — 본문 COPY 금지.
+> **이 스킬은 지식 백과가 아닙니다.** F1–F36·module 문법·6단계 YAML은 **링크만** — 본문 COPY 금지.
 
 ## Hard Gates (시작 전)
 
@@ -91,7 +91,7 @@ node .claude/skills/cafe24-greenfield-skin/scripts/stock-scan-tier.js --mall-id 
 
 - wave4 grep PASS만 보고 완료 보고
 - ecudemo402307 경로 하드코딩을 신규 몰에 복사
-- F1–F26 본문을 SKILL에 중복 기록
+- F1–F36 본문을 SKILL에 중복 기록
 - EZ 제거를 사용자 확인 없이
 
 ## Read Order (에이전트 진입)

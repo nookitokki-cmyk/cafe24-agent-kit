@@ -1,7 +1,7 @@
 /*!
  * nk-button-system — 버튼 시스템 (primary / secondary / outline / ghost + sm·md·lg + disabled)
  * 사용처: 모든 카페24 페이지의 버튼 (구매·장바구니·검색·로그인 등)
- * 의존성: CSS 변수 (--nk-color-accent / --nk-color-text / --nk-color-border / --nk-radius-md)
+ * 의존성: CSS 변수 (--nk-point / --nk-font / --nk-border / --nk-radius)
  *
  * 비코더 사용법:
  *   1. 이 파일을 SFTP로 _nk/css/ 폴더에 업로드
@@ -26,7 +26,7 @@
 
   /* 기본 외형 */
   border: 1px solid transparent;
-  border-radius: var(--nk-radius-md, 12px);
+  border-radius: var(--nk-radius, 12px);
   font-family: inherit;
   font-size: 14px;
   font-weight: 600;
@@ -40,7 +40,7 @@
 }
 
 .nk-btn:focus-visible {
-  outline: 2px solid var(--nk-color-accent, #2b6cb0);
+  outline: 2px solid var(--nk-point, #222222);
   outline-offset: 2px;
 }
 
@@ -52,52 +52,52 @@
 
 /* Primary — 메인 액션 (구매·결제·확인) */
 .nk-btn-primary {
-  background: var(--nk-color-accent, #2b6cb0);
-  color: var(--nk-color-text-inverse, #ffffff);
-  border-color: var(--nk-color-accent, #2b6cb0);
+  background: var(--nk-point, #222222);
+  color: var(--nk-on-point, #ffffff);
+  border-color: var(--nk-point, #222222);
 }
 .nk-btn-primary:hover {
-  background: var(--nk-color-primary, #1a1a1a);
-  border-color: var(--nk-color-primary, #1a1a1a);
+  background: var(--nk-point-active, #1a1a1a);
+  border-color: var(--nk-point-active, #1a1a1a);
 }
 
 /* Secondary — 보조 액션 (장바구니·관심상품) */
 .nk-btn-secondary {
-  background: var(--nk-color-text, #1a1a1a);
-  color: var(--nk-color-text-inverse, #ffffff);
-  border-color: var(--nk-color-text, #1a1a1a);
+  background: var(--nk-font, #1a1a1a);
+  color: var(--nk-on-point, #ffffff);
+  border-color: var(--nk-font, #1a1a1a);
 }
 .nk-btn-secondary:hover {
-  background: var(--nk-color-text-sub, #5f6368);
-  border-color: var(--nk-color-text-sub, #5f6368);
+  background: var(--nk-sub, #5f6368);
+  border-color: var(--nk-sub, #5f6368);
 }
 
 /* Outline — 보더만 있는 버튼 (취소·뒤로) */
 .nk-btn-outline {
   background: transparent;
-  color: var(--nk-color-text, #1a1a1a);
-  border-color: var(--nk-color-border, #e5e7eb);
+  color: var(--nk-font, #1a1a1a);
+  border-color: var(--nk-border, #e5e7eb);
 }
 .nk-btn-outline:hover {
-  background: var(--nk-color-surface, #f8f9fa);
-  border-color: var(--nk-color-text, #1a1a1a);
+  background: var(--nk-bg2, #f8f9fa);
+  border-color: var(--nk-font, #1a1a1a);
 }
 
 /* Ghost — 배경·보더 없음 (조용한 액션) */
 .nk-btn-ghost {
   background: transparent;
-  color: var(--nk-color-text, #1a1a1a);
+  color: var(--nk-font, #1a1a1a);
   border-color: transparent;
 }
 .nk-btn-ghost:hover {
-  background: var(--nk-color-surface, #f8f9fa);
+  background: var(--nk-bg2, #f8f9fa);
 }
 
 /* Danger — 삭제·경고 */
 .nk-btn-danger {
-  background: var(--nk-color-error, #ef4444);
+  background: var(--nk-error, #ef4444);
   color: #ffffff;
-  border-color: var(--nk-color-error, #ef4444);
+  border-color: var(--nk-error, #ef4444);
 }
 .nk-btn-danger:hover {
   background: #dc2626;
@@ -111,7 +111,7 @@
   min-height: 44px;
   padding: 6px 14px;
   font-size: 13px;
-  border-radius: var(--nk-radius-sm, 6px);
+  border-radius: var(--nk-radius, 6px);
 }
 
 .nk-btn-md {
@@ -124,7 +124,7 @@
   min-height: 52px;
   padding: 14px 28px;
   font-size: 16px;
-  border-radius: var(--nk-radius-lg, 20px);
+  border-radius: var(--nk-radius, 20px);
 }
 
 /* ───── 너비 옵션 ───── */
@@ -157,7 +157,7 @@
   border: 2px solid currentColor;
   border-top-color: transparent;
   border-radius: 9999px;
-  color: var(--nk-color-text, #1a1a1a);
+  color: var(--nk-font, #1a1a1a);
   animation: nk-btn-spin 0.7s linear infinite;
 }
 .nk-btn-primary.is-loading::after,

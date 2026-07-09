@@ -2,7 +2,7 @@
  * nk-toast-notification — 토스트 알림 (성공·경고·에러·정보, 자동 사라짐)
  * 사용처: "장바구니에 담겼습니다", "로그인 필요", "복사됨" 등 짧은 피드백
  * 의존성:
- *   - CSS 변수 (--nk-color-success / --nk-color-warning / --nk-color-error / --nk-color-accent)
+ *   - CSS 변수 (--nk-success / --nk-warning / --nk-error / --nk-point)
  *   - JS는 별도 파일 없이 인라인으로 호출 가능 (아래 사용 예시 참고)
  *
  * 비코더 사용법:
@@ -64,8 +64,8 @@
   align-items: center;
   gap: 10px;
   padding: 12px 20px;
-  background: var(--nk-color-text, #1a1a1a);
-  color: var(--nk-color-bg, #ffffff);
+  background: var(--nk-font, #1a1a1a);
+  color: var(--nk-bg, #ffffff);
   border-radius: 9999px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
   font-size: 14px;
@@ -92,25 +92,25 @@
 /* ───── 변형 (type) ───── */
 
 .nk-toast-success {
-  background: var(--nk-color-success, #10b981);
+  background: var(--nk-success, #10b981);
   color: #ffffff;
 }
 .nk-toast-success::before { content: "\f167"; /* ph-check-circle */ }
 
 .nk-toast-warning {
-  background: var(--nk-color-warning, #f59e0b);
+  background: var(--nk-warning, #f59e0b);
   color: #ffffff;
 }
 .nk-toast-warning::before { content: "\f3ed"; /* ph-warning */ }
 
 .nk-toast-error {
-  background: var(--nk-color-error, #ef4444);
+  background: var(--nk-error, #ef4444);
   color: #ffffff;
 }
 .nk-toast-error::before { content: "\f361"; /* ph-x-circle */ }
 
 .nk-toast-info {
-  background: var(--nk-color-accent, #2b6cb0);
+  background: var(--nk-point, #222222);
   color: #ffffff;
 }
 .nk-toast-info::before { content: "\f24b"; /* ph-info */ }

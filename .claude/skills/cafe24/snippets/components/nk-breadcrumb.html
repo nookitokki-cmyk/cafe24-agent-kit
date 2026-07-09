@@ -2,7 +2,7 @@
  * nk-breadcrumb — 현재 위치 표시 (홈 > 카테고리 > 상품)
  * 사용처: 상품 상세 (PDP), 카테고리 목록 (PLP), 게시판 글 보기 등 깊이 있는 페이지
  * 의존성:
- *   - CSS 변수: --nk-color-text-sub / --nk-color-text / --nk-space-sm
+ *   - CSS 변수: --nk-sub / --nk-font / (리터럴 8px)
  *   - Phosphor Icons (구분자 아이콘, 선택)
  *
  * 비코더 사용법:
@@ -49,9 +49,9 @@
 
 <style>
   .nk-breadcrumb{
-    padding:var(--nk-space-sm, 8px) 0;
+    padding:8px 0;
     font-size:13px;
-    color:var(--nk-color-text-sub, #5f6368);
+    color:var(--nk-sub, #5f6368);
   }
   .nk-breadcrumb-list{
     list-style:none; margin:0; padding:0;
@@ -66,13 +66,13 @@
   .nk-crumb span:empty{display:none}
   .nk-crumb a:empty + .nk-crumb-sep,
   .nk-crumb:has(a:empty){display:none}
-  .nk-crumb a{color:var(--nk-color-text-sub, #5f6368)}
-  .nk-crumb a:hover{color:var(--nk-color-text); text-decoration:underline}
+  .nk-crumb a{color:var(--nk-sub, #5f6368)}
+  .nk-crumb a:hover{color:var(--nk-font, #1a1a1a); text-decoration:underline}
   .nk-crumb i{font-size:14px}
-  .nk-crumb.is-current span{color:var(--nk-color-text); font-weight:500}
+  .nk-crumb.is-current span{color:var(--nk-font, #1a1a1a); font-weight:500}
   .nk-crumb-sep{
     margin:0 4px;
-    color:var(--nk-color-border, #e5e7eb);
+    color:var(--nk-border, #e5e7eb);
   }
   /* 모바일에서 너무 길어지면 첫 카테고리만 표시 */
   @media(max-width:480px){

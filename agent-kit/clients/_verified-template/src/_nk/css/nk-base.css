@@ -1,0 +1,833 @@
+/*
+ * nk-base.css — verified-template 공통 크롬: topbar + header/GNB + 검색 오버레이 + 모바일 드로어 + footer
+ * 클래스 구조는 검증 레퍼런스 번들(.nk-topbar/.nk-header(#header.nk-hd)
+ * /.nk-gnb/.nk-drawer/.nk-footer(#footer.nk-ft) 계열)를 참고하되, 마크업·CSS 모두 이 클라이언트용으로 새로 작성.
+ * 값은 전부 var(--nk-*) 참조 — nk-tokens.css 정의 필수(로드 순서: tokens → reset → base(이 파일)).
+ * z-index 레이어(brain/docs/CAFE24-SMARTDESIGN-AGENT.md §9-1 표 준수): topbar 901 / header 900 / drawer 950 / 검색 960.
+ * 브레이크포인트: 모바일 ≤767px / 태블릿+모바일 공통 ≤1023px(GNB↔드로어 전환) / 데스크톱 ≥1024px.
+ *   (1025px는 실측시트상 PDP sticky 등 상세 전용 분기 — 이 파일에서는 사용하지 않음)
+ */
+
+/* ================= 공용 유틸 ================= */
+body.nk-skin .nk-blind {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ================= 1) topbar(공지 슬라이드 영역) ================= */
+body.nk-skin .nk-topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 901; /* AGENT.md §9-1 레이어 표: 띠배너 901 */
+  width: 100%;
+  height: var(--nk-topbar-h);
+  background-color: var(--nk-topbar-bg);
+  overflow: hidden;
+}
+body.nk-skin .nk-topbar__inner {
+  position: relative;
+  height: 100%;
+}
+body.nk-skin .nk-topbar__list {
+  position: relative;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+body.nk-skin .nk-topbar__item {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--nk-pad-x);
+  box-sizing: border-box;
+  font-family: var(--nk-font-body);
+  font-size: var(--nk-fs-topbar);
+  color: var(--nk-on-dark);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease;
+}
+body.nk-skin .nk-topbar__item a {
+  color: var(--nk-on-dark);
+  text-decoration: none;
+}
+body.nk-skin .nk-topbar__item.is-active {
+  z-index: 1; /* 전환 중 나가는 항목 아래로 — 텍스트 겹침 가독성 */
+  opacity: 1;
+  visibility: visible;
+}
+/* JS 미실행·단일 항목 fallback — :first-child 상시 노출 금지(회전 시 is-active와 이중 표시) */
+body.nk-skin .nk-topbar__item:only-child {
+  opacity: 1;
+  visibility: visible;
+}
+body.nk-skin .nk-topbar__list:not(:has(.is-active)) .nk-topbar__item:first-child {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ================= 2) 헤더 (#header.nk-hd) ================= */
+body.nk-skin #header.nk-hd {
+  position: fixed;
+  top: var(--nk-topbar-h);
+  left: 0;
+  z-index: 900; /* AGENT.md §9-1: 헤더 900 */
+  width: 100%;
+  background-color: var(--nk-bg);
+  border-bottom: 1px solid var(--nk-line);
+}
+/* 띠+헤더 높이만큼 본문을 내려서 시작(F1 자리 대신 fixed 스택 오프셋) */
+body.nk-skin #container {
+  padding-top: calc(var(--nk-topbar-h) + var(--nk-header-h));
+}
+body.nk-skin .nk-hd__inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--nk-header-h);
+  max-width: var(--nk-content-max);
+  margin: 0 auto;
+  padding: 0 var(--nk-pad-x);
+  box-sizing: border-box;
+}
+body.nk-skin .nk-hd__left {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+body.nk-skin .nk-hd__right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+/* 로고 — 중앙 고정(F7 대응: margin auto 강제 대신 absolute 중앙) */
+body.nk-skin .nk-hd__logo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  padding: 0;
+}
+body.nk-skin .nk-hd__logo-link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+body.nk-skin .nk-hd__wordmark {
+  font-family: var(--nk-font-display);
+  font-size: var(--nk-fs-logo);
+  font-weight: 400;
+  font-style: normal;
+  line-height: var(--nk-logo-h);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--nk-font);
+}
+
+/* GNB(좌측) */
+body.nk-skin .nk-gnb {
+  display: flex;
+  align-items: center;
+}
+body.nk-skin .nk-gnb__cat,
+body.nk-skin .nk-gnb__cat .position,
+body.nk-skin .nk-gnb__list {
+  display: block;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+body.nk-skin .nk-gnb__list {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+body.nk-skin .nk-gnb__item {
+  position: relative;
+}
+body.nk-skin .nk-gnb__link {
+  display: inline-block;
+  font-family: var(--nk-font-display);
+  font-size: var(--nk-fs-gnb);
+  font-weight: 400;
+  line-height: var(--nk-gnb-h);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--nk-font);
+  text-decoration: none;
+  white-space: nowrap;
+}
+body.nk-skin .nk-gnb__link:hover {
+  color: var(--nk-point);
+}
+
+/* GNB 2depth 드롭다운 — sweep #1: category.js가 .nk-gnb__item에 .sub-category>ul(클래스 없음) 주입.
+   stock category.css 좌표(left:179px)·말풍선 화살표·#008bcc hover 상쇄 → 크림 패널·포인트 hover. */
+body.nk-skin .nk-gnb__item:hover,
+body.nk-skin .nk-gnb__item:focus-within {
+  z-index: 30;
+}
+body.nk-skin .nk-gnb__item > .sub-category {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 180px;
+  z-index: 40;
+  padding: 8px 0;
+  border: 1px solid var(--nk-line);
+  border-radius: var(--nk-radius);
+  background: var(--nk-bg);
+  box-shadow: 0 12px 28px rgba(20, 20, 19, 0.08); /* --nk-ink 알파 — var() 합성 불가(기술 예외) */
+}
+body.nk-skin .nk-gnb__item > .sub-category > ul,
+body.nk-skin .nk-gnb__item > ul {
+  position: static;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background: transparent;
+  border: 0;
+}
+body.nk-skin .nk-gnb__item > .sub-category ul::before,
+body.nk-skin .nk-gnb__item > .sub-category ul::after,
+body.nk-skin .nk-gnb__item > ul::before,
+body.nk-skin .nk-gnb__item > ul::after,
+body.nk-skin .nk-gnb__item > .sub-category li:first-child a:hover::before {
+  display: none !important; /* !important 사유: stock 화살표 가상요소 content 직접 그림 — 확실한 제거 */
+  content: none !important;
+}
+body.nk-skin .nk-gnb__item > .sub-category li {
+  border: 0;
+}
+body.nk-skin .nk-gnb__item > .sub-category a,
+body.nk-skin .nk-gnb__item > ul a {
+  display: block;
+  padding: 9px 20px;
+  font-family: var(--nk-font-body);
+  font-size: var(--nk-fs-body);
+  color: var(--nk-font);
+  text-decoration: none;
+  background: none;
+  white-space: nowrap;
+}
+body.nk-skin .nk-gnb__item > .sub-category a:hover,
+body.nk-skin .nk-gnb__item > .sub-category li.selected a,
+body.nk-skin .nk-gnb__item > ul a:hover {
+  color: var(--nk-point);
+  background: var(--nk-bg2);
+}
+
+/* 우측 유틸(LOGIN/JOIN/ACCOUNT/LOGOUT/SEARCH/CART) */
+body.nk-skin .nk-hd__state {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+}
+body.nk-skin .nk-hd__util-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--nk-font-body);
+  font-size: var(--nk-fs-util);
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--nk-font);
+  text-decoration: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  line-height: 1;
+  white-space: nowrap;
+}
+body.nk-skin .nk-hd__util-link i {
+  font-size: 18px;
+}
+body.nk-skin .nk-hd__util-link:hover {
+  color: var(--nk-point);
+  opacity: 0.7;
+}
+body.nk-skin .nk-hd__util-name strong {
+  font-weight: 600;
+}
+body.nk-skin .nk-hd__cart-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  margin-left: 2px;
+  border-radius: 999px;
+  background: var(--nk-point);
+  color: var(--nk-on-dark);
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1;
+  box-sizing: border-box;
+}
+body.nk-skin .nk-hd__search-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  color: var(--nk-font);
+  font-size: 18px;
+}
+
+/* 햄버거(모바일 전용, PC 기본 숨김) */
+body.nk-skin .nk-hd__burger {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  color: var(--nk-font);
+}
+body.nk-skin .nk-hd__burger i {
+  font-size: 26px;
+  line-height: 1;
+}
+
+/* ================= 3) 검색 오버레이 ================= */
+body.nk-skin .nk-search {
+  position: fixed;
+  inset: 0;
+  z-index: 960; /* 드로어(950)보다 위 */
+  background-color: var(--nk-bg);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s;
+  overflow-y: auto;
+}
+body.nk-skin .nk-search.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+body.nk-skin .nk-search__overlay {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+  padding: 100px var(--nk-pad-x);
+  box-sizing: border-box;
+}
+body.nk-skin .nk-search__close-btn {
+  position: absolute;
+  top: 28px;
+  right: var(--nk-pad-x);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  color: var(--nk-font);
+  font-size: 24px;
+}
+body.nk-skin .nk-search__center {
+  width: 100%;
+  max-width: 600px;
+}
+body.nk-skin .nk-search__eyebrow {
+  margin: 0 0 24px;
+  font-family: var(--nk-font-display);
+  font-size: 13px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-search__row {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--nk-font);
+  padding-bottom: 6px;
+}
+body.nk-skin .nk-search__row input[type="text"] {
+  flex: 1;
+  height: 52px;
+  border: 0 !important; /* !important 사유: 위 §8 폼 컨트롤 전역 정규화(border:1px)를 검색창은 밑줄 하나로만 표현 */
+  background: transparent !important;
+  outline: none;
+  font-family: var(--nk-font-display);
+  font-size: 26px;
+  color: var(--nk-font);
+  padding: 0;
+}
+body.nk-skin .nk-search__submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  color: var(--nk-font);
+  font-size: 22px;
+}
+body.nk-skin .nk-search__auto {
+  list-style: none;
+  margin: 20px 0 0;
+  padding: 0;
+}
+
+/* ================= 4) 모바일 드로어 ================= */
+body.nk-skin .nk-drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 950; /* AGENT.md §9-1: 드로어 950 */
+  visibility: hidden;
+}
+body.nk-skin .nk-drawer.is-open {
+  visibility: visible;
+}
+body.nk-skin .nk-drawer__dim {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+body.nk-skin .nk-drawer.is-open .nk-drawer__dim {
+  opacity: 1;
+}
+body.nk-skin .nk-drawer__panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 84%;
+  max-width: 360px;
+  background-color: var(--nk-bg);
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+body.nk-skin .nk-drawer.is-open .nk-drawer__panel {
+  transform: translateX(0);
+}
+body.nk-skin .nk-drawer__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--nk-header-h);
+  padding: 0 20px;
+  border-bottom: 1px solid var(--nk-line);
+  flex-shrink: 0;
+}
+body.nk-skin .nk-drawer__brand {
+  font-family: var(--nk-font-display);
+  font-size: var(--nk-fs-logo);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--nk-font);
+}
+body.nk-skin .nk-drawer__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  color: var(--nk-font);
+  font-size: 24px;
+}
+body.nk-skin .nk-drawer__nav {
+  padding: 8px 0;
+}
+body.nk-skin .nk-drawer__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+body.nk-skin .nk-drawer__item {
+  border-bottom: 1px solid var(--nk-line);
+}
+body.nk-skin .nk-drawer__link {
+  display: block;
+  padding: 15px 20px;
+  font-family: var(--nk-font-display);
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--nk-font);
+  text-decoration: none;
+}
+body.nk-skin .nk-drawer__util {
+  margin-top: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  padding: 20px;
+  border-top: 1px solid var(--nk-line);
+  flex-shrink: 0;
+}
+body.nk-skin .nk-drawer__utilgroup {
+  display: contents;
+}
+body.nk-skin .nk-drawer__utillink {
+  font-family: var(--nk-font-body);
+  font-size: var(--nk-fs-util);
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--nk-font);
+  text-decoration: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+body.nk-skin .nk-drawer__utillink:hover {
+  color: var(--nk-point);
+}
+/* 드로어 열림 동안 스크롤 잠금 + 새는 고z-index 요소 숨김(§9-5 전수색출 처방 동일 원리) */
+body.nk-skin.nk-drawer-open {
+  overflow: hidden;
+}
+body.nk-skin.nk-drawer-open #orderFixArea {
+  visibility: hidden;
+}
+
+/* PC(≥1024px): GNB 노출, 드로어/햄버거 숨김 */
+@media (min-width: 1024px) {
+  body.nk-skin .nk-drawer {
+    display: none;
+  }
+}
+/* 모바일/태블릿(≤1023px): GNB 숨김, 햄버거 노출 */
+@media (max-width: 1023px) {
+  body.nk-skin .nk-gnb {
+    display: none;
+  }
+  body.nk-skin .nk-hd__burger {
+    display: inline-flex;
+  }
+  body.nk-skin .nk-hd__state .nk-hd__util-name,
+  body.nk-skin .nk-hd__state .log {
+    display: none; /* 로그인/로그아웃/계정명은 드로어 하단 유틸로 이동 — 헤더에는 검색·장바구니만 남김 */
+  }
+  /* §4-b (로고 겹침 수정): JOIN/statelogoff-ACCOUNT는 위 .nk-hd__util-name/.log 규칙이 못 잡는
+     별도 링크라 그대로 남아 nk-hd__right 폭이 커져 absolute 중앙 로고와 겹침(실측 확인) —
+     드로어(.nk-drawer__util)에 이미 동일 링크가 있으므로 헤더에서는 전체 숨김.
+     CART는 기능 아이콘이라 남기되 텍스트 라벨만 숨겨 아이콘+뱃지 전용으로 축소 —
+     결과적으로 헤더 우측 = 검색 아이콘 + 카트 아이콘(+뱃지)만 남아 로고와 겹치지 않음. */
+  body.nk-skin .nk-hd__util-full {
+    display: none;
+  }
+  body.nk-skin .nk-hd__util-label {
+    display: none;
+  }
+}
+
+/* ================= 5) 푸터 (#footer.nk-ft) — CUSTOMER CENTER / SUPPORT / LEGAL / SOCIAL 4열 ================= */
+body.nk-skin #footer.nk-ft {
+  background-color: var(--nk-bg);
+  border: 0 !important; /* §W4-FOOTER: layout.css #footer borderTop + strict scanner defect */
+  padding: 60px 0 30px;
+  color: var(--nk-font);
+}
+body.nk-skin #footer.nk-ft .xans-layout-footer {
+  border: 0 !important;
+}
+body.nk-skin .nk-ft__inner {
+  max-width: var(--nk-content-max);
+  margin: 0 auto;
+  padding: 0 var(--nk-pad-x);
+  box-sizing: border-box;
+  text-align: left; /* W4-F1: base center 상속으로 Legal 열 좌우 비대칭 여백 방지 */
+}
+body.nk-skin #footer.nk-ft .xans-layout-footer .nk-ft__biz,
+body.nk-skin #footer.nk-ft .xans-layout-footer .nk-ft__list {
+  margin: 0;
+  padding: 0;
+}
+body.nk-skin .nk-ft__cols {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+}
+body.nk-skin .nk-ft__col-title {
+  margin: 0 0 14px;
+  font-family: var(--nk-font-display);
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--nk-font);
+}
+body.nk-skin .nk-ft__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+body.nk-skin .nk-ft__line,
+body.nk-skin .nk-ft__link {
+  display: block;
+  margin: 0;
+  font-family: var(--nk-font-body);
+  font-size: var(--nk-fs-body);
+  line-height: 1.9;
+  color: var(--nk-sub);
+  text-decoration: none;
+}
+body.nk-skin .nk-ft__link:hover {
+  color: var(--nk-font);
+}
+body.nk-skin .nk-ft__tel {
+  margin: 0 0 6px;
+  font-family: var(--nk-font-display);
+  font-size: var(--nk-fs-gnb);
+  color: var(--nk-font);
+}
+body.nk-skin .nk-ft__social {
+  display: flex;
+  gap: 12px;
+}
+body.nk-skin .nk-ft__social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 0 !important; /* §W4-FOOTER: ec-base-button/a stock 1px border leak */
+  border-radius: 50%;
+  background-color: var(--nk-bg2);
+  color: var(--nk-font);
+  font-size: 16px;
+  text-decoration: none;
+}
+body.nk-skin #footer.nk-ft .nk-ft__social-link:hover,
+body.nk-skin #footer.nk-ft .nk-ft__social-link:focus-visible {
+  background-color: var(--nk-point);
+  color: var(--nk-on-point);
+}
+/* Phosphor 글리프는 i::before — inherit만으론 #footer a:hover 상쇄가 안 먹을 수 있음 */
+body.nk-skin #footer.nk-ft .nk-ft__social-link:hover i,
+body.nk-skin #footer.nk-ft .nk-ft__social-link:focus-visible i,
+body.nk-skin #footer.nk-ft .nk-ft__social-link:hover i::before,
+body.nk-skin #footer.nk-ft .nk-ft__social-link:focus-visible i::before {
+  color: var(--nk-on-point);
+}
+body.nk-skin .nk-ft__base {
+  margin-top: 40px;
+  padding-top: 24px;
+  border: 0 !important;
+}
+body.nk-skin .nk-ft__logo {
+  display: block;
+  margin: 0 0 12px;
+}
+body.nk-skin .nk-ft__logo-link {
+  display: inline-flex;
+  text-decoration: none;
+}
+body.nk-skin .nk-ft__wordmark {
+  font-family: var(--nk-font-display);
+  font-size: var(--nk-fs-logo);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--nk-font);
+}
+body.nk-skin .nk-ft__biz {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 2px 10px;
+  margin: 14px 0 0;
+  font-family: var(--nk-font-body);
+  font-size: 12px;
+  line-height: 1.8;
+  color: var(--nk-sub);
+}
+/* 원인: {$company_name} 등 빈 span이 inline-block+margin-right:10px로 2번째 항목 좌측 갭 유발 */
+body.nk-skin .nk-ft__biz span {
+  display: inline;
+  margin: 0;
+}
+body.nk-skin .nk-ft__biz span:empty,
+body.nk-skin .nk-ft__biz span.displaynone {
+  display: none;
+}
+body.nk-skin .nk-ft__biz br {
+  flex-basis: 100%;
+  width: 0;
+  height: 0;
+  margin: 0;
+  overflow: hidden;
+}
+body.nk-skin .nk-ft__biz a {
+  color: var(--nk-sub);
+  text-decoration: none;
+}
+body.nk-skin .nk-ft__copy {
+  margin: 0;
+  font-family: var(--nk-font-body);
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-ft__hosting {
+  margin: 8px 0 0;
+}
+body.nk-skin .nk-ft__hosting-txt {
+  font-size: 10px;
+  letter-spacing: 0.5px;
+  color: var(--nk-sub);
+  opacity: 0.55;
+}
+
+/* 태블릿(≤1023px): 4열 → 2열 */
+@media (max-width: 1023px) {
+  body.nk-skin .nk-ft__cols {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px 20px;
+  }
+}
+/* 모바일(≤767px): 2열 → 1열 스택 */
+@media (max-width: 767px) {
+  body.nk-skin #footer.nk-ft {
+    padding: 40px 0 24px;
+  }
+  body.nk-skin .nk-ft__cols {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   Layout widgets — blank-slate (BS-001 #16~21) · nk-layout-quick/overlays.inc
+   #quick: reset §10 전역 숨김 유지(바인딩만 보존). 오버레이·conversion은 기능 노출.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* 모바일 화면 전환 링크 */
+body.nk-skin .nk-conv-pc {
+  display: none;
+}
+@media (max-width: 1023px) {
+  body.nk-skin .nk-conv-pc {
+    display: block;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 90;
+    padding: 10px 15px;
+    background-color: var(--nk-ink);
+    text-align: center;
+  }
+  body.nk-skin .nk-conv-pc__link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--nk-font-body);
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    color: var(--nk-on-dark);
+    text-decoration: none;
+  }
+}
+
+/* WORLD SHIPPING 레이어 */
+body.nk-skin .nk-mship .dimmed {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background-color: rgba(20, 20, 19, 0.45);
+}
+body.nk-skin .nk-mship .worldshipLayer {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 210;
+  width: min(420px, calc(100vw - 30px));
+  padding: 28px 24px 24px;
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  background-color: var(--nk-bg);
+  box-sizing: border-box;
+}
+body.nk-skin .nk-mship__title {
+  margin: 0 0 16px;
+  font-family: var(--nk-font-display);
+  font-size: 17px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  color: var(--nk-ink);
+}
+body.nk-skin .nk-mship__desc {
+  margin: 0 0 14px;
+  font-size: var(--nk-fs-body);
+  line-height: 1.6;
+  color: var(--nk-sub);
+}
+body.nk-skin .nk-mship__field {
+  margin: 0 0 10px;
+}
+body.nk-skin .nk-mship__foot {
+  margin: 18px 0 0;
+  text-align: center;
+}
+body.nk-skin .nk-mship__foot .nk-btn {
+  min-width: 120px;
+}
+body.nk-skin .nk-mship__close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  color: var(--nk-sub);
+  text-decoration: none;
+  font-size: 14px;
+  line-height: 1;
+}
+body.nk-skin .nk-mship__close:hover {
+  border-color: var(--nk-ink);
+  color: var(--nk-ink);
+}

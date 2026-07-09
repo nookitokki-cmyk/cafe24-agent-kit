@@ -287,7 +287,7 @@ agent-kit/brain/docs/LEGACY-HUNTER.md 절차를 따를 것:
 |------|------|
 | [`EZ-STRATEGY.md`](EZ-STRATEGY.md) | strip vs skip · 레퍼런스 몰 |
 | [`F-상황-인덱스.md`](../../02_막혔을때/F-상황-인덱스.md) | F-code 빠른 찾기 |
-| [`common-pitfalls.md`](../../02_막혔을때/common-pitfalls.md) | F27~F37 postmortem · 페이지 타입 |
+| [`common-pitfalls.md`](../../02_막혔을때/common-pitfalls.md) | F27~F36 postmortem · 페이지 타입 |
 | [`01_작업하기/workflows/06-verify-loop.md`](../../01_작업하기/workflows/06-verify-loop.md) | score 100 게이트 |
 | [`CAFE24-SMARTDESIGN-AGENT.md`](CAFE24-SMARTDESIGN-AGENT.md) | 성역·토큰·!important 규칙 |
-| [`02_막혔을때/함정-INDEX.md`](../../02_막혔을때/함정-INDEX.md) | F1~F26 함정 한 줄 |
+| [`02_막혔을때/함정-INDEX.md`](../../02_막혔을때/함정-INDEX.md) | F1~F36 함정 한 줄 |

@@ -1,0 +1,188 @@
+<!-- nk-header.html — verified-template 공통 헤더. layout.html/main.html에서 @import.
+     카페24 필수 module·{$변수}는 원본(layout/basic/layout.html)에서 그대로 이식, 마크업 구조만 재작성.
+     보존 모듈: Layout_LogoTop, Layout_category(헤더 GNB + 드로어 2회 — 같은 페이지 동일 module 반복은
+     원본 stock 코드의 Layout_multishopList 2회 사용 패턴과 동일한 정상 방식), Layout_SearchHeader,
+     Layout_statelogoff, Layout_stateLogon. 스타일은 /_nk/css/nk-base.css(전역 등록) 참조. -->
+<div class="nk-topbar" id="nkTopbar">
+    <div class="nk-topbar__inner">
+        <ul class="nk-topbar__list">
+            <li class="nk-topbar__item is-active"><span>첫 구매 회원 10% 쿠폰 지급</span></li>
+            <li class="nk-topbar__item"><span>전 상품 무료배송 · 오늘 주문 시 당일 출고</span></li>
+        </ul>
+    </div>
+</div>
+
+<div id="header" class="nk-hd">
+    <div class="nk-hd__inner">
+        <div class="nk-hd__left">
+            <button type="button" class="nk-hd__burger" id="nkBurger" aria-haspopup="true" aria-expanded="false" aria-controls="nkDrawer">
+                <i class="ph ph-list" aria-hidden="true"></i>
+                <span class="nk-blind">전체 메뉴 열기</span>
+            </button>
+            <nav class="nk-gnb" aria-label="주 메뉴">
+                <div id="category" class="nk-gnb__cat" module="Layout_category">
+                    <!--@js(/js/module/layout/category.js)-->
+                    <div class="position">
+                        <ul class="nk-gnb__list">
+                            <li class="nk-gnb__item"><a class="nk-gnb__link" href="{$link_product_list}">{$name_or_img_tag}</a></li>
+                            <li class="nk-gnb__item"><a class="nk-gnb__link" href="{$link_product_list}">{$name_or_img_tag}</a></li>
+                            <li class="nk-gnb__item"><a class="nk-gnb__link" href="{$link_product_list}">{$name_or_img_tag}</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <h1 class="nk-hd__logo" module="Layout_LogoTop">
+            <a href="/index.html" class="nk-hd__logo-link">
+                <span class="nk-hd__wordmark">{$mall_name}</span>
+            </a>
+        </h1>
+
+        <div class="nk-hd__right">
+            <button type="button" class="nk-hd__search-btn" id="nkSearchBtn" aria-haspopup="true">
+                <i class="ph ph-magnifying-glass" aria-hidden="true"></i>
+                <span class="nk-blind">검색 열기</span>
+            </button>
+
+            <div class="nk-hd__state" module="Layout_statelogoff">
+                <!-- 모바일(≤1023px) 겹침 수정: JOIN/ACCOUNT는 드로어(.nk-drawer__util)에 이미 있어
+                     헤더에서는 .nk-hd__util-full로 전체 숨김, CART는 아이콘+뱃지만 남기고
+                     .nk-hd__util-label(텍스트)만 숨김(nk-base.css §4-b) -->
+                <a href="#" class="nk-hd__util-link log header-login-btn"><i class="ph ph-sign-in" aria-hidden="true"></i><span>LOGIN</span></a>
+                <a href="/member/join.html" class="nk-hd__util-link nk-hd__util-full"><i class="ph ph-user-plus" aria-hidden="true"></i><span>JOIN</span></a>
+                <a href="/myshop/index.html" class="nk-hd__util-link nk-hd__util-full"><i class="ph ph-user" aria-hidden="true"></i><span>ACCOUNT</span></a>
+                <a href="/order/basket.html" class="nk-hd__util-link">
+                    <i class="ph ph-shopping-bag" aria-hidden="true"></i><span class="nk-hd__util-label">CART</span>
+                    <span class="nk-hd__cart-count {$basket_count_display|display} {$basket_count_display_class}"><span class="{$basket_count_class}">{$basket_count}</span></span>
+                </a>
+            </div>
+            <div class="nk-hd__state" module="Layout_stateLogon">
+                <a href="/member/modify.html" class="nk-hd__util-link nk-hd__util-name"><i class="ph ph-user" aria-hidden="true"></i><span>ACCOUNT</span></a>
+                <a href="{$action_logout}" class="nk-hd__util-link log"><i class="ph ph-sign-out" aria-hidden="true"></i><span>LOGOUT</span></a>
+                <a href="/order/basket.html" class="nk-hd__util-link">
+                    <i class="ph ph-shopping-bag" aria-hidden="true"></i><span class="nk-hd__util-label">CART</span>
+                    <span class="nk-hd__cart-count {$basket_count_display|display} {$basket_count_display_class}"><span class="{$basket_count_class}">{$basket_count}</span></span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 검색 오버레이 -->
+<div class="nk-search" id="nkSearch">
+    <div class="nk-search__overlay">
+        <button type="button" class="nk-search__close-btn" id="nkSearchClose"><i class="ph ph-x" aria-hidden="true"></i><span class="nk-blind">검색 닫기</span></button>
+        <div class="nk-search__center">
+            <p class="nk-search__eyebrow">SEARCH</p>
+            <div module="Layout_SearchHeader">
+                <!--
+                    $product_page=/product/detail.html
+                    $category_page=/product/list.html
+                -->
+                <fieldset class="nk-search__field">
+                    <legend>검색</legend>
+                    <div class="nk-search__row">
+                        {$form.keyword}<button type="submit" class="nk-search__submit" onclick="{$action_search_submit}"><i class="ph ph-magnifying-glass" aria-hidden="true"></i><span class="nk-blind">검색</span></button>
+                    </div>
+                    <ul class="autoDrop nk-search__auto" id="{$search_auto_id}"></ul>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 모바일 드로어 -->
+<div class="nk-drawer" id="nkDrawer">
+    <div class="nk-drawer__dim" id="nkDrawerDim"></div>
+    <div class="nk-drawer__panel">
+        <div class="nk-drawer__head">
+            <span class="nk-drawer__brand">SHOP</span><!-- 설치: 브랜드명으로 교체 -->
+            <button type="button" class="nk-drawer__close" id="nkDrawerClose"><i class="ph ph-x" aria-hidden="true"></i><span class="nk-blind">메뉴 닫기</span></button>
+        </div>
+        <nav class="nk-drawer__nav" aria-label="모바일 메뉴">
+            <div class="nk-drawer__cat" module="Layout_category">
+                <div class="position">
+                    <ul class="nk-drawer__list">
+                        <li class="nk-drawer__item"><a class="nk-drawer__link" href="{$link_product_list}">{$name_or_img_tag}</a></li>
+                        <li class="nk-drawer__item"><a class="nk-drawer__link" href="{$link_product_list}">{$name_or_img_tag}</a></li>
+                        <li class="nk-drawer__item"><a class="nk-drawer__link" href="{$link_product_list}">{$name_or_img_tag}</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="nk-drawer__util">
+            <div class="nk-drawer__utilgroup" module="Layout_statelogoff">
+                <a href="#" class="nk-drawer__utillink log header-login-btn">LOGIN</a>
+                <a href="/member/join.html" class="nk-drawer__utillink">JOIN</a>
+                <a href="/myshop/index.html" class="nk-drawer__utillink">ACCOUNT</a>
+            </div>
+            <div class="nk-drawer__utilgroup" module="Layout_stateLogon">
+                <a href="/member/modify.html" class="nk-drawer__utillink">{$name}님</a>
+                <a href="{$action_logout}" class="nk-drawer__utillink log">LOGOUT</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+(function(){
+    var body = document.body;
+    var burger = document.getElementById('nkBurger');
+    var drawer = document.getElementById('nkDrawer');
+    var drawerDim = document.getElementById('nkDrawerDim');
+    var drawerClose = document.getElementById('nkDrawerClose');
+    var searchBtn = document.getElementById('nkSearchBtn');
+    var search = document.getElementById('nkSearch');
+    var searchClose = document.getElementById('nkSearchClose');
+    var topbarItems = document.querySelectorAll('#nkTopbar .nk-topbar__item');
+
+    function openDrawer(){
+        if(!drawer) return;
+        drawer.classList.add('is-open');
+        body.classList.add('nk-drawer-open');
+        if(burger) burger.setAttribute('aria-expanded','true');
+    }
+    function closeDrawer(){
+        if(!drawer) return;
+        drawer.classList.remove('is-open');
+        body.classList.remove('nk-drawer-open');
+        if(burger) burger.setAttribute('aria-expanded','false');
+    }
+    if(burger) burger.addEventListener('click', function(){
+        if(drawer && drawer.classList.contains('is-open')){ closeDrawer(); } else { openDrawer(); }
+    });
+    if(drawerDim) drawerDim.addEventListener('click', closeDrawer);
+    if(drawerClose) drawerClose.addEventListener('click', closeDrawer);
+
+    function openSearch(){
+        if(!search) return;
+        search.classList.add('is-open');
+        var input = search.querySelector('input[type="text"]');
+        if(input){ setTimeout(function(){ input.focus(); }, 200); }
+    }
+    function closeSearch(){
+        if(!search) return;
+        search.classList.remove('is-open');
+    }
+    if(searchBtn) searchBtn.addEventListener('click', openSearch);
+    if(searchClose) searchClose.addEventListener('click', closeSearch);
+
+    document.addEventListener('keydown', function(e){
+        if(e.key !== 'Escape') return;
+        closeDrawer();
+        closeSearch();
+    });
+
+    /* 공지 슬라이드(topbar): li 2개 이상일 때만 자동 전환. 외부 라이브러리 없이 vanilla JS로 최소 구현 */
+    if(topbarItems.length > 1){
+        var idx = 0;
+        topbarItems[0].classList.add('is-active');
+        setInterval(function(){
+            topbarItems[idx].classList.remove('is-active');
+            idx = (idx + 1) % topbarItems.length;
+            topbarItems[idx].classList.add('is-active');
+        }, 4000);
+    }
+})();
+</script>

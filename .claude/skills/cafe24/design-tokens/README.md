@@ -11,12 +11,12 @@
 
 기존 워크플로우의 문제:
 - Figma 시안 받음 → 색상 hex 코드를 눈으로 보고 손으로 옮김 → 오타·누락 발생
-- "primary 색상이 #2B6CB0인지 #2B6BB0인지" 헷갈리는 상황 반복
+- "accent 색상이 #C8A97E인지 #C8A97F인지" 헷갈리는 상황 반복
 - 클라이언트가 색상 한 번 바꾸면 모든 CSS를 다시 손봐야 함
 
 Design Token Pipeline의 해결:
 - Figma URL → `figma-explorer` 에이전트가 자동 추출 → `design-tokens.json` 생성
-- `css-builder` 에이전트가 JSON을 읽고 `:root { --nk-color-primary: #xxx; }` 자동 생성
+- `css-builder` 에이전트가 JSON을 읽고 `:root { --nk-point: #xxx; }` 자동 생성 (flat 토큰명 — 아래 대응표)
 - 클라이언트 색상 변경 시 → JSON만 수정하면 모든 CSS 자동 갱신
 
 ---
@@ -168,13 +168,13 @@ web/cafe24/.claude/clients/{client-name}/
 /* Source: Figma — demo-brand */
 
 :root {
-  /* 색상 */
-  --nk-color-primary: #2B2B2B;
-  --nk-color-accent: #C8A97E;
-  --nk-color-background: #F9F7F4;
-  --nk-color-text: #1A1A1A;
-  --nk-color-text-sub: #666666;
-  --nk-color-border: #E5E5E5;
+  /* 색상 — flat 토큰명으로 출력 (아래 대응표 참조) */
+  --nk-point-active: #2B2B2B;   /* colors.primary */
+  --nk-point: #C8A97E;          /* colors.accent */
+  --nk-bg: #F9F7F4;             /* colors.background */
+  --nk-font: #1A1A1A;           /* colors.text — flat 어휘에서 --nk-font는 본문 "색" 토큰 */
+  --nk-sub: #666666;            /* colors.text-sub */
+  --nk-border: #E5E5E5;         /* colors.border */
 
   /* 타이포그래피 */
   --nk-font-family: 'Pretendard', sans-serif;
@@ -185,29 +185,33 @@ web/cafe24/.claude/clients/{client-name}/
   --nk-body-size: 15px;
   --nk-body-lh: 1.6;
 
-  /* 간격 */
-  --nk-space-xs: 4px;
-  --nk-space-sm: 8px;
-  --nk-space-md: 16px;
-  --nk-space-lg: 24px;
-  --nk-space-xl: 40px;
-  --nk-space-2xl: 64px;
-
-  /* 반경 */
-  --nk-radius-sm: 4px;
-  --nk-radius-md: 8px;
-  --nk-radius-lg: 16px;
-  --nk-radius-full: 9999px;
-
-  /* 그림자 */
-  --nk-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --nk-shadow-md: 0 4px 8px rgba(0, 0, 0, 0.08);
-  --nk-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+  /* 반경 — 단일 토큰으로 수렴 (radius.md 값) */
+  --nk-radius: 8px;
 }
+
+/* 간격·그림자는 CSS 변수로 출력하지 않는다 — 리터럴 승격 규칙:
+ * 컴포넌트 고유 여백·그림자는 컴포넌트 CSS에 리터럴로 기술 (기준: 간격 sm=8px / md=16px / lg=24px,
+ * 그림자 예: 0 2px 8px rgba(0,0,0,.08)). 핵심 색·폰트·치수만 var(--nk-*) 경유. */
 
 /* 브레이크포인트는 @media에서 사용 (CSS 변수 불가) */
 /* mobile: 375px / tablet: 768px / desktop: 1280px / wide: 1440px */
 ```
+
+### `colors.{key}` → flat 토큰명 대응표
+
+| JSON 키 | flat 토큰명 | 비고 |
+|---|---|---|
+| `colors.primary` | `--nk-point-active` | 포인트 hover/pressed 단계 |
+| `colors.accent` | `--nk-point` | 브랜드 포인트색 |
+| `colors.background` | `--nk-bg` | 캔버스 배경 |
+| `colors.surface` | `--nk-bg2` | 면(서피스) 배경 |
+| `colors.text` | `--nk-font` | 본문 글자색 |
+| `colors.text-sub` | `--nk-sub` | 보조 글자색 |
+| `colors.text-inverse` | `--nk-on-point` | 포인트 위 글자색 |
+| `colors.border` | `--nk-border` | 테두리 |
+| `colors.error` / `colors.success` / `colors.warning` | `--nk-error` / `--nk-success` / `--nk-warning` | 상태색 |
+
+> ⚠️ 옛 namespace 어휘(토큰명에 `color`/`space`/`shadow` 네임스페이스를 끼운 `--nk-color…` 형태) 출력은 금지 — kit 표준은 위 flat 어휘다. 간격·그림자는 변수 없이 리터럴, 반경은 단일 `--nk-radius`.
 
 ---
 
@@ -220,7 +224,7 @@ web/cafe24/.claude/clients/{client-name}/
 
   <!-- 여기에 nk-tokens.css 내용 통째로 붙여넣기 -->
   <style>
-    :root { --nk-color-primary: #2B2B2B; ... }
+    :root { --nk-point: #C8A97E; ... }
   </style>
 </head>
 ```
@@ -229,7 +233,7 @@ web/cafe24/.claude/clients/{client-name}/
 ```
 1. nk-tokens.css 를 SFTP로 /web/upload/(스킨번호)/ 에 업로드
 2. top.html에 <link rel="stylesheet" href="/web/upload/nk-tokens.css"> 삽입
-3. 컴포넌트 CSS에서 var(--nk-color-primary) 식으로 참조
+3. 컴포넌트 CSS에서 var(--nk-point) 식으로 참조
 ```
 
 ### EZ 에디터 호환 주의

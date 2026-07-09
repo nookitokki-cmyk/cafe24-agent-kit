@@ -2,7 +2,7 @@
  * nk-modal-system — 모달·팝업 시스템 (오버레이 + 슬라이드인 + 닫기 버튼)
  * 사용처: 퀵뷰·옵션 선택·약관 보기·이미지 확대 등 모든 모달
  * 의존성:
- *   - CSS 변수 (--nk-color-bg / --nk-color-text / --nk-radius-lg / --nk-space-md)
+ *   - CSS 변수 (--nk-bg / --nk-font / --nk-radius / (리터럴 16px))
  *   - JS: snippets/js/nk-modal-toggle.js (열기/닫기 로직)
  *
  * 비코더 사용법:
@@ -37,7 +37,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--nk-space-md, 16px);
+  padding: 16px;
   animation: nk-modal-fade-in 0.2s ease-out;
 }
 
@@ -63,9 +63,9 @@ body.nk-modal-open {
 .nk-modal-content {
   position: relative;
   z-index: 1;
-  background: var(--nk-color-bg, #ffffff);
-  color: var(--nk-color-text, #1a1a1a);
-  border-radius: var(--nk-radius-lg, 16px);
+  background: var(--nk-bg, #ffffff);
+  color: var(--nk-font, #1a1a1a);
+  border-radius: var(--nk-radius, 16px);
   max-width: 560px;
   width: 100%;
   max-height: 90vh;
@@ -101,7 +101,7 @@ body.nk-modal-open {
   height: 44px;
   background: transparent;
   border: 0;
-  color: var(--nk-color-text-sub, #5f6368);
+  color: var(--nk-sub, #5f6368);
   font-size: 24px;
   cursor: pointer;
   border-radius: 9999px;
@@ -111,11 +111,11 @@ body.nk-modal-open {
   z-index: 2;
 }
 .nk-modal-close:hover {
-  background: var(--nk-color-surface, #f8f9fa);
-  color: var(--nk-color-text, #1a1a1a);
+  background: var(--nk-bg2, #f8f9fa);
+  color: var(--nk-font, #1a1a1a);
 }
 .nk-modal-close:focus-visible {
-  outline: 2px solid var(--nk-color-accent, #2b6cb0);
+  outline: 2px solid var(--nk-point, #222222);
   outline-offset: 2px;
 }
 
@@ -123,7 +123,7 @@ body.nk-modal-open {
 
 .nk-modal-title {
   margin: 0;
-  padding: var(--nk-space-lg, 24px) var(--nk-space-lg, 24px) var(--nk-space-md, 16px);
+  padding: 24px 24px 16px;
   font-size: 18px;
   font-weight: 700;
   padding-right: 60px; /* 닫기 버튼 공간 */
@@ -131,7 +131,7 @@ body.nk-modal-open {
 
 .nk-modal-body {
   flex: 1;
-  padding: 0 var(--nk-space-lg, 24px) var(--nk-space-lg, 24px);
+  padding: 0 24px 24px;
   overflow-y: auto;
   font-size: 14px;
   line-height: 1.6;
@@ -139,12 +139,12 @@ body.nk-modal-open {
 
 /* 제목이 없으면 본문에 상단 패딩 추가 */
 .nk-modal-content > .nk-modal-body:first-child {
-  padding-top: var(--nk-space-lg, 24px);
+  padding-top: 24px;
 }
 
 .nk-modal-footer {
-  padding: var(--nk-space-md, 16px) var(--nk-space-lg, 24px);
-  border-top: 1px solid var(--nk-color-border, #e5e7eb);
+  padding: 16px 24px;
+  border-top: 1px solid var(--nk-border, #e5e7eb);
   display: flex;
   gap: 8px;
   justify-content: flex-end;
@@ -168,7 +168,7 @@ body.nk-modal-open {
 .nk-modal.is-bottom-sheet .nk-modal-content {
   max-width: none;
   width: 100%;
-  border-radius: var(--nk-radius-lg, 16px) var(--nk-radius-lg, 16px) 0 0;
+  border-radius: var(--nk-radius, 16px) var(--nk-radius, 16px) 0 0;
   max-height: 85vh;
   animation: nk-modal-slide-up-sheet 0.3s ease-out;
 }

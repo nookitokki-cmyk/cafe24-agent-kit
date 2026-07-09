@@ -639,9 +639,10 @@ def kit_update(source: Path | None = None, dry_run: bool = False) -> dict[str, A
             shutil.copy2(s, d)
         updated.append(rel)
 
-    # agent-kit/clients: only refresh _template + reference workflows
+    # agent-kit/clients: only refresh _template + _verified-template + reference workflows
     for rel in (
         "agent-kit/clients/_template",
+        "agent-kit/clients/_verified-template",
         "agent-kit/clients/demo000/.workflow.md",
         "agent-kit/clients/ecudemo400786/.workflow.md",
     ):

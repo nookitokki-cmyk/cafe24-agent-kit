@@ -37,7 +37,7 @@
    ------------------------------------------------------------------------- */
 body.nk-skin {
   --nk-sans: 'Pretendard', 'Noto Sans KR', 'Malgun Gothic', -apple-system, sans-serif;
-  --nk-point: #008bcc;          /* 카페24 기본 파란색 자리 — 클라 브랜드색으로 덮어쓸 것 */
+  --nk-point: #222222;          /* 중립 잉크 기본값 — 클라 브랜드색으로 덮어쓸 것 */
   --nk-line: #e3e3dc;           /* 옅은 구분선 */
   --nk-content-max: 1280px;     /* 본문 최대폭 */
   --nk-input-h: 48px;           /* 폼 컨트롤 높이 */

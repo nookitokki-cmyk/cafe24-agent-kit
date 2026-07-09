@@ -1,0 +1,33 @@
+<!-- WORLD SHIPPING 레이어 — JS 훅: .dimmed · .worldshipLayer · .close · .btnSubmitFix 유지 -->
+<div module="Layout_multishopShipping" class="nk-mship">
+    <!--@js(/js/module/layout/multishopShipping.js)-->
+    <div class="dimmed"></div>
+    <div class="worldshipLayer nk-mship__layer">
+        <div class="nk-mship__head">
+            <h3 class="nk-mship__title">WORLD SHIPPING</h3>
+        </div>
+        <div class="nk-mship__body">
+            <p class="nk-mship__desc">PLEASE SELECT THE DESTINATION COUNTRY AND LANGUAGE :</p>
+            <div class="nk-mship__field">
+                <select module="Layout_multishopShippingCountrylist" class="nk-field">
+                    <option value="{$country_code}"{$country_default_selected}>SHIPPING TO : {$country_name}</option>
+                    <option value="{$country_code}"{$country_default_selected}>SHIPPING TO : {$country_name}</option>
+                </select>
+            </div>
+            <div class="nk-mship__field">
+                <select module="Layout_multishopShippingLanguagelist" class="nk-field">
+                    <option value="{$shop_domain}"{$shop_default_selected}>LANGUAGE : {$shop_language_name}</option>
+                    <option value="{$shop_domain}"{$shop_default_selected}>LANGUAGE : {$shop_language_name}</option>
+                </select>
+            </div>
+        </div>
+        <div class="nk-mship__foot">
+            <a href="#none" class="nk-btn nk-btn--primary btnSubmitFix sizeS">GO</a>
+        </div>
+        <a href="#none" class="close nk-mship__close" aria-label="close"><i class="ph ph-x"></i></a>
+    </div>
+</div>
+
+<div module="Layout_conversionPc" class="nk-conv-pc">
+    <a href="{$mobile_url}" class="nk-conv-pc__link">모바일 화면보기</a>
+</div>

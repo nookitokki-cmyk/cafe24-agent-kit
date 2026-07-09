@@ -125,7 +125,7 @@ const LOGIN_PW = process.env.CAFE24_TEST_PW || cfg.loadPassword();
         !empty.classList.contains('displaynone');
       const rows = document.querySelectorAll('[module="Order_list"] tr, tbody[module="Order_list"] tr');
       const hasRows = rows.length >= 1;
-      const tabs = document.querySelectorAll('.ec-base-tab .menu li a');
+      const tabs = document.querySelectorAll('.ec-base-tab .menu li a, .nk-tabs .menu li a');
       const orderBtns = document.querySelectorAll('.btnSubmitFix, .btnSubmit, [module="Order_TotalOrder"] a');
       return {
         hasPackage: !!pkg,
@@ -147,7 +147,7 @@ const LOGIN_PW = process.env.CAFE24_TEST_PW || cfg.loadPassword();
     const page = await newPage({ width: 1440, height: 900 });
     await page.goto(`${BASE}/order/basket.html?v=${V}`, { waitUntil: 'domcontentloaded', timeout: 60000 });
     await page.waitForTimeout(1200);
-    const tab = page.locator('.ec-base-tab .menu li a').first();
+    const tab = page.locator('.ec-base-tab .menu li a, .nk-tabs .menu li a').first();
     const tabCount = await tab.count();
     if (tabCount === 0) {
       report.tests.basketTabClick = { pass: false, reason: 'no tabs' };
@@ -161,7 +161,7 @@ const LOGIN_PW = process.env.CAFE24_TEST_PW || cfg.loadPassword();
       const r = await page.evaluate(() => ({
         url: location.href,
         stillBasket: /\/order\/basket/i.test(location.href),
-        tabLinks: document.querySelectorAll('.ec-base-tab .menu li a').length,
+        tabLinks: document.querySelectorAll('.ec-base-tab .menu li a, .nk-tabs .menu li a').length,
       }));
       r.href = href;
       r.pass = r.stillBasket && r.tabLinks >= 1;

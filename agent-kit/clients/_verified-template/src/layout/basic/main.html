@@ -1,0 +1,263 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "//www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="//www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <!-- PG크로스브라우징필수내용 -->
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <!-- // PG크로스브라우징필수내용 -->
+
+    <title>기본 레이아웃</title>
+    <!--@css(/layout/basic/css/common.css)--><!-- 해당 CSS는 쇼핑몰 전체 페이지에 영향을 줍니다. 삭제와 수정에 주의해주세요. -->
+    <!--@css(/layout/basic/css/layout.css)-->
+    <!--@css(/layout/basic/css/ec-base-ui.css)-->
+    <!--@css(/layout/basic/css/ec-base-tooltip.css)-->
+    <!--@css(/layout/basic/css/ec-base-help.css)-->
+    <!--@css(/layout/basic/css/ec-base-product.css)-->
+    <!--@css(/layout/basic/css/ec-base-paginate.css)-->
+    <!--@css(/layout/basic/css/ec-base-tab.css)-->
+    <!--@css(/layout/basic/css/ec-base-button.css)-->
+    <!--@css(/layout/basic/css/ec-base-box.css)-->
+    <!--@css(/layout/basic/css/ec-base-table.css)-->
+    <!--@css(/layout/basic/css/ec-base-desc.css)-->
+
+    <!-- 토대: Pretendard + Phosphor Icons. 세리프 디스플레이 옵트인: 구글 폰트 link 1줄을 여기 추가하고 nk-tokens.css의 --nk-font-display 값 맨 앞에 폰트명 추가 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css" />
+
+    <!-- CP4 토대: 디자인 토큰 → base 함정 상쇄 → 공통 크롬 (반드시 이 순서로 로드) -->
+    <!--@css(/_nk/css/nk-tokens.css)-->
+    <!--@css(/_nk/css/nk-cafe24-reset.css)-->
+    <!--@css(/_nk/css/nk-base.css)-->
+    <!--@css(/_nk/css/nk-components.css)-->
+    <!--@css(/_nk/css/nk-main.css)--><!-- CP6 hero-main: 메인 전용, body.nk-main 스코프 -->
+
+    <!--@js(/layout/basic/js/basic.js)-->
+    <!--@js(/js/common.js)-->
+    <!--@js(/js/module/layout/quick_view.js)-->
+    <!--@js(/js/login_redirect.js)-->
+</head>
+<body id="nk-skin1" class="nk-skin nk-main">
+<div id="skipNavigation">
+    <p><a href="#category">전체상품목록 바로가기</a></p>
+    <p><a href="#contents">본문 바로가기</a></p>
+</div>
+
+<!--@import(/_nk/inc/nk-header.html)-->
+
+<div id="wrap">
+    <div id="container">
+        <div id="contents">
+            <!-- ============================================================
+                 hero-main (CP6) — 메인 페이지 전용 콘텐츠. 전부 body.nk-main
+                 스코프(/_nk/css/nk-main.css)로 스타일. 공유 헤더/푸터/토큰/리셋/
+                 베이스 CSS·HTML은 nk-main.css에서는 절대 수정하지 않음(모바일 헤더
+                 겹침·quick 위젯 수정 건은 이번 회차에 한해 nk-header.html/
+                 nk-base.css/nk-cafe24-reset.css 직접 수정 — 각 파일 자체 주석 참고).
+                 섹션 순서(검증 레퍼런스와 동일): 히어로 → Recommended →
+                 스플릿 배너 2종 → New Arrivals → 캠페인 풀폭 배너.
+                 레퍼런스 대비: 히어로 이미지 톤이 밝아 헤더/카피 글자는 다크
+                 (#222=var(--nk-font)) 유지, GNB 오버레이는 배경만 투명화 + 스크롤 시
+                 솔리드 전환(아래 인라인 스크립트)으로 재현.
+                 범위 밖(#boardArea/#bannerArea 위젯): 레퍼런스 렌더링에도 나타나지
+                 않아 제거 대상(재도입 근거 없음). -->
+
+            <!-- 히어로 (풀블리드) -->
+            <section class="nk-hero" aria-label="메인 비주얼">
+                <div class="nk-hero__copy">
+                    <p class="nk-hero__wordmark">YOUR BRAND</p><!-- 설치: 브랜드명으로 교체 -->
+                    <p class="nk-hero__tagline">Your tagline goes here.</p><!-- 설치: 태그라인으로 교체 -->
+                </div>
+            </section>
+
+            <!-- Recommended — module="product_listmain_1", anchorBoxId 2블록 -->
+            <section class="nk-sec" aria-labelledby="nkRecommendedTitle">
+                <div class="nk-listmain" module="product_listmain_1"><!--
+                    $count = 8
+                        ※ 상품진열갯수를 설정하는 변수입니다. 설정하지 않을 경우, 최대 200개의 상품이 진열 됩니다.
+                        ※ 진열된 상품이 많으면, 쇼핑몰에 부하가 발생할 수 있습니다.
+                    $basket_result = /product/add_basket.html
+                    $basket_option = /product/basket_option.html
+                -->
+                <div class="nk-sec__head">
+                    <h2 class="nk-sec__title" id="nkRecommendedTitle">
+                        <span class="nk-sec__en">Recommended</span>
+                        <span class="nk-sec__kr">추천상품</span>
+                    </h2>
+                </div>
+                <ul class="nk-prd-grid">
+                    <li id="anchorBoxId_{$product_no}" class="nk-prd-card">
+                        <a href="{$link_product_detail}" name="anchorBoxName_{$product_no}" class="nk-prd-card__link">
+                            <span class="nk-prd-card__thumb">
+                                <img src="{$image_medium}" alt="{$seo_alt_tag}" class="nk-prd-card__img" loading="lazy" />
+                            </span>
+                            <span class="nk-prd-card__name">{$product_name}</span>
+                        </a>
+                        <ul module="product_ListItem" class="nk-prd-card__price-list">
+                            <li class="nk-prd-card__price-item {$item_display|display}">
+                                <span class="nk-prd-card__price-label {$item_title_display|display}">{$item_title}</span>
+                                <span class="nk-prd-card__price-val">{$item_content}</span>
+                            </li>
+                            <li class="nk-prd-card__price-item {$item_display|display}">
+                                <span class="nk-prd-card__price-label {$item_title_display|display}">{$item_title}</span>
+                                <span class="nk-prd-card__price-val">{$item_content}</span>
+                            </li>
+                        </ul>
+                    </li>
+                    <li id="anchorBoxId_{$product_no}" class="nk-prd-card">
+                        <a href="{$link_product_detail}" name="anchorBoxName_{$product_no}" class="nk-prd-card__link">
+                            <span class="nk-prd-card__thumb">
+                                <img src="{$image_medium}" alt="{$seo_alt_tag}" class="nk-prd-card__img" loading="lazy" />
+                            </span>
+                            <span class="nk-prd-card__name">{$product_name}</span>
+                        </a>
+                        <ul module="product_ListItem" class="nk-prd-card__price-list">
+                            <li class="nk-prd-card__price-item {$item_display|display}">
+                                <span class="nk-prd-card__price-label {$item_title_display|display}">{$item_title}</span>
+                                <span class="nk-prd-card__price-val">{$item_content}</span>
+                            </li>
+                            <li class="nk-prd-card__price-item {$item_display|display}">
+                                <span class="nk-prd-card__price-label {$item_title_display|display}">{$item_title}</span>
+                                <span class="nk-prd-card__price-val">{$item_content}</span>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                </div>
+            </section>
+
+            <!-- 스플릿 배너 2종 (Golden Hour / Essentials) — 좌우 50% 2분할, module 밖 하드코딩 카피 -->
+            <section class="nk-split-banner" aria-label="컬렉션 배너">
+                <div class="nk-split-banner__inner">
+                    <a class="nk-split-banner__item nk-split-banner__item--left" href="#none" aria-label="Golden Hour 컬렉션 보기">
+                        <span class="nk-split-banner__caption">
+                            <span class="nk-split-banner__title">Golden Hour</span>
+                            <span class="nk-split-banner__desc">Warm light, quiet moments.</span>
+                        </span>
+                    </a>
+                    <a class="nk-split-banner__item nk-split-banner__item--right" href="#none" aria-label="Essentials 컬렉션 보기">
+                        <span class="nk-split-banner__caption">
+                            <span class="nk-split-banner__title">Essentials</span>
+                            <span class="nk-split-banner__desc">Pieces you'll reach for daily.</span>
+                        </span>
+                    </a>
+                </div>
+            </section>
+
+            <!-- NEW ARRIVALS — module="product_listmain_1" 재사용 (anchorBoxId 2블록).
+                 ※ listmain_2로 분리했더니 이 몰의 메인진열 2번 그룹이 비어 모듈 전체가 미렌더(2회차 실측).
+                 검증 레퍼런스는 listmain-1·2를 쓰지만 관리자에서 두 그룹 모두에 같은 샘플상품을 진열한 상태 —
+                 동일한 시각 결과를 관리자 액션 없이 얻기 위해 1번 그룹 재사용(같은 module 반복은 헤더 Layout_category 2회 사용과 동일한 정상 패턴).
+                 실상품 운영 시 관리자에서 2번 그룹 진열 후 listmain_2로 되돌리면 섹션별 큐레이션 분리 가능(향후 이터레이션). -->
+            <section class="nk-sec" aria-labelledby="nkNewArrivalsTitle">
+                <div class="nk-listmain" module="product_listmain_1"><!--
+                    $count = 8
+                        ※ 상품진열갯수를 설정하는 변수입니다. 설정하지 않을 경우, 최대 200개의 상품이 진열 됩니다.
+                        ※ 진열된 상품이 많으면, 쇼핑몰에 부하가 발생할 수 있습니다.
+                    $basket_result = /product/add_basket.html
+                    $basket_option = /product/basket_option.html
+                -->
+                <div class="nk-sec__head">
+                    <h2 class="nk-sec__title" id="nkNewArrivalsTitle">
+                        <span class="nk-sec__en">New Arrivals</span>
+                        <span class="nk-sec__kr">신상품</span>
+                    </h2>
+                </div>
+                <ul class="nk-prd-grid">
+                    <li id="anchorBoxId_{$product_no}" class="nk-prd-card">
+                        <a href="{$link_product_detail}" name="anchorBoxName_{$product_no}" class="nk-prd-card__link">
+                            <span class="nk-prd-card__thumb">
+                                <img src="{$image_medium}" alt="{$seo_alt_tag}" class="nk-prd-card__img" loading="lazy" />
+                            </span>
+                            <span class="nk-prd-card__name">{$product_name}</span>
+                        </a>
+                        <ul module="product_ListItem" class="nk-prd-card__price-list">
+                            <li class="nk-prd-card__price-item {$item_display|display}">
+                                <span class="nk-prd-card__price-label {$item_title_display|display}">{$item_title}</span>
+                                <span class="nk-prd-card__price-val">{$item_content}</span>
+                            </li>
+                            <li class="nk-prd-card__price-item {$item_display|display}">
+                                <span class="nk-prd-card__price-label {$item_title_display|display}">{$item_title}</span>
+                                <span class="nk-prd-card__price-val">{$item_content}</span>
+                            </li>
+                        </ul>
+                    </li>
+                    <li id="anchorBoxId_{$product_no}" class="nk-prd-card">
+                        <a href="{$link_product_detail}" name="anchorBoxName_{$product_no}" class="nk-prd-card__link">
+                            <span class="nk-prd-card__thumb">
+                                <img src="{$image_medium}" alt="{$seo_alt_tag}" class="nk-prd-card__img" loading="lazy" />
+                            </span>
+                            <span class="nk-prd-card__name">{$product_name}</span>
+                        </a>
+                        <ul module="product_ListItem" class="nk-prd-card__price-list">
+                            <li class="nk-prd-card__price-item {$item_display|display}">
+                                <span class="nk-prd-card__price-label {$item_title_display|display}">{$item_title}</span>
+                                <span class="nk-prd-card__price-val">{$item_content}</span>
+                            </li>
+                            <li class="nk-prd-card__price-item {$item_display|display}">
+                                <span class="nk-prd-card__price-label {$item_title_display|display}">{$item_title}</span>
+                                <span class="nk-prd-card__price-val">{$item_content}</span>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                </div>
+            </section>
+
+            <!-- 캠페인 풀폭 배너 — module 밖 하드코딩 카피(예시) -->
+            <section class="nk-campaign-banner" aria-label="캠페인 배너">
+                <a href="#none" class="nk-campaign-banner__link" aria-label="컬렉션 보기">
+                    <span class="nk-campaign-banner__caption">
+                        <span class="nk-campaign-banner__title">Held in the Quiet</span>
+                        <span class="nk-campaign-banner__desc">이 계절의 무드를 담은 새로운 컬렉션.</span>
+                    </span>
+                </a>
+            </section>
+
+            <!-- 메인 한정: 스크롤 시 헤더 배경 투명→솔리드 전환. 공유 nk-header.html에는
+                 스크롤 리스너가 없어(공유 파일 불변 원칙) main.html 안에서만 추가. -->
+            <script>
+            (function(){
+                var header = document.getElementById('header');
+                if(!header) return;
+                function onScroll(){
+                    if(window.scrollY > 10){ header.classList.add('nk-scrolled'); }
+                    else { header.classList.remove('nk-scrolled'); }
+                }
+                onScroll();
+                window.addEventListener('scroll', onScroll, { passive: true });
+            })();
+            </script>
+        </div><hr class="layout" />
+    </div><hr class="layout" />
+
+    <!--@import(/_nk/inc/nk-layout-quick.html)-->
+</div><hr class="layout" />
+
+<!--@import(/_nk/inc/nk-footer.html)-->
+
+<!-- 결제를 위한 필수 영역 -->
+<div id="progressPaybar" style="display:none;">
+    <div id="progressPaybarBackground" class="layerProgress"></div>
+    <div id="progressPaybarView">
+        <div class="box">
+            <p class="graph">
+                <span><img src="//img.echosting.cafe24.com/skin/base_ko_KR/layout/txt_progress.gif" alt="현재 결제가 진행중입니다." /></span>
+                <span><img src="//img.echosting.cafe24.com/skin/base/layout/img_loading.gif" alt="" /></span>
+            </p>
+            <p class="txt">
+                본 결제 창은 결제완료 후 자동으로 닫히며,결제 진행 중에 본 결제 창을 닫으시면<br />
+                주문이 되지 않으니 결제 완료 될 때 까지 닫지 마시기 바랍니다.
+            </p>
+        </div>
+    </div>
+</div>
+<!-- // 결제를 위한 필수 영역 -->
+
+<!--@import(/_nk/inc/nk-layout-overlays.html)-->
+</body>
+</html>

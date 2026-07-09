@@ -106,7 +106,7 @@ const V = process.env.BOARD_INTERACTION_V || 'w4-board-interaction';
     await page.waitForTimeout(800);
     const r = await page.evaluate(() => {
       const search = document.querySelector('.boardSearch, .nk-board__search');
-      const btn = document.querySelector('.boardSearch .btnEmFix, .boardSearch a.btnSubmit');
+      const btn = document.querySelector('.boardSearch .btnEmFix, .boardSearch a.btnSubmit, .nk-board__search a.nk-btn, .boardSearch a.nk-btn');
       const input = document.querySelector('.boardSearch input[type="text"], .boardSearch input[type="search"]');
       return { hasSearch: !!search, hasBtn: !!btn, hasInput: !!input, pass: !!(search && btn && input) };
     });

@@ -43,18 +43,32 @@
 
 ### 2. 색상 토큰
 
-`colors.{key}` → `--nk-color-{key}`
+`colors.{key}` → **flat 토큰명** (아래 대응표 — 토큰명에 `color` 네임스페이스를 끼운 옛 어휘 출력 금지):
+
+| JSON 키 | flat 토큰명 |
+|---|---|
+| `colors.primary` | `--nk-point-active` |
+| `colors.accent` | `--nk-point` |
+| `colors.background` | `--nk-bg` |
+| `colors.surface` | `--nk-bg2` |
+| `colors.text` | `--nk-font` |
+| `colors.text-sub` | `--nk-sub` |
+| `colors.text-inverse` | `--nk-on-point` |
+| `colors.border` | `--nk-border` |
+| `colors.error` | `--nk-error` |
+| `colors.success` | `--nk-success` |
+| `colors.warning` | `--nk-warning` |
 
 ```css
 :root {
-  --nk-color-primary: #2B2B2B;
-  --nk-color-accent: #C8A97E;
+  --nk-point-active: #2B2B2B;
+  --nk-point: #C8A97E;
   /* ... */
 }
 ```
 
 규칙:
-- key는 그대로 사용 (예: `text-sub` → `--nk-color-text-sub`)
+- 대응표에 없는 key는 flat 관례로 신설(`--nk-{key}`) — 네임스페이스 계층을 끼우지 않는다
 - 누락 시 변환 안 함 (기본값 주입 금지)
 - 8자리 hex(`#RRGGBBAA`)는 그대로 보존
 
@@ -83,20 +97,18 @@
 - font-family는 항상 `'Pretendard'` 우선, `sans-serif` fallback 자동 추가
 - font-family에 italic 키워드가 있어도 무시 (누끼토끼 표준: italic 금지)
 
-### 4. 간격 / 반경 / 그림자
+### 4. 간격 / 반경 / 그림자 — 리터럴 승격 · 단일 radius
 
-직관적 매핑:
+간격(`spacing.*`)·그림자(`shadow.*`)는 **CSS 변수로 출력하지 않는다.**
+컴포넌트 고유 여백·그림자는 컴포넌트 CSS에 **리터럴**로 기술한다(검증본 관례: 핵심 색·폰트·치수만 `var()`, 컴포넌트 고유 값은 리터럴).
+
+- 간격 기준값: sm=8px · md=16px · lg=24px — JSON 값은 컴포넌트 작성 시 리터럴 참조용
+- 그림자 기준값: 예) `0 2px 8px rgba(0,0,0,.08)` — 사용처에 리터럴로 기술
+- 반경(`radius.*`)은 **단일 토큰 `--nk-radius`로 수렴** — 값은 `radius.md`(부재 시 4px). sm/lg/full 등 다른 단계는 호출부 리터럴 또는 fallback으로 보존
 
 ```css
 :root {
-  --nk-space-xs: 4px;
-  --nk-space-md: 16px;
-  /* ... */
-
-  --nk-radius-sm: 4px;
-  --nk-radius-full: 9999px;
-
-  --nk-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --nk-radius: 8px; /* radius.md — 단일 수렴 */
 }
 ```
 

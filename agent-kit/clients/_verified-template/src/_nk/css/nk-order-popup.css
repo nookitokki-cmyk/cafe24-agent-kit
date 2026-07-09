@@ -1,0 +1,198 @@
+/*
+ * nk-order-popup.css — verified-template 주문 부속 standalone 팝업 2종 전용
+ *   #layer = order/gift_select.html (사은품 선택 — 시스템 form_onetouch_layer.css 위)
+ *   #popup = order/store_pickup_info.html (수령지 안내 — 시스템 form_onetouch_popup.css 위)
+ * 원칙: 시스템 layer/popup CSS의 레이아웃·포지션(display/position/width/height)은 신뢰·무변경 —
+ *       색·타이포·보더·radius·버튼 톤만 재정의. 색은 var(--nk-*)만(하드코딩·기울임체 금지).
+ * 주의: standalone 문서라 body에 nk-skin 없음 → 토큰은 nk-tokens.css의 :root 선언으로 공급됨.
+ *       body.nk-skin 스코프의 반응형 토큰 오버라이드는 안 먹으므로 색·타이포·radius 토큰만 사용.
+ * 로드순서: 반드시 시스템 CSS 뒤(문서 순서) — 명시도 동점을 로드순서로 이긴다(brief §4 교훈③). !important 불사용.
+ */
+
+/* ── 1) 문서 기본 톤 — 배경·본문 폰트 ── */
+#layer,
+#popup {
+  background-color: var(--nk-bg);
+  font-family: var(--nk-font-body);
+  color: var(--nk-font);
+}
+/* 버튼·인풋은 UA 기본 폰트를 따로 쓰므로 상속 강제(타이포만, 크기·배치는 시스템 CSS 유지) */
+#layer button, #layer input, #layer select, #layer textarea,
+#popup button, #popup input, #popup select, #popup textarea {
+  font-family: inherit;
+}
+#layer .ec-base-layer,
+#popup .ec-base-layer {
+  border-color: var(--nk-border);
+  background-color: var(--nk-bg);
+  color: var(--nk-font);
+}
+
+/* ── 2) 헤더 타이틀 — 디스플레이 톤 ── */
+#layer .ec-base-layer .header,
+#popup .ec-base-layer .header {
+  background-color: var(--nk-bg);
+  border-bottom: 1px solid var(--nk-line);
+}
+#layer .ec-base-layer .header h1,
+#popup .ec-base-layer .header h1 {
+  font-family: var(--nk-font-display);
+  font-weight: 400;
+  letter-spacing: 1px;
+  color: var(--nk-ink);
+}
+
+/* ── 3) 안내박스·포인트 합계 (gift_select) — 헤어라인 + 소프트 배경 ── */
+#layer .infoBox {
+  border: 1px solid var(--nk-line);
+  border-radius: var(--nk-radius);
+  background-color: var(--nk-bg2);
+  color: var(--nk-sub);
+}
+#layer .pointDetail {
+  border: 1px solid var(--nk-line);
+  border-radius: var(--nk-radius);
+  background-color: var(--nk-bg);
+  color: var(--nk-font);
+}
+#layer .pointDetail dt {
+  color: var(--nk-sub);
+}
+#layer .pointDetail dd {
+  color: var(--nk-font);
+}
+
+/* ── 4) 강조 텍스트 — 레거시 강조색 상쇄, 포인트 통일 ── */
+#layer .txtEm,
+#popup .txtEm {
+  color: var(--nk-point);
+}
+
+/* ── 5) 사은품 카드(.ec-base-prdInfo, gift_select) — 구분선·타이포 톤 ── */
+#layer .ec-base-prdInfo {
+  border-color: var(--nk-line);
+}
+#layer .ec-base-prdInfo .prdName {
+  font-weight: 500;
+  color: var(--nk-ink);
+}
+#layer .ec-base-prdInfo .info li {
+  color: var(--nk-sub);
+}
+/* 수량 조절(.ec-base-qty) — gif 버튼(a>img onclick)은 핸들러·마크업·위치 그대로(§6 과감 변형 금지), 인풋 톤만 */
+#layer .ec-base-qty input {
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  background-color: var(--nk-bg);
+  color: var(--nk-font);
+}
+#layer .ec-base-qty input:focus {
+  border-color: var(--nk-point);
+  outline: none;
+}
+
+/* ── 6) 수령지 카드(.ec-base-card, store_pickup_info) — 헤어라인·타이포 톤 ── */
+#popup .ec-base-card {
+  border-color: var(--nk-border);
+  border-radius: var(--nk-radius);
+}
+#popup .ec-base-card .card-head {
+  background-color: var(--nk-bg2);
+  border-color: var(--nk-line);
+}
+#popup .ec-base-card .card-head .name {
+  color: var(--nk-ink);
+}
+#popup .ec-base-card .card-head .desc {
+  color: var(--nk-sub);
+}
+#popup .ec-base-card .ec-base-table th {
+  background-color: var(--nk-bg2);
+  font-weight: 500;
+  color: var(--nk-ink);
+  border-color: var(--nk-line);
+}
+#popup .ec-base-card .ec-base-table td {
+  color: var(--nk-font);
+  border-color: var(--nk-line);
+}
+#popup .footer {
+  background-color: var(--nk-bg);
+  border-top: 1px solid var(--nk-line);
+}
+
+/* ── 7) 버튼 톤 — CTA 포인트 / 보더형 / 닫기 (기능·위치 불변, 시각만) ── */
+/* 주 CTA(.btnSubmit — 선택/확인) = 포인트 */
+#layer .btnSubmit,
+#popup .btnSubmit {
+  border: 1px solid var(--nk-point);
+  border-radius: var(--nk-radius);
+  background: none;
+  background-color: var(--nk-point);
+  color: var(--nk-on-point);
+}
+#layer .btnSubmit:hover,
+#layer .btnSubmit:focus,
+#popup .btnSubmit:hover,
+#popup .btnSubmit:focus {
+  border-color: var(--nk-point-active);
+  background-color: var(--nk-point-active);
+  color: var(--nk-on-point);
+}
+#layer .btnSubmit:active,
+#popup .btnSubmit:active {
+  border-color: var(--nk-point-active);
+  background-color: var(--nk-point-active);
+  color: var(--nk-on-point);
+}
+/* 보조(.btnEm/.btnNormal/.btnBasic — 취소/선택/전화걸기) = 보더형 */
+#layer .btnEm, #layer .btnNormal, #layer .btnBasic,
+#popup .btnEm, #popup .btnNormal, #popup .btnBasic {
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  background: none;
+  background-color: var(--nk-bg);
+  color: var(--nk-font);
+}
+#layer .btnEm:hover, #layer .btnEm:focus,
+#layer .btnNormal:hover, #layer .btnNormal:focus,
+#layer .btnBasic:hover, #layer .btnBasic:focus,
+#popup .btnEm:hover, #popup .btnEm:focus,
+#popup .btnNormal:hover, #popup .btnNormal:focus,
+#popup .btnBasic:hover, #popup .btnBasic:focus {
+  border-color: var(--nk-point);
+  color: var(--nk-point);
+}
+#layer .btnEm:active, #layer .btnNormal:active, #layer .btnBasic:active,
+#popup .btnEm:active, #popup .btnNormal:active, #popup .btnBasic:active {
+  border-color: var(--nk-point-active);
+  color: var(--nk-point-active);
+}
+/* 비활성(선택불가·품절 등 시스템이 부여하는 disabled 상태) = 뮤트 톤 */
+#layer .btnSubmit.disabled, #layer .btnSubmit[disabled],
+#layer .btnEm.disabled, #layer .btnEm[disabled],
+#layer .btnNormal.disabled, #layer .btnNormal[disabled],
+#popup .btnSubmit.disabled, #popup .btnSubmit[disabled],
+#popup .btnEm.disabled, #popup .btnEm[disabled],
+#popup .btnNormal.disabled, #popup .btnNormal[disabled] {
+  border-color: var(--nk-line);
+  background-color: var(--nk-bg2);
+  color: var(--nk-sub);
+}
+/* 닫기(.btnClose) — 위치·클릭 기능 보존, 색만 */
+#layer .btnClose,
+#popup .btnClose {
+  color: var(--nk-sub);
+}
+#layer .btnClose:hover,
+#layer .btnClose:focus,
+#popup .btnClose:hover,
+#popup .btnClose:focus {
+  color: var(--nk-ink);
+}
+
+/* ── 8) 하단 도움말(.ec-base-help) — 보조 톤 ── */
+#layer .ec-base-help li,
+#popup .ec-base-help li {
+  color: var(--nk-sub);
+}

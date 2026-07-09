@@ -1,0 +1,214 @@
+<!--@layout(/layout/basic/layout.html)-->
+<!--@css(/_nk/css/nk-board.css)-->
+<div class="nk-board">
+<!-- ============================================================
+     board/free/list.html — 게시판 목록 리스킨 (verified-template)
+     전부 body.nk-skin .nk-board 스코프(/_nk/css/nk-board.css)로 스타일.
+     공유 헤더/푸터/토큰/리셋/베이스 CSS·HTML은 이 파일에서 절대 수정하지 않음(단일 writer 원칙).
+     공지사항(board_no=1)도 이 템플릿이 그린다 — notice 전용 폴더 없음(stock 선분석 근거).
+     stock 원본 대비 보존 module:
+       Board_ListPackage_1002(최상위) · board_title_1002 · board_category_1002 · board_ReplySort_1002 ·
+       board_listheader_1002(colgroup+thead 2회) · board_notice_1002/board_fixed_1002/board_list_1002
+       (tbody 3분리: 공지/고정/일반) · board_empty_1002 · board_ButtonList_1002 · board_paging_1002 ·
+       board_search_1002 · board_catemove_1002/board_function_1002(관리자 전용)
+     module 내부 구조·{$변수}·onclick·인라인 style(행 색상 바인딩 {$list_bg_color}/{$list_char_color}/
+     {$link_color})은 전부 원형 보존 — 변경은 nk-board__* 클래스 추가와 module 밖 래퍼/정적 헤드
+     추가뿐(새 인라인 style 추가 0건). stock의 모듈 @css 지시어(listPackage/search/catemove/function)는
+     기능 CSS라 유지 — nk-board.css가 로드 순서상 뒤에서 오버라이드한다.
+     ⚠ 글읽기(read)/글쓰기(write) 페이지는 후속 웨이브 — 이 웨이브는 목록 페이지만 리스킨.
+     ============================================================ -->
+
+<!-- 정적 영문 헤드 — 검증 하이브리드 방식. {$변수}는 module 안에서만 치환되므로
+     module 밖 정적 텍스트로 하드코딩. ★ "Notice"는 공지사항(board_no=1) 기준 —
+     이 템플릿을 다른 게시판에 재사용할 때 교체 대상. 한글 서브 타이틀은 아래 board_title_1002의
+     h2({$board_title}) 동적 바인딩을 nk-board.css가 중앙 서브 타이틀로 리스타일해 살린다. -->
+<div class="nk-board__head">
+    <h1 class="nk-board__title">Notice</h1>
+</div>
+
+<div module="Board_ListPackage_1002">
+        <!-- board_title_1002 — 마크업 원형 보존. .path(브레드크럼)/.titleArea p({$board_info})/.imgArea는
+         nk-board.css에서 display:none(시각만 숨김), h2는 중앙 서브 타이틀로 리스타일 -->
+    <div module="board_title_1002">
+        <div class="path">
+            <span>현재 위치</span>
+            <ol>
+                <li><a href="/">홈</a></li>
+                <li><a href="/board/index.html">게시판</a></li>
+                <li title="현재 위치"><strong>{$board_name}</strong></li>
+            </ol>
+        </div>
+
+        <div class="titleArea">
+            <h2>{$board_title} {$board_adult_icon}</h2>
+            <p>{$board_info}</p>
+        </div>
+        <p class="imgArea">{$board_top_image}</p>
+    </div>
+
+    <div class="boardSort nk-board__sort">
+        <span module="board_category_1002">{$form.board_category}</span>
+        <span module="board_ReplySort_1002">{$reply_sort}</span>
+    </div>
+
+    <div class="nk-tabsle typeList gBorder nk-board__table">
+        <table border="1" summary="">
+            <caption>게시판 목록</caption>
+            <colgroup module="board_listheader_1002">
+                <col style="width:70px;" />
+                <col style="width:135px;" class="{$config.is_category|display}" />
+                <col style="width:auto;" />
+                <col style="width:84px;" />
+                <col style="width:77px;" class="{$config.use_date|display}" />
+                <col style="width:55px;" class="{$config.use_cnt|display}" />
+                <col style="width:55px;" class="{$config.is_use_recom|display}" />
+                <col style="width:80px;" class="{$config.is_use_point|display}" />
+            </colgroup>
+            <thead module="board_listheader_1002">
+                <tr style="{$list_bg_color} {$list_char_color}">
+                    <th scope="col">{$checkbox} 번호</th>
+                    <th scope="col" class="{$config.is_category|display}">카테고리</th>
+                    <th scope="col">제목</th>
+                    <th scope="col">작성자</th>
+                    <th scope="col" class="{$config.use_date|display}">작성일</th>
+                    <th scope="col" class="{$config.use_cnt|display}">조회</th>
+                    <th scope="col" class="{$config.is_use_recom|display}">추천</th>
+                    <th scope="col" class="{$config.is_use_point|display}">평점</th>
+                </tr>
+            </thead>
+            <tbody module="board_notice_1002" class="center nk-board__tbody-notice">
+                <!--
+                    $count = 10
+                    $login_page_url = /member/login.html
+                    $deny_access_url = /index.html
+                -->
+                <tr style="{$list_bg_color} {$list_char_color}">
+                    <td>{$checkbox} {$notice_icon}</td>
+                    <td class="{$category_display|display}">{$category_name}</td>
+                    <td class="subject left txtBreak">
+                        <strong>{$icon_re} <a href="{$link_board_detail}" style="{$link_color}">{$subject}</a> {$icon_mobile}{$icon_lock}{$icon_new}{$icon_hit}{$icon_file}<span class="txtEm">{$comment_count}</span></strong>
+                    </td>
+                    <td>{$member_icon}{$writer}</td>
+                    <td class="{$date_display|display}"><span class="txtNum">{$write_date}</span></td>
+                    <td class="{$hit_display|display}"><span class="txtNum">{$hit_count}</span></td>
+                    <td class="{$vote_display|display}"><span class="txtNum">{$vote}</span></td>
+                    <td class="{$point_display|display}"><img src="//img.echosting.cafe24.com/skin/base/board/ico_point{$point_count}.gif" alt="{$point_count}점"></td>
+                </tr>
+                <tr style="{$list_bg_color} {$list_char_color}">
+                    <td>{$checkbox} {$notice_icon}</td>
+                    <td class="{$category_display|display}">{$category_name}</td>
+                    <td class="subject left txtBreak">
+                        <strong>{$icon_re} <a href="{$link_board_detail}" style="{$link_color}">{$subject}</a> {$icon_mobile}{$icon_lock}{$icon_new}{$icon_hit}{$icon_file}<span class="txtEm">{$comment_count}</span></strong>
+                    </td>
+                    <td>{$member_icon}{$writer}</td>
+                    <td class="{$date_display|display}"><span class="txtNum">{$write_date}</span></td>
+                    <td class="{$hit_display|display}"><span class="txtNum">{$hit_count}</span></td>
+                    <td class="{$vote_display|display}"><span class="txtNum">{$vote}</span></td>
+                    <td class="{$point_display|display}"><img src="//img.echosting.cafe24.com/skin/base/board/ico_point{$point_count}.gif" alt="{$point_count}점"></td>
+                </tr>
+            </tbody>
+            <tbody module="board_fixed_1002" class="center nk-board__tbody-fixed">
+                <!--
+                    $count = 10
+                    $login_page_url = /member/login.html
+                    $deny_access_url = /index.html
+                -->
+                <tr style="{$list_bg_color} {$list_char_color}">
+                    <td>{$checkbox} {$fixed_icon}</td>
+                    <td class="{$category_display|display}">{$category_name}</td>
+                    <td class="subject left txtBreak">
+                        <strong>{$icon_re}{$icon_lock} <a href="{$link_board_detail}" style="{$link_color}">{$subject}</a> {$icon_new}{$icon_hit}{$icon_file}<span class="txtEm">{$comment_count}</span></strong>
+                    </td>
+                    <td>{$member_icon}{$writer}</td>
+                    <td class="{$date_display|display}"><span class="txtNum">{$write_date}</span></td>
+                    <td class="{$hit_display|display}"><span class="txtNum">{$hit_count}</span></td>
+                    <td class="{$vote_display|display}"><span class="txtNum">{$vote}</span></td>
+                    <td class="{$point_display|display}"><img src="//img.echosting.cafe24.com/skin/base/board/ico_point{$point_count}.gif" alt="{$point_count}점"></td>
+                </tr>
+                <tr style="{$list_bg_color} {$list_char_color}">
+                    <td>{$checkbox} {$fixed_icon}</td>
+                    <td class="{$category_display|display}">{$category_name}</td>
+                    <td class="subject left txtBreak">
+                        <strong>{$icon_re}{$icon_lock} <a href="{$link_board_detail}" style="{$link_color}">{$subject}</a> {$icon_new}{$icon_hit}{$icon_file}<span class="txtEm">{$comment_count}</span></strong>
+                    </td>
+                    <td>{$member_icon}{$writer}</td>
+                    <td class="{$date_display|display}"><span class="txtNum">{$write_date}</span></td>
+                    <td class="{$hit_display|display}"><span class="txtNum">{$hit_count}</span></td>
+                    <td class="{$vote_display|display}"><span class="txtNum">{$vote}</span></td>
+                    <td class="{$point_display|display}"><img src="//img.echosting.cafe24.com/skin/base/board/ico_point{$point_count}.gif" alt="{$point_count}점"></td>
+                </tr>
+            </tbody>
+            <tbody module="board_list_1002" class="center nk-board__tbody-list">
+                <!--
+                    $login_page_url = /member/login.html
+                    $deny_access_url = /index.html
+                -->
+                <tr style="{$list_bg_color} {$list_char_color}" class="{$block_target_class}" {$block_data_attr}>
+                    <td>{$checkbox} {$no}</td>
+                    <td class="{$category_display|display}">{$category_name}</td>
+                    <td class="subject left txtBreak">
+                        {$icon_re} <a href="{$link_board_detail}" style="{$link_color}" class="{$block_content_class}">{$subject}</a> {$icon_mobile}{$icon_lock}{$icon_new}{$icon_hit}{$icon_file}<span class="txtEm">{$comment_count}</span>
+                    </td>
+                    <td>{$member_icon}{$writer}</td>
+                    <td class="{$date_display|display}"><span class="txtNum">{$write_date}</span></td>
+                    <td class="{$hit_display|display}"><span class="txtNum">{$hit_count}</span></td>
+                    <td class="{$vote_display|display}"><span class="txtNum">{$vote}</span></td>
+                    <td class="{$point_display|display}"><img src="//img.echosting.cafe24.com/skin/base/board/ico_point{$point_count}.gif" alt="{$point_count}점"></td>
+                </tr>
+                <tr style="{$list_bg_color} {$list_char_color}" class="{$block_target_class}" {$block_data_attr}>
+                    <td>{$checkbox} {$no}</td>
+                    <td class="{$category_display|display}">{$category_name}</td>
+                    <td class="subject left txtBreak">
+                        {$icon_re} <a href="{$link_board_detail}" style="{$link_color}" class="{$block_content_class}">{$subject}</a> {$icon_mobile}{$icon_lock}{$icon_new}{$icon_hit}{$icon_file}<span class="txtEm">{$comment_count}</span>
+                    </td>
+                    <td>{$member_icon}{$writer}</td>
+                    <td class="{$date_display|display}"><span class="txtNum">{$write_date}</span></td>
+                    <td class="{$hit_display|display}"><span class="txtNum">{$hit_count}</span></td>
+                    <td class="{$vote_display|display}"><span class="txtNum">{$vote}</span></td>
+                    <td class="{$point_display|display}"><img src="//img.echosting.cafe24.com/skin/base/board/ico_point{$point_count}.gif" alt="{$point_count}점"></td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="message {$empty_display|display}" module="board_empty_1002">{$empty_message}</p>
+    </div>
+    <div module="board_ButtonList_1002" class="nk-actions typeBG {$write_display|display} nk-board__buttons">
+        <span class="gRight">
+            <a href="/board/free/write.html{$param_write}" class="nk-btn nk-btn--primary nk-btn--sm {$write_display|display}">글쓰기</a>
+        </span>
+    </div>
+</div>
+
+<div module="board_paging_1002" class="nk-paginate-wrap nk-board__paginate">
+    <a href="{$param_prev}"><img src="//img.echosting.cafe24.com/skin/base/common/btn_page_prev.gif" alt="이전 페이지" /></a>
+    <ol>
+        <li><a href="{$param_num}" class="{$param_class}">{$page_num}</a></li>
+        <li><a href="{$param_num}" class="{$param_class}">{$page_num}</a></li>
+    </ol>
+    <a href="{$param_next}"><img src="//img.echosting.cafe24.com/skin/base/common/btn_page_next.gif" alt="다음 페이지" /></a>
+</div>
+
+<div module="board_search_1002" class="nk-board__search">
+        <fieldset class="boardSearch">
+        <legend>게시물 검색</legend>
+        <p>{$form.search_date} {$form.search_key} {$form.search} <a href="#none" class="nk-btn nk-btn--ink" onclick="{$action_search}">찾기</a></p>
+    </fieldset>
+</div>
+
+<!-- 관리자 전용 메뉴 -->
+<div module="board_catemove_1002">
+        <p>
+        {$board_catemove_selectbox}
+        <a href="#none" class="nk-btn nk-btn--line" onclick="{$action_category_move}"><img src="//img.echosting.cafe24.com/skin/base/common/btn_icon_move.gif" alt="" /> {$category_move}</a>
+    </p>
+</div>
+
+<div module="board_function_1002">
+        <p>
+        {$board_function_selectbox}
+        <a href="#none" class="nk-btn nk-btn--line" onclick="{$action_article_move}"><img src="//img.echosting.cafe24.com/skin/base/common/btn_icon_move.gif" alt="" /> {$article_move}</a>
+        <a href="#none" class="nk-btn nk-btn--line" onclick="{$action_article_copy}"><img src="//img.echosting.cafe24.com/skin/base/common/btn_icon_copy.gif" alt="" /> {$article_copy}</a>
+        {$board_function_help}
+    </p>
+</div>
+<!-- // 관리자 전용 메뉴 -->
+</div><!-- /.nk-board -->

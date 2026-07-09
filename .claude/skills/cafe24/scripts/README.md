@@ -30,7 +30,7 @@
 2. 전역 골격(`#container`·`#contents`·`header`·`footer`·`section`·`.inner`)이 base 에 졌는지
 3. EZ 에디터가 박은 **인라인 `style=""`** (외부 CSS 로는 못 이김)
 4. base 폰트(굴림/돋움)가 우리 Pretendard/Bricolage 를 이기는지
-5. 알려진 함정 F1~F32 자동 매칭
+5. 알려진 함정 자동 매칭(13종: F1·F2·F3·F6·F7·F9·F10·F12·F13·F16·F18·F20·F27)
 
 ---
 
