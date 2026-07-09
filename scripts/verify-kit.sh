@@ -125,6 +125,47 @@ else
   fail "smoke_test.py 없음"
 fi
 
+# ── [9] 드리프트 가드 — v2.9.0 통일 사항 재유입 감시 (ADR follow-up) ──
+echo ""
+echo "[9] 드리프트 가드 (토큰 어휘·스니펫 변수·템플릿 중립성)"
+# 9-1) 패자 토큰 어휘: 스니펫에서 --nk-color-* 재유입 금지 (flat 어휘가 kit 표준)
+DRIFT_VOCAB=$(grep -rIl -- '--nk-color-' "$OUT/.claude/skills/cafe24/snippets" 2>/dev/null || true)
+if [[ -n "$DRIFT_VOCAB" ]]; then
+  fail "패자 토큰 어휘(--nk-color-*) 재유입:"
+  echo "$DRIFT_VOCAB" | while read -r f; do echo "     $f"; done
+else
+  ok "스니펫 토큰 어휘 flat 유지 (--nk-color-* 0건)"
+fi
+# 9-2) 가짜 변수 재유입: {$link}·{$count} (검증본: {$link_product_list}·{$basket_count})
+DRIFT_VARS=$(grep -rIlE '\{\$link\}|\{\$count\}' "$OUT/.claude/skills/cafe24/snippets" 2>/dev/null || true)
+if [[ -n "$DRIFT_VARS" ]]; then
+  fail "미검증 변수({\$link}/{\$count}) 재유입:"
+  echo "$DRIFT_VARS" | while read -r f; do echo "     $f"; done
+else
+  ok "스니펫 변수 정합 유지 ({\$link}/{\$count} 0건)"
+fi
+# 9-3) 구 하드코딩 액센트(#2b6cb0) 재유입 금지 (중립 수렴값 #222222)
+DRIFT_HEX=$(grep -rIli '#2b6cb0' "$OUT/.claude/skills/cafe24" 2>/dev/null || true)
+if [[ -n "$DRIFT_HEX" ]]; then
+  fail "구 하드코딩 액센트(#2b6cb0) 재유입:"
+  echo "$DRIFT_HEX" | while read -r f; do echo "     $f"; done
+else
+  ok "하드코딩 액센트(#2b6cb0) 0건"
+fi
+# 9-4) 검증 템플릿 중립성: 브랜드·타클라·계정 문자열 유입 금지
+VT="$OUT/agent-kit/clients/_verified-template"
+if [[ -d "$VT" ]]; then
+  DRIFT_VT=$(grep -rIliE 'MURMUR|#cc785c|#a9583e|401788|reference-intake|test1111|Marcellus' "$VT" 2>/dev/null || true)
+  if [[ -n "$DRIFT_VT" ]]; then
+    fail "_verified-template 브랜드/타클라 문자열 유입:"
+    echo "$DRIFT_VT" | while read -r f; do echo "     $f"; done
+  else
+    ok "_verified-template 중립성 유지 (브랜드/타클라 0건)"
+  fi
+else
+  fail "_verified-template 폴더가 dist에 없음"
+fi
+
 # ── 최종 결과 ────────────────────────────────────────────────────
 echo ""
 echo "========================================"
