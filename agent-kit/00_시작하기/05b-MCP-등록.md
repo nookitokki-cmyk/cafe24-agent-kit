@@ -56,6 +56,9 @@ cp cafe24_config.example.py cafe24_config_{몰ID}.py
 
 Settings → MCP → Edit Config 도 가능.
 
+> **⚠️ MCP가 빨간불/안 뜰 때 (Windows):** `command: "python"`이 Microsoft Store 별칭으로 잡히는 PC에서는 서버가 조용히 실패합니다.
+> 이때는 `.cursor/mcp.json`(또는 루트 `.mcp.json`)에서 `"command": "py"`, `"args": ["-3", ...기존 args...]` 로 바꾸고 재시작하세요.
+
 #### Claude Code
 
 `.mcp.json.example`(Windows) / `.mcp.json.mac.example`(Mac) → 프로젝트 루트에 **`.mcp.json`** 으로 복사.

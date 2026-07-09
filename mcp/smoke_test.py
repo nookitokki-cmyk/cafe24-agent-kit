@@ -94,11 +94,11 @@ async def main() -> int:
 
             mall_id = PILOT_MALL if pilot_token_exists() else "demo000"
             if pilot_token_exists():
-                print(f"[pilot] {PILOT_MALL} token — preflight·API 호출에 사용")
+                print(f"[예시몰 파일럿] {PILOT_MALL} token — preflight·API 호출에 사용")
             else:
                 print(
-                    f"[pilot] {PILOT_MALL} token 없음 — "
-                    f"preflight live SKIP, API 기본몰={mall_id}"
+                    f"[예시몰 파일럿] {PILOT_MALL} token 없음 (정상 — 키트 예시몰이라 무시해도 됨), "
+                    f"API 기본몰={mall_id}"
                 )
 
             tools = await session.list_tools()
