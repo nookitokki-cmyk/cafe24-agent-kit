@@ -28,7 +28,7 @@ body.nk-skin :where(#contents) .titleArea {
 }
 /* 스톡 본문 거터 — 최빈 상위 블록에 좌우 여백+중앙 정렬.
    :where()로 명시도 0 유지 → 커버 페이지의 자체 규칙(마진/폭)이 항상 이김. */
-body.nk-skin :where(#contents) :where(.ec-base-table, div.ec-base-help, .ec-base-box, .ec-base-button, .ec-base-tab, .ec-base-prdEmpty, .titleArea, .path, .xans-product-searchdata) {
+body.nk-skin :where(#contents) :where(.section, .ec-base-fold, .ec-base-step, .ec-base-table, div.ec-base-help, .ec-base-box, .ec-base-button, .ec-base-tab, .ec-base-prdEmpty, .titleArea, .path, .xans-product-searchdata, .agreeAll, .agreeInner) {
   max-width: calc(var(--nk-order-max) + 2 * var(--nk-pad-x));
   margin-left: auto;
   margin-right: auto;
@@ -36,11 +36,77 @@ body.nk-skin :where(#contents) :where(.ec-base-table, div.ec-base-help, .ec-base
   padding-right: var(--nk-pad-x);
   box-sizing: border-box;
 }
-/* 중첩 시(레이어·박스 안 테이블 등) 거터 중복 방지 */
-body.nk-skin :where(#contents) :where(.ec-base-layer, .ec-base-box, .ec-base-fold) :where(.ec-base-table, div.ec-base-help, .ec-base-button) {
+/* 회원가입 약관동의(.agreeAll) — join_agreement.css(모듈, 후로드)가 margin을 동률 명시도로 덮어써서
+   div 태그 한정으로 한 단계만 올림 (0,2,1) — 커버 페이지에는 .agreeAll 없음(스톡 전용) */
+body.nk-skin :where(#contents) div.agreeAll {
+  margin-left: auto;
+  margin-right: auto;
+}
+/* 중첩 시(섹션·레이어·박스·폴드 안 부품) 거터 중복 방지 */
+body.nk-skin :where(#contents) :where(.section, .ec-base-layer, .ec-base-box, .ec-base-fold) :where(.section, .ec-base-fold, .ec-base-step, .ec-base-table, div.ec-base-help, .ec-base-box, .ec-base-button, .ec-base-tab, .ec-base-prdEmpty, .titleArea, .path) {
   max-width: none;
   padding-left: 0;
   padding-right: 0;
+}
+/* 장문형 스톡 본문(이용안내·약관·개인정보 등 .section 문서) 기본 타이포 */
+body.nk-skin :where(#contents .section) p,
+body.nk-skin :where(#contents .section) li,
+body.nk-skin :where(#contents .section) dd {
+  font-family: var(--nk-font-body);
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--nk-font);
+}
+/* 접기 블록(.ec-base-fold — 이용안내 섹션) */
+body.nk-skin :where(#contents) .ec-base-fold {
+  margin-top: 8px;
+  border: 0;
+  border-bottom: 1px solid var(--nk-line);
+  background: transparent;
+}
+body.nk-skin :where(#contents) .ec-base-fold .title {
+  padding: 14px 0;
+  border: 0;
+  background: transparent;
+}
+body.nk-skin :where(#contents) .ec-base-fold .title h3 {
+  margin: 0;
+  padding: 0;
+  font-family: var(--nk-font-body);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--nk-ink);
+  background: transparent;
+}
+body.nk-skin :where(#contents) .ec-base-fold .contents {
+  padding: 4px 0 20px;
+  border: 0;
+  background: transparent;
+}
+/* 단계 표시(.ec-base-step — 약관 동의/가입 단계). stock은 step 레이아웃 css 자체가 미로드 —
+   여기서 가로 칩 레이아웃까지 제공 */
+body.nk-skin :where(#contents) .ec-base-step ol.step {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 0 0 32px;
+  padding: 0;
+  list-style: none;
+}
+body.nk-skin :where(#contents) .ec-base-step ol.step li {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 16px;
+  border: 1px solid var(--nk-line);
+  border-radius: var(--nk-radius);
+  background: transparent;
+  font-size: 12px;
+  color: var(--nk-sub);
+}
+body.nk-skin :where(#contents) .ec-base-step ol.step li.selected {
+  border-color: var(--nk-ink);
+  background: var(--nk-ink);
+  color: var(--nk-on-point);
 }
 body.nk-skin :where(#contents) .titleArea h2 {
   margin: 0;
@@ -394,14 +460,6 @@ body.nk-skin :where(#contents) .ec-base-prdEmpty {
   font-size: 13px;
   color: var(--nk-sub);
   text-align: center;
-}
-/* 접기 박스 */
-body.nk-skin :where(#contents) .ec-base-fold {
-  border-color: var(--nk-line);
-  background: transparent;
-}
-body.nk-skin :where(#contents) .ec-base-fold .title {
-  background: var(--nk-bg2);
 }
 /* 카드 */
 body.nk-skin :where(#contents) .ec-base-card {
