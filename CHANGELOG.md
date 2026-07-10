@@ -1,6 +1,19 @@
 # Cafe24 Agent Kit — Changelog
 
 
+## v2.13.1 (2026-07-10) — 기존 사용자 자동 업데이트 호환성 보강
+
+> **호환성:** non-breaking patch. v2.13.0의 신규 analyzer 기능을 유지하면서, v2.12.x release-channel 사용자가 `kit-autoupdate --apply`로 업데이트할 때 새 analyzer 구현 파일이 누락되지 않도록 보강.
+
+### Fixed
+- `mcp/backends/skin_analyzer.py`에 analyzer 구현을 배치해, 기존 updater가 이미 복사하던 `mcp/backends/` 경로를 통해 신규 analyzer 코드가 함께 전달되도록 수정.
+- `mcp/cli.py`, `mcp/server.py`, `scripts/skin-safety-evaluator.py`, unit test가 `backends.skin_analyzer`를 직접 import하도록 수정.
+- `mcp/skin_analyzer.py`는 fresh install/source checkout의 기존 직접 import 호환을 위한 wrapper로 유지.
+
+### Verification
+- v2.12.0 release zip에서 `kit-autoupdate --force --apply` 실행 시 v2.13.0에서는 `skin_analyzer.py` 누락으로 `skin-audit`가 실패하는 것을 재현.
+- 패치 후 v2.12.0 release zip에서 최신 release로 자동 업데이트 후 `python mcp/cli.py skin-audit agent-kit/clients/_verified-template/src --json-out updated-smoke.json` 실행 검증.
+
 ## v2.13.0 (2026-07-10) — 로컬 스킨 안전 분석기 + 배포 전 guardrail
 
 > **호환성:** non-breaking(신규 read-only analyzer/CLI/MCP tool + 검증 게이트 확장). 라이브몰 SFTP/API/OAuth 변경은 포함하지 않으며, 업로드·삭제·원격 변경을 수행하지 않음.

@@ -10,7 +10,7 @@ MCP_DIR = Path(__file__).resolve().parents[1]
 if str(MCP_DIR) not in sys.path:
     sys.path.insert(0, str(MCP_DIR))
 
-from skin_analyzer import audit_skin, classify_reference, normalize_reference
+from backends.skin_analyzer import audit_skin, classify_reference, normalize_reference
 
 
 class SkinAnalyzerTests(unittest.TestCase):

@@ -38,7 +38,7 @@ from kit_tools import (
     read_kit_version,
     scaffold_client,
 )
-from skin_analyzer import audit_skin
+from backends.skin_analyzer import audit_skin
 
 mcp = FastMCP("cafe24_mcp")
 

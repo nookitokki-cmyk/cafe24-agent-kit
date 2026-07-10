@@ -73,7 +73,7 @@ from kit_tools import (
     read_kit_version,
     scaffold_client,
 )
-from skin_analyzer import audit_skin
+from backends.skin_analyzer import audit_skin
 
 try:
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")

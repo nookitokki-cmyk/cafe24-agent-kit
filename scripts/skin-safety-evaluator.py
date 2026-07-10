@@ -21,7 +21,7 @@ MCP_DIR = ROOT / "mcp"
 if str(MCP_DIR) not in sys.path:
     sys.path.insert(0, str(MCP_DIR))
 
-from skin_analyzer import audit_skin
+from backends.skin_analyzer import audit_skin
 
 
 CRITERIA_KEYS = (

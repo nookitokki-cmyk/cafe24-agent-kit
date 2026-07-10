@@ -38,7 +38,7 @@
 | `_dev/` | 개발용 (배포 제외) |
 
 
-> **v2.13.0 업데이트:** `python mcp/cli.py skin-audit <local-skin-root>`로 로컬 Cafe24 SmartDesign 스킨을 read-only 점검합니다. SmartDesign directive, `module="..."`, `{$...}` 변수, 보호 영역(`/order/ec_orderform/**`), 누락 reference를 분류해 SFTP 업로드 전 위험을 먼저 보여줍니다. 업로드·삭제·원격 변경은 하지 않습니다.
+> **v2.13.1 업데이트:** `python mcp/cli.py skin-audit <local-skin-root>`로 로컬 Cafe24 SmartDesign 스킨을 read-only 점검합니다. SmartDesign directive, `module="..."`, `{$...}` 변수, 보호 영역(`/order/ec_orderform/**`), 누락 reference를 분류해 SFTP 업로드 전 위험을 먼저 보여줍니다. 기존 v2.12 사용자의 release-channel 자동 업데이트에서도 analyzer 파일이 누락되지 않도록 호환 경로를 보강했습니다. 업로드·삭제·원격 변경은 하지 않습니다.
 >
 > **v2.12.0 업데이트:** 앞으로 `/새클라이언트` 온보딩과 토대정리 기준 CSS는 `nk-tokens.css` → `nk-cafe24-reset.css` → `nk-base.css` → `nk-stock.css` 4종을 표준으로 안내합니다. 단, `nk-stock.css`는 `layout` include와 `body.nk-skin` 스코프가 함께 있을 때 스톡/legacy 페이지에 적용됩니다.
 
