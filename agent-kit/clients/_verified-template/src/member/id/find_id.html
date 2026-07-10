@@ -1,0 +1,66 @@
+<!--@layout(/layout/basic/layout.html)-->
+<!--@css(/_nk/css/nk-member.css)-->
+
+<div class="nk-mbr-wrap nk-fid-wrap">
+    <div class="nk-mbr-head">
+        <p class="nk-mbr-title">Find ID</p>
+        <p class="nk-mbr-sub">아이디 찾기</p>
+    </div>
+    <p class="nk-mbr-desc">가입하신 방법에 따라 아이디 찾기가 가능합니다.<br>법인사업자 회원 또는 외국인 회원의 경우 법인명과 법인번호 또는 이름과 등록번호를 입력해 주세요.</p>
+
+    <div module="member_findid" class="nk-fid-box">
+        <!--
+            $returnURL = /member/id/find_id_result.html
+         -->
+        <fieldset class="nk-fid-form">
+            <legend class="nk-mbrb-hidden">아이디 찾기</legend>
+            <div class="nk-fid-fields">
+                <div class="nk-fid-row nk-fid-row--member">
+                    <div class="nk-fid-label">회원유형</div>
+                    <div class="nk-fid-field">{$form.searchType}</div>
+                </div>
+                <div class="nk-fid-row">
+                    <div class="nk-fid-label nk-fid-label--empty"></div>
+                    <div class="nk-fid-field nk-fid-field--radio">{$form.check_method}</div>
+                </div>
+                <div class="nk-fid-row" id="name_view">
+                    <div class="nk-fid-label" id="name_lable">이름</div>
+                    <div class="nk-fid-field">{$form.name}</div>
+                </div>
+                <div class="nk-fid-row" id="ssn_view">
+                    <div class="nk-fid-label" id="ssn_name">법인번호로 찾기</div>
+                    <div class="nk-fid-field nk-fid-field--multi">
+                        {$form.ssn1}<span class="nk-fid-sep">-</span>{$form.ssn2}
+                    </div>
+                </div>
+                <div class="nk-fid-row" id="email_view">
+                    <div class="nk-fid-label">이메일로 찾기</div>
+                    <div class="nk-fid-field">{$form.email}</div>
+                </div>
+                <div class="nk-fid-row" id="mobile_view">
+                    <div class="nk-fid-label">휴대폰 번호로 찾기</div>
+                    <div class="nk-fid-field nk-fid-field--multi">
+                        {$form.mobile1}<span class="nk-fid-sep">-</span>{$form.mobile2}<span class="nk-fid-sep">-</span>{$form.mobile3}
+                    </div>
+                </div>
+                <div class="nk-fid-row" id="ipin_view">
+                    <div class="nk-fid-label">아이핀인증으로 찾기</div>
+                    <div class="nk-fid-field nk-fid-field--auth">
+                        <p class="nk-fid-auth__desc">회원가입을 아이핀으로 가입하신 회원님께서는 아이핀으로 인증하세요.</p>
+                        <a href="#none" class="nk-btn nk-btn--line nk-btn--block nk-fid-auth__btn" onclick="{$action_func_find_id}">아이핀 인증</a>
+                    </div>
+                </div>
+                <div class="nk-fid-row" id="mobile_auth_view">
+                    <div class="nk-fid-label">휴대폰인증으로 찾기</div>
+                    <div class="nk-fid-field nk-fid-field--auth">
+                        <p class="nk-fid-auth__desc">본인 명의의 휴대폰으로 아이디 찾기를 진행할 수 있습니다. 휴대폰 명의자의 정보로 가입한 아이디 찾기가 가능합니다.</p>
+                        <a href="#none" class="nk-btn nk-btn--line nk-btn--block nk-fid-auth__btn" onclick="{$action_func_find_id}">휴대폰 인증</a>
+                    </div>
+                </div>
+            </div>
+            <div class="nk-fid-actions">
+                <a href="#none" class="nk-btn nk-btn--primary nk-btn--block" onclick="{$action_func_find_id}">확인</a>
+            </div>
+        </fieldset>
+    </div>
+</div>

@@ -1,5 +1,35 @@
 # Cafe24 Agent Kit — Changelog
 
+
+## v2.11.0 (2026-07-10) — 검증 템플릿 A/B 페이지 승격 + dist 패키징 게이트 보강
+
+> **호환성:** non-breaking(`_verified-template` 확장 + 검증 스크립트/패키징 보강). 주문·결제·PG 같은 C그룹 HTML은 계속 제외하며, 라이브몰 SFTP/API/OAuth 변경은 포함하지 않음.
+
+### Added
+- **A/B 확장 페이지 12개 승격** — `_verified-template/src`에 402307 검증 작업본 기준 페이지를 추가: 상품검색, 회사소개, 이용안내, 쿠폰존, 게시판 읽기/쓰기, 상품게시판 목록, 가입완료, 아이디/비밀번호 찾기, 관심상품, 마이쿠폰.
+- **이용안내 탭 스크립트 동봉** — `_verified-template/src/_nk/js/nk-guide-tabs.js` 추가. `shopinfo/guide.html`의 `@js(/_nk/js/nk-guide-tabs.js)` 누락으로 생길 수 있는 서브리소스 404와 탭 비활성 문제를 차단.
+- **스킨 안전성 evaluator** — `scripts/skin-safety-evaluator.py`: SmartDesign directive, Cafe24 변수, module 바인딩, xans/ec-base hook, C그룹 제외, 브랜드 흔적 제거, 백업/롤백 안내, 비개발자 안전 안내를 JSON으로 검증.
+- **로컬 SmartDesign 자산 누락 검증** — evaluator에 `local_smartdesign_assets_exist` 기준 추가. 템플릿 소유 경로(`/_nk/*`, `@layout`)는 누락 시 FAIL, Cafe24 기본 제공 리소스(`/js/module/*`, `/layout/basic/css/*` 등)는 오탐 방지를 위해 제외.
+- **자동화/구조 지도 문서** — `agent-kit/brain/docs/CAFE24-DEVELOPERS-AUTOMATION.md`, `DEEPINIT-MAP.md`, `VERIFIED-TEMPLATE-UPLIFT.md` 추가.
+
+### Changed
+- `_verified-template/src` 규모를 **45파일**로 확장(HTML 27, CSS 16, JS 2). README/CASE-STUDY/DEEPINIT-MAP의 파일 수와 검증 범위 문구를 맞춤.
+- `CASE-STUDY.md`의 31파일/7페이지 라이브 QA 수치를 초기 기준선으로 명확히 분리하고, 2026-07-10 추가 범위는 로컬 evaluator + verify-kit 통과 범위로 표기해 라이브 QA 과장을 방지.
+- `agent-kit/connect/scripts/verify-kit.sh`의 Python import smoke에 `PYTHONDONTWRITEBYTECODE=1` 적용. 검증 실행 후 dist에 `__pycache__`/`.pyc`가 남지 않게 함.
+
+### Fixed
+- `scripts/build-dist-kit.sh`가 dist에 `api-poc/MCP-DESIGN.md`를 포함하지 않아 dist 내부 `verify-kit.sh`가 실패하던 문제 수정. 이제 설계서가 선택적으로가 아니라 REQUIRED 자산으로 패키징됨.
+- source/dist client allowlist 검증 경계를 정리해 `_verified-template`은 허용하면서 실클라 `ecudemo*`, 핸드오프 파일, secret config는 배포본에 들어가지 않게 유지.
+- `_verified-template/src/_nk/css/nk-stock.css`의 남은 demo/client 흔적 주석을 중립화.
+
+### Verification
+- `python scripts/skin-safety-evaluator.py` → PASS, score 9/9.
+- Git Bash `agent-kit/connect/scripts/verify-kit.sh` at source root → ALL PASS.
+- `scripts/build-dist-kit.sh` → `dist/cafe24-agent-kit`, 275 files.
+- Git Bash `agent-kit/connect/scripts/verify-kit.sh` inside dist → ALL PASS.
+- `python scripts/skin-safety-evaluator.py dist/cafe24-agent-kit/agent-kit/clients/_verified-template/src` → PASS, score 9/9.
+- dist checks: clients allowlist = `_template`, `_verified-template`, `demo000`; `mcp/config` secret 0; `api-poc/MCP-DESIGN.md` present; `__pycache__`/`.pyc` 0.
+
 ## v2.10.0 (2026-07-09) — 스톡 페이지 전역 톤 레이어 (nk-stock.css)
 
 > **호환성:** non-breaking(신규 CSS 1파일 + layout.html @css 1줄 — HTML·module·결제 흐름 무변경). 검증 템플릿 32파일로 확장.

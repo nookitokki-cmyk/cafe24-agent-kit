@@ -139,6 +139,12 @@ if [[ -d "$ROOT/work/scripts" ]]; then
   copy_tree "$ROOT/work/scripts" "$BUILD_ROOT/work/scripts"
 fi
 
+# API/MCP 설계서 — verify-kit 핵심 자산
+if [[ -f "$ROOT/api-poc/MCP-DESIGN.md" ]]; then
+  mkdir -p "$BUILD_ROOT/api-poc"
+  cp "$ROOT/api-poc/MCP-DESIGN.md" "$BUILD_ROOT/api-poc/"
+fi
+
 # Cursor MCP registration template (user copies → .cursor/mcp.json)
 mkdir -p "$BUILD_ROOT/.cursor"
 for ex in "$ROOT"/.cursor/mcp.json*.example; do
@@ -238,6 +244,7 @@ REQUIRED=(
   "$OUT/mcp/backends/__init__.py"
   "$OUT/mcp/config/__init__.py"
   "$OUT/mcp/config/cafe24_config.example.py"
+  "$OUT/api-poc/MCP-DESIGN.md"
   "$OUT/mcp/work/scripts/strip_ez.py"
   "$OUT/.cursor/mcp.json.example"
   "$OUT/CHANGELOG.md"

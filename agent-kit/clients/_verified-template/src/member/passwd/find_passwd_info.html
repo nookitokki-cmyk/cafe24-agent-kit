@@ -1,0 +1,61 @@
+<!--@layout(/layout/basic/layout.html)-->
+<!--@css(/_nk/css/nk-member.css)-->
+
+<!-- NK: 브레드크럼(.path)·기본 타이틀(.titleArea)은 module 아님(정적 마크업) — nk-mbr-head로 대체 -->
+<div class="nk-mbr-wrap nk-fpi-wrap">
+    <div class="nk-mbr-head">
+        <p class="nk-mbr-title">Find Password</p>
+        <p class="nk-mbr-sub">비밀번호 찾기</p>
+    </div>
+
+    <div module="member_findpasswd" class="nk-fpi-box">
+                <!--
+            $nextURL = /member/passwd/find_passwd_question.html
+         -->
+        <div class="findPw nk-fpi-body">
+            <h3 class="boxTitle nk-mbrb-hidden">비밀번호 찾기</h3>
+            <fieldset class="nk-fpi-form">
+                <legend class="nk-mbrb-hidden">비밀번호 찾기 1단계 정보 입력</legend>
+                <div class="nk-join-section">
+                    <div class="nk-join-form">
+                        <div class="nk-join-row nk-fpi-field">
+                            <div class="nk-join-label">회원유형</div>
+                            <div class="nk-join-field">{$form.searchType}<span class="check gBlank5">{$form.check_method}</span></div>
+                        </div>
+                        <div class="nk-join-row nk-fpi-field {$display_id|display}">
+                            <div class="nk-join-label">아이디</div>
+                            <div class="nk-join-field">{$form.member_id}</div>
+                        </div>
+                        <div class="nk-join-row name nk-fpi-field" id="name_view">
+                            <div class="nk-join-label" id="name_lable">이름</div>
+                            <div class="nk-join-field">{$form.name}</div>
+                        </div>
+                        <div class="nk-join-row ssn_no nk-fpi-field" id="ssn_view">
+                            <div class="nk-join-label" id="ssn_name">법인번호로 찾기</div>
+                            <div class="nk-join-field"><div class="nk-join-field-inner">{$form.ssn}</div><p class="nk-join-hint">(-) 없이 숫자만 입력하세요.</p></div>
+                        </div>
+                        <div class="nk-join-row email nk-fpi-field" id="email_view" style="display:none;">
+                            <div class="nk-join-label">이메일로 찾기</div>
+                            <div class="nk-join-field">{$form.email}</div>
+                        </div>
+                        <div class="nk-join-row mobile nk-fpi-field" id="mobile_view" style="display:none;">
+                            <div class="nk-join-label">휴대폰 번호로 찾기</div>
+                            <div class="nk-join-field"><div class="nk-join-field-inner nk-join-field--multi">{$form.mobile1} - {$form.mobile2} - {$form.mobile3}</div></div>
+                        </div>
+                        <div class="nk-join-row ipin nk-fpi-auth" id="ipin_view" style="display:none;">
+                            <div class="nk-join-label">아이핀인증으로 찾기</div>
+                            <div class="nk-join-field txtInfo">회원가입을 아이핀으로 가입하신 <br />회원님께서는 아이핀으로 인증하세요. <a href="#none" class="nk-btn nk-btn--line nk-mbrb-inline-btn" onclick="{$action_func_find_passwd_question}"><img src="//img.echosting.cafe24.com/skin/base/common/btn_icon_ipin.gif" alt="" /> 아이핀인증</a></div>
+                        </div>
+                        <div class="nk-join-row mobileauth nk-fpi-auth" id="mobile_auth_view" style="display:none;">
+                            <div class="nk-join-label">휴대폰인증으로 찾기</div>
+                            <div class="nk-join-field txtInfo">본인 명의의 휴대폰으로 아이디 찾기를<br /> 진행할 수 있습니다. 휴대폰 명의자의<br /> 정보로 가입한 아이디 찾기가 가능합니다.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="nk-actions gColumn nk-mbr-actions">
+                    <a href="#none" class="nk-btn nk-btn--primary nk-btn--block sizeM" onclick="{$action_func_find_passwd_question}">확인</a>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>

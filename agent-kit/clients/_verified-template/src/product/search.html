@@ -1,0 +1,99 @@
+<!--@layout(/layout/basic/layout.html)-->
+<!--@css(/_nk/css/nk-plp.css)-->
+<!--@css(/_nk/css/nk-etc.css)-->
+<div class="nk-plp nk-etc nk-etc-search nk-search-page">
+<!-- ============================================================
+     product/search.html — 상품검색 결과 blank-slate (BS-002)
+     L1: Search_Result($count=8) · Search_Imagestyle · search_ListItem · search_paging
+     L2: ec-base-product/prdList/nk-prd/thumbnail → nk-listmain + nk-prd-card (list.html 동일)
+     ============================================================ -->
+<div class="nk-etc__head">
+    <h1 class="nk-etc__title">Search</h1>
+    <p class="nk-etc__sub">상품검색</p>
+</div>
+
+<div class="nk-etc-search__form nk-search-wrap">
+    <!--@import(/product/shoppQ/searchForm_typeTop.html)-->
+</div>
+
+<div module="Search_Result" class="nk-listmain nk-etc-search__result">
+    <!--
+        $count = 8
+    -->
+    <ul class="nk-prd-grid">
+        <li id="anchorBoxId_{$product_no}" class="nk-prd-card">
+            <a href="{$link_product_detail}" name="anchorBoxName_{$product_no}" class="nk-prd-card__link">
+                <span class="nk-prd-card__thumb">
+                    <img src="{$image_medium}" id="{$image_medium_id}" alt="{$seo_alt_tag}" class="nk-prd-card__img nk-prd-card__img--base" loading="lazy" />
+                    <img src="{$image_small}" alt="" class="nk-prd-card__img nk-prd-card__img--hover" loading="lazy" aria-hidden="true" />
+                    <span module="Search_Imagestyle" class="nk-prd-card__badge {$icon_class_name}" style="background-image:url('{$icon_url}');"></span>
+                </span>
+                <span class="nk-prd-card__name">{$product_name}</span>
+            </a>
+            <p class="nk-prd-card__note {$exclusive_purchase_olny|display}">단독구매상품</p>
+            <p class="nk-prd-card__rental {$rental_icon|display}">월 {$rental_maximum_price|numberformat}원 / {$rental_maximum_term}개월</p>
+            <ul module="search_ListItem" class="nk-prd-card__price-list">
+                <li class="nk-prd-card__price-item {$item_display|display}">
+                    <span class="nk-prd-card__price-label {$item_title_display|display}">{$item_title}</span>
+                    <span class="nk-prd-card__price-val">{$item_content}</span>
+                </li>
+                <li class="nk-prd-card__price-item {$item_display|display}">
+                    <span class="nk-prd-card__price-label {$item_title_display|display}">{$item_title}</span>
+                    <span class="nk-prd-card__price-val">{$item_content}</span>
+                </li>
+            </ul>
+            <div class="nk-prd-card__actions">
+                <span class="nk-prd-card__wish">{$list_wish_icon}</span>
+                <span class="nk-prd-card__icons">{$soldout_icon} {$stock_icon} {$recommend_icon} {$new_icon} {$product_icons} {$pickup_icon} {$rental_icon} {$regular_delivery_icon}</span>
+                <span class="nk-prd-card__basket">{$basket_icon} {$zoom_icon} {$option_preview_icon}</span>
+            </div>
+        </li>
+        <li id="anchorBoxId_{$product_no}" class="nk-prd-card">
+            <a href="{$link_product_detail}" name="anchorBoxName_{$product_no}" class="nk-prd-card__link">
+                <span class="nk-prd-card__thumb">
+                    <img src="{$image_medium}" id="{$image_medium_id}" alt="{$seo_alt_tag}" class="nk-prd-card__img nk-prd-card__img--base" loading="lazy" />
+                    <img src="{$image_small}" alt="" class="nk-prd-card__img nk-prd-card__img--hover" loading="lazy" aria-hidden="true" />
+                    <span module="Search_Imagestyle" class="nk-prd-card__badge {$icon_class_name}" style="background-image:url('{$icon_url}');"></span>
+                </span>
+                <span class="nk-prd-card__name">{$product_name}</span>
+            </a>
+            <p class="nk-prd-card__note {$exclusive_purchase_olny|display}">단독구매상품</p>
+            <p class="nk-prd-card__rental {$rental_icon|display}">월 {$rental_maximum_price|numberformat}원 / {$rental_maximum_term}개월</p>
+            <ul module="search_ListItem" class="nk-prd-card__price-list">
+                <li class="nk-prd-card__price-item {$item_display|display}">
+                    <span class="nk-prd-card__price-label {$item_title_display|display}">{$item_title}</span>
+                    <span class="nk-prd-card__price-val">{$item_content}</span>
+                </li>
+                <li class="nk-prd-card__price-item {$item_display|display}">
+                    <span class="nk-prd-card__price-label {$item_title_display|display}">{$item_title}</span>
+                    <span class="nk-prd-card__price-val">{$item_content}</span>
+                </li>
+            </ul>
+            <div class="nk-prd-card__actions">
+                <span class="nk-prd-card__wish">{$list_wish_icon}</span>
+                <span class="nk-prd-card__icons">{$soldout_icon} {$stock_icon} {$recommend_icon} {$new_icon} {$product_icons} {$pickup_icon} {$rental_icon} {$regular_delivery_icon}</span>
+                <span class="nk-prd-card__basket">{$basket_icon} {$zoom_icon} {$option_preview_icon}</span>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<div module="search_paging" class="nk-plp__paginate">
+    <ul class="nk-pagination">
+        <li><a href="{$param_first}" class="nk-pagination__item" aria-label="첫 페이지"><i class="ph ph-caret-double-left"></i></a></li>
+        <li><a href="{$param_before}" class="nk-pagination__item" aria-label="이전 페이지"><i class="ph ph-caret-left"></i></a></li>
+        <li><a href="{$param}" class="nk-pagination__item {$param_class}">{$no}</a></li>
+        <li><a href="{$param}" class="nk-pagination__item {$param_class}">{$no}</a></li>
+        <li><a href="{$param}" class="nk-pagination__item {$param_class}">{$no}</a></li>
+        <li><a href="{$param}" class="nk-pagination__item {$param_class}">{$no}</a></li>
+        <li><a href="{$param}" class="nk-pagination__item {$param_class}">{$no}</a></li>
+        <li><a href="{$param}" class="nk-pagination__item {$param_class}">{$no}</a></li>
+        <li><a href="{$param}" class="nk-pagination__item {$param_class}">{$no}</a></li>
+        <li><a href="{$param}" class="nk-pagination__item {$param_class}">{$no}</a></li>
+        <li><a href="{$param}" class="nk-pagination__item {$param_class}">{$no}</a></li>
+        <li><a href="{$param}" class="nk-pagination__item {$param_class}">{$no}</a></li>
+        <li><a href="{$param_next}" class="nk-pagination__item" aria-label="다음 페이지"><i class="ph ph-caret-right"></i></a></li>
+        <li><a href="{$param_last}" class="nk-pagination__item" aria-label="마지막 페이지"><i class="ph ph-caret-double-right"></i></a></li>
+    </ul>
+</div>
+</div><!-- /.nk-etc-search -->

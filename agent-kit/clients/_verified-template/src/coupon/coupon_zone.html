@@ -1,0 +1,182 @@
+<!--@layout(/layout/basic/layout.html)-->
+<!--@css(/_nk/css/nk-etc.css)-->
+<div class="nk-etc nk-etc-coupon">
+<!-- ============================================================
+     coupon/coupon_zone.html — 쿠폰존 리스킨 (Wave2-ETC)
+     스타일: nk-etc.css(.nk-etc-coupon — 탭 언더라인 + 라인 쿠폰 카드).
+     stock 대비 보존 module: Coupon_zonePackage(탭 onclick couponZone.show*) · Coupon_Zonebest ·
+     Coupon_Zonenew(기능성 인라인 display:none 원형) · Coupon_Zone({$form_start}/{$form_end}) ·
+     Coupon_aZonelist. 쿠폰 카드의 인라인 style({$background_url} 바인딩 + stock 하드코딩 색/폰트)은
+     module 내부 원본이라 마크업 보존 — nk-etc.css가 !important+사유주석으로 상쇄(새 인라인 style 0건).
+     전체선택/선택쿠폰 다운받기/쿠폰상세({$call_coupon_detail}) onclick 전부 원형 보존.
+     정적 .path/.titleArea(module 아님)는 Wave1 login.html 컨벤션대로 중앙 영문 헤드로 대체.
+     ============================================================ -->
+<div class="nk-etc__head">
+    <h1 class="nk-etc__title">Coupon</h1>
+    <p class="nk-etc__sub">쿠폰존</p>
+</div>
+
+<div module="Coupon_zonePackage">
+        <!--@js(/js/module/coupon/zonePackage.js)-->
+    <div class="nk-tabs">
+        <ul class="menu">
+            <li class="selected"><a href="#none" onclick="couponZone.showBestCoupon();">Best Coupons</a></li>
+            <li><a href="#none" onclick="couponZone.showNewCoupon();">New Coupons</a></li>
+        </ul>
+    </div>
+
+    <div id="dBestCoupon" module="Coupon_Zonebest">
+        <!--
+            $count = 2
+        -->
+        <div class="couponSkinArea">
+            <ul class="grid2">
+                <li>
+                    <div class="coupon {$background_class}" style="background-image:url('{$background_url}')">
+                        <div class="detail" {$call_coupon_detail}>
+                            <strong class="title" style="color:#483b1b; font-family:Arial; font-size:11px;">{$coupon_name|cut:13,...}</strong>
+                            <p class="discount" style="color:#d07b01; font-family:Dotum;"><span style="font-family:Verdana;">{$coupon_content}</span></p>
+                            <p class="period" style="color:#685219; font-family:Dotum;">{$coupon_period}</p>
+                        </div>
+                        <div class="button"><a href="{$coupon_issue_url}"><img src="{$download_url}" alt="다운받기" /></a></div>
+                    </div>
+                </li>
+                <li>
+                    <div class="coupon {$background_class}" style="background-image:url('{$background_url}')">
+                        <div class="detail" {$call_coupon_detail}>
+                            <strong class="title" style="color:#483b1b; font-family:Arial; font-size:11px;">{$coupon_name|cut:13,...}</strong>
+                            <p class="discount" style="color:#d07b01; font-family:Dotum;"><span style="font-family:Verdana;">{$coupon_content}</span></p>
+                            <p class="period" style="color:#685219; font-family:Dotum;">{$coupon_period}</p>
+                        </div>
+                        <div class="button"><a href="{$coupon_issue_url}"><img src="{$download_url}" alt="다운받기" /></a></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="dNewCoupon" module="Coupon_Zonenew" style="display:none">
+        <!--
+            $count = 2
+        -->
+        <div class="couponSkinArea">
+            <ul class="grid2">
+                <li>
+                    <div class="coupon {$background_class}" style="background-image:url('{$background_url}')">
+                        <div class="detail" {$call_coupon_detail}>
+                            <strong class="title" style="color:#483b1b; font-family:Arial; font-size:11px;">{$coupon_name|cut:13,...}</strong>
+                            <p class="discount" style="color:#d07b01; font-family:Dotum;"><span style="font-family:Verdana;">{$coupon_content}</span></p>
+                            <p class="period" style="color:#685219; font-family:Dotum;">{$coupon_period}</p>
+                        </div>
+                        <div class="button"><a href="{$coupon_issue_url}"><img src="{$download_url}" alt="다운받기" /></a></div>
+                    </div>
+                </li>
+                <li>
+                    <div class="coupon {$background_class}" style="background-image:url('{$background_url}')">
+                        <div class="detail" {$call_coupon_detail}>
+                            <strong class="title" style="color:#483b1b; font-family:Arial; font-size:11px;">{$coupon_name|cut:13,...}</strong>
+                            <p class="discount" style="color:#d07b01; font-family:Dotum;"><span style="font-family:Verdana;">{$coupon_content}</span></p>
+                            <p class="period" style="color:#685219; font-family:Dotum;">{$coupon_period}</p>
+                        </div>
+                        <div class="button"><a href="{$coupon_issue_url}"><img src="{$download_url}" alt="다운받기" /></a></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div module="Coupon_Zone">
+        <!--
+            $coupon_down_result_url = /coupon/coupon_down_result.html
+        -->
+        <div class="couponZone">
+            <div class="title">
+                <h3>{$zone_title}</h3>
+                <p>
+                    <a href="#none" class="nk-btn nk-btn--line" onclick="couponZone.allCheck('{$zone_form_id}')">전체선택</a>
+                    <a href="#none" class="nk-btn nk-btn--line" onclick="couponZone.setDown('{$zone_form_id}')">선택쿠폰 다운받기</a>
+                </p>
+            </div>
+            {$form_start}
+            <div class="couponSkinArea">
+                <ul module="Coupon_aZonelist" class="grid3">
+                    <li>
+                        <div class="coupon {$background_class}" style="background-image:url('{$background_url}')">
+                            <div class="detail" {$call_coupon_detail}>
+                                <strong class="title" style="color:#483b1b; font-family:Arial; font-size:11px;">{$coupon_name|cut:13,...}</strong>
+                                <p class="discount" style="color:#d07b01; font-family:Dotum;"><span style="font-family:Verdana;">{$coupon_content}</span></p>
+                                <p class="period" style="color:#685219; font-family:Dotum;">{$coupon_period}</p>
+                            </div>
+                            <div class="button"><a href="{$coupon_issue_url}"><img src="{$download_url}" alt="다운받기" /></a></div>
+                            <p class="chkBtn">{$coupon_checkbox}</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="coupon {$background_class}" style="background-image:url('{$background_url}')">
+                            <div class="detail" {$call_coupon_detail}>
+                                <strong class="title" style="color:#483b1b; font-family:Arial; font-size:11px;">{$coupon_name|cut:13,...}</strong>
+                                <p class="discount" style="color:#d07b01; font-family:Dotum;"><span style="font-family:Verdana;">{$coupon_content}</span></p>
+                                <p class="period" style="color:#685219; font-family:Dotum;">{$coupon_period}</p>
+                            </div>
+                            <div class="button"><a href="{$coupon_issue_url}"><img src="{$download_url}" alt="다운받기" /></a></div>
+                            <p class="chkBtn">{$coupon_checkbox}</p>
+                        </div>
+                    </li>
+                </ul>
+                {$form_end}
+            </div>
+        </div>
+
+        <div class="couponZone">
+            <div class="title">
+                <h3>{$zone_title}</h3>
+                <p>
+                    <a href="#none" class="nk-btn nk-btn--line" onclick="couponZone.allCheck('{$zone_form_id}')">전체선택</a>
+                    <a href="#none" class="nk-btn nk-btn--line" onclick="couponZone.setDown('{$zone_form_id}')">선택쿠폰 다운받기</a>
+                </p>
+            </div>
+            {$form_start}
+            <div class="couponSkinArea">
+                <ul module="Coupon_aZonelist" class="grid3">
+                    <li>
+                        <div class="coupon {$background_class}" style="background-image:url('{$background_url}')">
+                            <div class="detail" {$call_coupon_detail}>
+                                <strong class="title" style="color:#483b1b; font-family:Arial; font-size:11px;">{$coupon_name|cut:13,...}</strong>
+                                <p class="discount" style="color:#d07b01; font-family:Dotum;"><span style="font-family:Verdana;">{$coupon_content}</span></p>
+                                <p class="period" style="color:#685219; font-family:Dotum;">{$coupon_period}</p>
+                            </div>
+                            <div class="button"><a href="{$coupon_issue_url}"><img src="{$download_url}" alt="다운받기" /></a></div>
+                            <p class="chkBtn">{$coupon_checkbox}</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="coupon {$background_class}" style="background-image:url('{$background_url}')">
+                            <div class="detail" {$call_coupon_detail}>
+                                <strong class="title" style="color:#483b1b; font-family:Arial; font-size:11px;">{$coupon_name|cut:13,...}</strong>
+                                <p class="discount" style="color:#d07b01; font-family:Dotum;"><span style="font-family:Verdana;">{$coupon_content}</span></p>
+                                <p class="period" style="color:#685219; font-family:Dotum;">{$coupon_period}</p>
+                            </div>
+                            <div class="button"><a href="{$coupon_issue_url}"><img src="{$download_url}" alt="다운받기" /></a></div>
+                            <p class="chkBtn">{$coupon_checkbox}</p>
+                        </div>
+                    </li>
+                </ul>
+                {$form_end}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="nk-help">
+    <h3>쿠폰이용안내</h3>
+    <div class="inner">
+        <ol>
+            <li class="item1">쿠폰 다운로드 및 사용은 <strong>로그인 후 이용가능</strong>합니다.</li>
+            <li class="item2">쿠폰 상세정보는 쿠폰을 클릭하면 확인하실 수 있습니다.</li>
+            <li class="item3">쿠폰의 이용기간이 만료되면 별도의 통보없이 자동 소멸됩니다.</li>
+            <li class="item4">동일쿠폰은 1장 이상 중복 소유가 불가능합니다. (쿠폰 사용 후 재발급은 가능합니다.)</li>
+            <li class="item5">쿠폰의 할인 적용은 <strong>쿠폰 할인 속성에 따라 다르게 적용</strong>될 수 있습니다.</li>
+        </ol>
+    </div>
+</div>
+</div><!-- /.nk-etc-coupon -->

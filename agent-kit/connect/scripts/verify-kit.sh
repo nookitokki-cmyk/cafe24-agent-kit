@@ -47,10 +47,12 @@ else fail "시크릿 파일 ${sec}개 발견 (배포 금지)"
   find "$KIT" "${SECRET_FIND[@]}" 2>/dev/null >&2
 fi
 
-# 5b) 실명 누출 — 벤더 브랜드(IDIO) 0건 (배포 금지)
-IDLEAK=$(grep -rIlE 'IDIO|_idio|idio\.js' "$AK" "$KIT/mcp" 2>/dev/null | grep -vE '/\.git/|verify-kit\.sh' || true)
-if [[ -z "$IDLEAK" ]]; then pass "벤더 브랜드(IDIO) 0건"
-else fail "벤더 브랜드(IDIO) 발견 (배포 금지)"; echo "$IDLEAK" >&2
+# 5b) 실명 누출 — 배포 대상 표면에서 벤더 브랜드(IDIO) 0건
+#     개발 worktree의 ecudemo* 원본/참고 클라이언트는 build-dist allowlist에서 제외되므로 여기서는 스캔 제외.
+IDLEAK=$(grep -rIlE 'IDIO|_idio|idio\.js' "$AK" "$KIT/mcp" 2>/dev/null \
+  | grep -vE '/\.git/|/node_modules/|verify-kit\.sh|/agent-kit/clients/(ecudemo[^/]*|\.claude|\.omc)/' || true)
+if [[ -z "$IDLEAK" ]]; then pass "배포 대상 벤더 브랜드(IDIO) 0건"
+else fail "배포 대상 벤더 브랜드(IDIO) 발견 (배포 금지)"; echo "$IDLEAK" >&2
 fi
 
 # 5c) 미검증 변수 재유입 차단 — 비-카페24(APapeIsName) 출처 가짜 변수 denylist (배포 금지)
@@ -61,14 +63,15 @@ if [[ -z "$fakev" ]]; then pass "미검증 가짜 변수 0건"
 else fail "미검증 가짜 변수 발견 (references/variables.md 검증본으로 교체 필요)"; echo "$fakev" >&2
 fi
 
-# 6) 실 클라이언트 폴더 없음 (_template/demo000 만 허용)
+# 6) 배포용 clients allowlist 확인 — 실작업 ecudemo*는 source worktree에만 허용, dist에서는 build-dist가 하드 차단
 realc=$(find "$AK/clients" -mindepth 1 -maxdepth 1 -type d \
-          ! -name '_template' ! -name 'demo000' 2>/dev/null | wc -l | tr -d ' ')
-[[ "$realc" == "0" ]] && pass "clients = _template/demo000 만" || { fail "clients 실클라 ${realc}개"; find "$AK/clients" -mindepth 1 -maxdepth 1 -type d >&2; }
+          ! -name '_template' ! -name 'demo000' ! -name '_verified-template' \
+          ! -name 'ecudemo*' ! -name '.claude' ! -name '.omc' 2>/dev/null | wc -l | tr -d ' ')
+[[ "$realc" == "0" ]] && pass "clients allowlist source/distro 경계 정상" || { fail "clients 미분류 폴더 ${realc}개"; find "$AK/clients" -mindepth 1 -maxdepth 1 -type d >&2; }
 
 # 7) 실제 동작 — mcp import (의존성 설치돼 있으면 진짜 검증, 아니면 SKIP)
 if [[ -n "$PY" ]]; then
-  if (cd "$KIT/mcp" && "$PY" -c "import server" >/dev/null 2>&1); then
+  if (cd "$KIT/mcp" && PYTHONDONTWRITEBYTECODE=1 "$PY" -c "import server" >/dev/null 2>&1); then
     pass "mcp import server (실동작)"
   else
     echo "SKIP: mcp import — 의존성 미설치 가능 (cd mcp && pip install -r requirements.txt 후 재시도)"

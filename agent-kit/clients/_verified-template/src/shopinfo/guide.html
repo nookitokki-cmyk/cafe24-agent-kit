@@ -1,0 +1,165 @@
+<!--@layout(/layout/basic/layout.html)-->
+<!--@css(/_nk/css/nk-etc.css)-->
+<!--@js(/_nk/js/nk-guide-tabs.js)-->
+<div class="nk-etc nk-etc-shopinfo nk-etc-guide">
+<!-- ============================================================
+     shopinfo/guide.html — 이용안내 탭 UI (Wave4-ETC · narrow형 720px)
+     스타일: nk-etc.css(.nk-etc-guide · .nk-tabs). stock 대비 보존 module: mall_faq.
+     7개 섹션(#member~#etc) stock 앵커 메뉴는 마크업 보존 + CSS display:none(기능 대체: nk-tabs JS).
+     상단 .nk-tabs__nav 1개 + .nk-tabs__panel 7개 — 클릭 시 단일 패널만 노출(PC·MO 공통).
+     {$member_info}/{$order_info}/{$payment_info}/배송 {$변수}/{$product_change_info}/{$refund_info}/
+     {$etc_info} 전부 원형 보존.
+     ============================================================ -->
+<div class="nk-etc__head">
+    <h1 class="nk-etc__title">Guide</h1>
+    <p class="nk-etc__sub">이용안내</p>
+</div>
+
+<div module="mall_faq">
+        <div class="nk-tabs nk-etc-guide__tabs">
+        <ul class="nk-tabs__nav" role="tablist" aria-label="이용안내 탭">
+            <li class="is-active" role="presentation">
+                <button type="button" class="nk-tabs__btn" role="tab" id="tab-member" aria-selected="true" aria-controls="member" data-nk-tab="member">회원가입 안내</button>
+            </li>
+            <li role="presentation">
+                <button type="button" class="nk-tabs__btn" role="tab" id="tab-order" aria-selected="false" aria-controls="order" data-nk-tab="order">주문 안내</button>
+            </li>
+            <li role="presentation">
+                <button type="button" class="nk-tabs__btn" role="tab" id="tab-payment" aria-selected="false" aria-controls="payment" data-nk-tab="payment">결제 안내</button>
+            </li>
+            <li role="presentation">
+                <button type="button" class="nk-tabs__btn" role="tab" id="tab-delivery" aria-selected="false" aria-controls="delivery" data-nk-tab="delivery">배송 안내</button>
+            </li>
+            <li role="presentation">
+                <button type="button" class="nk-tabs__btn" role="tab" id="tab-change" aria-selected="false" aria-controls="change" data-nk-tab="change">교환/반품 안내</button>
+            </li>
+            <li role="presentation">
+                <button type="button" class="nk-tabs__btn" role="tab" id="tab-refund" aria-selected="false" aria-controls="refund" data-nk-tab="refund">환불 안내</button>
+            </li>
+            <li role="presentation">
+                <button type="button" class="nk-tabs__btn" role="tab" id="tab-etc" aria-selected="false" aria-controls="etc" data-nk-tab="etc">기타 안내</button>
+            </li>
+        </ul>
+
+        <div class="nk-tabs__panels">
+            <div id="member" class="nk-tabs grid7 nk-tabs__panel is-active" role="tabpanel" aria-labelledby="tab-member">
+                <ul class="menu">
+                    <li class="selected"><a href="#member">회원가입 안내</a></li>
+                    <li><a href="#order">주문 안내</a></li>
+                    <li><a href="#payment">결제 안내</a></li>
+                    <li><a href="#delivery">배송 안내</a></li>
+                    <li><a href="#change">교환/반품 안내</a></li>
+                    <li><a href="#refund">환불 안내</a></li>
+                    <li><a href="#etc">기타 안내</a></li>
+                </ul>
+                <div class="cont">
+                    <h3>회원가입 안내</h3>
+                    {$member_info}
+                </div>
+            </div>
+
+            <div id="order" class="nk-tabs grid7 nk-tabs__panel" role="tabpanel" aria-labelledby="tab-order" hidden>
+                <ul class="menu">
+                    <li><a href="#member">회원가입 안내</a></li>
+                    <li class="selected"><a href="#order">주문 안내</a></li>
+                    <li><a href="#payment">결제 안내</a></li>
+                    <li><a href="#delivery">배송 안내</a></li>
+                    <li><a href="#change">교환/반품 안내</a></li>
+                    <li><a href="#refund">환불 안내</a></li>
+                    <li><a href="#etc">기타 안내</a></li>
+                </ul>
+                <div class="cont">
+                    <h3>주문 안내</h3>
+                    {$order_info}
+                </div>
+            </div>
+
+            <div id="payment" class="nk-tabs grid7 nk-tabs__panel" role="tabpanel" aria-labelledby="tab-payment" hidden>
+                <ul class="menu">
+                    <li><a href="#member">회원가입 안내</a></li>
+                    <li><a href="#order">주문 안내</a></li>
+                    <li class="selected"><a href="#payment">결제 안내</a></li>
+                    <li><a href="#delivery">배송 안내</a></li>
+                    <li><a href="#change">교환/반품 안내</a></li>
+                    <li><a href="#refund">환불 안내</a></li>
+                    <li><a href="#etc">기타 안내</a></li>
+                </ul>
+                <div class="cont">
+                    <h3>결제안내</h3>
+                    {$payment_info}
+                </div>
+            </div>
+
+            <div id="delivery" class="nk-tabs grid7 nk-tabs__panel" role="tabpanel" aria-labelledby="tab-delivery" hidden>
+                <ul class="menu">
+                    <li><a href="#member">회원가입 안내</a></li>
+                    <li><a href="#order">주문 안내</a></li>
+                    <li><a href="#payment">결제 안내</a></li>
+                    <li class="selected"><a href="#delivery">배송 안내</a></li>
+                    <li><a href="#change">교환/반품 안내</a></li>
+                    <li><a href="#refund">환불 안내</a></li>
+                    <li><a href="#etc">기타 안내</a></li>
+                </ul>
+                <div class="cont">
+                    <h3>배송안내</h3>
+                    <ul>
+                        <li>배송 방법 : {$shipping_method}</li>
+                        <li>배송 지역 : {$shipping_area}</li>
+                        <li>배송 비용 : {$shipping_fee}</li>
+                        <li>배송 기간 : {$shipping_period}</li>
+                        <li>배송 안내 : {$shipping_agreement}</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="change" class="nk-tabs grid7 nk-tabs__panel" role="tabpanel" aria-labelledby="tab-change" hidden>
+                <ul class="menu">
+                    <li><a href="#member">회원가입 안내</a></li>
+                    <li><a href="#order">주문 안내</a></li>
+                    <li><a href="#payment">결제 안내</a></li>
+                    <li><a href="#delivery">배송 안내</a></li>
+                    <li class="selected"><a href="#change">교환/반품 안내</a></li>
+                    <li><a href="#refund">환불 안내</a></li>
+                    <li><a href="#etc">기타 안내</a></li>
+                </ul>
+                <div class="cont">
+                    <h3>교환/반품안내</h3>
+                    {$product_change_info}
+                </div>
+            </div>
+
+            <div id="refund" class="nk-tabs grid7 nk-tabs__panel" role="tabpanel" aria-labelledby="tab-refund" hidden>
+                <ul class="menu">
+                    <li><a href="#member">회원가입 안내</a></li>
+                    <li><a href="#order">주문 안내</a></li>
+                    <li><a href="#payment">결제 안내</a></li>
+                    <li><a href="#delivery">배송 안내</a></li>
+                    <li><a href="#change">교환/반품 안내</a></li>
+                    <li class="selected"><a href="#refund">환불 안내</a></li>
+                    <li><a href="#etc">기타 안내</a></li>
+                </ul>
+                <div class="cont">
+                    <h3>환불안내</h3>
+                    {$refund_info}
+                </div>
+            </div>
+
+            <div id="etc" class="nk-tabs grid7 nk-tabs__panel" role="tabpanel" aria-labelledby="tab-etc" hidden>
+                <ul class="menu">
+                    <li><a href="#member">회원가입 안내</a></li>
+                    <li><a href="#order">주문 안내</a></li>
+                    <li><a href="#payment">결제 안내</a></li>
+                    <li><a href="#delivery">배송 안내</a></li>
+                    <li><a href="#change">교환/반품 안내</a></li>
+                    <li><a href="#refund">환불 안내</a></li>
+                    <li class="selected"><a href="#etc">기타 안내</a></li>
+                </ul>
+                <div class="cont">
+                    <h3>기타안내</h3>
+                    {$etc_info}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div><!-- /.nk-etc-guide -->
