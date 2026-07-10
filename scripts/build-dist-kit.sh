@@ -78,7 +78,7 @@ copy_mcp_pkg() {
 }
 
 mkdir -p "$BUILD_ROOT/mcp"
-for f in server.py cli.py smoke_test.py kit_tools.py requirements.txt README.md; do
+for f in server.py cli.py smoke_test.py kit_tools.py skin_analyzer.py requirements.txt README.md; do
   [[ -f "$ROOT/mcp/$f" ]] && cp "$ROOT/mcp/$f" "$BUILD_ROOT/mcp/"
 done
 for pkg in auth backends; do
@@ -236,6 +236,7 @@ REQUIRED=(
   "$OUT/.claude/skills/MCP연결/SKILL.md"
   "$OUT/mcp/server.py"
   "$OUT/mcp/kit_tools.py"
+  "$OUT/mcp/skin_analyzer.py"
   "$OUT/mcp/requirements.txt"
   "$OUT/mcp/auth/oauth.py"
   "$OUT/mcp/auth/__init__.py"

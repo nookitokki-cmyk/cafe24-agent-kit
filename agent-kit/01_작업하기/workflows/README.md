@@ -5,11 +5,12 @@
 
 ---
 
-## 제공되는 워크플로우 9종
+## 제공되는 워크플로우 10종
 
 | 워크플로우 | 파일 | 사용 시점 | 단계 수 |
 |---|---|---|---|
 | **full-renewal (전체 개편)** | [09-full-renewal.md](09-full-renewal.md) | **★A-to-Z 전체 페이지** 디자인 시스템 개편 — 유형별 재마크업/재스타일/JS재구축 자동 배분 `[검증됨·프로토타입]` | 8단계(0~7) |
+| **production-skin-safety (배포 전 안전 점검)** | [10-production-skin-safety.md](10-production-skin-safety.md) | **SFTP 업로드 전** SmartDesign directive/module/variable/reference 보호영역 점검 | read-only 점검 |
 | ez-three-step-pingpong | [08-ez-three-step-pingpong.md](08-ez-three-step-pingpong.md) | **압축 핑퐁** HTML skin → EZ FTP overlay → strip 스킵/선별 (07 요약 실행) | Phase A/B/C |
 | ez-on-legacy-setup | [07-ez-on-legacy-setup.md](07-ez-on-legacy-setup.md) | **초기 세팅** 레거시 HTML 몰 + EZ base + `_ref*/` 레이어 | Phase 0~4 핑퐁 |
 | reference-intake | [05-reference-intake.md](05-reference-intake.md) | **구현 전** 레퍼런스 URL 또는 시안 인입 (`/레퍼런스인입`) | 5단계 |
@@ -43,7 +44,7 @@ clients/{본인}/.workflow.md
 2. **레거시 몰 + EZ (전체)**: `07-ez-on-legacy-setup` — Phase 0 진단·판정 근거·Pre-flight
 3. **첫 실습**: `01-quick-fix` — 3단계 짧음, 워크플로우 흐름 익히기
 4. **두 번째**: `02-skin-build-standard` — 6단계 풀 플로우
-5. **응용**: `05-reference-intake` → `03-reference-renewal` → `06-verify-loop` — 레퍼런스/시안 1:1
+5. **응용**: `05-reference-intake` → `03-reference-renewal` → `10-production-skin-safety` → `06-verify-loop` — 레퍼런스/시안 1:1 + 배포 전 안전 점검
 
 ---
 
@@ -53,5 +54,6 @@ clients/{본인}/.workflow.md
 - 파일럿 수용 기준: `brain/docs/TEMPLATE-PILOT-ACCEPTANCE.md`
 - 두뇌 문서: [`brain/docs/CAFE24-SMARTDESIGN-AGENT.md`](../../brain/docs/CAFE24-SMARTDESIGN-AGENT.md)
 - 하이브리드 MCP 설계(초안): `brain/docs/HYBRID-ARCHITECTURE-DRAFT.md`
+- 프로덕션 스킨 안전 점검: [`10-production-skin-safety.md`](10-production-skin-safety.md)
 - 함정 회피: [`00_시작하기/04-자주-막히는-5가지.md`](../../00_시작하기/04-자주-막히는-5가지.md) (배포판 기준)
 - 에이전트 헌법: 루트 [`CLAUDE.md`](../../CLAUDE.md)

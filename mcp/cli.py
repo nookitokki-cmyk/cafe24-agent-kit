@@ -15,6 +15,8 @@
   python cli.py kit-update --source <path>  코드만 갱신 (config·clients 보존)
   python cli.py kit-update --from-github [--tag v2.2.0]  Release zip 자동 적용
   python cli.py kit-update --dry-run        갱신 대상 미리보기
+  python cli.py skin-audit <local-skin-root> [--json-out path]
+                                            로컬 스킨 read-only 안전 점검
 
   [API 백엔드]
   python cli.py status                       토큰 상태 확인
@@ -71,6 +73,7 @@ from kit_tools import (
     read_kit_version,
     scaffold_client,
 )
+from skin_analyzer import audit_skin
 
 try:
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
@@ -219,6 +222,21 @@ def main():
                     source = Path(args[i + 1]).expanduser()
                 result = kit_update(source=source, dry_run=dry_run)
             print(json.dumps(result, ensure_ascii=False, indent=2))
+
+        elif cmd == "skin-audit":
+            if len(args) < 2:
+                print("사용법: python cli.py skin-audit <local-skin-root> [--json-out path]", file=sys.stderr)
+                sys.exit(1)
+            json_out = _pop_opt(args, "--json-out")
+            report = audit_skin(Path(args[1]).expanduser())
+            payload = report.to_jsonable()
+            if json_out:
+                out_path = Path(json_out).expanduser()
+                out_path.parent.mkdir(parents=True, exist_ok=True)
+                out_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+                print(f"skin-audit 저장 완료: {out_path}")
+            else:
+                print(json.dumps(payload, ensure_ascii=False, indent=2))
 
         elif cmd == "status":
             api = Cafe24API(mall)

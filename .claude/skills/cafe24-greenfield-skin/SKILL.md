@@ -2,7 +2,7 @@
 name: cafe24-greenfield-skin
 description: >
   카페24 SmartDesign HTML 스킨을 처음부터 빌드할 때의 오케스트레이션.
-  Wave0 온보딩 → foundation → 페이지 Wave → Phase A–F 전수 감사(4-tier·ultraqa·visual).
+  Wave0 온보딩 → foundation → 페이지 Wave → Phase A–F 전수 감사(4-tier·ultraqa·visual) → production-skin-safety.
   Use when: greenfield, 신규 몰, blank-slate, 처음부터 스킨, 전 페이지 재검토, wave4 audit.
 disable-model-invocation: true
 ---
@@ -40,6 +40,7 @@ Wave0  scaffold_client · design.md · SFTP sync · css/module 인벤토리
 |------|------|
 | 6단계 빌드 | `agent-kit/01_작업하기/workflows/02-skin-build-standard.md` |
 | Phase 채점 | `06-verify-loop.md` |
+| 배포 전 안전 점검 | `agent-kit/01_작업하기/workflows/10-production-skin-safety.md` |
 | 레퍼런스 인입 | `05-reference-intake.md` |
 | **css/module · 모듈 껍데기** | `references/05-module-shell-rebuild.md` |
 | **DS·코드 → 카페24** | `references/06-design-system-adaptation.md` |
@@ -102,4 +103,5 @@ node .claude/skills/cafe24-greenfield-skin/scripts/stock-scan-tier.js --mall-id 
 4. **`references/06-design-system-adaptation.md`** (사용자 DS·코드 있을 때)
 5. **`references/05-module-shell-rebuild.md`** (HTML/CSS 구현 전)
 6. `references/08-full-audit-pipeline.md`
-7. `clients/{몰}/04_design/design.md` · `blank-slate-rebuild-queue.md`
+7. `agent-kit/01_작업하기/workflows/10-production-skin-safety.md`
+8. `clients/{몰}/04_design/design.md` · `blank-slate-rebuild-queue.md`

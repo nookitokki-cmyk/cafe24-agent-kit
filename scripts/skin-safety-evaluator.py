@@ -16,6 +16,13 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable, Pattern
 
+ROOT = Path(__file__).resolve().parents[1]
+MCP_DIR = ROOT / "mcp"
+if str(MCP_DIR) not in sys.path:
+    sys.path.insert(0, str(MCP_DIR))
+
+from skin_analyzer import audit_skin
+
 
 CRITERIA_KEYS = (
     "smartdesign_directives_preserved",
@@ -372,11 +379,39 @@ def evaluate(scan_root: Path) -> dict[str, object]:
         }
 
     files = list(iter_text_files(scan_root))
+    analyzer_report = audit_skin(scan_root)
+    analyzer_payload = analyzer_report.to_jsonable()
+    analyzer_criteria = analyzer_payload["criteria"]
     guidance_root = scan_root.parent if scan_root.name == "src" else scan_root
     guidance_files = list(iter_text_files(guidance_root))
     criteria: dict[str, bool] = {}
     evidence: list[dict[str, object]] = []
     blockers: list[str] = []
+    v213_keys = [
+        "v213_order_ec_orderform_protected",
+        "v213_smartdesign_define_not_treated_as_file",
+        "v213_multishop_module_source_of_truth",
+        "v213_idio_value_prefix_not_core_behavior",
+        "v213_missing_skin_owned_refs_reported",
+    ]
+    for key in (
+        "order_ec_orderform_protected",
+        "smartdesign_define_not_treated_as_file",
+        "multishop_module_source_of_truth",
+        "idio_value_prefix_not_core_behavior",
+        "missing_skin_owned_refs_reported",
+    ):
+        criterion = f"v213_{key}"
+        criteria[criterion] = bool(analyzer_criteria.get(key))
+        evidence.append(
+            {
+                "criterion": criterion,
+                "pass": criteria[criterion],
+                "details": analyzer_payload["summary"],
+            }
+        )
+        if not criteria[criterion]:
+            blockers.append(f"v2.13 safety criterion failed: {key}")
 
     directive_count, directive_samples = first_samples(files, SMARTDESIGN_DIRECTIVE_RE)
     criteria["smartdesign_directives_preserved"] = directive_count > 0
@@ -529,11 +564,12 @@ def evaluate(scan_root: Path) -> dict[str, object]:
     if not non_developer_definition_files:
         blockers.append("The shipped template needs explicit beginner/non-developer safety guidance, not only developer-facing code comments.")
 
-    passed_count = sum(1 for key in CRITERIA_KEYS if criteria.get(key))
+    all_keys = list(CRITERIA_KEYS) + v213_keys
+    passed_count = sum(1 for key in all_keys if criteria.get(key))
     return {
-        "pass": passed_count == len(CRITERIA_KEYS),
+        "pass": passed_count == len(all_keys),
         "score": passed_count,
-        "criteria": {key: criteria.get(key, False) for key in CRITERIA_KEYS},
+        "criteria": {key: criteria.get(key, False) for key in all_keys},
         "blockers": blockers,
         "evidence": evidence,
     }

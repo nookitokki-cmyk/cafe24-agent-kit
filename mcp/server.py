@@ -38,6 +38,7 @@ from kit_tools import (
     read_kit_version,
     scaffold_client,
 )
+from skin_analyzer import audit_skin
 
 mcp = FastMCP("cafe24_mcp")
 
@@ -125,6 +126,25 @@ def _malls_missing_token() -> list[str]:
         if TokenManager(mall_id).status().get("token") == "없음":
             missing.append(mall_id)
     return missing
+
+
+@mcp.tool(
+    name="analyze_skin_snapshot",
+    description="로컬 Cafe24 SmartDesign 스킨 폴더를 read-only 분석해 directive/module/variable/reference/third-party guard 결과를 JSON으로 반환합니다.",
+    annotations={
+        "title": "로컬 스킨 스냅샷 안전 분석",
+        "readOnlyHint": True,
+        "idempotentHint": True,
+        "openWorldHint": False,
+    },
+)
+def analyze_skin_snapshot_tool(local_root: str) -> str:
+    """Analyze a local skin snapshot. No SFTP, no upload, no remote mutation."""
+    try:
+        report = audit_skin(Path(local_root).expanduser())
+        return _json(report.to_jsonable())
+    except Exception as e:
+        return _err(e)
 
 
 # ════════════════════════════════════════════════════════════

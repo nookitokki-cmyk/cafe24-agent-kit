@@ -1,6 +1,29 @@
 # Cafe24 Agent Kit — Changelog
 
 
+## v2.13.0 (2026-07-10) — 로컬 스킨 안전 분석기 + 배포 전 guardrail
+
+> **호환성:** non-breaking(신규 read-only analyzer/CLI/MCP tool + 검증 게이트 확장). 라이브몰 SFTP/API/OAuth 변경은 포함하지 않으며, 업로드·삭제·원격 변경을 수행하지 않음.
+
+### Added
+- **로컬 SmartDesign 스킨 analyzer** — `mcp/skin_analyzer.py`: `<!--@...-->` directive, `module="..."`, `{$...}` 변수, HTML/CSS/JS reference edge, third-party setup key를 read-only로 스캔하고 JSON report를 생성.
+- **CLI `skin-audit`** — `python mcp/cli.py skin-audit <local-skin-root> [--json-out path]`로 SFTP 없이 로컬 스냅샷을 점검.
+- **MCP tool `analyze_skin_snapshot`** — 로컬 스킨 폴더를 분석해 `summary`, `criteria`, `reference_edges`, `blockers`, `warnings`를 반환.
+- **프로덕션 스킨 안전 워크플로우** — `agent-kit/01_작업하기/workflows/10-production-skin-safety.md`: 비개발자 기준으로 배포 전 금지 항목과 결과 해석 방법을 문서화.
+
+### Changed
+- `scripts/skin-safety-evaluator.py`가 기존 10개 기준에 v2.13 analyzer criteria 5개를 추가해 총 15개 안전 기준을 검증.
+- `scripts/build-dist-kit.sh`와 `scripts/verify-kit.sh`가 `skin_analyzer.py` dist 포함, import smoke, focused unittest 실행을 검증.
+- 민감 키워드 scan은 analyzer가 탐지 대상으로 보유한 third-party marker 문자열만 예외 처리하고, 그 외 배포본 누출 검사는 유지.
+
+### Verification
+- `python -m unittest discover -s mcp/tests -p "test_skin_analyzer.py" -v` → PASS, 7 tests.
+- `python mcp/cli.py skin-audit agent-kit/clients/_verified-template/src --json-out tmp/skin-audit-smoke.json` → PASS.
+- `cd mcp && python -c "import server; print('server import ok')"` → PASS.
+- `python scripts/skin-safety-evaluator.py agent-kit/clients/_verified-template/src` → PASS, score 15/15.
+- Git Bash `scripts/build-dist-kit.sh` + `scripts/verify-kit.sh` → PASS, 24 checks / 0 failures.
+
+
 ## v2.12.0 (2026-07-10) — 신규 클라이언트 스톡/legacy 표준 CSS 명문화
 
 > **호환성:** non-breaking(문서·스킬·검증 게이트 정합화). 카페24 라이브몰 SFTP/API/OAuth 변경은 포함하지 않음.
