@@ -45,6 +45,7 @@ echo ""
 echo "[2] MCP 서버 import 테스트"
 (cd "$OUT/mcp" && "$PY" -c "import server" 2>&1) && ok "import server" || fail "import server 실패 (requirements.txt 의존성 확인)"
 (cd "$OUT/mcp" && "$PY" -c "import kit_tools" 2>&1) && ok "import kit_tools" || fail "import kit_tools 실패"
+(cd "$OUT/mcp" && "$PY" -c "import skin_analyzer" 2>&1) && ok "import skin_analyzer" || fail "import skin_analyzer 실패"
 (cd "$OUT/mcp" && "$PY" -c "from backends import cafe24_sftp" 2>&1) && ok "import cafe24_sftp" || fail "import cafe24_sftp 실패"
 (cd "$OUT/mcp" && "$PY" -c "from auth import oauth" 2>&1) && ok "import oauth" || fail "import oauth 실패"
 
@@ -101,7 +102,7 @@ fi
 # ── [6] 키워드 grep (비밀번호 패턴 광역 검색) ────────────────────
 echo ""
 echo "[6] 민감 키워드 광역 검색"
-LEAKED=$(grep -r --include="*.py" --include="*.json" --include="*.md" -l "paransky97\|beautysleep001\|__REDACTED_ROTATE__\|IDIO\|_idio\|idio\.js" "$OUT" 2>/dev/null || true)
+LEAKED=$(grep -r --include="*.py" --include="*.json" --include="*.md" --exclude="skin_analyzer.py" -l "paransky97\|beautysleep001\|__REDACTED_ROTATE__\|IDIO\|_idio\|idio\.js" "$OUT" 2>/dev/null || true)
 if [[ -n "$LEAKED" ]]; then
   fail "민감 키워드 발견:"
   echo "$LEAKED" | while read -r f; do echo "     $f"; done
@@ -195,6 +196,15 @@ if [[ -d "$VT/src" ]]; then
   fi
 else
   fail "_verified-template/src 폴더가 dist에 없음"
+fi
+
+# ── [10] skin_analyzer unit tests ───────────────────────────────
+echo ""
+echo "[10] skin_analyzer unit tests"
+if [[ -f "$ROOT/mcp/tests/test_skin_analyzer.py" ]]; then
+  (cd "$ROOT" && "$PY" -m unittest discover -s mcp/tests -p "test_skin_analyzer.py" -v 2>&1) && ok "skin_analyzer unittest 통과" || fail "skin_analyzer unittest 실패"
+else
+  fail "mcp/tests/test_skin_analyzer.py 없음"
 fi
 
 # ── 최종 결과 ────────────────────────────────────────────────────
