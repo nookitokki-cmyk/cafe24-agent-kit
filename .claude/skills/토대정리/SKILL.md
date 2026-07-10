@@ -19,11 +19,12 @@ description: 카페24 디자인 토대 세팅(워크플로우 C단계) — base 
 - **상세 절차**: `brain/docs/CAFE24-SMARTDESIGN-AGENT.md` STEP 2
 - → reset이 못 잡는 **이 클라 고유 함정**을 맵에 보강 (게시판·주문·회원 등 안 본 페이지까지 사전 포착)
 
-## 2. nk-cafe24-reset.css 적용 (밑칠 제거)
-- 업로드: `/_nk/css/nk-cafe24-reset.css`
-- custom.css **맨 위**: `<!--@css(/_nk/css/nk-cafe24-reset.css)-->`
-- 커스텀할 페이지: `<body id="main" class="nk-skin">`
+## 2. 표준 CSS 4종 적용 (밑칠 제거 + 기본 토대 + 재고/레거시 보정)
+- 업로드/생성: `/_nk/css/nk-tokens.css`, `/_nk/css/nk-cafe24-reset.css`, `/_nk/css/nk-base.css`, `/_nk/css/nk-stock.css`
+- layout include(`layout/basic/layout.html`, `main.html` 등)에서 4종을 `<!--@css(/_nk/css/...)-->` 로드
+- 커스텀할 페이지: `<body id="main" class="nk-skin">` 또는 기존 body class에 `nk-skin` 추가
 - 안 먹으면 `body#main.nk-skin` 으로 명시도 보강
+- `nk-stock.css` 는 재고/레거시 페이지 보정 표준층이다. **파일만 있으면 끝이 아니라** layout include + `body.nk-skin` 범위에서만 적용된다.
 - **상세 사용법**: `.claude/skills/cafe24/snippets/css/nk-cafe24-reset-사용가이드.md`
 
 ## 3. 디자인 토큰 세팅 (실측값을 변수로 — 하드코딩 금지)
@@ -45,7 +46,9 @@ B단계 실측치(색·폰트·간격)를 CSS 변수로 박는다:
 
 ## 완료 기준 (충족해야 D로)
 - [ ] `BASE-CSS-MAP.md` 생성됨
-- [ ] reset 로드 + `body.nk-skin` 적용 → 라이브에서 base 함정(고정폭·파란색·가짜선) 사라짐 (PC+모바일 스크린샷)
+- [ ] 표준 CSS 4종(`nk-tokens.css`, `nk-cafe24-reset.css`, `nk-base.css`, `nk-stock.css`)이 `src/_nk/css/` 에 존재함
+- [ ] layout include에서 4종 CSS 로드 + `body.nk-skin` 적용 → 라이브에서 base 함정(고정폭·파란색·가짜선) 사라짐 (PC+모바일 스크린샷)
+- [ ] `nk-stock.css` 적용 범위 확인: 파일 존재, layout include 로드, `body.nk-skin` scope, stock/legacy URL QA(상품목록·상세·검색·장바구니·주문·회원·게시판) 통과
 - [ ] `--nk-point` 등 토큰이 `:root`에 세팅됨
 - [ ] `nk-components.css` 부품 세팅 + `example-gallery.html` 로컬 QA 통과 (버튼·폼·카드 등 렌더·톤 확인)
 → 충족되면 **D단계(`/디자인수정`)** 섹션 제작 진입 — 갤러리 부품을 재사용해 조립.

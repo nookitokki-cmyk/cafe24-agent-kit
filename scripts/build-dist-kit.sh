@@ -228,6 +228,7 @@ REQUIRED=(
   "$OUT/agent-kit/clients/demo000/.workflow.md"
   "$OUT/agent-kit/clients/_verified-template/README.md"
   "$OUT/agent-kit/clients/_verified-template/src/_nk/css/nk-tokens.css"
+  "$OUT/agent-kit/clients/_verified-template/src/_nk/css/nk-stock.css"
   "$OUT/agent-kit/clients/_verified-template/src/_nk/inc/nk-header.html"
   "$OUT/agent-kit/clients/_verified-template/src/layout/basic/layout.html"
   "$OUT/.claude/skills/키트시작/SKILL.md"
@@ -282,6 +283,22 @@ if [[ -d "$OUT/agent-kit/clients" ]]; then
     echo "$STRAY_CLIENTS" >&2
     exit 1
   fi
+fi
+
+# _verified-template stock/legacy standard — _template remains CSS-less; only verified-template is guarded.
+VT_STOCK="$OUT/agent-kit/clients/_verified-template/src/_nk/css/nk-stock.css"
+VT_LAYOUT="$OUT/agent-kit/clients/_verified-template/src/layout/basic/layout.html"
+if [[ ! -f "$VT_STOCK" ]]; then
+  echo "FAIL: _verified-template missing _nk/css/nk-stock.css" >&2
+  exit 1
+fi
+if ! grep -Eq '<!--[[:space:]]*@css\([[:space:]]*/?_nk/css/nk-stock\.css[[:space:]]*\)[[:space:]]*-->' "$VT_LAYOUT"; then
+  echo "FAIL: _verified-template layout/basic/layout.html does not load /_nk/css/nk-stock.css" >&2
+  exit 1
+fi
+if ! grep -Eq "<body[^>]*class=['\"][^'\"]*nk-skin" "$VT_LAYOUT"; then
+  echo "FAIL: _verified-template layout/basic/layout.html does not keep body.nk-skin scope" >&2
+  exit 1
 fi
 if [[ "$(head -1 "$OUT/VERSION")" != "$DIST_VERSION" ]]; then
   echo "FAIL: dist VERSION ($(head -1 "$OUT/VERSION")) != root VERSION ($DIST_VERSION)" >&2

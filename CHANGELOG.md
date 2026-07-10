@@ -1,6 +1,20 @@
 # Cafe24 Agent Kit — Changelog
 
 
+## v2.12.0 (2026-07-10) — 신규 클라이언트 스톡/legacy 표준 CSS 명문화
+
+> **호환성:** non-breaking(문서·스킬·검증 게이트 정합화). 카페24 라이브몰 SFTP/API/OAuth 변경은 포함하지 않음.
+
+### Changed
+- 신규 클라이언트 온보딩과 토대정리의 표준 CSS 세트를 `nk-tokens.css`, `nk-cafe24-reset.css`, `nk-base.css`, `nk-stock.css` 4종으로 명문화. `nk-stock.css`를 데모몰 1회성 보정이 아니라 future onboarding/foundation 기준에 포함하는 방향으로 정리.
+- `nk-stock.css` 적용 범위를 사실 기준으로 정정: 스톡/legacy 페이지라도 `layout` include와 `body.nk-skin` 스코프가 함께 있어야 효과가 있으며, `main_supply`·intro·popup처럼 별도 레이아웃을 쓰는 페이지는 따로 배선하기 전까지 D그룹(별도 확인 대상)입니다.
+
+### Verification
+- `python scripts/skin-safety-evaluator.py agent-kit/clients/_verified-template/src` → PASS, score 10/10.
+- Git Bash `bash -n scripts/verify-kit.sh` and `bash -n scripts/build-dist-kit.sh` → PASS.
+- Git Bash `scripts/build-dist-kit.sh` + `scripts/verify-kit.sh` → PASS, 22 checks / 0 failures.
+
+
 ## v2.11.0 (2026-07-10) — 검증 템플릿 A/B 페이지 승격 + dist 패키징 게이트 보강
 
 > **호환성:** non-breaking(`_verified-template` 확장 + 검증 스크립트/패키징 보강). 주문·결제·PG 같은 C그룹 HTML은 계속 제외하며, 라이브몰 SFTP/API/OAuth 변경은 포함하지 않음.
@@ -30,12 +44,12 @@
 - `python scripts/skin-safety-evaluator.py dist/cafe24-agent-kit/agent-kit/clients/_verified-template/src` → PASS, score 9/9.
 - dist checks: clients allowlist = `_template`, `_verified-template`, `demo000`; `mcp/config` secret 0; `api-poc/MCP-DESIGN.md` present; `__pycache__`/`.pyc` 0.
 
-## v2.10.0 (2026-07-09) — 스톡 페이지 전역 톤 레이어 (nk-stock.css)
+## v2.10.0 (2026-07-09) — 스톡 페이지 톤 레이어 (nk-stock.css)
 
 > **호환성:** non-breaking(신규 CSS 1파일 + layout.html @css 1줄 — HTML·module·결제 흐름 무변경). 검증 템플릿 32파일로 확장.
 
 ### Added
-- **스톡 톤 레이어** — `_verified-template/src/_nk/css/nk-stock.css`: 템플릿이 재마크업하지 않은 카페24 스톡 페이지(검색·아이디/비번찾기·주문조회·게시판 읽기/쓰기·회사소개 등 188+)의 공통 부품을 토큰으로 전역 리스타일. 근거: ecudemo399293 base 199페이지 전수 스캔 — `ec-base-table` 202 · `button` 164 · `help` 131 · `layer` 77 · `qty` 66 · `prdInfo` 62 · `box` 50 · `tab` 14 등 15종 + `titleArea`(64p)/`path`(44p) 페이지 헤드.
+- **스톡 톤 레이어** — `_verified-template/src/_nk/css/nk-stock.css`: 템플릿이 재마크업하지 않은 카페24 스톡/legacy 페이지(검색·아이디/비번찾기·주문조회·게시판 읽기/쓰기·회사소개 등 188+) 중 `layout.html` include와 `body.nk-skin` 스코프가 함께 있는 페이지의 공통 부품을 토큰으로 리스타일. 근거: ecudemo399293 base 199페이지 전수 스캔 — `ec-base-table` 202 · `button` 164 · `help` 131 · `layer` 77 · `qty` 66 · `prdInfo` 62 · `box` 50 · `tab` 14 등 15종 + `titleArea`(64p)/`path`(44p) 페이지 헤드.
   - **명시도 설계**: `body.nk-skin :where(#contents)` — `:where()`로 ID 가중치 0 유지 → 커버 페이지의 페이지별 nk css가 항상 이김(무회귀). 스톡 css보다는 늦게 로드되어 동일 명시도 승리.
   - **거터 안전망**: 최빈 상위 블록에 960px 중앙 정렬 + 좌우 여백(중첩 시 상쇄 규칙 포함). 커버 페이지 풀블리드(메인 히어로) 영향 없음 — 라이브 확인.
   - 검증(2026-07-09, ecudemo399293 라이브): 검색·회사소개·아이디찾기 톤 통일 / 메인·로그인·장바구니 무회귀.

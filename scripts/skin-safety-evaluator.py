@@ -26,6 +26,7 @@ CRITERIA_KEYS = (
     "backup_and_rollback_defined",
     "brand_traces_removed",
     "local_smartdesign_assets_exist",
+    "verified_template_stock_layer_standard",
     "non_developer_safe",
 )
 
@@ -51,6 +52,18 @@ LOCAL_RESOURCE_DIRECTIVE_RE = re.compile(
 CAFE24_VARIABLE_RE = re.compile(r"\{\$[A-Za-z0-9_.]+(?:\|[^}]*)?\}")
 MODULE_RE = re.compile(r"\bmodule\s*=\s*([\"'])[^\"']+\1", re.IGNORECASE)
 XANS_ECBASE_RE = re.compile(r"\b(?:xans-[A-Za-z0-9_-]+|ec-base-[A-Za-z0-9_-]+)\b")
+
+VERIFIED_TEMPLATE_DIRNAME = "_verified-template"
+STOCK_CSS_REL = "_nk/css/nk-stock.css"
+STOCK_LAYOUT_REL = "layout/basic/layout.html"
+STOCK_CSS_DIRECTIVE_RE = re.compile(
+    r"<!--\s*@css\(\s*/?_nk/css/nk-stock\.css\s*\)\s*-->",
+    re.IGNORECASE,
+)
+NK_SKIN_BODY_RE = re.compile(
+    r"<body\b[^>]*\bclass\s*=\s*([\"'])[^\"']*\bnk-skin\b[^\"']*\1",
+    re.IGNORECASE,
+)
 
 BRAND_TRACE_PATTERNS: tuple[tuple[str, Pattern[str]], ...] = (
     ("MURMUR", re.compile(r"MURMUR", re.IGNORECASE)),
@@ -252,6 +265,61 @@ def sample_json(samples: list[MatchSample]) -> list[dict[str, object]]:
     return [sample.to_json() for sample in samples]
 
 
+def first_line_sample(file_rel: str, text: str, pattern: Pattern[str]) -> MatchSample | None:
+    for line_number, line in enumerate(text.splitlines(), start=1):
+        if pattern.search(line):
+            return MatchSample(file_rel, line_number, line.strip()[:220])
+    return None
+
+
+def is_verified_template_scan(scan_root: Path) -> bool:
+    return scan_root.name == "src" and scan_root.parent.name == VERIFIED_TEMPLATE_DIRNAME
+
+
+def verified_template_stock_layer_evidence(scan_root: Path) -> dict[str, object]:
+    if not is_verified_template_scan(scan_root):
+        return {
+            "criterion": "verified_template_stock_layer_standard",
+            "pass": True,
+            "details": "not applicable outside agent-kit/clients/_verified-template/src",
+            "checks": {
+                "verified_template_src": False,
+            },
+            "samples": [],
+        }
+
+    stock_file = scan_root / STOCK_CSS_REL
+    layout_file = scan_root / STOCK_LAYOUT_REL
+    layout_text = ""
+    if layout_file.is_file():
+        layout_text = layout_file.read_text(encoding="utf-8", errors="replace")
+
+    stock_reference_sample = first_line_sample(STOCK_LAYOUT_REL, layout_text, STOCK_CSS_DIRECTIVE_RE)
+    body_scope_sample = first_line_sample(STOCK_LAYOUT_REL, layout_text, NK_SKIN_BODY_RE)
+    checks = {
+        "verified_template_src": True,
+        "stock_css_exists": stock_file.is_file(),
+        "layout_exists": layout_file.is_file(),
+        "layout_references_stock_css": stock_reference_sample is not None,
+        "layout_has_body_nk_skin_scope": body_scope_sample is not None,
+    }
+    return {
+        "criterion": "verified_template_stock_layer_standard",
+        "pass": all(checks.values()),
+        "details": (
+            "nk-stock.css exists, is loaded by layout/basic/layout.html, and is scoped by body.nk-skin"
+            if all(checks.values())
+            else "nk-stock.css must exist in _verified-template/src, be loaded by layout/basic/layout.html, and rely on body.nk-skin scope"
+        ),
+        "checks": checks,
+        "samples": [
+            sample.to_json()
+            for sample in (stock_reference_sample, body_scope_sample)
+            if sample is not None
+        ],
+    }
+
+
 def missing_local_resources(files: Iterable[ScannedFile], scan_root: Path) -> list[dict[str, object]]:
     missing: list[dict[str, object]] = []
     for scanned in files:
@@ -338,6 +406,11 @@ def evaluate(scan_root: Path) -> dict[str, object]:
     if missing_resources:
         blockers.append("Local SmartDesign resources referenced by @layout/@import/@css/@js must exist in the template.")
 
+    stock_layer = verified_template_stock_layer_evidence(scan_root)
+    criteria["verified_template_stock_layer_standard"] = bool(stock_layer["pass"])
+    evidence.append(stock_layer)
+    if not stock_layer["pass"]:
+        blockers.append("The _verified-template stock layer must ship _nk/css/nk-stock.css and load it from layout/basic/layout.html under body.nk-skin.")
     variable_count, variable_samples = first_samples(files, CAFE24_VARIABLE_RE)
     criteria["cafe24_variables_preserved"] = variable_count > 0
     evidence.append(

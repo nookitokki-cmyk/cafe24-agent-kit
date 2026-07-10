@@ -98,7 +98,8 @@
   ```
   처방: `nk-ez-override.css` §11(전수분석 일괄 차단)이 이미 잡는 카테고리면 그걸로 끝. 못 잡는 **클라 고유 셀렉터만** `#nk-skinN` 스코프로 보강 + `BASE-CSS-MAP.md` 기록.
 - **환경 세팅**: 폰트 `<link>`(§3 A4), Phosphor `<link>`(§3 A5), `_nk/inc` 폴더, `@import` 경로 교체(§3 A6).
-- **레이아웃 뼈대 + 초기 CSS 토큰(:root) 세팅**: §4 토큰 블록을 custom.css 상단에 정의.
+- **표준 CSS 4종 세팅(v2.12.0)**: `/_nk/css/nk-tokens.css`, `/_nk/css/nk-cafe24-reset.css`, `/_nk/css/nk-base.css`, `/_nk/css/nk-stock.css` 를 생성/복사하고 실제 사용 layout include(`layout/basic/layout.html`, `main.html` 등)에 `@css` 로드한다. `nk-stock.css` 는 canonical foundation 일부지만, coverage는 **layout include + `body.nk-skin` scope가 적용된 URL에 한정**된다.
+- **레이아웃 뼈대 + 초기 CSS 토큰(:root) 세팅**: §4 토큰 블록을 `nk-tokens.css` 또는 custom.css 상단에 정의.
 
 ### STEP 3 — 코드 생성 & 재조립 (Execute)
 - 레퍼런스에 부합하는 현대적 마크업·CSS 작성. 모든 커스텀 클래스 `nk-` 접두사.
@@ -148,7 +149,7 @@ python3 sftp_push.py /skin14          # 업로드(전체 동기화)
 ```
 사용: `<i class="ph ph-arrow-right" aria-hidden="true"></i>`. 다른 아이콘 라이브러리 혼용 금지. 구매템플릿 원본의 FontAwesome(`fa-*`)는 전부 Phosphor로 교체.
 
-**A6. 새 스킨 최초 1회** — body ID 부여 → `_nk/inc/` 생성 → `@import(/layout/basic/header.html)` → `/_nk/inc/header.html` 교체(footer 동일) → custom.css를 layout.html에 `@css` 등록. **HTML 교체 시 layout.html·main.html 둘 다** 교체할 것(메인은 별도 layout을 탈 수 있음).
+**A6. 새 스킨 최초 1회** — body ID 부여 + 기존 class에 `nk-skin` 추가 → `_nk/inc/` 생성 → `@import(/layout/basic/header.html)` → `/_nk/inc/header.html` 교체(footer 동일) → canonical foundation CSS 4종(`nk-tokens.css`, `nk-cafe24-reset.css`, `nk-base.css`, `nk-stock.css`)을 layout.html/main.html에 `@css` 등록. **HTML 교체 시 layout.html·main.html 둘 다** 교체할 것(메인은 별도 layout을 탈 수 있음). `nk-stock.css` 는 파일만으로 전역 적용되지 않고 해당 layout include와 `body.nk-skin` scope가 있는 페이지에서만 동작한다.
 
 ---
 
@@ -566,7 +567,8 @@ skin폴더/
 │                      재판매 템플릿은 토큰화 허용 / 클라 운영 스킨은 수정 금지
 ├── css/module/**   ← 카페24 모듈 자동주입 CSS(188개) = 두 번째 base 레이어(토큰화 대상)
 └── _nk/            ← 모든 커스텀
-    ├── css/   custom.css(전역, layout.html에 @css 등록) + [컴포넌트].css(각 조각 첫 줄 @css)
+    ├── css/   표준 4종: nk-tokens.css / nk-cafe24-reset.css / nk-base.css / nk-stock.css
+    │           + custom.css(전역 보강, layout.html에 @css 등록) + [컴포넌트].css(각 조각 첫 줄 @css)
     │           header.css / footer.css / topBnr.css / mainBnr.css / prdArea*.css / bnrArea*.css …
     ├── js/    nk.js (+ nk-header.js 등)
     ├── img/

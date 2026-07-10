@@ -1,14 +1,16 @@
 /*
- * nk-stock.css — 스톡(미커버) 페이지 전역 톤 통일 레이어
+ * nk-stock.css — layout 포함 + body.nk-skin 범위의 스톡(미커버) 페이지 톤 통일 레이어
  *
  * 목적: 템플릿이 재마크업하지 않은 카페24 스톡 페이지(검색·아이디/비번찾기·주문조회·
  *       게시판 읽기/쓰기·회사소개 등 188+)의 공통 부품(ec-base-*)을 토큰으로 리스타일.
  *       HTML 무변경 — module·{$변수}·결제 흐름에 손대지 않는 순수 CSS 레이어.
- * 로드: layout.html에서 nk-components.css 다음 (스톡 ec-base-*.css보다 뒤 = 동일 명시도에서 승리).
+ * 적용 조건: layout/basic/layout.html이 이 파일을 로드하고, <body>에 nk-skin 클래스가 있을 때만.
+ *       모든 규칙은 body.nk-skin :where(#contents) 아래로 제한되므로 전역 무조건 적용이 아님.
+ * 로드 순서: nk-tokens.css → nk-cafe24-reset.css → nk-base.css → nk-components.css 다음.
  *       페이지별 nk css(nk-myshop 등)는 더 높은 명시도(.nk-* 래퍼 체이닝)라 커버 페이지가 항상 이김.
  * 계약: 색·치수는 전부 var(--nk-*) 토큰만(하드코딩 hex 0건).
  *       !important는 stock 인라인/모듈 css 맞받는 자리만 + 사유 주석.
- * 중복 금지(이미 전역 처리): 페이징(nk-cafe24-reset) · input/select 정규화(reset §8) ·
+ * 중복 금지(이미 reset에서 처리): 페이징(nk-cafe24-reset) · input/select 정규화(reset §8) ·
  *       링크 파랑·체크박스 accent(reset). 이 파일은 그 위의 부품 시각만 추가.
  * 근거: 중립 base 199페이지 전수 스캔(2026-07-09) —
  *       ec-base-table 202 · button 164 · help 131 · layer 77 · qty 66 · prdInfo 62 ·

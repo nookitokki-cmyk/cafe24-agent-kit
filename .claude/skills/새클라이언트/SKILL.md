@@ -32,6 +32,18 @@ python cli.py scaffold --mall {몰ID}
 
 이미 `clients/{몰ID}/` 가 있으면 **덮어쓰지 않음** — 사용자에게 확인.
 
+## Q2-1. scaffold 완료 기준 (v2.12.0)
+
+`clients/_template` 는 **CSS 없는 scaffold** 로 유지한다. `_template` 복제만으로 카페24 토대가 끝난 것이 아니다.
+
+새 클라이언트 토대는 아래 3가지를 확인해야 완료로 본다:
+
+- [ ] `agent-kit/clients/{몰ID}/src/_nk/css/` 에 표준 CSS 4종을 생성하거나 기존 표준본에서 복사: `nk-tokens.css`, `nk-cafe24-reset.css`, `nk-base.css`, `nk-stock.css`
+- [ ] 실제 사용 layout include(`layout/basic/layout.html`, `main.html` 등)에 4종 CSS `<!--@css(/_nk/css/...)-->` 로드가 들어감
+- [ ] 커스텀 적용 대상 `<body>` 에 `nk-skin` scope가 있음 (`<body ... class="nk-skin">` 또는 기존 class에 `nk-skin` 추가)
+
+> `nk-stock.css` 는 layout include로 로드되고 `body.nk-skin` 범위에 들어온 페이지에서만 효과가 있다. scaffold 완료 보고 시 "파일 존재 + layout include + body.nk-skin"을 함께 확인한다.
+
 ## Q3. config 확인
 
 「`mcp/config/cafe24_config_{몰ID}.py` 에 **CLIENT_ID/SECRET** 을 로컬 파일에만 넣었나요? (채팅 X)」

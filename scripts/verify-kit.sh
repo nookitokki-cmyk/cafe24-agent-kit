@@ -20,37 +20,47 @@ fi
 # ── [1] Python 환경 ──────────────────────────────────────────────
 echo ""
 echo "[1] Python 환경"
-# python3(Mac/Linux 기본) 우선, 없으면 python(Windows) 폴백
-PY="$(command -v python3 || command -v python || true)"
+# Windows/키트 로컬 검증은 requirements가 설치된 인터프리터를 우선 사용하고, 없으면 첫 Python 명령으로 폴백
+PY=""
+PY_FALLBACK=""
+for CAND in python python.exe python3; do
+  CAND_PATH="$(command -v "$CAND" || true)"
+  [[ -n "$CAND_PATH" ]] || continue
+  [[ -n "$PY_FALLBACK" ]] || PY_FALLBACK="$CAND_PATH"
+  if "$CAND_PATH" -c "import pydantic, paramiko" >/dev/null 2>&1; then
+    PY="$CAND_PATH"
+    break
+  fi
+done
+[[ -n "$PY" ]] || PY="$PY_FALLBACK"
 if [[ -n "$PY" ]]; then
   PY_VER=$("$PY" --version 2>&1)
   ok "Python 발견: $PY_VER ($PY)"
 else
-  fail "python 명령어 없음 — Python 3.10+ 필요"
+  fail "python 명령어 없음 — Python 3.10+ 및 requirements.txt 의존성 필요"
 fi
 
 # ── [2] MCP 서버 import 테스트 ────────────────────────────────────
 echo ""
 echo "[2] MCP 서버 import 테스트"
-(cd "$OUT/mcp" && "$PY" -c "import server" 2>&1)        && ok "import server" \
-  || fail "import server 실패 (requirements.txt 의존성 확인)"
-(cd "$OUT/mcp" && "$PY" -c "import kit_tools" 2>&1)     && ok "import kit_tools" \
-  || fail "import kit_tools 실패"
-(cd "$OUT/mcp" && "$PY" -c "from backends import cafe24_sftp" 2>&1) && ok "import cafe24_sftp" \
-  || fail "import cafe24_sftp 실패"
-(cd "$OUT/mcp" && "$PY" -c "from auth import oauth" 2>&1) && ok "import oauth" \
-  || fail "import oauth 실패"
+(cd "$OUT/mcp" && "$PY" -c "import server" 2>&1) && ok "import server" || fail "import server 실패 (requirements.txt 의존성 확인)"
+(cd "$OUT/mcp" && "$PY" -c "import kit_tools" 2>&1) && ok "import kit_tools" || fail "import kit_tools 실패"
+(cd "$OUT/mcp" && "$PY" -c "from backends import cafe24_sftp" 2>&1) && ok "import cafe24_sftp" || fail "import cafe24_sftp 실패"
+(cd "$OUT/mcp" && "$PY" -c "from auth import oauth" 2>&1) && ok "import oauth" || fail "import oauth 실패"
 
 # ── [3] Cursor MCP 예시 파일 JSON 유효성 ─────────────────────────
 echo ""
 echo "[3] Cursor MCP 예시 파일 JSON 파싱"
 if [[ -f "$OUT/.cursor/mcp.json.example" ]]; then
-  # Windows Python은 MSYS 경로(/c/...)를 못 열므로 cygpath로 변환 (없으면 원경로)
+  # Windows Python은 MSYS 경로(/mnt/c/...)를 못 열므로 cygpath 또는 간단 변환으로 Windows 경로화
   MCP_EX="$OUT/.cursor/mcp.json.example"
   command -v cygpath >/dev/null 2>&1 && MCP_EX="$(cygpath -m "$MCP_EX")"
-  "$PY" -c "import json,sys; json.load(open(sys.argv[1], encoding='utf-8'))" "$MCP_EX" 2>&1 \
-    && ok "mcp.json.example 유효한 JSON" \
-    || fail "mcp.json.example JSON 파싱 오류"
+  if [[ "$PY" == *.exe && "$MCP_EX" == /mnt/?/* ]]; then
+    DRIVE="${MCP_EX:5:1}"
+    REST="${MCP_EX:7}"
+    MCP_EX="${DRIVE}:/$REST"
+  fi
+  "$PY" -c "import json,sys; json.load(open(sys.argv[1], encoding='utf-8'))" "$MCP_EX" 2>&1 && ok "mcp.json.example 유효한 JSON" || fail "mcp.json.example JSON 파싱 오류"
 else
   fail ".cursor/mcp.json.example 없음"
 fi
@@ -91,9 +101,7 @@ fi
 # ── [6] 키워드 grep (비밀번호 패턴 광역 검색) ────────────────────
 echo ""
 echo "[6] 민감 키워드 광역 검색"
-LEAKED=$(grep -r --include="*.py" --include="*.json" --include="*.md" \
-  -l "paransky97\|beautysleep001\|__REDACTED_ROTATE__\|IDIO\|_idio\|idio\.js" \
-  "$OUT" 2>/dev/null || true)
+LEAKED=$(grep -r --include="*.py" --include="*.json" --include="*.md" -l "paransky97\|beautysleep001\|__REDACTED_ROTATE__\|IDIO\|_idio\|idio\.js" "$OUT" 2>/dev/null || true)
 if [[ -n "$LEAKED" ]]; then
   fail "민감 키워드 발견:"
   echo "$LEAKED" | while read -r f; do echo "     $f"; done
@@ -164,6 +172,29 @@ if [[ -d "$VT" ]]; then
   fi
 else
   fail "_verified-template 폴더가 dist에 없음"
+fi
+
+# 9-5) 스톡/legacy 표준 레이어: _verified-template에만 요구 (_template은 CSS-less scaffold 유지)
+if [[ -d "$VT/src" ]]; then
+  VT_STOCK="$VT/src/_nk/css/nk-stock.css"
+  VT_LAYOUT="$VT/src/layout/basic/layout.html"
+  if [[ -f "$VT_STOCK" ]]; then
+    ok "_verified-template nk-stock.css 존재"
+  else
+    fail "_verified-template src/_nk/css/nk-stock.css 없음"
+  fi
+  if [[ -f "$VT_LAYOUT" ]] && grep -Eq '<!--[[:space:]]*@css\([[:space:]]*/?_nk/css/nk-stock\.css[[:space:]]*\)[[:space:]]*-->' "$VT_LAYOUT"; then
+    ok "_verified-template layout.html 이 nk-stock.css 로드"
+  else
+    fail "_verified-template layout/basic/layout.html 에 /_nk/css/nk-stock.css 로드 지시어 없음"
+  fi
+  if [[ -f "$VT_LAYOUT" ]] && grep -Eq "<body[^>]*class=['\"][^'\"]*nk-skin" "$VT_LAYOUT"; then
+    ok "_verified-template layout.html body.nk-skin 스코프 유지"
+  else
+    fail "_verified-template layout/basic/layout.html 에 body.nk-skin 스코프 없음"
+  fi
+else
+  fail "_verified-template/src 폴더가 dist에 없음"
 fi
 
 # ── 최종 결과 ────────────────────────────────────────────────────

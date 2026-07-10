@@ -50,6 +50,18 @@ description: 카페24 표준 워크플로우 시작·진행·재개 — 6단계 
 - **사용자 컨펌 게이트** — 단계 완료 시 사용자 컨펌 필수
 - **상태 영속** — `.workflow.md` 에 모든 단계·검증·재진입 기록
 
+## 02-skin-build-standard 6단계 표준 게이트 (v2.12.0)
+
+6단계 빌드형 워크플로우에서 C~D단계 토대/섹션 제작으로 넘어가기 전, 신규 카페24 클라이언트는 아래 표준 게이트를 통과해야 한다.
+
+- [ ] `src/_nk/css/` 에 표준 CSS 4종이 있음: `nk-tokens.css`, `nk-cafe24-reset.css`, `nk-base.css`, `nk-stock.css`
+- [ ] 실제 사용 layout include(`layout/basic/layout.html`, `main.html`, 상품/회원/주문 전용 layout 등)에 4종 CSS 로드가 확인됨
+- [ ] 적용 대상 `<body>` 에 `nk-skin` class가 있어 `body.nk-skin` scope 안에서만 커스텀 토대가 먹는 구조임
+- [ ] `nk-stock.css` 가 stock/legacy 보정 표준층으로 포함됨. 단, coverage는 파일 존재만으로 선언하지 말고 **layout include + body scope가 걸린 URL만 적용**된다고 기록
+- [ ] D그룹 URL 리스트 QA: 상품목록, 상품상세, 검색결과, 장바구니, 주문/결제, 회원(로그인·회원가입·마이페이지), 게시판 목록/상세
+
+게이트 실패 시 해당 단계 완료 처리 금지. `/토대정리`로 되돌려 파일 존재·로드·scope·D그룹 URL QA를 먼저 끝낸다.
+
 ## 직접 코드 작업 안 함
 
 코드 본문은 메인 에이전트(루트 `CLAUDE.md`)에 위임. 이 에이전트는 **지휘·게이트·검증·기록**만.

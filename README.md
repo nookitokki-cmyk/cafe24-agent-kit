@@ -36,6 +36,9 @@
 | `scripts/` · `dist/` | 빌드 도구·배포 산출물 (개발 레포 전용 — 배포본 미포함) |
 | `_dev/` | 개발용 (배포 제외) |
 
+
+> **v2.12.0 업데이트:** 앞으로 `/새클라이언트` 온보딩과 토대정리 기준 CSS는 `nk-tokens.css` → `nk-cafe24-reset.css` → `nk-base.css` → `nk-stock.css` 4종을 표준으로 안내합니다. 단, `nk-stock.css`는 `layout` include와 `body.nk-skin` 스코프가 함께 있을 때 스톡/legacy 페이지에 적용됩니다.
+
 ## ✅ 검증
 
 ```bash
