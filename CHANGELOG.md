@@ -1,6 +1,28 @@
 # Cafe24 Agent Kit — Changelog
 
 
+## v2.14.0 (2026-07-11) — 검증 스킨 자동 생성 CLI
+
+> **호환성:** non-breaking minor. 라이브몰 SFTP/API/OAuth 변경 없이, 검증된 Cafe24 기본 스킨을 새 클라이언트 작업 폴더에 로컬로 생성하는 CLI를 추가.
+
+### Added
+- **CLI `skin-generate`** — `python mcp/cli.py skin-generate --mall {몰ID}`로 `_verified-template/src`를 `clients/{몰ID}/src`에 안전하게 복사.
+- `--dry-run`, `--no-design`, `--overwrite` 옵션을 추가해 미리보기, 디자인 문서 생략, 기존 `src` 백업 후 재생성을 지원.
+- 신규 클라이언트 `04_design`에는 `blank-slate-rebuild-queue.md`, `wave4-page-queue.md`, `rerun-audit-spec.md`, `audit-overrides.json` 4개만 시딩하고 `design.md`, `css-module-inventory.md`, `shots/`는 생성하지 않음.
+
+### Safety
+- 잘못된 몰 ID와 `demo000` 기본 샘플 ID를 차단해 실제 작업 폴더 오염을 방지.
+- 기존 `src/`가 있으면 기본 중단하고, `--overwrite` 사용 시 기존 `src/`를 먼저 `backups/`로 이동한 뒤 새로 복사.
+- `skin-generate`는 `backend_cmds`에 포함하지 않아 백엔드 의존성, SFTP, Cafe24 API, 네트워크 호출 없이 로컬 파일시스템에서만 동작.
+
+### Verification
+- `python -m unittest discover -s mcp/tests -p "test_*.py" -v` → PASS, 20 tests.
+- `python scripts/skin-safety-evaluator.py agent-kit/clients/_verified-template/src` → PASS, score 15/15.
+- `bash -n scripts/verify-kit.sh` and `bash -n scripts/build-dist-kit.sh` → PASS.
+- `bash scripts/build-dist-kit.sh && bash scripts/verify-kit.sh` → PASS, 24 checks / 0 failures, dist files 278.
+- Spec compliance review → APPROVE.
+- Code quality review → APPROVE.
+
 ## v2.13.1 (2026-07-10) — 기존 사용자 자동 업데이트 호환성 보강
 
 > **호환성:** non-breaking patch. v2.13.0의 신규 analyzer 기능을 유지하면서, v2.12.x release-channel 사용자가 `kit-autoupdate --apply`로 업데이트할 때 새 analyzer 구현 파일이 누락되지 않도록 보강.
