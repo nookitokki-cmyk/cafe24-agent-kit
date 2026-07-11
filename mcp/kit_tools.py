@@ -23,6 +23,13 @@ CONFIG_DIR = MCP_DIR / "config"
 # Throttle cache for start-time auto-update check (gitignored — local state only)
 AUTOUPDATE_CACHE = CONFIG_DIR / ".autoupdate_check.json"
 TEMPLATE_CLIENT = KIT_ROOT / "clients" / "_template"
+VERIFIED_TEMPLATE_SRC = KIT_ROOT / "clients" / "_verified-template" / "src"
+GREENFIELD_TEMPLATES_DIR = Path(
+    os.environ.get(
+        "CAFE24_GREENFIELD_TEMPLATES",
+        WORKSPACE_ROOT / ".claude" / "skills" / "cafe24-greenfield-skin" / "templates",
+    )
+)
 VERSION_FILE = WORKSPACE_ROOT / "VERSION"
 CHANGELOG_FILE = WORKSPACE_ROOT / "CHANGELOG.md"
 
@@ -481,6 +488,211 @@ def scaffold_client(mall_id: str, *, overwrite: bool = False) -> dict[str, Any]:
         "config_created": config_created,
         "next_commands": ["/MCP연결", "/API발급", "/접속세팅"],
         "hint": "cafe24_config_{mall}.py 에 CLIENT_ID/SECRET 입력 후 /API발급",
+    }
+
+
+DESIGN_TEMPLATE_FILES: list[tuple[str, str, bool]] = [
+    ("blank-slate-rebuild-queue.md", "blank-slate-rebuild-queue.md", True),
+    ("wave4-page-queue.md", "wave4-page-queue.md", True),
+    ("rerun-audit-spec.md", "rerun-audit-spec.md", True),
+    ("audit-overrides.example.json", "audit-overrides.json", False),
+]
+
+
+def _count_files(root: Path) -> int:
+    """root 아래 파일 개수(디렉터리 제외)를 동적으로 센다 — 하드코딩 금지."""
+    return sum(1 for p in root.rglob("*") if p.is_file())
+
+
+def _resolve_greenfield_templates(override: Path | None = None) -> Path:
+    """greenfield 04_design 템플릿 폴더 경로 해석: 인자 주입 > 모듈 상수(env)."""
+    cand = Path(override) if override is not None else GREENFIELD_TEMPLATES_DIR
+    if not cand.is_dir():
+        raise FileNotFoundError(
+            f"greenfield 템플릿 폴더 없음: {cand}. "
+            "스킬 설치 확인 후 재시도하거나, 04_design 시딩 없이 스킨만 생성하려면 --no-design 사용."
+        )
+    return cand
+
+
+def _seed_design_artifacts(
+    dest: Path, mid: str, today: str, templates_dir: Path
+) -> tuple[list[str], list[str]]:
+    """04_design/ 에 없는 템플릿 4종만 채운다(사용자 작성분 불변). 반환: (written, skipped)."""
+    design_dir = dest / "04_design"
+    design_dir.mkdir(parents=True, exist_ok=True)
+    written: list[str] = []
+    skipped: list[str] = []
+    for src_name, dest_name, substitute in DESIGN_TEMPLATE_FILES:
+        dest_file = design_dir / dest_name
+        rel = f"04_design/{dest_name}"
+        if dest_file.exists():
+            skipped.append(rel)
+            continue
+        text = (templates_dir / src_name).read_text(encoding="utf-8")
+        if substitute:
+            text = text.replace("{몰ID}", mid).replace("{YYYY-MM-DD}", today)
+        dest_file.write_text(text, encoding="utf-8")
+        written.append(rel)
+    return written, skipped
+
+
+def _backup_src(dest_root: Path) -> Path:
+    """기존 src/ 를 clients/{mall}/backups/skin-{timestamp}/src 로 이동(move-first)."""
+    timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
+    backup_root = dest_root / "backups" / f"skin-{timestamp}"
+    backup_root.mkdir(parents=True, exist_ok=True)
+    shutil.move(str(dest_root / "src"), str(backup_root / "src"))
+    return backup_root
+
+
+def generate_skin(
+    mall_id: str,
+    *,
+    overwrite: bool = False,
+    with_design: bool = True,
+    dry_run: bool = False,
+    templates_dir: Path | None = None,
+) -> dict[str, Any]:
+    """검증 스킨(_verified-template/src) + 04_design 템플릿 4종을 clients/{mall}/ 에 생성.
+
+    안전 규칙: clients/{mall}/ 부재 시에만 scaffold_client() 로 부트스트랩(overwrite 절대
+    미전달), src/ 는 존재 + overwrite=False 면 FileExistsError, overwrite=True 면
+    backup-first 후 재복사. 04_design 은 항상 seed-if-absent(사용자 작성분 불변).
+    dry_run=True 면 어떤 파일/디렉터리도 쓰지 않고 계획만 반환한다.
+    """
+    mid = _safe_mall_id(mall_id)
+    if not VERIFIED_TEMPLATE_SRC.is_dir():
+        raise FileNotFoundError(
+            f"검증 템플릿 없음: {VERIFIED_TEMPLATE_SRC}. 키트 설치/업데이트를 확인하세요."
+        )
+
+    dest_root = KIT_ROOT / "clients" / mid
+    src_dest = dest_root / "src"
+    today = date.today().isoformat()
+    planned_files = _count_files(VERIFIED_TEMPLATE_SRC)
+
+    resolved_templates: Path | None = None
+    if with_design:
+        resolved_templates = _resolve_greenfield_templates(templates_dir)
+
+    if dry_run:
+        would_bootstrap = not dest_root.exists()
+        src_exists = src_dest.exists()
+        would_overwrite = bool(overwrite and src_exists)
+        would_backup_to = None
+        if would_overwrite:
+            preview_ts = datetime.now().strftime("%Y%m%d-%H%M%S")
+            would_backup_to = str(dest_root / "backups" / f"skin-{preview_ts}")
+
+        design_to_seed: list[str] = []
+        design_skipped_present: list[str] = []
+        if with_design:
+            design_dir = dest_root / "04_design"
+            for _src_name, dest_name, _sub in DESIGN_TEMPLATE_FILES:
+                rel = f"04_design/{dest_name}"
+                if (design_dir / dest_name).exists():
+                    design_skipped_present.append(rel)
+                else:
+                    design_to_seed.append(rel)
+
+        warning = None
+        if src_exists and not overwrite:
+            warning = (
+                "src/ 가 이미 있습니다. 교체하려면 --overwrite (기존본은 backups/ 로 백업 "
+                "후 교체). 없으면 실행이 중단됩니다."
+            )
+            next_commands = [f"python cli.py skin-generate --mall {mid} --overwrite"]
+        else:
+            next_commands = [f"python cli.py skin-generate --mall {mid}"]
+
+        return {
+            "mall_id": mid,
+            "dry_run": True,
+            "would_bootstrap": would_bootstrap,
+            "planned_files": planned_files,
+            "src_exists": src_exists,
+            "would_overwrite": would_overwrite,
+            "would_backup_to": would_backup_to,
+            "design_artifacts_to_seed": design_to_seed,
+            "design_artifacts_skipped_present": design_skipped_present,
+            "warning": warning,
+            "next_commands": next_commands,
+        }
+
+    # ---- 실제 생성 ----
+    bootstrapped = False
+    scaffold_result: dict[str, Any] | None = None
+    if not dest_root.exists():
+        scaffold_result = scaffold_client(mid)
+        bootstrapped = True
+
+    if src_dest.exists() and not overwrite:
+        raise FileExistsError(
+            f"src 가 이미 있습니다: {src_dest} (--overwrite 로 백업 후 교체)"
+        )
+
+    backup_dir: Path | None = None
+    if src_dest.exists() and overwrite:
+        backup_dir = _backup_src(dest_root)
+
+    shutil.copytree(
+        VERIFIED_TEMPLATE_SRC,
+        src_dest,
+        ignore=shutil.ignore_patterns(".git", "__pycache__", "*.pyc"),
+    )
+    files_copied = _count_files(src_dest)
+
+    design_written: list[str] = []
+    design_skipped: list[str] = []
+    if with_design:
+        design_written, design_skipped = _seed_design_artifacts(
+            dest_root, mid, today, resolved_templates
+        )
+
+    if bootstrapped:
+        config_file_str = scaffold_result.get("config_file") if scaffold_result else None
+        config_created = bool(scaffold_result and scaffold_result.get("config_created"))
+        next_commands = [
+            "python cli.py diagnose",
+            f"/API발급 (cafe24_config_{mid}.py 에 CLIENT_ID/SECRET 입력 후)",
+            f"python cli.py skin-audit clients/{mid}/src",
+            "/접속세팅",
+        ]
+    else:
+        config_dest = CONFIG_DIR / f"cafe24_config_{mid}.py"
+        config_file_str = str(config_dest) if config_dest.exists() else None
+        config_created = False
+        next_commands = []
+        if not config_file_str:
+            next_commands.append(
+                f"/API발급 (cafe24_config_{mid}.py 에 CLIENT_ID/SECRET 입력 후)"
+            )
+        next_commands.append(f"python cli.py skin-audit clients/{mid}/src")
+        next_commands.append("/접속세팅")
+
+    return {
+        "mall_id": mid,
+        "skin_dir": str(src_dest),
+        "files_copied": files_copied,
+        "source_template": str(VERIFIED_TEMPLATE_SRC),
+        "client_bootstrapped": bootstrapped,
+        "config_file": config_file_str,
+        "config_created": config_created,
+        "with_design": with_design,
+        "templates_dir": str(resolved_templates) if resolved_templates else None,
+        "design_artifacts_written": design_written,
+        "design_artifacts_skipped": design_skipped,
+        "overwrite": overwrite,
+        "backup_dir": str(backup_dir) if backup_dir else None,
+        "dry_run": False,
+        "next_commands": next_commands,
+        "hint": (
+            "src/_nk/css/nk-tokens.css 의 토큰 값만 바꿔 브랜드 색·폰트를 입히세요. "
+            "design.md·css-module-inventory.md 는 이 명령이 만들지 않으며 이후 Wave0 "
+            "에이전트/워크플로가 저작합니다(의도된 미생성). shots/wave4 폴더는 감사 실행 시 "
+            "자동 생성됩니다. 업로드는 /접속세팅 후에만."
+        ),
     }
 
 

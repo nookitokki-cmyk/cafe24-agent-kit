@@ -17,6 +17,8 @@
   python cli.py kit-update --dry-run        갱신 대상 미리보기
   python cli.py skin-audit <local-skin-root> [--json-out path]
                                             로컬 스킨 read-only 안전 점검
+  python cli.py skin-generate --mall {몰ID} [--dry-run|--overwrite|--no-design]
+                                            검증 스킨 45파일 + 04_design 템플릿 생성(로컬 전용)
 
   [API 백엔드]
   python cli.py status                       토큰 상태 확인
@@ -67,6 +69,7 @@ except ImportError as _e:
 from kit_tools import (
     diagnose_kit_setup,
     fetch_remote_version,
+    generate_skin,
     kit_autoupdate,
     kit_update,
     kit_update_from_github,
@@ -160,10 +163,12 @@ def _pop_opt(args: list[str], name: str) -> str | None:
 
 def main():
     args = sys.argv[1:]
+    mall_explicit = "--mall" in args
     mall = _pop_mall(args)
     dry_run = _pop_flag(args, "--dry-run")
     check_remote = _pop_flag(args, "--check-remote")
     overwrite = _pop_flag(args, "--overwrite")
+    no_design = _pop_flag(args, "--no-design")
     from_github = _pop_flag(args, "--from-github")
     apply_update = _pop_flag(args, "--apply")
     force = _pop_flag(args, "--force")
@@ -237,6 +242,22 @@ def main():
                 print(f"skin-audit 저장 완료: {out_path}")
             else:
                 print(json.dumps(payload, ensure_ascii=False, indent=2))
+
+        elif cmd == "skin-generate":
+            if not mall_explicit or mall == "demo000":
+                print(
+                    "skin-generate 는 --mall {몰ID} 가 필수입니다 (예: --mall ecudemo402399). "
+                    "demo000 등 예시 몰은 대상이 될 수 없습니다.",
+                    file=sys.stderr,
+                )
+                sys.exit(1)
+            result = generate_skin(
+                mall,
+                overwrite=overwrite,
+                with_design=not no_design,
+                dry_run=dry_run,
+            )
+            print(json.dumps(result, ensure_ascii=False, indent=2))
 
         elif cmd == "status":
             api = Cafe24API(mall)
@@ -374,7 +395,7 @@ def main():
     except (AuthError, Cafe24ApiError, SftpWriteDenied, ValueError) as e:
         print(f"ERROR: {e}", file=sys.stderr)
         sys.exit(1)
-    except FileNotFoundError as e:
+    except (FileNotFoundError, FileExistsError) as e:
         print(f"ERROR: {e}", file=sys.stderr)
         sys.exit(1)
 
