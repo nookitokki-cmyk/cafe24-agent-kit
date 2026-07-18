@@ -80,6 +80,9 @@
 - **보존 대상 식별(절대 건드리면 안 되는 것)**: 모든 `module="..."` 태그와 그 안의 `{$변수}`, 반복 구조(`anchorBoxId`, `xans-record-`), EZ 속성(EZ 스킨인 경우), 로그인 분기(`Layout_statelogoff/logon`), 폼 액션(`{$action_*}`).
 - **로드 순서 확인**: `grep "@css\|@js\|@import" layout/basic/layout.html` → 커스텀(`_nk/`)이 카페24 원본보다 **나중 로드**되는지. ※ **"나중 로드라 이긴다"에 의존 금지** — custom.css 뒤에 sub_style/sub_theme/add_theme*가 또 로드된다. 실제로 이기는 힘은 `#nk-skinN` ID 스코프 명시도다.
 - **레퍼런스 vs 현재 차이 도출**: 레퍼런스 URL이 있으면 브라우저 DevTools `getComputedStyle` 실측(폰트·크기·자간·색·간격·레이아웃 구조)하여 토큰/스펙으로 환산.
+- **★ 디자인 시스템 시트 산출(요소측정/레퍼런스인입에서 완료 — STEP 3 코드 전 게이트)**: 실측 숫자를 흩어진 값으로 두지 말고 **① 타이포그래피 스케일(먼저 확정)** + **② 컴포넌트·에셋·유닛 인벤토리**로 정리해 사용자 승인을 받는다. 이 승인 전 STEP 3(코드) 금지. (상세 산출 절차: `01_작업하기/workflows/04-measure-first.md`·`05-reference-intake.md`)
+  - **① 타이포 스케일(먼저)**: h1/h2/h3/lead/body/sm/caption 각각 font-family·size(clamp)·weight·line-height·letter-spacing → `--nk-fs-*`·`--nk-font-display`·`--nk-ls` 토큰으로 매핑(§7). 폰트·팔레트 결정은 매번 확인(§11 예외).
+  - **② 컴포넌트·에셋·유닛 인벤토리**: 버튼·폼컨트롤(input/select/checkbox)·카드·탭·페이지네이션·표·배지·아이콘 등 재사용 부품마다 (a) 유닛/에셋(색 토큰·radius·control-h·Phosphor 글리프) (b) **XANS 앵커 셀렉터**(이 부품이 카페24에서 어떤 module→`.xans-*`로 렌더되는지 — §5 B8-2) (c) PC/모바일 치수를 한 표에 확정. 코드는 이 표의 XANS 앵커에 스타일을 얹는 것으로 시작한다.
 
 ### STEP 2 — 클리닝 & 초기 세팅 (Clean & Setup)
 - **백업 필수**: 치환·걷어내기 전 `cp -R css/module /tmp/backup`, EZ 걷어내기는 `_ez-backup/`에 복사. (롤백 안전망)
@@ -102,6 +105,7 @@
 - **레이아웃 뼈대 + 초기 CSS 토큰(:root) 세팅**: §4 토큰 블록을 `nk-tokens.css` 또는 custom.css 상단에 정의.
 
 ### STEP 3 — 코드 생성 & 재조립 (Execute)
+- **[게이트] 디자인 시스템 시트(타이포 스케일 + 컴포넌트/에셋/유닛 인벤토리, STEP 1) 승인 후 시작.** 모든 컴포넌트 스타일은 인벤토리에 적힌 **XANS 앵커 셀렉터(§5 B8-2)** 에 얹는다 — 임의 클래스·`ec-base-*` 단독 앵커 금지.
 - 레퍼런스에 부합하는 현대적 마크업·CSS 작성. 모든 커스텀 클래스 `nk-` 접두사.
 - **[절대 규칙] STEP 1에서 식별한 카페24 필수 module·치환변수를 새 레이아웃 안에 올바르게 재배치**한다. **절대 정적 텍스트로 덮어쓰지 마라.** (module 밖에서 변하지 않는 값만 하드코딩)
 - 반복 진열은 `anchorBoxId` 2개+ 규칙, 설정변수 줄분리 준수(§5).
@@ -242,6 +246,11 @@ find css/module layout/basic/css -name '*.css' -exec perl -pi -e 's/font-style\s
 **B7. 설정변수 줄 분리(필수)** — 각 `$변수 = 값`을 **별도 줄**에. 한 줄 몰아쓰면 설정 전체 무시.
 
 **B8. xans- 자동 클래스** — `module="product_listnormal"` → `.xans-product-listnormal`. (예: `Layout_category`→`.xans-layout-category`, `Layout_statelogon`→`.xans-layout-statelogon`.)
+- **B8-2. ★ XANS 앵커 우선 스타일링 (컴포넌트가 "확실히" 먹는 방법 — 402669/403089 실증)** — 카페24 컴포넌트 커스텀은 **module이 자동 생성하는 `.xans-*` 클래스(접미사 없는 base 또는 번호 접미사)에 앵커**한다. `.xans-*`는 module에 1:1 바인딩된 안정 클래스라 CSS가 확실히 적용된다.
+  - **`ec-base-*`는 공유 표현 클래스 → 여러 페이지로 번짐(bleed).** 컨테이너·오너는 `.xans-*`로 잡고, 말단(leaf)만 `ec-base-*`/element로 좁힌다.
+  - **번호 접미사로 특정 인스턴스 겨냥**: 같은 유형 module이 여럿이면 `.xans-board-listpackage-1002`처럼 번호가 붙는다. 특정 게시판·탭만 바꿀 땐 번호 포함 셀렉터를 쓴다. (실증: 장바구니 탭 `.xans-order-tabinfo`, 마이페이지 탭 `.xans-myshop-main`, 댓글 회색박스는 `.xans-board-commentform`이 아니라 `.xans-board-commentwrite-1002`.)
+  - **CSS가 안 먹으면 개발자도구에서 실제 렌더 셀렉터를 확인 후 타깃 — 추측 금지.** 카페24가 `module=` 속성을 스트립해도 `.xans-*` 클래스는 남으므로 항상 `.xans-*`로 앵커 가능.
+  - **특이도**: `.xans-*` 앵커 + 오너 파일 마지막 로드로 이긴다. base 모듈 CSS가 다중 클래스+`!important`로 세게 먹으면 **동일/상위 특이도(xans 다중 클래스 또는 `#nk-skinN` 스코프)로 되받되** `!important` 남발 금지(§6 C). active/selected 등 상태도 xans 앵커 + 상태 클래스(`li.selected`)로.
 
 **B9. GNB는 스킨 유형 분기** — 일반: `<nav module="Layout_category">` + `$depth=2`. EZ: `data-ez-module="menu-main/1" data-ez-mode="manual"`(EZ에선 `Layout_category` 카테고리 미출력). 같은 페이지 동일 모듈 2개+면 `/1`,`/2` 번호 분리.
 

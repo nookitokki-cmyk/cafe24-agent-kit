@@ -1,6 +1,32 @@
 # Cafe24 Agent Kit — Changelog
 
 
+## v2.15.0 (2026-07-18) — 작업 목록·업로드 준비 게이트 + XANS 앵커/디자인 시스템 방법론
+
+> **호환성:** non-breaking minor. 신규 CLI(`workspace-list`·`upload-prepare`) + 슬래시 명령(`/작업목록`·`/업로드준비`) 추가. 기존 명령·MCP tool·SFTP·OAuth·라이브몰 동작 변경 없음.
+
+### Added
+- **CLI `workspace-list`** — `clients/*/.workflow.md` 를 단일 진실원본으로 스캔해 `.workspace-index.json` 파생 인덱스를 재생성.
+- **CLI `upload-prepare`** — `skin-audit` 통과 후 `upload-manifest.json` 을 만들고 `approved: false`, `will_upload_now: false` 로 멈추는 업로드 전 안전 준비 명령.
+- 슬래시 명령 `/작업목록`, `/업로드준비` 추가. 기존 고급 명령어는 삭제하지 않음.
+
+### Safety
+- `.workspace-index.json` 은 읽기전용 파생 캐시이며 상태 원본이 아님. 각 몰의 `.workflow.md` 가 계속 재개 기준.
+- `/업로드준비` 는 blocker 또는 실패 criteria가 있으면 manifest를 만들지 않고 업로드 준비를 차단.
+- `/업로드준비` manifest는 주문/결제 보호 경로(`order/ec_orderform/`)를 기본 업로드 대상에서 제외.
+- `/작업목록` 은 `.claude`, `.omc` 같은 숨김 운영 폴더를 작업 몰 목록에서 제외.
+
+### Docs — XANS 앵커 스타일링 방법론 + 디자인 시스템 시트 게이트
+> **호환성:** non-breaking(문서·스킬·워크플로우 정합화만 — CLI·MCP·SFTP·라이브몰 변경 없음). 근거: ecudemo402669·ecudemo403089 실작업 실증.
+- **XANS 앵커 우선 스타일링 1급 문서화** — `brain/docs/CAFE24-SMARTDESIGN-AGENT.md` §5 B8-2 신설: 카페24 컴포넌트 커스텀은 module이 자동 생성하는 `.xans-*` 클래스에 앵커해야 확실히 적용됨. `ec-base-*` 단독 앵커는 공유 클래스라 번짐(bleed) → 컨테이너=xans·말단만 ec-base. 번호 접미사(`.xans-board-listpackage-1002`)로 특정 인스턴스 겨냥, `module=` 스트립돼도 `.xans-*` 잔존, 개발자도구로 실제 렌더 셀렉터 확인(추측 금지). `디자인수정` 스킬·`design-tokens/builder-guide.md` §7에 적용 규칙·예시 반영.
+- **디자인 시스템 시트 게이트** — `요소측정`/`레퍼런스인입` 스킬(및 워크플로우 `04-measure-first.md`·`05-reference-intake.md`)의 산출물을 실측 숫자에서 **① 타이포그래피 스케일(먼저) → ② 컴포넌트·에셋·유닛 인벤토리(각 부품 XANS 앵커 포함)** 로 확장. 이 시트가 사용자 승인돼야 STEP 3(코드) 착수(두뇌 STEP 1·STEP 3 게이트). `reference-intake.md` 산출물 정의에 디자인 시스템 시트 편입.
+
+### Verification
+- `python -m unittest discover -s mcp/tests -p "test_*.py"` → PASS, 27 tests.
+- `python scripts/skin-safety-evaluator.py agent-kit/clients/_verified-template/src` → PASS, score 15/15.
+- `bash scripts/build-dist-kit.sh && bash scripts/verify-kit.sh` → PASS.
+
+
 ## v2.14.0 (2026-07-11) — 검증 스킨 자동 생성 CLI
 
 > **호환성:** non-breaking minor. 라이브몰 SFTP/API/OAuth 변경 없이, 검증된 Cafe24 기본 스킨을 새 클라이언트 작업 폴더에 로컬로 생성하는 CLI를 추가.

@@ -19,6 +19,9 @@
                                             로컬 스킨 read-only 안전 점검
   python cli.py skin-generate --mall {몰ID} [--dry-run|--overwrite|--no-design]
                                             검증 스킨 45파일 + 04_design 템플릿 생성(로컬 전용)
+  python cli.py workspace-list               clients/*/.workflow.md 기반 작업 목록(파생 인덱스)
+  python cli.py upload-prepare --mall {몰ID} --remote-root /skinN
+                                            audit → manifest → 승인 대기(업로드 안 함)
 
   [API 백엔드]
   python cli.py status                       토큰 상태 확인
@@ -67,12 +70,15 @@ except ImportError as _e:
         pass
 
 from kit_tools import (
+    KIT_ROOT,
+    build_workspace_index,
     diagnose_kit_setup,
     fetch_remote_version,
     generate_skin,
     kit_autoupdate,
     kit_update,
     kit_update_from_github,
+    prepare_upload_plan,
     read_kit_version,
     scaffold_client,
 )
@@ -228,6 +234,34 @@ def main():
                 result = kit_update(source=source, dry_run=dry_run)
             print(json.dumps(result, ensure_ascii=False, indent=2))
 
+
+        elif cmd == "workspace-list":
+            result = build_workspace_index(write=True)
+            print(json.dumps(result, ensure_ascii=False, indent=2))
+
+        elif cmd == "upload-prepare":
+            if not mall_explicit or mall == "demo000":
+                print(
+                    "upload-prepare 는 --mall {몰ID} 가 필수입니다 (예: --mall ecudemo402399). "
+                    "demo000 등 예시 몰은 대상이 될 수 없습니다.",
+                    file=sys.stderr,
+                )
+                sys.exit(1)
+            remote_root = _pop_opt(args, "--remote-root")
+            if not remote_root:
+                print(
+                    "사용법: python cli.py upload-prepare --mall {몰ID} --remote-root /skinN",
+                    file=sys.stderr,
+                )
+                sys.exit(1)
+            skin_root = KIT_ROOT / "clients" / mall / "src"
+            audit_payload = audit_skin(skin_root).to_jsonable()
+            result = prepare_upload_plan(
+                mall,
+                audit_payload=audit_payload,
+                remote_root=remote_root,
+            )
+            print(json.dumps(result, ensure_ascii=False, indent=2))
         elif cmd == "skin-audit":
             if len(args) < 2:
                 print("사용법: python cli.py skin-audit <local-skin-root> [--json-out path]", file=sys.stderr)

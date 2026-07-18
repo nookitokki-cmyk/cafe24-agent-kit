@@ -38,6 +38,18 @@
 | `/EZ제거` | `.claude/skills/EZ제거/SKILL.md` | Phase C strip 게이트 |
 | `/버전확인` | `.claude/skills/버전확인/SKILL.md` | VERSION · kit-update |
 
+
+---
+
+## 보조 명령 — 다중 작업·배포 안전 (v2.15+)
+
+| 명령 | 파일 | 역할 |
+|------|------|------|
+| `/작업목록` | `.claude/skills/작업목록/SKILL.md` | `clients/*/.workflow.md` 를 읽어 여러 몰 작업 상태와 다음 액션을 요약 |
+| `/업로드준비` | `.claude/skills/업로드준비/SKILL.md` | `skin-audit` → 업로드 manifest → 백업·승인 게이트. 승인 전 업로드 금지 |
+
+> 두 명령은 기존 14개 주 명령을 대체하지 않습니다. `/작업목록` 은 조회 전용, `/업로드준비` 는 실제 업로드 전 안전 게이트입니다.
+
 상황별: [`00_시작하기/OMC-명령어-매칭가이드.md`](../00_시작하기/OMC-명령어-매칭가이드.md)
 
 ---

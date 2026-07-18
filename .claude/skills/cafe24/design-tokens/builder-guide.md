@@ -142,6 +142,23 @@
  */
 ```
 
+### 7. 컴포넌트·에셋·유닛 인벤토리 → CSS (XANS 앵커)
+
+토큰(색·타이포)이 만들어지면, **디자인 시스템 시트**(`요소측정`/`레퍼런스인입` 산출)의 순서대로 스킨에 얹는다: **① 타이포 스케일 먼저 → ② 컴포넌트·에셋·유닛**.
+
+- **① 타이포 스케일**: 스킨 전역 스케일은 `nk-tokens.css`의 `--nk-fs-h1`~`--nk-fs-sm`(두뇌 §4 D1·§7)로 정의. (design-tokens.json의 `typography.*`는 pipeline 산출용 — 두 어휘를 섞지 말고, 스킨 CSS는 `--nk-fs-*` 스케일 기준.)
+- **② 컴포넌트는 XANS 앵커에 얹는다**: 인벤토리의 각 부품(버튼·폼·탭·표·카드·페이지네이션·아이콘)은 카페24 module이 렌더하는 `.xans-*` 클래스에 스타일한다(두뇌 §5 B8-2). `ec-base-*` 단독 앵커 금지(공유 클래스 → 번짐). 말단만 `ec-base-*`/element로 좁힘.
+
+```css
+/* 예: 컴포넌트 = "장바구니 탭", XANS 앵커 = .xans-order-tabinfo (module Order_TabInfo) */
+#nk-skinN .xans-order-tabinfo li a { color: var(--nk-sub); font-weight: 500; }
+#nk-skinN .xans-order-tabinfo li.selected a {
+  color: var(--nk-font); font-weight: 700; border-bottom: 2px solid var(--nk-point);
+}
+```
+
+> **CSS가 안 먹으면 개발자도구에서 실제 렌더 셀렉터(`.xans-...`)를 확인 후 타깃 — 추측 금지.** `module=`이 스트립돼도 `.xans-*`는 남는다.
+
 ---
 
 ## 검증 (변환 후 필수 확인)

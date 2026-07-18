@@ -111,6 +111,16 @@ Playwright `getComputedStyle` 또는 시안 CSS / Figma MCP.
 
 형용사 금지. 숫자·hex만.
 
+### 3-2) 디자인 시스템 시트 (코드 전 게이트 — 이 phase에서 완료)
+
+실측을 시스템으로: **① 타이포 스케일(먼저)** + **② 컴포넌트·에셋·유닛 인벤토리(각 부품의 XANS 앵커 셀렉터 포함)**. 승인 전 코드/CSS/FTP 금지.
+
+| 컴포넌트 | XANS 앵커 (module→`.xans-*`) | 유닛/에셋 | PC/MO |
+|----------|------------------------------|-----------|-------|
+| 버튼/폼/탭/표/카드/페이지네이션/아이콘 | 개발자도구로 실제 렌더 클래스 확인 | 색·radius·Phosphor | |
+
+템플릿: `01_작업하기/workflows/04-measure-first.md` §디자인 시스템 시트 · XANS 방법론: `brain/docs/CAFE24-SMARTDESIGN-AGENT.md` §5 B8-2(`ec-base-*` 단독 앵커 금지 — 번짐).
+
 ### 4) HTML 구조 격차 (소스 A일 때 필수)
 
 EZ skin16 vs 레퍼런스: `#contents` 유무, `titleArea` 노출, `sortby` vs `select`, `list.html` 교체 필요 Y/N.
@@ -135,6 +145,9 @@ EZ skin16 vs 레퍼런스: `#contents` 유무, `titleArea` 노출, `sortby` vs `
 (표)
 
 ### 실측 시트
+(표)
+
+### 디자인 시스템 시트 (타이포 스케일 → 컴포넌트/에셋/유닛 인벤토리 + XANS 앵커)
 (표)
 
 ### HTML 구조 격차 (해당 시)

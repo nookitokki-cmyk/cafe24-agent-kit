@@ -696,6 +696,198 @@ def generate_skin(
     }
 
 
+
+def _read_workflow_text(client_dir: Path) -> str:
+    workflow = client_dir / ".workflow.md"
+    return workflow.read_text(encoding="utf-8") if workflow.is_file() else ""
+
+
+def _extract_bullet_value(text: str, label: str) -> str | None:
+    match = re.search(rf"^-\s*{re.escape(label)}\s*:\s*(.+)$", text, re.MULTILINE)
+    return match.group(1).strip() if match else None
+
+
+def _extract_current_status(text: str) -> str:
+    for line in text.splitlines():
+        if not line.startswith("|") or "---" in line or "단계" in line:
+            continue
+        cells = [cell.strip() for cell in line.strip().strip("|").split("|")]
+        if len(cells) < 2:
+            continue
+        status = cells[1]
+        if status.startswith("🔄") or status.startswith("❌") or status.startswith("⚠️"):
+            return status
+    for line in text.splitlines():
+        if not line.startswith("|") or "---" in line or "단계" in line:
+            continue
+        cells = [cell.strip() for cell in line.strip().strip("|").split("|")]
+        if len(cells) >= 2 and cells[1].startswith("⏳"):
+            return cells[1]
+    return "상태 미확인"
+
+
+def _extract_next_action(text: str) -> str:
+    in_next = False
+    for raw in text.splitlines():
+        line = raw.strip()
+        if line.startswith("## "):
+            in_next = "다음 액션" in line
+            continue
+        if in_next and line.startswith("- "):
+            return line[2:].strip()
+    return "/카페24-워크플로우 재개"
+
+
+def _infer_workspace_from_files(client_dir: Path) -> tuple[str, str]:
+    src_exists = (client_dir / "src").is_dir()
+    design_exists = (client_dir / "04_design").is_dir()
+    if src_exists and design_exists:
+        return "스킨 생성됨", "/접속세팅 또는 /토대정리"
+    if src_exists:
+        return "src 있음", "/검증"
+    if design_exists:
+        return "디자인 폴더 있음", "/새클라이언트 또는 /카페24-워크플로우 재개"
+    return "폴더만 있음", "/새클라이언트 또는 /카페24-워크플로우 재개"
+
+
+PROTECTED_UPLOAD_PREFIXES = (
+    "order/ec_orderform/",
+)
+
+
+def _is_protected_upload_path(path: Path, src_dir: Path) -> bool:
+    rel = path.relative_to(src_dir).as_posix()
+    return any(rel.startswith(prefix) for prefix in PROTECTED_UPLOAD_PREFIXES)
+
+
+def build_workspace_index(*, write: bool = True) -> dict[str, Any]:
+    """clients/* 작업 현황을 .workflow.md 기준으로 스캔한다.
+
+    .workspace-index.json 은 호출 시 재생성 가능한 파생 캐시일 뿐이며,
+    상태의 진실원본은 각 클라이언트 폴더의 .workflow.md 이다.
+    """
+    clients_dir = KIT_ROOT / "clients"
+    generated_at = datetime.now(timezone.utc).isoformat()
+    workspaces: list[dict[str, Any]] = []
+    if clients_dir.is_dir():
+        for client_dir in sorted(p for p in clients_dir.iterdir() if p.is_dir()):
+            if client_dir.name.startswith("_") or client_dir.name.startswith("."):
+                continue
+            workflow_text = _read_workflow_text(client_dir)
+            workflow_file = client_dir / ".workflow.md"
+            if workflow_text:
+                current_status = _extract_current_status(workflow_text)
+                next_action = _extract_next_action(workflow_text)
+                client_name = _extract_bullet_value(workflow_text, "클라") or client_dir.name
+                last_updated = _extract_bullet_value(workflow_text, "마지막 업데이트") or ""
+                source = ".workflow.md"
+            else:
+                current_status, next_action = _infer_workspace_from_files(client_dir)
+                client_name = client_dir.name
+                last_updated = ""
+                source = "filesystem"
+
+            workspaces.append(
+                {
+                    "mall_id": client_dir.name,
+                    "client_name": client_name,
+                    "path": str(client_dir),
+                    "workflow_file": str(workflow_file) if workflow_file.is_file() else None,
+                    "source": source,
+                    "current_status": current_status,
+                    "next_action": next_action,
+                    "last_updated": last_updated,
+                }
+            )
+
+    workspaces.sort(key=lambda item: item.get("last_updated") or "", reverse=True)
+    payload = {
+        "generated_at": generated_at,
+        "source_of_truth": ".workflow.md",
+        "derived": True,
+        "write_truth_source": False,
+        "workspaces": workspaces,
+    }
+    if write:
+        clients_dir.mkdir(parents=True, exist_ok=True)
+        (clients_dir / ".workspace-index.json").write_text(
+            json.dumps(payload, ensure_ascii=False, indent=2),
+            encoding="utf-8",
+        )
+    return payload
+
+
+def _audit_has_blockers(audit_payload: dict[str, Any]) -> bool:
+    blockers = audit_payload.get("blockers") or []
+    if blockers:
+        return True
+    criteria = audit_payload.get("criteria")
+    if isinstance(criteria, dict):
+        return any(value is False for value in criteria.values())
+    return False
+
+
+def prepare_upload_plan(
+    mall_id: str,
+    *,
+    audit_payload: dict[str, Any],
+    remote_root: str,
+    write_manifest: bool = True,
+) -> dict[str, Any]:
+    """업로드 전 manifest 를 만들되, 승인/업로드는 절대 수행하지 않는다."""
+    mid = _safe_mall_id(mall_id)
+    client_dir = KIT_ROOT / "clients" / mid
+    src_dir = client_dir / "src"
+    if not src_dir.is_dir():
+        raise FileNotFoundError(f"src 폴더 없음: {src_dir}")
+
+    manifest_path = client_dir / "upload-manifest.json"
+    if _audit_has_blockers(audit_payload):
+        return {
+            "mall_id": mid,
+            "status": "blocked",
+            "upload_allowed": False,
+            "reason": "skin-audit 결과 blocker 또는 실패 criteria가 있어 업로드 준비를 중단했습니다.",
+            "requires_approval": True,
+            "approved": False,
+            "will_upload_now": False,
+            "manifest_path": str(manifest_path),
+        }
+
+    clean_remote_root = "/" + remote_root.strip("/")
+    files = [
+        {
+            "local": f"src/{path.relative_to(src_dir).as_posix()}",
+            "remote": f"{clean_remote_root}/{path.relative_to(src_dir).as_posix()}",
+            "backup_required": True,
+        }
+        for path in sorted(src_dir.rglob("*"))
+        if path.is_file() and not _is_protected_upload_path(path, src_dir)
+    ]
+    payload = {
+        "mall_id": mid,
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "status": "ready_for_approval",
+        "upload_allowed": True,
+        "requires_approval": True,
+        "approved": False,
+        "will_upload_now": False,
+        "remote_root": clean_remote_root,
+        "files": files,
+        "next_steps": [
+            "대표님 승인 전에는 업로드하지 않습니다.",
+            "각 remote 경로를 먼저 backup 한 뒤 put 하세요.",
+            "업로드 후 /캐시확인 으로 PC/MO 라이브 QA를 진행하세요.",
+        ],
+        "manifest_path": str(manifest_path),
+    }
+    if write_manifest:
+        manifest_path.write_text(
+            json.dumps(payload, ensure_ascii=False, indent=2),
+            encoding="utf-8",
+        )
+    return payload
+
 def diagnose_kit_setup() -> dict[str, Any]:
     """Structured setup diagnostic for dist recipients."""
     checks: list[dict[str, Any]] = []
