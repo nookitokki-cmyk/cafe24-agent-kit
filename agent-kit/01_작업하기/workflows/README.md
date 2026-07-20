@@ -5,7 +5,7 @@
 
 ---
 
-## 제공되는 워크플로우 10종
+## 제공되는 워크플로우 (10종 + 목업 게이트 05.5)
 
 | 워크플로우 | 파일 | 사용 시점 | 단계 수 |
 |---|---|---|---|
@@ -14,6 +14,7 @@
 | ez-three-step-pingpong | [08-ez-three-step-pingpong.md](08-ez-three-step-pingpong.md) | **압축 핑퐁** HTML skin → EZ FTP overlay → strip 스킵/선별 (07 요약 실행) | Phase A/B/C |
 | ez-on-legacy-setup | [07-ez-on-legacy-setup.md](07-ez-on-legacy-setup.md) | **초기 세팅** 레거시 HTML 몰 + EZ base + `_ref*/` 레이어 | Phase 0~4 핑퐁 |
 | reference-intake | [05-reference-intake.md](05-reference-intake.md) | **구현 전** 레퍼런스 URL 또는 시안 인입 (`/레퍼런스인입`) | 5단계 |
+| mockup-first (목업 우선) | [05.5-mockup-first.md](05.5-mockup-first.md) | **인입 후·라이브 이식 전** 자립형 HTML 목업으로 시각 확정·승인 (`/목업`) | 7단계 |
 | measure-first | [04-measure-first.md](04-measure-first.md) | **수정 전** 폰트·여백 실측 (`/요소측정`) | 질문 핑퐁 |
 | verify-loop | [06-verify-loop.md](06-verify-loop.md) | **구현 중** Phase별 score=100 only 자기검증 | 루프 |
 | quick-fix | [01-quick-fix.md](01-quick-fix.md) | 단일 변경 (색·텍스트·이미지) | 3단계 |
@@ -44,7 +45,7 @@ clients/{본인}/.workflow.md
 2. **레거시 몰 + EZ (전체)**: `07-ez-on-legacy-setup` — Phase 0 진단·판정 근거·Pre-flight
 3. **첫 실습**: `01-quick-fix` — 3단계 짧음, 워크플로우 흐름 익히기
 4. **두 번째**: `02-skin-build-standard` — 6단계 풀 플로우
-5. **응용**: `05-reference-intake` → `03-reference-renewal` → `10-production-skin-safety` → `06-verify-loop` — 레퍼런스/시안 1:1 + 배포 전 안전 점검
+5. **응용**: `05-reference-intake` → `05.5-mockup-first`(목업 게이트) → `03-reference-renewal` → `10-production-skin-safety` → `06-verify-loop` — 레퍼런스/시안 1:1 + 배포 전 안전 점검
 
 ---
 

@@ -1,6 +1,32 @@
 # Cafe24 Agent Kit — Changelog
 
 
+## v2.16.0 (2026-07-20) — 목업-우선 게이트 + CDP 승리규칙 전수조사 방법론
+
+> **호환성:** non-breaking minor. 문서·워크플로우 **추가만**(신규 `05.5-mockup-first` 워크플로우 + `06-verify-loop`·두뇌 문서 CDP 섹션·함정 F37). CLI·MCP tool·SFTP·OAuth·라이브몰 동작 변경 없음. 기존 워크플로우 번호(01~10) **재번호 없음**(신규는 `05.5-` 삽입). 근거: 실작업 실증(익명).
+
+### Added — 워크플로우
+- **`agent-kit/01_작업하기/workflows/05.5-mockup-first.md`** — 레퍼런스 인입(05) 승인 후·라이브 이식(03) 전에 **자립형 HTML 목업으로 시각 확정·승인**하는 게이트. 목업 토큰 = 라이브 `nk-tokens` 동일값 → 1:1 이식 기준 확보. DS grep 게이트, 비교 시안/갤러리, 대규모 골든+병렬 파이프라인, 카페24 DOM·데이터 한계 사전 확인 포함. `workflows/README.md` 표·권장 순서에 등록.
+
+### Docs — CDP 승리규칙 전수조사 + 함정/DS 원칙
+- **CDP 승리규칙 전수조사 1급 문서화** — `06-verify-loop.md` 신규 섹션 + 두뇌 `CAFE24-SMARTDESIGN-AGENT.md` §13 동일 서브섹션 + STEP 4 포인터 + "완료" 체크리스트 항목. "라이브가 시안과 다르다/레거시 주입"이면 추측 중단, `CSS.getMatchedStylesForNode`로 각 요소 승리 규칙의 출처 파일을 실측 → 범인(대개 base가 아니라 우리 옛 커스텀 CSS 후행주입) 제거 → 재실측("승리규칙=우리 owner, base·레거시 승리 0"). **파일명 아닌 computed·PNG가 증거.**
+- **함정 F37 신설** (두뇌 §6) — 우리 자신의 레거시 CSS 후행주입 + 이중 owner 이중정의 + 죽은 파일 편집 착시 + `:not(.owner)` 특이도 규율.
+- **두뇌 STEP 3 목업 게이트 포인터** — 디자인을 새로 정/크게 바꿀 때 라이브 전 목업 승인(05.5).
+- **DS 값 클라별 상이 원칙 명시** (두뇌 §7) — "이 문서 DS 값은 예시일 뿐, 그 클라 `root.css`/`nk-tokens.css`가 정본, 폰트·팔레트·radius 매번 확인"(값 하드코딩 방지).
+- **스킬 권위 배너** — `.claude/skills/cafe24/SKILL.md` 상단에 "이 스킬=문법 사전, 작업 순서 SSoT=두뇌+워크플로우" 배너 + 핵심 기법 5종 포인터 + 폴더/SFTP 예시 라벨.
+
+### Safety
+- 기존 워크플로우 번호(01~10) 재번호 없음 — 번호 참조 문서 무영향.
+- 두뇌 DS 예시 값을 특정 클라 값으로 덮어쓰지 않음(타 클라 오적용 방지).
+- 실클라명·시크릿·브랜드값 미포함(익명 방법 서술만). `kit_update`는 `mcp/config/*`·`clients/{몰}/` 보존, dist 빌드 client allowlist·secret 가드 무영향.
+- 신규 문서는 `UPDATE_PATHS`의 디렉터리 통째 복사 경로(`agent-kit/01_작업하기`·`brain`·`.claude`)에 포함 → 기존 사용자 자동 업데이트에 누락 없이 전달.
+
+### Verification
+- `python -m unittest discover -s mcp/tests -p "test_*.py"` → PASS, 27 tests.
+- `python scripts/skin-safety-evaluator.py agent-kit/clients/_verified-template/src` → PASS, score 15/15, blockers 0.
+- `bash scripts/build-dist-kit.sh && bash scripts/verify-kit.sh` → PASS, 24 checks / 0 failures, dist files 281.
+
+
 ## v2.15.0 (2026-07-18) — 작업 목록·업로드 준비 게이트 + XANS 앵커/디자인 시스템 방법론
 
 > **호환성:** non-breaking minor. 신규 CLI(`workspace-list`·`upload-prepare`) + 슬래시 명령(`/작업목록`·`/업로드준비`) 추가. 기존 명령·MCP tool·SFTP·OAuth·라이브몰 동작 변경 없음.

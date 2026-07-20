@@ -105,6 +105,7 @@
 - **레이아웃 뼈대 + 초기 CSS 토큰(:root) 세팅**: §4 토큰 블록을 `nk-tokens.css` 또는 custom.css 상단에 정의.
 
 ### STEP 3 — 코드 생성 & 재조립 (Execute)
+- **[목업 게이트 — 디자인을 새로 정하거나 크게 바꿀 때]** DS시트 승인 후, 라이브 이식 **전에** 자립형 HTML 목업으로 시각 확정·승인부터 받는다(`01_작업하기/workflows/05.5-mockup-first.md`). **목업 토큰 = 라이브 `nk-tokens` 동일값**이라 이식이 1:1이 되고, 이후 "무엇이 맞는 결과인지" 대조 기준이 생긴다(단순 색·문구 1줄 수정은 스킵).
 - **[게이트] 디자인 시스템 시트(타이포 스케일 + 컴포넌트/에셋/유닛 인벤토리, STEP 1) 승인 후 시작.** 모든 컴포넌트 스타일은 인벤토리에 적힌 **XANS 앵커 셀렉터(§5 B8-2)** 에 얹는다 — 임의 클래스·`ec-base-*` 단독 앵커 금지.
 - 레퍼런스에 부합하는 현대적 마크업·CSS 작성. 모든 커스텀 클래스 `nk-` 접두사.
 - **[절대 규칙] STEP 1에서 식별한 카페24 필수 module·치환변수를 새 레이아웃 안에 올바르게 재배치**한다. **절대 정적 텍스트로 덮어쓰지 마라.** (module 밖에서 변하지 않는 값만 하드코딩)
@@ -117,6 +118,7 @@
 - 흰글자 보존: `background:#fff`만 토큰화됐고 `color:#fff`는 그대로인지.
 - **모바일 고정스택·드로어 검증(§9)**: 띠↔헤더 gap 0, 드로어 위로 새는 요소 0, 탭바·퀵메뉴 정리.
 - **자가승인 금지** — 별도 리뷰 패스(specificity·스코프 누수·AA 대비).
+- **라이브 ≠ 목업/시안이면 CDP 승리규칙 전수조사** — 추측 중단, `CSS.getMatchedStylesForNode`로 각 요소 승리 규칙의 출처 파일을 실측 → 범인(대개 base가 아니라 **우리 옛 커스텀 CSS 후행주입**) 제거 → 재실측(§13 + `06-verify-loop.md`).
 
 ### STEP 5 — 출력 (Output)
 §11 응답 포맷으로 보고.
@@ -308,6 +310,7 @@ find css/module layout/basic/css -name '*.css' -exec perl -pi -e 's/font-style\s
 26. **고아 레이아웃 (F26)** — `layout/` 아래 파일이 있어도 **어떤 페이지도 `@layout`으로 부르지 않으면** 고아(죽은 파일). grep `@layout` 결과에 잡히는 파일만 실사용 레이아웃. 고아에 시간 쓰지 말 것. 수정 전 `grep -r "@layout" .`로 실사용부터 확정.
 35. **EZ GUI ↔ HTML 충돌 (F35)** — Easy **타입** 디자인 + FTP/HTML 대량 수정 시 섹션 GUI 메타와 소스 불일치 → 초기화 오류. **FTP 주력 EZ-on-legacy**는 HTML 타입 skin + EZ **코드** 선별 이식 (`01_작업하기/workflows/07-ez-on-legacy-setup.md` Phase 0-D). EZ 마크업 in HTML skin ≠ Easy 타입 등록. 상세: `02_막혔을때/common-pitfalls.md` §F35.
 36. **EZ 이식·제거 함정** — (1) Easy/EZ 파일을 HTML skin에 **통째 덮어쓰기** → 스마트배너·EZST·module 불일치. (2) `ez-settings.json`·`@js(/ez/init.js)` **무분별 삭제** → 레이아웃 옵션·런타임 붕괴 — 역할 확인 후 선별. (3) **전량 제거**는 사용자 명시 HTML 전환 시만 — `strip_ez.py` (STEP 2, `WORK-GUIDE.md` §15). `data-ez-*`는 header/footer 옵션용으로 **남기는** 패턴도 있음(구매템플릿/아키테이블).
+37. **우리 자신의 레거시 CSS 후행주입 + 이중 owner + 죽은 파일 (F37 — CDP 전수조사 대상)** — "라이브 ≠ 시안"의 진짜 범인은 대부분 카페24 base가 아니라 **우리 과거 커스텀 CSS**가 나중에 로드되며 `!important`로 신규를 덮는 것이다. (+ 같은 셀렉터를 owner 두 파일이 **이중 정의**해 선·빈칸·배경 중첩 / 로드 0인 **죽은 파일 편집 착시**로 "고쳐도 라이브 무변".) 해결: **CDP `getMatchedStylesForNode`로 승리규칙 출처를 실측**(§13) → 페이지별 `@css(레거시)` 라인 제거(공유 파일은 잔존) 또는 레거시 소스 섹션 삭제로 owner 단일화 또는 `.xans-*`·컨테이너 클래스 prepend로 특이도 보강 / 범용이 owner 침범하면 `!important` 대신 **`:not(.owner)`** 로 제외 / 죽은 파일은 참조 grep 0건이면 편집 원복. **파일명 아닌 computed style·PNG가 증거**(optimizer는 번들 href에 원본 파일명 미보존).
 
 > **★ 폼 컨트롤은 처음부터 전역 일괄 정규화**(input·select·textarea·checkbox·radio). 공통 input 규칙에 select를 섞을 땐 **select는 우측 caret 자리(padding-right≥32px)를 반드시 별도 확보** — 안 그러면 caret-텍스트 겹침이 페이지마다 잔존(whack-a-mole). "하나씩 짚어주지 않아도" 되게 한 블록에서 처리.
 
@@ -331,6 +334,7 @@ ORDINARY 푸터: **투명 배경 + 테두리 최소 + 컬럼 타이틀 Marcellus
 - ❗ **섹션 조각 CSS의 하드코딩 크기 주의**: 히어로 제목이 `mainBnr.css`에 `font-size:clamp(32px,5vw,64px)` 하드코딩돼 토큰을 내려도 64px로 뜸 → `var(--nk-fs-h1)`로 교체(weight도 300→400). **토큰만 바꾸지 말고 조각 CSS의 하드코딩 크기를 grep으로 찾아 토큰화**: `grep -rniE 'font-size\s*:\s*[3-9][0-9]px' _nk/css/*.css | grep -v var`.
 - 자간 `-0.25px` 전역, weight **400 중심**(과한 bold 지양).
 - ⚠️ **폰트/자간/크기는 사용자 재지시로 여러 번 바뀐 이력 있음.** 브랜드 폰트·팔레트 같은 큰 결정은 매번 확인(§11 Zero-Question 예외).
+- ⚠️ **DS 값은 클라별로 다르다(단일 톤 아님).** 예: 어떤 클라는 Bricolage+Marcellus·radius 2·골드 톤, 다른 클라는 SUIT/Marcellus·radius 0·coral 톤. **이 문서의 값은 예시일 뿐 — 그 클라의 `root.css`/`nk-tokens.css`가 정본**이고 폰트·팔레트·radius는 **매번 확인**(§11 Zero-Question 예외). 조각 CSS에 값 하드코딩 대신 `var(--nk-*)`.
 
 ---
 
@@ -605,6 +609,13 @@ skin폴더/
 - **QA 오탐(false alarm) 규율**(1차 자동스캔 수치를 그대로 버그로 보고하지 말 것): swiper loop 복제 슬라이드(가로 오버플로 오탐), inline `<script>` 안의 `{$}`(미치환 오탐), opacity/visibility 트랜지션 드로어의 getBoundingClientRect 잔존(닫힘 오탐), 폰트 "미적용" 등은 정밀 재측정으로 확정 후 판단.
 - **스킨 코드 버그 vs 운영 데이터 구분**: 로고 placeholder(Samplemall)·통신판매업 신고번호·CS운영시간 미노출은 **카페24 관리자 데이터 미입력**이지 스킨 버그 아님. 콘솔 `/skin-skin2/…` 출처 잔존 에러는 기본스킨, 무관.
 
+### CDP 승리규칙 전수조사 (라이브 ≠ 목업/시안 진단)
+"라이브가 시안과 다르다" / "레거시가 주입되는 것 같다, 전수조사"이면 추측 중단하고 CDP 실측으로 전환한다. `getComputedStyle`(값만)이 아니라 **`CSS.getMatchedStylesForNode`로 각 요소의 승리 규칙이 어느 파일에서 오는지**를 본다.
+1. 어긋난 속성(border·background·padding·font·display)의 승리 규칙과 출처를 CDP로 열거.
+2. 출처가 base인지 **우리 옛 커스텀 CSS**(후행 로드 + `!important`)인지 판별 — 진짜 범인은 대부분 후자.
+3. 처방: 페이지별 `@css` 제거(공유 파일 잔존) / 레거시 소스 섹션 삭제로 owner 단일화 / `.xans-*`·컨테이너 prepend 특이도 보강 / 범용 침범은 `:not(.owner)`.
+4. **재실측 게이트**: "모든 승리 규칙 = 우리 owner, base·레거시 승리 요소 0." (F37 연계.)
+
 ### "완료" 선언 전 체크리스트
 - [ ] 업로드 후 캐시 대기(2~5분), 하드리로드.
 - [ ] 라이브 `getComputedStyle` 실측 + 스크린샷(**PC + 모바일 함께**).
@@ -616,6 +627,7 @@ skin폴더/
 - [ ] 폼 컨트롤 전수 정규화(select caret 겹침 0, checkbox/radio accent-color), 글로벌 h3/input 침범 복원.
 - [ ] 콘솔 에러 0(단 기본스킨 출처 잔존 에러 제외).
 - [ ] 자가승인 금지 — 별도 리뷰 패스(specificity·스코프 누수·AA).
+- [ ] 라이브 ≠ 목업/시안 의심 시 **CDP 승리규칙 전수조사**(승리규칙=우리 owner, 레거시 승리 0).
 - [ ] 새 함정/규칙 문서 반영.
 
 ---
