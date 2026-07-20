@@ -10,7 +10,7 @@ ZIP="dist/cafe24-agent-kit-${TAG}.zip"
 
 echo "== build $TAG =="
 bash scripts/build-dist-kit.sh
-(cd dist && rm -f "$ZIP" && powershell -Command "Compress-Archive -Path 'cafe24-agent-kit' -DestinationPath '$(basename "$ZIP")' -Force" 2>/dev/null || \
+(cd dist && rm -f "$ZIP" && powershell.exe -NoProfile -Command "Compress-Archive -Path 'cafe24-agent-kit' -DestinationPath '$(basename "$ZIP")' -Force" 2>/dev/null || \
   (cd cafe24-agent-kit && zip -r "../$(basename "$ZIP")" .))
 
 echo "== tag $TAG =="
